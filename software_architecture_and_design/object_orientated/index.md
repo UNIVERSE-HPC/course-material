@@ -7,7 +7,7 @@ dependsOn: [
 files: [
     classes.md,
     inheritance_and_composition.md,
-    polymorphism.md
+    polymorphism.md,
     abstract_classes.md,
     types.md,
     functions.md,
