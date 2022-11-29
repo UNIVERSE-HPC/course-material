@@ -65,7 +65,7 @@ print out "hello world" in the terminal
 Ensure that you have the `clang` cpp compiler installed using:
 
 ~~~
-clang --version
+clang++ --version
 ~~~
 {: .language-bash}
 
@@ -806,11 +806,11 @@ if (nothing) {
 Here we use one of the smart pointers we mentioned earlier, a unique pointer, to
 emphasise our earlier message to not use a raw pointer if you can avoid it. The
 angle brackets indicate a templated class, in this case a unique pointer to an
-`int`. Templates in C++ are part of yet another programming paradigm called
+`int`. Templates in C++ enable yet another programming paradigm called
 *generic programming*. As you can see, there are a number of different
-programming paradigms, all with their own uses! It is best to be aware an use
-all of them, picking the most appropriate paradigm for the problem at hand or
-the idea you wish to express. 
+programming paradigms, all with their own uses! It is best to be aware of and
+use all of them interchangably for the problem at hand or the idea you wish to
+express. 
 
 Going back to the example, note that we have initialised our variable, so there
 is no undefined behaviour and we can be assured of the same behaviour over all
@@ -849,12 +849,15 @@ None
 
 ### Converting Between Types with C++
 
+
 Conversion between types in C++ can occur implicitly, or explicitly. You should
 always strive to be as explicit as possible in any code you write. Code is meant
-to be read, and the most imporant reader is another human (a computer probably would prefer it
-if you just wrote assembly!), so be as clear and as explicit as you can when you write your code. 
+to be read, and the most important reader is another human (a computer probably
+would prefer it if you just wrote assembly!), so be as clear and as explicit as
+you can when you write your code. 
 
-Unfortunately, implicit conversions can occur quite easily in C++, and this is a source of many bugs. For example:
+Unfortunately, implicit conversions can occur quite easily in C++, and this is a
+source of many bugs. For example:
 
 ~~~
 const double x = std::atan(1.0d) * 4.0d;
@@ -868,7 +871,7 @@ if (y == x) {
 {: .language-cpp}
 
 In this case the value of x, represented by a `double` type, is close to the
-mathematical constant pi. The variable `y` is of type `float`, and so assignment
+mathematical constant pi. The variable `y` is of type `float`, and so the assignment
 statement rounds the value held in `x` to the nearest available value that can
 be represented by a `float`, according to the rules dictated
 [here](https://en.cppreference.com/w/cpp/language/implicit_conversion). Since
@@ -879,23 +882,60 @@ x != y
 ~~~
 {: .output}
 
-
-
-
-
-often by a human, Unfortunately it is quite easy for impli 
-
-With floats, ints and strings, we can use in-built functions to convert between types:
+Let's instead write the conversion between `double` and `float` explicitly using `static_cast`.
 
 ~~~
-age, house_number = 30, '76'
-print(str(age), float(age), int(house_number), float(house_number))
+const double x = std::atan(1.0d) * 4.0d;
+const float y = static_cast<float>(x);
+if (y == x) {
+    std::cout << "x = y" << std::endl;
+} else {
+    std::cout << "x != y" << std::endl;
+}
 ~~~
-{: .language-python}
+{: .language-cpp}
+
+Not only have we highlighted that a conversion occurs, the very act of writing
+the `static_cast` has forced us to think about the conversion and its
+implications. 
+
+Here is another example of a potential bug (and use-case for `static_cast`):
 
 ~~~
-30 30.0 76 76.0
+const int n = 100;
+std::vector<double> vec(n, 1.0);
+const double rn = 1 / n;
+double mean = 0.0;
+for (size_t i = 0; i < n; i++) {
+    mean += rn * vec[i];
+}
+std::cout << "mean is " << mean << std::endl;
+~~~
+{: .language-cpp}
+
+Here we are creating a vector of `double` with all the elements initialised to
+1.0. This program outputs:
+
+~~~
+mean is 0
 ~~~
 {: .output}
 
+What has happened? In this case, we have heard somewhere that multiplications
+are cheaper to compute than division, so we have attempted to optimise the loop
+by replacing the `1/n` term with a precomputed value. However, in doing so we
+have introduced two mistakes on the line `const double rn = 1 / n;`. Both the
+'1' and `n` here should be of type `double`, not `int`, so that the division is
+a floating-point division rather than integer division. Instead this should be:
 
+~~~
+const double rn = 1.0 / static_cast<double>(n);
+~~~
+{: .language-cpp}
+
+to get the behaviour we are expecting.
+
+Recall, these are fairly tame example using fundamental types.  However, once
+you start creating your own types via classes the opportunities for implicit
+conversions to introduce subtle bugs increases exponentially, so a good rule of
+thumb is to discourage implicit casts and to *always* be explicit. 
