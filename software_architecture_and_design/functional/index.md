@@ -7,7 +7,7 @@ dependsOn: [
 files: [
     state_and_side_effects.md,
     recursion.md,
-    higher_order_functions.md
+    higher_order_functions.md,
     lazy_evaluation.md,
 ]
 ---
