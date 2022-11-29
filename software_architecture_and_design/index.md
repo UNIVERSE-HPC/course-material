@@ -2,7 +2,7 @@
 id: software_architecture_and_design
 name: Software Architecture and Design 
 courses: [
-  procedural_programming,
+  procedural,
   object_orientated,
   functional,
 ]
