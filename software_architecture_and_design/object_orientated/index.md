@@ -9,8 +9,6 @@ files: [
     inheritance_and_composition.md,
     polymorphism.md,
     abstract_classes.md,
-    types.md,
-    functions.md,
 ]
 ---
 
