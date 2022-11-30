@@ -42,19 +42,17 @@ But note that shell commands won't work again until we exit the interpreter. Whi
 
 You can exit the interpreter and get back to the shell by typing:
 
-~~~
+```python
 >>> exit()
-~~~
-{: .language-python}
+```
 
 ...or alternatively pressing the `Control` and `D` keys at the same time.
 
 Now create a new file `procedural.py` and copy in the following contents
 
-~~~
+```python
 print('hello world')
-~~~
-{: .language-python}
+```
 
 Hit F1 to bring up the command palette and choose "Python: Run Python file in
 Terminal", or click the play button in the top right hand corner. This should
@@ -119,11 +117,10 @@ Let's take a look at how variables are handled within Python. Compared to some
 other languages such as C++ or JavaScript, variables in Python do not need to be
 declared before assigning something to them. for example:
 
-~~~
+```python
 six = 2 * 3
 print(six)
-~~~
-{: .language-python}
+```
 
 Note that in terms of naming variables, Python's variables must begin with a letter.
 
