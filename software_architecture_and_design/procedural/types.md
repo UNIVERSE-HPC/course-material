@@ -94,14 +94,13 @@ You should see something like:
 
 Create a new file `prodedural.cpp` and copy in the following contents:
 
-~~~
+~~~cpp
 #include <iostream>
 
 int main() {
     std::cout << "hello world" << std::endl;
 }
 ~~~
-{: .language-cpp}
 
 Open the command palette and choose "C/C++ Run C/C++ File", or click on the play
 button in the top right hand corner of the screen. Choose the clang compiler
