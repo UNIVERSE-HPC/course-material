@@ -6,38 +6,35 @@ name: Types
 
 Create a new folder and open it in VSCode:
 
-~~~
+```bash
 mkdir procedural
 cd procedual
 code .
-~~~
-{: .language-bash}
+```
 
 ### Running a Python script
 
 
 In the terminal start a new Python virtual environment
 
-~~~
+```bash
 python3 -m venv env
 source env/bin/activate
-~~~
+```
 
 Ensure you can start the Python interpreter with:
 
-~~~
+```bash
 python
-~~~
-{: .language-bash}
+```
 
 And then you are presented with something like:
 
-~~~
+```
 Python 3.10.4 (main, Jun 29 2022, 12:14:53) [GCC 11.2.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>> 
-~~~
-{: .output}
+```
 
 And lo and behold! You are presented with yet another prompt.
 So now, we're actually running a Python interpreter from the shell - it's only yet another program we can run from the shell after all.
