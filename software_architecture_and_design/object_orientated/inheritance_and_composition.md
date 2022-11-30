@@ -1,3 +1,7 @@
+---
+name: Inheritance and Composition
+---
+
 ## Relationships
 
 We now have a language construct for grouping data and behaviour related to a single conceptual object.

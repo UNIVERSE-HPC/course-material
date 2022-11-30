@@ -1,3 +1,8 @@
+---
+name: Arrays
+---
+
+
 ## Adding NumPy to our Virtual Environment
 
 In order to use NumPy, since it's a third party Python external library we first need to install it. Since we've starting a new set of work for analysing data with this package, we should create a new virtual environment. We need to:

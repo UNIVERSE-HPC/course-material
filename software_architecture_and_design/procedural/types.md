@@ -1,3 +1,7 @@
+---
+name: Types
+---
+
 ## Getting started
 
 Create a new folder and open it in VSCode:

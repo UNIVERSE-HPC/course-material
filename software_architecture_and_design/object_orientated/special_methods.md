@@ -1,3 +1,7 @@
+---
+name: Special Methods
+---
+
 ### Dunder Methods
 
 Why is the `__init__` method not called `init`?

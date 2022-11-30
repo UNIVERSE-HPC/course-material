@@ -1,3 +1,6 @@
+---
+name: Functions
+---
 ## Using Functions
 In most modern programming languages these procedures are called **functions**.
 Python has many pre-defined functions built in and we've already met some of them.
