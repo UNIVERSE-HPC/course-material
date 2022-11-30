@@ -63,10 +63,9 @@ print out "hello world" in the terminal
 
 Ensure that you have the `clang` cpp compiler installed using:
 
-~~~
+~~~bash
 clang++ --version
 ~~~
-{: .language-bash}
 
 You should see something like:
 
@@ -76,21 +75,18 @@ Target: x86_64-apple-darwin22.1.0
 Thread model: posix
 InstalledDir: /usr/local/opt/llvm/bin
 ~~~
-{: .output}
 
 Check where the compiler executable is located on your machine
 
-~~~
+~~~bash
 which clang++
 ~~~
-{: .language-bash}
 
 You should see something like:
 
 ~~~
 /usr/local/opt/llvm/bin/clang++
 ~~~
-{: .output}
 
 Create a new file `prodedural.cpp` and copy in the following contents:
 
@@ -126,31 +122,27 @@ Note that in terms of naming variables, Python's variables must begin with a let
 ~~~
 6
 ~~~
-{: .output}
 
 Try and write the previous into your `procedural.py` file and run it (you can also select these lines and run
 the command "Run Selection/Line in Python Terminal").
 
 If we look for a variable that hasn't ever been defined, we get an error telling us so:
 
-~~~
+~~~python
 print(seven)
 ~~~
-{: .language-python}
 
 ~~~
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 NameError: name 'seven' is not defined
 ~~~
-{: .output}
 
 You can also assign an arbitrary number of variables on the same line:
 
-~~~
+~~~python
 one, two = 1, 2
 ~~~
-{: .language-python}
 
 > ## Sorting out references
 >
@@ -193,11 +185,10 @@ more easily run out.
 
 So in Python, when I write:
 
-~~~
+~~~python
 number = 1
 number = 2
 ~~~
-{: .language-python}
 
 The following things happen:
 
@@ -213,33 +204,29 @@ The following things happen:
 
 An object, like `number`, has a type. We can use `type()` to tell us the type of the variable. For our variable above:
 
-~~~
+~~~python
 type(number)
 ~~~
-{: .language-python}
 
 Note we don't need to use `print` - the Python interpreter will just output the result:
 
 ~~~
 <class 'int'>
 ~~~
-{: .output}
 
 Depending on its type, an object can have different properties: data fields *inside* the object.
 
 Consider a Python complex number for example, which Python supports natively:
 
-~~~
+~~~python
 z = 3+1j
 ~~~
-{: .language-python}
 
 We can see what properties and methods an object has available using the dir function:
 
-~~~
+~~~python
 dir(z)
 ~~~
-{: .language-python}
 
 ~~~
 ['__abs__'
@@ -292,7 +279,6 @@ dir(z)
  'imag'
  'real']
  ~~~
-{: .output}
 
 You can see that there are several methods whose name starts and ends with `__`
 (e.g. `__init__`): these are special methods that Python uses internally, and
@@ -301,35 +287,29 @@ some of them later on in this course as they become useful. The others (in this
 case, `conjugate`, `img` and `real`) are the methods and fields through which we
 can interact with this object.
 
-~~~
+~~~python
 type(z)
 ~~~
-{: .language-python}
 
 ~~~
 <class 'complex'>
 ~~~
-{: .output}
 
-~~~
+~~~python
 z.real
 ~~~
-{: .language-python}
 
 ~~~
 3.0
 ~~~
-{: .output}
 
-~~~
+~~~python
 z.imag
 ~~~
-{: .language-python}
 
 ~~~
 1.0
 ~~~
-{: .output}
 
 A property of an object is accessed with a dot. The jargon is that the "dot operator" is used to obtain a property of an object.
 
@@ -344,12 +324,11 @@ is inferred:
 
 ### Floats
 
-~~~
+~~~python
 weight_kg = 55
 weight_lb = 2.2 * weight_kg
 print('Weight in lb', weight_lb)
 ~~~
-{: .language-python}
 
 Note we can add as many things that we want to `print` by separating them with a comma.
 
@@ -358,7 +337,6 @@ For a float, a number after a point is optional. But the *dot* makes it a float.
 ~~~
 Weight in lb 121.00000000000001
 ~~~
-{: .output}
 
 So the thing with floats is that they are *representation* of a real number.
 Representing a third or the root of 2 would be impossible for a computer, so
@@ -387,21 +365,19 @@ An important thing to remember, particularly in numerical analyses, is that a `f
 
 Note that before, we also used a `string` in our use of `print`. In Python, we can use either single quotes or double quotes, or even both if we need to include quotes within a string, e.g.:
 
-~~~
+~~~python
 given = 'Joe'
 middle = "Frederick"
 family = "'Bloggs'"
 full = given + " " + middle + " " + family
 print(full)
 ~~~
-{: .language-python}
 
 Here we use the `+` operator to concatenate strings together.
 
 ~~~
 Joe Frederick 'Bloggs'
 ~~~
-{: .output}
 
 With quotes, the main thing is to be consistent in how you use them (i.e. not like we've used them above!).
 
@@ -409,31 +385,27 @@ We've looked at properties on objects. But many objects can also have *methods* 
 
 For strings, we also can do things like:
 
-~~~
+~~~python
 given.upper()
 ~~~
-{: .language-python}
 
 Which returns the upper case version of the string.
 
 ~~~
 'JOE'
 ~~~
-{: .output}
 
 Note it isn't changing `given`'s string itself, it's returning a new string in uppercase.
 
 There are other methods we can use on strings, such as:
 
-~~~
+~~~python
 '    Hello'.strip()
 ~~~
-{: .language-python}
 
 ~~~
 'Hello'
 ~~~
-{: .output}
 
 We'll be looking at classes and objects in more detail later today.
 
@@ -441,78 +413,68 @@ We'll be looking at classes and objects in more detail later today.
 
 We can use boolean variables to capture `True` or `False`, useful in conditionals and loops, e.g.:
 
-~~~
+~~~python
 is_joe = (given == 'Joe')
 flag = False
 print(is_joe, flag)
 ~~~
-{: .language-python}
 
 ~~~
 True False
 ~~~
-{: .output}
 
 ### No Value?
 
 We can also assign variable with no value:
 
-~~~
+~~~python
 nothing = None
 print(nothing)
 ~~~
-{: .language-python}
 
 ~~~
 None
 ~~~
-{: .output}
 
 `None` is the special Python value for a no-value variable.
 
 If that's the output, what's the type of `nothing`?
 
-~~~
+~~~python
 type(nothing)
 ~~~
-{: .language-python}
 
 ~~~
 <class 'NoneType'>
 ~~~
-{: .output}
 
 
 ### Converting Between Types
 
 With floats, ints and strings, we can use in-built functions to convert between types:
 
-~~~
+~~~python
 age, house_number = 30, '76'
 print(str(age), float(age), int(house_number), float(house_number))
 ~~~
-{: .language-python}
 
 ~~~
 30 30.0 76 76.0
 ~~~
-{: .output}
 
 
 ## Variables in C++ (optional)
 
 Variables in C++ must be declared before they are used, along with their type, for example:
 
-~~~
+~~~cpp
 int six = 2 * 3;
 std::cout << "six = " << six << std::endl;
 ~~~
-{: .language-cpp}
 
 ~~~
 six = 6
 ~~~
-{: .output}
 
 The compiler must be able to determine the type of every variable when it
 compiles your code. This is a characteristic of *statically typed* languages. It
@@ -532,10 +494,9 @@ changed.
 
 If we try to use a variable that hasn't been defined, we get a compiler error:
 
-~~~
+~~~cpp
 int seven = sixe + 1;
 ~~~
-{: .language-cpp}
 
 ~~~
 /Users/martinjrobins/git/thing/procedural.cpp:7:17: error: use of undeclared identifier 'sixe'; did you mean 'six'?
@@ -547,7 +508,6 @@ int seven = sixe + 1;
         ^
 1 error generated.
 ~~~
-{: .output}
 
 Note here we accidentally wrote `sixe` instead of `six`, so the compiler
 recognised this as an *undeclared identifier* and gave an error. It even
@@ -558,24 +518,22 @@ large project that takes a significant time to run.
 
 If we know that a variable will be constant, we can indicate this using the `const` keyword, like so:
 
-~~~
+~~~cpp
 const int six = 2 * 3;
 ~~~
-{: .language-cpp}
 
 This has the advantage that if we try and modify `six` later on, the compiler will inform us of our error:
 
-~~~
+~~~cpp
 const int six = 2 * 3;
 six = 7;
 ~~~
-{: .language-cpp}
 
-~~~
+```
 /Users/martinjrobins/git/thing/procedural.cpp:8:9: error: cannot assign to variable 'six' with const-qualified type 'const int'
     six = 7;
     ~~~ ^
-{: .output}
+```
 
 The compiler has saved us again! You can assist the compiler (and perhaps more
 importantly, other readers of your code!) by always marking variables that you
@@ -593,11 +551,10 @@ type. You can obtain the address, or *pointer*, to the start of this section of
 memory by using the *address-of* operator `&`. We can obtain the original
 variable by using the *dereferencing* operator `*`.
 
-~~~
+~~~cpp
 int *p_six = &six;
 std::cout << "six = *p_six" << std::endl;
 ~~~
-{: .language-cpp}
 
 Note that the type of `p_six` is a pointer to an `int`, denoted as `int *`. On a
 64-bit operating system, all pointer types are stored in 64 bits of memory. You
@@ -617,20 +574,18 @@ to a box (rather than *being* that box), and therefore you can have multiple
 references to the same box. But you can use it in the same way you would the
 original variable. The type of a reference to an `int` is given by `int &`, so:
 
-~~~
+~~~cpp
 int &r_number = six;
 int &r_number2 = six;
 std::cout << "six = " << r_number << std::endl;
 r_number += 1;
 std::cout << "seven = " << r_number2 << std::endl;
 ~~~
-{: .language-cpp}
 
 ~~~
 six = 6
 seven = 7
 ~~~
-{: .output}
 
 ### References
 
@@ -651,12 +606,11 @@ seven = 7
 
 Lets declare a floating point number in C++:
 
-~~~
+~~~cpp
 float weight_kg = 55.0;
 float weight_lb = 2.2 * weight_kg;
 std::cout << "Weight in lb " << weight_lb << std::endl;
 ~~~
-{: .language-cpp}
 
 The useful resource
 [cppreference](https://en.cppreference.com/w/cpp/language/types) tells us that
@@ -675,12 +629,11 @@ Note that you can, and should, be even more explicit in type of literal you are 
 specify it using a
 [suffix](https://en.cppreference.com/w/cpp/language/floating_literal):
 
-~~~
+~~~cpp
 float weight_kg = 55.0f;
 float weight_lb = 2.2f * weight_kg;
 std::cout << "Weight in lb " << weight_lb << std::endl;
 ~~~
-{: .language-cpp}
 
 Now we have specified that all the literals are `float` (as opposed to `double`,
 which is a 64 bit floating point type in C++).
@@ -709,7 +662,7 @@ other namespaces. E.g. `std::string` refers to a different class than
 header file, so before we use it we need to *include* this header in our source
 file (at the top of the file above our `main` function):
 
-~~~
+~~~cpp
 #include <string>
 
 int main() {
@@ -720,12 +673,10 @@ int main() {
     std::cout << full << std::endl;
 }
 ~~~
-{: .language-cpp}
 
 ~~~
 Joe Frederick 'Bloggs'
 ~~~
-{: .output}
 
 
 As with strings in Python, we can use the `+` operator to concatenate two C++
@@ -740,7 +691,7 @@ Nothing is a complicated concept, and each language deals with no value, or a
 null value, in its own way. In C++ you can define a variable without
 initialising it, like so:
 
-~~~
+~~~cpp
 int something;
 std::cout << something << std::endl;
 ~~~
@@ -758,7 +709,7 @@ in these cases it is up to each individual compiler what actually occurs during
 compilation and execution of the program. For another, more interesting example,
 we can use one of those given in the previous cppreference page:
 
-~~~
+~~~cpp
 bool p; // uninitialized local variable
 if(p) // UB access to uninitialized scalar
     std::puts("p is true");
@@ -772,11 +723,10 @@ Here `p` is a boolean variable (`true` or `false`), and for a certain older vers
 p is true
 p is false
 ~~~
-{: .output}
 
 What if we try to create an uninitialised reference?
 
-~~~
+~~~cpp
 int& something;
 std::cout << something << std::endl;
 ~~~
@@ -787,11 +737,10 @@ In this case we get the following error:
 /Users/martinjrobins/git/thing/procedural.cpp:27:10: error: declaration of reference variable 'something' requires an initializer
     int& something;
 ~~~
-{: .output}
 
 So no luck here creating nothing! In C++ you could represent no value, or nothing, by a null pointer like so:
 
-~~~
+~~~cpp
 std::unique_ptr<int> nothing = nullptr;
 if (nothing) {
     std::cout << *nothing << std::endl;
@@ -824,11 +773,10 @@ The output is:
 ~~~
 None
 ~~~
-{: .output}
 
 Another way to create nothing in C++ (since C++17) is to use `std::optional`:
 
-~~~
+~~~cpp
 std::optional<int> nothing = std::nullopt; 
 if (nothing) {
     std::cout << *nothing << std::endl;
@@ -836,12 +784,10 @@ if (nothing) {
     std::cout << "None" << std::endl;
 }
 ~~~
-{: .language-cpp}
 
 ~~~
 None
 ~~~
-{: .output}
 
 
 ### Converting Between Types with C++
@@ -856,7 +802,7 @@ you can when you write your code.
 Unfortunately, implicit conversions can occur quite easily in C++, and this is a
 source of many bugs. For example:
 
-~~~
+~~~cpp
 const double x = std::atan(1.0d) * 4.0d;
 const float y = x;
 if (y == x) {
@@ -865,7 +811,6 @@ if (y == x) {
     std::cout << "x != y" << std::endl;
 }
 ~~~
-{: .language-cpp}
 
 In this case the value of x, represented by a `double` type, is close to the
 mathematical constant pi. The variable `y` is of type `float`, and so the assignment
@@ -877,11 +822,10 @@ the value now in `y` is different to the value in `x`, the result is:
 ~~~
 x != y
 ~~~
-{: .output}
 
 Let's instead write the conversion between `double` and `float` explicitly using `static_cast`.
 
-~~~
+~~~cpp
 const double x = std::atan(1.0d) * 4.0d;
 const float y = static_cast<float>(x);
 if (y == x) {
@@ -890,7 +834,6 @@ if (y == x) {
     std::cout << "x != y" << std::endl;
 }
 ~~~
-{: .language-cpp}
 
 Not only have we highlighted that a conversion occurs, the very act of writing
 the `static_cast` has forced us to think about the conversion and its
@@ -898,7 +841,7 @@ implications.
 
 Here is another example of a potential bug (and use-case for `static_cast`):
 
-~~~
+~~~cpp
 const int n = 100;
 std::vector<double> vec(n, 1.0);
 const double rn = 1 / n;
@@ -908,7 +851,6 @@ for (size_t i = 0; i < n; i++) {
 }
 std::cout << "mean is " << mean << std::endl;
 ~~~
-{: .language-cpp}
 
 Here we are creating a vector of `double` with all the elements initialised to
 1.0. This program outputs:
@@ -916,7 +858,6 @@ Here we are creating a vector of `double` with all the elements initialised to
 ~~~
 mean is 0
 ~~~
-{: .output}
 
 What has happened? In this case, we have heard somewhere that multiplications
 are cheaper to compute than division, so we have attempted to optimise the loop
@@ -925,10 +866,9 @@ have introduced two mistakes on the line `const double rn = 1 / n;`. Both the
 '1' and `n` here should be of type `double`, not `int`, so that the division is
 a floating-point division rather than integer division. Instead this should be:
 
-~~~
+~~~cpp
 const double rn = 1.0 / static_cast<double>(n);
 ~~~
-{: .language-cpp}
 
 to get the behaviour we are expecting.
 
