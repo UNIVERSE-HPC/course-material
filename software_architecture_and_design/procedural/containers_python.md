@@ -1,5 +1,8 @@
 ---
 name: Containers
+dependsOn: [
+    software_architecture_and_design.procedural.types_python,
+]
 ---
 
 *Container* types are those that can hold other objects, and Python supports a number of different containers we can use to hold data of differing types in a multitude of ways. If you still have your Python interpreter running from the last lesson, continue below. Otherwise, change directory to the `se-day1/code` directory and re-run the Python interpreter before you continue, by:

@@ -1,14 +1,12 @@
 ---
 id: procedural
 name: Procedural Programming
-dependsOn: [
-    tools_and_technology.bash_shell,
-    tools_and_technology.ide,
-]
 files: [
-    types.md,
-    containers.md,
-    functions.md,
+    types_python.md,
+    types_cpp.md,
+    containers_python.md,
+    functions_python.md,
+    arrays_python.md,
 ]
 ---
 

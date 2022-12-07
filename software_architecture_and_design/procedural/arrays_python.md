@@ -1,6 +1,11 @@
 ---
 name: Arrays
+dependsOn: [
+    software_architecture_and_design.procedural.functions_python,
+]
 ---
+
+
 
 
 ## Adding NumPy to our Virtual Environment
