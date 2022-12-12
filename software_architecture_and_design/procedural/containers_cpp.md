@@ -221,7 +221,7 @@ list_for_slicing[-4:]
 :::
 ::::
 
-### Deleting Values
+### Deleting Values, big-O notation and std::list
 
 Deleting elements from the end of a vector is simple and fast and can be done using the 
 `pop_back` function, which takes constant, or `O(1)` time using big-O notation. This 
@@ -229,24 +229,22 @@ means that the time taken is a constant or fixed amount of time independent of t
 of the vector. Deleting elements from the *start* or *middle* of the vector is more 
 difficult. An vector in C++ is an implementation of an *array* data structure, and 
 therefore the values contained occupy a *contiguous* section of memory, the start of 
-which is also the start of the vector. Deleting an element from the middle of the vector 
-is more difficultas the contiguous nature of its element must be maintained. Similarly, 
-deleting an element from the start of the vector also requires the remainder of the 
-elments to be shifted down so that the start of the vector is aligned with the start of 
-the memory allocated. Therefore deleting elmements from the start or middle of a vector 
+which is also the start of the vector. When deleting an element from the start or 
+middle, the remainder of the vector must be shifted down to maintain the contiguous 
+nature of the vector and the alignment of the first element to the start of the 
+allocated memory. Therefore deleting elmements from the start or middle of a vector 
 takes an amount of time that scales linearly with the size of the vector $n$, or 
 $\mathcal{O}(n)$ time.
 
-
-For example, one way to delete an element from the middle of a vectorthis is to swap the 
-element to be deleted with the last element, and then resize the vector.
+For example, if we want to delete an element from the middle of a vector we can do the 
+following:
 
 ~~~cpp
 std::vector<int> x = {1, 2, 3, 4};
-auto delete_this = x.begin + 1; // an iterator to "2"
+auto delete_this = x.begin() + 1; // an iterator to "2"
 for (auto i = x.begin(); i != x.end(); i++) {
-  if (i == delete_this) {
-    *i = x.back();
+  if (i >= delete_this) {
+    *i = *(i + 1);
   }
 }
 x.resize(x.size() - 1);
@@ -255,16 +253,30 @@ for (auto i = x.begin(); i != x.end(); i++) {
   std::cout << *i << ", ";
 }
 std::cout << "]" << std::endl;
-
 ~~~
 
-This will show us the vector with a '2' removed:
+Notice that this requires a loop through all the elements of the vector, hence the time 
+taken is $\mathcal{O}(n)$. The output of this program will show us the vector with a '2' 
+removed:
 
 ~~~
 [1, 3, 4, ]
 ~~~
 
-Sets or linked lists are conFor containers that can more efficient
+A linked list is a data structure that provides constant-time insertion or deletion of 
+elements in the middle/start of the container. The C++ implmentation of a linked list is `std::list`, which you can use like this:
+
+~~~cpp
+std::list<int> x = {1, 2, 3, 4};
+auto delete_this = x.begin() + 1; // an iterator to "2"
+x.erase(delete_this);
+
+std::cout << "[";
+for (auto i = x.begin(); i != x.end(); i++) {
+  std::cout << *i << ", ";
+}
+std::cout << "]" << std::endl;
+~~~cpp
 
 ### Changing the size of a Vector
 
