@@ -176,50 +176,68 @@ for (const auto& i: x)
 }
 ~~~
 
-::::challenge{id=slicing_from_the_end, title="Slicing From the End"}
+::::challenge{id=dot_product, title="Dot Product" }
 
-Use slicing to access only the last four characters of a string or entries of a list.
-
-~~~cpp
-string_for_slicing = "Observation date: 02-Feb-2013"
-list_for_slicing = [["fluorine", "F"],
-                    ["chlorine", "Cl"],
-                    ["bromine", "Br"],
-                    ["iodine", "I"],
-                    ["astatine", "At"]]
-
-print(string_for_slicing)
-print(list_for_slicing)
-~~~
-
-~~~
-'Observation date: 02-Feb-2013'
-[['fluorine', 'F'], ['chlorine', 'Cl'], ['bromine', 'Br'], ['iodine', 'I'], ['astatine', 'At']]
-~~~
-
-So what would you use to see the following?
-
-~~~
-'2013'
-[['chlorine', 'Cl'], ['bromine', 'Br'], ['iodine', 'I'], ['astatine', 'At']]
-~~~
-
-Would your solution work regardless of whether you knew beforehand
-the length of the string or list
-(e.g. if you wanted to apply the solution to a set of lists of different lengths)?
-If not, try to change your approach to make it more robust.
-
-Hint: Remember that indices can be negative as well as positive
+Write code to calculate the scalar (dot) product of two `std::vector<double>` variables
 
 :::solution
-Use negative indices to count elements from the end of a container (such as list or string):
+```cpp
+std::vector<double> x = {1.0, 2.0, 3.0};
+std::vector<double> y = {1.0, 2.0, 3.0};
 
-~~~
-string_for_slicing[-4:]
-list_for_slicing[-4:]
-~~~
+assert(x.size() == y.size());
+double dot = 0.0;
+for (int i = 0; i < x.size(); ++i) {
+  dot += x[i]*y[i];
+}
+
+std::cout << "dot with vectors = "<< dot << std::endl;
+```
 :::
 ::::
+
+::::challenge{id=matrix_multiply, title="Matrix multiply" }
+
+Write code to multiply two 3 x 3 matrices $C = AB$ using `std::array`. Think about how you would 
+store your matrices. You could use a flat array `std::array<double, 9>`, or 
+you could use nested arrays `std::array<std::array<double, 3>, 3>`. Output the 
+result in a nicely formatted way, for example:
+
+~~~
+C =
+| 1, 2, 3 |
+| 4, 5, 6 |
+| 7, 8, 9 |
+~~~
+
+:::solution
+```cpp
+std::array<std::array<double,3>,3> A = {{{5, 8, 2}, {8, 3, 1}, {5, 3, 9}}};
+std::array<std::array<double,3>,3> B = {{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}};
+std::array<std::array<double,3>,3> C = {};
+
+for (int i = 0; i < 3; ++i) {
+  for (int j = 0; j < 3; ++j) {
+    for (int k = 0; k < 3; ++k) {
+      C[i][j] += A[i][k] * B[k][j]; 
+    }
+  }
+}
+
+std::cout << "C = " << std::endl;
+for (int i = 0; i < 3; ++i) {
+  std::cout << "| ";
+  for (int j = 0; j < 3; ++j) {
+    std::cout << C[i][j];
+    if (j == 2) {
+      std::cout << " |" << std::endl;
+    } else {
+      std::cout << ", ";
+    }
+  }
+}
+```
+:::
 
 ### Deleting Values, big-O notation and std::list
 
@@ -351,8 +369,10 @@ for (; processed != data.end(); processed++) {
 }
 ~~~
 
-If the function `process_data` prints out the value given, then the output might
-look like this (it will vary depending on the particular allocations performed):
+If the function `process_data` prints out the value given, then the output
+might look like the below. In this case the reallocated vector has been moved
+to a section of memory far away from the original location, and all the
+intermediate memory locations are processed as well as the vector itself:
 
 ~~~
 1 2 3 4 0 0 1041 0 540155953 540287027 540024880 825503793 891301920 892416052 859126069 808727840 808925234 891303730 842018868 808990772 892483616 926101557 941634361 808661305 808597809 842610720 808857908 941634101 842086709 959852598 942684192 943141431 941633588 842610736 875770421 825833504 926101555 941633587 825242164 943077432 942684192 925907257 941634103 942944825 909194803 909261088 892416049 958412597 859189556 825635636 942684192 858863158 941634864 959789104 959461431 842283040 925905206 941633586 892876848 942684471 825506080 825504566 941633840 942682676 959461174 959789344 892482872 958412857 943075892 842608948 859060512 875639857 958411059 859189556 943207731 842283040 925905206 941635123 926364983 825373744 892483616 892547896 958411824 808531506 892679473 825506080 892547894 941635384 875705650 875966770 859060512 876033840 958411315 943075892 842608948 892483872 842477625 958412597 859189556 858796340 842283296 942945337 958412082 959527216 858798132 959461664 808531506 941635640 825504313 959721526 943012128 892481844 941635385 942750005 909456697 892483616 909456182 958412339 943075892 842608948 943011872 825439800 958412853 859189556 875968564 959789344 825833527 958411824 909392181 825439281 842283040 808663090 958410804 809055538 909128245 825506080 892547894 941635128 926429753 942946358 842283296 875837494 941633847 808793394 808988726 892483616 892612661 958412342 859189556 808728627 842283296 909260854 958412343 909392181 876032305 959789344 859387959 941634612 942944825 842479666 943012128 942813492 958412597 925905716 842610741 842283040 959983670 941635636 909130037 842085680 892811296 943272758 958412597 825505845 959787057 959789088 891303992 808661305 842610995 942684192 858863158 941634864 825635380 892942640 842283296 825505846 941634105 909654069 943010099 825506080 942945078 941634614 859190578 808989493 842610720 909259833 941633588 942813748 909718067 892483616 943009845 958412340 859189556 892350772 959461664 808727862 958413110 825242420 960049200 892483616 808857653 958410808 876163636 943140917 825506080 909390646 941634609 959527221 943142192 942684192 876165177 941634361 825635380 808597296 959461664 943273266 958411571 859189556 943207731 842283296 926101816 958412852 825702704 926298168 842610720 909326388 958412337 808465204 892614713 943012128 858927412 941633588 942750005 909456697 842610720 925906227 958411319 909392181 875968049 942684192 943141431 958411318 825505845 808530227 892483616 875705394 958410802 875573302 808464953 842610720 909326388 941635121 892876848 859125303 0 0 49 0 1641085147 5 469321016 -564037215 0 1 2 3 0 0 81 0 1 2 3 4 0 1 2 3 4 5 6 7 8 9
@@ -407,7 +427,7 @@ water is hydrogen-oxygen-hydrogen
 first element in water is hydrogen
 ~~~
 
-## Map
+## Map and Set
 
 The standard map class in C++ is `std::map`{.cpp}
 
@@ -430,21 +450,32 @@ std::map<std::string, size_t>> populations = {
   {"Edinburgh": 448850}, 
   {"Manchester": 430818}
 }
+
+populations.insert({"Oxford", 137343});
+
 for (const auto& [key, value] : m) {
   std::cout << '[' << key << "] = " << value << "; ";
 }
 std::cout << std::endl;
+
 const auto key = "Liverpool"s;
 std::cout << "The population of " << key << " is " << populations[key] << std::endl; 
 ~~~
 
 ~~~
-[Edinburgh] = 448850; [Liverpool] = 467995; [Manchester] = 430818; 
+[Edinburgh] = 448850; [Liverpool] = 467995; [Manchester] = 430818; [Oxford] = 137343; 
 The population of Liverpool is 467995
 ~~~
 
-
+A set is similar to a map that only contains keys (no values). The C++
+implementation of a set is `std::set`. Each element of the set is unique (just
+like the keys in a map).
 
 ## General Rule
 
-Your programs will be faster and more readable if you use the appropriate container type for your data's meaning. For example, always use a set for lists which can't in principle contain the same data twice, always use a dictionary for anything which feels like a mapping from keys to values.
+Your programs will be faster and more readable if you use the appropriate
+container type for your data's meaning. For example, always use a set for lists
+which can't in principle contain the same data twice, always use a map
+for anything which feels like a mapping from keys to values, always use a list over
+a vector if you are constantly removing or adding elements from the middle of
+the container.

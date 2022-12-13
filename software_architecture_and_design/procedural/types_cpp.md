@@ -138,9 +138,73 @@ six = 7;
 
 The compiler has saved us again! You can assist the compiler (and perhaps more
 importantly, other readers of your code!) by always marking variables that you
-expect to the constant with `const`. Other languages like Rust encourage this by
-making variables constant by default and having special syntax for non-constant,
-aka *mutable*, variables.
+expect to the constant with `const`.
+
+A C++ program is made up of many *blocks* which are delimited by curly brackets.
+As an example, lets define a `main` function with a `for` loop inside. The curly
+brackets after the `main` function delimite an outer block, whereas the curly
+brackets after the `for` loop delimite an inner block.
+
+```cpp
+int main() {
+  const int two = 2;
+  for (int i = 0; i < 10; i++) {
+    const int x = two * i;
+    std::cout << i << x << std::endl;
+  }
+  // i and x no longer valid here
+}
+```
+
+Each variable has a particular block *scope* where it is valid, which starts
+where the variable is declared and covers to the end of the current block,
+including any inner blocks. In the example above, the `two` variable is in
+scope until the end of the main function. However, the `i` and `x` variables
+are only in scope until the end of the `for` loop.
+
+
+### Floating point numbers in C++
+
+Lets declare a floating point number in C++:
+
+~~~cpp
+const float weight_kg = 55.0;
+const float weight_lb = 2.2 * weight_kg;
+std::cout << "Weight in lb " << weight_lb << std::endl;
+~~~
+
+The useful resource
+[cppreference](https://en.cppreference.com/w/cpp/language/types) tells us that
+the type `float` in C++ is stored in 32 bits, and matches the [IEEE-754 binary32
+format](https://en.wikipedia.org/wiki/Single-precision_floating-point_format).
+If you follow this link to the wikipedia article, you can see that this format
+is very different to the format used to store an `int`.
+
+Note that literals like `55.0` also have a type in C++, and it is a good rule of
+thumb to be consistent with your types. Writing something like `float weight_kg
+= 55` is actually assigning an integer to a float and involves an *implicit*
+type conversion. In this case there is no harm done, but implicit type
+conversions are a source of bugs and should be avoided.
+
+Note that you can, and should, be even more explicit in type of literal you are using and
+specify it using a
+[suffix](https://en.cppreference.com/w/cpp/language/floating_literal):
+
+~~~cpp
+const float weight_kg = 55.0f;
+const float weight_lb = 2.2f * weight_kg;
+std::cout << "Weight in lb " << weight_lb << std::endl;
+~~~
+
+Now we have specified that all the literals are `float` (as opposed to
+`double`, which is a 64 bit floating point type in C++). Writing the same code
+using `double` looks like this:
+
+~~~cpp
+const double weight_kg = 55.0;
+const double weight_lb = 2.2 * weight_kg;
+std::cout << "Weight in lb " << weight_lb << std::endl;
+~~~
 
 ## References and Pointers in C++
 
@@ -188,56 +252,24 @@ six = 6
 seven = 7
 ~~~
 
-### References
+::::challenge{id=pointers_and_references, title="Getting used to pointers and references"}
 
-:::challenge{title="What's inside the box" id=inside_box_cpp}
+Declare a `double` called `d` with the value `5.0`. Create a reference to this
+double `r_d` and assign `6.0` to this reference. Verify that `d` has changed
+value by printing it out.
 
-Draw diagrams showing what variables refer to what values after each statement
-in the following program:
+Try and mark `d` as `const` and see what the compiler tells you.
 
-~~~
-weight = 70.5
-age = 35
-weight = weight * 1.14
-age = age + 20
-~~~
+:::solution
+```cpp
+double d = 5.0;
+double& r_d = d;
+r_d = 6.0
+std::cout << d << std::endl;
+```
 :::
 
-### Floats in C++
-
-Lets declare a floating point number in C++:
-
-~~~cpp
-float weight_kg = 55.0;
-float weight_lb = 2.2 * weight_kg;
-std::cout << "Weight in lb " << weight_lb << std::endl;
-~~~
-
-The useful resource
-[cppreference](https://en.cppreference.com/w/cpp/language/types) tells us that
-the type `float` in C++ is stored in 32 bits, and matches the [IEEE-754 binary32
-format](https://en.wikipedia.org/wiki/Single-precision_floating-point_format).
-If you follow this link to the wikipedia article, you can see that this format
-is very different to the format used to store an `int`.
-
-Note that literals like `55.0` also have a type in C++, and it is a good rule of
-thumb to be consistent with your types. Writing something like `float weight_kg
-= 55` is actually assigning an integer to a float and involves an *implicit*
-type conversion. In this case there is no harm done, but implicit type
-conversions are a source of bugs and should be avoided.
-
-Note that you can, and should, be even more explicit in type of literal you are using and
-specify it using a
-[suffix](https://en.cppreference.com/w/cpp/language/floating_literal):
-
-~~~cpp
-float weight_kg = 55.0f;
-float weight_lb = 2.2f * weight_kg;
-std::cout << "Weight in lb " << weight_lb << std::endl;
-~~~
-
-Now we have specified that all the literals are `float` (as opposed to `double`,
-which is a 64 bit floating point type in C++).
+::::
 
 ### Strings in C++
 
@@ -279,117 +311,11 @@ int main() {
 Joe Frederick 'Bloggs'
 ~~~
 
-
 As with strings in Python, we can use the `+` operator to concatenate two C++
 strings together. However, we can only use double quotes for strings in C++, as
 single quotes are reserved for characters. To include the single quotes in our
 string, we use the backslash to *escape* the normal meaning of the single quote
 character.
-
-### No Value?
-
-Nothing is a complicated concept, and each language deals with no value, or a
-null value, in its own way. In C++ you can define a variable without
-initialising it, like so:
-
-~~~cpp
-int something;
-std::cout << something << std::endl;
-~~~
-
-Here we have used `something` without initialising to some value. Something will
-be printed out, but we don't know what. One option is that the compiler will
-allocate `something` a certain section of memory, and then print out whatever is
-at that location. Another option is that the compiler will optimise out
-`something` altogether and just print out 0, or something of its own choosing.
-
-This is an example of [*undefined
-behaviour*](https://en.cppreference.com/w/cpp/language/ub). This covers all
-situations where the programmer violated certain rules of the C++ language, and
-in these cases it is up to each individual compiler what actually occurs during
-compilation and execution of the program. For another, more interesting example,
-we can use one of those given in the previous cppreference page:
-
-~~~cpp
-bool p; // uninitialized local variable
-if(p) // UB access to uninitialized scalar
-    std::puts("p is true");
-if(!p) // UB access to uninitialized scalar
-    std::puts("p is false");
-~~~
-
-Here `p` is a boolean variable (`true` or `false`), and for a certain older version of gcc the output is:
-
-~~~
-p is true
-p is false
-~~~
-
-What if we try to create an uninitialised reference?
-
-~~~cpp
-int& something;
-std::cout << something << std::endl;
-~~~
-
-In this case we get the following error:
-
-~~~
-/Users/martinjrobins/git/thing/procedural.cpp:27:10: error: declaration of reference variable 'something' requires an initializer
-    int& something;
-~~~
-
-So no luck here creating nothing! In C++ you could represent no value, or nothing, by a null pointer like so:
-
-~~~cpp
-std::unique_ptr<int> nothing = nullptr;
-if (nothing) {
-    std::cout << *nothing << std::endl;
-} else {
-    std::cout << "None" << std::endl;
-}
-~~~
-
-Here we use one of the smart pointers we mentioned earlier, a unique pointer, to
-emphasise our earlier message to not use a raw pointer if you can avoid it. The
-angle brackets indicate a templated class, in this case a unique pointer to an
-`int`. Templates in C++ enable yet another programming paradigm called
-*generic programming*. As you can see, there are a number of different
-programming paradigms, all with their own uses! It is best to be aware of and
-use all of them interchangably for the problem at hand or the idea you wish to
-express. 
-
-Going back to the example, note that we have initialised our variable, so there
-is no undefined behaviour and we can be assured of the same behaviour over all
-compilers. It should be noted, however, that in this case the `std::unique_ptr`
-will be default initialised even if we don't initialise it, but it is still
-better to write the explicit initialisation to be clear. Note that we need to
-use two *different* print statements to print either the `int` or the string
-literal "None", since these are two different types. Recall, in C++ all types
-must be known at compile time, for each variable and also for each expression or
-statement in your program.
-
-The output is:
-
-~~~
-None
-~~~
-
-Another way to create nothing in C++ (since C++17) is to use `std::optional`:
-
-~~~cpp
-std::optional<int> nothing = std::nullopt; 
-if (nothing) {
-    std::cout << *nothing << std::endl;
-} else {
-    std::cout << "None" << std::endl;
-}
-~~~
-
-~~~
-None
-~~~
-
 
 ### Converting Between Types with C++
 
@@ -477,3 +403,67 @@ Recall, these are fairly tame example using fundamental types.  However, once
 you start creating your own types via classes the opportunities for implicit
 conversions to introduce subtle bugs increases exponentially, so a good rule of
 thumb is to discourage implicit casts and to *always* be explicit. 
+
+::::challenge{id=cpp_calculate_pi, title="Calculating PI"
+
+Create two `double` variables $x$ and $y$. Set $x=0.3$ and $y=0.4$ and
+calculate $r = \sqrt{x^2 + y^2}$. Write the result $r$ to the console using
+`std::cout`. Note that C++ has library functions `std::sqrt` and `std::pow` for
+square root and power. You can see the cpp-reference page for `std::sqrt` [here](https://en.cppreference.com/w/cpp/numeric/math/sqrt). 
+
+:::solution
+~~~cpp
+const double x = 0.3;
+const double y = 0.4;
+
+const double r = std::sqrt(std::pow(x,2) + std::pow(y,2));
+
+std::cout << "r = "<< r << std::endl;
+~~~
+:::
+
+
+Code up another estimator for $\pi$ by calculating the sum of the reciprocals 
+of square numbers (The Basel problem) for $N$ terms, which converges to 
+$\pi^2/6$ for large enough $N$.
+
+$$
+S = \sum_{n=1}^{n=N} \frac{1}{n^2} \rightarrow \frac{\pi^2}{6}
+$$
+
+:::solution
+~~~cpp
+const int N = 1000;
+double sum = 0.0;
+for (int i = 1; i < N; ++i) {
+  sum += 1.0/static_cast<double>(std::pow(i,2));
+}
+std::cout << "pi is about "<< std::sqrt(6.0*sum) << std::endl;
+~~~
+:::
+
+Finally, code up the [Gauss-Legendre
+algorithm](https://en.wikipedia.org/wiki/Gauss%E2%80%93Legendre_algorithm)  for
+stimating $\pi$, which has quadratic convergence.
+
+:::solution
+~~~cpp
+const int N = 100;
+double a = 1.0;
+double b = 1.0/std::sqrt(2);
+double t = 0.25;
+double p = 1.0;
+for (int i = 1; i < N; ++i) {
+    const double an = a;
+    const double bn = b;
+    a = (an + bn)/2;
+    b = std::sqrt(an*bn);
+    t -= p*std::pow(a - an,2);
+    p *= 2;
+}
+
+std::cout << "pi is about "<< std::pow(a + b,2)/(4*t) << std::endl;
+~~~
+:::
+
+::::
