@@ -92,24 +92,11 @@ Under the hood, when you write you lambda the compiler simply creates and
 compiles the equivilant function object for you. If you want more control of the
 process, you can naturally just write the function object yourself.
 
-
-
-## Higher Order Functions
-
-One of the main uses of lambda functions is to create temporary functions to
-pass into higher order functions (a higher order function is simply a function
-that has other functions as one of its arguments). For example, you may want to
-create a function `map` that applies a function `f` to each element of a
-`std::vector`
-
-```cpp
-```
-
-
-
 ### Polymorphic function
 
-Recall that polymorphism allows us to provide a single interface for a variety of types. One issue with lambdas is that each lambda is a unique type, so the following will raise an error.
+Recall that polymorphism allows us to provide a single interface for a variety
+of types. One issue with lambdas is that each lambda is a unique type, so the
+following will raise an error.
 
 ```cpp
 auto add = [](int i) { return i + 1; };
@@ -128,7 +115,41 @@ The two lambdas have different types, even though they are both functions that t
 /home/mrobins/git/cpp_tmp/prodecural.cpp:13:15: note:   no known conversion for argument 1 from 'main()::<lambda(int)>' to 'const main()::<lambda(int)>&'
 ```
 
-This causes problems if you wish to define an interface that takes a function as an argument
+This causes problems if for example, you want to store a collection of function
+objects with the same interface. To support this and other use-cases where a
+polymorphic function is needed, C++ provides `std::function`, which can be used
+like so
+
+```cpp
+std::vector<std::function<int(int)>> ops = {
+    [] (int i) {return 2 * i;},
+    [] (int i) {return std::pow(i);},
+    [] (int i) {return 2 * (i - 1);}
+};
+
+int result = 1;
+for (const auto& op: ops) {
+    result = op(result);
+}
+std::cout << result << std::end; // prints 6
+```
+
+`std::function` is an example of *type erasure*.
+
+
+## Higher Order Functions
+
+One of the main uses of lambda functions is to create temporary functions to
+pass into higher order functions (a higher order function is simply a function
+that has other functions as one of its arguments). For example, you may want to
+create a function `map` that applies a function `f` to each element of a
+`std::vector`
+
+```cpp
+```
+
+
+
 
 ## Map, Filter, Reduce
 
