@@ -1,3 +1,12 @@
+---
+name: State and Side Effects
+dependsOn: [
+    software_architecture_and_design.procedural.arrays_python,
+]
+---
+
+
+
 ## Side Effect and Pure Functions
 
 There's nothing particularly special about the behaviour of functions in Python, almost any valid code can be put inside a function to be called from elsewhere (even defining classes or other functions).
