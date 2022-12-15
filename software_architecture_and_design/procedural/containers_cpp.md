@@ -297,6 +297,20 @@ for (auto i = x.begin(); i != x.end(); i++) {
 std::cout << "]" << std::endl;
 ~~~
 
+## Move semantics for containers
+
+Recall that we can use `std::move` to move rather than copy values in C++. This
+is often useful to efficiently move values into a container without the expense
+of copying them, e.g.
+
+```cpp
+std::string war_and_peace = "....";
+std::string moby_dick = "....";
+std::list books;
+books.push_back(std::move(war_and_peace));
+books.push_back(std::move(moby_dick));
+```
+
 ## Memory allocation and iterator invalidation
 
 Each container manages its own memory via an allocator class (one of the
@@ -471,6 +485,36 @@ A set is similar to a map that only contains keys (no values). The C++
 implementation of a set is `std::set`. Each element of the set is unique (just
 like the keys in a map).
 
+## Tuples
+
+A tuple is a fixed-size container of values that can be of *different* types. It
+is most useful for holding a collection of useful variables, or returning
+multiple values from a function.
+
+~~~cpp
+std::tuple<std::string, int, std::string> y = {'Apple', 1, 'Cherry'};
+auto fruits = sdt::make_tuple(3.14, 2, 'Cherry');
+~~~
+
+Values can be obtained from a tuple via *destructuring*. For C++17 and onwards, the syntax is
+
+```cpp
+auto [weight, number, name] = fruits;
+```
+
+Note that previously the syntax was more cumbersome:
+
+```cpp
+double weight; 
+int number;
+std::string name;
+std::tie(weight, number, name) = fruits;
+```
+
+
+
+
+
 ## General Rule
 
 Your programs will be faster and more readable if you use the appropriate
@@ -479,3 +523,110 @@ which can't in principle contain the same data twice, always use a map
 for anything which feels like a mapping from keys to values, always use a list over
 a vector if you are constantly removing or adding elements from the middle of
 the container.
+
+::::challenge{id=data_analysis_containers, title="Analysing the IRIS dataset"}
+
+Download the iris dataset hosted by the UCI Machine Learning Repository [here](https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data). This is a CSV file with the following columns:
+
+1. sepal length in cm
+2. sepal width in cm
+3. petal length in cm
+4. petal width in cm
+5. class: 
+   -- Iris Setosa
+   -- Iris Versicolour
+   -- Iris Virginica)_)
+
+Your goal is to provide minimum and maximum bounds of sepal length for each
+class of Iris. Below is an example code for reading in the dataset and printing
+it to the screen. Modify this code to initially store the dataset in one or
+more `std::vector`'s. Subsequently, calculate the minimum/maximum sepal length
+using your data vector(s) and store the result in a `std::map` which maps
+class name to min/max bounds.
+
+```cpp
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <algorithm>
+#include <sstream>
+
+
+int main() {
+  std::ifstream dataset_f("iris.data");
+  if (!dataset_f.is_open()) {
+    std::cerr << "Failed to open dataset" << std::endl;
+    return -1;
+  }
+  std::string line;
+  while (std::getline(dataset_f, line)) {
+    if (line.empty()) {
+      continue;
+    }
+    std::replace(line.begin(), line.end(), ',', ' ');
+        
+    std::istringstream iss(line);
+    double sepal_len, unused;
+    std::string iris_class;
+    iss >> sepal_len >> unused >> unused >> unused >> iris_class;
+    std::cout << sepal_len << ' ' << iris_class << std::endl;
+  }
+}
+```
+
+:::solution
+```cpp
+#include <iostream>
+#include <string>
+#include <map>
+#include <fstream>
+#include <algorithm>
+#include <vector>
+#include <sstream>
+
+
+int main() {
+  std::ifstream dataset_f("iris.data");
+  if (!dataset_f.is_open()) {
+    std::cerr << "Failed to open dataset" << std::endl;
+    return -1;
+  }
+  std::string line;
+  std::vector<std::tuple<double, std::string>> dataset;
+  while (std::getline(dataset_f, line)) {
+    if (line.empty()) {
+      continue;
+    }
+    std::replace(line.begin(), line.end(), ',', ' ');
+        
+    std::istringstream iss(line);
+    double sepal_len, unused;
+    std::string iris_class;
+    iss >> sepal_len >> unused >> unused >> unused >> iris_class;
+    std::cout << sepal_len << ' ' << iris_class << std::endl;
+    dataset.push_back(std::make_tuple(sepal_len, iris_class));
+  }
+
+  std::map<std::string, std::tuple<double, double>> stats;
+  for (const auto& [sepal_len, iris_class]: dataset) {
+    if (stats.count(iris_class)) {
+      auto& [min, max] = stats[iris_class];
+      if (sepal_len < min) {
+        min = sepal_len;
+      }
+      if (sepal_len > max) {
+        max = sepal_len;
+      }
+    } else {
+      stats[iris_class] = std::make_tuple(sepal_len, sepal_len);
+    }
+  }
+
+  for (const auto& [iris_class, bounds]: stats) {
+    const auto& [min, max] = bounds;
+    std::cout << iris_class << " = (" << min << " - " << max << ")" << std::endl; 
+  }
+}
+```
+
+::::

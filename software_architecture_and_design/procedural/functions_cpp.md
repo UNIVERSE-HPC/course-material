@@ -1,131 +1,416 @@
-### Exceptions
+# Functions
 
+The *function* (aka *procedure*) is a one of the defining aspects of proceedural programming. It
+allows you to package up some code defining a particular operation into a
+re-useable *function* can can take zero or more *arguments* and (optionally)
+*return* a value.
 
+## Declaring and calling funcitons
 
+The following *function prototypes* declare two functions: one called
+`my_func` that takes two parameters of type `double`{.Cpp} and returns a
+variable of type `double`{.Cpp}, and one called `main` that takes no parameters
+and returns an `int`{.Cpp}:
 
-### No Value?
-
-Nothing is a complicated concept, and each language deals with no value, or a
-null value, in its own way. In C++ you can define a variable without
-initialising it, like so:
-
-~~~cpp
-int something;
-std::cout << something << std::endl;
+~~~Cpp
+double my_func(double x, double y);
+int main();
 ~~~
 
-Here we have used `something` without initialising to some value. Something will
-be printed out, but we don't know what. One option is that the compiler will
-allocate `something` a certain section of memory, and then print out whatever is
-at that location. Another option is that the compiler will optimise out
-`something` altogether and just print out 0, or something of its own choosing.
+The function prototype tells the compiler about function's name, return type,
+and parameters. You must declare the function before you can use it, like so:
 
-This is an example of [*undefined
-behaviour*](https://en.cppreference.com/w/cpp/language/ub). This covers all
-situations where the programmer violated certain rules of the C++ language, and
-in these cases it is up to each individual compiler what actually occurs during
-compilation and execution of the program. For another, more interesting example,
-we can use one of those given in the previous cppreference page:
 
-~~~cpp
-bool p; // uninitialized local variable
-if(p) // UB access to uninitialized scalar
-    std::puts("p is true");
-if(!p) // UB access to uninitialized scalar
-    std::puts("p is false");
-~~~
+~~~Cpp
+#include <iostream>
+double multiply(double x, double y); // function prototype
 
-Here `p` is a boolean variable (`true` or `false`), and for a certain older version of gcc the output is:
-
-~~~
-p is true
-p is false
-~~~
-
-What if we try to create an uninitialised reference?
-
-~~~cpp
-int& something;
-std::cout << something << std::endl;
-~~~
-
-In this case we get the following error:
-
-~~~
-/Users/martinjrobins/git/thing/procedural.cpp:27:10: error: declaration of reference variable 'something' requires an initializer
-    int& something;
-~~~
-
-So no luck here creating nothing! In C++ you could represent no value, or nothing, by a null pointer like so:
-
-~~~cpp
-std::unique_ptr<int> nothing = nullptr;
-std::unique_ptr<int> something = std::make_unique<int>(1);
-if (nothing) {
-    std::cout << *nothing << std::endl;
-} else {
-    std::cout << "None" << std::endl;
+int main()
+{
+  double a = 1.0, b = 2.0, z;
+  z = multiply(a, b);
+  std::cout << a << " times " << b << " equals " << z << '\n';
+  return 0;
 }
-if (something) {
-    std::cout << *something << std::endl;
-} else {
-    std::cout << "None" << std::endl;
+
+double multiply(double x, double y) // function definition
+{
+  return x * y;
 }
 ~~~
 
-Here we use one of the smart pointers we mentioned earlier, a unique pointer, to
-emphasise our earlier message to not use a raw pointer if you can avoid it. The
-angle brackets indicate a templated class, in this case a unique pointer to an
-`int`. Templates in C++ enable yet another programming paradigm called
-*generic programming*. As you can see, there are a number of different
-programming paradigms, all with their own uses! It is best to be aware of and
-use all of them interchangably for the problem at hand or the idea you wish to
-express. 
 
-Going back to the example, note that we have initialised our variable, so there
-is no undefined behaviour and we can be assured of the same behaviour over all
-compilers. It should be noted, however, that in this case the `std::unique_ptr`
-will be default initialised even if we don't initialise it, but it is still
-better to write the explicit initialisation to be clear. Note that we need to
-use two *different* print statements to print either the `int` or the string
-literal "None", since these are two different types. Recall, in C++ all types
-must be known at compile time, for each variable and also for each expression or
-statement in your program.
+A function may also return no value, and be declared as `void`{.Cpp}.
 
-The output is:
+~~~Cpp
+#include <iostream>
+void output(int score, int passMark);
 
-~~~
-None
-~~~
+int main() {
+  int score = 29, pass_mark = 30;
+  output(score, pass_mark);
+  return 0;
+}
 
-Note, another way to create nothing in C++ (since C++17) is to use `std::optional`:
-
-~~~cpp
-std::optional<int> nothing = std::nullopt; 
-if (nothing) {
-    std::cout << *nothing << std::endl;
-} else {
-    std::cout << "None" << std::endl;
+void output(int score, int passMark) {
+  if (score >= passMark)
+    std::cout << "Pass - congratulations!\n";
+  else
+    std::cout << "Fail - better luck next time\n";
 }
 ~~~
 
+
+Any variables that are used in the function must be declared as normal.
+
+For example:
+
+~~~Cpp
+double multiply_by_5(double x)
+{
+  double y = 5.0;
+  return x * y;
+}
 ~~~
-None
+
+Recall the rules about *scope*, the scope of `y` lasts until the end of the
+function (the last curly bracket) after which `y` is removed from memory and is
+no longer available.
+
+
+## Pass by value
+
+A function can only change the value of a variable inside the function, and not
+in the main program. This is because, by default, variables are *passed by value*, and the function
+only sees a **copy**.
+
+Changes in this copied variable have no effect on the original variable, for
+example the function `no_effect` has no effect on the `x` variable passed into it in `main`:
+
+~~~Cpp
+#include <iostream>
+
+void no_effect(double x) {
+  x += 1.0;
+}
+
+int main() {
+  double x = 2.0;
+  no_effect(x);
+  std::cout << x << '\n';
+}
 ~~~
 
-::::challenge
+[`[< compiler explorer >]`](https://gcc.godbolt.org/z/F1MBsS)
 
-Initialise a `std::string` with an arbitrary string of your choosing. Use the
-`std::string::find` function to find the first occurence of the letter "a" in
-the string. If "a" is found then create a `std::unique_ptr` or a
-`std::optional` pointing to or containing that letter in the string (if it exists).
+# Pass by reference
 
-Print out the value in your `std::optional` or pointed to be `std::unique_ptr`
-(if it exists). Change the original string to the other option (exist/not exists)
-and test to see if your code still works.
+A common way of allowing a function to change the value of a variable outside the
+function is to use *references*. You can do this by adding 
+the `&` symbol before the variable name in the declaration of the
+function and the prototype.
+
+~~~Cpp
+#include <iostream>
+void add(double x, double y, double& rz);
+
+int main() {
+  double x = 1.0, y = 2.0, z;
+  add(x, y, z);
+  std::cout << x <<" plus "<< y <<" equals "<< z <<'\n';
+  return 0;
+}
+
+void add(double x, double y, double& rz) {
+  rz = x + y;
+}
+~~~
+
+::::challenge(id=swap_cpp, title="Swap Two Numbers")
+
+Write a function that accepts two floating point numbers (using references), and swaps the values of these numbers.
 
 :::solution
-
+```cpp
+void swap_these(float &x, float &y) {
+    float tmp = x;
+    x = y;
+    y = tmp;
+}
+```
 :::
 
 ::::
+
+## Function overloading
+
+When a function is declared, the return type and parameter type
+must be specified.
+
+If a function `mult` is to be written that multiplies two numbers, we
+would like it to work for floating point numbers and for integers.
+
+This can be achieved by **function overloading**.
+
+More than one function `mult` can be written - one that takes two
+integers and returns an integer, one that takes two floating point
+numbers and returns a floating point number, etc.
+
+~~~Cpp
+float mult(float x, float y) {
+  return x * y;
+}
+
+int mult(int x, int y) {
+  return x * y;
+}
+
+int main() {
+  int i = mult(7, 10);
+  float f = mult(21.5f, 14.5f);
+}
+~~~
+
+::::challenge{id=dot_product, title="Scalar (dot) product"}
+
+Write a function that returns the scalar (dot) product of two
+`std::array<double, 3>` vectors. Overload this function to multiply two scalar
+`double` values.
+
+:::solution
+```cpp
+double dot_product(const std::array<double, 3>& x, const std::array<double, 3>& y) {
+    double dot = 0.0;
+    for (unsigned int i = 0; i < x.size(); ++i) {
+        dot += x[i]*y[i];
+    }
+    return dot;
+}
+
+double dot_product(const double x, const double y) {
+    return x * y;
+}
+```
+:::
+
+::::
+
+
+## Return values
+
+Functions can have no return value
+
+```cpp
+void print_this(int x);
+```
+
+a single return value
+
+```cpp
+int get_constant();
+```
+
+multiple return values via a `std::tuple`
+
+```cpp
+std::tuple<std::string, float> get_student_and_grade();
+```
+
+or can *optionally* return value (i.e. either a value or nothing) via `std::optional`
+
+```cpp
+std::optional<std::string> read_file_if_exists(const std::string& filename);
+```
+
+The use of `std::optional` here tells the caller that the return
+`std::string` might not exist (e.g. if the file does not exist or cannot be
+opened for reading) and that this possibility must be dealt with after calling
+the function. For example:
+
+```cpp
+const std::string filename = "data.txt";
+if (const auto contents_opt = read_file_if_exists(filename)) {
+    std::cout << *contents_opt << std::end;
+} else {
+    std::cerr << "Cannot read file " << filename << std::end;
+}
+```
+
+## Errors and Exceptions
+
+It is normally neccessary to deal with errors that occur within a function in
+such a way that the caller of that function is aware of the error and can deal
+with it (if possible), or fail gracefully (perhaps clean up resources like an
+open file for example). In the previous section we saw one approach to dealling
+with an error, which is to return an optional value from the function. Another
+approach is to use C++ *exceptions*.
+
+Let us define a function for solving a particular problem (e.g. a root-finding
+problem). This function has an input argument `x` of type `double`, but the
+solver we are writing can only solve the given problem for $x > 2.0$. Furthermore,
+even if $x > 2.0$ it is possible that the function fails to find a solution to
+the problem. 
+
+Since we have two possible points of failure, we decide to use exceptions to
+make the caller aware of any failures, and what in particular has gone wrong.
+
+```cpp
+double solve_problem(const double x) {
+    if (x <= 2) {
+        throw std::invalid_argument("x must be greater than two");
+    }
+    /// ... solve problem here
+    if (!success) {
+        throw std::runtime_error("solver failed");
+    }
+    return result;
+}
+```
+
+Both `std::invalid_argument` and `std::runtime_error` are exception classes in
+the [standard library](https://en.cppreference.com/w/cpp/error/exception). When
+the program gets to the `throw`{.cpp} expression, excecution is halted and
+control flow immediately works backwards up the current call stack until a
+`catch` expression is encountered with an argument compatible with the
+exceptions thrown (here either `std::invalid_argument` or `std::runtime_error`).
+If none is found then the program halts with an error.
+
+Below is an example of how you might call `solve_problem` and handle the
+possible errors with a *try-catch* expression:
+
+```cpp
+int main() {
+    double solve_for_x = 1.456;
+    try {
+        solve_problem(solve_for_x);
+    } 
+    catch (std::invalid_argument err) {
+        // oh no, double it and try again
+        solve_problem(2 * solve_for_x);
+    }
+    catch (std::runtime_error err) {
+        // Fall back and try 10.0, I know this one works!
+        solve_problem(10.0);
+    }
+    catch (std::exception err) {
+        // unknown error, just print it out and exit
+        std::cerr << err << std::endl;
+        return -1;
+    }
+}
+```
+
+Here we have three `catch` blocks, corresponding with different exceptions we
+want to handle. The first two are the ones we saw in the definition of
+`solve_problem`. The third is the base exception class in the standard library,
+so any exception in the standard library (or any exception derived from one of
+these) will be caught. 
+
+
+## Templated functions
+
+Templates in C++ introduce compile-time polymorphism (Polymorphism is a
+programming concept meaning to provide a single interface for entities of
+differing types). Templates can be used to where the same code may need to
+repeated for different values or for different types. For example, say we had a
+function `get_min` that could accept either `double` or `int` via overloading:
+
+~~~Cpp
+double get_min(double a, double b)
+{
+   if (a < b) {return a;} return b;
+}
+
+int get_min(int a, int b)
+{
+   if (a < b) {return a;} return b;
+}
+~~~
+
+This is rather cumborsome as we have to repeat the implementation of the two
+overloaded functions. Instead, we can use the `template`{.Cpp} keyword to
+produce as many functions as may be required:
+
+~~~Cpp
+template <typename Number>
+Number get_min (Number a, Number b) {
+    if (a < b) {
+        return a;
+    }
+    return b;
+}
+
+int main(void) {
+   int i = get_min<int>(10,-2);
+   double d1 = get_min<double>(22.0/7.0, 3.14159265359);
+   double d2 = get_min(22.0/7.0, 3.14159265359);
+}
+~~~
+
+[`[< compiler explorer >]`](https://gcc.godbolt.org/z/O5DSn8)
+
+Each use of the templated function (i.e. `get_min<int>()`, `get_min<double>()`)
+causes the compiler to generate a new version of the `get_min` function with the
+template argument `Number` replaced by the type given by the template argument.
+
+### Function template type deduction
+
+Note: it is not always necessary to provide the typename when calling a
+templated function, as long as the compiler can infer it:
+
+~~~Cpp
+int main(void) {
+   int arg1 = 10;
+   int arg2 = -1;
+   std::cout << get_min(arg1,arg2) << std::endl;
+}
+~~~
+
+### Multiple template arguments
+
+You can list multiple template arguments one after the other. These can be types
+(e.g. `typename T`{.Cpp}) or non-types (e.g. `int N`{.Cpp})
+
+~~~Cpp
+template <int N, typename T>
+T multiply_by_n (T a) {
+    return N*a;
+}
+
+int main(void) {
+    int i = 1;
+    std::cout << multiply_by_n<2>(i) << std::endl;
+}
+~~~
+
+::::challenge{id=dot_product, title="Scalar (dot) product continued"}
+
+Rewrite your dot product function to take any two containers $a$ and $b$ that follow the standard container interface in C++. Your function should take three arguments:
+
+1. A start iterator for vector $a$ 
+1. An end iterator for vector $a$ 
+1. A start iterator for vector $b$ (vector $b$ is assumed to be the same size as vector $a$)
+
+Template your function on the iterator type for $a$ `Ta`, and the iterator type
+for $b$ `Tb`. If you like, you can perform the calculation of the dot product
+using a fixed type `double`. For an extra challenge, make sure you use the same
+type contained in $a$ (hint: each iterator and container in the standard library
+has a subtype `value_type` that is the value type held by the container). 
+
+:::solution
+```cpp
+template <typename Ta, typename Tb>
+Ta::value_type dot_product(Ta start_a, Ta end_a, Tb start_b) {
+    Ta::value_type dot = 0.0;
+    Ta a = start_a;
+    Tb b = start_b;
+    for (; a != end_a; ++a, ++b) {
+        dot += (*a) * (*b);
+    }
+    return dot;
+}
+
+```
+:::
+::::
+

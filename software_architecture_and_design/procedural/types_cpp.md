@@ -64,7 +64,7 @@ configuration used to build and run the currently active file
 The file should compile successfully and output the text "hello world" in the
 debug console.
 
-## Variables in C++
+## Variables
 
 Variables in C++ must be declared before they are used, along with their type, for example:
 
@@ -163,7 +163,7 @@ scope until the end of the main function. However, the `i` and `x` variables
 are only in scope until the end of the `for` loop.
 
 
-### Floating point numbers in C++
+### Floating point numbers
 
 Lets declare a floating point number in C++:
 
@@ -206,72 +206,7 @@ const double weight_lb = 2.2 * weight_kg;
 std::cout << "Weight in lb " << weight_lb << std::endl;
 ~~~
 
-## References and Pointers in C++
-
-Previously we explained that variables in Python are only labels for a "box", or
-section of memory, that holds a value. You can therefore have multiple labels
-for the same box. In C++ a variables is the box itself, each variables is
-assigned a given section of memory where the value is stored according to its
-type. You can obtain the address, or *pointer*, to the start of this section of
-memory by using the *address-of* operator `&`. We can obtain the original
-variable by using the *dereferencing* operator `*`.
-
-~~~cpp
-int *p_six = &six;
-std::cout << "six = *p_six" << std::endl;
-~~~
-
-Note that the type of `p_six` is a pointer to an `int`, denoted as `int *`. On a
-64-bit operating system, all pointer types are stored in 64 bits of memory. You
-might think that this pointer is similar to a label, or Python variable, but a
-raw pointer like this is much more low-level and potentially dangerous than
-this, and you should generally avoid creating them. Instead, C++ features a wide
-variety of [*smart
-pointers*](https://en.cppreference.com/book/intro/smart_pointers) that you
-should use instead (a variable in Python is most closely related to a
-`std::shared_pointer`). However, all of these pointers share simliar semantics
-in that a pointer can point to nothing, otherwise known as a *null pointer* and
-represented in C++ by the literal `nullptr`. 
-
-A more useful label-to-a-box in C++ that must point to a valid memory location
-is provided by a *reference*. This is similar to a pointer in that it is a label
-to a box (rather than *being* that box), and therefore you can have multiple
-references to the same box. But you can use it in the same way you would the
-original variable. The type of a reference to an `int` is given by `int &`, so:
-
-~~~cpp
-int &r_number = six;
-int &r_number2 = six;
-std::cout << "six = " << r_number << std::endl;
-r_number += 1;
-std::cout << "seven = " << r_number2 << std::endl;
-~~~
-
-~~~
-six = 6
-seven = 7
-~~~
-
-::::challenge{id=pointers_and_references, title="Getting used to pointers and references"}
-
-Declare a `double` called `d` with the value `5.0`. Create a reference to this
-double `r_d` and assign `6.0` to this reference. Verify that `d` has changed
-value by printing it out.
-
-Try and mark `d` as `const` and see what the compiler tells you.
-
-:::solution
-```cpp
-double d = 5.0;
-double& r_d = d;
-r_d = 6.0
-std::cout << d << std::endl;
-```
-:::
-
-::::
-
-### Strings in C++
+## Strings
 
 Thus far we have been using only the *fundamental types* in C++. And we've only
 touched on a couple of these, you can see a more thoughor list
@@ -316,6 +251,149 @@ strings together. However, we can only use double quotes for strings in C++, as
 single quotes are reserved for characters. To include the single quotes in our
 string, we use the backslash to *escape* the normal meaning of the single quote
 character.
+
+## References
+
+Previously we explained that variables in Python are only labels for a "box", or
+section of memory, that holds a value. You can therefore have multiple labels
+for the same box. In C++ a variables is the box itself, each variables is
+assigned a given section of memory where the value is stored according to its
+type. You can obtain the address, or *pointer*, to the start of this section of
+memory by using the *address-of* operator `&`. We can obtain the original
+variable by using the *dereferencing* operator `*`.
+
+~~~cpp
+int *p_six = &six;
+std::cout << "six = *p_six" << std::endl;
+~~~
+
+Note that the type of `p_six` is a pointer to an `int`, denoted as `int *`. On a
+64-bit operating system, all pointer types are stored in 64 bits of memory. You
+might think that this pointer is similar to a label, or Python variable, but a
+raw pointer like this is much more low-level and potentially dangerous than
+this, and you should generally avoid creating them. Instead, C++ features a wide
+variety of [*smart
+pointers*](https://en.cppreference.com/book/intro/smart_pointers) that you
+should use instead (a variable in Python is most closely related to a
+`std::shared_pointer`). However, all of these pointers share simliar semantics
+in that a pointer can point to nothing, otherwise known as a *null pointer* and
+represented in C++ by the literal `nullptr`. 
+
+Generally, you should not use pointers unless you need to worry about allocating
+memory (e.g. you are writing a custom data structure). A more useful
+label-to-a-box in C++ that must point to a valid memory location is provided by
+a *reference*. This is similar to a pointer in that it is a label to a box
+(rather than *being* that box), and therefore you can have multiple references
+to the same box. But you can use it in the same way you would the original
+variable. The type of a reference to an `int` is given by `int &`, so:
+
+~~~cpp
+int &r_number = six;
+int &r_number2 = six;
+std::cout << "six = " << r_number << std::endl;
+r_number += 1;
+std::cout << "seven = " << r_number2 << std::endl;
+~~~
+
+~~~
+six = 6
+seven = 7
+~~~
+
+::::challenge{id=pointers, title="Getting used references"}
+
+Declare a `double` called `d` with the value `5.0`. Create a reference to this
+double `r_d` and assign `6.0` to this reference. Verify that `d` has changed
+value by printing it out.
+
+Try and mark `d` as `const` and see what the compiler tells you.
+
+:::solution
+```cpp
+double d = 5.0;
+double& r_d = d;
+r_d = 6.0
+std::cout << d << std::endl;
+```
+:::
+
+::::
+
+There are two types of references in C++, *lvalue* and *rvalue* references.
+Above we have used lvalue references, which are so-called because they can only
+be *bound* to an lvalue, such as a variable or element of a container (i.e.
+anything
+ that you could put on the left hand side of an assignment `=`
+statement). An lvalue reference is declared using a single `&`. 
+
+```cpp
+int six = 6;
+int& r_six = six;
+```
+
+An rvalue refernce is more general in that it can also be bound to temporaries,
+or rvalues. An rvalue could be a literal like `6` or the result of an expression
+like `a + b` (i.e. something that you might see on the right hand side of an
+assignment `=` statement). An rvalue reference is declared using two ampersands `&&`.
+
+```cpp
+int&& rr_six = 6;
+```
+
+Rvalue references are commonly used to enable *move semantics* in C++. You
+often want to write code that minimises the number of copies, for example say
+you wished to swap the values of two (large) strings `war_and_peace` and `moby_dick`.
+
+
+```cpp
+T tmp(war_and_peace);
+war_and_peace = moby_dick;
+moby_dick = tmp;
+```
+
+Here we have done three copies of what could be very large strings. We can use
+the `std::move` function to do this more efficiently by changing the lvalue
+references to rvalue references.
+
+```cpp
+T tmp(std::move(war_and_peace);
+war_and_peace = std::move(moby_dick);
+moby_dick = std::move(tmp);
+```
+
+The `std::move` function allows us to transfer the value of variable `a` to
+variable `b`, without the requiriment of maintaining the value of `a`. Note that
+after we have moved `a` its value is now unspecified, so after the last
+statement in the snippet above, the value of `tmp` will be unspecified.
+
+
+### Optional types
+
+What if you wish to represent a variable that could be a value or could be
+*nothing*? For example perhaps you have a function that takes as argument a
+string and finds the first word beginning with the letter `a`. What should it
+return if the string does not contain `a`?
+
+Other languages have an inbuilt concept of nothing, for example the `None` value
+in Python. In C++ you can instead define an *optional* type that could have a value, or not. If we have a function `find_first_word_starting_with_a` that returns an optional string type we can use it like so:
+
+```cpp
+const std::optional<std::string> word = find_first_word_starting_with_a(my_string);
+if (word) {
+    std::cout << "found the word " << *word std::endl;
+} else {
+    std::cout << "did not find a word" << std::endl;
+}
+```
+
+Th angle brackets indicate that `std::optional` is a templated class. The first
+and only *template argument* is `std::string`, meaning that
+`std::optional<std::string>` is an optional `std::string` type. Templates in C++
+enable yet another programming paradigm called
+*generic programming*. As you can see, there are a number of different
+programming paradigms, all with their own uses! It is best to be aware of and
+use all of them interchangably for the problem at hand or the idea you wish to
+express. 
 
 ### Converting Between Types with C++
 
@@ -422,6 +500,33 @@ std::cout << "r = "<< r << std::endl;
 ~~~
 :::
 
+Generate $N$ uniform random numbers $x_i$ and $y_i$ between -1 and 1 using
+`std::uniform_real_distribution` (see example of use
+[here](https://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution)).
+Count 
+the number of points where $\sqrt{x_i^2 + y_i^2} < 1$, and use this to 
+estimate the value of $\pi$.
+
+:::solution
+```cpp
+std::default_random_engine generator;
+std::uniform_real_distribution<double> uniform(-1.0,1.0);
+const int N = 1e6;
+int count = 0;
+for (int i = 0; i < N; ++i) {
+  const double x = uniform(generator);
+  const double y = uniform(generator);
+  const double r2 = std::pow(x,2) + std::pow(y,2);
+
+  if (r2 < 1.0) {
+    ++count;
+  }
+}
+
+std::cout << "pi is about "<< 4.0*static_cast<double>(count)/static_cast<double>(N) << std::endl;
+```
+:::
+
 
 Code up another estimator for $\pi$ by calculating the sum of the reciprocals 
 of square numbers (The Basel problem) for $N$ terms, which converges to 
@@ -439,30 +544,6 @@ for (int i = 1; i < N; ++i) {
   sum += 1.0/static_cast<double>(std::pow(i,2));
 }
 std::cout << "pi is about "<< std::sqrt(6.0*sum) << std::endl;
-~~~
-:::
-
-Finally, code up the [Gauss-Legendre
-algorithm](https://en.wikipedia.org/wiki/Gauss%E2%80%93Legendre_algorithm)  for
-stimating $\pi$, which has quadratic convergence.
-
-:::solution
-~~~cpp
-const int N = 100;
-double a = 1.0;
-double b = 1.0/std::sqrt(2);
-double t = 0.25;
-double p = 1.0;
-for (int i = 1; i < N; ++i) {
-    const double an = a;
-    const double bn = b;
-    a = (an + bn)/2;
-    b = std::sqrt(an*bn);
-    t -= p*std::pow(a - an,2);
-    p *= 2;
-}
-
-std::cout << "pi is about "<< std::pow(a + b,2)/(4*t) << std::endl;
 ~~~
 :::
 

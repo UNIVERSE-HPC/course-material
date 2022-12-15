@@ -522,10 +522,19 @@ print(x, y, z)
 ~~~
 {: .output}
 
-Note that `x` and `y` are the same as we may expect. But `z`, despite being a copy of `x`'s original contents, now contains `'d'` in its nested list.
+Note that `x` and `y` are the same as we may expect. But `z`, despite being a
+copy of `x`'s original contents, now contains `'d'` in its nested list.
 
-The copies that we make through slicing are called shallow copies: we don't copy all the objects they contain, only the references to them. This is why the nested list in `x[0]` is not copied, so `z[0]` still refers to it. It is possible to actually create copies of all the contents, however deeply nested they are - this is called a *deep copy*. Python provides methods for that in its standard library in the `copy` module.
+The copies that we make through slicing are called shallow copies: we don't copy
+all the objects they contain, only the references to them. This is why the
+nested list in `x[0]` is not copied, so `z[0]` still refers to it. It is
+possible to actually create copies of all the contents, however deeply nested
+they are - this is called a *deep copy*. Python provides methods for that in its
+standard library in the `copy` module.
 
 ## General Rule
 
-Your programs will be faster and more readable if you use the appropriate container type for your data's meaning. For example, always use a set for lists which can't in principle contain the same data twice, always use a dictionary for anything which feels like a mapping from keys to values.
+Your programs will be faster and more readable if you use the appropriate
+container type for your data's meaning. For example, always use a set for lists
+which can't in principle contain the same data twice, always use a dictionary
+for anything which feels like a mapping from keys to values.
