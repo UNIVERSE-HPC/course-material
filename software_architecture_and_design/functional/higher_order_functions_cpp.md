@@ -12,7 +12,6 @@ Languages that treat functions as first-class citizens allow functions to be
 passed as arguments to other functions, returned from functions, or assigned to
 variables. In C++ this is typically done via lamda functions or function objects.
 
-
 ### Lambda Functions
 
 *Lambda functions* are small, nameless functions which are defined in the
@@ -32,7 +31,8 @@ The `auto`{.Cpp} keyword allows the compiler to determine the correct type for
 the lambda, rather than you declaring it manually (impossible for lambda
 functions). You can call or execute a lambda as you would any other function.
 
-The square brackets **capture** variables from the outside scope, for example
+The round brackets contain the list of arguments to the function, and the square
+brackets **capture** variables from the outside scope, for example
 
 ~~~cpp
 int i = 1;
@@ -123,7 +123,7 @@ like so
 ```cpp
 std::vector<std::function<int(int)>> ops = {
     [] (int i) {return 2 * i;},
-    [] (int i) {return std::pow(i);},
+    [] (int i) {return std::pow(i, 2);},
     [] (int i) {return 2 * (i - 1);}
 };
 
@@ -140,30 +140,122 @@ std::cout << result << std::end; // prints 6
 ## Higher Order Functions
 
 One of the main uses of lambda functions is to create temporary functions to
-pass into higher order functions (a higher order function is simply a function
-that has other functions as one of its arguments). For example, you may want to
-create a function `map` that applies a function `f` to each element of a
-`std::vector`
+pass into higher order functions. A higher order function is simply a function
+that has other functions as one of its arguments. 
+
+To illustrate the benifits of higher order functions, let us define two
+functions, one that calculates the sum of a `std::vector<int>`, the other
+which calculates the maximum value the same vector type.
 
 ```cpp
+int sum(const std::vector<int>& data) {
+    int result = 0;
+    for (const auto& x: data) {
+        result = result + x;
+    }
+    return result;
+}
+int maximum(const std::vector<int>& data) {
+    int result = 0;
+    for (const auto& x: data) {
+        result = std::max(result, x);
+    }
+    return result;
+}
 ```
 
+We notice that these are really exactly the same algorithm, except that we
+change the binary operation done on the rhs of the statement in the loop, we
+therefore decide to combine these functions into one higher order function.
 
+```cpp
+int reduce(const std::vector<int>& data, std::function<int(int, int)> bin_op) {
+    int result = 0;
+    for (const auto& x: data) {
+        result = bin_op(result, x);
+    }
+    return result;
+}
 
+int main() {
+  std::vector<int> data = {1, 2, 3, 4, -1};
+  std::cout << reduce(data, std::plus<int>()) << std::endl; 
+  std::cout << reduce(data, std::multiplies<int>()) << std::endl; 
+  std::cout << reduce(data, [](int a, int b) { return std::max(a, b); }) << std::endl; 
+  std::cout << reduce(data, [](int a, int b) { return std::min(a, b); }) << std::endl; 
+}
+```
 
-## Map, Filter, Reduce
+Excellent! We have reduced the amount of code we need to write, reducing the
+number of possible bugs and making the code easier to maintain in the future.
 
-One of the most important applications of functional programming in recent years is the Map, Filter, Reduce model of data processing, usually refered to as **MapReduce**.
-This model is particularly useful for the processing and analysis of **Big Data** using tools such as Spark or Hadoop.
+C++ actually has a `std::reduce`, which is part of the *algorithms* standard library.
 
-Note that the `map` and `filter` functions in Python use **lazy evaluation**.
-This means that values in an iterable collection are not actually calculated until you need them.
-We'll explain some of the implications of this a little later, but for now, we'll just use `list()` to convert the results to a normal list.
-In these examples we also see the more typical usage of lambda functions.
+### The Algorithms Library
 
-The `map` function, takes a function and applies it to each value in an **iterable**.
-Here, 'iterable' means any object that can be iterated over - for more details see the [Iterable Abstract Base Class documentation](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable).
-The results of each of those applications become the values in the **iterable** that is returned.
+The [algorithms library](https://en.cppreference.com/w/cpp/algorithm) is a
+collection of higher order functions implementing many common algorithms. These
+are typically algorithms that you write over and over again, often without
+recognising their conceptual similarities. Using the algorithms library means:
+
+(a) you reduce the amount of (algorithmic) code you need to write, reducing bugs and increasing maintainability
+(b) you make clear to the reader what your code is doing, since these are commonly used algorithms
+(b) you benifit from bullet proof, efficient implementations written by the same teams that write the compiler you are using
+(c) you can benifit from *executors* to instantly parallise or vectorise your code for high performance.
+
+Lets go through a few examples inspired by the common functional algorithms
+"map", "filter" and "reduce" (which also have recently inspired the MapReduce
+programming model implemented in Spark and Hadoop).
+
+First the map, or `std::transform`:
+
+```cpp
+std::vector<double> data = {1.0, 2.0, -1.1, 5.0};
+
+// transform in-place
+std::transform(std::begin(data), std::end(data), std::begin(data), 
+               [](const double& x) { return 2.0 * x; } );
+
+std::vector<double> new_data(data.size());
+
+// transform to a new collection
+std::transform(std::begin(data), std::end(data), std::begin(new_data), 
+               [](const double& x) { return 3.14 * std::pow(x, 2); } );
+
+```
+
+Then the filter, or `std::copy_if`, which we will use to print out all the prime numbers to 1000. 
+
+Here we also introduce two more useful tools:
+
+1. `std::iota` which fills a vector with increasing values.
+2. `std::ostream_iterator`. This iterator-like object allows you to output a sequence of values to the screen or to a file
+
+```cpp
+bool is_prime(int n) {
+  bool is_prime = true;
+  if (n == 0 || n == 1) {
+    is_prime = false;
+  }
+  for (int i = 2; i <= n/2; ++i) {
+    if (n % i == 0) {
+      is_prime = false;
+      break;
+    }
+  }
+  return is_prime;
+}
+
+int main() {
+  std::vector<int> data(1000); 
+  std::iota(data.begin(), data.end(), 1); // fill with numbers 1 -> 1000
+  std::copy_if(data.begin(), data.end(),
+               std::ostream_iterator<int>(std::cout, " "),
+               is_prime);
+}
+```
+
+Finally, the reduce, or `std::reduce`
 
 ~~~ python
 l = [1, 2, 3]
@@ -354,84 +446,6 @@ These are the fundamental components of the MapReduce style, and can be combined
 > {: .language-bash}
 {: .challenge}
 
-## Comprehensions
-
-Comprehensions are a more Pythonic way to structure map and filter operations.
-They serve exactly the same purpose, but are more concise and can be easier to structure in more complex cases, such as mapping over a 2d data structure.
-Using comprehensions also gives us control over which data structures we end up with, rather than always getting back a `map` or `filter` iterable.
-
-### List Comprehensions
-
-The **list comprehension** is probably the most commonly used comprehension type.
-As you might expect from the name, list comprehensions produce a list from some other iterable type.
-In effect they are the same as using `map` and/or `filter` and using `list()` to cast the result to a list, as we did previously.
-
-All comprehension types are structured in a similar way, using the syntax for a literal of that type (in the case below, a list literal) containing what looks like the top of a for loop.
-To the left of the `for` we put the equivalent of the map operation we want to use:
-
-~~~
-print([i for i in range(5)])
-print([2 * i for i in range(5)])
-~~~
-{: .language-python}
-
-~~~
-[0, 1, 2, 3, 4]
-[0, 2, 4, 6, 8]
-~~~
-{: .output}
-
-We can also use list comprehensions to perform the equivalent of a filter operation, by putting the filter condition at the end:
-
-~~~
-print([2 * i for i in range(5) if i % 2 == 0])
-~~~
-{: .language-python}
-
-~~~
-[0, 4, 8]
-~~~
-{: .output}
-
-### Dictionary and Set Comprehensions
-
-Dictionary and set comprehensions are fundamentally the same as list comprehensions but use the dictionary or set literal syntax.
-
-So set comprehensions are:
-
-~~~
-print({2 * i for i in range(5)})
-~~~
-{: .language-python}
-
-~~~
-{0, 2, 4, 6, 8}
-~~~
-{: .output}
-
-While dictionary comprehensions are:
-
-~~~
-print({i: 2 * i for i in range(5)})
-~~~
-{: .language-python}
-
-~~~
-{0: 0, 1: 2, 2: 4, 3: 6, 4: 8}
-~~~
-{: .output}
-
-> ## Why No Tuple Comprehension
->
-> Raymond Hettinger, one of the Python core developers, said in 2013:
->
-> ~~~
-> Generally, lists are for looping; tuples for structs. Lists are homogeneous; tuples heterogeneous. Lists for variable length.
-> ~~~
->
-> Since tuples aren't intended to represent sequences, there's no need for them to have a comprehension structure.
->
-{: .callout}
 
 ## Part 2 - Moving beyond the `for` loop: STL algorithms
 
