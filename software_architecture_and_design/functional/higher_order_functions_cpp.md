@@ -1,7 +1,7 @@
 ---
 name: First Class and Higher Order Functions
 dependsOn: [
-    software_architecture_and_design.functional.state_and_side_effects_cpp,
+    software_architecture_and_design.functional.recursion_cpp,
 ]
 ---
 
