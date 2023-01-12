@@ -90,7 +90,7 @@ int main() {
 
 Under the hood, when you write you lambda the compiler simply creates and
 compiles the equivilant function object for you. If you want more control of the
-process, you can naturally just write the function object yourself.
+process, you can write the function object manually.
 
 ### Polymorphic function
 
@@ -204,7 +204,7 @@ recognising their conceptual similarities. Using the algorithms library means:
 (c) you can benifit from *executors* to instantly parallise or vectorise your code for high performance.
 
 Lets go through a few examples inspired by the common functional algorithms
-"map", "filter" and "reduce" (which also have recently inspired the MapReduce
+"map", "filter" and "reduce" (also the inspiration for the MapReduce
 programming model implemented in Spark and Hadoop).
 
 First the map, or `std::transform`:
@@ -251,279 +251,161 @@ int main() {
   std::iota(data.begin(), data.end(), 1); // fill with numbers 1 -> 1000
   std::copy_if(data.begin(), data.end(),
                std::ostream_iterator<int>(std::cout, " "),
-               is_prime);
+               is_prime); // print primes
 }
 ```
 
-Finally, the reduce, or `std::reduce`
+Notice here we are breaking out the inner algorithm of determining if an `int` is prime
+or not, from the outer algorithm of looping through a collection of numbers and
+filtering them according to a function (as opposed to writing them together in a
+standard loop). This division makes each algorithm clearer, and we also have a nice
+self-contained `is_prime` function we can potentially reuse.
 
-~~~ python
-l = [1, 2, 3]
-
-def add_one(x):
-    return x + 1
-
-# Returns a <map object> so need to cast to list
-print(list(map(add_one, l)))
-print(list(map(lambda x: x + 1, l)))
-~~~
-{: .language-python}
-
-~~~
-[2, 3, 4]
-[2, 3, 4]
-~~~
-{: .output}
-
-Like `map`, `filter` takes a function and applies it to each value in an iterable, keeping the value if the result of the function application is `True`.
-
-~~~ python
-l = [1, 2, 3]
-
-def is_gt_one(x):
-    return x > 1
-
-# Returns a <filter object> so need to cast to list
-print(list(filter(is_gt_one, l)))
-print(list(filter(lambda x: x > 1, l)))
-~~~
-{: .language-python}
-
-~~~
-[2, 3]
-[2, 3]
-~~~
-{: .output}
-
-The `reduce` function is different.
-This function uses a function which accepts two values to accumulate the values in the iterable.
-The simplest uses here are to calculate the sum or product of a sequence.
-
-~~~ python
-from functools import reduce
-
-l = [1, 2, 3]
-
-def add(a, b):
-    return a + b
-
-print(reduce(add, l))
-print(reduce(lambda a, b: a + b, l))
-~~~
-{: .language-python}
-
-~~~
-6
-6
-~~~
-{: .output}
-
-These are the fundamental components of the MapReduce style, and can be combined to perform much more complex data processing operations.
-
-> ## Sum of Squares
->
-> Using the MapReduce model, write a function that calculates the sum of the squares of the values in a list.
-> Your function should behave as below:
->
-> ~~~ python
-> def sum_of_squares(l):
->     # Your code here
->
-> print(sum_of_squares([0]))
-> print(sum_of_squares([1]))
-> print(sum_of_squares([1, 2, 3]))
-> print(sum_of_squares([-1]))
-> print(sum_of_squares([-1, -2, -3]))
-> ~~~
-> {: .language-python}
->
-> ~~~
-> 0
-> 1
-> 14
-> 1
-> 14
-> ~~~
-> {: .output}
->
-> > ## Solution
-> >
-> > ~~~ python
-> > from functools import reduce
-> >
-> > def sum_of_squares(l):
-> >     squares = map(lambda x: x * x, l)
-> >     return reduce(lambda a, b: a + b, squares)
-> > ~~~
-> > {: .language-python}
-> >
->{: .solution}
->
-> Now let's assume we're reading in these numbers from an input file, so they arrive as a list of strings.
-> Modify your function so that it passes the following tests:
->
-> ~~~ python
-> print(sum_of_squares(['1', '2', '3']))
-> print(sum_of_squares(['-1', '-2', '-3']))
-> ~~~
-> {: .language-python}
->
-> ~~~
-> 14
-> 14
-> ~~~
-> {: .output}
->
-> > ## Solution
-> >
-> > ~~~ python
-> > from functools import reduce
-> >
-> > def sum_of_squares(l):
-> >     integers = map(int, l)
-> >     squares = map(lambda x: x * x, integers)
-> >     return reduce(lambda a, b: a + b, squares)
-> > ~~~
-> > {: .language-python}
-> >
->{: .solution}
->
-> Finally, like comments in Python, we'd like it to be possible for users to comment out numbers in the input file they give to our program.
-> Extend your function so that the following tests pass (don't worry about passing the first set of tests with lists of integers):
->
-> ~~~ python
-> print(sum_of_squares(['1', '2', '3']))
-> print(sum_of_squares(['-1', '-2', '-3']))
-> print(sum_of_squares(['1', '2', '#100', '3']))
-> ~~~
-> {: .language-python}
->
-> ~~~
-> 14
-> 14
-> 14
-> ~~~
-> {: .output}
->
-> > ## Solution
-> >
-> > ~~~ python
-> > from functools import reduce
-> >
-> > def sum_of_squares(l):
-> >     not_comments = filter(lambda x: x[0] != '#', l)
-> >     integers = map(int, not_comments)
-> >     squares = map(lambda x: x * x, integers)
-> >     return reduce(lambda a, b: a + b, squares)
-> > ~~~
-> > {: .language-python}
->{: .solution}
-{: .challenge}
-
-> ## Multiprocessing (Optional Advanced Challenge)
->
-> **Advanced challenge for if you're finished early.**
->
-> One of the benefits of functional programming is that, if we have pure functions, when applying / mapping a function to many values in a collection, each application is completely independent of the others.
-> This means that we can take advantage of multiprocessing, without many of the normal problems in synchronisation that this brings.
->
-> Read through the Python documentation for the [multiprocessing module](https://docs.python.org/3/library/multiprocessing.html), particularly the `Pool.map` method.
->
-> Update one of our examples to make use of multiprocessing.
-> How much of a performance improvement do you get?
-> Is this as much as you would expect for the number of cores your CPU has?
->
-> **Hint:** To time the execution of a Python script we can use the Linux program `time`:
->
-> ~~~
-> time python3 my_script.py
-> ~~~
-> {: .language-bash}
->
-> Would we get the same benefits from parallel equivalents of the `filter` and `reduce` functions?
-> Why, or why not?
->
-> {: .language-bash}
-{: .challenge}
-
-
-## Part 2 - Moving beyond the `for` loop: STL algorithms
-
-Having just told you about all the great new ways you can write a `for`{.cpp} loop, we're going to spend the rest of the workshop trying to convince you to use them as little as possible!
-
-~~~cpp
-std::vector v = {1, 2, 3, 4, 5};
-
-// Option 1
-int sum1 = 0;
-for (const auto x : v) {
-   sum1 += x;
-}
-
-// Option 2 (<numeric> header)
-const int sum2 = std::accumulate(v.begin(), v.end(), 0);
-~~~
-
-
-## Using the [algorithms (link)](https://en.cppreference.com/w/cpp/algorithm) library
-
-Things about option 2:
-
-- `sum2` is `const`{.cpp}
-- the operation has an explicit name (accumulate)
-- you are conveying your intent to the compiler
-- it's more concise
-- it requires another header...
-
-
-## Using the [algorithms (link)](https://en.cppreference.com/w/cpp/algorithm) library
-
-There are algorithms for:
-
-- Adding things up (`std::accumulate`{.cpp}, `std::reduce`{.cpp})
-- Doing "something" to a range (`std::transform`{.cpp})
-- Doing "something" to a range and then adding up (`std::inner_product`{.cpp}, `std::transform_reduce`{.cpp})
-- Sorting (`std::sort`{.cpp})
-- Rotating (`std::rotate`{.cpp})
-- Permuting (`std::next_permutation`{.cpp})
-- Many, many other things
-
-
-## Task 2
-
-We're currently using a `for`{.cpp} loop to calculate the mean and the variance. Yuck!
-
-Replace those for loops with:
-
-- Algorithms!
-- First, try `std::accumulate`{.cpp} and `std::inner_product`{.cpp}
-- Then, try `std::reduce`{.cpp} and `std::transform_reduce`{.cpp}
-
-
-## Part 3 - customising algorithms
-
-Many algorithms allow customisation.
+Finally, the reduce, or `std::reduce`, which we will use to calculate the min and
+maximum elements of an vector. At the same time we introduce another algorithm
+`std::generate`, which assigns values to a range based on a generator function, and some
+of the random number generation options in the standard library. 
 
 ~~~ cpp
-template< class RandomIt, class Compare >
-void sort( RandomIt first, RandomIt last, Compare comp );
+#include <algorithm>
+#include <iostream>
+#include <functional>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+#include <random>
+#include <tuple>
+
+
+int main() {
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::normal_distribution<double> dist(5, 2);
+  auto gen_random = [&]() { return dist(gen);};
+
+  std::vector<double> data(1000); 
+  std::generate(data.begin(), data.end(), gen_random);
+
+  auto calc_min_max = [](std::tuple<double, double> acc, double x) {
+    auto [min, max] = acc;
+    min = std::min(min, x);
+    max = std::max(max, x);
+    return std::make_tuple(min, max);
+  };
+  auto [min, max] = std::accumulate(data.begin(), data.end(), std::make_tuple(0., 0.), calc_min_max);
+  std::cout << "min is "<< min << " max is "<< max << std::endl;
+}
 ~~~
 
-Here, `std::sort`{.cpp} is templated over `class Compare`{.cpp} (as well as the iterator type). How can we make use of this customisation point?
 
-There are several ways, but usually the most convenient in modern C++ is the **lambda function**.
+::::challenge{id=sum_squares, title="Sum of Squares"}
 
-## Using lambdas with algorithms
+Use `std::accumulate` to write a function that calculates the sum of the squares of the values in a vector.
+Your function should behave as below:
 
-Let's sort a range largest to smallest rather than smallest to largest...
+~~~ cpp 
+std::cout << sum_of_squares({0}) << std::endl;
+std::cout << sum_of_squares({1, 3, -2}) << std::endl;
+~~~
+
+~~~
+0
+14
+~~~
+
+
+:::solution
 
 ~~~cpp
+#include <iostream>
+#include <cmath>
+#include <vector>
+#include <numeric>
 
-std::vector v = {4.53, 2.38, 3.45, 9.68};
+int sum_of_squares(const std::vector<int>& data) {
+  auto sum_squares = [](int sum, int x) { return sum + std::pow(x, 2); };
+  return std::accumulate(data.begin(), data.end(), 0, sum_squares);
+}
+~~~
+:::
 
-auto sort_greater = [](double x, double y) { return x > y; };
-std::sort(v.begin(), v.end(), sort_greater);
 
-std::cout << v.at(0) << '\n';  // prints 9.68
+Now let's assume we're reading in these numbers from an input file, so they arrive as a list of strings.
+Write a new function `map_str_to_int` using `std::transform` that passes the following tests:
+
+~~~ cpp
+std::cout << sum_of_squares(map_str_to_int({"1", "2", "3"})) << std::endl;
+std::cout << sum_of_squares(map_str_to_int({"-1", "-2", "-3"})) << std::endl;
+~~~
 
 ~~~
+14
+14
+~~~
+
+:::solution
+~~~cpp
+const std::vector<int> map_str_to_int(const std::vector<std::string>& data) {
+  std::vector<int> new_data(data.size());
+  auto str_to_int = [](std::string x) { return std::atoi(x.c_str()); };
+  std::transform(data.begin(), data.end(), new_data.begin(), str_to_int);
+  return new_data;
+}
+~~~
+:::
+
+Finally, we'd like it to be possible for users to comment out numbers in the input file they give to our program.
+Extend your `map_str_to_int` function so that the following tests pass:
+
+~~~ cpp
+std::cout << sum_of_squares(map_str_to_int({"1", "2", "3"})) << std::endl;
+std::cout << sum_of_squares(map_str_to_int({"1", "2", "#100", "3"})) << std::endl;
+~~~
+
+~~~
+14
+14
+14
+~~~
+
+:::solution
+
+~~~cpp
+std::vector<int> map_str_to_int(const std::vector<std::string>& data) {
+  std::vector<int> new_data;
+  std::vector<std::string> filtered_data;
+  filtered_data.reserve(data.size());
+  std::copy_if(data.begin(), data.end(),
+               std::back_inserter(filtered_data), [](std::string x) { return x[0] != '#'; });
+  new_data.resize(filtered_data.size());
+  std::transform(filtered_data.begin(), filtered_data.end(), new_data.begin(),
+                 [](std::string x) { return std::atoi(x.c_str()); });
+  return new_data;
+}
+~~~
+
+or
+
+~~~cpp
+std::vector<int> map_str_to_int(const std::vector<std::string>& data) {
+  std::vector<int> new_data;
+  new_data.reserve(data.size());
+  for (const std::string& x: data) {
+    if (x[0] == '#') {
+      continue;
+    }
+    new_data.push_back(std::atoi(x.c_str()));
+  }
+  return new_data; 
+}
+~~~
+
+Here you can start to see a limitation of the algorithms in the standard
+library, in that it is difficult to efficiently compose together multiple
+elemental algorithms into more complex algorithm. The *ranges* library is an
+C++20 addition to the standard library aims to solve this problem, you can read
+more about the ranges library [here](https://en.cppreference.com/w/cpp/ranges).
+
+:::
+
+::::
