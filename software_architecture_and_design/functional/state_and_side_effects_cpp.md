@@ -90,10 +90,12 @@ neccessary to achieve an (not explicitly stated) outcome.
 
 Now C++ is a declaritive programming language, but nevertheless we can still
 write as much as possible in a *declaritive* or *functional* style. After all,
-We want our code to be easy to reason about and written in such a way that it
-is clear what the code is doing. As a minor example, lets update
-`my_cool_function` to be named appropriately and with
-decent documentation. 
+We want our code to be easy to reason about and written in such a way that it is
+clear what the code is doing, and we wish to reduce as much as possible to bugs
+that can arise due to changes in state that we are not expecting. Before we move
+on, lets update `my_cool_function` to be named appropriately and with decent
+documentation. This is more just good basic programming practice than functional
+programming, but its a start!
 
 ```cpp
 /**
@@ -128,12 +130,14 @@ call it.
 
 Any behaviour which is not part of the single task of a block of code is called
 a **side effect**, while a function which has no side effects is a **pure
-function**. In practice these definitions are a little flexible depending on
-who is using them and in which context. The strictest definition of **side effect** includes things like printing to the terminal, saving to a file or even reading a global variable, so
-in these cases a function without side effects does not rely on anything
-external to its own arguments. Using a stricter definition, a **pure function**
-must not only have no side effects, but also must return the same value when
-given the same arguments. A pure function is therefore the computational version of a mathematical function.
+function**. In practice these definitions are a little flexible depending on who
+is using them and in which context. The strictest definition of **side effect**
+includes things like printing to the terminal, saving to a file or even reading
+a global variable, so in these cases a function without side effects does not
+rely on anything external to its own arguments. Using a stricter definition, a
+**pure function** must not only have no side effects, but also must return the
+same value when given the same arguments. A pure function is therefore the
+computational version of a mathematical function.
 
 ```cpp
 // a pure function, no side effects :)
@@ -149,13 +153,13 @@ int increment_and_return_x(const int& x) {
 
 // a side effect since we modify x, but clear from the function signature and name
 // however, still not recommended since the pure function above is just as easy to implement
-int increment_x(int& x) {
+void increment_x(int& x) {
   x += 1;
 }
 
 int one = 1;
 // dangerous side effect! effect of function changes with global `one` variable
-int increment_x(int& x) {
+void increment_x(int& x) {
   x += one;
 }
 ~~~
