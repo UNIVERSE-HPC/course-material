@@ -63,54 +63,6 @@ Hit F1 to bring up the command palette and choose "Python: Run Python file in
 Terminal", or click the play button in the top right hand corner. This should
 print out "hello world" in the terminal
 
-
-### Compiling and Running a C++ executable (optional)
-
-Ensure that you have the `clang` cpp compiler installed using:
-
-~~~bash
-clang++ --version
-~~~
-
-You should see something like:
-
-~~~
-Homebrew clang version 15.0.3
-Target: x86_64-apple-darwin22.1.0
-Thread model: posix
-InstalledDir: /usr/local/opt/llvm/bin
-~~~
-
-Check where the compiler executable is located on your machine
-
-~~~bash
-which clang++
-~~~
-
-You should see something like:
-
-~~~
-/usr/local/opt/llvm/bin/clang++
-~~~
-
-Create a new file `prodedural.cpp` and copy in the following contents:
-
-~~~cpp
-#include <iostream>
-
-int main() {
-    std::cout << "hello world" << std::endl;
-}
-~~~
-
-Open the command palette and choose "C/C++ Run C/C++ File", or click on the play
-button in the top right hand corner of the screen. Choose the clang compiler
-located earlier, and it will create the file `.vscode/tasks.json` with the
-configuration used to build and run the currently active file
-
-The file should compile successfully and output the text "hello world" in the
-debug console.
-
 ## Variables
 
 Let's take a look at how variables are handled within Python. Compared to some
