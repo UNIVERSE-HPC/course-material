@@ -5,12 +5,13 @@ dependsOn: [
     software_architecture_and_design.procedural,
 ]
 files: [
-    state_and_side_effects_python.md,
     state_and_side_effects_cpp.md,
-    recursion_python.md,
+    state_and_side_effects_python.md,
     recursion_cpp.md,
-    higher_order_functions_python.md,
+    recursion_python.md,
     higher_order_functions_cpp.md,
+    higher_order_functions_python.md,
+    lazy_evaluation_python.md,
 ]
 ---
 
