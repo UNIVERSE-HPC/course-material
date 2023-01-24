@@ -1,3 +1,27 @@
+# Contributing material
+
+To contribute new material, or update existing material please:
+  1. Create an issue on this repo with a description of the proposed change
+  2. Fork the repo, then add commits to your fork with the changes
+  3. When you are ready, open a PR to merge your new commits to this repo
+
+# Rendering the material
+
+It is useful to see how your change is rendered into a webpage. You can render
+your forked repository by using this [deploy
+action](https://github.com/OxfordRSE/gutenberg/actions/workflows/deploy.yml).
+This is part of a web app that takes material in the format described below, and
+renders it as HTML. 
+
+To render your material, simply click the "Run workflow"
+button on the RHS pane of the [deploy
+action](https://github.com/OxfordRSE/gutenberg/actions/workflows/deploy.yml).
+This will open a small dialog where you can enter the name of your fork in the
+textfield labeled "Github path of material repository". Then click the "Run
+workflow" button, and wait until the action has completed. Once the "deploy" job
+has completed, navigate to the [deployed
+site](https://oxfordrse.github.io/gutenberg/) and here you will hopefully see
+your updated material.
 
 # Structure
 
@@ -5,11 +29,11 @@ The file structure in this repo defines the structure of the generated material,
 
 ```
 - index.md
-- [theme]
+- [theme.id]
   - index.md
-  - [course]
+  - [course.id]
     - index.md
-    - [section_files.md]
+    - [section.id.md]
 ```
 
 The top level directories are *themes*, each containing a number of *courses* (you can think of each course as being 1/2 or a days worth of material). Each course is further subdivided into *sections*, which are markdown files (with extension `.md`) with the section content.
@@ -70,14 +94,27 @@ dependsOn: [
 
 # Markdown
 
-The material itself is written using [GitHub-flavored Markdown](https://docs.github.com/en/get-started/writing-on-github). There are a few special directives defined to describe problems and solutions
+The material itself is written using [GitHub-flavored
+Markdown](https://docs.github.com/en/get-started/writing-on-github). There are a
+few special directives defined to describe problems and solutions, each
+directive specifies a block that starts and ends with three or more colons, e.g.
+
+```md
+:::directive_name
+
+And markdown content can go here
+
+:::
+```
+
+The start and end indicators must have the same number of colons each.
 
 ## Challenge directive
 
 A problem or challenge can be defined using the following syntax:
 
 ```md
-::::challenge{id=dot_product, title="Example challenge" }
+::::challenge{id=dot_product, title="Example challenge"}
 
 This is an example challenge
 
@@ -88,7 +125,8 @@ The id must be unique within this particular section, and the title is any strin
 
 ## Solution directive
 
-The solution directive produces a section that is initially hidden, but which a user can click to display. It can be written using the following syntax:
+The solution directive produces a section that is initially hidden, but which a
+user can click to display. It can be written using the following syntax:
 
 
 ```md
@@ -103,7 +141,7 @@ Note that solutions can be nested within challenges by matching the number of co
 
 
 ```md
-::::challenge{id=big_question, title="Hitchhikers question" }
+::::challenge{id=big_question, title="Hitchhikers question"}
 
 What is the answer to life universe and everything?
 
