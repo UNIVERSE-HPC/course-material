@@ -79,11 +79,7 @@ A problem or challenge can be defined using the following syntax:
 ```md
 ::::challenge{id=dot_product, title="Example challenge" }
 
-This is an example challenge, with some code
-
-```cpp
-const int index = 1;
-```
+This is an example challenge
 
 ::::
 ```
