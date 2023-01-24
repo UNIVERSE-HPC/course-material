@@ -1,7 +1,7 @@
 ---
 name: Exploring History
 dependsOn: [
-    technology_and_tooling.version_control.04-changes.md
+    technology_and_tooling.version_control.04-changes
 ]
 ---
 

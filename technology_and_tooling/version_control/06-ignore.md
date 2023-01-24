@@ -1,7 +1,7 @@
 ---
 name: Ignoring Things
 dependsOn: [
-    technology_and_tooling.version_control.05-history.md
+    technology_and_tooling.version_control.05-history
 ]
 ---
 

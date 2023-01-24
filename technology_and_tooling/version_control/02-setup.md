@@ -1,7 +1,7 @@
 ---
 name: Setting Up Git
 dependsOn: [
-    technology_and_tooling.version_control.01-basics.md
+    technology_and_tooling.version_control.01-basics
 ]
 ---
 

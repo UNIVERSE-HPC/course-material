@@ -1,7 +1,7 @@
 ---
 name: Automated Version Control
 dependsOn: [
-    technology_and_tooling.bash_shell.bash.md
+    technology_and_tooling.bash_shell.bash
 ]
 ---
 

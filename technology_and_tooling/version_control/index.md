@@ -7,9 +7,9 @@ dependsOn: [
 files: [
   01-basics.md,
   02-setup.md,
-  03-create.md
-  04-changes.md
-  05-history.md
+  03-create.md,
+  04-changes.md,
+  05-history.md,
   06-ignore.md
 ]
 ---

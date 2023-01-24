@@ -11,7 +11,6 @@ files: [
     recursion_python.md,
     higher_order_functions_cpp.md,
     higher_order_functions_python.md,
-    lazy_evaluation_python.md,
 ]
 ---
 
