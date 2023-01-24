@@ -36,7 +36,10 @@ The file structure in this repo defines the structure of the generated material,
     - [section.id.md]
 ```
 
-The top level directories are *themes*, each containing a number of *courses* (you can think of each course as being 1/2 or a days worth of material). Each course is further subdivided into *sections*, which are markdown files (with extension `.md`) with the section content.
+The top level directories are *themes*, each containing a number of *courses*
+(you can think of each course as being 1/2 or 1 day worth of material). Each
+course is further subdivided into *sections*, which are markdown files (with
+extension `.md`) with the section content.
 
 # Metadata
 
@@ -102,7 +105,7 @@ directive specifies a block that starts and ends with three or more colons, e.g.
 ```pandoc
 :::directive_name
 
-And markdown content can go here
+Any markdown content can go here
 
 :::
 ```
