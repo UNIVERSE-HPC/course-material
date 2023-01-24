@@ -1,11 +1,11 @@
-# Contributing material
+# Contributing 
 
 To contribute new material, or update existing material please:
   1. Create an issue on this repo with a description of the proposed change
-  2. Fork the repo, then add commits to your fork with the changes
+  2. Fork the repo, then add commits to your fork with the changes. Please provide the issue number in each commit message, e.g. a commit message for issue number 5 might be "#5 added version control material"
   3. When you are ready, open a PR to merge your new commits to this repo
 
-# Rendering the material
+# Rendering website
 
 It is useful to see how your change is rendered into a webpage. You can render
 your forked repository by using this [deploy
