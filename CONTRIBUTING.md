@@ -78,10 +78,12 @@ Each section markdown file has a yaml block containing the keys. Note that the `
   - `name`, a string with the section title
   - `dependsOn`, an array of identifiers indicating the pre-requisite sections/courses/themes for this section
 
-Each entry in `dependsOn` indicates a theme dependency using `<theme.id>`, a
-course dependency using `<theme.id>.<course.id>` or a section dependency using
-`<theme.id>.<course.id><section.id>`. For example, a section called "Arrays"
-might have the following yaml block:
+Each entry in `dependsOn` indicates a course dependency using
+`<theme.id>.<course.id>` or a section dependency using
+`<theme.id>.<course.id><section.id>`. For example, a section titled "Arrays"
+that depended on the `functions_python` section in the `procedural` course in
+the `software_architecture_and_design` theme, might have the following yaml
+block:
 
 ```yaml
 ---
