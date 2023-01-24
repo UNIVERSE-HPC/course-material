@@ -482,7 +482,7 @@ you start creating your own types via classes the opportunities for implicit
 conversions to introduce subtle bugs increases exponentially, so a good rule of
 thumb is to discourage implicit casts and to *always* be explicit. 
 
-::::challenge{id=cpp_calculate_pi, title="Calculating PI"
+::::challenge{id=cpp_calculate_pi, title="Calculating PI"}
 
 Create two `double` variables $x$ and $y$. Set $x=0.3$ and $y=0.4$ and
 calculate $r = \sqrt{x^2 + y^2}$. Write the result $r$ to the console using
