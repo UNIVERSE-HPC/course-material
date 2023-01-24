@@ -1,3 +1,13 @@
+---
+name: Functions
+dependsOn: [
+    software_architecture_and_design.procedural.containers_cpp,
+]
+tags: [cpp]
+---
+
+
+
 # Functions
 
 The *function* (aka *procedure*) is a one of the defining aspects of proceedural programming. It

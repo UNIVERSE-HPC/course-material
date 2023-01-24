@@ -3,6 +3,7 @@ name: Containers
 dependsOn: [
     software_architecture_and_design.procedural.types_cpp,
 ]
+tags: [cpp]
 ---
 
 *Container* types are those that can hold other objects, and C++ supports a number of 

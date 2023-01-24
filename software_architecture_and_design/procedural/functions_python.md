@@ -3,6 +3,7 @@ name: Functions
 dependsOn: [
     software_architecture_and_design.procedural.containers_python,
 ]
+tags: [python]
 ---
 ## Using Functions
 In most modern programming languages these procedures are called **functions**.

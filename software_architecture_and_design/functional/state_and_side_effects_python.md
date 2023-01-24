@@ -3,6 +3,7 @@ name: State and Side Effects
 dependsOn: [
     software_architecture_and_design.procedural.arrays_python,
 ]
+tags: [python]
 ---
 
 

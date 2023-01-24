@@ -7,5 +7,3 @@ themes: [
   software_project_management
 ]
 ---
-
-Everything.....
