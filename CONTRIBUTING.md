@@ -86,12 +86,10 @@ the `software_architecture_and_design` theme, might have the following yaml
 block:
 
 ```yaml
----
 name: Arrays
 dependsOn: [
     software_architecture_and_design.procedural.functions_python,
 ]
----
 ```
 
 # Markdown
@@ -101,7 +99,7 @@ Markdown](https://docs.github.com/en/get-started/writing-on-github). There are a
 few special directives defined to describe problems and solutions, each
 directive specifies a block that starts and ends with three or more colons, e.g.
 
-```md
+```pandoc
 :::directive_name
 
 And markdown content can go here
@@ -115,7 +113,7 @@ The start and end indicators must have the same number of colons each.
 
 A problem or challenge can be defined using the following syntax:
 
-```md
+```pandoc
 ::::challenge{id=dot_product, title="Example challenge"}
 
 This is an example challenge
@@ -131,7 +129,7 @@ The solution directive produces a section that is initially hidden, but which a
 user can click to display. It can be written using the following syntax:
 
 
-```md
+```pandoc
 :::solution
 
 The answer is 42.
@@ -142,7 +140,7 @@ The answer is 42.
 Note that solutions can be nested within challenges by matching the number of colons:
 
 
-```md
+```pandoc
 ::::challenge{id=big_question, title="Hitchhikers question"}
 
 What is the answer to life universe and everything?
