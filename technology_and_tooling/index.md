@@ -4,6 +4,7 @@ name: Technology and Tooling
 courses: [
   bash_shell,
   version_control,
+  packaging_dependency_management,
   ide,
   visualisation,
 ]
