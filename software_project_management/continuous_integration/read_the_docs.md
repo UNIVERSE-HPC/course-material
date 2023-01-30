@@ -1,6 +1,12 @@
-## 16:45 Integrating third party tools: Read the Docs
+---
+name: Third party tools - Read the Docs
+dependsOn: [
+  software_project_management.continuous_integration.code_coverage
+]
+---
 
-[Read the Docs](https://readthedocs.org/) is a free place to host documentation for open source software projects.
+[Read the Docs](https://readthedocs.org/) is a free place to host documentation for open 
+source software projects.
 In this section you will use a tool called [Sphinx](https://www.sphinx-doc.org/en/master/) to generate documentation for your repository, and host that documentation automatically on Read the Docs.
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/3kDdPtg3pwU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

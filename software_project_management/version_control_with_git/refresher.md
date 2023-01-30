@@ -1,6 +1,7 @@
 ---
 name: Git Refresher
-dependsOn: [technology_and_tooling.version_control.06-ignore]
+dependsOn: [
+]
 ---
 
 

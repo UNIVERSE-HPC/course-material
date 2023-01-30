@@ -2,13 +2,12 @@
 name: Continuous Integration with Github Actions
 id: continuous_integration
 dependsOn: [
-    software_project_management.project_management_tools
+    software_project_management.version_control_with_git
 ]
 files: [
     github_actions.md,
     testing.md,
     code_coverage.md,
-    better_code_hub.md,
     read_the_docs.md,
     wrapping_up.md
 ]

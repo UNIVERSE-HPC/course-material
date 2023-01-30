@@ -1,6 +1,12 @@
-## 15:00 - Testing on multiple operating systems
+---
+name: Testing on multiple operating systems
+dependsOn: [
+  software_project_management.continuous_integration.github_actions
+]
+---
 
-To ensure good portability of software for all potential users, you should ideally be testing on Windows, Linux and macOS.
+To ensure good portability of software for all potential users, you should ideally be 
+testing on Windows, Linux and macOS.
 You can do that using GitHub Actions.
 
 Information about the operating systems that GitHub Actions supports can be found [in their documentation](https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners#supported-runners-and-hardware-resources).

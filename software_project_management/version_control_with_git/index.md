@@ -1,7 +1,8 @@
 ---
-name: Version Control with Git
-id: version_control_with_git
+name: Version Control with Git - Collaboration
+id: git_collaboration
 dependsOn: [
+  technology_and_tooling.version_control
 ]
 files: [
     refresher.md,

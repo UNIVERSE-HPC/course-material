@@ -1,6 +1,6 @@
 ---
-id: object_orientated
-name: Object-Orientated Programming
+id: version_control_git
+name: Version Control with Git
 dependsOn: [
     technology_and_tooling.bash_shell
 ]

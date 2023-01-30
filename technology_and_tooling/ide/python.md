@@ -1,3 +1,12 @@
+---
+name: VSCode for Python
+dependsOn: [
+]
+tags: [python]
+---
+
+
+
 ## Introduction to VSCode
 
 Microsoft's VSCode is a lightweight IDE which is great when starting out developing programs. It not only supports Python, but also C++, C#, JavaScript, CSS, and Java, amongst others. It's also available for Mac OS, Linux, and Windows. Whilst lightweight, it's features can be readily extended for a variety of languages via installation of plugins to suit your needs, and you can even develop your own plugins for VSCode. As well as features like live debugging and context-sensitive code autocompletion, other notable features include:

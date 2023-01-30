@@ -1,3 +1,12 @@
+---
+name: Testing code coverage
+dependsOn: [
+  software_project_management.continuous_integration.testing
+]
+---
+
+
+
 ## 15:30 Testing code coverage
 
 Code coverage is a metric used to describe how much code in a software project is hit when the unit tests are run.

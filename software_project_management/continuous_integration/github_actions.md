@@ -1,13 +1,24 @@
-## 14:30 - Getting started with GitHub Actions
+---
+name: Getting started with GitHub Actions
+dependsOn: [
+]
+---
 
-With a GitHub repository there's a very easy way to set up CI that runs when your repository changes: simply add a file to your repository in the directory `.github/workflows`.
-Each file in this directory will, when triggered, spin up a virtual machine and run the sequence of commands in the file.
+With a GitHub repository there's a very easy way to set up CI that runs when your 
+repository changes: simply add a file to your repository in the directory 
+`.github/workflows`.
+Each file in this directory will, when triggered, spin up a virtual machine and run the 
+sequence of commands in the file.
 
-Information about the specifications of these VMs can be found [here](https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners).
-At the time of writing, each VM will have a 2-core CPU, 7GB of RAM and 14 GB of SSD space available, and each workflow can run for up to 6 hours.
-These resources are all free for public repositories, and for private repositories you have a monthly quota of VM-minutes before any payment is required.
+Information about the specifications of these VMs can be found 
+[here](https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners).
+At the time of writing, each VM will have a 2-core CPU, 7GB of RAM and 14 GB of SSD 
+space available, and each workflow can run for up to 6 hours.
+These resources are all free for public repositories, and for private repositories you 
+have a monthly quota of VM-minutes before any payment is required.
 
-In this section you will create two workflows by using the wizard and built-in editor on the GitHub website.
+In this section you will create two workflows by using the wizard and built-in editor on 
+the GitHub website.
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/O-91cuGP24U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
