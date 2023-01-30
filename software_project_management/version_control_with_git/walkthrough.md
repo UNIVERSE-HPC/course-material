@@ -1,3 +1,9 @@
+---
+name: Contribution walkthrough
+dependsOn: [
+  software_project_management.version_control_with_git.github
+]
+---
 ## Contributing to a GitHub project
 
 This episode will walk you through your first contribution to a GitHub
@@ -18,7 +24,7 @@ to contribute to the project, at other times, you may be willing
 to contribute, but not sure where to start. Either way, the first
 thing to do is to clone the repository.
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
+:::callout
 
 If you have already cloned the repository, there is no need to
 clone it again! Remember that Git keeps a record of where the
@@ -26,7 +32,7 @@ remote repository is, so doing a `git pull` should update
 your repository to the latest changes, as long as you do not
 have any conflicts with the copy of files that you have.
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::
 
 Once you have cloned, you should look through the README.md
 file for build or installation instructions. Once you have
@@ -66,13 +72,13 @@ working to fix an issue, we usually start the branch name with the issue
 number. So if there is a issue 12 which wants to add a unit `stones` to our
 repository, then the branch name could be `unit/stones`.
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
+:::callout
 
 It is always a good idea, when creating a branch, to branch off the latest
 working copy of the main branch on GitHub. To do this, use the Pull command
 in your Git client, or on the command line, use `git pull`
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::
 
 If there is a testing infrastructure, it is important to test your code as
 you go. This will speed up development and catch bugs. Often you will be

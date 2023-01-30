@@ -1,3 +1,10 @@
+---
+name: Github
+dependsOn: [
+  software_project_management.version_control_with_git.collaboration
+]
+---
+
 ## GitHub
 
 ![[Nulab's](https://nulab.com/learn/software-development/git-tutorial/git-collaboration/) Git pull request workflow](fig/pull_request.png)

@@ -1,4 +1,10 @@
-##   Practical exercise
+---
+name: Practical Exercise
+dependsOn: [
+  software_project_management.version_control_with_git.walkthrough
+]
+---
+
 
 ###   Signing up
 
@@ -8,7 +14,8 @@ and they can add you to the project.
 
 ###   Finding the project
 
-The project repository is https://github.com/OxfordRSE/oxrse_unit_conv.
+The project repository is 
+[https://github.com/OxfordRSE/oxrse_unit_conv](https://github.com/OxfordRSE/oxrse_unit_conv).
 It has its visibility set to `public`, so you can see it even if you aren't
 signed in. Users who are not collaborators on the project can also contribute,
 but they have to do so using the more longwinded approach of forking rather

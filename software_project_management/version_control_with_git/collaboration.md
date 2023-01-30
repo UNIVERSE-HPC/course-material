@@ -1,6 +1,8 @@
 ---
 name: Collaboration with Git
-dependsOn: []
+dependsOn: [
+  software_project_management.version_control_with_git.refresher
+]
 ---
 
 ## Collaboration with Git
@@ -11,7 +13,8 @@ Collaboration in Git works by isolating different copies of the repository.
 Copies of a repository can be created and updated to keep up to date with
 changes or to send local changes to the cloud.
 
-In the image below, adapted from [the wc3 docs Git tutorial](https://www.w3docs.com/learn-Git/Git-repository.html),
+In the image above, adapted from [the wc3 docs Git 
+tutorial](https://www.w3docs.com/learn-Git/Git-repository.html),
 Developer A and Developer B are collaborating on a repository
 (hosted in the cloud, on GitHub for example). Developer A is making local
 local changes, which Developer B will not receive until Developer A has *pushed*
@@ -32,14 +35,17 @@ How do Developer A and B get their copies of the central repository in the
 first place? They do this using the *clone* operation, which simply copies
 the contents of a repository from one place to another.
 
-> ### What else does *clone* do?
-> 
-> > *Clone* also sets the *remote origin* for the repository so that it remains linked
-> > to the repository you cloned. This makes it straightforward to keep your
-> > version up to date with the cloud version, and to push your changes to the
-> > cloud when you're ready.
-> {: .solution}
-{: .callout}
+::::challenge{id=clone, title="git clone"}
+
+What else does `clone` do?
+
+:::solution
+*Clone* also sets the *remote origin* for the repository so that it remains linked
+to the repository you cloned. This makes it straightforward to keep your
+version up to date with the cloud version, and to push your changes to the
+cloud when you're ready.
+:::
+::::
 
 ## *Pull* and *push*
 
