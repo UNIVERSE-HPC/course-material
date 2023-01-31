@@ -5,6 +5,8 @@ dependsOn: [
   technology_and_tooling.ide
 ]
 files: [
+  code_style_python.md,
+  linters_python.md
 ]
 ---
 

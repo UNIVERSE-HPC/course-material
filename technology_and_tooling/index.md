@@ -5,6 +5,7 @@ courses: [
   bash_shell,
   version_control,
   packaging_dependency_management,
+  best_practices,
   ide,
   visualisation,
 ]
