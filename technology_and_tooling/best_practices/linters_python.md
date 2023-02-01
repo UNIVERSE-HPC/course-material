@@ -1,7 +1,7 @@
 ---
-name: Python Code Style Conventions
+name: Linters
 dependsOn: [
-  technology_and_tooling.code_style_python
+  technology_and_tooling.best_practices.code_style_python
 ]
 tags: [python]
 ---

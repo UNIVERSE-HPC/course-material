@@ -1,5 +1,5 @@
 ---
-name: Python Code Style Conventions
+name: Code Style 
 dependsOn: [
 ]
 tags: [python]
