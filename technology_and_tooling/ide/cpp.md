@@ -1,5 +1,5 @@
 ---
-name: VSCode for C++
+name: VSCode
 dependsOn: [
 ]
 tags: [cpp]
