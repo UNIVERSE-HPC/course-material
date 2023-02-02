@@ -155,6 +155,20 @@ The answer is 42.
 ::::
 ```
 
+## Callout directive
 
+The callout directive produces a highlighed and bordered block of markdown content. It 
+can be written using the following syntax:
+
+
+```pandoc
+:::callout
+
+More information on Douglas Adams' "The Hitchhikers Guide to the Galaxy" book series can 
+be found on wikipedia 
+[here](https://en.wikipedia.org/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy)
+
+:::
+```
 
 

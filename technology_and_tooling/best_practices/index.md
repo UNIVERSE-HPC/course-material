@@ -1,5 +1,5 @@
 ---
-name: Software Development Best Practices
+name: Best Practices
 id: best_practices
 dependsOn: [
   technology_and_tooling.ide
