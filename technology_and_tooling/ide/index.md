@@ -1,5 +1,5 @@
 ---
-name: Python and C++ Development with VSCode
+name: IDEs
 id: ide
 dependsOn: [
     technology_and_tooling.bash_shell
