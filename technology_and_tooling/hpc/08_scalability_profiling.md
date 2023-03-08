@@ -258,6 +258,3 @@ The above plot shows that the code is highly scalable. We do have an anomaly wit
 >
 > It may be difficult to profile your code if you do not have the resources at hand, but DiRAC can help. If you are in a position of wanting to use DiRACs facilities but do not have the resources to profile your code, then you can apply for a [Seedcorn project](https://dirac.ac.uk/seedcorn/). This is a short project with up to 100,000 core hours for you to profile and possibly improve your code before applying for a large allocation of time.
 {: .callout}
-
-
-{% include links.md %}

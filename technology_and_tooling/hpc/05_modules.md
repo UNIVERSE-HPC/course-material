@@ -203,5 +203,3 @@ Let's examine the output of `module avail` more closely.
 > > {: .language-bash}
 > {: .solution}
 {: .challenge}
-
-{% include links.md %}

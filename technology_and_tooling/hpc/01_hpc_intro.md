@@ -77,8 +77,6 @@ separate window, then press `P` to toggle **p**resentation mode.
 > {: .solution}
 {: .challenge }
 
-{% include links.md %}
-
 [dijkstra]: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 [hyperscale]: https://en.wikipedia.org/wiki/Hyperscale_computing
 [mapreduce]: https://en.wikipedia.org/wiki/MapReduce

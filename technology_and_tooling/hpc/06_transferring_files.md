@@ -449,7 +449,5 @@ will be more efficient than using FileZilla (or related applications) that
 would copy from the source to your local machine, then to the destination
 machine.
 
-{% include links.md %}
-
 [git-swc]: https://swcarpentry.github.io/git-novice/
 [rsync]: https://rsync.samba.org/

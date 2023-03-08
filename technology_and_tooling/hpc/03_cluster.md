@@ -289,7 +289,5 @@ connect to a shared, remote fileserver or cluster of servers.
 With all of this in mind, we will now cover how to talk to the cluster's
 scheduler, and use it to start running our scripts and programs!
 
-{% include links.md %}
-
 [fshs]: https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
 [mount]: https://en.wikipedia.org/wiki/Mount_(computing)

@@ -60,6 +60,3 @@ So what is *profiling*? Profiling your code is all about understanding its compl
 {: .callout }
 
 Donald Knuth said *"we should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%."* In short, optimise the obvious trivial things, but avoid non-trivial optimisations until you've understood what needs to change. Optimisation is often difficult and time consuming. Pre-mature optimization may be a waste of your time!
-
-
-{% include links.md %}

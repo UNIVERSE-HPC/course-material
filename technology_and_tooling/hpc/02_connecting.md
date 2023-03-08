@@ -440,8 +440,6 @@ password for your SSH key.
 ```
 {: .language-bash}
 
-{% include links.md %}
-
 [bitwarden]: https://bitwarden.com
 [fshs]: https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
 [gh-ssh]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh
