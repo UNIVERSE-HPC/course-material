@@ -8,6 +8,7 @@ courses: [
   best_practices,
   ide,
   visualisation,
+  hpc
 ]
 ---
 
