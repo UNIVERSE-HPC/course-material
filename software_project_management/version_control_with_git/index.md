@@ -1,5 +1,5 @@
 ---
-name: Version Control with Git - Collaboration
+name: Collaboration with Git
 id: git_collaboration
 dependsOn: [
   technology_and_tooling.version_control

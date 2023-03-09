@@ -1,5 +1,5 @@
 ---
-name: Continuous Integration with Github Actions
+name: Continuous Integration
 id: continuous_integration
 dependsOn: [
     software_project_management.version_control_with_git
