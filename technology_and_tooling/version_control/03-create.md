@@ -3,6 +3,7 @@ name: Creating a Repository
 dependsOn: [
     technology_and_tooling.version_control.02-setup
 ]
+tags: [git]
 ---
 
 

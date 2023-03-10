@@ -3,6 +3,7 @@ name: Exploring History
 dependsOn: [
     technology_and_tooling.version_control.04-changes
 ]
+tags: [git]
 ---
 
 
