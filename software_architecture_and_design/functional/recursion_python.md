@@ -6,7 +6,6 @@ dependsOn: [
 tags: [python]
 ---
 
-
 ## Recursion
 
 See: Recursion
@@ -36,7 +35,6 @@ def factorial(n):
 for i in range(5):
     print(factorial(i))
 ~~~
-{: .language-python}
 
 ~~~
 1
@@ -45,7 +43,6 @@ for i in range(5):
 6
 24
 ~~~
-{: .output}
 
 But the factorial function has a property which makes it particularly suitable to be defined recursively.
 
@@ -59,21 +56,20 @@ The base case is `0! = 1` - the factorial of zero is one.
 
 So, if we express the factorial function recursively, we get:
 
-~~~
+~~~python
 def factorial(n):
     if n == 0:
         return 1
 
     return n * factorial(n - 1)
 ~~~
-{: .language-python}
 
 There's something a bit dangerous about this implementation though: if we attempt to get the factorial of a negative number, the code will get stuck in an infinite loop.
 In practice, Python has a limit to the number of times a function is allowed to recurse, so we'll actually get an error.
 
 To make this safer, we should handle the case where `n < 0` and raise an error.
 
-~~~
+~~~python
 def factorial(n):
     if n < 0:
         raise ValueError('Factorial is not defined for values less than 0')
@@ -82,79 +78,73 @@ def factorial(n):
 
     return n * factorial(n - 1)
 ~~~
-{: .language-python}
 
-> ## Recursive Fibonacci
->
-> Another well known sequence is the Fibonacci sequence: `0, 1, 1, 2, 3, 5, 8, 13, ...` where each value is the sum of the previous two values.
->
-> One possible iterative implementation of a function to calculate the Nth Fibonacci number is shown below.
-> Also note how tuple packing and unpacking are used to effectively swap two values without using a temporary variable.
->
-> ~~~
-> def fibonacci(n):
->     # Iterative fibonacci
->     a, b = 0, 1
->
->     for _ in range(n):
->         a, b = b, a + b
->
->     return a
->
-> for i in range(8):
->     print(fibonacci(i))
-> ~~~
-> {: .language-python}
->
-> ~~~
-> 0
-> 1
-> 1
-> 2
-> 3
-> 5
-> 8
-> 13
-> ~~~
-> {: .output}
->
-> Write an equivalent function which uses recursion to calculate the Nth Fibonacci number.
->
-> Hint: first think about what the recurrence relation and base case are.
->
-> > ## Solution
-> >
-> > First, we need to decide what the recurrence relation is - in this case it's `f(N) = f(N - 1) + f(N - 2)`.
-> > And the base cases `f(0) = 0` and `f(1) = 1`.
-> >
-> > For the function itself, we can use the same approach as for the factorial function: first handle the base cases, then the recurrence relation:
-> >
-> > ~~~
-> > def fibonacci(n):
-> >     if n < 0:
-> >         raise ValueError('Fibonacci is not defined for N < 0')
-> >     if n == 0:
-> >         return 0
-> >     if n == 1:
-> >         return 1
-> >
-> >     return fibonacci(n - 1) + fibonacci(n - 2)
-> >
-> > for i in range(8):
-> >     print(fibonacci(i))
-> > ~~~
-> > {: .language-python}
-> >
-> > ~~~
-> > 0
-> > 1
-> > 1
-> > 2
-> > 3
-> > 5
-> > 8
-> > 13
-> > ~~~
-> > {: .output}
-> {: .solution}
-{: .challenge}
+::::challenge{id=fibonacci, title="Recursive Fibonacci"}
+
+Another well known sequence is the Fibonacci sequence: `0, 1, 1, 2, 3, 5, 8, 13, ...` where each value is the sum of the previous two values.
+
+One possible iterative implementation of a function to calculate the Nth Fibonacci number is shown below.
+Also note how tuple packing and unpacking are used to effectively swap two values without using a temporary variable.
+
+~~~python
+def fibonacci(n):
+    # Iterative fibonacci
+    a, b = 0, 1
+
+    for _ in range(n):
+        a, b = b, a + b
+
+    return a
+
+for i in range(8):
+    print(fibonacci(i))
+~~~
+
+~~~
+0
+1
+1
+2
+3
+5
+8
+13
+~~~
+
+Write an equivalent function which uses recursion to calculate the Nth Fibonacci number.
+
+Hint: first think about what the recurrence relation and base case are.
+
+:::solution
+First, we need to decide what the recurrence relation is - in this case it's `f(N) = f(N - 1) + f(N - 2)`.
+And the base cases `f(0) = 0` and `f(1) = 1`.
+
+For the function itself, we can use the same approach as for the factorial function: first handle the base cases, then the recurrence relation:
+
+~~~python
+def fibonacci(n):
+    if n < 0:
+        raise ValueError('Fibonacci is not defined for N < 0')
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+for i in range(8):
+    print(fibonacci(i))
+~~~
+
+~~~
+0
+1
+1
+2
+3
+5
+8
+13
+~~~
+:::
+::::

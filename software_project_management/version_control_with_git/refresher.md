@@ -6,8 +6,6 @@ tags: [git]
 
 ---
 
-
-
 ## Git
 
 Git works by tracking changes to files.
