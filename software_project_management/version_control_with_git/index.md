@@ -1,5 +1,5 @@
 ---
-name: Collaboration with Git
+name: Collaboration Workflows
 id: git_collaboration
 dependsOn: [
   technology_and_tooling.version_control

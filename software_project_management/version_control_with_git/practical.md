@@ -3,6 +3,7 @@ name: Practical Exercise
 dependsOn: [
   software_project_management.version_control_with_git.walkthrough
 ]
+tags: [github]
 ---
 
 
