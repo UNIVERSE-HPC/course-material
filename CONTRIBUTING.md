@@ -13,13 +13,18 @@ action](https://github.com/OxfordRSE/gutenberg/actions/workflows/deploy.yml).
 This is part of a web app that takes material in the format described below, and
 renders it as HTML. 
 
-To render your material, simply click the "Run workflow"
-button on the RHS pane of the [deploy
-action](https://github.com/OxfordRSE/gutenberg/actions/workflows/deploy.yml).
-This will open a small dialog where you can enter the name of your fork in the
-textfield labeled "Github path of material repository". Then click the "Run
-workflow" button, and wait until the action has completed. Once the "deploy" job
-has completed, navigate to the [deployed
+To render your material, simply click the "Run workflow" button on the RHS pane
+of the [deploy
+action](https://github.com/OxfordRSE/gutenberg/actions/workflows/deploy.yml). If
+this button does not appear on your screen then you don't have the neccessary
+permissions to run the workflow. In this case first fork the repository into
+your personal github account, then click on the "Run workflow" button within
+your fork.
+
+Clicking this button will open a small dialog where you can enter the name of
+your fork in the textfield labeled "Github path of material repository". Then
+click the "Run workflow" button, and wait until the action has completed. Once
+the "deploy" job has completed, navigate to the [deployed
 site](https://oxfordrse.github.io/gutenberg/) and here you will hopefully see
 your updated material.
 
