@@ -7,7 +7,6 @@ dependsOn: [
 tags: [pytest]
 ---
 
-
 ## Introduction
 
 Unit testing can tell us something is wrong in our code and give a rough idea of where the error is by which
@@ -30,13 +29,13 @@ given inflammation data array so that all entries fall between 0 and 1.
 To normalise each patient's inflammation data we need to divide it by the maximum inflammation 
 experienced by that patient. To do so, we can add the following code to `inflammation/models.py`:
 
-~~~
+~~~python
 def patient_normalise(data):
     """Normalise patient data from a 2D inflammation data array."""
     max = np.max(data, axis=0)
     return data / max[:, np.newaxis]
 ~~~
-{: .language-python}
+
 **Note:** *there are intentional mistakes in the above code, which will be detected by further testing and code 
 style checking below so bear with us for the moment!*
 
@@ -60,18 +59,19 @@ NumPy's automatic `broadcasting` (adjustment of shapes) will make sure that the 
 
 ![NumPy arrays' shapes after broadcasting](../fig/numpy-shapes-after-broadcasting.png){: .image-with-shadow width="800px"}
 
-> ## Broadcasting
->
-> The term broadcasting describes how NumPy treats arrays with different shapes during arithmetic operations.
-> Subject to certain constraints, the smaller array is “broadcast” across the larger array so that they have
-> compatible shapes. Be careful, though, to understand how the arrays get stretched to avoid getting unexpected results.
-{: .callout}
+:::callout
+## Broadcasting
+
+The term broadcasting describes how NumPy treats arrays with different shapes during arithmetic operations.
+Subject to certain constraints, the smaller array is “broadcast” across the larger array so that they have
+compatible shapes. Be careful, though, to understand how the arrays get stretched to avoid getting unexpected results.
+:::
 
 Note there is an assumption in this calculation that the minimum value we want is always zero. This is a sensible assumption for this particular application, since the zero value is a special case indicating that a patient experienced no inflammation on a particular day.
 
 Let us now add a new test in `tests/test_models.py` to check that the normalisation function is correct for some test data.
 
-~~~
+~~~python
 @pytest.mark.parametrize(
     "test, expected",
     [
@@ -83,7 +83,6 @@ def test_patient_normalise(test, expected):
     from inflammation.models import patient_normalise
     npt.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
 ~~~
-{: .language-python}
 
 Note that we are using the `assert_almost_equal()` Numpy testing function instead of `assert_array_equal()`, since it allows us to test against values that are *almost* equal. This is very useful when we have numbers with arbitrary decimal places and are only concerned with a certain degree of precision, like the test case above, where we make the assumption that a test accuracy of two decimal places is sufficient.
 
@@ -105,7 +104,6 @@ E              [0.78, 0.89, 1.  ]])
 
 tests/test_models.py:53: AssertionError
 ~~~
-{: .output}
 
 Let us use a debugger at this point to see what is going on and why the function failed.
 
@@ -135,16 +133,17 @@ We can also run our test functions individually. First, let's check that our PyC
 
 PyCharm allows us to configure multiple ways of running our code. Looking at the figure above, the first of these - `inflammation-analysis` under `Python` - was configured when we set up how to run our script from within PyCharm. The second - `pytest in test_models.py` under `Python tests` - is our recent test configuration. If you see just these, you're good to go. We don't need any others, so select any others you see and click the `-` button at the top to remove them. This will avoid any confusion when running our tests separately. Click `OK` when done.
 
-> ## Buffered Output
->
-> Whenever a Python program prints text to the terminal or to a file, it first stores this text in an **output buffer**.
-> When the buffer becomes full or is **flushed**, the contents of the buffer are written to the terminal / file in one go and the buffer is cleared.
-> This is usually done to increase performance by effectively converting multiple output operations into just one.
-> Printing text to the terminal is a relatively slow operation, so in some cases this can make quite a big difference to the total execution time of a program.
->
-> However, using buffered output can make debugging more difficult, as we can no longer be quite sure when a log message will be displayed.
-> In order to make debugging simpler, PyCharm automatically adds the environment variable `PYTHONUNBUFFERED` we see in the screenshot above, which disables output buffering.
-{: .callout}
+:::callout
+## Buffered Output
+
+Whenever a Python program prints text to the terminal or to a file, it first stores this text in an **output buffer**.
+When the buffer becomes full or is **flushed**, the contents of the buffer are written to the terminal / file in one go and the buffer is cleared.
+This is usually done to increase performance by effectively converting multiple output operations into just one.
+Printing text to the terminal is a relatively slow operation, so in some cases this can make quite a big difference to the total execution time of a program.
+
+However, using buffered output can make debugging more difficult, as we can no longer be quite sure when a log message will be displayed.
+In order to make debugging simpler, PyCharm automatically adds the environment variable `PYTHONUNBUFFERED` we see in the screenshot above, which disables output buffering.
+:::
 
 Now, if you select the green arrow next to a test function in our `test_models.py` script in PyCharm, and select `Run 'pytest in test_model...'`, we can run just that test:
 
@@ -175,12 +174,11 @@ We also have the ability run any Python code we wish at this point to explore th
 
 Now, looking at the `max` variable, we can see that something looks wrong, as the maximum values for each patient do not correspond to the `data` array. Recall that the input `data` array we are using for the function is
 
-~~~
+~~~python
   [[1, 2, 3],
    [4, 5, 6],
    [7, 8, 9]]
 ~~~
-{: .language-python}
 
 So the maximum inflammation for each patient should be `[3, 6, 9]`, whereas the debugger shows `[7, 8, 9]`. You can see that the latter corresponds exactly to the last column of `data`, and we can immediately conclude that we took the maximum along the wrong axis of `data`. Now we have our answer, stop the debugging process by selecting the red square at the top right of the main PyCharm window.
 
@@ -188,10 +186,14 @@ So to fix the `patient_normalise` function in `models.py`, change `axis=0` in th
 
 ![All tests in PyCharm are successful](../fig/pytest-pycharm-all-tests-pass.png){: .image-with-shadow width="1000px"}
 
-> ## NumPy Axis
-> Getting the axes right in NumPy is not trivial - the [following tutorial](https://www.sharpsightlabs.com/blog/numpy-axes-explained/#:~:text=NumPy%20axes%20are%20the%20directions,along%20the%20rows%20and%20columns.
-) offers a good explanation on how axes work when applying NumPy functions to arrays.
-{: .callout}
+:::callout
+## NumPy Axis
+
+Getting the axes right in NumPy is not trivial - the 
+[following tutorial](https://www.sharpsightlabs.com/blog/numpy-axes-explained/#:~:text=NumPy%20axes%20are%20the%20directions,along%20the%20rows%20and%20columns.) 
+offers a good explanation on how axes work when applying NumPy functions to arrays.
+:::
+
 
 ## Corner or Edge Cases
 
@@ -216,7 +218,7 @@ so this will clearly break if we are dividing by zero here, resulting in `NaN` v
 With all this in mind, let us add a few edge cases to our parametrisation of `test_patient_normalise`.
 We will add two extra tests, corresponding to an input array of all 0, and an input array of all 1.
 
-~~~
+~~~python
 @pytest.mark.parametrize(
     "test, expected",
     [
@@ -225,7 +227,6 @@ We will add two extra tests, corresponding to an input array of all 0, and an in
         ([[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[0.33, 0.67, 1], [0.67, 0.83, 1], [0.78, 0.89, 1]]),
     ])
 ~~~
-{: .language-python}
 
 Running the tests now from the command line results in the following assertion error, due to the division by zero as we predicted.
 
@@ -243,12 +244,11 @@ E                  [0, 0, 0]])
 
 tests/test_models.py:88: AssertionError
 ~~~
-{: .output}
 
 How can we fix this? Luckily, there is a NumPy function that is useful here, [`np.isnan()`](https://numpy.org/doc/stable/reference/generated/numpy.isnan.html), which we can use to replace all the NaN's with our desired result, which is 0. We can also silence the run-time warning using
 [`np.errstate`](https://numpy.org/doc/stable/reference/generated/numpy.errstate.html):
 
-~~~
+~~~python
 ...
 def patient_normalise(data):
     """
@@ -266,54 +266,53 @@ def patient_normalise(data):
     return normalised
 ...
 ~~~
-{: .language-python}
 
-> ## Exercise: Exploring Tests for Edge Cases
->
-> Think of some more suitable edge cases to test our `patient_normalise()` function and add them to the parametrised tests. After you have finished remember to commit your changes.
->
-> > ## Possible Solution
-> > ~~~
-> > @pytest.mark.parametrize(
-> >     "test, expected",
-> >     [
-> >         (
-> >             [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
-> >             [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
-> >         ),
-> >         (
-> >             [[1, 1, 1], [1, 1, 1], [1, 1, 1]],
-> >             [[1, 1, 1], [1, 1, 1], [1, 1, 1]],
-> >         ),
-> >         (
-> >             [[float('nan'), 1, 1], [1, 1, 1], [1, 1, 1]],
-> >             [[0, 1, 1], [1, 1, 1], [1, 1, 1]],
-> >         ),
-> >         (
-> >             [[1, 2, 3], [4, 5, float('nan')], [7, 8, 9]],
-> >             [[0.33, 0.67, 1], [0.8, 1, 0], [0.78, 0.89, 1]],
-> >         ),
-> >         (
-> >             [[-1, 2, 3], [4, 5, 6], [7, 8, 9]],
-> >             [[0, 0.67, 1], [0.67, 0.83, 1], [0.78, 0.89, 1]],
-> >         ),
-> >         (
-> >             [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
-> >             [[0.33, 0.67, 1], [0.67, 0.83, 1], [0.78, 0.89, 1]],
-> >         )
-> >     ])
-> > def test_patient_normalise(test, expected):
-> >     """Test normalisation works for arrays of one and positive integers."""
-> >     from inflammation.models import patient_normalise
-> >     npt.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
-> > ...
-> > ~~~
-> > {: .language-python}
-> >
-> > You could also, for example, test and handle the case of a whole row of NaNs.
-> {: .solution}
->
-{: .challenge}
+
+::::challenge{id=edge-cases, title="Exploring Tests for Edge Cases"}
+
+Think of some more suitable edge cases to test our `patient_normalise()` function and add them to the parametrised tests. After you have finished remember to commit your changes.
+
+:::solution
+~~~python
+@pytest.mark.parametrize(
+    "test, expected",
+    [
+        (
+            [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
+            [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
+        ),
+        (
+            [[1, 1, 1], [1, 1, 1], [1, 1, 1]],
+            [[1, 1, 1], [1, 1, 1], [1, 1, 1]],
+        ),
+        (
+            [[float('nan'), 1, 1], [1, 1, 1], [1, 1, 1]],
+            [[0, 1, 1], [1, 1, 1], [1, 1, 1]],
+        ),
+        (
+            [[1, 2, 3], [4, 5, float('nan')], [7, 8, 9]],
+            [[0.33, 0.67, 1], [0.8, 1, 0], [0.78, 0.89, 1]],
+        ),
+        (
+            [[-1, 2, 3], [4, 5, 6], [7, 8, 9]],
+            [[0, 0.67, 1], [0.67, 0.83, 1], [0.78, 0.89, 1]],
+        ),
+        (
+            [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+            [[0.33, 0.67, 1], [0.67, 0.83, 1], [0.78, 0.89, 1]],
+        )
+    ])
+def test_patient_normalise(test, expected):
+    """Test normalisation works for arrays of one and positive integers."""
+    from inflammation.models import patient_normalise
+    npt.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
+...
+~~~
+
+You could also, for example, test and handle the case of a whole row of NaNs.
+
+:::
+::::
 
 ## Defensive Programming
 
@@ -336,19 +335,18 @@ with a string, a dictionary, or another object that is not an `ndarray`.
 As an example, let us change the behaviour of the `patient_normalise()` function to raise an error on negative
 inflammation values. Edit the `inflammation/models.py` file, and add a precondition check to the beginning of the `patient_normalise()` function like so:
 
-~~~
+~~~python
 ...
     if np.any(data < 0):
         raise ValueError('Inflammation values should not be negative')
 ...
 ~~~
-{: .language-python}
 
 We can then modify our test function in `tests/test_models.py` to check that the function raises the correct exception - a `ValueError` - when input to the test contains negative values (i.e. input case `[[-1, 2, 3], [4, 5, 6], [7, 8, 9]]`).
 The [`ValueError`](https://docs.python.org/3/library/exceptions.html#ValueError) exception is part of the standard Python
 library and is used to indicate that the function received an argument of the right type, but of an inappropriate value.
 
-~~~
+~~~python
 @pytest.mark.parametrize(
     "test, expected, expect_raises",
     [
@@ -374,91 +372,88 @@ def test_patient_normalise(test, expected, expect_raises):
     else:
         npt.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
 ~~~
-{: .language-python}
 
 Be sure to commit your changes so far and push them to GitHub.
 
-> ## Optional Exercise: Add a Precondition to Check the Correct Type and Shape of Data
->
-> Add preconditions to check that data is an `ndarray` object and that it is of the correct shape.
-> Add corresponding tests to check that the function raises the correct exception.
-> You will find the Python function [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance)
-> useful here, as well as the Python exception [`TypeError`](https://docs.python.org/3/library/exceptions.html#TypeError).
-> Once you are done, commit your new files, and push the new commits to your remote repository on GitHub.
->
-> > ## Solution
-> >
-> > In `inflammation/models.py`:
-> >
-> > ~~~
-> > ...
-> > def patient_normalise(data):
-> >     """
-> >     Normalise patient data between 0 and 1 of a 2D inflammation data array.
-> >
-> >     Any NaN values are ignored, and normalised to 0
-> >
-> >     :param data: 2D array of inflammation data
-> >     :type data: ndarray
-> >
-> >     """
-> >     if not isinstance(data, np.ndarray):
-> >         raise TypeError('data input should be ndarray')
-> >     if len(data.shape) != 2:
-> >         raise ValueError('inflammation array should be 2-dimensional')
-> >     if np.any(data < 0):
-> >         raise ValueError('inflammation values should be non-negative')
-> >     max = np.nanmax(data, axis=1)
-> >     with np.errstate(invalid='ignore', divide='ignore'):
-> >         normalised = data / max[:, np.newaxis]
-> >     normalised[np.isnan(normalised)] = 0
-> >     return normalised
-> > ...
-> > ~~~
-> >
-> > In `test/test_models.py`:
-> >
-> > ~~~
-> > ...
-> > @pytest.mark.parametrize(
-> >     "test, expected, expect_raises",
-> >     [
-> >         ...
-> >         (
-> >             'hello',
-> >             None,
-> >             TypeError,
-> >         ),
-> >         (
-> >             3,
-> >             None,
-> >             TypeError,
-> >         ),
-> >         (
-> >             [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
-> >             [[0.33, 0.67, 1], [0.67, 0.83, 1], [0.78, 0.89, 1]],
-> >             None,
-> >         )
-> >     ])
-> > def test_patient_normalise(test, expected, expect_raises):
-> >     """Test normalisation works for arrays of one and positive integers."""
-> >     from inflammation.models import patient_normalise
-> >     if isinstance(test, list):
-> >         test = np.array(test)
-> >     if expect_raises is not None:
-> >         with pytest.raises(expect_raises):
-> >             npt.assert_almost_equal(patient_normalise(test), np.array(expected), decimal=2)
-> >     else:
-> >         npt.assert_almost_equal(patient_normalise(test), np.array(expected), decimal=2)
-> > ...
-> > ~~~
-> >
-> > Note the conversion from `list` to `np.array` has been moved out of the call to `npt.assert_almost_equal()` within the test function, and is now only applied to list items (rather than all items). This allows for greater flexibility with our test inputs, since this wouldn't work in the test case that uses a string.
-> >
-> > {: .language-python}
-> {: .solution}
->
-{: .challenge}
+::::challenge{id=precondition, title="Optional Exercise: Add a Precondition to Check the Correct Type and Shape of Data"}
+
+Add preconditions to check that data is an `ndarray` object and that it is of the correct shape.
+Add corresponding tests to check that the function raises the correct exception.
+You will find the Python function [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance)
+useful here, as well as the Python exception [`TypeError`](https://docs.python.org/3/library/exceptions.html#TypeError).
+Once you are done, commit your new files, and push the new commits to your remote repository on GitHub.
+
+:::solution
+
+In `inflammation/models.py`:
+
+~~~python
+...
+def patient_normalise(data):
+    """
+    Normalise patient data between 0 and 1 of a 2D inflammation data array.
+
+    Any NaN values are ignored, and normalised to 0
+
+    :param data: 2D array of inflammation data
+    :type data: ndarray
+
+    """
+    if not isinstance(data, np.ndarray):
+        raise TypeError('data input should be ndarray')
+    if len(data.shape) != 2:
+        raise ValueError('inflammation array should be 2-dimensional')
+    if np.any(data < 0):
+        raise ValueError('inflammation values should be non-negative')
+    max = np.nanmax(data, axis=1)
+    with np.errstate(invalid='ignore', divide='ignore'):
+        normalised = data / max[:, np.newaxis]
+    normalised[np.isnan(normalised)] = 0
+    return normalised
+...
+~~~
+
+In `test/test_models.py`:
+
+~~~python
+...
+@pytest.mark.parametrize(
+    "test, expected, expect_raises",
+    [
+        ...
+        (
+            'hello',
+            None,
+            TypeError,
+        ),
+        (
+            3,
+            None,
+            TypeError,
+        ),
+        (
+            [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+            [[0.33, 0.67, 1], [0.67, 0.83, 1], [0.78, 0.89, 1]],
+            None,
+        )
+    ])
+def test_patient_normalise(test, expected, expect_raises):
+    """Test normalisation works for arrays of one and positive integers."""
+    from inflammation.models import patient_normalise
+    if isinstance(test, list):
+        test = np.array(test)
+    if expect_raises is not None:
+        with pytest.raises(expect_raises):
+            npt.assert_almost_equal(patient_normalise(test), np.array(expected), decimal=2)
+    else:
+        npt.assert_almost_equal(patient_normalise(test), np.array(expected), decimal=2)
+...
+~~~
+
+Note the conversion from `list` to `np.array` has been moved out of the call to `npt.assert_almost_equal()` within the test function, and is now only applied to list items (rather than all items). This allows for greater flexibility with our test inputs, since this wouldn't work in the test case that uses a string.
+
+:::
+::::
 
 If you do the challenge, again, be sure to commit your changes and push them to GitHub.
 
@@ -475,53 +470,49 @@ This approach is useful when explicitly checking the precondition is too costly.
 
 Let's re-run Pylint over our project after having added some more code to it. From the project root do:
 
-~~~
+~~~bash
 $ pylint inflammation
 ~~~
-{: .language-bash}
 
 You may see something like the following in Pylint's output:
 
-~~~
+~~~bash
 ************* Module inflammation.models
 ...
 inflammation/models.py:60:4: W0622: Redefining built-in 'max' (redefined-builtin)
 ...
 ~~~
-{: .language-bash}
 
 The above output indicates that by using the local variable called `max` it the `patient_normalise` function, 
 we have redefined a built-in Python function called `max`. This isn't a good idea and may have some undesired 
 effects (e.g. if you redefine a built-in name in a global scope you may cause yourself some trouble 
 which may be difficult to trace).
 
-> ## Exercise: Fix Code Style Errors
->
-> Rename our local variable `max` to something else (e.g. call it `max_data`), then rerun your tests and 
-> commit these latest changes and 
-> push them to GitHub using our usual feature branch workflow. Make sure your `develop` and `main` branches are up to date.
-{: .challenge}
+::::challenge{id=fix-code-style, title="Fix Code Style Errors"}
+
+Rename our local variable `max` to something else (e.g. call it `max_data`), then rerun your tests and 
+commit these latest changes and 
+push them to GitHub using our usual feature branch workflow. Make sure your `develop` and `main` branches are up to date.
+::::
 
 It may be hard to remember to run linter tools every now and then. Luckily, we can now add this Pylint execution to our 
 continuous integration builds as one of the extra tasks. Since we're adding an extra feature to our CI workflow, let's start this from a new feature branch from the `develop` branch:
 
-~~~
+~~~bash
 $ git checkout develop
 $ git branch pylint-ci
 $ git checkout pylint-ci
 ~~~
-{: .language-bash}
 
 Then to add Pylint to our CI workflow, we can add the following step to our `steps` in `.github/workflows/main.yml`:
 
-~~~
+~~~bash
 ...
     - name: Check style with Pylint
       run: |
         python3 -m pylint --fail-under=0 --reports=y inflammation
 ...
 ~~~
-{: .language-bash}
 
 Note we need to add `--fail-under=0` otherwise the builds will fail if we don't get a 'perfect' score of 10! 
 This seems unlikely, so let's be more pessimistic. We've also added `--reports=y` which will give us a more detailed 
@@ -529,12 +520,11 @@ report of the code analysis.
 
 Then we can just add this to our repo and trigger a build:
 
-~~~
+~~~bash
 $ git add .github/workflows/main.yml
 $ git commit -m "Add Pylint run to build"
 $ git push
 ~~~
-{: .language-bash}
 
 Then once complete, under the build(s) reports you should see an entry with the output from Pylint as before, 
 but with an extended breakdown of the infractions by category as well as other metrics for the code, 
@@ -547,10 +537,9 @@ which will cause Pylint to fail, which could be even more useful if we want to m
 We can specify overrides to Pylint's rules in a file called `.pylintrc` which Pylint can helpfully generate for us. 
 In our repository root directory:
 
-~~~
+~~~bash
 $ pylint --generate-rcfile > .pylintrc
 ~~~
-{: .language-bash}
 
 Looking at this file, you'll see it's already pre-populated. No behaviour is currently changed from the default by 
 generating this file, but we can amend it to suit our team's coding style. For example, a typical rule to customise - 
@@ -558,7 +547,7 @@ favoured by many projects - is the one involving line length.
 You'll see it's set to 100, so let's set that to a more reasonable 120. 
 While we're at it, let's also set our `fail-under` in this file:
 
-~~~
+~~~bash
 ...
 # Specify a score threshold to be exceeded before program exits with error.
 fail-under=0
@@ -567,7 +556,6 @@ fail-under=0
 max-line-length=120
 ...
 ~~~
-{: .language-bash}
 
 Don't forget to remove the `--fail-under` argument to Pytest in our GitHub Actions configuration file too, 
 since we don't need it anymore.

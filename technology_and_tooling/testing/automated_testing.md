@@ -246,11 +246,11 @@ Also, we're defining each of these things for a test case we can run independent
 
 Going back to our list of requirements, how easy is it to run these tests? We can do this using a Python package called `pytest`. Pytest is a testing framework that allows you to write test cases using Python. You can use it to test things like Python functions, database operations, or even things like service APIs - essentially anything that has inputs and expected outputs. We'll be using Pytest to write unit tests, but what you learn can scale to more complex functional testing for applications or libraries.
 
-=== callout
+:::callout
 ## What About Unit Testing in Other Languages?
 
 Other unit testing frameworks exist for Python, including Nose2 and Unittest, and the approach to unit testing can be translated to other languages as well, e.g. FRUIT for Fortran, JUnit for Java (the original unit testing framework), Catch for C++, etc.
-===
+:::
 
 
 ### Installing Pytest
@@ -262,10 +262,9 @@ as we have seen, we have a couple of options for installing external libraries:
 
 To do it via the command line - exit the Python console first (either with `Ctrl-D` or by typing `exit()`), then do:
 
-~~~
+~~~bash
 $ pip3 install pytest
 ~~~
-{: .language-bash}
 
 Whether we do this via PyCharm or the command line, the results are exactly the same: our virtual environment will now have the `pytest` package installed for use.
 
@@ -274,22 +273,22 @@ Whether we do this via PyCharm or the command line, the results are exactly the 
 
 Now we can run these tests using `pytest`:
 
-~~~
+~~~python
 $ python -m pytest tests/test_models.py
 ~~~
-{: .language-bash}
 
 Here, we use `-m` to invoke the `pytest` installed module, and specify the `tests/test_models.py` file to run the tests in that file
 explicitly. 
 
-> ## Why Run Pytest Using `python -m` and Not `pytest` ?
->
-> Another way to run `pytest` is via its own command, so we *could* try to use `pytest tests/test_models.py` on the
-> command line instead, but this would lead to a `ModuleNotFoundError: No module named 'inflammation'`. This is because
-> using the `python -m pytest` method adds the current directory to its list of directories to search for modules,
-> whilst using `pytest` does not - the `inflammation` subdirectory's contents are not 'seen', hence the
-> `ModuleNotFoundError`. There are ways to get around this with [various methods](https://stackoverflow.com/questions/71297697/modulenotfounderror-when-running-a-simple-pytest), but we've used `python -m` for simplicity.
-{: .callout}
+:::callout
+## Why Run Pytest Using `python -m` and Not `pytest` ?
+
+Another way to run `pytest` is via its own command, so we *could* try to use `pytest tests/test_models.py` on the
+command line instead, but this would lead to a `ModuleNotFoundError: No module named 'inflammation'`. This is because
+using the `python -m pytest` method adds the current directory to its list of directories to search for modules,
+whilst using `pytest` does not - the `inflammation` subdirectory's contents are not 'seen', hence the
+`ModuleNotFoundError`. There are ways to get around this with [various methods](https://stackoverflow.com/questions/71297697/modulenotfounderror-when-running-a-simple-pytest), but we've used `python -m` for simplicity.
+:::
 
 ~~~
 ============================================== test session starts =====================================================
@@ -302,7 +301,6 @@ tests/test_models.py ..                                                         
 
 =============================================== 2 passed in 0.79s ======================================================
 ~~~
-{: .output}
 
 Pytest looks for functions whose names also start with the letters 'test_' and runs each one. Notice the `..` after our test script:
 
@@ -311,47 +309,46 @@ Pytest looks for functions whose names also start with the letters 'test_' and r
 
 So if we have many tests, we essentially get a report indicating which tests succeeded or failed. Going back to our list of requirements, do we think these results are easy to understand?
 
-> ## Exercise: Write Some Unit Tests
->
-> We already have a couple of test cases in `test/test_models.py` that test the `daily_mean()` function. Looking at `inflammation/models.py`, write at least two new test cases that test the `daily_max()` and `daily_min()` functions, adding them to `test/test_models.py`. Here are some hints:
->
-> - You could choose to format your functions very similarly to `daily_mean()`, defining test input and expected result arrays followed by the equality assertion.
-> - Try to choose cases that are suitably different, and remember that these functions take a 2D array and return a 1D array with each element the result of analysing each *column* of the data.
->
-> Once added, run all the tests again with `python -m pytest tests/test_models.py`, and you should also see your new tests pass.
->
-> > ## Solution
-> >
-> > ~~~
-> > ...
-> > def test_daily_max():
-> >     """Test that max function works for an array of positive integers."""
-> >     from inflammation.models import daily_max
-> >
-> >     test_input = np.array([[4, 2, 5],
-> >                            [1, 6, 2],
-> >                            [4, 1, 9]])
-> >     test_result = np.array([4, 6, 9])
-> >
-> >     npt.assert_array_equal(daily_max(test_input), test_result)
-> >
-> >
-> > def test_daily_min():
-> >     """Test that min function works for an array of positive and negative integers."""
-> >     from inflammation.models import daily_min
-> >
-> >     test_input = np.array([[ 4, -2, 5],
-> >                            [ 1, -6, 2],
-> >                            [-4, -1, 9]])
-> >     test_result = np.array([-4, -6, 2])
-> >
-> >     npt.assert_array_equal(daily_min(test_input), test_result)
-> > ...
-> > ~~~
-> > {: .language-python}
-> {: .solution}
->
-{: .challenge}
+::::challenge{id=write-tests, title="Write Some Unit Tests"}
+
+We already have a couple of test cases in `test/test_models.py` that test the `daily_mean()` function. Looking at `inflammation/models.py`, write at least two new test cases that test the `daily_max()` and `daily_min()` functions, adding them to `test/test_models.py`. Here are some hints:
+
+- You could choose to format your functions very similarly to `daily_mean()`, defining test input and expected result arrays followed by the equality assertion.
+- Try to choose cases that are suitably different, and remember that these functions take a 2D array and return a 1D array with each element the result of analysing each *column* of the data.
+
+Once added, run all the tests again with `python -m pytest tests/test_models.py`, and you should also see your new tests pass.
+
+
+:::solution
+~~~python
+...
+def test_daily_max():
+    """Test that max function works for an array of positive integers."""
+    from inflammation.models import daily_max
+
+    test_input = np.array([[4, 2, 5],
+                           [1, 6, 2],
+                           [4, 1, 9]])
+    test_result = np.array([4, 6, 9])
+
+    npt.assert_array_equal(daily_max(test_input), test_result)
+
+
+def test_daily_min():
+    """Test that min function works for an array of positive and negative integers."""
+    from inflammation.models import daily_min
+
+    test_input = np.array([[ 4, -2, 5],
+                           [ 1, -6, 2],
+                           [-4, -1, 9]])
+    test_result = np.array([-4, -6, 2])
+
+    npt.assert_array_equal(daily_min(test_input), test_result)
+...
+~~~
+:::
+::::
+
 
 The big advantage is that as our code develops we can update our test cases and commit them back, ensuring that ourselves (and others) always have a set of tests to verify our code at each step of development. This way, when we implement a new feature, we can check a) that the feature works using a test we write for it, and b) that the development of the new feature doesn't break any existing functionality.
 
@@ -359,7 +356,7 @@ The big advantage is that as our code develops we can update our test cases and 
 
 There are some cases where seeing an error is actually the correct behaviour, and Python allows us to test for exceptions. Add this test in `tests/test_models.py`:
 
-~~~
+~~~python
 import pytest
 ...
 def test_daily_min_string():
@@ -369,7 +366,6 @@ def test_daily_min_string():
     with pytest.raises(TypeError):
         error_expected = daily_min([['Hello', 'there'], ['General', 'Kenobi']])
 ~~~
-{: .language-python}
 
 Note that you need to import the `pytest` library at the top of our `test_models.py` file with `import pytest` so that we can use `pytest`'s `raises()` function.
 
@@ -377,26 +373,24 @@ Run all your tests as before.
 
 Since we've installed `pytest` to our environment, we should also regenerate our `requirements.txt`:
 
-~~~
+~~~bash
 $ pip3 freeze > requirements.txt
 ~~~
-{: .language-bash}
 
 Finally, let's commit our new `test_models.py` file, `requirements.txt` file, and test cases to our `test-suite` branch, and push this new branch and all its commits to GitHub:
 
-~~~
+~~~bash
 $ git add requirements.txt tests/test_models.py
 $ git commit -m "Add initial test cases for daily_max() and daily_min()"
 $ git push -u origin test-suite
 ~~~
-{: .language-bash}
 
 
-> ## Why Should We Test Invalid Input Data?
->
-> Testing the behaviour of inputs, both valid and invalid, is a really good idea and is known as *data validation*. Even if you are developing command line software that cannot be exploited by malicious data entry, testing behaviour against invalid inputs prevents generation of erroneous results that could lead to serious misinterpretation (as well as saving time and compute cycles which may be expensive for longer-running applications). It is generally best not to assume your user's inputs will always be rational.
->
-{: .callout}
+:::callout
+## Why Should We Test Invalid Input Data?
 
-{% include links.md %}
+Testing the behaviour of inputs, both valid and invalid, is a really good idea and is known as *data validation*. Even if you are developing command line software that cannot be exploited by malicious data entry, testing behaviour against invalid inputs prevents generation of erroneous results that could lead to serious misinterpretation (as well as saving time and compute cycles which may be expensive for longer-running applications). It is generally best not to assume your user's inputs will always be rational.
+
+:::
+
 
