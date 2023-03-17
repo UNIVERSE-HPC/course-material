@@ -6,7 +6,6 @@ tags: [python]
 ---
 
 
-
 ## Side Effect and Pure Functions
 
 There's nothing particularly special about the behaviour of functions in Python,
@@ -37,12 +36,10 @@ def increment_x(x):
 
 print(increment_x(3))
 ~~~
-{: .language-python}
 
 ~~~
 4
 ~~~
-{: .output}
 
 ~~~ python
 def increment_x(x):
@@ -51,10 +48,8 @@ def increment_x(x):
 
 print(increment_x(3))
 ~~~
-{: .language-python}
 
 ~~~
 Incrementing 3
 4
 ~~~
-{: .output}

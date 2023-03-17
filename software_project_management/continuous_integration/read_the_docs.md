@@ -1,8 +1,10 @@
 ---
-name: Third party tools - Read the Docs
+name: Documentation
 dependsOn: [
   software_project_management.continuous_integration.code_coverage
 ]
+
+tags: [sphinx, readthedocs]
 ---
 
 [Read the Docs](https://readthedocs.org/) is a free place to host documentation for open 

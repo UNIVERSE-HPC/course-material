@@ -3,6 +3,7 @@ name: Github
 dependsOn: [
   software_project_management.version_control_with_git.collaboration
 ]
+tags: [github]
 ---
 
 ## GitHub

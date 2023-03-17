@@ -10,6 +10,9 @@ files: [
     functions_python.md,
     arrays_python.md,
 ]
+dependsOn: [
+  technology_and_tooling.ide
+]
 ---
 
 ## The Procedural Paradigm

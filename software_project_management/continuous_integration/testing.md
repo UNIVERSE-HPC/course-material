@@ -1,8 +1,9 @@
 ---
-name: Testing on multiple operating systems
+name: Testing
 dependsOn: [
   software_project_management.continuous_integration.github_actions
 ]
+tags: [github]
 ---
 
 To ensure good portability of software for all potential users, you should ideally be 

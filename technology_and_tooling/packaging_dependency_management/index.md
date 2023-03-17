@@ -2,7 +2,8 @@
 name: Packaging and Dependency Management
 id: packaging_dependency_management
 dependsOn: [
-  technology_and_tooling.ide
+  technology_and_tooling.ide,
+  software_architecture_and_design.procedural
 ]
 files: [
     pack_python_01intro.md,

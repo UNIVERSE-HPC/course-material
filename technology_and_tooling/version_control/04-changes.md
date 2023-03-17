@@ -3,6 +3,7 @@ name: Tracking Changes
 dependsOn: [
     technology_and_tooling.version_control.03-create
 ]
+tags: [git]
 ---
 
 

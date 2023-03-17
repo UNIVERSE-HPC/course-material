@@ -6,8 +6,6 @@ dependsOn: [
 tags: [python]
 ---
 
-
-
 ## Lambda Functions
 
 If we build our programs in a functional way, we tend to end up with a lot of small, one line functions which perform very simple operations.
@@ -37,12 +35,10 @@ add_one = lambda x: x + 1
 
 print(add_one(1))
 ~~~
-{: .language-python}
 
 ~~~
 2
 ~~~
-{: .output}
 
 We have assigned the lambda function to a variable, so we can see it more clearly, but we'd normally use it immediately.
 Most style guides (we'll come back to these later in the course) consider it bad style to assign a lambda to a variable.
@@ -71,7 +67,7 @@ The `map` function, takes a function and applies it to each value in an **iterab
 Here, 'iterable' means any object that can be iterated over - for more details see the [Iterable Abstract Base Class documentation](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable).
 The results of each of those applications become the values in the **iterable** that is returned.
 
-~~~ python
+~~~python
 l = [1, 2, 3]
 
 def add_one(x):
@@ -81,7 +77,6 @@ def add_one(x):
 print(list(map(add_one, l)))
 print(list(map(lambda x: x + 1, l)))
 ~~~
-{: .language-python}
 
 ~~~
 [2, 3, 4]
@@ -101,13 +96,11 @@ def is_gt_one(x):
 print(list(filter(is_gt_one, l)))
 print(list(filter(lambda x: x > 1, l)))
 ~~~
-{: .language-python}
 
 ~~~
 [2, 3]
 [2, 3]
 ~~~
-{: .output}
 
 The `reduce` function is different.
 This function uses a function which accepts two values to accumulate the values in the iterable.
@@ -124,141 +117,131 @@ def add(a, b):
 print(reduce(add, l))
 print(reduce(lambda a, b: a + b, l))
 ~~~
-{: .language-python}
 
 ~~~
 6
 6
 ~~~
-{: .output}
 
 These are the fundamental components of the MapReduce style, and can be combined to perform much more complex data processing operations.
 
-> ## Sum of Squares
->
-> Using the MapReduce model, write a function that calculates the sum of the squares of the values in a list.
-> Your function should behave as below:
->
-> ~~~ python
-> def sum_of_squares(l):
->     # Your code here
->
-> print(sum_of_squares([0]))
-> print(sum_of_squares([1]))
-> print(sum_of_squares([1, 2, 3]))
-> print(sum_of_squares([-1]))
-> print(sum_of_squares([-1, -2, -3]))
-> ~~~
-> {: .language-python}
->
-> ~~~
-> 0
-> 1
-> 14
-> 1
-> 14
-> ~~~
-> {: .output}
->
-> > ## Solution
-> >
-> > ~~~ python
-> > from functools import reduce
-> >
-> > def sum_of_squares(l):
-> >     squares = map(lambda x: x * x, l)
-> >     return reduce(lambda a, b: a + b, squares)
-> > ~~~
-> > {: .language-python}
-> >
->{: .solution}
->
-> Now let's assume we're reading in these numbers from an input file, so they arrive as a list of strings.
-> Modify your function so that it passes the following tests:
->
-> ~~~ python
-> print(sum_of_squares(['1', '2', '3']))
-> print(sum_of_squares(['-1', '-2', '-3']))
-> ~~~
-> {: .language-python}
->
-> ~~~
-> 14
-> 14
-> ~~~
-> {: .output}
->
-> > ## Solution
-> >
-> > ~~~ python
-> > from functools import reduce
-> >
-> > def sum_of_squares(l):
-> >     integers = map(int, l)
-> >     squares = map(lambda x: x * x, integers)
-> >     return reduce(lambda a, b: a + b, squares)
-> > ~~~
-> > {: .language-python}
-> >
->{: .solution}
->
-> Finally, like comments in Python, we'd like it to be possible for users to comment out numbers in the input file they give to our program.
-> Extend your function so that the following tests pass (don't worry about passing the first set of tests with lists of integers):
->
-> ~~~ python
-> print(sum_of_squares(['1', '2', '3']))
-> print(sum_of_squares(['-1', '-2', '-3']))
-> print(sum_of_squares(['1', '2', '#100', '3']))
-> ~~~
-> {: .language-python}
->
-> ~~~
-> 14
-> 14
-> 14
-> ~~~
-> {: .output}
->
-> > ## Solution
-> >
-> > ~~~ python
-> > from functools import reduce
-> >
-> > def sum_of_squares(l):
-> >     not_comments = filter(lambda x: x[0] != '#', l)
-> >     integers = map(int, not_comments)
-> >     squares = map(lambda x: x * x, integers)
-> >     return reduce(lambda a, b: a + b, squares)
-> > ~~~
-> > {: .language-python}
->{: .solution}
-{: .challenge}
 
-> ## Multiprocessing (Optional Advanced Challenge)
->
-> **Advanced challenge for if you're finished early.**
->
-> One of the benefits of functional programming is that, if we have pure functions, when applying / mapping a function to many values in a collection, each application is completely independent of the others.
-> This means that we can take advantage of multiprocessing, without many of the normal problems in synchronisation that this brings.
->
-> Read through the Python documentation for the [multiprocessing module](https://docs.python.org/3/library/multiprocessing.html), particularly the `Pool.map` method.
->
-> Update one of our examples to make use of multiprocessing.
-> How much of a performance improvement do you get?
-> Is this as much as you would expect for the number of cores your CPU has?
->
-> **Hint:** To time the execution of a Python script we can use the Linux program `time`:
->
-> ~~~
-> time python3 my_script.py
-> ~~~
-> {: .language-bash}
->
-> Would we get the same benefits from parallel equivalents of the `filter` and `reduce` functions?
-> Why, or why not?
->
-> {: .language-bash}
-{: .challenge}
+::::challenge{id=sum_squares, title="Sum of Squares"}
+
+Using the MapReduce model, write a function that calculates the sum of the squares of the values in a list.
+Your function should behave as below:
+
+~~~ python
+def sum_of_squares(l):
+    # Your code here
+
+print(sum_of_squares([0]))
+print(sum_of_squares([1]))
+print(sum_of_squares([1, 2, 3]))
+print(sum_of_squares([-1]))
+print(sum_of_squares([-1, -2, -3]))
+~~~
+{: .language-python}
+
+~~~
+0
+1
+14
+1
+14
+~~~
+{: .output}
+
+:::solution
+
+~~~ python
+from functools import reduce
+
+def sum_of_squares(l):
+    squares = map(lambda x: x * x, l)
+    return reduce(lambda a, b: a + b, squares)
+~~~
+
+:::
+
+Now let's assume we're reading in these numbers from an input file, so they arrive as a list of strings.
+Modify your function so that it passes the following tests:
+
+~~~ python
+print(sum_of_squares(['1', '2', '3']))
+print(sum_of_squares(['-1', '-2', '-3']))
+~~~
+
+~~~
+14
+14
+~~~
+
+
+:::solution
+~~~ python
+from functools import reduce
+
+def sum_of_squares(l):
+    integers = map(int, l)
+    squares = map(lambda x: x * x, integers)
+    return reduce(lambda a, b: a + b, squares)
+~~~
+
+:::
+
+Finally, like comments in Python, we'd like it to be possible for users to comment out numbers in the input file they give to our program.
+Extend your function so that the following tests pass (don't worry about passing the first set of tests with lists of integers):
+
+~~~ python
+print(sum_of_squares(['1', '2', '3']))
+print(sum_of_squares(['-1', '-2', '-3']))
+print(sum_of_squares(['1', '2', '#100', '3']))
+~~~
+
+~~~
+14
+14
+14
+~~~
+
+:::solution
+
+~~~ python
+from functools import reduce
+
+def sum_of_squares(l):
+    not_comments = filter(lambda x: x[0] != '#', l)
+    integers = map(int, not_comments)
+    squares = map(lambda x: x * x, integers)
+    return reduce(lambda a, b: a + b, squares)
+~~~
+:::
+::::
+
+::::challenge{id=multiprocessing, title="Multiprocessing (Optional Advanced Challenge)"}
+
+**Advanced challenge for if you're finished early.**
+
+One of the benefits of functional programming is that, if we have pure functions, when applying / mapping a function to many values in a collection, each application is completely independent of the others.
+This means that we can take advantage of multiprocessing, without many of the normal problems in synchronisation that this brings.
+
+Read through the Python documentation for the [multiprocessing module](https://docs.python.org/3/library/multiprocessing.html), particularly the `Pool.map` method.
+
+Update one of our examples to make use of multiprocessing.
+How much of a performance improvement do you get?
+Is this as much as you would expect for the number of cores your CPU has?
+
+**Hint:** To time the execution of a Python script we can use the Linux program `time`:
+
+~~~bash
+time python3 my_script.py
+~~~
+
+Would we get the same benefits from parallel equivalents of the `filter` and `reduce` functions?
+Why, or why not?
+
+::::
 
 ## Comprehensions
 
@@ -275,29 +258,25 @@ In effect they are the same as using `map` and/or `filter` and using `list()` to
 All comprehension types are structured in a similar way, using the syntax for a literal of that type (in the case below, a list literal) containing what looks like the top of a for loop.
 To the left of the `for` we put the equivalent of the map operation we want to use:
 
-~~~
+~~~python
 print([i for i in range(5)])
 print([2 * i for i in range(5)])
 ~~~
-{: .language-python}
 
 ~~~
 [0, 1, 2, 3, 4]
 [0, 2, 4, 6, 8]
 ~~~
-{: .output}
 
 We can also use list comprehensions to perform the equivalent of a filter operation, by putting the filter condition at the end:
 
-~~~
+~~~python
 print([2 * i for i in range(5) if i % 2 == 0])
 ~~~
-{: .language-python}
 
 ~~~
 [0, 4, 8]
 ~~~
-{: .output}
 
 ### Dictionary and Set Comprehensions
 
@@ -305,39 +284,36 @@ Dictionary and set comprehensions are fundamentally the same as list comprehensi
 
 So set comprehensions are:
 
-~~~
+~~~python
 print({2 * i for i in range(5)})
 ~~~
-{: .language-python}
 
 ~~~
 {0, 2, 4, 6, 8}
 ~~~
-{: .output}
 
 While dictionary comprehensions are:
 
-~~~
+~~~python
 print({i: 2 * i for i in range(5)})
 ~~~
-{: .language-python}
 
 ~~~
 {0: 0, 1: 2, 2: 4, 3: 6, 4: 8}
 ~~~
-{: .output}
 
-> ## Why No Tuple Comprehension
->
-> Raymond Hettinger, one of the Python core developers, said in 2013:
->
-> ~~~
-> Generally, lists are for looping; tuples for structs. Lists are homogeneous; tuples heterogeneous. Lists for variable length.
-> ~~~
->
-> Since tuples aren't intended to represent sequences, there's no need for them to have a comprehension structure.
->
-{: .callout}
+:::callout
+## Why No Tuple Comprehension
+
+Raymond Hettinger, one of the Python core developers, said in 2013:
+
+~~~
+Generally, lists are for looping; tuples for structs. Lists are homogeneous; tuples heterogeneous. Lists for variable length.
+~~~
+
+Since tuples aren't intended to represent sequences, there's no need for them to have a comprehension structure.
+:::
+
 
 ## Generators
 
@@ -346,20 +322,17 @@ print({i: 2 * i for i in range(5)})
 **Generator expressions** look exactly like you might expect a tuple comprehension (which don't exist) to look, and behaves a little differently from the other comprehensions.
 What happens if we try to use them in the same was as we did list comprehensions?
 
-~~~
+~~~python
 print((2 * i for i in range(5)))
 ~~~
-{: .language-python}
 
 ~~~
 <generator object <genexpr> at 0x7efc21efcdd0>
 ~~~
-{: .output}
 
 Like the `map` and `filter` functions, generator expressions are not evaluated until you iterate over them.
 
-~~~
+~~~python
 for i in (2 * i for i in range(5)):
     print(i)
 ~~~
-{: .language-python}

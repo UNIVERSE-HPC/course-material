@@ -3,6 +3,7 @@ name: Contribution walkthrough
 dependsOn: [
   software_project_management.version_control_with_git.github
 ]
+tags: [github]
 ---
 ## Contributing to a GitHub project
 

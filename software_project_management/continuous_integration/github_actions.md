@@ -1,7 +1,8 @@
 ---
-name: Getting started with GitHub Actions
+name: GitHub Actions
 dependsOn: [
 ]
+tags: [github]
 ---
 
 With a GitHub repository there's a very easy way to set up CI that runs when your 

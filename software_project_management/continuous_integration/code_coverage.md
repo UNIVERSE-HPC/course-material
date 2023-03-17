@@ -1,8 +1,9 @@
 ---
-name: Testing code coverage
+name: Code Coverage
 dependsOn: [
   software_project_management.continuous_integration.testing
 ]
+tags: [codecov]
 ---
 
 

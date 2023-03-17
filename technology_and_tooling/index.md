@@ -7,7 +7,8 @@ courses: [
   packaging_dependency_management,
   best_practices,
   ide,
-  visualisation
+  visualisation,
+  testing,
 ]
 ---
 

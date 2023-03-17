@@ -1,6 +1,6 @@
 ---
 id: version_control_git
-name: Version Control with Git
+name: Version Control
 dependsOn: [
     technology_and_tooling.bash_shell
 ]
