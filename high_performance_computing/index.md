@@ -1,9 +1,9 @@
 ---
-id: High Performance Computing
-name: high_performance_computing
+id: high_performance_computing
+name: High Performance Computing
 courses: [
   hpc_intro,
-#  hpc_scalability_profiling
+  hpc_scalability_profiling
 ]
 ---
 
