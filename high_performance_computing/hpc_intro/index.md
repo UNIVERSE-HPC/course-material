@@ -1,6 +1,6 @@
 ---
-name: High Performance Computing
-id: hpc
+name: Introduction to High Performance Computing
+id: hpc_intro
 dependsOn: [
     technology_and_tooling.bash_shell,
     technology_and_tooling.packaging_dependency_management
@@ -11,8 +11,6 @@ files: [
     03_cluster.md,
     04_scheduler.md,
     05_modules.md,
-    06_transferring_files.md,
-    07_understanding_scalability.md,
-    08_scalability_profiling.md
+    06_transferring_files.md
 ]
 ---
