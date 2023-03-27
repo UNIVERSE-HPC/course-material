@@ -667,7 +667,7 @@ patients_avg
 
 Which is the average inflammation per patient across all days.
 
-:::challenge{id=change-in-inflammation, title="Change in Inflammation"}
+::::challenge{id=change-in-inflammation, title="Change in Inflammation"}
 
 This patient data is _longitudinal_ in the sense that each row represents a
 series of observations relating to one individual.  This means that
