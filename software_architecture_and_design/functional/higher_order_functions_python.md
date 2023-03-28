@@ -6,29 +6,37 @@ dependsOn: [
 tags: [python]
 ---
 
-## Lambda Functions
+## First Class Functions
 
-If we build our programs in a functional way, we tend to end up with a lot of small, one line functions which perform very simple operations.
-For example, we might have a function which adds one to a number:
+Languages that treat functions as first-class citizens allow functions to be
+passed as arguments to other functions, returned from functions, or assigned to
+variables. This is a powerful feature of functional programming languages, and is also available in Python.
+
+In Python, functions are first-class citizens, which means that they can be passed to other functions as arguments, for example:
 
 ~~~ python
 def add_one(x):
     return x + 1
 
-print(add_one(1))
+def apply_function(f, x):
+    return f(x)
+
+print(apply_function(add_one, 1))
 ~~~
-{: .language-python}
 
 ~~~
 2
 ~~~
-{: .output}
 
-If we have a lot of these smaller functions which only get used once, it makes more sense to define them where they're used.
+## Lambda Functions
 
-**Lambda functions** are small, nameless functions which fulfil this need.
-The structure of these functions is not dissimilar to a normal python function definition - we have a keyword `lambda`, a list of parameters, a colon, then the function body.
-In Python, the function body is limited to a single expression, which becomes the return value.
+*Lambda functions* are small, nameless functions which are defined in the
+normal flow of the program, typically as they are needed. The structure of these
+functions is not dissimilar to a normal python function definition - we have a
+keyword `lambda`, a list of parameters, a colon, then the function body.  In
+Python, the function body is limited to a single expression, which becomes the
+return value.
+
 
 ~~~ python
 add_one = lambda x: x + 1
@@ -53,19 +61,75 @@ For example, see [Lambda Expressions](https://en.cppreference.com/w/cpp/language
 Finally, there's another common use case of lambda functions that we'll come back to later when we see **closures**.
 Due to their simplicity, it can be useful to have a lamdba function as the inner function in a closure.
 
+## Higher Order Functions
+
+One of the main uses of lambda functions is to create temporary functions to
+pass into higher order functions. A higher order function is simply a function
+that has other functions as one of its arguments. 
+
+To illustrate the benifits of higher order functions, let us define two
+functions, one that calculates the sum of a `std::vector<int>`, the other
+which calculates the maximum value the same vector type.
+
+```python
+def sum(data):
+    result = 0
+    for x in data:
+        result = result + x
+    return result
+
+def maximum(data):
+    result = 0
+    for x in data:
+        result = max(result, x)
+    return result
+```
+
+We notice that these are really exactly the same algorithm, except that we
+change the binary operation done on the rhs of the statement in the loop, we
+therefore decide to combine these functions into one higher order function.
+
+```python
+def reduce(data, bin_op):
+    result = 0
+    for x in data:
+        result = bin_op(result, x)
+    return result
+
+
+data = [1, 2, 3, 4, -1]
+print(reduce(data, lambda a, b: a + b))
+print(reduce(data, lambda a, b: a * b))
+print(reduce(data, lambda a, b: max(a, b)))
+print(reduce(data, lambda a, b: min(a, b)))
+```
+
+```
+9
+-24
+4
+-1
+```
+
+Excellent! We have reduced the amount of code we need to write, reducing the
+number of possible bugs and making the code easier to maintain in the future.
+
 ## Map, Filter, Reduce
 
-One of the most important applications of functional programming in recent years is the Map, Filter, Reduce model of data processing, usually refered to as **MapReduce**.
-This model is particularly useful for the processing and analysis of **Big Data** using tools such as Spark or Hadoop.
+Python has a number of higher order functions built in, including `map`,
+`filter` and `reduce`. Note that the `map` and `filter` functions in Python use
+**lazy evaluation**.  This means that values in an iterable collection are not
+actually calculated until you need them.  We'll explain some of the implications
+of this a little later, but for now, we'll just use `list()` to convert the
+results to a normal list.  In these examples we also see the more typical usage
+of lambda functions.
 
-Note that the `map` and `filter` functions in Python use **lazy evaluation**.
-This means that values in an iterable collection are not actually calculated until you need them.
-We'll explain some of the implications of this a little later, but for now, we'll just use `list()` to convert the results to a normal list.
-In these examples we also see the more typical usage of lambda functions.
-
-The `map` function, takes a function and applies it to each value in an **iterable**.
-Here, 'iterable' means any object that can be iterated over - for more details see the [Iterable Abstract Base Class documentation](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable).
-The results of each of those applications become the values in the **iterable** that is returned.
+The `map` function, takes a function and applies it to each value in an
+**iterable**.  Here, 'iterable' means any object that can be iterated over - for
+more details see the [Iterable Abstract Base Class
+documentation](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable).
+The results of each of those applications become the values in the **iterable**
+that is returned.
 
 ~~~python
 l = [1, 2, 3]
@@ -82,7 +146,6 @@ print(list(map(lambda x: x + 1, l)))
 [2, 3, 4]
 [2, 3, 4]
 ~~~
-{: .output}
 
 Like `map`, `filter` takes a function and applies it to each value in an iterable, keeping the value if the result of the function application is `True`.
 
@@ -128,7 +191,7 @@ These are the fundamental components of the MapReduce style, and can be combined
 
 ::::challenge{id=sum_squares, title="Sum of Squares"}
 
-Using the MapReduce model, write a function that calculates the sum of the squares of the values in a list.
+Using `map` and `reduce`, write a function that calculates the sum of the squares of the values in a list.
 Your function should behave as below:
 
 ~~~ python
@@ -150,7 +213,6 @@ print(sum_of_squares([-1, -2, -3]))
 1
 14
 ~~~
-{: .output}
 
 :::solution
 
@@ -161,7 +223,6 @@ def sum_of_squares(l):
     squares = map(lambda x: x * x, l)
     return reduce(lambda a, b: a + b, squares)
 ~~~
-
 :::
 
 Now let's assume we're reading in these numbers from an input file, so they arrive as a list of strings.
@@ -176,7 +237,6 @@ print(sum_of_squares(['-1', '-2', '-3']))
 14
 14
 ~~~
-
 
 :::solution
 ~~~ python
@@ -219,7 +279,7 @@ def sum_of_squares(l):
 :::
 ::::
 
-::::challenge{id=multiprocessing, title="Multiprocessing (Optional Advanced Challenge)"}
+::::challenge{id=multiprocessing, title="Multiprocessing (Optional)"}
 
 **Advanced challenge for if you're finished early.**
 
@@ -246,17 +306,23 @@ Why, or why not?
 ## Comprehensions
 
 Comprehensions are a more Pythonic way to structure map and filter operations.
-They serve exactly the same purpose, but are more concise and can be easier to structure in more complex cases, such as mapping over a 2d data structure.
-Using comprehensions also gives us control over which data structures we end up with, rather than always getting back a `map` or `filter` iterable.
+They serve exactly the same purpose, but are more concise and can be easier to
+structure in more complex cases, such as mapping over a 2d data structure.
+Using comprehensions also gives us control over which data structures we end up
+with, rather than always getting back a `map` or `filter` iterable.
 
 ### List Comprehensions
 
-The **list comprehension** is probably the most commonly used comprehension type.
-As you might expect from the name, list comprehensions produce a list from some other iterable type.
-In effect they are the same as using `map` and/or `filter` and using `list()` to cast the result to a list, as we did previously.
+The **list comprehension** is probably the most commonly used comprehension
+type.  As you might expect from the name, list comprehensions produce a list
+from some other iterable type.  In effect they are the same as using `map`
+and/or `filter` and using `list()` to cast the result to a list, as we did
+previously.
 
-All comprehension types are structured in a similar way, using the syntax for a literal of that type (in the case below, a list literal) containing what looks like the top of a for loop.
-To the left of the `for` we put the equivalent of the map operation we want to use:
+All comprehension types are structured in a similar way, using the syntax for a
+literal of that type (in the case below, a list literal) containing what looks
+like the top of a for loop.  To the left of the `for` we put the equivalent of
+the map operation we want to use:
 
 ~~~python
 print([i for i in range(5)])
@@ -268,7 +334,8 @@ print([2 * i for i in range(5)])
 [0, 2, 4, 6, 8]
 ~~~
 
-We can also use list comprehensions to perform the equivalent of a filter operation, by putting the filter condition at the end:
+We can also use list comprehensions to perform the equivalent of a filter
+operation, by putting the filter condition at the end:
 
 ~~~python
 print([2 * i for i in range(5) if i % 2 == 0])
@@ -280,7 +347,8 @@ print([2 * i for i in range(5) if i % 2 == 0])
 
 ### Dictionary and Set Comprehensions
 
-Dictionary and set comprehensions are fundamentally the same as list comprehensions but use the dictionary or set literal syntax.
+Dictionary and set comprehensions are fundamentally the same as list
+comprehensions but use the dictionary or set literal syntax.
 
 So set comprehensions are:
 

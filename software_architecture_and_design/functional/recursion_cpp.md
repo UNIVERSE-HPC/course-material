@@ -1,7 +1,7 @@
 ---
 name: Recursion
 dependsOn: [
-    software_architecture_and_design.functional.state_and_side_effects_cpp,
+    software_architecture_and_design.functional.side_effects_cpp,
 ]
 tags: [cpp]
 ---

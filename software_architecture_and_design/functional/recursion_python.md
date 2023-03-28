@@ -8,15 +8,10 @@ tags: [python]
 
 ## Recursion
 
-See: Recursion
-
 Recursion is one of the common strategies used in Functional Programming.
-Instead of using loops to **iteratively** apply an operation, we can express a result in terms of previous results.
-To do this, the function needs to call itself to get the previous result, this is called **recursion**.
-
-<a href="{{ page.root }}/fig/droste-effect.jpg">
-  <img src="{{ page.root }}/fig/droste-effect-small.jpg" alt="Droste Effect" />
-</a>
+Instead of using loops to **iteratively** apply an operation, we can express a
+result in terms of previous results.  To do this, the function needs to call
+itself to get the previous result, this is called **recursion**.
 
 To illustrate recursive functions, we'll use factorials as an example.
 The factorial of a positive integer `N` (written `N!`) is the product of all of the positive integers equal to or less than `N`.
@@ -51,8 +46,10 @@ A recurrence relation is a process which can be used to derive the value of a se
 With just a recurrence relation, the function would run forever, continually trying to get the previous value, so we also need a base case.
 The base case is a value in the sequence which is known without having to derive it from previous values.
 
-In the case of the factorial function the recurrence relation is: `N! = N * (N-1)!` or equivalently `f(N) = N * f(N - 1)` - the Nth value in the sequence is N times the previous value.
-The base case is `0! = 1` - the factorial of zero is one.
+In the case of the factorial function the recurrence relation is: `N! = N *
+(N-1)!` or equivalently `f(N) = N * f(N - 1)` - the Nth value in the sequence is
+N times the previous value.  The base case is `0! = 1` - the factorial of zero
+is one.
 
 So, if we express the factorial function recursively, we get:
 
@@ -64,8 +61,10 @@ def factorial(n):
     return n * factorial(n - 1)
 ~~~
 
-There's something a bit dangerous about this implementation though: if we attempt to get the factorial of a negative number, the code will get stuck in an infinite loop.
-In practice, Python has a limit to the number of times a function is allowed to recurse, so we'll actually get an error.
+There's something a bit dangerous about this implementation though: if we
+attempt to get the factorial of a negative number, the code will get stuck in an
+infinite loop.  In practice, Python has a limit to the number of times a
+function is allowed to recurse, so we'll actually get an error.
 
 To make this safer, we should handle the case where `n < 0` and raise an error.
 
