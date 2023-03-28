@@ -34,7 +34,7 @@ Functions in procedural programming are *procedures* that describe a detailed
 list of instructions to tell the computer what to do step by step and how to
 change the state of the program and advance towards the result. They often use
 *iteration* to repeat a series of steps. Functional programming, on the other
-hand, typically uses *recursion* - an ability of a function to call/repeat
+hand, often uses *recursion* - an ability of a function to call/repeat
 itself until a particular condition is reached.
 
 ~~~cpp
@@ -103,7 +103,6 @@ int count_nodes(const Node& t) {
 }
 
 // or using std::accumulate
-
 int count_nodes2(const Node& t) {
   int count = 1;
   std::accumulate(t.children.begin(), t.children.end(), 0, [](int a, const Node& b) { return a + count_nodes(b); }
@@ -135,7 +134,6 @@ int evaluate(const Node& t) {
 }
 
 // or using std::accumulate and std::function
-
 int evaluate2(const Node& t) {
   if (t.children.empty()) {
     return t.value;
