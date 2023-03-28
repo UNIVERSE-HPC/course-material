@@ -1,29 +1,26 @@
 ---
 name: Recursion
 dependsOn: [
-    software_architecture_and_design.functional.side_effects_cpp,
+    software_architecture_and_design.functional.higher_order_functions_cpp,
 ]
 tags: [cpp]
 ---
 
-
 ## Recursion
 
 Recursion is one of the common strategies used in Functional Programming.
-Instead of using loops to **iteratively** apply an operation, we can express a result in terms of previous results.
-To do this, the function needs to call itself to get the previous result, this is called **recursion**.
+Instead of using loops to **iteratively** apply an operation, we can express a
+result in terms of previous results.  To do this, the function needs to call
+itself to get the previous result, this is called **recursion**.
 
-<a href="{{ page.root }}/fig/droste-effect.jpg">
-  <img src="{{ page.root }}/fig/droste-effect-small.jpg" alt="Droste Effect" />
-</a>
+The following two code examples implement the calculation of a factorial using
+iteration and recursion, respectively. Recall that the factorial of a number `n`
+(denoted by `n!`) is calculated as the product of integer numbers from 1 to `n`.
 
-To illustrate recursive functions, we'll use factorials as an example.
-The factorial of a positive integer `N` (written `N!`) is the product of all of the positive integers equal to or less than `N`.
-For example, `5! = 5 x 4 x 3 x 2 x 1 = 120`.
-
-We can calculate a factorial iteratively:
-
-~~~cpp
+```cpp
+// factorial
+// @param n: the number to calculate the factorial of
+// @return: the factorial of n
 int factorial(int n):
   int product = 1;
   for (int i = 2; i <= n; ++i) {
@@ -31,48 +28,19 @@ int factorial(int n):
   }
   return product;
 }
-int main() {
-  for (int i = 0; i < 5; ++i) {
-    std::cout << factorial(i) << std::endl;
-  }
-}
-~~~
+```
 
-~~~
-1
-1
-2
-6
-24
-~~~
-
-But the factorial function has a property which makes it particularly suitable to be defined recursively.
-
-To define a recursive function we need two things: a **recurrence relation** and a **base case**.
-A recurrence relation is a process which can be used to derive the value of a sequence, given the previous value in the sequence.
-With just a recurrence relation, the function would run forever, continually trying to get the previous value, so we also need a base case.
-The base case is a value in the sequence which is known without having to derive it from previous values.
-
-In the case of the factorial function the recurrence relation is: `N! = N * (N-1)!` or equivalently `f(N) = N * f(N - 1)` - the Nth value in the sequence is N times the previous value.
-The base case is `0! = 1` - the factorial of zero is one.
-
-So, if we express the factorial function recursively, we get:
+Functions in procedural programming are *procedures* that describe a detailed
+list of instructions to tell the computer what to do step by step and how to
+change the state of the program and advance towards the result. They often use
+*iteration* to repeat a series of steps. Functional programming, on the other
+hand, typically uses *recursion* - an ability of a function to call/repeat
+itself until a particular condition is reached.
 
 ~~~cpp
-int factorial(int n) {
-  if (n == 0) {
-    return 1;
-  }
-  return n * factorial(n - 1);
-}
-~~~
-
-There's something a bit dangerous about this implementation though: if we attempt to get the factorial of a negative number, the code will get stuck in an infinite loop.
-In practice, there is a limit to the number of times a function is allowed to recurse, so we'll actually get an error.
-
-To make this safer, we should handle the case where `n < 0` and raise an error.
-
-~~~cpp
+// factorial
+// @param n: the number to calculate the factorial of
+// @return: the factorial of n
 int factorial(int n) {
   if (n < 0) {
     throw std::invalid_argument("factorial is not defined for values less than 0");
@@ -86,87 +54,109 @@ int factorial(int n) {
 
 Note: this implementation is an example of *tail recursion*, which is typically
 optimised by the compiler back to an iterative implementation (since this is
-faster). So here we get the advantage of more readable code, while the compiler
-optimises it for us, win-win!
+faster).
 
-::::challenge{id=recursive_fibonacci, title="Recursive Fibonacci"
+::::challenge{id="recursion_on_trees", title="Recursion on trees"}
 
-Another well known sequence is the Fibonacci sequence: `0, 1, 1, 2, 3, 5, 8, 13, ...` where each value is the sum of the previous two values.
+Recursion is a powerful tool for traversing tree data structures. Consider a
+tree representing a mathematical expression like `1 + 2 * 3`. The tree could
+have the following structure:
 
-One possible iterative implementation of a function to calculate the Nth Fibonacci number is shown below.
-Also note how tuple packing and unpacking are used to effectively swap two values without using a temporary variable.
-
-~~~cpp
-int fibonacci(int n) {
-    int a = 0;
-    int b = 1;
-    for (int i = 0; i < n; ++i) {
-      const int sum = a + b;
-      a = b;
-      b = sum;
-    }
-    return a
+```cpp
+class Node {
+  public:
+    int value;
+    std::vector<Node> children;
+    Node(int value, std::vector<Node> children) : value(value), children(children) {}
+};
 
 int main() {
-  for (int i = 0; i < 8; ++i) {
-    std::cout << fibonacci(i) << std::endl;
-  }
+  //    +
+  //   / \
+  //  1  *
+  //    / \
+  //   2   3
+  Node t = Node('+', { Node(1), 
+                       Node('*', { Node(2), 
+                                   Node(3)
+                                 })
+                     }
+               );
 }
-~~~
+```
 
-~~~
-0
-1
-1
-2
-3
-5
-8
-13
-~~~
+Write:
+1. a function that traverses the tree and returns the total number of nodes
+2. a function that traverses the tree and returns the result of the
+   expression
 
-Write an equivalent function which uses recursion to calculate the Nth Fibonacci number.
-
-Hint: first think about what the recurrence relation and base case are.
 
 :::solution
 
-First, we need to decide what the recurrence relation is - in this case it's `f(N) = f(N - 1) + f(N - 2)`.
-And the base cases `f(0) = 0` and `f(1) = 1`.
-
-For the function itself, we can use the same approach as for the factorial function: first handle the base cases, then the recurrence relation:
-
-~~~cpp
-int fibonacci(int n) {
-  if (n < 0) {
-    throw std::invalid_argument("Fibonacci is not defined for N < 0");
+```cpp
+int count_nodes(const Node& t) {
+  int count = 1;
+  for (const Node& child : t.children) {
+    count += count_nodes(child);
   }
-  if (n == 0) {
-    return 0;
-  }
-  if (n == 1) {
-    return 1;
-  }
-  return fibonacci(n - 1) + fibonacci(n - 2);
+  return count;
 }
 
-int main() {
-  for (int i = 0; i < 8; ++i) {
-    std::cout << fibonacci(i) << std::endl;
-  }
+// or using std::accumulate
+
+int count_nodes2(const Node& t) {
+  int count = 1;
+  std::accumulate(t.children.begin(), t.children.end(), 0, [](int a, const Node& b) { return a + count_nodes(b); }
+  return count;
 }
-~~~
 
-~~~
-0
-1
-1
-2
-3
-5
-8
-13
-~~~
+int evaluate(const Node& t) {
+  if (t.children.empty()) {
+    return t.value;
+  }
+  int result = evaluate(t.children[0]);
+  for (int i = 1; i < t.children.size(); ++i) {
+    switch (t.value) {
+      case '+':
+        result += evaluate(t.children[i]);
+        break;
+      case '-':
+        result -= evaluate(t.children[i]);
+        break;
+      case '*':
+        result *= evaluate(t.children[i]);
+        break;
+      case '/':
+        result /= evaluate(t.children[i]);
+        break;
+    }
+  }
+  return result;
+}
 
+// or using std::accumulate and std::function
+
+int evaluate2(const Node& t) {
+  if (t.children.empty()) {
+    return t.value;
+  }
+  const std::function<int(const int, const int)> op;
+  switch (t.value) {
+    case '+':
+      op = [](int a, int b) { return a + b; };
+      break;
+    case '-':
+      op = [](int a, int b) { return a - b; };
+      break;
+    case '*':
+      op = [](int a, int b) { return a * b; };
+      break;
+    case '/':
+      op = [](int a, int b) { return a / b; };
+      break;
+  }
+  return std::accumulate(t.children.begin() + 1, t.children.end(), evaluate(t.children[0]), op);
+}
+```
 :::
 ::::

@@ -1,7 +1,7 @@
 ---
 name: Higher Order Functions
 dependsOn: [
-    software_architecture_and_design.functional.recursion_python,
+    software_architecture_and_design.functional.side_effects_python,
 ]
 tags: [python]
 ---

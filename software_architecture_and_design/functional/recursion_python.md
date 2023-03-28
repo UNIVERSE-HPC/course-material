@@ -1,7 +1,7 @@
 ---
 name: Recursion
 dependsOn: [
-    software_architecture_and_design.functional.state_and_side_effects_python,
+    software_architecture_and_design.functional.higher_order_functions_python,
 ]
 tags: [python]
 ---
@@ -13,137 +13,118 @@ Instead of using loops to **iteratively** apply an operation, we can express a
 result in terms of previous results.  To do this, the function needs to call
 itself to get the previous result, this is called **recursion**.
 
-To illustrate recursive functions, we'll use factorials as an example.
-The factorial of a positive integer `N` (written `N!`) is the product of all of the positive integers equal to or less than `N`.
-For example, `5! = 5 x 4 x 3 x 2 x 1 = 120`.
-
-We can calculate a factorial iteratively:
-
-~~~ python
-def factorial(n):
-    product = 1
-    for i in range(1, n + 1):
-        product = product * i
-
-    return product
-
-for i in range(5):
-    print(factorial(i))
-~~~
-
-~~~
-1
-1
-2
-6
-24
-~~~
-
-But the factorial function has a property which makes it particularly suitable to be defined recursively.
-
-To define a recursive function we need two things: a **recurrence relation** and a **base case**.
-A recurrence relation is a process which can be used to derive the value of a sequence, given the previous value in the sequence.
-With just a recurrence relation, the function would run forever, continually trying to get the previous value, so we also need a base case.
-The base case is a value in the sequence which is known without having to derive it from previous values.
-
-In the case of the factorial function the recurrence relation is: `N! = N *
-(N-1)!` or equivalently `f(N) = N * f(N - 1)` - the Nth value in the sequence is
-N times the previous value.  The base case is `0! = 1` - the factorial of zero
-is one.
-
-So, if we express the factorial function recursively, we get:
+The following two code examples implement the calculation of a factorial using
+iteration and recursion, respectively. Recall that the factorial of a number `n`
+(denoted by `n!`) is calculated as the product of integer numbers from 1 to `n`.
 
 ~~~python
 def factorial(n):
-    if n == 0:
-        return 1
+    """Calculate the factorial of a given number.
 
-    return n * factorial(n - 1)
-~~~
-
-There's something a bit dangerous about this implementation though: if we
-attempt to get the factorial of a negative number, the code will get stuck in an
-infinite loop.  In practice, Python has a limit to the number of times a
-function is allowed to recurse, so we'll actually get an error.
-
-To make this safer, we should handle the case where `n < 0` and raise an error.
-
-~~~python
-def factorial(n):
+    :param int n: The factorial to calculate
+    :return: The resultant factorial
+    """
     if n < 0:
-        raise ValueError('Factorial is not defined for values less than 0')
-    if n == 0:
-        return 1
+        raise ValueError('Only use non-negative integers.')
 
-    return n * factorial(n - 1)
+    factorial = 1
+    for i in range(1, n + 1): # iterate from 1 to n
+        # save intermediate value to use in the next iteration
+        factorial = factorial * i
+
+    return factorial
 ~~~
 
-::::challenge{id=fibonacci, title="Recursive Fibonacci"}
-
-Another well known sequence is the Fibonacci sequence: `0, 1, 1, 2, 3, 5, 8, 13, ...` where each value is the sum of the previous two values.
-
-One possible iterative implementation of a function to calculate the Nth Fibonacci number is shown below.
-Also note how tuple packing and unpacking are used to effectively swap two values without using a temporary variable.
+Functions in procedural programming are *procedures* that describe a detailed
+list of instructions to tell the computer what to do step by step and how to
+change the state of the program and advance towards the result. They often use
+*iteration* to repeat a series of steps. Functional programming, on the other
+hand, typically uses *recursion* - an ability of a function to call/repeat
+itself until a particular condition is reached.
 
 ~~~python
-def fibonacci(n):
-    # Iterative fibonacci
-    a, b = 0, 1
+def factorial(n):
+    """Calculate the factorial of a given number.
 
-    for _ in range(n):
-        a, b = b, a + b
+    :param int n: The factorial to calculate
+    :return: The resultant factorial
+    """
+    if n < 0:
+        raise ValueError('Only use non-negative integers.')
 
-    return a
-
-for i in range(8):
-    print(fibonacci(i))
+    if n == 0 or n == 1:
+        return 1 # exit from recursion, prevents infinite loops
+    else:
+        return  n * factorial(n-1) # recursive call to the same function
 ~~~
 
-~~~
-0
-1
-1
-2
-3
-5
-8
-13
-~~~
+::::challenge{id="recursion_on_trees", title="Recursion on trees"}
 
-Write an equivalent function which uses recursion to calculate the Nth Fibonacci number.
+Recursion is a powerful tool for traversing tree data structures. Consider a
+tree representing a mathematical expression like `1 + 2 * 3`. The tree could
+have the following structure:
 
-Hint: first think about what the recurrence relation and base case are.
+```python
+class Node(object):
+    "Generic tree node."
+    def __init__(self, name='root', children=None):
+        self.value = value
+        self.children = children or []
+
+    def __repr__(self):
+        return f"Node({self.value}, {self.children})"
+
+#    +
+#   / \
+#  1  *
+#    / \
+#   2   3
+t = Tree('+', [Tree('1'),
+               Tree('*', [Tree('2'),
+                          Tree('3')])])
+```
+
+Write:
+1. a function that traverses the tree and returns the total number of nodes
+2. a function that traverses the tree and returns the result of the
+   expression
+
 
 :::solution
-First, we need to decide what the recurrence relation is - in this case it's `f(N) = f(N - 1) + f(N - 2)`.
-And the base cases `f(0) = 0` and `f(1) = 1`.
 
-For the function itself, we can use the same approach as for the factorial function: first handle the base cases, then the recurrence relation:
+```python
+def count_nodes(tree):
+    """Count the number of nodes in a tree.
 
-~~~python
-def fibonacci(n):
-    if n < 0:
-        raise ValueError('Fibonacci is not defined for N < 0')
-    if n == 0:
-        return 0
-    if n == 1:
+    :param Node tree: The tree to count the nodes of
+    :return: The number of nodes in the tree
+    """
+    if not tree.children:
         return 1
+    else:
+        return 1 + sum(count_nodes(child) for child in tree.children)
 
-    return fibonacci(n - 1) + fibonacci(n - 2)
+def evaluate(tree):
+    """Evaluate the result of a tree representing a mathematical expression.
 
-for i in range(8):
-    print(fibonacci(i))
-~~~
-
-~~~
-0
-1
-1
-2
-3
-5
-8
-13
-~~~
+    :param Node tree: The tree to evaluate
+    :return: The result of the expression
+    """
+    if not tree.children:
+        return int(tree.value)
+    else:
+        left = evaluate(tree.children[0])
+        right = evaluate(tree.children[1])
+        if tree.name == '+':
+            return left + right
+        elif tree.name == '-':
+            return left - right
+        elif tree.name == '*':
+            return left * right
+        elif tree.name == '/':
+            return left / right
+        else:
+            raise ValueError(f"Unknown operator: {tree.value}")
+```
 :::
 ::::
