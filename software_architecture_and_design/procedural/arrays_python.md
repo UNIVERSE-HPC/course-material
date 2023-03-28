@@ -180,14 +180,14 @@ There are a number of these data sets in the `data` directory.
 To download the dataset files into the current directory you can use `wget`:
 
 ```bash
-wget -r -l1 -nd -A csv https://gutenberg.fly.dev/material/software_architecture_and_design/procedural/data/
+wget -r -l1 -nd -A csv https://gutenberg.fly.dev/material/software_architecture_and_design/procedural/inflammation/data/
 ```
 
 This command will recursively download all `.csv` files from the specified URL
-([https://gutenberg.fly.dev/material/software_architecture_and_design/procedural/data/](https://gutenberg.fly.dev/material/software_architecture_and_design/procedural/data/)) to the current directory (`-nd` option). The `-r` option
-enables recursive downloading, while `-l1` limits the depth of recursion to 1
-(i.e., it only downloads files from the specified URL). The `-A` option specifies
-the file extension to download (in this case, `.csv`).
+to the current directory (`-nd` option). The `-r` option enables recursive
+downloading, while `-l1` limits the depth of recursion to 1 (i.e., it only
+downloads files from the specified URL). The `-A` option specifies the file
+extension to download (in this case, `.csv`).
 
 :::callout
 ## What Does the Patient Inflammation Data Contain?
