@@ -1,7 +1,7 @@
 ---
 name: Collaborative Worklow
 dependsOn: [
-  software_project_management.version_control_with_git.issues
+  software_project_management.collaboration.issues
 ]
 tags: [github]
 ---

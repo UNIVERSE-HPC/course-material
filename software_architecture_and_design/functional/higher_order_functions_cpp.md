@@ -1,5 +1,5 @@
 ---
-name: First Class and Higher Order Functions
+name: Higher Order Functions
 dependsOn: [
     software_architecture_and_design.functional.side_effects_cpp,
 ]
@@ -299,7 +299,7 @@ int main() {
 ~~~
 
 
-::::challenge{id=sum_squares, title="Sum of Squares"}
+::::challenge{id=sum_squares title="Sum of Squares"}
 
 Use `std::accumulate` to write a function that calculates the sum of the squares of the values in a vector.
 Your function should behave as below:

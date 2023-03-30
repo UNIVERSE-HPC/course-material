@@ -56,7 +56,7 @@ Note: this implementation is an example of *tail recursion*, which is typically
 optimised by the compiler back to an iterative implementation (since this is
 faster).
 
-::::challenge{id="recursion_on_trees", title="Recursion on trees"}
+::::challenge{id="recursion_on_trees" title="Recursion on trees"}
 
 Recursion is a powerful tool for traversing tree data structures. Consider a
 tree representing a mathematical expression like `1 + 2 * 3`. The tree could

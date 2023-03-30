@@ -2,7 +2,7 @@
 name: Continuous Integration
 id: continuous_integration
 dependsOn: [
-    software_project_management.version_control_with_git
+    software_project_management.collaboration
 ]
 files: [
     github_actions.md,

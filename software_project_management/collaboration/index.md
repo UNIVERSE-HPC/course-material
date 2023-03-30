@@ -1,12 +1,13 @@
 ---
-name: Collaboration Workflows
-id: git_collaboration
+name: Collaboration on GitHub
+id: collaboration
 dependsOn: [
   technology_and_tooling.version_control
 ]
 files: [
     refresher.md,
     workflows.md,
+    issues.md,
 ]
 ---
 

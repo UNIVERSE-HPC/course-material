@@ -189,7 +189,7 @@ print(reduce(lambda a, b: a + b, l))
 These are the fundamental components of the MapReduce style, and can be combined to perform much more complex data processing operations.
 
 
-::::challenge{id=sum_squares, title="Sum of Squares"}
+::::challenge{id=sum_squares title="Sum of Squares"}
 
 Using `map` and `reduce`, write a function that calculates the sum of the squares of the values in a list.
 Your function should behave as below:
@@ -279,7 +279,7 @@ def sum_of_squares(l):
 :::
 ::::
 
-::::challenge{id=multiprocessing, title="Multiprocessing (Optional)"}
+::::challenge{id=multiprocessing title="Multiprocessing (Optional)"}
 
 **Advanced challenge for if you're finished early.**
 
@@ -480,7 +480,7 @@ function-call syntax gives us more flexibility - we can continue to use the
 un-decorated function if we make sure to give the decorated one a different
 name, and can even make multiple decorated versions using different decorators.
 
-::::challenge{id="decorators", title="Measuring Performance Using Decorators"}
+::::challenge{id="decorators" title="Measuring Performance Using Decorators"}
 
 One small task you might find a useful case for a decorator is measuring the
 time taken to execute a particular function. This is an important part of

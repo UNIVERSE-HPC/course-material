@@ -95,7 +95,7 @@ changing the value of a global variable. Functions without side affects that
 return the same data each time the same input arguments are provided are called
 *pure functions*.
 
-::::challenge{id="pure-functions", title="Pure Functions"}
+::::challenge{id="pure-functions" title="Pure Functions"}
 
 Which of the following are pure functions? Can you explain why or why not?
 

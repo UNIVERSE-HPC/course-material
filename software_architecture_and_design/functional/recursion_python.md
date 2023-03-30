@@ -58,7 +58,7 @@ def factorial(n):
         return  n * factorial(n-1) # recursive call to the same function
 ~~~
 
-::::challenge{id="recursion_on_trees", title="Recursion on trees"}
+::::challenge{id="recursion_on_trees" title="Recursion on trees"}
 
 Recursion is a powerful tool for traversing tree data structures. Consider a
 tree representing a mathematical expression like `1 + 2 * 3`. The tree could

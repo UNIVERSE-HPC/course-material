@@ -2,7 +2,7 @@
 ---
 name: Issue Management
 dependsOn: [
-  software_project_management.version_control_with_git.refresher
+  software_project_management.collaboration.refresher
 ]
 tags: [git]
 
