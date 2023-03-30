@@ -6,24 +6,29 @@ dependsOn: [
 tags: [python, unit-testing]
 ---
 
-# Introduction to Unit Testing
 
-:::callout
-This material was edited from the original in [Introduction to Unit Testing
-with Python and GitHub](https://github.com/OxfordRSE/IntroUnitTestingCourse)
-hosted by the Oxford RSE group.
-:::
+## Introduction
 
-**Why should we test software?** Being able to demonstrate that a process
-generates the right results is important in every field of research.
+Being able to demonstrate that a process generates the right results is
+important in any field of research, whether it's software generating those
+results or not. So when writing software we need to ask ourselves some key
+questions:
 
-* Does the code we develop work the way it should do?
-* Can we (and others) verify this correctness?
-* To what extent are we confident in the results that appear in publications?
+- Does the code we develop work the way it should do?
+- Can we (and others) verify these assertions for themselves?
+- Perhaps most importantly, to what extent are we confident of the accuracy of results that software produces?
 
-If we are unable to demonstrate that our software fulfils these criteria, then
-it presents a barrier to use and adoption of the software not only by others,
-but also by ourselves in the future.
+If we are unable to demonstrate that our software fulfills these criteria, why
+would anyone use it? Having well-defined tests for our software is useful for
+this, but manually testing software can prove an expensive process.
+
+Automation can help, and automation where possible is a good thing - it enables
+us to define a potentially complex process in a repeatable way that is far less
+prone to error than manual approaches. Once defined, automation can also save us
+a lot of effort, particularly in the long run. In this episode we'll look into
+techniques of automated testing to improve the predictability of a software
+change, make development more productive, and help us produce code that works as
+expected and produces desired results.
 
 ::: callout
 
@@ -37,35 +42,29 @@ does it still behave the way you expect?
 
 :::
 
-## Manual versus automated testing
 
-When we start out writing code, all the testing is done manually. We can often
-look at the output of code, for example:
+## What Is Software Testing?
 
-* a plot showing convergence with timestep
-* running an analysis pipeline on an existing dataset with known output
-* visually inspecting that a simulation “does the right thing”
+For the sake of argument, if each line we write has a 99% chance of being right,
+then a 70-line program will be wrong more than half the time. We need to do
+better than that, which means we need to test our software to catch these
+mistakes.
 
-These are important ways of testing during development, but have the drawback
-that they only test a subset of expected behaviour. Also you have to rememember
-to run them manually.
+We can and should extensively test our software manually, and manual testing is
+well-suited to testing aspects such as graphical user interfaces and reconciling
+visual outputs against inputs. However, even with a good test plan, manual
+testing is very time consuming and prone to error. Another style of testing is
+automated testing, where we write code that tests the functions of our software.
+Since computers are very good and efficient at automating repetitive tasks, we
+should take advantage of this wherever possible.
 
-In contrast to manual testing, **automated testing** by a computer automates the
-repetitive task of running tests and reporting errors.
+There are three main types of automated tests:
 
-## Kinds of tests
+- **Unit tests** are tests for fairly small and specific units of functionality, e.g. determining that a particular function returns output as expected given specific inputs.
+- **Functional or integration tests** work at a higher level, and test functional paths through your code, e.g. given some specific inputs, a set of interconnected functions across a number of modules (or the entire code) produce the expected result. These are particularly useful for exposing faults in how functional units interact.
+- **Regression tests** make sure that your program's output hasn't changed, for example after making changes your code to add new functionality or fix a bug.
 
-Not all tests are created equal. Tests can vary in size and also in the kind of
-behaviour that they are verifying.
+For the purposes of this course, we'll focus on unit tests. But the principles
+and practices we'll talk about can be built on and applied to the other types of
+tests too.
 
-1. **Unit tests** are tests for fairly small and specific units of
-   functionality. Typically these test at the level of functions or class
-   methods.
-2. **Functional or integration tests** work at a higher level, and test
-   functional paths through your code. Typically these tests are at the class or
-   module level.
-3. **Regression tests** make sure that your program’s output hasn’t changed.
-
-For the purposes of this course, we will focus on unit tests. In the next episode,
-we will work with a sample dataset and application in Python and write tests for
-it.

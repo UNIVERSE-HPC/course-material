@@ -1,8 +1,137 @@
-## Using Classes
+---
+name: Classes
+dependsOn: [
+]
+tags: [python]
+---
 
-Classes are one of the fundamental concepts of Object Oriented programming - acting as the template for objects which share common attributes and behaviour.
+## Structuring Data
 
-Just like functions, we've already been using some of the classes built into Python.
+One of the main difficulties we encounter when building more complex software is how to structure our data.
+So far, we've been processing data from a single source and with a simple tabular structure, but it would be useful to be able to combine data from a range of different sources and with more data than just an array of numbers.
+
+~~~ python
+data = np.array([[1., 2., 3.],
+                 [4., 5., 6.]])
+~~~
+
+Using this data structure has the advantage of being able to use NumPy operations to process the data and Matplotlib to plot it, but often we need to have more structure than this.
+For example, we may need to attach more information about the patients and store this alongside our measurements of inflammation.
+
+We can do this using the Python data structures we're already familiar with, dictionaries and lists.
+For instance, say we wish to store a list of patients on a clinical inflammation trial. We could attach a name to each of our patients:
+
+~~~ python
+patients = [
+    {
+        'name': 'Alice',
+        'data': [1., 2., 3.],
+    },
+    {
+        'name': 'Bob',
+        'data': [4., 5., 6.],
+    },
+]
+~~~
+
+:::::challenge{id=structuring-data, title="Structuring Data"}
+
+Write a function, called `attach_names`, which can be used to attach names to our patient dataset.
+When used as below, it should produce the expected output.
+
+If you're not sure where to begin, think about ways you might be able to effectively loop over two collections at once.
+Also, don't worry too much about the data type of the `data` value, it can be a Python list, or a NumPy array - either is fine.
+
+~~~ python
+data = np.array([[1., 2., 3.],
+                 [4., 5., 6.]])
+
+output = attach_names(data, ['Alice', 'Bob'])
+print(output)
+~~~
+
+~~~
+[
+    {
+        'name': 'Alice',
+        'data': [1., 2., 3.],
+    },
+    {
+        'name': 'Bob',
+        'data': [4., 5., 6.],
+    },
+]
+~~~
+
+::::solution
+
+One possible solution, perhaps the most obvious, is to use the `range` function to index into both lists at the same location:
+
+~~~ python
+def attach_names(data, names):
+    """Create datastructure containing patient records."""
+    output = []
+
+    for i in range(len(data)):
+        output.append({'name': names[i],
+                       'data': data[i]})
+
+    return output
+~~~
+
+However, this solution has a potential problem that can occur sometimes, depending on the input.
+What might go wrong with this solution?  How could we fix it?
+
+:::solution
+
+What would happen if the `data` and `names` inputs were different lengths?
+
+If `names` is longer, we'll loop through, until we run out of rows in the `data` input, at which point we'll stop processing the last few names.
+If `data` is longer, we'll loop through, but at some point we'll run out of names - but this time we try to access part of the list that doesn't exist, so we'll get an exception.
+
+A better solution would be to use the `zip` function, which allows us to iterate over multiple iterables without needing an index variable.
+The `zip` function also limits the iteration to whichever of the iterables is smaller, so we won't raise an exception here, but this might not quite be the behaviour we want, so we'll also explicitly `assert` that the inputs should be the same length.
+Checking that our inputs are valid in this way is an example of a precondition, which we introduced conceptually in an earlier episode.
+
+If you've not previously come across the `zip` function, read [this section](https://docs.python.org/3/library/functions.html#zip) of the Python documentation.
+
+~~~ python
+def attach_names(data, names):
+    """Create datastructure containing patient records."""
+    assert len(data) == len(names)
+    output = []
+
+    for data_row, name in zip(data, names):
+        output.append({'name': name,
+                       'data': data_row})
+
+    return output
+~~~
+:::
+::::
+:::::
+
+## Classes in Python
+
+Using nested dictionaries and lists should work for some of the simpler cases
+where we need to handle structured data, but they get quite difficult to manage
+once the structure becomes a bit more complex.  For this reason, in the object
+oriented paradigm, we use **classes** to help with managing this data and the
+operations we would want to perform on it.  A class is a **template**
+(blueprint) for a structured piece of data, so when we create some data using a
+class, we can be certain that it has the same structure each time.
+
+With our list of dictionaries we had in the example above, we have no real
+guarantee that each dictionary has the same structure, e.g. the same keys
+(`name` and `data`) unless we check it manually.  With a class, if an object is
+an **instance** of that class (i.e. it was made using that template), we know it
+will have the structure defined by that class. Different programming languages
+make slightly different guarantees about how strictly the structure will match,
+but in object oriented programming this is one of the core ideas - all objects
+derived from the same class must follow the same behaviour.
+
+You may not have realised, but you should already be familiar with some of the
+classes that come bundled as part of Python, for example:
 
 ~~~ python
 my_list = [1, 2, 3]
@@ -13,272 +142,262 @@ print(type(my_list))
 print(type(my_dict))
 print(type(my_set))
 ~~~
-{: .language-python}
 
 ~~~
 <class 'list'>
 <class 'dict'>
 <class 'set'>
 ~~~
-{: .output}
 
-Lists, dictionaries and sets are a slightly special type of class, but they behave in much the same way as a class we might define ourselves.
-They each contain data, as we have seen before.
-They also provide a set of functions, or **methods** which describe the **behaviours** of the data.
+Lists, dictionaries and sets are a slightly special type of class, but they behave in much the same way as a class we might define ourselves:
 
-The behaviours we have seen previously include:
+- They each hold some data (**attributes** or **state**).
+- They also provide some methods describing the behaviours of the data - what can the data do and what can we do to the data?
+
+The behaviours we may have seen previously include:
 
 - Lists can be appended to
-- Lists can be indexed (we'll make our own class with this later)
-- Lists can be sliced
-- The union of two sets can be found
-- The intersection of two sets can be found
+- Lists can be indexed 
+- Lists can be sliced 
+- Key-value pairs can be added to dictionaries
+- The value at a key can be looked up in a dictionary
+- The union of two sets can be found (the set of values present in any of the sets)
+- The intersection of two sets can be found (the set of values present in all of the sets)
 
-## Creating Classes
+## Encapsulating Data
 
-So how do we create and use our own class in Python?
+Let's start with a minimal example of a class representing our patients.
 
 ~~~ python
-class Academic:
+# file: inflammation/models.py
+
+class Patient:
     def __init__(self, name):
         self.name = name
-        self.papers = []
+        self.observations = []
 
-alice = Academic('Alice')
+alice = Patient('Alice')
 print(alice.name)
 ~~~
-{: .language-python}
 
 ~~~
 Alice
 ~~~
-{: .output}
 
-Similar to functions, we begin by using a special keyword, in this case `class`, followed by a name, then a colon to begin a new block.
-Inside this block, we define the data and behaviour that we want the class to provide.
+Here we've defined a class with one method: `__init__`.  This method is the
+**initialiser** method, which is responsible for setting up the initial values
+and structure of the data inside a new instance of the class - this is very
+similar to **constructors** in other languages, so the term is often used in
+Python too.  The `__init__` method is called every time we create a new instance
+of the class, as in `Patient('Alice')`.  The argument `self` refers to the
+instance on which we are calling the method and gets filled in automatically by
+Python - we do not need to provide a value for this when we call the method.
 
-Almost every class you define will have a `__init__` (pronounced "init" or "dunder-init" for double-underscore) **method** which is responsible for initialising any data that an instance of the class needs in order to be valid.
-Note that this is slightly different from the **constructor** if you've encountered classes in other OO languages (it doesn't allocate memory for the class itself), but it's usually safe to treat it as the same.
+Data encapsulated within our Patient class includes the patient's name and a
+list of inflammation observations. In the initialiser method, we set a patient's
+name to the value provided, and create a list of inflammation observations for
+the patient (initially empty). Such data is also referred to as the attributes
+of a class and holds the current state of an instance of the class. Attributes
+are typically hidden (encapsulated) internal object details ensuring that access
+to data is protected from unintended changes. They are manipulated internally by
+the class, which, in addition, can expose certain functionality as public
+behavior of the class to allow other objects to interact with this class'
+instances.
 
-> ## Data Classes
-> Python 3.7 added a slightly different syntax we can use to automatically generate some of the class structure.
-> These **Data Classes** are intended for cases where the data is more important than the behaviour, but are otherwise completely normal classes.
->
-> In this example we just define the data **attributes** and their types - the `__init__` method is then generated automatically.
->
-> ~~~ python
-> import dataclasses
-> import typing
->
-> @dataclasses.dataclass
-> class Academic:
->     name: str
->     papers: typing.List[typing.Dict] = dataclasses.field(default_factory=list)
->
-> alice = Academic('Alice')
-> print(alice)
-> ~~~
-> {: .language-python}
->
-> ~~~
-> Alice
-> ~~~
-> {: .output}
->
-> While dataclasses reduce the overhead in some respects, they also introduce overhead in defining some of the data types inside the class.
->
-> For more information see [this page](https://docs.python.org/3/library/dataclasses.html) of the Python documentation.
-{: .callout}
+## Encapsulating Behaviour
 
-### Methods
+In addition to representing a piece of structured data (e.g. a patient who has a
+name and a list of inflammation observations), a class can also provide a set of
+functions, or **methods**, which describe the **behaviours** of the data
+encapsulated in the instances of that class. To define the behaviour of a class
+we add functions which operate on the data the class contains. These functions
+are the member functions or methods.
 
-To define the behaviour of a class we can add functions which operate on the data the class contains.
-We call these functions **member functions** or **methods**.
+Methods on classes are the same as normal functions, except that they live
+inside a class and have an extra first parameter `self`.  Using the name `self`
+is not strictly necessary, but is a very strong convention - it is extremely
+rare to see any other name chosen.  When we call a method on an object, the
+value of `self` is automatically set to this object - hence the name.  As we saw
+with the `__init__` method previously, we do not need to explicitly provide a
+value for the `self` argument, this is done for us by Python.
 
-These functions are the same as normal functions (alternatively known as **free functions**), but we have an extra first parameter `self`.
-The `self` parameter is a normal variable, but when we use a method of an object, the value of `self` is automatically set to the object.
+Let's add another method on our Patient class that adds a new observation to a Patient instance.
 
 ~~~ python
-class Academic:
+# file: inflammation/models.py
+
+class Patient:
+    """A patient in an inflammation study."""
     def __init__(self, name):
         self.name = name
-        self.papers = []
+        self.observations = []
 
-    def write_paper(self, title, date):
-        new_paper = {
-            'title': title,
-            'date': date
+    def add_observation(self, value, day=None):
+        if day is None:
+            try:
+                day = self.observations[-1]['day'] + 1
+
+            except IndexError:
+                day = 0
+
+        new_observation = {
+            'day': day,
+            'value': value,
         }
 
-        self.papers.append(new_paper)
-        return new_paper
+        self.observations.append(new_observation)
+        return new_observation
 
-alice = Academic('Alice')
+alice = Patient('Alice')
 print(alice)
 
-# Normal use of a member function
-paper = alice.write_paper('A new paper', 2018)
-print(paper)
-print(alice.papers)
+observation = alice.add_observation(3)
+print(observation)
+print(alice.observations)
 ~~~
-{: .language-python}
 
 ~~~
-<__main__.Academic object at 0x7f4826fdff10>
-{'title': 'A new paper', 'date': 2018}
-[{'title': 'A new paper', 'date': 2018}]
+<__main__.Patient object at 0x7fd7e61b73d0>
+{'day': 0, 'value': 3}
+[{'day': 0, 'value': 3}]
 ~~~
-{: .output}
+
+Note also how we used `day=None` in the parameter list of the `add_observation` method, then initialise it if the value is indeed `None`.
+This is one of the common ways to handle an optional argument in Python, so we'll see this pattern quite a lot in real projects.
+
+:::callout
+## Class and Static Methods
+
+Sometimes, the function we're writing doesn't need access to any data belonging to a particular object.
+For these situations, we can instead use a **class method** or a **static method**.
+Class methods have access to the class that they're a part of, and can access data on that class - but do not belong to a specific instance of that class, whereas static methods have access to neither the class nor its instances.
+
+By convention, class methods use `cls` as their first argument instead of `self` - this is how we access the class and its data, just like `self` allows us to access the instance and its data.
+Static methods have neither `self` nor `cls` so the arguments look like a typical free function.
+These are the only common exceptions to using `self` for a method's first argument.
+
+Both of these method types are created using **decorators** - for more information see the [classmethod](https://docs.python.org/3/library/functions.html#classmethod) and [staticmethod](https://docs.python.org/3/library/functions.html#staticmethod) decorator sections of the Python documentation.
+:::
 
 ### Dunder Methods
 
 Why is the `__init__` method not called `init`?
+There are a few special method names that we can use which Python will use to provide a few common behaviours, each of which begins and ends with a **d**ouble-**under**score, hence the name **dunder method**.
 
-There are a few special method names that we can use which Python will use to provide a few common behaviours, each of which begins and ends with two underscores, hence the name **dunder method**.
-The most commonly used dunder method is `__init__`, but there are a few other common ones:
+When writing your own Python classes, you'll almost always want to write an `__init__` method, but there are a few other common ones you might need sometimes. You may have noticed in the code above that the method `print(alice)` returned `<__main__.Patient object at 0x7fd7e61b73d0>`, which is the string represenation of the `alice` object. We 
+may want the print statement to display the object's name instead. We can achieve this by overriding the `__str__` method of our class.
 
 ~~~ python
-class Academic:
+# file: inflammation/models.py
+
+class Patient:
+    """A patient in an inflammation study."""
     def __init__(self, name):
         self.name = name
-        self.papers = []
+        self.observations = []
 
-    def write_paper(self, title, date):
-        new_paper = {
-            'title': title,
-            'date': date
+    def add_observation(self, value, day=None):
+        if day is None:
+            try:
+                day = self.observations[-1]['day'] + 1
+
+            except IndexError:
+                day = 0
+
+
+        new_observation = {
+            'day': day,
+            'value': value,
         }
 
-        self.papers.append(new_paper)
-        return new_paper
+        self.observations.append(new_observation)
+        return new_observation
 
     def __str__(self):
         return self.name
 
-    def __getitem__(self, index):
-        return self.papers[index]
 
-    def __len__(self):
-        return len(self.papers)
-
-alice = Academic('Alice')
+alice = Patient('Alice')
 print(alice)
-
-alice.write_paper('A new paper', 2018)
-paper = alice[0]
-print(paper)
-
-print(len(alice))
 ~~~
-{: .language-python}
 
 ~~~
 Alice
-{'title': 'A new paper', 'date': 2018}
-1
 ~~~
-{: .output}
 
-In the example above we can see:
+These dunder methods are not usually called directly, but rather provide the implementation of some functionality we can use - we didn't call `alice.__str__()`, but it was called for us when we did `print(alice)`.
+Some we see quite commonly are:
 
-- `__str__` - converts an object into its string representation, used when you do `str(object)` or `print(object)`
+- `__str__` - converts an object into its string representation, used when you call `str(object)` or `print(object)`
 - `__getitem__` - Accesses an object by key, this is how `list[x]` and `dict[x]` are implemented
-- `__len__` - gets the length of an object - usually the number of items it contains
+- `__len__` - gets the length of an object when we use `len(object)` - usually the number of items it contains
 
-> ## Meaningful Behaviours
->
-> In the previous example, we defined some of the **data** and **behaviours** of an academic, but do all of these make sense?
-> What data and behaviours did we define?
-> Do these really represent the real-world object we're modelling?
->
-> > ## Solution
-> >
-> > The data attributes we defined for an academic make sense, these were:
-> >
-> > - has a name
-> > - has papers
-> >
-> > The behaviours we defined were:
-> >
-> > - can write a paper
-> > - can be represented as text
-> > - can get contents
-> > - can get number of contents
-> >
-> > These last two don't really make sense as they suggest that an academic **contains** papers, which probably isn't what we intended to say.
-> > To get the number of papers, we probably should have used `len(alice.papers)` from the main code and not had the `__len__` method in the class.
-> > This works because the `papers` attribute is a list type, which comes with a built in `__len__` method.
-> >
-> > These were included in the example to demonstrate their use, but when designing your own classes, it's important to think about whether what you're designing is a meaningful representation of reality.
-> > When we encounter code that behaves differently from reality, it can cause us to have incorrect assumptions about the structure and behaviour of the code.
-> {: .solution}
-{: .challenge}
+There are many more described in the Python documentation, but it’s also worth experimenting with built in Python objects to see which methods provide which behaviour.
+For a more complete list of these special methods, see the [Special Method Names](https://docs.python.org/3/reference/datamodel.html#special-method-names) section of the Python documentation.
 
-There are many more described in the Python documentation, but it's also worth experimenting with built in Python objects to see which methods provide which behaviour.
+::::challenge{id="a-basic-class", title="A Basic Class"}
 
-> ## A Basic Class
->
-> Implement a class to represent a book.
-> Your class should:
->
-> - Have a title
-> - Have an author
-> - When printed, show text in the format "title by author"
->
-> ~~~ python
-> book = Book('A Book', 'Me')
->
-> print(book)
-> ~~~
-> {: .language-python}
->
-> ~~~
-> A Book by Me
-> ~~~
-> {: .output}
->
-> > ## Solution
-> > ~~~ python
-> > class Book:
-> >     def __init__(self, title, author):
-> >         self.title = title
-> >         self.author = author
-> >
-> >     def __str__(self):
-> >         return self.title + ' by ' + self.author
-> > ~~~
-> > {: .output}
-> {: .solution}
-{: .challenge}
+Implement a class to represent a book.
+Your class should:
 
-## Properties
-
-The final special type of method we'll introduce is **properties**.
-Properties are methods which behave like data - when we want to access them, we don't need to use brackets to call the method manually.
-They're often used a bit like **getters** from other Object Oriented languages (see [this page](https://www.w3schools.com/cpp/cpp_encapsulation.asp) for more information).
+- Have a title
+- Have an author
+- When printed using `print(book)`, show text in the format "title by author"
 
 ~~~ python
-class Academic:
+book = Book('A Book', 'Me')
+
+print(book)
+~~~
+
+~~~
+A Book by Me
+~~~
+
+:::solution
+
+~~~ python
+class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+
+    def __str__(self):
+        return self.title + ' by ' + self.author
+~~~
+:::
+::::
+
+### Properties
+
+The final special type of method we will introduce is a **property**.
+Properties are methods which behave like data - when we want to access them, we do not need to use brackets to call the method manually.
+
+~~~ python
+# file: inflammation/models.py
+
+class Patient:
     ...
 
     @property
-    def last_paper(self):
-        return self.papers[-1]
+    def last_observation(self):
+        return self.observations[-1]
 
-alice = Academic('Alice')
+alice = Patient('Alice')
 
-alice.write_paper('First paper', 1)
-alice.write_paper('Second paper', 2)
+alice.add_observation(3)
+alice.add_observation(4)
 
-paper = alice.last_paper
-print(paper)
+obs = alice.last_observation
+print(obs)
 ~~~
-{: .language-python}
 
-The `@` syntax means that a function called `property` is being used to modify the behavior of the method - this is called a **decorator**.
-In this case the `@property` decorator converts `last_paper` from a normal method into a property.
-We'll see tomorrow how we decorators work in more detail and how we can make our own.
+~~~
+{'day': 1, 'value': 4}
+~~~
 
-Function decorators in Python are a modification of the [Decorator](https://en.wikipedia.org/wiki/Decorator_pattern) **Design Pattern**.
-Design Patterns are established templates that we can use to design the interactions between components in software using the Object Oriented paradigm.
-Many of these come from a book titled '[Design Patterns](https://en.wikipedia.org/wiki/Design_Patterns)' by Erich Gamma *et al*, published in 1994.
+You may recognise the `@` syntax from episodes on functional programming -
+`property` is another example of a **decorator**.  In this case the `property`
+decorator is taking the `last_observation` function and modifying its behaviour,
+so it can be accessed as if it were a normal attribute.  It is also possible to
+make your own decorators, but we won't cover it here.

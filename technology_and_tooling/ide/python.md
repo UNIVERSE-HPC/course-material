@@ -5,13 +5,11 @@ dependsOn: [
 tags: [python]
 ---
 
-
-
 ## Introduction to VSCode
 
 Microsoft's VSCode is a lightweight IDE which is great when starting out developing 
 programs. It not only supports Python, but also C++, C#, JavaScript, CSS, and Java, 
-amongst others. It's also available for Mac OS, Linux, and Windows. Whilst lightweight, 
+amongst others. It's also available for macOS, Linux, and Windows. Whilst lightweight, 
 it's features can be readily extended for a variety of languages via installation of 
 plugins to suit your needs, and you can even develop your own plugins for VSCode. As 
 well as features like live debugging and context-sensitive code autocompletion, other 
@@ -20,26 +18,36 @@ notable features include:
 - Revision/version control support: ability to work with Git source code repositories, 
   uploading and synchronising changes to/from such repositories on e.g. GitHub. We'll be 
   covering Git version control later in the course
+- Remote development: enabling users to work
+  with source code and projects that are stored on remote machines or in virtual
+  environments. This functionality provides greater flexibility for developers who
+  need to work with code that is not stored locally on their machine.
 - Live code development sharing: without exchanging changes using version control, you 
   can view live changes being made by another team member collaboratively within your 
   own VSCode editor
 
+## Installation instructions for VSCode
+
+To install Visual Studio Code, follow these steps:
+
+1. Go to the [official website](https://code.visualstudio.com/) and click the "Download for Windows" button, or choose the appropriate download link for your operating system.
+
+2. Once the installer has finished downloading, run the file and follow the prompts to install VSCode.
+
+3. After installation is complete, launch VSCode.
+
+For more detailed installation instructions, see the [official documentation](https://code.visualstudio.com/docs/setup/setup-overview).
+
 
 ## Running VSCode for the First Time
 
-If you haven't run VSCode yet, do this now. Select `Show Applications` from the 
-grid-type icon in the lower left hand corner of the desktop, and type `vscode` into the 
-text box at the top, and select the VSCode application that appears. You'll be presented 
-with the VSCode interface.
-
-The first thing we need to do is open our `se-day1/code` folder in VSCode. Select `Open 
-Folder` from the bar on the left (or from the `File` drop down menu at the top of 
-VSCode), and a dialogue window will appear. Select `Home` from the navigation bar on the 
-left and then double click on `se-day1`, then double click on `code`. Finally, select 
-`Open` in the top right of the window.
+A current project in VSCode is defined by a folder, either on on your local
+harddrive or on a remote folder or container. When you open VSCode for the first
+time it will prompt you to select a folder. Create a new, empty folder on your
+computer and open this folder in VSCode.
 
 :::callout
-## Trusting Code
+### Trusting Code
 
 You may be asked whether you trust the authors of the files in this folder. Select the 
 checkbox, and click 'Yes, I trust the authors' (although in general use some caution is 
@@ -60,7 +68,7 @@ Let's create our first Python script in VSCode and save it:
 - Select `File` -> `New Text File` from the menu. A new file will appear.
 - On line 1, you'll see a message about selecting a language. Click on `Select a 
   language`, and type in `python`, and select `Python (python) Built-In`
-- Select `File` > `Save As...`. You'll find yourself in the `se-day1/code` directory. 
+- Select `File` > `Save As...`. You'll find yourself in your root project directory. 
   Enter the filename `hello_world.py` at the top and select `Save`.
 
 Let's start with a classic 'Hello world' script. Enter this into the editor:
@@ -90,7 +98,7 @@ select `Run and Debug`. It will ask you to `Select a debug configuration`, so se
 at the bottom, with something like the following text in it:
 
 ~~~bash
-dtcse@dtcse-VirtualBox:~/se-day1/code$  /usr/bin/env /usr/bin/python3 /home/dtcse/.vscode/extensions/ms-python.python-2022.14.0/pythonFiles/lib/python/debugpy/launcher 38613 -- /home/dtcse/se-day1/code/hello_world.py
+user@mycomputer:~/my/project/dir$  /usr/bin/env /usr/bin/python3 /home/user/.vscode/extensions/ms-python.python-2022.14.0/pythonFiles/lib/python/debugpy/launcher 38613 -- /home/user/my/project/dir/hello_world.py
 Hello world!
 ~~~
 
@@ -124,7 +132,7 @@ separate virtual environments for each script.
 Go back to the terminal window, and exit the Python interpreter (either by typing 
 `exit()` or pressing `Ctrl` and `D` at the same time).
 
-In the Bash shell, type the following (whilst in the `se-day1/code` directory):
+In the Bash shell, type the following (whilst in the root project directory):
 
 ~~~bash
 python3 -m venv venv
@@ -181,7 +189,6 @@ Other languages make use of virtual environments, such as Ruby, JavaScript, and 
 it's a great way to keep your environments separate and avoid confusion over which 
 dependencie belong with which project.
 
-
 ### Running the Script from the Command Line
 
 You'll remember that we were originally running the Python interpreter directly from the 
@@ -194,10 +201,10 @@ which python3
 And you should see something like:
 
 ~~~
-/home/dtcse/se-day1/code/venv/bin/python3
+/home/user/my/project/dir/venv/bin/python3
 ~~~
 
-Which confirms that we are using the Python 3 interpreter from within our virtual environment at `/home/dtcse/se-day1/code/venv`.
+Which confirms that we are using the Python 3 interpreter from within our virtual environment at `/home/user/my/project/dir/venv`.
 
 Now let's run our new script using our virtual environment from the command line:
 

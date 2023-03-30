@@ -9,7 +9,7 @@ tags: [python]
 
 ## Getting started
 
-Create a new folder and open it in VSCode:
+Create a new folder and open it in VSCode, e.g. on the command-line (bash or other) type the following:
 
 ```bash
 mkdir procedural
@@ -19,8 +19,7 @@ code .
 
 ### Running a Python script
 
-
-In the terminal start a new Python virtual environment
+In the terminal start a new Python virtual environment.
 
 ```bash
 python3 -m venv env

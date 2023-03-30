@@ -1,34 +1,42 @@
 ---
 name: Higher Order Functions
 dependsOn: [
-    software_architecture_and_design.functional.recursion_python,
+    software_architecture_and_design.functional.side_effects_python,
 ]
 tags: [python]
 ---
 
-## Lambda Functions
+## First Class Functions
 
-If we build our programs in a functional way, we tend to end up with a lot of small, one line functions which perform very simple operations.
-For example, we might have a function which adds one to a number:
+Languages that treat functions as first-class citizens allow functions to be
+passed as arguments to other functions, returned from functions, or assigned to
+variables. This is a powerful feature of functional programming languages, and is also available in Python.
+
+In Python, functions are first-class citizens, which means that they can be passed to other functions as arguments, for example:
 
 ~~~ python
 def add_one(x):
     return x + 1
 
-print(add_one(1))
+def apply_function(f, x):
+    return f(x)
+
+print(apply_function(add_one, 1))
 ~~~
-{: .language-python}
 
 ~~~
 2
 ~~~
-{: .output}
 
-If we have a lot of these smaller functions which only get used once, it makes more sense to define them where they're used.
+## Lambda Functions
 
-**Lambda functions** are small, nameless functions which fulfil this need.
-The structure of these functions is not dissimilar to a normal python function definition - we have a keyword `lambda`, a list of parameters, a colon, then the function body.
-In Python, the function body is limited to a single expression, which becomes the return value.
+*Lambda functions* are small, nameless functions which are defined in the
+normal flow of the program, typically as they are needed. The structure of these
+functions is not dissimilar to a normal python function definition - we have a
+keyword `lambda`, a list of parameters, a colon, then the function body.  In
+Python, the function body is limited to a single expression, which becomes the
+return value.
+
 
 ~~~ python
 add_one = lambda x: x + 1
@@ -53,19 +61,75 @@ For example, see [Lambda Expressions](https://en.cppreference.com/w/cpp/language
 Finally, there's another common use case of lambda functions that we'll come back to later when we see **closures**.
 Due to their simplicity, it can be useful to have a lamdba function as the inner function in a closure.
 
+## Higher Order Functions
+
+One of the main uses of lambda functions is to create temporary functions to
+pass into higher order functions. A higher order function is simply a function
+that has other functions as one of its arguments. 
+
+To illustrate the benifits of higher order functions, let us define two
+functions, one that calculates the sum of a `std::vector<int>`, the other
+which calculates the maximum value the same vector type.
+
+```python
+def sum(data):
+    result = 0
+    for x in data:
+        result = result + x
+    return result
+
+def maximum(data):
+    result = 0
+    for x in data:
+        result = max(result, x)
+    return result
+```
+
+We notice that these are really exactly the same algorithm, except that we
+change the binary operation done on the rhs of the statement in the loop, we
+therefore decide to combine these functions into one higher order function.
+
+```python
+def reduce(data, bin_op):
+    result = 0
+    for x in data:
+        result = bin_op(result, x)
+    return result
+
+
+data = [1, 2, 3, 4, -1]
+print(reduce(data, lambda a, b: a + b))
+print(reduce(data, lambda a, b: a * b))
+print(reduce(data, lambda a, b: max(a, b)))
+print(reduce(data, lambda a, b: min(a, b)))
+```
+
+```
+9
+-24
+4
+-1
+```
+
+Excellent! We have reduced the amount of code we need to write, reducing the
+number of possible bugs and making the code easier to maintain in the future.
+
 ## Map, Filter, Reduce
 
-One of the most important applications of functional programming in recent years is the Map, Filter, Reduce model of data processing, usually refered to as **MapReduce**.
-This model is particularly useful for the processing and analysis of **Big Data** using tools such as Spark or Hadoop.
+Python has a number of higher order functions built in, including `map`,
+`filter` and `reduce`. Note that the `map` and `filter` functions in Python use
+**lazy evaluation**.  This means that values in an iterable collection are not
+actually calculated until you need them.  We'll explain some of the implications
+of this a little later, but for now, we'll just use `list()` to convert the
+results to a normal list.  In these examples we also see the more typical usage
+of lambda functions.
 
-Note that the `map` and `filter` functions in Python use **lazy evaluation**.
-This means that values in an iterable collection are not actually calculated until you need them.
-We'll explain some of the implications of this a little later, but for now, we'll just use `list()` to convert the results to a normal list.
-In these examples we also see the more typical usage of lambda functions.
-
-The `map` function, takes a function and applies it to each value in an **iterable**.
-Here, 'iterable' means any object that can be iterated over - for more details see the [Iterable Abstract Base Class documentation](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable).
-The results of each of those applications become the values in the **iterable** that is returned.
+The `map` function, takes a function and applies it to each value in an
+**iterable**.  Here, 'iterable' means any object that can be iterated over - for
+more details see the [Iterable Abstract Base Class
+documentation](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable).
+The results of each of those applications become the values in the **iterable**
+that is returned.
 
 ~~~python
 l = [1, 2, 3]
@@ -82,7 +146,6 @@ print(list(map(lambda x: x + 1, l)))
 [2, 3, 4]
 [2, 3, 4]
 ~~~
-{: .output}
 
 Like `map`, `filter` takes a function and applies it to each value in an iterable, keeping the value if the result of the function application is `True`.
 
@@ -128,7 +191,7 @@ These are the fundamental components of the MapReduce style, and can be combined
 
 ::::challenge{id=sum_squares, title="Sum of Squares"}
 
-Using the MapReduce model, write a function that calculates the sum of the squares of the values in a list.
+Using `map` and `reduce`, write a function that calculates the sum of the squares of the values in a list.
 Your function should behave as below:
 
 ~~~ python
@@ -150,7 +213,6 @@ print(sum_of_squares([-1, -2, -3]))
 1
 14
 ~~~
-{: .output}
 
 :::solution
 
@@ -161,7 +223,6 @@ def sum_of_squares(l):
     squares = map(lambda x: x * x, l)
     return reduce(lambda a, b: a + b, squares)
 ~~~
-
 :::
 
 Now let's assume we're reading in these numbers from an input file, so they arrive as a list of strings.
@@ -176,7 +237,6 @@ print(sum_of_squares(['-1', '-2', '-3']))
 14
 14
 ~~~
-
 
 :::solution
 ~~~ python
@@ -219,7 +279,7 @@ def sum_of_squares(l):
 :::
 ::::
 
-::::challenge{id=multiprocessing, title="Multiprocessing (Optional Advanced Challenge)"}
+::::challenge{id=multiprocessing, title="Multiprocessing (Optional)"}
 
 **Advanced challenge for if you're finished early.**
 
@@ -246,17 +306,23 @@ Why, or why not?
 ## Comprehensions
 
 Comprehensions are a more Pythonic way to structure map and filter operations.
-They serve exactly the same purpose, but are more concise and can be easier to structure in more complex cases, such as mapping over a 2d data structure.
-Using comprehensions also gives us control over which data structures we end up with, rather than always getting back a `map` or `filter` iterable.
+They serve exactly the same purpose, but are more concise and can be easier to
+structure in more complex cases, such as mapping over a 2d data structure.
+Using comprehensions also gives us control over which data structures we end up
+with, rather than always getting back a `map` or `filter` iterable.
 
 ### List Comprehensions
 
-The **list comprehension** is probably the most commonly used comprehension type.
-As you might expect from the name, list comprehensions produce a list from some other iterable type.
-In effect they are the same as using `map` and/or `filter` and using `list()` to cast the result to a list, as we did previously.
+The **list comprehension** is probably the most commonly used comprehension
+type.  As you might expect from the name, list comprehensions produce a list
+from some other iterable type.  In effect they are the same as using `map`
+and/or `filter` and using `list()` to cast the result to a list, as we did
+previously.
 
-All comprehension types are structured in a similar way, using the syntax for a literal of that type (in the case below, a list literal) containing what looks like the top of a for loop.
-To the left of the `for` we put the equivalent of the map operation we want to use:
+All comprehension types are structured in a similar way, using the syntax for a
+literal of that type (in the case below, a list literal) containing what looks
+like the top of a for loop.  To the left of the `for` we put the equivalent of
+the map operation we want to use:
 
 ~~~python
 print([i for i in range(5)])
@@ -268,7 +334,8 @@ print([2 * i for i in range(5)])
 [0, 2, 4, 6, 8]
 ~~~
 
-We can also use list comprehensions to perform the equivalent of a filter operation, by putting the filter condition at the end:
+We can also use list comprehensions to perform the equivalent of a filter
+operation, by putting the filter condition at the end:
 
 ~~~python
 print([2 * i for i in range(5) if i % 2 == 0])
@@ -280,7 +347,8 @@ print([2 * i for i in range(5) if i % 2 == 0])
 
 ### Dictionary and Set Comprehensions
 
-Dictionary and set comprehensions are fundamentally the same as list comprehensions but use the dictionary or set literal syntax.
+Dictionary and set comprehensions are fundamentally the same as list
+comprehensions but use the dictionary or set literal syntax.
 
 So set comprehensions are:
 
@@ -317,10 +385,11 @@ Since tuples aren't intended to represent sequences, there's no need for them to
 
 ## Generators
 
-### Generator Expressions
-
-**Generator expressions** look exactly like you might expect a tuple comprehension (which don't exist) to look, and behaves a little differently from the other comprehensions.
-What happens if we try to use them in the same was as we did list comprehensions?
+**Generator expressions** look exactly like you might expect a tuple
+*comprehension (which don't exist) to look, and behaves a little differently
+*from the other comprehensions.
+What happens if we try to use them in the same was as we did list
+comprehensions?
 
 ~~~python
 print((2 * i for i in range(5)))
@@ -330,9 +399,140 @@ print((2 * i for i in range(5)))
 <generator object <genexpr> at 0x7efc21efcdd0>
 ~~~
 
-Like the `map` and `filter` functions, generator expressions are not evaluated until you iterate over them.
+Like the `map` and `filter` functions, generator expressions are not evaluated
+until you iterate over them.
 
 ~~~python
 for i in (2 * i for i in range(5)):
     print(i)
 ~~~
+
+## Decorators
+
+Decorators are higher order functions that take a function as an argument, modify it, and return it.
+
+Let's look at the following code for ways on how to "decorate" functions.
+
+~~~python
+def with_logging(func):
+
+    """A decorator which adds logging to a function."""
+    def inner(*args, **kwargs):
+        print("Before function call")
+        result = func(*args, **kwargs)
+        print("After function call")
+        return result
+
+    return inner
+
+
+def add_one(n):
+    print("Adding one")
+    return n + 1
+
+# Redefine function add_one by wrapping it within with_logging function
+add_one = with_logging(add_one)
+
+# Another way to redefine a function - using a decorator
+@with_logging
+def add_two(n):
+    print("Adding two")
+    return n + 2
+
+print(add_one(1))
+print(add_two(1))
+~~~
+
+~~~
+Before function call
+Adding one
+After function call
+2
+Before function call
+Adding two
+After function call
+3
+~~~
+
+In this example, we see a decorator (`with_logging`) and two different syntaxes
+for applying the decorator to a function. The decorator is implemented here as a
+function which encloses another function. Because the inner function (`inner()`)
+calls the function being decorated (`func()`) and returns its result, it still
+behaves like this original function. Part of this is the use of `*args` and
+`**kwargs` - these allow our decorated function to accept any arguments or
+keyword arguments and pass them directly to the function being decorated. Our
+decorator in this case does not need to modify any of the arguments, so we do
+not need to know what they are. Any additional behaviour we want to add as part
+of our decorated function, we can put before or after the call to the original
+function. Here we print some text both before and after the decorated function,
+to show the order in which events happen.
+
+We also see in this example the two different ways in which a decorator can be
+applied. The first of these is to use a normal function call
+(`with_logging(add_one)`), where we then assign the resulting function back to a
+variable - often using the original name of the function, so replacing it with
+the decorated version. The second syntax is the one we have seen previously
+(`@with_logging`). This syntax is equivalent to the previous one - the result is
+that we have a decorated version of the function, here with the name `add_two`.
+Both of these syntaxes can be useful in different situations: the `@` syntax is
+more concise if we never need to use the un-decorated version, while the
+function-call syntax gives us more flexibility - we can continue to use the
+un-decorated function if we make sure to give the decorated one a different
+name, and can even make multiple decorated versions using different decorators.
+
+::::challenge{id="decorators", title="Measuring Performance Using Decorators"}
+
+One small task you might find a useful case for a decorator is measuring the
+time taken to execute a particular function. This is an important part of
+performance profiling.
+
+Write a decorator which you can use to measure the execution time of the
+decorated function using the
+[time.process_time_ns()](https://docs.python.org/3/library/time.html#time.process_time_ns)
+function. There are several different timing functions each with slightly
+different use-cases, but we won’t worry about that here.
+
+For the function to measure, you may wish to use this as an example:
+
+~~~python
+def measure_me(n):
+    total = 0
+    for i in range(n):
+        total += i * i
+
+    return total
+~~~
+
+:::solution
+
+~~~python
+import time
+
+def profile(func):
+    def inner(*args, **kwargs):
+        start = time.process_time_ns()
+        result = func(*args, **kwargs)
+        stop = time.process_time_ns()
+
+        print("Took {0} seconds".format((stop - start) / 1e9))
+        return result
+
+    return inner
+
+@profile
+def measure_me(n):
+    total = 0
+    for i in range(n):
+        total += i * i
+
+    return total
+
+print(measure_me(1000000))
+~~~
+
+~~~
+Took 0.124199753 seconds
+333332833333500000
+~~~
+:::
+::::
