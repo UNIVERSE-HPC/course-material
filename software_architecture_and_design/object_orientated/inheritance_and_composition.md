@@ -67,12 +67,10 @@ obs = alice.add_observation(3)
 
 print(obs)
 ~~~
-{: .language-python}
 
 ~~~
 3
 ~~~
-{: .output}
 
 Now we're using a composition of two custom classes to describe the relationship between two types of entity in the system that we're modelling.
 
@@ -138,7 +136,6 @@ print(bob)
 obs = bob.add_observation(4)
 print(obs)
 ~~~
-{: .language-python}
 
 ~~~
 Alice
@@ -146,7 +143,6 @@ Alice
 Bob
 AttributeError: 'Person' object has no attribute 'add_observation'
 ~~~
-{: .output}
 
 As expected, an error is thrown because we cannot add an observation to `bob`, who is a Person but not a Patient.
 
@@ -162,7 +158,6 @@ The line `super().__init__(name)` gets the parent class, then calls the `__init_
 This is quite a common pattern, particularly for `__init__` methods, where we need to make sure an object is initialised as a valid `X`, before we can initialise it as a valid `Y` - e.g. a valid `Person` must have a name, before we can properly initialise a `Patient` model with their inflammation data.
 
 
-:::callout
 ## Composition vs Inheritance
 
 When deciding how to implement a model of a particular system, you often have a choice of either composition or inheritance, where there is no obviously correct choice.
@@ -182,7 +177,6 @@ class Copier(Printer, Scanner):
     # Copier `is a` Printer and `is a` Scanner
     pass
 ~~~
-{: .language-python}
 
 ~~~ python
 class Machine:
@@ -200,26 +194,22 @@ class Copier(Machine):
         self.printer = Printer()
         self.scanner = Scanner()
 ~~~
-{: .language-python}
 
 Both of these would be perfectly valid models and would work for most purposes.
 However, unless there's something about how you need to use the model which would benefit from using a model based on inheritance, it's usually recommended to opt for **composition over inheritance**.
 This is a common design principle in the object oriented paradigm and is worth remembering, as it's very common for people to overuse inheritance once they've been introduced to it.
 
 For much more detail on this see the [Python Design Patterns guide](https://python-patterns.guide/gang-of-four/composition-over-inheritance/).
-:::
 
-:::callout
 ## Multiple Inheritance
 
 **Multiple Inheritance** is when a class inherits from more than one direct parent class.
 It exists in Python, but is often not present in other Object Oriented languages.
 Although this might seem useful, like in our inheritance-based model of the photocopier above, it's best to avoid it unless you're sure it's the right thing to do, due to the complexity of the inheritance heirarchy.
 Often using multiple inheritance is a sign you should instead be using composition - again like the photocopier model above.
-:::
 
 
-::::challenge{id="a-model-patient", title="A Model Patient"}
+::::challenge{id="a-model-patient" title="A Model Patient"}
 
 Above we gave an example of a `Patient` class which inherits from `Person`. Let's can start with extending the system such that there must be a `Doctor` class to hold the data representing a single doctor, which:
   - must have a `name` attribute

@@ -146,7 +146,7 @@ The quote below is from the [Python documentation](https://docs.python.org/3/glo
 > emphasizing interfaces rather than specific types, well-designed code improves
 > its flexibility by allowing polymorphic substitution.
 
-::::challenge{id="create-a-trial", title="A Trial full of People"}
+::::challenge{id="create-a-trial" title="A Trial full of People"}
 
 Create a class called `Trial` that has a list of people assigned to it. The
 `Trial` class should have a method called `add_person` that adds a person to the

@@ -34,7 +34,7 @@ patients = [
 ]
 ~~~
 
-:::::challenge{id=structuring-data, title="Structuring Data"}
+:::::challenge{id=structuring-data title="Structuring Data"}
 
 Write a function, called `attach_names`, which can be used to attach names to our patient dataset.
 When used as below, it should produce the expected output.
@@ -335,7 +335,7 @@ Some we see quite commonly are:
 There are many more described in the Python documentation, but it’s also worth experimenting with built in Python objects to see which methods provide which behaviour.
 For a more complete list of these special methods, see the [Special Method Names](https://docs.python.org/3/reference/datamodel.html#special-method-names) section of the Python documentation.
 
-::::challenge{id="a-basic-class", title="A Basic Class"}
+::::challenge{id="a-basic-class" title="A Basic Class"}
 
 Implement a class to represent a book.
 Your class should:
