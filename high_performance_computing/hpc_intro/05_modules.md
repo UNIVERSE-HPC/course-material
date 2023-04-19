@@ -1,9 +1,9 @@
 ---
 name: Accessing Software via Modules
 dependsOn: [
-  technology_and_tooling.hpc.04_scheduler
+  high_performance_computing.hpc_intro.04_scheduler
 ]
-tags: [hpc, modules]
+tags: [ARC]
 ---
 
 On a high-performance computing system, it is seldom the case that the software
@@ -63,12 +63,35 @@ you are using.
 
 To see available software modules, use `module avail`:
 
+```bash
+remote$ module avail
 ```
-{{ site.remote.prompt }} module avail
-```
-{: .language-bash}
 
-{% include {{ site.snippets }}/modules/available-modules.snip %}
+```
+---------------- MPI-dependent avx2 modules -----------------
+ abinit/8.2.2     (chem)           ncl/6.4.0
+ abyss/1.9.0      (bio)            ncview/2.1.7        (vis)
+ boost-mpi/1.60.0 (t)              plumed/2.3.0        (chem)
+ cdo/1.7.2        (geo)            pnetcdf/1.8.1       (io)
+ lammps/20170331                   quantumespresso/6.0 (chem)
+ mrbayes/3.2.6            (bio)    ray/2.3.1           (bio)
+
+
+[removed most of the output here for clarity]
+
+   t:        Tools for development / Outils de développement
+   vis:      Visualisation software / Logiciels de visualisation
+   chem:     Chemistry libraries/apps / Logiciels de chimie
+   geo:      Geography libraries/apps / Logiciels de géographie
+   phys:     Physics libraries/apps / Logiciels de physique
+   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that
+             "module load foo/1.2" will load foo/1.2.3
+   D:        Default Module
+
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
+```
 
 ### Listing Currently Loaded Modules
 
@@ -76,15 +99,13 @@ You can use the `module list` command to see which modules you currently have
 loaded in your environment. If you have no modules loaded, you will see a
 message telling you so
 
+```bash
+remote$ module list
 ```
-{{ site.remote.prompt }} module list
-```
-{: .language-bash}
 
 ```
 No Modulefiles Currently Loaded.
 ```
-{: .output}
 
 ## Loading and Unloading Software
 
@@ -95,18 +116,26 @@ Initially, Python 3 is not loaded. We can test this by using the `which`
 command. `which` looks for programs the same way that Bash does, so we can use
 it to tell us where a particular piece of software is stored.
 
+```bash
+remote$ which python3
 ```
-{{ site.remote.prompt }} which python3
-```
-{: .language-bash}
 
-{% include {{ site.snippets }}/modules/missing-python.snip %}
+```
+python3 not found
+```
 
 We can load the `python3` command with `module load`:
 
-{% include {{ site.snippets }}/modules/module-load-python.snip %}
+```bash
+remote$ module load python
+remote$ which python3
+```
 
-{% include {{ site.snippets }}/modules/python-executable-dir.snip %}
+```
+/path/to/python/python3
+```
+
+where `/path/to/python` is a directory that depends on the particular cluster setup.
 
 So, what just happened?
 
@@ -117,40 +146,134 @@ directories (separated by `:`) that the OS searches through for a command
 before giving up and telling us it can't find it. As with all environment
 variables we can print it out using `echo`.
 
+```bash
+remote$ echo $PATH
 ```
-{{ site.remote.prompt }} echo $PATH
-```
-{: .language-bash}
 
-{% include {{ site.snippets }}/modules/python-module-path.snip %}
+```
+/path/to/python:/another/path:/some/other/path:/yet/another/path
+```
 
 You'll notice a similarity to the output of the `which` command. In this case,
 there's only one difference: the different directory at the beginning. When we
 ran the `module load` command, it added a directory to the beginning of our
 `$PATH`. Let's examine what's there:
 
-{% include {{ site.snippets }}/modules/python-ls-dir-command.snip %}
 
-{% include {{ site.snippets }}/modules/python-ls-dir-output.snip %}
+```bash
+remote$ ls /path/to/python
+```
+
+```
+2to3              idle3.5  pydoc3.5          python3.5m         virtualenv
+2to3-3.5          pip      python            python3.5m-config  wheel
+easy_install      pip3     python3           python3-config
+easy_install-3.5  pip3.5   python3.5         pyvenv
+idle3             pydoc3   python3.5-config  pyvenv-3.5
+```
 
 Taking this to its conclusion, `module load` will add software to your `$PATH`.
 It "loads" software. A special note on this - depending on which version of the
 `module` program that is installed at your site, `module load` will also load
 required software dependencies.
 
-{% include {{ site.snippets }}/modules/software-dependencies.snip %}
+To demonstrate, let’s use `module list`. `module list` shows all loaded software 
+modules.
 
-Note that this module loading process happens principally through
-the manipulation of environment variables like `$PATH`. There
-is usually little or no data transfer involved.
+```bash
+remote$ module list
+```
 
-The module loading process manipulates other special environment
-variables as well, including variables that influence where the
-system looks for software libraries, and sometimes variables which
-tell commercial software packages where to find license servers.
+```
+Currently Loaded Modules:
+  1) nixpkgs/.16.09    (H,S)      5) intel/2016.4  (t)
+  2) icc/.2016.4.258   (H)        6) openmpi/2.1.1 (m)
+  3) gcccore/.5.4.0    (H)        7) StdEnv/2016.4 (S)
+  4) ifort/.2016.4.258 (H)        8) python/3.5.2  (t)
 
-The module command also restores these shell environment variables
-to their previous state when a module is unloaded.
+  Where:
+   S:  Module is Sticky, requires --force to unload or purge
+   m:  MPI implementations / Implémentations MPI
+   t:  Tools for development / Outils de développement
+   H:             Hidden Module
+```
+
+```bash
+remote$ module load beast
+remote$ module list
+```
+
+```
+Currently Loaded Modules:
+  1) nixpkgs/.16.09    (H,S)  5) intel/2016.4  (t)   9) java/1.8.0_121   (t)
+  2) icc/.2016.4.258   (H)    6) openmpi/2.1.1 (m)  10) beagle-lib/2.1.2 (bio)
+  3) gcccore/.5.4.0    (H)    7) StdEnv/2016.4 (S)  11) beast/2.4.0      (chem)
+  4) ifort/.2016.4.258 (H)    8) python/3.5.2  (t)
+
+  Where:
+   S:     Module is Sticky, requires --force to unload or purge
+   bio:   Bioinformatic libraries/apps / Logiciels de bioinformatique
+   m:     MPI implementations / Implémentations MPI
+   t:     Tools for development / Outils de développement
+   chem:  Chemistry libraries/apps / Logiciels de chimie
+   H:                Hidden Module
+```
+
+So in this case, loading the `beast` module (a bioinformatics software package), also 
+loaded `java/1.8.0_121` and `beagle-lib/2.1.2` as well. Let’s try unloading the `beast` 
+package.
+
+```bash
+remote$ module unload beast
+remote$ module list
+```
+
+```
+Currently Loaded Modules:
+  1) nixpkgs/.16.09    (H,S)      5) intel/2016.4  (t)
+  2) icc/.2016.4.258   (H)        6) openmpi/2.1.1 (m)
+  3) gcccore/.5.4.0    (H)        7) StdEnv/2016.4 (S)
+  4) ifort/.2016.4.258 (H)        8) python/3.5.2  (t)
+
+  Where:
+   S:  Module is Sticky, requires --force to unload or purge
+   m:  MPI implementations / Implémentations MPI
+   t:  Tools for development / Outils de développement
+   H:             Hidden Module
+```
+
+So using `module unload` “un-loads” a module along with its dependencies. If we wanted to 
+unload everything at once, we could run `module purge` (unloads everything).
+
+```bash
+remote$ module purge
+```
+
+```output
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+
+  1) StdEnv/2016.4                5) ifort/.2016.4.258
+  2) nixpkgs/.16.09               6) intel/2016.4
+  3) icc/.2016.4.258              7) imkl/11.3.4.258
+  4) gcccore/.5.4.0               8) openmpi/2.1.1
+```
+
+
+Note that `module purge` is informative. It lets us know that all but a default set of 
+packages have been unloaded (and how to actually unload these if we truly so desired).
+
+Note that this module loading process happens principally through the manipulation of 
+environment variables like $PATH. There is usually little or no data transfer involved.
+
+The module loading process manipulates other special environment variables as well, 
+including variables that influence where the system looks for software libraries, and 
+sometimes variables which tell commercial software packages where to find license 
+servers.
+
+The module command also restores these shell environment variables to their previous 
+state when a module is unloaded.
+
 
 ## Software Versioning
 
@@ -164,42 +287,135 @@ software is loaded.
 
 Let's examine the output of `module avail` more closely.
 
+```bash
+remote$ module avail
 ```
-{{ site.remote.prompt }} module avail
+
 ```
-{: .language-bash}
+---------------- MPI-dependent avx2 modules -----------------
+ abinit/8.2.2     (chem)           ncl/6.4.0
+ abyss/1.9.0      (bio)            ncview/2.1.7        (vis)
+ boost-mpi/1.60.0 (t)              plumed/2.3.0        (chem)
+ cdo/1.7.2        (geo)            pnetcdf/1.8.1       (io)
+ lammps/20170331                   quantumespresso/6.0 (chem)
+ mrbayes/3.2.6            (bio)    ray/2.3.1           (bio)
 
-{% include {{ site.snippets }}/modules/available-modules.snip %}
 
-{% include {{ site.snippets }}/modules/wrong-gcc-version.snip %}
+[removed most of the output here for clarity]
 
-> ## Using Software Modules in Scripts
->
-> Create a job that is able to run `python3 --version`. Remember, no software
-> is loaded by default! Running a job is just like logging on to the system
-> (you should not assume a module loaded on the login node is loaded on a
-> compute node).
->
-> > ## Solution
-> >
-> > ```
-> > {{ site.remote.prompt }} nano python-module.sh
-> > {{ site.remote.prompt }} cat python-module.sh
-> > ```
-> > {: .language-bash}
-> >
-> > ```
-> > {{ site.remote.bash_shebang }}
-> >
-> > module load {{ site.remote.module_python3 }}
-> >
-> > python3 --version
-> > ```
-> > {: .output}
-> >
-> > ```
-> > {{ site.remote.prompt }} {{ site.sched.submit.name }} {% if site.sched.submit.options != '' %}{{ site.sched.submit.options }} {% endif %}python-module.sh
-> > ```
-> > {: .language-bash}
-> {: .solution}
-{: .challenge}
+   t:        Tools for development / Outils de développement
+   vis:      Visualisation software / Logiciels de visualisation
+   chem:     Chemistry libraries/apps / Logiciels de chimie
+   geo:      Geography libraries/apps / Logiciels de géographie
+   phys:     Physics libraries/apps / Logiciels de physique
+   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that
+             "module load foo/1.2" will load foo/1.2.3
+   D:        Default Module
+
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
+```
+
+Let’s take a closer look at the gcc module. GCC is an extremely widely used 
+C/C++/Fortran compiler. Tons of software is dependent on the GCC version, and might not 
+compile or run if the wrong version is loaded. In this case, there are two different 
+versions: `gcc/4.8.5` and `gcc/5.4.0`. How do we load each copy and which copy is the 
+default?
+
+
+In this case, `gcc/5.4.0` has a `(D)` next to it. This indicates that it is the default 
+— if we type `module load gcc`, this is the copy that will be loaded.
+
+
+```bash
+remote$ module load gcc
+remote$ gcc --version
+```
+
+```
+Lmod is automatically replacing "intel/2016.4" with "gcc/5.4.0".
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) openmpi/2.1.1
+
+gcc (GCC) 5.4.0
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+```
+
+Note that three things happened: the default copy of GCC was loaded (version 5.4.0), the 
+Intel compilers (which conflict with GCC) were unloaded, and software that is dependent 
+on compiler (OpenMPI) was reloaded. The module system turned what might be a 
+super-complex operation into a single command.
+
+So how do we load the non-default copy of a software package? In this case, the only 
+change we need to make is be more specific about the module we are loading. There are 
+two GCC modules: `gcc/5.4.0` and `gcc/4.8.5`. To load a non-default module, the only 
+change we need to make to our module load command is to leave in the version number 
+after the `/`.
+
+```bash
+remote$ module load gcc/4.8.5
+```
+
+```
+Inactive Modules:
+  1) openmpi
+
+The following have been reloaded with a version change:
+  1) gcc/5.4.0 => gcc/4.8.5
+
+gcc (GCC) 4.8.5
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+```
+
+We now have successfully switched from GCC 5.4.0 to GCC 4.8.5. It is also important to 
+note that there was no compatible OpenMPI module available for GCC 4.8.5. Because of 
+this, the module program has “inactivated” the module. All this means for us is that if 
+we re-load GCC 5.4.0, module will remember OpenMPI used to be loaded and load that 
+module as well.
+
+```bash
+remote$ module load gcc/5.4.0
+```
+
+```
+Activating Modules:
+  1) openmpi/2.1.1
+
+The following have been reloaded with a version change:
+  1) gcc/4.8.5 => gcc/5.4.0
+```
+
+
+::::challenge{id=module-script, title="Using Software Modules in Scripts"}
+
+Create a job that is able to run `python3 --version`. Remember, no software
+is loaded by default! Running a job is just like logging on to the system
+(you should not assume a module loaded on the login node is loaded on a
+compute node).
+
+:::solution
+
+```bash
+remote$ nano python-module.sh
+remote$ cat python-module.sh
+```
+
+```
+#!/usr/bin/env bash
+
+module load python3
+
+python3 --version
+```
+
+```bash
+remote$ sbatch python-module.sh
+```
+:::
+::::
