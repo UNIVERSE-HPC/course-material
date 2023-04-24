@@ -4,6 +4,15 @@ dependsOn: [
     technology_and_tooling.bash_shell.bash
 ]
 tags: [git]
+attribution:
+  - citation: >
+        This material was originally taken from sections 1-6 of the [software carpentries
+        course "Version Control with Git".
+    url: https://swcarpentry.github.io/git-novice/
+    image: https://swcarpentry.github.io/git-novice/assets/img/swc-icon-blue.svg
+    license: CC-BY-4.0
+
+
 ---
 
 

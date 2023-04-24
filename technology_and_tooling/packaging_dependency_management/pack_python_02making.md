@@ -4,6 +4,13 @@ dependsOn: [
   technology_and_tooling.packaging_dependency_management.pack_python_01intro
 ]
 tags: [python]
+attribution: 
+    - citation: >
+        "Python Packaging" course developed by Thibault Lestang and the Oxford Research 
+        Software Engineering group
+      url: https://github.com/OxfordRSE/python-packaging-course
+      image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
+      license: CC-BY-4.0
 ---
 
 

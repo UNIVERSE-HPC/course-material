@@ -12,17 +12,17 @@ files: [
   05-history.md,
   06-ignore.md
 ]
+attribution:
+  - citation: >
+        This material was originally taken from sections 1-6 of the [software carpentries
+        course "Version Control with Git".
+    url: https://swcarpentry.github.io/git-novice/
+    image: https://swcarpentry.github.io/git-novice/assets/img/swc-icon-blue.svg
+    license: CC-BY-4.0
+
 ---
 
-:::callout 
 
-This material was originally taken from sections 1-6 of the [software carpentries
-project](https://software-carpentry.org/) and hosted
-[here](https://swcarpentry.github.io/git-novice/).
-
-It has been edited and reformated here.
-
-:::
 
 Wolfman and Dracula have been hired by Universal Missions (a space services
 spinoff from Euphoric State University) to investigate if it is possible to send

@@ -2,6 +2,9 @@
 name: Why Use a Cluster?
 dependsOn: []
 tags: []
+attribution: [
+  {citation: "HPC Jargon Buster", url: "https://hpc-carpentry.github.io/hpc-intro/01-hpc-intro/"}
+]
 ---
 
 Frequently, research problems that use computing can outgrow the capabilities

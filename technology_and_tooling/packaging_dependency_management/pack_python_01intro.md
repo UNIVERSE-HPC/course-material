@@ -4,12 +4,14 @@ dependsOn: [
   software_architecture_and_design.procedural.arrays_python
 ]
 tags: [python]
+attribution: 
+    - citation: >
+        "Python Packaging" course developed by Thibault Lestang and the Oxford Research 
+        Software Engineering group
+      url: https://github.com/OxfordRSE/python-packaging-course
+      image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
+      license: CC-BY-4.0
 ---
-
-:::callout
-This course is adapted from the "Python Packaging" course developed by Thibault Lestang 
-and the OxRSE group (https://github.com/OxfordRSE/python-packaging-course)
-:::
 
 In this workshop, you are going to learn how to organise your Python software into
 _packages_. Doing so, you will be able to
