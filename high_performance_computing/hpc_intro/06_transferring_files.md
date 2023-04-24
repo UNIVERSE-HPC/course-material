@@ -4,6 +4,12 @@ dependsOn: [
   high_performance_computing.hpc_intro.05_modules
 ]
 tags: []
+attribution: 
+    - citation: >
+        "Introduction to High-Performance Computing" course by the HPC-carpentries
+      url: https://carpentries-incubator.github.io/hpc-intro/
+      image: https://carpentries-incubator.github.io/hpc-intro/assets/img/incubator-logo-blue.svg
+      license: CC-BY-4.0
 ---
 
 Performing work on a remote computer is not very useful if we cannot get files

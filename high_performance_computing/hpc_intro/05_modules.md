@@ -4,6 +4,12 @@ dependsOn: [
   high_performance_computing.hpc_intro.04_scheduler
 ]
 tags: [ARC]
+attribution: 
+    - citation: >
+        "Introduction to High-Performance Computing" course by the HPC-carpentries
+      url: https://carpentries-incubator.github.io/hpc-intro/
+      image: https://carpentries-incubator.github.io/hpc-intro/assets/img/incubator-logo-blue.svg
+      license: CC-BY-4.0
 ---
 
 On a high-performance computing system, it is seldom the case that the software
