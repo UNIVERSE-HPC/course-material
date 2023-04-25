@@ -1,5 +1,5 @@
 ---
-name: "Creating Your Own Container Images"
+name: "Creating Containers"
 teaching: 20
 exercises: 15
 dependsOn: [

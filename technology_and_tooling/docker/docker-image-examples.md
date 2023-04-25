@@ -1,5 +1,5 @@
 ---
-title: "Examples of Using Container Images in Practice"
+name: "Examples"
 teaching: 20
 exercises: 0
 dependsOn: [

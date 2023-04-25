@@ -2,10 +2,10 @@
 id: procedural
 name: Procedural Programming
 files: [
-    types_cpp.md,
+    variables_cpp.md,
     functions_cpp.md,
     containers_cpp.md,
-    types_python.md,
+    variables_python.md,
     containers_python.md,
     functions_python.md,
     arrays_python.md,

@@ -1,5 +1,5 @@
 ---
-name: "Introducing the Docker Command Line"
+name: "Docker Command Line"
 teaching: 10
 exercises: 0
 dependsOn: [

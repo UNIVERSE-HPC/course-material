@@ -1,5 +1,5 @@
 ---
-name: Types
+name: Variables
 dependsOn: [
     technology_and_tooling.bash_shell.bash,
     technology_and_tooling.ide.cpp,

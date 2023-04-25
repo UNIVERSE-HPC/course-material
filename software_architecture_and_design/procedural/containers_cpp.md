@@ -1,7 +1,7 @@
 ---
 name: Containers
 dependsOn: [
-    software_architecture_and_design.procedural.types_cpp,
+    software_architecture_and_design.procedural.variables_cpp,
 ]
 tags: [cpp]
 ---

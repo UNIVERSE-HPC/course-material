@@ -1,7 +1,7 @@
 ---
 name: Containers
 dependsOn: [
-    software_architecture_and_design.procedural.types_python,
+    software_architecture_and_design.procedural.variables_python,
 ]
 tags: [python]
 ---

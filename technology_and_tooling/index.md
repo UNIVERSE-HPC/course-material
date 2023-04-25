@@ -9,6 +9,7 @@ courses: [
   ide,
   visualisation,
   testing,
+  docker,
 ]
 ---
 

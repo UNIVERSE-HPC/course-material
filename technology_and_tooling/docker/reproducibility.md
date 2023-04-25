@@ -1,5 +1,5 @@
 ---
-name: "Containers in Research Workflows: Reproducibility and Granularity"
+name: "Reproducibility and Granularity"
 teaching: 20
 exercises: 0
 dependsOn: [

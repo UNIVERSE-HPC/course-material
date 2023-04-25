@@ -1,5 +1,5 @@
 ---
-name: "Creating More Complex Container Images"
+name: "More Complex Containers"
 teaching: 30
 exercises: 30
 dependsOn: [

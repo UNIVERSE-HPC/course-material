@@ -1,5 +1,5 @@
 ---
-title: "Using Docker with Jekyll - Containers Used in Generating this Lesson"
+name: "Using Docker with Jekyll"
 teaching: 20
 exercises: 0
 dependsOn: [

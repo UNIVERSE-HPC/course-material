@@ -1,8 +1,9 @@
 ---
-name: Introducing Containers
+name: Introduction
 teaching: 20
 exercises: 0
 dependsOn: [
+  technology_and_tooling.docker.setup
 ]
 tags: [docker]
 attribution: 
@@ -12,8 +13,6 @@ attribution:
       url: https://github.com/carpentries-incubator/docker-introduction
       image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
       license: CC-BY-4.0
-
-
 ---
 
 :::callout
