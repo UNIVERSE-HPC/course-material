@@ -481,3 +481,15 @@ Your programs will be faster and more readable if you use the appropriate
 container type for your data's meaning. For example, always use a set for lists
 which can't in principle contain the same data twice, always use a dictionary
 for anything which feels like a mapping from keys to values.
+
+## Key Points:
+- Python containers can contain values of any type.
+- Lists, sets, and dictionaries are mutable types whose values can be changed after creation.
+- Lists store elements as an ordered sequence of potentially non-unique values.
+- Dictionaries store elements as unordered key-value pairs.
+- Dictionary keys are required to be of an immutable type.
+- Sets are an unordered collection of unique elements.
+- Containers can contain other containers as elements.
+- Use `x[a:b]` to extract a subset of data from `x`, with `a` and `b` representing element *boundaries*, not indexes.
+- Tuples are an immutable type whose values cannot be changed after creation and must be re-created.
+- Doing `x = y`, where `y` is a container, doesn't copy its elements, it just creates a new reference to it.

@@ -483,3 +483,7 @@ def list_papers(academics):
 ~~~
 :::
 ::::
+
+## Key Points:
+- Functions allow us to separate out blocks of code which perform a common task
+- Functions have their own scope and do not clash with variables defined outside

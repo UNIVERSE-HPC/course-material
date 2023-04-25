@@ -287,7 +287,7 @@ $ docker container run ubuntu apt-get --help
 ## Even More Options
 
 There are many more options, besides `-it` that can be used with the `docker container run`
-command!  A few of them will be covered in [later episodes](/advanced-containers)
+command!  A few of them will be covered in [later episodes](advanced-containers)
 and we'll share two more common ones here:
 
 * `--rm`: this option guarantees that any running container is completely

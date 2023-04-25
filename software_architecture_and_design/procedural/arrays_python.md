@@ -880,3 +880,12 @@ matches our number of days (the second dimension of `subset`), broadcasting
 automatically repeats the data in `multiplier` to match the number of patients
 (the first dimension in `subset`) so the `*` operation can be applied over
 arrays of equal shape.
+
+## Key Points:
+- Processing NumPy arrays is generally much faster than processing Python lists.
+- NumPy arrays have specialised capabilities to support complex mathematical operations, and are less flexible that Python lists.
+- Slicing NumPy arrays returns a reference to the original dataset, not a copy of it like with Python lists.
+- NumPy arrays only hold elements of a single data type and are generally fixed in size.
+- Use `numpy.mean(array)`, `numpy.max(array)`, and `numpy.min(array)` to calculate simple statistics.
+- Use `numpy.mean(array, axis=0)` or `numpy.mean(array, axis=1)` to calculate statistics across the specified axis.
+- Broadcasting allows you to apply an operation to two arrays of different shape, repeating the data in an array of a one-long dimension to match the larger array.

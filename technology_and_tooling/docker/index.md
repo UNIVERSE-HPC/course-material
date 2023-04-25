@@ -16,6 +16,7 @@ files: [
   e01-github-actions.md,
   e02-jekyll-lesson-example.md,
   reproducibility.md,
+  setup.md,
 ]
 attribution: 
     - citation: >

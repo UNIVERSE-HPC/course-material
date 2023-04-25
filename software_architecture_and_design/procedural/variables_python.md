@@ -1,5 +1,5 @@
 ---
-name: Types
+name: Variables
 dependsOn: [
     technology_and_tooling.bash_shell.bash,
     technology_and_tooling.ide.cpp,
@@ -421,3 +421,11 @@ print(str(age), float(age), int(house_number), float(house_number))
 ~~~
 
 
+## Key Points:
+- Python is an interpreted, dynamically typed language.
+- Run the interpreter from the command line by typing `python`.
+- Use `variable = value` to assign a value to a variable in order to record it in memory.
+- Variables are created on demand whenever a value is assigned to them.
+- Use `print(something)` to display the value of `something`.
+- `None` as an empty variable value has its own type.
+- Convert a variable to another type by using `new_type_name(variable)`.
