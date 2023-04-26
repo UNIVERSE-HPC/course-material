@@ -73,11 +73,11 @@ six = 2 * 3
 print(six)
 ```
 
-Note that in terms of naming variables, Python's variables must begin with a letter.
-
 ~~~
 6
 ~~~
+
+Note that in terms of naming variables, Python's variables must begin with a letter.
 
 Try and write the previous into your `procedural.py` file and run it (you can also select these lines and run
 the command "Run Selection/Line in Python Terminal").

@@ -367,7 +367,6 @@ When we test for containment on the dict itself we essentially test on its keys:
 ~~~
 True
 ~~~
-{: .output}
 
 ~~~python
 'Joe' in me
@@ -414,7 +413,6 @@ Traceback (most recent call last):
   File "<stdin>", line 3, in <module>
 TypeError: unhashable type: 'list'
 ~~~
-{: .output}
 
 Remember -- square brackets denote lists, round brackets denote tuples.
 

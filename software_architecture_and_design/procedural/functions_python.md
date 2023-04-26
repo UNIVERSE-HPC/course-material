@@ -221,7 +221,7 @@ print(k)
 2. 80
 3. 0
 
-## Solution
+:::solution
 
 3 - the f and k variables defined and used within the function do not interfere
 with those defined outside of the function.
