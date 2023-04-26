@@ -10,6 +10,7 @@ courses: [
   visualisation,
   testing,
   docker,
+  snakemake,
 ]
 ---
 
