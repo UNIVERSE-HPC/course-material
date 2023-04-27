@@ -4,8 +4,7 @@ Here we provide a short tutorial that guides you through the main
 features of Snakemake. Note that this is not suited to learn Snakemake
 from scratch, rather to give a first impression. To really learn
 Snakemake (starting from something simple, and extending towards
-advanced features), use the main `tutorial`{.interpreted-text
-role="ref"}.
+advanced features), use the main `tutorial`.
 
 This document shows all steps performed in the official [Snakemake live
 demo](https://youtu.be/hPrXcUUp70Y), such that it becomes possible to
@@ -15,14 +14,13 @@ bottom of this document.
 The examples presented in this tutorial come from Bioinformatics.
 However, Snakemake is a general-purpose workflow management system for
 any discipline. For an explanation of the steps you will perform here,
-have a look at `tutorial-background`{.interpreted-text role="ref"}. More
-thorough explanations are provided in the full
-`tutorial`{.interpreted-text role="ref"}.
+have a look at `tutorial-background`. More
+thorough explanations are provided in the full `tutorial`.
 
 ## Prerequisites
 
 First, install Snakemake via Conda, as outlined in
-`conda-install`{.interpreted-text role="ref"}. The minimal version of
+`conda-install`. The minimal version of
 Snakemake is sufficient for this demo.
 
 Second, download and unpack the test data needed for this example from
@@ -342,6 +340,8 @@ Only read this if you have a problem with one of the steps.
 
 ### Step 2
 
+:::solution
+
 The rule should look like this:
 
 ``` python
@@ -357,7 +357,11 @@ rule map_reads:
         "bwa mem {input} | samtools view -b - > {output}"
 ```
 
+:::
+
 ### Step 3
+
+:::solution
 
 The rule should look like this:
 
@@ -374,7 +378,11 @@ rule map_reads:
         "bwa mem {input} | samtools view -b - > {output}"
 ```
 
+:::
+
 ### Step 4
+
+:::solution
 
 The rule should look like this:
 
@@ -390,7 +398,11 @@ rule sort_alignments:
         "samtools sort -o {output} {input}"
 ```
 
+:::
+
 ### Step 5
+
+:::solution
 
 The rule should look like this:
 
@@ -409,7 +421,11 @@ rule call_variants:
         "bcftools mpileup -f {input.fa} {input.bam} | bcftools call -mv - > {output}"
 ```
 
+:::
+
 ### Step 6
+
+:::solution
 
 The rule should look like this:
 
@@ -425,7 +441,11 @@ rule plot_quals:
         "notebooks/plot-quals.py.ipynb"
 ```
 
+:::
+
 ### Step 7
+
+:::solution
 
 The rule should look like this:
 
@@ -438,7 +458,11 @@ rule all:
 
 It has to appear as first rule in the `Snakefile`.
 
+:::
+
 ### Step 8
+
+:::solution
 
 The complete workflow should look like this:
 
@@ -495,3 +519,5 @@ rule plot_quals:
     notebook:
         "notebooks/plot-quals.py.ipynb"
 ```
+
+:::

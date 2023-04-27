@@ -72,12 +72,12 @@ rule bwa_map:
         "bwa mem {input} | samtools view -Sb - > {output}"
 ```
 
-::: sidebar
-**Note**
+:::callout
 
 A common error is to forget the comma between the input or output items.
 Since Python concatenates subsequent strings, this can lead to
 unexpected behavior.
+
 :::
 
 A Snakemake rule has a name (here `bwa_map`) and a number of directives,
@@ -98,14 +98,14 @@ compressed [BAM](https://en.wikipedia.org/wiki/Binary_Alignment_Map)
 file containing the alignments. The output of `samtools` is redirected
 into the output file defined by the rule with `>`.
 
-::: sidebar
-**Note**
+:::callout
 
 It is best practice to have subsequent steps of a workflow in separate,
 unique, output folders. This keeps the working directory structured.
 Further, such unique prefixes allow Snakemake to quickly discard most
 rules in its search for rules that can provide the requested input. This
 accelerates the resolution of the rule dependencies in a workflow.
+
 :::
 
 When a workflow is executed, Snakemake tries to generate given
@@ -162,13 +162,13 @@ rule bwa_map:
         "bwa mem {input} | samtools view -Sb - > {output}"
 ```
 
-::: sidebar
-**Note**
+:::callout
 
 Note that if a rule has multiple output files, Snakemake requires them
 to all have exactly the same wildcards. Otherwise, it could happen that
 two jobs running the same rule in parallel want to write to the same
 file.
+
 :::
 
 When Snakemake determines that this rule can be applied to generate a
@@ -245,7 +245,7 @@ rule samtools_sort:
         "-O bam {input} > {output}"
 ```
 
-::: sidebar
+:::callout
 
 In the shell command above we split the string into two lines, which are
 however automatically concatenated into one by Python. This is a handy
@@ -276,7 +276,7 @@ matching file names.
 
 ## Step 4: Indexing read alignments and visualizing the DAG of jobs
 
-::: sidebar
+:::callout
 
 Snakemake uses the [Python format mini
 language](https://docs.python.org/3/library/string.html#formatexamples)
@@ -309,7 +309,7 @@ the resulting directed acyclic graph (DAG) of jobs. By executing
 $ snakemake --dag sorted_reads/{A,B}.bam.bai | dot -Tsvg > dag.svg
 ```
 
-::: sidebar
+:::callout
 
 If you went with: `tutorial-free-on-gitpod`{.interpreted-text
 role="ref"}, you can easily view the resulting `dag.svg` by
@@ -326,7 +326,9 @@ format](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics). The
 rendered DAG is piped into the file `dag.svg` and will look similar to
 this:
 
-![image](workflow/dag_index.png){.align-center}
+<p align="center">
+  <img src="workflow/dag_index.png"/>
+</p>
 
 The DAG contains a node for each job with the edges connecting them
 representing the dependencies. The frames of jobs that don\'t need to be
@@ -392,7 +394,7 @@ Python at the top of the Snakefile:
 SAMPLES = ["A", "B"]
 ```
 
-::: sidebar
+:::callout
 
 If you name input or output files like above, their order won\'t be
 preserved when referring to them as `{input}`. Further, note that named
@@ -436,7 +438,9 @@ samples.
 obtain the updated DAG of jobs for the target file `calls/all.vcf`,
 it should look like this:
 
-![image](workflow/dag_call.png){.align-center}
+<p align="center">
+  <img src="workflow/dag_call.png"/>
+</p>
 
 ::::
 
@@ -445,10 +449,9 @@ it should look like this:
 Usually, a workflow not only consists of invoking various tools, but
 also contains custom code to for example calculate summary statistics or
 create plots. While Snakemake also allows you to directly
-`write Python code inside a rule <.. _snakefiles-rules>`{.interpreted-text
-role="ref"}, it is usually reasonable to move such logic into separate
-scripts. For this purpose, Snakemake offers the `script` directive. Add
-the following rule to your Snakefile:
+write Python code inside a rule, it is usually reasonable to move such logic
+into separate scripts. For this purpose, Snakemake offers the `script` directive.
+Add the following rule to your Snakefile:
 
 ``` python
 rule plot_quals:
@@ -460,7 +463,7 @@ rule plot_quals:
         "scripts/plot-quals.py"
 ```
 
-::: sidebar
+:::callout
 
 `snakemake.input` and `snakemake.output` always contain a list of file
 names, even if the lists each contain only one file name. Therefore, to
@@ -491,7 +494,7 @@ plt.hist(quals)
 plt.savefig(snakemake.output[0])
 ```
 
-::: sidebar
+:::callout
 
 It is best practice to use the script directive whenever an inline code
 block would have more than a few lines of code.
@@ -515,7 +518,7 @@ can be accessed in the same way, by just providing the name instead of
 an index, for example `snakemake@input[["myfile"]]`.
 
 For details and examples, see the
-`snakefiles-external_scripts`{.interpreted-text role="ref"} section in
+`snakefiles-external_scripts` section in
 the Documentation.
 
 ## Step 7: Adding a target rule
@@ -544,7 +547,7 @@ to the top of our workflow. When executing Snakemake with
 $ snakemake -n
 ```
 
-::: sidebar
+:::callout
 
 In case you have mutliple reasonable sets of target files, you can add
 multiple target rules at the top of the Snakefile. While Snakemake will

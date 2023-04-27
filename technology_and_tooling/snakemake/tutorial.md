@@ -1,4 +1,4 @@
-# Snakemake Tutorial {#tutorial}
+# Snakemake Tutorial
 
 This tutorial introduces the text-based workflow system
 [Snakemake](https://snakemake.readthedocs.io). Snakemake follows the
@@ -34,7 +34,3 @@ understand the tutorial.
 
 Also have a look at the corresponding
 [slides](https://slides.com/johanneskoester/snakemake-tutorial).
-
-::: {.toctree maxdepth="2"}
-setup basics advanced additional_features
-:::

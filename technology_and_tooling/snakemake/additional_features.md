@@ -2,8 +2,7 @@
 
 In the following, we introduce some features that are beyond the scope
 of above example workflow. For details and even more features, see
-`user_manual-writing_snakefiles`{.interpreted-text role="ref"},
-`project_info-faq`{.interpreted-text role="ref"} and the command line
+`user_manual-writing_snakefiles`, `project_info-faq` and the command line
 help (`snakemake --help`).
 
 ## Benchmarking
@@ -64,13 +63,15 @@ analysis without modifying it. For details about sub-workflows, see the
 `documentation <snakefiles-sub_workflows>`{.interpreted-text
 role="ref"}.
 
-### Exercise
+::::challenge{id=add_include, title="Exercise"}
 
--   Put the read mapping related rules into a separate Snakefile and use
-    the `include` directive to make them available in our example
-    workflow again.
+Put the read mapping related rules into a separate Snakefile and use
+the `include` directive to make them available in our example
+workflow again.
 
-## Automatic deployment of software dependencies {#tutorial-conda}
+::::
+
+## Automatic deployment of software dependencies
 
 In order to get a fully reproducible data analysis, it is not sufficient
 to be able to execute each step and document all used parameters. The
@@ -106,12 +107,12 @@ dependencies:
   - samtools =1.9
 ```
 
-::: sidebar
-**Note**
+:::callout
 
 The conda directive does not work in combination with `run` blocks,
 because they have to share their Python environment with the surrounding
 snakefile.
+
 :::
 
 When Snakemake is executed with
@@ -156,12 +157,12 @@ rule bwa_mem:
       "0.15.3/bio/bwa/mem"
 ```
 
-::: sidebar
-**Note**
+:::callout
 
 Updates to the Snakemake wrapper repository are automatically tested via
 [continuous
 integration](https://en.wikipedia.org/wiki/Continuous_integration).
+
 :::
 
 The wrapper directive expects a (partial) URL that points to a wrapper

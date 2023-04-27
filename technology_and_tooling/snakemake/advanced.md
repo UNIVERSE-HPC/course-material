@@ -37,8 +37,7 @@ given with the `--cores` command line argument, which is mandatory for
 $ snakemake --cores 10
 ```
 
-::: sidebar
-**Note**
+:::callout
 
 Apart from the very common thread resource, Snakemake provides a
 `resources` directive that can be used to **specify arbitrary
@@ -47,6 +46,7 @@ GPUs. Similar to threads, these can be considered by the scheduler when
 an available amount of that resource is given with the command line
 argument `--resources` (see `snakefiles-resources`{.interpreted-text
 role="ref"}).
+
 :::
 
 would execute the workflow with 10 cores. Since the rule `bwa_map` needs
@@ -58,12 +58,14 @@ threads a rule uses will be **reduced to the number of given cores**.
 
 If `--cores` is given without a number, all available cores are used.
 
-### Exercise
+::::challenge{id=use_threads, title="Exercise"}
 
--   With the flag `--forceall` you can enforce a complete re-execution
-    of the workflow. Combine this flag with different values for
-    `--cores` and examine how the scheduler selects jobs to run in
-    parallel.
+With the flag `--forceall` you can enforce a complete re-execution
+of the workflow. Combine this flag with different values for
+`--cores` and examine how the scheduler selects jobs to run in
+parallel.
+
+::::
 
 ## Step 2: Config files
 
@@ -108,7 +110,7 @@ rule bcftools_call:
         "bcftools call -mv - > {output}"
 ```
 
-## Step 3: Input functions {#tutorial-input_functions}
+## Step 3: Input functions
 
 Since we have stored the path to the FASTQ files in the config file, we
 can also generalize the rule `bwa_map` to use these paths. This case is
@@ -149,8 +151,7 @@ rule bwa_map:
         "bwa mem -t {threads} {input} | samtools view -Sb - > {output}"
 ```
 
-::: sidebar
-**Note**
+:::callout
 
 Snakemake does not automatically rerun jobs when new input files are
 added as in the excercise below. However, you can get a list of output
@@ -161,6 +162,7 @@ magic helps:
 ``` console
 snakemake -n --forcerun $(snakemake --list-input-changes)
 ```
+
 :::
 
 Any normal function would work as well. Input functions take as **single
@@ -171,12 +173,14 @@ files (here, we return the path that is stored for the sample in the
 config file). Input functions are evaluated once the wildcard values of
 a job are determined.
 
-### Exercise
+::::challenge{id=add_sample, title="Exercise"}
 
--   In the `data/samples` folder, there is an additional sample
-    `C.fastq`. Add that sample to the config file and see how Snakemake
-    wants to recompute the part of the workflow belonging to the new
-    sample, when invoking with `snakemake -n --forcerun bcftools_call`.
+In the `data/samples` folder, there is an additional sample
+`C.fastq`. Add that sample to the config file and see how Snakemake
+wants to recompute the part of the workflow belonging to the new
+sample, when invoking with `snakemake -n --forcerun bcftools_call`.
+
+::::
 
 ## Step 4: Rule parameters
 
@@ -202,27 +206,29 @@ rule bwa_map:
         "bwa mem -R '{params.rg}' -t {threads} {input} | samtools view -Sb - > {output}"
 ```
 
-::: sidebar
-**Note**
+:::callout
 
 The `params` directive can also take functions like in Step 3 to defer
 initialization to the DAG phase. In contrast to input functions, these
 can optionally take additional arguments `input`, `output`, `threads`,
 and `resources`.
+
 :::
 
 Similar to input and output files, `params` can be accessed from the
 shell command, the Python based `run` block, or the script directive
-(see `tutorial-script`{.interpreted-text role="ref"}).
+(see `tutorial-script`).
 
-### Exercise
+::::challenge{id=add_params, title="Exercise"}
 
--   Variant calling can consider a lot of parameters. A particularly
-    important one is the prior mutation rate (1e-3 per default). It is
-    set via the flag `-P` of the `bcftools call` command. Consider
-    making this flag configurable via adding a new key to the config
-    file and using the `params` directive in the rule `bcftools_call` to
-    propagate it to the shell command.
+Variant calling can consider a lot of parameters. A particularly
+important one is the prior mutation rate (1e-3 per default). It is
+set via the flag `-P` of the `bcftools call` command. Consider
+making this flag configurable via adding a new key to the config
+file and using the `params` directive in the rule `bcftools_call` to
+propagate it to the shell command.
+
+::::
 
 ## Step 5: Logging
 
@@ -252,11 +258,11 @@ rule bwa_map:
         "samtools view -Sb - > {output}) 2> {log}"
 ```
 
-::: sidebar
-**Note**
+:::callout
 
 It is best practice to store all log files in a subdirectory `logs/`,
 prefixed by the rule or tool name.
+
 :::
 
 The shell command is modified to [collect STDERR
@@ -265,7 +271,7 @@ and `samtools` and pipe it into the file referred to by `{log}`. Log
 files must contain exactly the same wildcards as the output files to
 avoid file name clashes between different jobs of the same rule.
 
-### Exercise
+::::challenge{id=add_logging, title="Exercise"}
 
 -   Add a log directive to the `bcftools_call` rule as well.
 -   Time to re-run the whole workflow (remember the command line flags
@@ -282,7 +288,9 @@ avoid file name clashes between different jobs of the same rule.
     code of the rule after creation of the output file. Invoke Snakemake
     with `--summary` to examine the information for our example.
 
-## Step 6: Temporary and protected files {#tutorial_temp-and-protected-files}
+::::
+
+## Step 6: Temporary and protected files
 
 In our workflow, we create two BAM files for each sample, namely the
 output of the rules `bwa_map` and `samtools_sort`. When not dealing with
@@ -332,7 +340,7 @@ After successful execution of the job, Snakemake will write-protect the
 output file in the filesystem, so that it can\'t be overwritten or
 deleted by accident.
 
-### Exercise
+::::challenge{id=add_temporaries, title="Exercise"}
 
 -   Re-execute the whole workflow and observe how Snakemake handles the
     temporary and protected files.
@@ -342,6 +350,8 @@ deleted by accident.
 -   Try to re-execute the whole workflow again with the dry-run option.
     You will see that it fails (as intended) because Snakemake cannot
     overwrite the protected output files.
+
+::::
 
 ## Summary
 

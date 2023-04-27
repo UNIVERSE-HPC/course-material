@@ -2,18 +2,30 @@
 
 ## Requirements
 
-To go through this tutorial, you need a number of software packages including [Python](https://www.python.org), [Snakemake](https://snakemake.readthedocs.io), [BWA](http://bio-bwa.sourceforge.net), [SAMtools](https://www.htslib.org), [Pysam](https://pysam.readthedocs.io), [BCFtools](https://www.htslib.org), [Graphviz](https://www.graphviz.org), [Jinja2](https://jinja.palletsprojects.com), [NetworkX](https://networkx.github.io), [Matplotlib](https://matplotlib.org). However, don\'t install any of these this manually now, we guide you
+To go through this tutorial, you need a number of software packages including
+[Python](https://www.python.org),
+[Snakemake](https://snakemake.readthedocs.io),
+[BWA](http://bio-bwa.sourceforge.net),
+[SAMtools](https://www.htslib.org),
+[Pysam](https://pysam.readthedocs.io),
+[BCFtools](https://www.htslib.org),
+[Graphviz](https://www.graphviz.org),
+[Jinja2](https://jinja.palletsprojects.com),
+[NetworkX](https://networkx.github.io),
+[Matplotlib](https://matplotlib.org).
+However, don\'t install any of these manually now as we guide you
 through better ways below.
 
 ## Run tutorial for free in the cloud via Gitpod
 
-::: sidebar
+:::callout
 
 A common thing to happen while using the development environment in
 GitPod is to hit `Ctrl-s` while in the terminal window, because you
 wanted to save a file in the editor window. This will freeze up you
 terminal. To get it back, make sure you selected the terminal window by
 clicking on it and then hit `Ctrl-q`.
+
 :::
 
 The easiest way to run this tutorial is to use Gitpod, which enables
@@ -186,16 +198,13 @@ isolated Conda environment with the name `snakemake-tutorial` via
 $ mamba env create --name snakemake-tutorial --file environment.yaml
 ```
 
-::: sidebar
+:::callout
 
-**NOTE:** Not all of the required software used in this tutorial are supplied
-with native support for newer chipsets (such as the Apple M1 or M2 processors).
+Not all of the required software used in this tutorial are supplied
+with native support for newer chipsets, such as the Apple M-Series hardware.
 In this case we can force conda/mamba to create a virtual environment that
-instead corresponds to another
-chipset by prepending `CONDA_SUBDIR=osx-64` (for x64) or `CONDA_SUBDIR=osx-arm64`
-(for arm64) to the `create` command. At the time of writing, the required
-software is only supported on the x64 architecture, so we create the conda
-environment with:
+corresponds to another chipset by prepending `CONDA_SUBDIR=osx-64` (for x64)
+or `CONDA_SUBDIR=osx-arm64` (for arm64) to the `mamba create` command, like so:
 
 ``` console
 $ CONDA_SUBDIR=osx-64 mamba env create --name snakemake-tutorial --file environment.yaml
