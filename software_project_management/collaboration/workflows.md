@@ -4,6 +4,18 @@ dependsOn: [
   software_project_management.collaboration.issues
 ]
 tags: [github]
+attribution: 
+    - citation: >
+        "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
+      url: https://doi.org/10.5281/zenodo.6532057
+      image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
+      license: CC-BY-4.0
+    - citation: >
+        Matt Jaquiery, Abhishek Dasgupta (2022) "Intermediate Git Collaboration"
+      url: https://github.com/OxfordRSE/intermediate-git-collaboration
+      image: https://avatars.githubusercontent.com/u/38728121?s=200&v=4
+      license: CC-BY-4.0
+
 ---
 
  
@@ -367,3 +379,7 @@ tool-assisted process is recommended.
 {: .challenge}
 
 {% include links.md %}
+
+## Key Points:
+- Code review is a team software quality assurance practice where team members look at parts of the codebase in order to improve their code's readability, understandability, quality and maintainability.
+- It is important to agree on a set of best practices and establish a code review process in a team to help to sustain a good, stable and maintainable code for many years.

@@ -5,6 +5,17 @@ dependsOn: [
   software_project_management.collaboration.refresher
 ]
 tags: [git]
+attribution: 
+    - citation: >
+        "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
+      url: https://doi.org/10.5281/zenodo.6532057
+      image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
+      license: CC-BY-4.0
+    - citation: >
+        Matt Jaquiery, Abhishek Dasgupta (2022) "Intermediate Git Collaboration"
+      url: https://github.com/OxfordRSE/intermediate-git-collaboration
+      image: https://avatars.githubusercontent.com/u/38728121?s=200&v=4
+      license: CC-BY-4.0
 
 ---
 
@@ -182,3 +193,8 @@ re-learn things you already put the effort into discovering before. Also, if
 others are brought on to the project at a later date, the software's existing
 issues and potential new features are already in place to build upon.  
 :::
+
+## Key Points:
+- We should use GitHub's **Issues** to keep track of software problems and other requests for change - even if we are the only developer and user.
+- GitHub’s **Mentions** play an important part in communicating between collaborators and is used as a way of alerting team members of activities and referencing one issue/pull requests/comment/commit from another.
+- Without a good project and issue management framework, it can be hard to keep track of what’s done, or what needs doing, and particularly difficult to convey that to others in the team or sharing the responsibilities.

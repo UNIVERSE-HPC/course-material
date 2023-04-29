@@ -9,6 +9,12 @@ files: [
     workflows.md,
     issues.md,
 ]
+attribution: 
+    - citation: >
+        "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
+      url: https://doi.org/10.5281/zenodo.6532057
+      image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
+      license: CC-BY-4.0
 ---
 
 This course will show you how to use Git for effective collaboration with others
