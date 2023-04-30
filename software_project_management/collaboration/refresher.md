@@ -32,27 +32,35 @@ if you make a mistake you can revert to a point before it.
 
 The diagram below shows a typical software development lifecycle with Git and the commonly used commands to interact
 with different parts of Git infrastructure, such as:
-- **working directory** - a directory (including any subdirectories) where your project files live and where you are currently working. 
-It is also known as the “untracked” area of Git. Any changes to files will be marked by Git in the working directory. 
-If you make changes to the working directory and do not explicitly tell Git to save them - you will likely lose those 
-changes. Using `git add filename` command, you tell Git to start tracking changes to file `filename` within your 
-working directory.
-- **staging area (index)** - once you tell Git to start tracking changes to files (with `git add filename` command), 
-Git saves those changes in the staging area. Each subsequent change to the same file needs to be followed by 
-another `git add filename` command to tell Git to update it in the staging area. To see what is in your working 
-directory and staging area at any moment (i.e. what changes is Git tracking), run the command `git status`.
-- **local repository** - stored within the `.git` directory of your project, this is where Git wraps together all your 
-changes from the staging area and puts them using the `git commit` command. Each commit is a new, permanent snapshot 
-(checkpoint, record) of your project in time, which you can share or revert back to.
-- **remote repository** - this is a version of your project that is hosted somewhere on the Internet (e.g. on GitHub, 
-GitLab or somewhere else). While your project is nicely version-controlled in your local repository, and you have
-snapshots of its versions from the past, if your machine crashes - you still may lose all your work.
-Working with a remote
-repository involves pushing your changes and pulling other people's changes to keep your local repository in sync
-in order to collaborate with others and to backup your work on a different machine.
+- **working directory** - a directory (including any subdirectories) where your 
+  project files live and where you are currently working. It is also known as 
+  the “untracked” area of Git. Any changes to files will be marked by Git in 
+  the working directory. If you make changes to the working directory and do 
+  not explicitly tell Git to save them - you will likely lose those changes. 
+  Using `git add filename` command, you tell Git to start tracking changes to 
+  file `filename` within your working directory.
+- **staging area (index)** - once you tell Git to start tracking changes to 
+  files (with `git add filename` command), Git saves those changes in the 
+  staging area. Each subsequent change to the same file needs to be followed by 
+  another `git add filename` command to tell Git to update it in the staging 
+  area. To see what is in your working directory and staging area at any moment 
+  (i.e. what changes is Git tracking), run the command `git status`.
+- **local repository** - stored within the `.git` directory of your project, 
+  this is where Git wraps together all your changes from the staging area and 
+  puts them using the `git commit` command. Each commit is a new, permanent 
+  snapshot (checkpoint, record) of your project in time, which you can share or 
+  revert back to.
+- **remote repository** - this is a version of your project that is hosted 
+  somewhere on the Internet (e.g. on GitHub, GitLab or somewhere else). While 
+  your project is nicely version-controlled in your local repository, and you 
+  have
+  snapshots of its versions from the past, if your machine crashes - you still may lose all your work.
+  Working with a remote
+  repository involves pushing your changes and pulling other people's changes to keep your local repository in sync
+  in order to collaborate with others and to backup your work on a different machine.
 
-![Development lifecycle with Git](fig/git-lifecycle.png){: .image-with-shadow width="600px"}
-**Software development lifecycle with Git from [PNGWing](https://www.pngwing.com/en/free-png-sazxf) (licenced for non-commercial reuse)**
+![Development lifecycle with Git](fig/git-lifecycle.png)
+*Software development lifecycle with Git from [PNGWing](https://www.pngwing.com/en/free-png-sazxf) (licenced for non-commercial reuse)*
 
 ###  Forking the project
 
@@ -95,11 +103,11 @@ source venv/bin/activate
 pip install -e .
 ~~~
 
-## Viewing Changes to Our Project
+### Viewing Changes
 
-Let's look at the changes we have done to our project so far. The first thing to
-do upon navigating into our software project's directory root is to check the
-current status of our local working directory and repository.
+The first thing to do upon navigating into our software project's directory 
+root is to check the current status of our local working directory and 
+repository.
 
 ~~~bash
 git status
@@ -250,8 +258,9 @@ for your local repository, each of which generally is either read-only or read/w
 with others involves managing these remote repositories and pushing and pulling information to and from
 them when you need to share work.
 
-![git-distributed](fig/git-distributed.png){: .image-with-shadow width="400px"}
-**Git - distributed version control system, from (https://www.w3docs.com/learn-git/git-repository.html) (freely available)**
+![git-distributed](fig/git-distributed.png)
+*Git - distributed version control system, from (https://www.w3docs.com/learn-git/git-repository.html) (freely available)*
+
 :::
 
 ## Git Branches
@@ -296,8 +305,8 @@ branch without affecting the rest of the code.
 
 Branches are commonly used as part of a feature-branch workflow, shown in the diagram below.
 
-![Git feature branch workflow diagram](../fig/git-feature-branch.svg){: .image-with-shadow width="800px"}
-**Git feature branches>, adapted from [Git Tutorial by sillevl](https://sillevl.gitbooks.io/git/content/collaboration/workflows/gitflow/) (Creative Commons Attribution 4.0 International License)**
+![Git feature branch workflow diagram](fig/git-feature-branch.svg)
+*Git feature branches>, adapted from [Git Tutorial by sillevl](https://sillevl.gitbooks.io/git/content/collaboration/workflows/gitflow/) (Creative Commons Attribution 4.0 International License)*
 
 In the software development workflow, we typically have a main branch which is
 the version of the code that is tested, stable and reliable. Then, we normally
@@ -374,7 +383,7 @@ $ git status
 
    no changes added to commit (use "git add" and/or "git commit -a")
 ~~~
-{: .output}
+
 Git is telling us that we are on branch `develop` and which tracked files have been modified in our working directory.
 
 We can now `add` and `commit` the changes in the usual way.
@@ -419,7 +428,7 @@ From the `< > Code` tab in your repository in GitHub, click the branch dropdown
 menu (currently showing the default branch `main`). You should see your
 `develop` branch in the list too.
 
-![Software project's develop branch](fig/software-project-develop-branch.png){: .image-with-shadow width="700px"}
+![Software project's develop branch](fig/software-project-develop-branch.png)
 
 Now the others can check out the `develop` branch too and continue to develop code on it.
 

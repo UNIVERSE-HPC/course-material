@@ -1,10 +1,9 @@
-
 ---
 name: Issue Management
 dependsOn: [
   software_project_management.collaboration.refresher
 ]
-tags: [git]
+tags: [github]
 attribution: 
     - citation: >
         "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
@@ -41,14 +40,15 @@ you already know about!
 
 GitHub provides **Issues** - a framework for managing bug reports, feature requests, and lists of future work.
 
-Go back to the home page for your `python-intermediate-inflammation` repository in GitHub, and click on the **Issue** tab.
+Go back to the home page for your `oxrse_unit_conv` repository in GitHub, and click on 
+the **Issue** tab.
 You should see a page listing the open issues on your repository - currently there should be none.
 
-![List of project issues in GitHub](../fig/github-issue-list.png){: .image-with-shadow width="1000px"}
+![List of project issues in GitHub](fig/github-issue-list.png)
 
 Let's go through the process of creating a new issue. Start by clicking the `New issue` button.
 
-![Creating a new issue in GitHub](../fig/github-new-issue.png){: .image-with-shadow width="1000px"}
+![Creating a new issue in GitHub](fig/github-new-issue.png)
 
 When you create an issue, you can add a range of details to them. They can be *assigned to a specific developer* for example - this can be a helpful way to know who, if anyone, is currently working to fix the issue, or a way to assign 
 responsibility to someone to deal with it.
@@ -65,22 +65,14 @@ They can also be assigned a *label*. The labels available for issues can be cust
 - `question` - indicates that an issue, pull request, or discussion needs more information
 - `wontfix` - indicates that work won't continue on an issue, pull request, or discussion
 
-You can also create your own custom labels to help with classifying issues. There are no rules really about naming the labels - use whatever makes sense for your project. Some conventional custom labels include: `status:in progress` (to indicate that someone started working on the issue), `status:blocked` (to indicate that the progress on addressing issue is blocked by another issue or activity), etc.
+You can also create your own custom labels to help with classifying issues. There are no 
+rules really about naming the labels - use whatever makes sense for your project. Some 
+conventional custom labels include: `status:in progress` (to indicate that someone 
+started working on the issue), `status:blocked` (to indicate that the progress on 
+addressing issue is blocked by another issue or activity), `bug` (to indicate that this 
+issue is a report of a bug or fault in the code), `enhancement` (to indicate that this 
+issue is for a new feature for the software)
 
-As well as highlighting problems, the `bug` label can make code much more usable by allowing users to find out if anyone has had the same problem before, and also how to fix (or work around) it on their end. Enabling users to solve their own problems can save you a lot of time. In general, a good bug report should contain only one bug, specific details of the environment in which the issue appeared (e.g. operating system or browser, version of the software and its dependencies), and sufficiently clear and concise steps that allow a developer to reproduce the bug themselves. They should also be clear on what the bug reporter considers factual ("I did this and this happened") and speculation ("I think it was caused by this"). If an error report was generated from the software itself, it's a very good idea to include that in the issue.
-
-The `enhancement` label is a great way to communicate your future priorities to your collaborators but also to yourself - it’s far too easy to leave a software project for a few months to work on something else, only to come back and forget the improvements you were going to make. If you have other users for your code, they can use the label to request new features, or changes to the way the code operates. It’s generally worth paying attention to these suggestions, especially if you spend more time developing than running the code. It can be very easy to end up with quirky behaviour because of off-the-cuff choices during development. Extra pairs of eyes can point out ways the code can be made more accessible - the easier the code is to use, the more widely it will be adopted and the greater impact it will have.
-
-One interesting label is `wontfix`, which indicates that an issue simply won't be worked on for whatever reason. Maybe the bug it reports is outside of the use case of the software, or the feature it requests simply isn't a priority. This can make it clear 
-you've thought about an issue and dismissed it.
-
-:::callout
-## Locking and Pinning Issues
-The **Lock conversation** and **Pin issue** buttons are both available from individual issue pages. 
-Locking conversations allows you to block future comments on the issue, e.g. if the conversation around the issue 
-is not constructive or violates your team's code of conduct. Pinning issues allows you to pin up to three 
-issues to the top of the issues page, e.g. to emphasise their importance.
-:::
 
 :::callout
 ## Manage Issues With Your Code Openly
@@ -93,18 +85,21 @@ prioritise future work!
 :::
 
 
-::::challenge{id="first-issue", title="Our First Issue!"}
+:::challenge{id=first-issue, title="Our First Issue!"}
 
-Individually, with a critical eye, think of an aspect of the code you have developed so far that needs improvement. 
-It could be a bug, for example, or a documentation issue with your README, a missing LICENSE file, or an enhancement. 
-In GitHub, enter the details of the issue and select `Submit new issue`. Add a label to your issue, if appropriate.
+The `oxrse_unit_conv` repo that you cloned previously 
+([https://github.com/OxfordRSE/oxrse_unit_conv](https://github.com/OxfordRSE/oxrse_unit_conv)). 
+is a small toy Python project that implements some classes for SI and non-SI units (you 
+can
+read the `README.md` file for more information), and implements convertions
+between values of different units. There are some initial units defined, but many are 
+missing. 
 
-:::solution
-
- For example, "Add a licence file" could be a good first issue, with a label `documentation`. 
-
+Individually, with a critical eye, think of an aspect of the code in this repo that 
+needs improvement. This could be to add a new unit to the project, or it could be to add 
+any other functionality that you think would be useful, or to fix any bugs that you 
+find.
 :::
-::::
 
 ### Issue (and Pull Request) Templates
 
@@ -137,7 +132,7 @@ changed (much easier than writing out all the same information again in an
 email).  
 
 You can use the mention system to link to/notify an individual GitHub account or
-a whole team for notifying multiple people. Typing <kbd>@</kbd> in GitHub will
+a whole team for notifying multiple people. Typing `@` in GitHub will
 bring up a list of all accounts and teams linked to the repository that can be
 "mentioned". People will then receive notifications based on their preferred
 notification methods - e.g. via email or GitHub's User Interface.
@@ -147,10 +142,10 @@ notification methods - e.g. via email or GitHub's User Interface.
 GitHub also lets you mention/reference one issue or pull request from another
 (and people "watching" these will be notified of any such updates). Whilst
 writing the description of an issue, or commenting on one, if you type
-<kbd>#</kbd> you should see a list of the issues and pull requests on the
+`#` you should see a list of the issues and pull requests on the
 repository.  They are coloured green if they're open, or white if they're
 closed. Continue typing the issue number, and the list will narrow down, then
-you can hit <kbd>Return</kbd> to select the entry and link the two.  For
+you can hit `Return` to select the entry and link the two.  For
 example, if you realise that several of your bugs have common roots, or that one
 enhancement can't be implemented before you've finished another, you can use the
 mention system to indicate the depending issue(s). This is a simple way to add
@@ -163,35 +158,17 @@ the comment by its URL). Within a text box for comments, issue and pull request 
 a commit by pasting its long, unique identifier (or its first few digits which uniquely identify it)
 and GitHub will render it nicely using the identifier's short form and link to the commit in question.
 
-![Referencing comments and commits in GitHub](../fig/github-reference-comments-commits.png){: .image-with-shadow width="700px"}
+![Referencing comments and commits in GitHub](fig/github-reference-comments-commits.png)
 
-:::challenge{id="first-mention", title="Our First Mention/Reference!"}
+:::challenge{id=first-mention, title="Our First Mention/Reference!"}
 
 Add a mention to one of your team members using the `@` notation 
 in a comment within an issue or a pull request in your repository - e.g. to 
 ask them a question or a clarification on something or to do some additional work. 
 
-Alternatively, add another issue to your repository and reference the issue you created in the previous exercise using the 
-`#` notation.
+Alternatively, add another issue to your repository and reference the issue you created 
+in the previous exercise using the `#` notation.
 
-:::
-
-:::callout
-## You Are Also a User of Your Code
-
-This section focuses a lot on how issues and mentions can help communicate the
-current state of the code to others and document what conversations were held
-around particular issues. As a sole developer, and possibly also the only user
-of the code, you might be tempted to not bother with recording issues, comments
-and new features as you don't need to communicate the information to anyone
-else.
-
-Unfortunately, human memory isn't infallible! After spending six months on a
-different topic, it's inevitable you'll forget some of the plans you had and
-problems you faced. Not documenting these things can lead to you having to
-re-learn things you already put the effort into discovering before. Also, if
-others are brought on to the project at a later date, the software's existing
-issues and potential new features are already in place to build upon.  
 :::
 
 ## Key Points:
