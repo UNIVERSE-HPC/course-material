@@ -202,3 +202,8 @@ class Trial:
 
 :::
 ::::
+
+## Key Points:
+- Class-based Polymorphism in programming languages allows objects of different classes to be treated as if they were the same type
+- Python uses duck typing to allow polymorphism in a flexible way, "if it looks like a duck and quacks like a duck, it must be a duck"
+

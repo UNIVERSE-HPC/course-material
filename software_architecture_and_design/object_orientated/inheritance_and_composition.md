@@ -326,3 +326,6 @@ class Doctor(Person):
 ~~~    
 :::
 ::::
+
+## Key Points:
+- Relationships between concepts can be described using inheritance (*is a*) and composition (*has a*).

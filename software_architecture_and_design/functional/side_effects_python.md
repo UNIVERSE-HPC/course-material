@@ -151,11 +151,11 @@ def add_two(x):
 ~~~
 
 **Parallelisability** is the ability for operations to be performed at the same
-*time (independently). If we know that a function is fully pure and we have got
-*a lot of data, we can often improve performance by splitting data and
-*distributing the computation across multiple processors. The output of a pure
-*function depends only on its input, so we will get the right result regardless
-*of when or where the code runs.
+time (independently). If we know that a function is fully pure and we have got
+a lot of data, we can often improve performance by splitting data and
+distributing the computation across multiple processors. The output of a pure
+function depends only on its input, so we will get the right result regardless
+of when or where the code runs.
 
 :::callout
 ## Everything in Moderation
@@ -183,3 +183,8 @@ processing data efficiently - in particular in the world of Big Data, where code
 is much smaller than the data, sending the code to where data is located is
 cheaper and faster than the other way round. Let's see how we can do data
 processing using functional programming.
+
+## Key Points:
+
+- Program state is composed of variables' values, including those modified by functions and interactions with the Operating System.
+- Functional computations rely only on input values, are immutable, and do not create side effects. Pure functions are testable, composable, and parallelizable.

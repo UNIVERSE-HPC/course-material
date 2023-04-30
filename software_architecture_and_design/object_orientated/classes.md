@@ -401,3 +401,8 @@ You may recognise the `@` syntax from episodes on functional programming -
 decorator is taking the `last_observation` function and modifying its behaviour,
 so it can be accessed as if it were a normal attribute.  It is also possible to
 make your own decorators, but we won't cover it here.
+
+## Key Points:
+- Object oriented programming is a programming paradigm based on the concept of classes, which encapsulate data and code.
+- Classes allow us to organise data into distinct concepts.
+- By breaking down our data into classes, we can reason about the behaviour of parts of our data.

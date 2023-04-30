@@ -128,3 +128,8 @@ def evaluate(tree):
 ```
 :::
 ::::
+
+## Key Points:
+
+- Recursion is a programming technique where a function calls itself, allowing solutions to problems that can be broken down into smaller subproblems
+- Recursion is a useful approach for calculation and operations on tree data structures.

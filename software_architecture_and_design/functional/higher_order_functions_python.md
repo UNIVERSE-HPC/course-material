@@ -536,3 +536,13 @@ Took 0.124199753 seconds
 ~~~
 :::
 ::::
+
+## Key Points:
+
+- *First-Class Functions*: functions that can be passed as arguments to other functions, returned from functions, or assigned to variables.
+- *Lambda Functions*: small, nameless functions defined in the normal flow of the program with a keyword lambda.
+- *Higher-Order Functions*: a function that has other functions as one of its arguments.
+- *Map, Filter and Reduce*: built-in higher order functions in Python that use lazy evaluation.
+- *Comprehensions*: a more Pythonic way to structure map and filter operations.
+- *Generators*: similar to list comprehensions, but behave differently and not evaluated until you iterate over them.
+- *Decorators*: higher-order functions that take a function as an argument, modify it, and return it.
