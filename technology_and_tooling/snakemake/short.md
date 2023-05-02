@@ -1,3 +1,25 @@
+---
+name: "Short tutorial"
+teaching: 30
+exercises: 30
+dependsOn: [
+  technology_and_tooling.snakemake.additional_features
+]
+tags: [snakemake]
+attribution: 
+    - citation: >
+        Mölder, F., Jablonski, K.P., Letcher, B., Hall, M.B., Tomkins-Tinch,
+        C.H., Sochat, V., Forster, J., Lee, S., Twardziok, S.O., Kanitz, A.,
+        Wilm, A., Holtgrewe, M., Rahmann, S., Nahnsen, S., Köster, J., 2021.
+        Sustainable data analysis with Snakemake. F1000Res 10, 33.
+        Revision c7ae161c.
+      url: https://snakemake.readthedocs.io/en/stable/tutorial/basics.html
+      image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
+      license: MIT license
+
+
+---
+
 # Short tutorial
 
 Here we provide a short tutorial that guides you through the main
