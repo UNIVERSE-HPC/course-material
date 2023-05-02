@@ -13,7 +13,7 @@ attribution:
         Wilm, A., Holtgrewe, M., Rahmann, S., Nahnsen, S., Köster, J., 2021.
         Sustainable data analysis with Snakemake. F1000Res 10, 33.
         Revision c7ae161c.
-      url: https://snakemake.readthedocs.io/en/stable/tutorial/basics.html
+      url: https://snakemake.readthedocs.io/en/stable/tutorial/advanced.html
       image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
       license: MIT license
 
