@@ -1,5 +1,5 @@
 ---
-name: "Advanced: Decorating the example workflow"
+name: "Advanced: Decorating"
 teaching: 30
 exercises: 30
 dependsOn: [

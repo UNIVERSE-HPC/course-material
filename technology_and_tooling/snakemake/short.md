@@ -3,7 +3,6 @@ name: "Short tutorial"
 teaching: 30
 exercises: 30
 dependsOn: [
-  technology_and_tooling.snakemake.additional_features
 ]
 tags: [snakemake]
 attribution: 
@@ -26,7 +25,7 @@ Here we provide a short tutorial that guides you through the main
 features of Snakemake. Note that this is not suited to learn Snakemake
 from scratch, rather to give a first impression. To really learn
 Snakemake (starting from something simple, and extending towards
-advanced features), use the main `tutorial`.
+[label](../index.md)advanced features), use the main `tutorial`.
 
 This document shows all steps performed in the official [Snakemake live
 demo](https://youtu.be/hPrXcUUp70Y), such that it becomes possible to
