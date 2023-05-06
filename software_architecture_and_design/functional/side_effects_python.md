@@ -5,12 +5,24 @@ dependsOn: [
 tags: [python]
 ---
 
+
 ## Program state
 
+In programming, the term "state" refers to the current status or condition of a program 
+at a particular moment in time. It can include various pieces of information, such as 
+the values of variables, data structures, or objects, and the state of the system 
+resources, such as the memory, files, or network connections.
+
+The state of a program can be modifiable or immutable, depending on whether it can be 
+changed or not during the program's execution. Modifiable state can be a powerful tool 
+in programming, as it allows us to store and update temporary data that we can use to 
+make calculations more efficient. However, it also introduces complexity and potential 
+pitfalls, as changes in state can lead to unpredictable behavior, bugs, or security 
+vulnerabilities.
+
 The current state of a given program is composed of many different parts, some
-of which are clear, others which are more opaque. The
-most obvious state is the values of all the current variables in the scope. Take
-this code snippet:
+of which are clear, others which are more opaque. The most obvious state is the
+values of all the current variables in the scope. Take this code snippet:
 
 ```python
 y = [3, 2]
@@ -74,8 +86,15 @@ result = 0
 for x in data:
     result += expensive_computation(x)
 ```
-
 ## Side Effects and Pure Functions
+
+By considering how we use state in our programs, we can improve our programming by 
+making it more predictable, reliable, and testable. One way to achieve this is by 
+adopting functional programming principles, which promote the use of pure functions that 
+do not modify any external state and rely only on their input parameters to produce 
+their output. Pure functions are easier to reason about and test, and they enable 
+composability, parallelism, and other benefits that can improve the quality and 
+efficiency of our code.
 
 Functional computations only rely on the values that are provided as inputs to a
 function and not on the state of the program that precedes the function call.
@@ -118,6 +137,113 @@ def append_item_2(a_list, item):
 4. `append_item_2` is pure - the result is a new variable, so this time `a_list` does not get modified - again, try this yourself
 :::
 ::::
+
+::::challenge{id="conways-game-of-life" title="Conway's Game of Life"}
+
+Conway's Game of Life is a popular cellular automaton that simulates the
+evolution of a two-dimensional grid of cells. In this exercise, you will
+refactor a Python program that implements Conway's Game of Life. The basic rules of the game of life are:
+
+1. Any live cell with fewer than two live neighbors dies, as if caused by underpopulation.
+2. Any live cell with two or three live neighbors lives on to the next generation.
+3. Any live cell with more than three live neighbors dies, as if by overpopulation.
+
+The code has two bugs, one related to the improper management of the program
+state, which you will fix. Refactor the code so that the `step`
+function is a pure function.
+
+```python
+import numpy as np
+
+def step(grid):
+    rows, cols = grid.shape
+    for i in range(rows):
+        for j in range(cols):
+            neighbors = get_neighbors(grid, i, j)
+            count = sum(neighbors)
+            if grid[i, j] == 1:
+                if count in [2, 3]:
+                    grid[i, j] = 1
+            elif count == 3:
+                grid[i, j] = 1
+
+
+def get_neighbors(grid, i, j):
+    rows, cols = grid.shape
+    indices = np.array([(i-1, j-1), (i-1, j), (i-1, j+1),
+                        (i, j-1),             (i, j+1),
+                        (i+1, j-1), (i+1, j), (i+1, j+1)])
+    valid_indices = (indices[:, 0] >= 0) & (indices[:, 0] < rows) & \
+                    (indices[:, 1] >= 0) & (indices[:, 1] < cols)
+    valid_indices[4] = False  # exclude current cell
+    return grid[indices[valid_indices][:, 0], indices[valid_indices][:, 1]]
+    
+# Test
+grid = np.array([[0, 0, 0, 0, 0],
+                 [0, 0, 1, 0, 0],
+                 [0, 1, 0, 1, 0],
+                 [0, 0, 1, 0, 0],
+                 [0, 0, 0, 0, 0]], dtype=np.int8)
+step(grid)
+print(grid)  # should be unchanged, but may change due to the bug
+```
+
+:::solution
+
+We can fix the bug by creating a new grid to store the results of the step, and
+we can make the function pure by returning the new grid instead of modifying the
+input grid.
+
+Note that we have sacrificed some efficiency by creating a new grid each time.
+If we wanted to improve the efficiency, we could pass the new grid as an
+argument to the function, but this would make the function impure again. Program
+design often involves trade-offs like this, if efficiency is important we can
+sacrifice purity, but if we want to be able to reason about our code and test it
+easily, we should strive for purity.
+
+The other bug is that we didn't actually include the current cell in
+`valid_indices`, so we need to remove the line that excludes it.
+
+```python
+import numpy as np
+
+def step(grid):
+    rows, cols = grid.shape
+    new_grid = np.zeros((rows, cols), dtype=np.int8)
+    for i in range(rows):
+        for j in range(cols):
+            neighbors = get_neighbors(grid, i, j)
+            count = np.sum(neighbors)
+            if grid[i, j] == 1 and count in [2, 3]:
+                new_grid[i, j] = 1
+            elif grid[i, j] == 0 and count == 3:
+                new_grid[i, j] = 1
+    return new_grid
+
+
+def get_neighbors(grid, i, j):
+    rows, cols = grid.shape
+    indices = np.array([(i-1, j-1), (i-1, j), (i-1, j+1),
+                        (i, j-1),             (i, j+1),
+                        (i+1, j-1), (i+1, j), (i+1, j+1)])
+    valid_indices = (indices[:, 0] >= 0) & (indices[:, 0] < rows) & \
+                    (indices[:, 1] >= 0) & (indices[:, 1] < cols)
+    return grid[indices[valid_indices][:, 0], indices[valid_indices][:, 1]]
+
+# Test
+grid = np.array([[0, 0, 0, 0, 0],
+                 [0, 0, 1, 0, 0],
+                 [0, 1, 0, 1, 0],
+                 [0, 0, 1, 0, 0],
+                 [0, 0, 0, 0, 0]], dtype=np.int8)
+
+new_grid = step(grid)
+assert np.array_equal(new_grid, grid), "Grid should be unchanged"
+```
+
+:::
+::::
+
 
 ## Benefits of Functional Code
 

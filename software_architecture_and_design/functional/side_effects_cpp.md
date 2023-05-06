@@ -148,6 +148,180 @@ void increment_x(int& x) {
 }
 ```
 :::
+::::
+
+::::challenge{id="conways-game-of-life" title="Conway's Game of Life"}
+
+Conway's Game of Life is a popular cellular automaton that simulates the
+evolution of a two-dimensional grid of cells. In this exercise, you will
+refactor a Python program that implements Conway's Game of Life. The basic rules of the game of life are:
+
+1. Any live cell with fewer than two live neighbors dies, as if caused by underpopulation.
+2. Any live cell with two or three live neighbors lives on to the next generation.
+3. Any live cell with more than three live neighbors dies, as if by overpopulation.
+
+The code has a bug related to the improper management of the program
+state, which you will fix. Refactor the code so that the `step`
+function is a pure function.
+
+```cpp
+#include <iostream>
+#include <vector>
+
+void step(std::vector<std::vector<int>>& grid) {
+    int rows = grid.size();
+    int cols = grid[0].size();
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            std::vector<int> neighbors = get_neighbors(grid, i, j);
+            int count = 0;
+            for (int neighbor : neighbors) {
+                count += neighbor;
+            }
+            if (grid[i][j] == 1) {
+                if (count == 2 || count == 3) {
+                    grid[i][j] = 1;
+                }
+            } else if (count == 3) {
+                grid[i][j] = 1;
+            }
+        }
+    }
+}
+
+std::vector<int> get_neighbors(const std::vector<std::vector<int>>& grid, int i, int j) {
+    int rows = grid.size();
+    int cols = grid[0].size();
+    std::vector<std::pair<int, int>> indices = {{i - 1, j - 1}, {i - 1, j}, {i - 1, j + 1},
+                                                {i, j - 1},                 {i, j + 1},
+                                                {i + 1, j - 1}, {i + 1, j}, {i + 1, j + 1}};
+    std::vector<int> neighbors;
+
+    for (const auto& idx : indices) {
+        int row = idx.first;
+        int col = idx.second;
+        if (row >= 0 && row < rows && col >= 0 && col < cols) {
+            neighbors.push_back(grid[row][col]);
+        }
+    }
+
+    return neighbors;
+}
+
+int main() {
+    std::vector<std::vector<int>> grid = {{0, 0, 0, 0, 0},
+                                          {0, 0, 1, 0, 0},
+                                          {0, 1, 0, 1, 0},
+                                          {0, 0, 1, 0, 0},
+                                          {0, 0, 0, 0, 0}};
+    step(grid);
+
+    // Print the grid
+    for (const auto& row : grid) {
+        for (int cell : row) {
+            std::cout << cell << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
+```
+
+:::solution
+
+We can fix the bug by creating a new grid to store the results of the step, and
+we can make the function pure by returning the new grid instead of modifying the
+input grid.
+
+Note that we have sacrificed some efficiency by creating a new grid each time.
+If we wanted to improve the efficiency, we could pass the new grid as an
+argument to the function, but this would make the function impure again. Program
+design often involves trade-offs like this, if efficiency is important we can
+sacrifice purity, but if we want to be able to reason about our code and test it
+easily, we should strive for purity.
+
+```cpp
+#include <iostream>
+#include <vector>
+
+std::vector<std::vector<int>> step(const std::vector<std::vector<int>>& grid) {
+    int rows = grid.size();
+    int cols = grid[0].size();
+    std::vector<std::vector<int>> new_grid(rows, std::vector<int>(cols, 0));
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            std::vector<int> neighbors = get_neighbors(grid, i, j);
+            int count = 0;
+            for (int neighbor : neighbors) {
+                count += neighbor;
+            }
+            if (grid[i][j] == 1 && (count == 2 || count == 3)) {
+                new_grid[i][j] = 1;
+            } else if (grid[i][j] == 0 && count == 3) {
+                new_grid[i][j] = 1;
+            }
+        }
+    }
+
+    return new_grid;
+}
+
+std::vector<int> get_neighbors(const std::vector<std::vector<int>>& grid, int i, int j) {
+    int rows = grid.size();
+    int cols = grid[0].size();
+    std::vector<std::pair<int, int>> indices = {{i - 1, j - 1}, {i - 1, j}, {i - 1, j + 1},
+                                                {i, j - 1},                {i, j + 1},
+                                                {i + 1, j - 1}, {i + 1, j}, {i + 1, j + 1}};
+    std::vector<int> neighbors;
+
+    for (const auto& idx : indices) {
+        int row = idx.first;
+        int col = idx.second;
+        if (row >= 0 && row < rows && col >= 0 && col < cols) {
+            neighbors.push_back(grid[row][col]);
+        }
+    }
+
+    return neighbors;
+}
+
+int main() {
+    std::vector<std::vector<int>> grid = {{0, 0, 0, 0, 0},
+                                          {0, 0, 1, 0, 0},
+                                          {0, 1, 0, 1, 0},
+                                          {0, 0, 1, 0, 0},
+                                          {0, 0, 0, 0, 0}};
+    std::vector<std::vector<int>> new_grid = step(grid);
+
+    // Check if the grid is unchanged
+    bool unchanged = true;
+    for (size_t i = 0; i < grid.size(); ++i) {
+        for (size_t j = 0; j < grid[0].size(); ++j) {
+            if (grid[i][j] != new_grid[i][j]) {
+                unchanged = false;
+                break;
+            }
+        }
+        if (!unchanged) {
+            break;
+        }
+    }
+    if (unchanged) {
+        std::cout << "Grid is unchanged" << std::endl;
+    } else {
+        std::cout << "Grid has changed" << std::endl;
+    }
+
+    return 0;
+}
+```
+:::
+::::
+
+
 
 
 ## Benefits of Functional Code
@@ -191,3 +365,8 @@ processing data efficiently - in particular in the world of Big Data, where code
 is much smaller than the data, sending the code to where data is located is
 cheaper and faster than the other way round. Let's see how we can do data
 processing using functional programming.
+
+## Key Points:
+
+- Program state is composed of variables' values, including those modified by functions and interactions with the Operating System.
+- Functional computations rely only on input values, are immutable, and do not create side effects. Pure functions are testable, composable, and parallelizable.

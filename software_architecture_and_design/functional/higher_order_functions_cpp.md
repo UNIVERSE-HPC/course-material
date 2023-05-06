@@ -410,3 +410,9 @@ more about the ranges library [here](https://en.cppreference.com/w/cpp/ranges).
 :::
 
 ::::
+
+## Key Points:
+- Higher-order functions in C++: Functions that accept other functions as arguments or return them as results, enabling more modular, reusable, and expressive code.
+- Lambda expressions: Anonymous functions defined using lambda syntax, often utilized as arguments for higher-order functions, offering flexibility and conciseness.
+- Standard library algorithms: C++ includes a variety of higher-order functions (e.g. `std::transform`, `std::for_each`, and `std::accumulate`) to perform common operations on data structures efficiently and with less boilerplate code.
+- Function adaptors and bind: Tools like `std::function`, `std::bind`, and placeholders enable further manipulation and customization of functions, allowing more complex and powerful higher-order function usage.
