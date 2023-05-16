@@ -3,7 +3,7 @@ name: Sharing Packages
 dependsOn: [
   technology_and_tooling.packaging_dependency_management.pack_python_03reusing 
 ]
-tags: [python]
+tags: [python, setuptools]
 attribution: 
     - citation: >
         "Python Packaging" course developed by Thibault Lestang and the Oxford Research 
@@ -15,7 +15,6 @@ attribution:
 ---
 
 
-
 # Sharing a package
 
 ## Building Python distributions
@@ -25,16 +24,23 @@ A distribution is a single file that bundles all the files and data necessary to
 the package - but also sometimes compile and test it.
 
 A distribution usually takes the from of an archive (`.tar`, `.zip` or similar).
-There are several possible distribution formats, but in 2020, only two are really important: the _source distribution_ (sdist) and the _wheel_ (bdist\_wheel).
+There are several possible distribution formats, but for `pip`, only two are
+really important: the _source distribution_ (sdist) and the _wheel_
+(bdist\_wheel).
 
+### Source distributions
 
-### Source distributions {#source-distributions}
+The `build` tool provides a unified interface to build distributions for Python packages.
 
-Python distributions are commonly built using the `setuptools` library, _via_ the `setup.py` file.
+```shell
+pip install build
+python -m build --help
+```
+
 Building a source distribution looks like this:
 
 ```shell
-python setup.py sdist
+python -m build --sdist
 ```
 
 ```text
@@ -68,11 +74,11 @@ removing 'tstools-0.1' (and everything under it)
 
 This mainly does three things:
 
--   It gathers the python source files that consitute the package (incuding the `setup.py`).
+-   It gathers the python source files that consitute the package (incuding the `setup.py` or `pyproject.toml` if present).
 -   It writes some metadata about the package in a directory `<package name>.egg-info`.
 -   It bundles everyting into a tar archive.
 
-The newly created sdist is written in a directory `dist` next to the `setup.py` file:
+The newly created sdist is written in a directory `dist` in the root of the package:
 
 ```shell
 tar --list -f dist/tstools-0.1.tar.gz
@@ -95,12 +101,10 @@ tstools-0.1/tstools.egg-info/requires.txt
 tstools-0.1/tstools.egg-info/top_level.txt
 ```
 
-{{% notice tip %}}
 Take a moment to explore the content of the archive.
-{{% /notice %}}
 
 As the name suggest a source distribution is nothing more than the source code of your package,
-along with the `setup.py` necessary to install it.
+along with the `setup.py` or `pyproject.toml` necessary to install it.
 Anyone with the source distribution therefore has everything they need to install your package.
 Actually it's even possible to give the sdist directly to `pip`:
 
@@ -110,41 +114,37 @@ pip install tstools-0.1.tar.gz
 
 And you're done!
 
+### Wheel distributions
 
-### Wheel distributions {#wheel-distributions}
+While source distributions are quite useful, they require the recipient to build
+the package prior to its installation. This is generally not an issue for
+pure-Python packages, but can pose significant difficulties for packages
+containing compiled code or those that depend on external libraries during the
+build process.
 
-Source distributions are very basic, and installing them basically amount
-to running the package's `setup.py` script.
-These poses two issues:
+Conversely, wheel distributions serve as pre-compiled binary distributions,
+offering swift installation without necessitating a compiler or build
+environment, thereby reducing susceptibility to installation errors. Such
+distributions can incorporate binary extensions as well as non-Python files,
+providing significant advantages in certain scenarios. It is important to note,
+however, that they are tailored to a specific Python version and platform.
 
--   In addition to the call to `setup`, the `setup.py` can contain any valid Python.
-    Thinking about security for moment, this means that installing a package could
-    result in the execution of malicious code.
--   To install from a source distribution, `pip` must first unpack the distribution, then
-    execute the `setup.py` script. Directly unpacking to the correct location in the python
-    path would be much faster.
--   Package can contain code written in a compiled language like C or Fortran. Source
-    distributions assume that the recipient has all the tools necesseray to compile
-    this code. Compiling code can also takes time (hours!).
+For pure-Python packages, a wheel closely resembles a source distribution in
+that it is an archive housing both the Python source of the package and
+pertinent metadata. The key distinction lies in the absence of a build process
+for wheels. Instead, the contents of wheels are directly unpacked into the
+appropriate location, typically the current environment's `site-packages/`
+directory. This procedure enhances the safety and speed of wheel installation.
 
-This issues can be overcome by using _wheel distributions_.
-For pure-Python packages, a wheel is very similar to a source distribution: it's an
-archive that contains both the python source of the package and some metadata.
-The main difference with sdists is that **wheels doesn't require pip to execute
-the `setup.py`** file, instead the content of wheels is directly unpacked in the correct
-location - most likely your current environment's `site-packages/` directory.
-This makes the installation of wheels both safer and faster.
+A noteworthy feature of Python wheels is their ability to embed compiled code,
+thereby eliminating the need for recipients to undertake any compilation. As a
+result, while the wheel becomes platform-dependent, it greatly simplifies and
+accelerates the installation process. Hence, wheels fall under the category of
+_built distributions_. Another example of a built distribution is the Python _egg_.
+However, the wheel format was devised to address the limitations of Python eggs,
+rendering the latter format obsolete. For more information, refer to [Wheel vs Egg](https://packaging.python.org/discussions/wheel-vs-egg/) on the Python Packaging User Guide.
 
-Another very important feature of python wheels is that they can embed compiled code,
-effectively alleviating the need for the recipient to compile (_build_) anything.
-As a result, the wheel is platform-dependant, but makes the installation considerably easier
-and faster. For this reason, wheels are part of the family of _built distrubtions_.
-Another type of built distribution is the python _egg_. However, the wheel format was
-created in response to the shortcomings of Python eggs and this format is now obsolete.
-See [Wheel vs Egg](https://packaging.python.org/discussions/wheel-vs-egg/) on the Python Packaging User Guide.
-
-
-::::challenge{id=python-wheel, title="Building a Python wheel"
+::::challenge{id=python-wheel, title="Building a Python wheel"}
 
 1.  If you don't have one, create a new developement virtual environment in the
     `tstools-dist` directory:
@@ -160,36 +160,41 @@ See [Wheel vs Egg](https://packaging.python.org/discussions/wheel-vs-egg/) on th
     ```shell
     pip install --upgrade pip
     ```
-3.  Install `setuptools` and the `wheel` extension:
+3.  Install `build` tool and the `wheel` extension:
 
     ```shell
-    pip install setuptools wheel
+    pip install wheel build
     ```
 4.  Build a wheel
 
     ```shell
-    python setup.py bdist_wheel
+    python -m build --wheel
     ```
 5.  Install the wheel using `pip`.
-    Hint: wheels are written in the `dist/` directory, next to the `setup.py` file, just
+    Hint: wheels are written in the `dist/` directory, just
     like source distributions.
 6.  `.whl` files are basically zip files. Unzip the wheel and explore its contents.
 
 :::callout
-The `bdist_wheel` command is only available after the package 
-[wheel](https://pypi.org/project/wheel/) is installed in your current environment.
-It is an extension to the `setuptools` package.
+The [wheel](https://pypi.org/project/wheel/) package is a built-in extension to the `setuptools` package.
+
+Using the `build` tool with no arguments will build both a source distribution and a wheel distribution.
+
+```shell
+python -m build
+```
 :::
 
 ::::
 
 ## Uploading distributions to PyPI
 
-In the previous section you learned how to create distributions for your packages.
-In this section, we look at how to share them with others, so that other people can easily install and use your packages.
+In the previous section you learned how to create distributions for your
+packages.  In this section, we look at how to share them with others, so that
+other people can easily install and use your packages.
 
 
-### Package repositories {#package-repositories}
+### Package repositories
 
 Let's think about distributing packages for a minute.
 If you wanted to share one of your distributions (whether it's a source distribution or a wheel distribution) with a colleague, how would
@@ -213,7 +218,6 @@ If not, `pip` makes a request to PyPI and, if it exists, downloads and install p
 
 
 ### Publishing distributions to the test PyPI index 
-{#publishing-distributions-to-the-test-pypi-index}
 
 Once a package is uploaded to PyPI, it cannot easily be removed.
 This is to prevent packages from disappearing without warning while other software depends on it.
@@ -241,8 +245,8 @@ without entering your username and password every time. Note that you might want
 ::::challenge{id=publishing-distributions, title="Publishing distributions to TestPyPI"}
 
 1.  On PyPI (or TestPyPI), there cannot be two package with the same name. Therefore, before you upload your `tstools` package,
-    you must give the project a unique name. To do so, open the `tstools-dist/setup.py` file and change the `name` entry
-    in the call to the `setup` function to something unique to you, for instance:
+    you must give the project a unique name. To do so, open the `tstools-dist/setup.py` or `tstools-dist/pyproject.toml` file and change the `name` entry
+    to something unique to you, for instance:
 
     ```python
     name='tstools-<yourname>'
@@ -260,7 +264,7 @@ without entering your username and password every time. Note that you might want
 4.  Create a source distribution and a wheel for your `tstools` package
 
     ```shell
-    python setup.py sdist bdist_wheel
+    python -m build
     ```
 5.  If you don't have one, create an account on the Test PyPI index by visiting <https://test.pypi.org/account/register/>.
 6.  Lastly, publish your distributions to the test PyPI index:

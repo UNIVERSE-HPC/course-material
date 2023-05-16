@@ -3,7 +3,7 @@ name: Virtual Environments
 dependsOn: [
   technology_and_tooling.ide.python
 ]
-tags: [python]
+tags: [python, venv]
 attribution: 
     - citation: >
         "Python Packaging" course developed by Thibault Lestang and the Oxford Research 

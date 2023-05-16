@@ -3,7 +3,7 @@ name: Reusing Packages
 dependsOn: [
   technology_and_tooling.packaging_dependency_management.pack_python_02making
 ]
-tags: [python]
+tags: [python, setuptools]
 attribution: 
     - citation: >
         "Python Packaging" course developed by Thibault Lestang and the Oxford Research 
@@ -73,8 +73,11 @@ If the package/module isn't found there, the python intepreter looks in the foll
 -   `/usr/lib/python3.8`
 -   `/usr/lib/python3.8/lib-dynload`
 
-The above contain the modules and packages in the _standard library_, _i.e_ the packages and modules that come "pre-installed" with Python.
-Finally, the python interpreter looks inside the directory `/home/thibault/python-workshop-venv/lib/python3.8/site-packages/`.
+The above contain the modules and packages in the _standard library_, _i.e_ the
+packages and modules that come "pre-installed" with Python.  Finally, the python
+interpreter looks inside the directory
+`/home/thibault/python-workshop-venv/lib/python3.8/site-packages/`, which is our
+currently active virtual environment.
 
 :::callout
 The output of `sys.path` is probaby different on your machine. It depends on many 
@@ -86,7 +89,9 @@ environment.
 For Python to find out package `tstools` it must be located in one of the directories listed in
 the `sys.path` list. If it is the case, the package is said to be _installed_.
 
-Looking back at the example in the [previous section]({{< relref "another-analysis" >}}), let's list some potential ways we can make the `tstools` package importable from the `analysis2/` directory:
+Looking back at the example in the previous section, let's list some potential
+ways we can make the `tstools` package importable from the `analysis2/`
+directory:
 
 1.  **Copy (`analysis1/tstools/`) in `analysis2/`**.
     You end up with two independant packages. If you make changes to one, you have to remember to make the same
@@ -119,14 +124,16 @@ good reason to use one of them, these are not recommended for the
 reasons above. In the next section, we look at the recommended way to
 install a package, using `setuptools` and `pip`.
 
-## setuptools, setup dot pie and pip
+## setuptools, pyproject dot toml, setup dot pie and pip
 
 
-The recommended way to install a package is to use the `setuptools` library in conjunction with `pip`, the official python _package manager_.
-Effectively, this approach is roughly equivalent to copying the package to the `site-packages` directory, but the process is **automated**.
+The recommended way to install a package is to use the `setuptools` library in
+conjunction with `pip`, the official python _package manager_.  Effectively,
+this approach is roughly equivalent to copying the package to the
+`site-packages` directory, but the process is **automated**.
 
 
-### pip {#pip}
+### pip
 
 Pip is the de facto package manager for Python packages.  It's main
 job is to install, remove, upgrade, configure and manage Python
@@ -152,18 +159,20 @@ pip install ./tstools
 ERROR: Directory './tstools' is not installable. Neither 'setup.py' nor 'pyproject.toml' found.
 ```
 
-The above doesn't really look like our package got installed properly.
-For `pip` to be able to install our package, we must first give it
-some information about it. In fact, `pip` expects to find a python
-file named `setup.py` in the directory that it is given as an
-argument. This file will contain some metadata about the package and
-tell `pip` the location of the actual source of the package.
+The above doesn't really look like our package got installed properly.  For
+`pip` to be able to install our package, we must first give it some information
+about it. In fact, `pip` expects to find either a `pyproject.toml` configuration
+file or a python file named `setup.py` in the directory that it is given as an
+argument. These file will contain some metadata about the package and tell `pip`
+the location of the actual source of the package.
 
 
-### `setup.py` (setup dot pie) and distribution packages 
+### `setup.py` (setup dot pie)
 
-The `setup.py` file is a regular Python file that makes a call to the `setup` function
-available in the `setuptools` package.
+The `setup.py` file is a regular Python file that makes a call to the `setup`
+function available in the `setuptools` package. This is a legacy approach to
+package installation, and since Pip v10, the recommended way to install a
+package is to use a `pyproject.toml` file (see below).
 
 Let's have a look at a minimal `setup.py` file for our `tstools` package:
 
@@ -192,12 +201,85 @@ In English, this means "setuptools, please install the package `tstools/` locate
 This therefore assumes that the file `setup.py` resides in the directory that _contains_ the package, in this case `analysis1/`.
 :::
 
+## `pyproject.toml` (pyproject dot toml)
+
+The `pyproject.toml` file is a configuration file for Python packages,
+introduced in [PEP 518](https://www.python.org/dev/peps/pep-0518/). It is
+intended to replace `setup.py` for package management tasks and is designed to be
+used by build tools like `pip`.
+
+The `pyproject.toml` configuration file, offers a more standardized, reliable,
+and flexible approach to specifying Python project metadata compared to
+`setup.py`. It facilitates the specification of the build system a project
+requires, thereby breaking the implicit dependency on setuptools. It also
+improves dependency management by specifying build dependencies that are
+isolated from system-wide packages, reducing the risk of interference. Unlike
+`setup.py`, `pyproject.toml` isn't a Python script, reducing the risk of arbitrary
+code execution and making packaging more predictable. The format is
+tool-agnostic and easily extensible, allowing for the coexistence and
+cooperation of different tools in the same project, which makes the packaging
+process more uniform across different tools.
+
+Here is an equivilant `pyproject.toml` file for our `tstools` package:
+
+```toml
+[build-system]
+requires = ["setuptools", "wheel"] # setuptools and wheel are necessary for the build
+
+[project]
+name = "tstools"
+version = "0.1"
+description = "A package to analyse timeseries"
+authors = [
+    {name = "Spam Eggs", email = "spam.eggs@email.com"}
+]
+readme = "README.md"
+homepage = "myfancywebsite.com"
+license = "GPLv3"
+
+[project.urls]
+Source = "myfancywebsite.com"
+
+[project.scripts] # Define scripts here if you have any
+
+[project.dependencies]
+numpy = "*"
+matplotlib = "*"
+scipy = "*"
+
+[project.optional-dependencies] # Define optional dependencies here if you have any
+```
+
+Note that both `setup.py` and `pyproject.toml` can be used in conjection, and in
+the transition period it is common for Python packages to include both these files, as we
+will do in this workshop. In this case, we can create a minimal `pyproject.toml` file that just
+specificies the use of `setuptools` and links to the `setup.py` file:
+
+```toml
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+```
+
+:::callout
+
+In this workshop we focus on the use of the `setuptools` package to install our package. There are other
+tools that can be used to install Python packages, such as [`flit`](https://flit.pypa.io/), [`hatchling`](https://hatch.pypa.io/) and [`PDM`](https://pdm.fming.dev/).
+
+:::
+
+## Creating a package for distribution
+
+After writing a `setup.py` and `pyproject.toml` file, our directory structure looks like this:
+
+
 ```text
 python-workshop/
       analysis1/
   	      data/
   	      analysis1.py
   	      setup.py
+          pyproject.toml
   	      tstools/
 ```
 
@@ -220,17 +302,18 @@ python-workshop/
   	      analysis2.py
       tsools-dist/
   	      setup.py
+          pyproject.toml
   	      tstools/
 ```
 
 The directory `tstools-dist` is a _distribution package_, containing the `setup.py` file and the package itself - the `tstools` directory.
-These are the two minimal ingredients required to _distribute_ a package, see section [Building python distributions]({{< relref "building_distributions" >}}).
-
+These are the two minimal ingredients required to _distribute_ a package.
 
 ::::challenge{id=installing-tstools, title="Installing `tsools` with pip"} 
 
-1.  Write a new `setup.py` file in directory `tstools-dist` including the following metadata:
-
+1.  Write a stand-alone `pyproject.toml` file, or use a combination of
+    `setup.py` and `pyproject.toml` files in directory `tstools-dist`. Include the
+    following metadata:
     -   The name of the package (could be `tstools` but also could be anything else)
     -   The version of the package (for example 0.1)
     -   A one-line description
@@ -238,8 +321,7 @@ These are the two minimal ingredients required to _distribute_ a package, see se
     -   Your email
     -   The GPLv3 license
 
-    Hint: A list of optional keywords for `setuptools.setup` can be found [here](https://setuptools.readthedocs.io/en/latest/setuptools.html#new-and-changed-setup-keywords).
-2.  \*Un\*install numpy and matplotlib
+2.  *Un*install numpy and matplotlib
 
     ```shell
     pip uninstall numpy matplotlib
@@ -288,7 +370,7 @@ addition, you may simply forget to reinstall your package, leading to
 potentially very frustrating and time-consuming errors.
 
 
-### Editable installs {#editable-installs}
+### Editable installs
 
 `pip` has the ability to install the package in a so-called "editable" mode.
 Instead of copying your package to the package installation location, pip will just
@@ -332,8 +414,8 @@ cat ~/python-workshop-venv/lib/python3.8/site-packages/tstools.egg-link
 
 -   In order to reuse our package across different analyses, we must _install_ it.
     In effect, this means copying the package into a directory that is in the python path.
-    This shouldn't be done manually, but instead using the `setuptools` package to write a
-    `setup.py` file that is then processed by the `pip install` command.
+    This shouldn't be done manually, but instead using a `pyproject.toml` (or `setup.py`) 
+    configuration file that a tool like `pip` can process using the  `pip install` command.
 -   It would be both cumbersome and error-prone to have to reinstall the package each time
     we make a change to it (to fix a bug for instance). Instead, the package can be installed
     in "editable" mode using the `pip install -e` command. This just redirects the python
