@@ -77,15 +77,15 @@ convert the README to HTML and upload it to a separate `gh-pages` branch. First 
 what the end product will look like. We have a project ([example
 here](https://github.com/jhidding/readme-pages)) with a `main` branch that includes a README.
 
-![A GitHub project with a README](fig/github-main-branch.png){: width="90%"}
+![A GitHub project with a README](fig/github-main-branch.png)
 
 We can use Pandoc to turn this README into a simple static website.
 
-![Rendered GitHub Pages](fig/github-io-pages.png){: width="90%"}
+![Rendered GitHub Pages](fig/github-io-pages.png)
 
 If we switch to `gh-pages` branch in Github we can see where this page is hosted.
 
-![`gh-pages` branch of the project](fig/github-gh-pages-branch.png){: width="90%"}
+![`gh-pages` branch of the project](fig/github-gh-pages-branch.png)
 
 Only a `index.html` and `.nojekyll` (that prevents Github from creating a Jekyll page). So how do we
 set this up?

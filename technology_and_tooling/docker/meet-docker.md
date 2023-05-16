@@ -203,13 +203,12 @@ Commands:
 
 Run 'docker container COMMAND --help' for more information on a command.
 ~~~
-{: .output}
 
 There's also help for the `container ls` command:
-~~~
+
+~~~bash
 docker container ls --help  # this one actually requires the '--help' flag
 ~~~
-{: .language-bash}
 
 ~~~
 Usage:  docker container ls [OPTIONS]
@@ -262,10 +261,11 @@ section of the prompt.
 
 :::solution
 Suppose we pick the `docker image build` command:
-~~~
+
+~~~bash
 docker image build --help
 ~~~
-{: .language-bash}
+
 ~~~
 Usage:  docker image build [OPTIONS] PATH | URL | -
 

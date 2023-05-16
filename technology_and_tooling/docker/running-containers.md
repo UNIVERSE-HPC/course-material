@@ -115,7 +115,7 @@ For more examples and ideas, visit:
 
 What just happened? When we use the `docker container run` command, Docker does three things:
 
-| 1. Starts a Running Container | 2. Performs Default Action | 3. Shuts Down the Container
+| 1. Starts a Running Container | 2. Performs Default Action | 3. Shuts Down the Container | 
 | --------------------|-----------------|----------------|
 | Starts a running container, based on the container image. Think of this as the "alive" or "inflated" version of the container -- it's actually doing something. | If the container has a default action set, it will perform that default action. This could be as simple as printing a message (as above) or running a whole analysis pipeline! | Once the default action is complete, the container stops running (or exits). The container image is still there, but nothing is actively running. |
 
@@ -169,7 +169,7 @@ Can you run a copy of the `alpine` container and make it print a "hello world" m
 
 Give it a try before checking the solution.
 
-## Solution
+:::solution
 
 Use the same command as above, but with the `echo` command to print a message.
 
