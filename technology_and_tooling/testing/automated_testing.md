@@ -4,6 +4,12 @@ id: automated_testing
 dependsOn: [
 ]
 tags: [pytest]
+attribution: 
+    - citation: >
+        "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
+      url: https://doi.org/10.5281/zenodo.6532057
+      image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
+      license: CC-BY-4.0
 ---
 
 
@@ -56,7 +62,6 @@ For the purposes of this course, we'll focus on unit tests. But the principles
 and practices we'll talk about can be built on and applied to the other types of
 tests too.
 
-
 ## Inflammation Data Analysis
 
 We will be using a simple inflammation data analysis python package to demonstrate the use of automated testing. You can obtain the code for this package, and the associated data files by downloading them using `wget`
@@ -64,14 +69,61 @@ We will be using a simple inflammation data analysis python package to demonstra
 ```bash
 wget -r -nd  https://gutenberg.fly.dev/material/software_architecture_and_design/procedural/inflammation
 ```
+This will download the `inflammation` directory and all its contents into your current directory. The file structure should look like this: 
+
+```text
+inflammation/
+├── data
+│   ├── inflammation-*.csv
+├── inflammation
+│   ├── __init__.py
+│   ├── models.py
+│   └── views.py
+├── tests
+│   ├── __init__.py
+│   ├── test_patient.py
+│   └── test_models.py
+├── .gitignore
+├── LICENSE 
+├── README.md
+└── requirements.txt
+```
+
+The only files we'll be working with in this course are the following, so you can ignore the rest for now:
+1. `inflammation/models.py` - contains the functions we'll be testing
+2. `tests/test_models.py` - contains the tests we'll be writing
+3. `data/inflammation-*.csv` - contains the data we'll be using to test our functions
+
+## Working in a Virtual Environment
+
+Before we start, we'll create a virtual environment for our project and install
+the dependencies we need. You can create a virtual environment using the `venv`
+module that comes with Python. To do this, change directory to the
+`inflammation` directory and run the following:
+
+```bash
+python3 -m venv venv
+```
+
+Then activate the virtual environment:
+
+```bash
+source venv/bin/activate
+```
+
+The `requirements.txt` file contains a list of dependencies we need to install. We can install these using `pip`:
+
+```bash
+pip install -r requirements.txt
+```
 
 :::callout
 ## What Does the Patient Inflammation Data Contain?
 
 Each dataset records inflammation measurements from a separate clinical trial of the drug, and each dataset contains information for 60 patients, who had their inflammation levels recorded for 40 days whilst participating in the trial.
 
-![Snapshot of the inflammation dataset](fig/inflammation-study-pipeline.png){: .image-with-shadow width="800px" }
-<p style="text-align: center;">Inflammation study pipeline from the <a href="https://swcarpentry.github.io/python-novice-inflammation/fig/lesson-overview.svg">Software Carpentry Python novice lesson</a></p>
+![Snapshot of the inflammation dataset](fig/inflammation-study-pipeline.png)
+*Inflammation study pipeline from the [Software Carpentry Python novice lesson](https://swcarpentry.github.io/python-novice-inflammation/fig/lesson-overview.svg)*
 
 Each of the data files uses the popular [comma-separated (CSV) format](https://en.wikipedia.org/wiki/Comma-separated_values) to represent the data, where:
 
@@ -360,7 +412,7 @@ You can install `pytest` using `pip` - exit the Python console first (either wit
 $ pip3 install pytest
 ~~~
 
-Whether we do this via PyCharm or the command line, the results are exactly the same: our virtual environment will now have the `pytest` package installed for use.
+Whether we do this via VsCode or the command line, the results are exactly the same: our virtual environment will now have the `pytest` package installed for use.
 
 
 ### Running Tests
@@ -493,4 +545,11 @@ assume your user's inputs will always be rational.
 
 :::
 
+## Key Points
 
+- The three main types of automated tests are **unit tests**, **functional tests** and **regression tests**.
+- We can write unit tests to verify that functions generate expected output given a set of specific inputs.
+- It should be easy to add or change tests, understand and run them, and understand their results.
+- We can use a unit testing framework like Pytest to structure and simplify the writing of tests in Python.
+- We should test for expected errors in our code.
+- Testing program behaviour against both valid and invalid inputs is important and is known as **data validation**.

@@ -5,6 +5,12 @@ dependsOn: [
   technology_and_tooling.testing.scaling_up
 ]
 tags: [pytest]
+attribution: 
+    - citation: >
+        "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
+      url: https://doi.org/10.5281/zenodo.6532057
+      image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
+      license: CC-BY-4.0
 ---
 
 ## Introduction
@@ -37,8 +43,7 @@ def patient_normalise(data):
 ~~~
 
 **Note:** *there are intentional mistakes in the above code, which will be
-*detected by further testing and code 
-style checking below so bear with us for the moment!*
+detected by further testing and code style checking below so bear with us for the moment!*
 
 In the code above, we first go row by row and find the maximum inflammation
 value for each patient and store these values in a 1-dimensional NumPy array
@@ -49,14 +54,14 @@ division automatically as `data` is a 2D array (of shape `(60, 40)`) and `max`
 is a 1D array (of shape `(60, )`), which means that their shapes are not
 compatible.
 
-![NumPy arrays of incompatible shapes](fig/numpy-incompatible-shapes.png){: .image-with-shadow width="800px"}
+![NumPy arrays of incompatible shapes](fig/numpy-incompatible-shapes.png)
 
 Hence, to make sure that we can perform this division and get the expected
 result, we need to convert `max` to be a 2D array by using the `newaxis` index
 operator to insert a new axis into `max`, making it a 2D array of shape `(60,
 1)`.
 
-![NumPy arrays' shapes after adding a new_axis](fig/numpy-shapes-after-new-axis.png){: .image-with-shadow width="800px"}
+![NumPy arrays' shapes after adding a new_axis](fig/numpy-shapes-after-new-axis.png)
 
 Now the division will give us the expected result. Even though the shapes are
 not identical, NumPy's automatic `broadcasting` (adjustment of shapes) will make
@@ -64,7 +69,7 @@ sure that the shape of the 2D `max` array is now "stretched" ("broadcast") to
 match that of `data` - i.e. `(60, 40)`, and element-wise division can be
 performed.
 
-![NumPy arrays' shapes after broadcasting](fig/numpy-shapes-after-broadcasting.png){: .image-with-shadow width="800px"}
+![NumPy arrays' shapes after broadcasting](fig/numpy-shapes-after-broadcasting.png)
 
 :::callout
 ## Broadcasting
@@ -152,7 +157,7 @@ can see what this looks like in the screenshot below.
 ![Patient normalise tests in VSCode](fig/testsInVSCode.jpg)
 
 Click on the "run" button next to `test_patient_normalise`, and you will be able to see 
-that VSCode runs the function, and the same `AssertionError` that we say before. 
+that VSCode runs the function, and the same `AssertionError` that we saw before. 
 
 ### Running the Debugger
 
@@ -411,7 +416,6 @@ Add preconditions to check that data is an `ndarray` object and that it is of th
 Add corresponding tests to check that the function raises the correct exception.
 You will find the Python function [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance)
 useful here, as well as the Python exception [`TypeError`](https://docs.python.org/3/library/exceptions.html#TypeError).
-Once you are done, commit your new files, and push the new commits to your remote repository on GitHub.
 
 :::solution
 
@@ -523,13 +527,23 @@ Pylint is a command-line tool that can help our code in many ways:
 
 Pylint can also identify **code smells**.
 
-> ## How Does Code Smell?
->
-> There are many ways that code can exhibit bad design whilst not breaking any rules and working correctly. A *code smell* is a characteristic that indicates that there is an underlying problem with source code, e.g. large classes or methods, methods with too many parameters, duplicated statements in both if and else blocks of conditionals, etc. They aren't functional errors in the code, but rather are certain structures that violate principles of good design and impact design quality. They can also indicate that code is in need of maintenance and refactoring.
->
-> The phrase has its origins in Chapter 3 "Bad smells in code" by Kent Beck and Martin Fowler in [Fowler, Martin (1999). Refactoring. Improving the Design of Existing Code. Addison-Wesley. ISBN 0-201-48567-2](https://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672/).
->
-{: .callout}
+:::callout
+## How Does Code Smell?
+
+There are many ways that code can exhibit bad design whilst not breaking any
+rules and working correctly. A *code smell* is a characteristic that indicates
+that there is an underlying problem with source code, e.g. large classes or
+methods, methods with too many parameters, duplicated statements in both if and
+else blocks of conditionals, etc. They aren't functional errors in the code, but
+rather are certain structures that violate principles of good design and impact
+design quality. They can also indicate that code is in need of maintenance and
+refactoring.
+
+The phrase has its origins in Chapter 3 "Bad smells in code" by Kent Beck and Martin Fowler in 
+[Fowler, Martin (1999). Refactoring. Improving the Design of Existing Code. Addison-Wesley. ISBN 0-201-48567-2](https://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672/).
+
+:::
+
 
 Let's run Pylint over our project after having added some more code to it. From the project root do:
 
@@ -554,3 +568,19 @@ trouble which may be difficult to trace).
 
 Feel free to rename the local variable `max` to something else (e.g. call it
 `max_data`) to get rid of this warning.
+
+::::challenge{id=fix-code-style, title="Fix Code Style Errors"}
+
+Rename our local variable max to something else (e.g. call it max_data), then
+rerun your tests.
+
+::::
+
+## Key Points
+
+- Unit testing can show us what does not work, but does not help us locate problems in code.
+- Use a **debugger** to help you locate problems in code.
+- A debugger allows us to pause code execution and examine its state by adding **breakpoints** to lines in code.
+- Use **preconditions** to ensure correct behaviour of code.
+- Ensure that unit tests check for **edge** and **corner cases** too.
+- Using **linting** tools to automatically flag suspicious programming language constructs and stylistic errors can help improve code robustness.

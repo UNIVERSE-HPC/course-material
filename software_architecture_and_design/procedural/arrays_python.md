@@ -194,8 +194,8 @@ extension to download (in this case, `.csv`).
 
 Each dataset records inflammation measurements from a separate clinical trial of the drug, and each dataset contains information for 60 patients, who had their inflammation levels recorded for 40 days whilst participating in the trial.
 
-![Snapshot of the inflammation dataset](fig/inflammation-study-pipeline.png){: .image-with-shadow width="800px" }
-<p style="text-align: center;">Inflammation study pipeline from the <a href="https://swcarpentry.github.io/python-novice-inflammation/fig/lesson-overview.svg">Software Carpentry Python novice lesson</a></p>
+![Snapshot of the inflammation dataset](fig/inflammation-study-pipeline.png)
+*Inflammation study pipeline from the [Software Carpentry Python novice lesson](https://swcarpentry.github.io/python-novice-inflammation/fig/lesson-overview.svg)*
 
 Each of the data files uses the popular [comma-separated (CSV) format](https://en.wikipedia.org/wiki/Comma-separated_values) to represent the data, where:
 

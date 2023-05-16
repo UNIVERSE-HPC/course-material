@@ -5,6 +5,12 @@ dependsOn: [
   technology_and_tooling.testing.automated_testing
 ]
 tags: [pytest]
+attribution: 
+    - citation: >
+        "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
+      url: https://doi.org/10.5281/zenodo.6532057
+      image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
+      license: CC-BY-4.0
 ---
 
 ## Introduction
@@ -64,7 +70,7 @@ The big plus here is that we don't need to write separate functions for each of
 the tests - our test code can remain compact and readable as we write more tests
 and adding more tests scales better as our code becomes more complex.
 
-::::challenge{id="write-parameterised-unit-tests", title="Write Parameterised Unit Tests"}
+::::challenge{id="write-parameterised-unit-tests"  title="Write Parameterised Unit Tests"}
 
 Rewrite your test functions for `daily_max()` and `daily_min()` to be parameterised, adding in new test cases for each of them.
 
@@ -255,3 +261,10 @@ gives you greater confidence that the results are correct.
 Our software will inevitably increase in complexity as it develops. Using
 automated testing where appropriate can save us considerable time, especially in
 the long term, and allows others to verify against correct behaviour.
+
+
+## Key Points
+
+- We can assign multiple inputs to tests using parametrisation.
+- It’s important to understand the **coverage** of our tests across our code.
+- Writing unit tests takes time, so apply them where it makes the most sense.
