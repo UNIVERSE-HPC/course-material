@@ -8,34 +8,66 @@ files: [
     github_actions.md,
     testing.md,
     code_coverage.md,
-    read_the_docs.md,
-    wrapping_up.md
+    documentation.md
 ]
 ---
 
 ## What is Continuous Integration?
 
-The automated testing we've done so far only takes into account the state of the repository we have on our own machines.
-In a software project involving multiple developers working and pushing changes to a repository, it would be great to know holistically how all these changes are affecting our codebase, without everyone having to pull down all the changes and test them.
-If we also take into account the testing required on different target user platforms for our software (e.g. different versions of Python, different operating systems, different compilers, ...) and the changes being made to many repository branches, the effort required to conduct testing at this scale can quickly become intractable for a research project to sustain.
+Whenever we write software, we want to be ceratin that the changes we make are not introducing unexpected problems.
+We should always write tests to verify new functionality works as we intend, but there are plenty of pitfalls:
 
-Continuous Integration (CI) aims to reduce this burden by further automation, and automation - wherever possible - helps us to reduce errors and makes predictable processes more efficient.
-The idea is that when a new change is committed to a repository, CI clones the repository, builds it if necessary, and performs certain tasks such as running tests, performing static analysis, or building documentation.
-Once complete, it presents a report to let you see what happened.
+1. Does the change work on different operating systems?
+1. What about with different software versions, including versions of libraries, frameworks, and dependencies?
+1. What about on different hardware?
+1. Does it unexpectedly rely on specific user data on your development machine?
+1. Is the change compatible with changes other developers are making?
+
+We need an automated way to address these pitfalls in a quick and consistent way.
+In a nutshell, this is Continuous Integration (CI).
+
+CI is a software development practice where developers integrate code into a shared repository frequently.
+Each time this happens, the software is automatically verified to detect integration errors as quickly as possible.
+The primary goal of CI is to catch and address bugs, integration problems, and other issues early, when they are easier to fix.
+
+Here are some key princples of CI:
+
+1. **Maintain a single source repository:** All code and dependencies should be versioned and stored in a single, shared, and reliable repository. This is the primary source of all truth for the project, and everyone has access to it.
+
+1. **Automate the build:** The process of building the project — compiling the source code into executable code, packaging that code, and creating installers — should be automated.
+
+1. **Make your build self-testing:** Once the code is built, automated tests should run to check that the software behaves as expected. This can range from unit tests (which test individual components in isolation) to integration tests (which test how components work together) to testing code coverage.
+
+1. **Everyone commits to the maineline frequently:** Developers should integrate their work frequently. This prevents integration conflicts from becoming too complex and difficult to resolve.
+
+1. **Automated builds should happen on an integration machine:** Updated code should be built and tested on a separate integration machine, not a developer's local machine. This ensures that the build process works in a clean, standardized environment.
+
+1. **Keep the build fast:** The build and test process should be fast to give quick feedback. If the process is slow, developers will be tempted to commit less frequently.
+
+1. **Everyone can see what's happening:** All results from building and testing (like output, logs, test results) should be available to all team members. This increases transparency and makes it easier to spot and fix issues.
+
+1. **Automate deployment**: The process of deploying the software should be automated, ensuring it's easily reproducible and reducing the chances of human error. This might include creating Python wheels and deploying them to [PyPI](https://pypi.org/), or building public documentation pages.
+
+
+## How do we do it?
 
 There are many CI infrastructures and services, free and paid for, and subject to change as they evolve their features.
-This afternoon you will be using GitHub Actions, which unsurprisingly is available as part of GitHub.
+
+In this course you will be using [GitHub Actions](https://github.com/features/actions), which unsurprisingly is available as part of GitHub.
+
 There are other free options, for instance [Travis CI](https://travis-ci.com/) and [AppVeyor](https://www.appveyor.com/).
 All three of these make use of common features across many CI implementations, and you are certainly advised to look at the options to see some of the commonalities and differences in how features are typically provided.
 
 
-## This afternoon
+## This course
 
-This will be a hands-on session where you will all set up CI for a small Python project, and see some of its benefits in action.
-Each section below has a suggested start time, a brief description, a YouTube video lecture, and a list of tasks to perform after watching the video.
+In this course we aim to walk you through a hands-on session which will set up CI for a small Python project, and see some of its benefits in action.
+We will go through:
 
-Don't worry if you don't keep to the suggested start times.
-If you get stuck on something, please reach out to the demonstrators.
-If you want to explore a particular aspect more fully, that's fine - these resources will remain online for the foreseeable future.
-If you get through everything quickly and have time left at the end of the day, I would suggest that you either look at performing some of the same integrations using a different CI service, or that you investigate some of the GitHub Actions features in more depth.
+1. An introduction to GitHub actions ([link](./continuous_integration/github_actions))
+1. Automating tests ([link](./continuous_integration/testing))
+1. Generating code coverage information ([link](./continuous_integration/code_coverage))
+1. Generating and deploying documenation ([link](./continuous_integration/documentation))
+
+
 
