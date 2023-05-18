@@ -204,7 +204,6 @@ print(sum_of_squares([1, 2, 3]))
 print(sum_of_squares([-1]))
 print(sum_of_squares([-1, -2, -3]))
 ~~~
-{: .language-python}
 
 ~~~
 0
