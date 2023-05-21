@@ -6,6 +6,23 @@ dependsOn: [
 tags: [cpp]
 ---
 
+## Prerequisites
+
+The code blocks in this lesson will assume that some boilerplate C++ code is present.
+In particular, we will assume that the following headers are included:
+
+~~~ cpp
+#include <iostream>
+#include <string>
+#include <vector>
+~~~
+
+We will also assume that you are using the C++17 language standard, or later.
+This will be the default with most modern compilers.
+
+Furthermore, for this lesson it will be assumed you are writing all your code in a single file.
+Class definitions will be assumed to exist before `main`, and all other code will be assumed to exist within `main`.
+
 ## Relationships Between Classes
 
 We now have a language construct for grouping data and behaviour related to a single conceptual object.
