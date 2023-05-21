@@ -34,7 +34,7 @@ patients = [
 ]
 ~~~
 
-:::::challenge{id=structuring-data title="Structuring Data"}
+::::challenge{id=structuring-data title="Structuring Data"}
 
 Write a function, called `attach_names`, which can be used to attach names to our patient dataset.
 When used as below, it should produce the expected output.
@@ -63,7 +63,7 @@ print(output)
 ]
 ~~~
 
-::::solution
+:::solution
 
 One possible solution, perhaps the most obvious, is to use the `range` function to index into both lists at the same location:
 
@@ -81,6 +81,8 @@ def attach_names(data, names):
 
 However, this solution has a potential problem that can occur sometimes, depending on the input.
 What might go wrong with this solution?  How could we fix it?
+
+:::
 
 :::solution
 
@@ -108,8 +110,8 @@ def attach_names(data, names):
     return output
 ~~~
 :::
+
 ::::
-:::::
 
 ## Classes in Python
 
