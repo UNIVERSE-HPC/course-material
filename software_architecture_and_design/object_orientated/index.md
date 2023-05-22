@@ -6,8 +6,11 @@ dependsOn: [
 ]
 files: [
     classes.md,
+    classes_cpp.md,
     inheritance_and_composition.md,
+    inheritance_and_composition_cpp.md,
     polymorphism.md,
+    polymorphism_cpp.md,
 ]
 ---
 

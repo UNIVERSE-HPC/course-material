@@ -45,7 +45,7 @@ We often use composition where we can say 'x *has a* y' - for example in our gam
 In the case of our example, we're already saying that a character *has a* position, so we're already using composition here.
 
 
-:::::challenge{id=inventory="Write an inventory"}
+:::::challenge{id=inventory title="Write an inventory"}
 
 Write a class called `Inventory` that has a capacity, and a vector of `Item` objects.
 These should be private, with a method that adds an item unless the inventory is full, and anything else you think is relevant.
@@ -175,7 +175,7 @@ This sequence ensures that the base class portion of the `Warrior` object is pro
 This is a fundamental feature of how constructors and inheritance work together in C++.
 
 
-:::::challenge{id=mage="Write a Mage class"}
+:::::challenge{id=mage title="Write a Mage class"}
 
 Write a class called `Mage` that inherits from `Character`, and give it some unique data and behaviour.
 
@@ -220,7 +220,7 @@ It allows you to change behavior on the fly by changing the component at runtime
 The downside can be that it might result in a little more boilerplate code as you delegate methods to the component classes.
 
 
-:::::challenge{id=swords-and-shields="Swords and Shields"}
+:::::challenge{id=swords-and-shields title="Swords and Shields"}
 
 Swords and shields are types of `Item`.
 A warrior can carry a sword and a shield, but a mage can only carry a sword.

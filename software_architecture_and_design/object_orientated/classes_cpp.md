@@ -114,7 +114,7 @@ Let's break down the syntax.
 
 - `class Position { ... };` is the declaration of a class called Position. The class keyword is used to declare a new data type in C++. The contents of the class are enclosed in braces `{}` and followed by a semicolon `;`.
 
-- public: is an access specifier. In C++, members of a class (both data members and member functions) can have specific access rules defined by these access specifiers. The public keyword means that the following members can be accessed from any function, whether it's inside or outside of the class.
+- `public:` is an access specifier. In C++, members of a class (both data members and member functions) can have specific access rules defined by these access specifiers. The public keyword means that the following members can be accessed from any function, whether it's inside or outside of the class.
 
 - `float x;` and `float y;` are data members of the class Position. These members hold the state of an object of the class. In this case, `x` and `y` represent the x and y coordinates of a position. They are public, so they can be directly accessed and modified from outside the class.
 
