@@ -237,7 +237,7 @@ int main() {
     std::string given = "Joe";
     std::string middle = "Frederick";
     std::string family = "\'Bloggs\'";
-    full = given + " " + middle + " " + family;
+    std::string full = given + " " + middle + " " + family;
     std::cout << full << std::endl;
 }
 ~~~
