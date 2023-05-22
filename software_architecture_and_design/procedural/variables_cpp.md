@@ -231,6 +231,7 @@ header file, so before we use it we need to *include* this header in our source
 file (at the top of the file above our `main` function):
 
 ~~~cpp
+#include <iostream>
 #include <string>
 
 int main() {
