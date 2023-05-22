@@ -235,6 +235,7 @@ file (at the top of the file above our `main` function):
 #include <string>
 
 int main() {
+    std::string full; 
     std::string given = "Joe";
     std::string middle = "Frederick";
     std::string family = "\'Bloggs\'";
