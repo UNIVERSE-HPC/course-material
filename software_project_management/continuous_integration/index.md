@@ -70,4 +70,11 @@ We will go through:
 1. Generating and deploying documenation ([link](./continuous_integration/documentation))
 
 
+## Getting started
 
+Go to [https://github.com/OxfordRSE/ci_course_start](https://github.com/OxfordRSE/ci_course_start) and press "Use this template" -> "Create a new repository".
+
+This will set up a repository in your own GitHub account with the same files as the template.
+
+You can name it anything you like.
+Clone your new repository, and you're ready for the next lesson.
