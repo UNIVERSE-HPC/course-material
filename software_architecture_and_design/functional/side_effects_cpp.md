@@ -23,7 +23,7 @@ is executed the state is updated so that `x` now has the value 3. We can clearly
 
 ```cpp
 void my_cool_function(int& x, const int y) {
-    x = y
+    x = y;
 }
 
 int main () {
@@ -41,7 +41,7 @@ even be declared in a separate file and brought in via a `#include`
 ```cpp
 int z = 3;
 void my_cool_function(int& x, const int y) {
-    x = y
+    x = y;
     z++;
 }
 
