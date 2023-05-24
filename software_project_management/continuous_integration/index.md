@@ -6,7 +6,6 @@ dependsOn: [
 ]
 files: [
     github_actions.md,
-    testing.md,
     code_coverage.md,
     documentation.md
 ]

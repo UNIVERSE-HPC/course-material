@@ -1,7 +1,7 @@
 ---
 name: Code Coverage
 dependsOn: [
-  software_project_management.continuous_integration.testing
+  software_project_management.continuous_integration.github_actions
 ]
 tags: [codecov, github]
 ---
