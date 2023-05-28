@@ -331,9 +331,8 @@ $ snakemake --dag sorted_reads/{A,B}.bam.bai | dot -Tsvg > dag.svg
 
 :::callout
 
-If you went with: `tutorial-free-on-gitpod`{.interpreted-text
-role="ref"}, you can easily view the resulting `dag.svg` by
-right-clicking on the file in the explorer panel on the left and
+If you are running this tutorial on GitPod, you can easily view the resulting
+`dag.svg` by right-clicking on the file in the explorer panel on the left and
 selecting `Open With -> Preview`.
 
 :::
@@ -346,9 +345,7 @@ format](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics). The
 rendered DAG is piped into the file `dag.svg` and will look similar to
 this:
 
-<p align="center">
-  <img src="workflow/dag_index.png"/>
-</p>
+![rendered DAG](workflow/dag_index.png)
 
 The DAG contains a node for each job with the edges connecting them
 representing the dependencies. The frames of jobs that don\'t need to be
@@ -367,8 +364,7 @@ output is present and up-to-date.
 ## Step 5: Calling genomic variants
 
 The next step in our workflow will aggregate the mapped reads from all
-samples and jointly call genomic variants on them (see
-`tutorial-background`{.interpreted-text role="ref"}). For the variant
+samples and jointly call genomic variants on them. For the variant
 calling, we will combine the two utilities
 [samtools](https://www.htslib.org) and
 [bcftools](https://www.htslib.org). Snakemake provides a **helper
@@ -458,16 +454,14 @@ samples.
 obtain the updated DAG of jobs for the target file `calls/all.vcf`,
 it should look like this:
 
-<p align="center">
-  <img src="workflow/dag_call.png"/>
-</p>
+![updated DAG](workflows/dag_call.png)
 
 ::::
 
 ## Step 6: Using custom scripts
 
 Usually, a workflow not only consists of invoking various tools, but
-also contains custom code to for example calculate summary statistics or
+also contains custom code to for example calculating summary statistics or
 create plots. While Snakemake also allows you to directly
 write Python code inside a rule, it is usually reasonable to move such logic
 into separate scripts. For this purpose, Snakemake offers the `script` directive.
