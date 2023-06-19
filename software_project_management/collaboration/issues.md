@@ -85,7 +85,7 @@ prioritise future work!
 :::
 
 
-:::challenge{id=first-issue, title="Our First Issue!"}
+:::challenge{id=first-issue title="Our First Issue!"}
 
 The `oxrse_unit_conv` repo that you cloned previously 
 ([https://github.com/OxfordRSE/oxrse_unit_conv](https://github.com/OxfordRSE/oxrse_unit_conv)). 
@@ -160,7 +160,7 @@ and GitHub will render it nicely using the identifier's short form and link to t
 
 ![Referencing comments and commits in GitHub](fig/github-reference-comments-commits.png)
 
-:::challenge{id=first-mention, title="Our First Mention/Reference!"}
+:::challenge{id=first-mention title="Our First Mention/Reference!"}
 
 Add a mention to one of your team members using the `@` notation 
 in a comment within an issue or a pull request in your repository - e.g. to 

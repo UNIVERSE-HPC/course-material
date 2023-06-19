@@ -59,7 +59,7 @@ Once Python is installed, we can add Python packages using the pip package insta
 /# pip install cython
 ~~~
 
-::::challenge{id=searching-for-help, title="Searching for Help"}
+::::challenge{id=searching-for-help title="Searching for Help"}
 
 Can you find instructions for installing R on Alpine Linux? Do they work?
 
@@ -136,7 +136,7 @@ flexible container image command options and make sure complex commands
 are unambiguous in this format.
 :::
 
-::::challenge{id=take-a-guess, title="Take a Guess"}
+::::challenge{id=take-a-guess title="Take a Guess"}
 
 Do you have any ideas about what we should use to fill in the sample Dockerfile
 to replicate the installation we did above?
@@ -205,7 +205,7 @@ in this example.
 :::
 
 
-::::challenge{id=review, title="Review!"}
+::::challenge{id=review title="Review!"}
 
 1. Think back to earlier. What command can you run to check if your container image was created
 successfully? (Hint: what command shows the container images on your computer?)

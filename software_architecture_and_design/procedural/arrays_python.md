@@ -119,7 +119,7 @@ my_array + 2
 array([2, 3, 4, 5, 6])
 ~~~
 
-::::challenge{id=elementwise-operations, Title="Other elementwise operations"}
+::::challenge{id=elementwise-operations Title="Other elementwise operations"}
 
 Try using `-`, `*`, `/` in the above statement instead. Do they do what you expect?
 
@@ -454,7 +454,7 @@ array([[6., 9., 0., 0.],
        [6., 6., 3., 3.]])
 ~~~
 
-::::challenge{id=stacking-arrays, title="Stacking Arrays"}
+::::challenge{id=stacking-arrays title="Stacking Arrays"}
 
 Arrays can be concatenated and stacked on top of one another,
 using NumPy's `vstack` and `hstack` functions for vertical and horizontal stacking, respectively.
@@ -667,7 +667,7 @@ patients_avg
 
 Which is the average inflammation per patient across all days.
 
-::::challenge{id=change-in-inflammation, title="Change in Inflammation"}
+::::challenge{id=change-in-inflammation title="Change in Inflammation"}
 
 This patient data is _longitudinal_ in the sense that each row represents a
 series of observations relating to one individual.  This means that

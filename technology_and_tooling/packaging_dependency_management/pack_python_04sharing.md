@@ -144,7 +144,7 @@ _built distributions_. Another example of a built distribution is the Python _eg
 However, the wheel format was devised to address the limitations of Python eggs,
 rendering the latter format obsolete. For more information, refer to [Wheel vs Egg](https://packaging.python.org/discussions/wheel-vs-egg/) on the Python Packaging User Guide.
 
-::::challenge{id=python-wheel, title="Building a Python wheel"}
+::::challenge{id=python-wheel title="Building a Python wheel"}
 
 1.  If you don't have one, create a new developement virtual environment in the
     `tstools-dist` directory:
@@ -242,7 +242,7 @@ If you find yourself uploading packages often, or if you are concerned about sec
 a token that's specific for your account, or a particular project. This token is usually configured in a `~/.pypirc` file, and allows you to authenticate
 without entering your username and password every time. Note that you might want to encrypt `~/.pypirc` if concerned about security.
 
-::::challenge{id=publishing-distributions, title="Publishing distributions to TestPyPI"}
+::::challenge{id=publishing-distributions title="Publishing distributions to TestPyPI"}
 
 1.  On PyPI (or TestPyPI), there cannot be two package with the same name. Therefore, before you upload your `tstools` package,
     you must give the project a unique name. To do so, open the `tstools-dist/setup.py` or `tstools-dist/pyproject.toml` file and change the `name` entry

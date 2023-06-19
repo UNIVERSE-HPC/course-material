@@ -100,7 +100,7 @@ OWNER/REPOSITORY:TAG
 ```
 :::
 
-::::challenge{id=in-a-name, title="What's in a name?"}
+::::challenge{id=in-a-name title="What's in a name?"}
 
 How would I download the Docker container image produced by the `rocker` group that
 has version 3.6.1 of R and the tidyverse installed?
@@ -145,7 +145,7 @@ If a container image is never updated, created by a random person, and does not 
 of metadata, it is probably worth skipping over. Even if such a container image is secure, it
 is not reproducible and not a dependable way to run research computations.
 
-:::challenge{id=container-image-choices, title="What container image is right for you?"}
+:::challenge{id=container-image-choices title="What container image is right for you?"}
 
 Find a Docker container image that's relevant to you. Take into account the suggestions
 above of what to look for as you evaluate options. If you're unsuccessful in your search,

@@ -80,7 +80,7 @@ threads a rule uses will be **reduced to the number of given cores**.
 
 If `--cores` is given without a number, all available cores are used.
 
-::::challenge{id=use_threads, title="Exercise"}
+::::challenge{id=use_threads title="Exercise"}
 
 With the flag `--forceall` you can enforce a complete re-execution
 of the workflow. Combine this flag with different values for
@@ -195,7 +195,7 @@ files (here, we return the path that is stored for the sample in the
 config file). Input functions are evaluated once the wildcard values of
 a job are determined.
 
-::::challenge{id=add_sample, title="Exercise"}
+::::challenge{id=add_sample title="Exercise"}
 
 In the `data/samples` folder, there is an additional sample
 `C.fastq`. Add that sample to the config file and see how Snakemake
@@ -241,7 +241,7 @@ Similar to input and output files, `params` can be accessed from the
 shell command, the Python based `run` block, or the script directive
 (see `tutorial-script`).
 
-::::challenge{id=add_params, title="Exercise"}
+::::challenge{id=add_params title="Exercise"}
 
 Variant calling can consider a lot of parameters. A particularly
 important one is the prior mutation rate (1e-3 per default). It is
@@ -293,7 +293,7 @@ and `samtools` and pipe it into the file referred to by `{log}`. Log
 files must contain exactly the same wildcards as the output files to
 avoid file name clashes between different jobs of the same rule.
 
-::::challenge{id=add_logging, title="Exercise"}
+::::challenge{id=add_logging title="Exercise"}
 
 -   Add a log directive to the `bcftools_call` rule as well.
 -   Time to re-run the whole workflow (remember the command line flags
@@ -362,7 +362,7 @@ After successful execution of the job, Snakemake will write-protect the
 output file in the filesystem, so that it can\'t be overwritten or
 deleted by accident.
 
-::::challenge{id=add_temporaries, title="Exercise"}
+::::challenge{id=add_temporaries title="Exercise"}
 
 -   Re-execute the whole workflow and observe how Snakemake handles the
     temporary and protected files.

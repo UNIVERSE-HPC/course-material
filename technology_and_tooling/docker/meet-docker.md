@@ -253,7 +253,7 @@ approach is shorter and still officially supported, the new syntax is more descr
 error-prone and is therefore recommended.
 :::
 
-::::challenge{id=exploring-a-command, title="Exploring a command"}
+::::challenge{id=exploring-a-command title="Exploring a command"}
 
 Run `docker --help` and pick a command from the list.
 Explore the help prompt for that command. Try to guess how a command would work by looking at the `Usage: `

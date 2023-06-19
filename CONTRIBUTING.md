@@ -122,7 +122,7 @@ The start and end indicators must have the same number of colons each.
 A problem or challenge can be defined using the following syntax:
 
 ```pandoc
-::::challenge{id=dot_product, title="Example challenge"}
+::::challenge{id=dot_product title="Example challenge"}
 
 This is an example challenge
 
@@ -149,7 +149,7 @@ Note that solutions can be nested within challenges by matching the number of co
 
 
 ```pandoc
-::::challenge{id=big_question, title="Hitchhikers question"}
+::::challenge{id=big_question title="Hitchhikers question"}
 
 What is the answer to life universe and everything?
 

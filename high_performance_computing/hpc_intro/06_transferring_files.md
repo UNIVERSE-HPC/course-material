@@ -32,7 +32,7 @@ your local machine, using the URL of the current codebase:
 
 <https://github.com/hpc-carpentry/amdahl/tarball/main>
 
-::::challenge{id=download, title="Download the Tarball"}
+::::challenge{id=download title="Download the Tarball"}
 
 The word "tarball" in the above URL refers to a compressed archive format
 commonly used on Linux, which is the operating system the majority of HPC
@@ -129,7 +129,7 @@ Now let's unpack the archive. We'll run `tar` with a few common flags:
 * `-z` for g**z**ip compression
 * `-f «tarball»` for the file to be unpacked
 
-::::challenge{id=extract, title="Extract the Archive"}
+::::challenge{id=extract title="Extract the Archive"}
 
 Using the flags above, unpack the source code tarball into a new
 directory named "amdahl" using `tar`.
@@ -388,7 +388,7 @@ files. By default, SSH uses network port 22. If a custom SSH port is in use,
 you will have to specify it using the appropriate flag, often `-p`, `-P`, or
 `--port`. Check `--help` or the `man` page if you're unsure.
 
-::::challenge{id=rsync-port, title="Change the Rsync Port"}
+::::challenge{id=rsync-port title="Change the Rsync Port"}
 
 Say we have to connect `rsync` through port 768 instead of 22. How would we
 modify this command?

@@ -60,7 +60,7 @@ website, which is a place to share Docker container images with other people. Mo
 in a later episode.
 :::
 
-::::challenge{id=check-images, title="Check on Your Images"}
+::::challenge{id=check-images title="Check on Your Images"}
 
 What command would you use to see if the `hello-world` Docker container image had downloaded
 successfully and was on your computer?
@@ -138,7 +138,7 @@ to explore what else we can do with the `docker container run` command. The sugg
 is to use `ubuntu`, but we're going to run a different type of Linux, `alpine`
 instead because it's quicker to download.
 
-:::challenge{id=run-alpine, title="Run the Alpine Docker container"}
+:::challenge{id=run-alpine title="Run the Alpine Docker container"}
 
 Try downloading the `alpine` container image and using it to run a container. You can do it in
 two steps, or one. What are they?
@@ -163,7 +163,7 @@ $ docker container run alpine cat /etc/os-release
 You should see the output of the `cat /etc/os-release` command, which prints out
 the version of Alpine Linux that this container is using and a few additional bits of information.
 
-::::challenge{id=hello-world2, title="Hello World, Part 2"}
+::::challenge{id=hello-world2 title="Hello World, Part 2"}
 
 Can you run a copy of the `alpine` container and make it print a "hello world" message?
 
@@ -228,7 +228,7 @@ type `exit`.
 / # exit
 ~~~
 
-::::challenge{id=practice-makes-perfect, title="Practice Makes Perfect"}
+::::challenge{id=practice-makes-perfect title="Practice Makes Perfect"}
 
 Can you find out the version of Ubuntu installed on the `ubuntu` container image?
 (Hint: You can use the same command as used to find the version of alpine.)

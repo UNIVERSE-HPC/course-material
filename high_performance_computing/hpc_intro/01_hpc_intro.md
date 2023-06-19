@@ -50,7 +50,7 @@ Open the [HPC Jargon Buster]({{ site.url }}{{ site.baseurl }}/files/jargon.html#
 in a new tab. To present the content, press `C` to open a **c**lone in a
 separate window, then press `P` to toggle **p**resentation mode.
 
-::::challenge{id=never-used-server, title="I've Never Used a Server, Have I?"}
+::::challenge{id=never-used-server title="I've Never Used a Server, Have I?"}
 
 Take a minute and think about which of your daily interactions with a
 computer may require a remote server or even cluster to provide you with

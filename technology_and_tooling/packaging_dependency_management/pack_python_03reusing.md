@@ -309,7 +309,7 @@ python-workshop/
 The directory `tstools-dist` is a _distribution package_, containing the `setup.py` file and the package itself - the `tstools` directory.
 These are the two minimal ingredients required to _distribute_ a package.
 
-::::challenge{id=installing-tstools, title="Installing `tsools` with pip"} 
+::::challenge{id=installing-tstools title="Installing `tsools` with pip"} 
 
 1.  Write a stand-alone `pyproject.toml` file, or use a combination of
     `setup.py` and `pyproject.toml` files in directory `tstools-dist`. Include the
@@ -386,7 +386,7 @@ pip install -e .
 ```
 
 
-::::challenge{id=editable-install, title="Editable install"}
+::::challenge{id=editable-install title="Editable install"}
 
 1.  Uninstall the package with `pip uninstall tstools`
 2.  List all the installed packages and check that `tstools` is not among them

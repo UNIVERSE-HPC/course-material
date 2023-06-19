@@ -132,7 +132,7 @@ The Python formula used is (with the variables representing numbers of each type
 For example, with a total of 31 statements of models.py and views.py, with a count of the errors shown above, we get 
 a score of 8.00. Note whilst there is a maximum score of 10, given the formula, there is no minimum score - it's quite possible to get a negative score!
 
-::::challenge{id=further-improve-code-style, title="Further Improve Code Style of Our 
+::::challenge{id=further-improve-code-style title="Further Improve Code Style of Our 
 Project"}
 Select and fix a few of the issues with our code that Pylint detected. Make sure you do not break the rest of the 
 code in the process and that the code still runs. After making any changes, run Pylint again to verify you've 
@@ -153,7 +153,7 @@ $ git push origin main
 ~~~
 ::::
 
-::::challenge{id=improve-code-style-other, title="Improve Code Style of Your Other 
+::::challenge{id=improve-code-style-other title="Improve Code Style of Your Other 
 Python Projects"}
 If you have a Python project you are working on or you worked on in the past, run it past Pylint to see what issues
 with your code are detected, if any.

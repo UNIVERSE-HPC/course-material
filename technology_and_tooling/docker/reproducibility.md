@@ -93,7 +93,7 @@ as:
 
 Of course, many real applications will sit somewhere between these two extremes.
 
-::::challenge{id=pos-neg, title="Positives and negatives"}
+::::challenge{id=pos-neg title="Positives and negatives"}
 
 What are the advantages and disadvantages of the two approaches to container granularity for research
 workflows described above? Think about this

@@ -42,7 +42,7 @@ This folder has both a `Dockerfile` and a Python script called `sum.py`. Let's s
 we wanted to try running the script using a container based on our recently created `alpine-python`
 container image.
 
-:::challenge{id=running-containers, title="Running containers"}
+:::challenge{id=running-containers title="Running containers"}
 
 What command would we use to run Python from the `alpine-python` container?
 :::
@@ -57,7 +57,7 @@ $ docker container run alice/alpine-python python3 sum.py
 python3: can't open file 'sum.py': [Errno 2] No such file or directory
 ~~~
 
-:::challenge{id=no-such-file, title="No such file or directory"}
+:::challenge{id=no-such-file title="No such file or directory"}
 
 What does the error message mean? Why might the Python inside the container
 not be able to find or open our script?
@@ -141,7 +141,7 @@ A common example of the `-u` flag is `--user $(id -u):$(id -g)` which will
 fetch the current user's ID and group and run the container as that user.
 :::
 
-::::challenge{id=explore-script, title="Explore the script"}
+::::challenge{id=explore-script title="Explore the script"}
 
 What happens if you use the `docker container run` command above
 and put numbers after the script name?
@@ -154,7 +154,7 @@ that are passed to it as arguments.
 :::
 ::::
 
-::::challenge{id=checking-options, title="Checking the options"}
+::::challenge{id=checking-options title="Checking the options"}
 
 Our Docker command has gotten much longer! Can you go through each piece of
 the Docker command above and explain what it does? How would you characterize
@@ -175,7 +175,7 @@ More generally, every Docker command will have the form:
 :::
 ::::
 
-::::challenge{id=interactive, title="Interactive jobs"}
+::::challenge{id=interactive title="Interactive jobs"}
 
 Try using the directory mount option but run the container interactively.
 Can you find the folder that's connected to your host computer? What's inside?
@@ -257,7 +257,7 @@ build and then only rebuild the `COPY` layer.
 :::
 
 
-::::challenge{id=did-it-work, title="Did it work?"}
+::::challenge{id=did-it-work title="Did it work?"}
 
 Can you remember how to run a container interactively? Try that with this one.
 Once inside, try running the Python script.

@@ -177,7 +177,7 @@ for (const auto& i: x)
 }
 ~~~
 
-::::challenge{id=dot_product, title="Dot Product" }
+::::challenge{id=dot_product title="Dot Product" }
 
 Write code to calculate the scalar (dot) product of two `std::vector<double>` variables
 
@@ -197,7 +197,7 @@ std::cout << "dot with vectors = "<< dot << std::endl;
 :::
 ::::
 
-::::challenge{id=matrix_multiply, title="Matrix multiply" }
+::::challenge{id=matrix_multiply title="Matrix multiply" }
 
 Write code to multiply two 3 x 3 matrices $C = AB$ using `std::array`. Think about how you would 
 store your matrices. You could use a flat array `std::array<double, 9>`, or 
@@ -525,7 +525,7 @@ for anything which feels like a mapping from keys to values, always use a list o
 a vector if you are constantly removing or adding elements from the middle of
 the container.
 
-::::challenge{id=data_analysis_containers, title="Analysing the IRIS dataset"}
+::::challenge{id=data_analysis_containers title="Analysing the IRIS dataset"}
 
 Download the iris dataset hosted by the UCI Machine Learning Repository [here](https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data). This is a CSV file with the following columns:
 

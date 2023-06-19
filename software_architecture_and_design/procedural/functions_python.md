@@ -135,7 +135,7 @@ One common language that does have this distinction is C++.
 See [this page](https://docs.microsoft.com/en-us/cpp/cpp/declarations-and-definitions-cpp?view=vs-2019) for more information.
 :::
 
-::::challenge{id=combining-strings, title="Combining Strings"}
+::::challenge{id=combining-strings title="Combining Strings"}
 
 "Adding" two strings produces their concatenation: `'a'` + `'b'` is `'ab'`.
 Write a short function called `fence` that takes two parameters called original and wrapper and returns a new string that has the wrapper character at the beginning and end of the original.
@@ -158,7 +158,7 @@ def fence(original, wrapper):
 :::
 ::::
 
-::::challenge{id=custom-greetings, title="Custom Greetings"}
+::::challenge{id=custom-greetings title="Custom Greetings"}
 
 Create a new version of the `say_hello` function which has two parameters, `greeting` and `name`, both with default values.
 How many different ways can you call this function using combinations of named and positional arguments?
@@ -194,7 +194,7 @@ You should have found that Python will not let you provide positional arguments 
 :::
 ::::
 
-::::challenge{id=function-parameters, title="How do function parameters work?"}
+::::challenge{id=function-parameters title="How do function parameters work?"}
 
 It’s important to note that even though variables defined inside a function may use the same name as variables defined outside, they don’t refer to the same thing.
 This is because of variable **scoping**.
@@ -400,7 +400,7 @@ For more information see [this section](https://docs.python.org/3/tutorial/contr
 :::
 
 
-::::challenge{id=passing-lists-to-functions, title="Passing Lists to Functions"}
+::::challenge{id=passing-lists-to-functions title="Passing Lists to Functions"}
 
 We have seen previously that functions are not able to change the value of a variable which is used as their argument.
 
@@ -464,7 +464,7 @@ print(total)
 :::
 ::::
 
-::::challenge{id=listing-publications, title="Listing Publications"}
+::::challenge{id=listing-publications title="Listing Publications"}
 
 Write a function called `list_papers`, that when called with `list_papers(academics)` returns a list of all publication titles.
 

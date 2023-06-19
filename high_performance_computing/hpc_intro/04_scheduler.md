@@ -66,7 +66,7 @@ echo -n "This script is running on "
 hostname
 ```
 
-::::challenge{id=creating-job, title="Creating Our Test Job"}
+::::challenge{id=creating-job title="Creating Our Test Job"}
 
 Run the script. Does it execute on the cluster or just our login node?
 
@@ -209,7 +209,7 @@ It's best if your requests accurately reflect your job's requirements. We'll
 talk more about how to make sure that you're using resources effectively in a
 later episode of this lesson.
 
-::::challenge{id=submit-request, title="Submitting Resource Requests"}
+::::challenge{id=submit-request title="Submitting Resource Requests"}
 
 Modify our `hostname` script so that it runs for a minute, then submit a job
 for it on the cluster.
@@ -237,7 +237,7 @@ Why are the Slurm runtime and `sleep` time not identical?
 :::
 ::::
 
-::::challenge{id=env-var, title="Job environment variables"}
+::::challenge{id=env-var title="Job environment variables"}
 
 When Slurm runs a job, it sets a number of environment variables for the job. One of 
 these will let us check what directory our job script was submitted from. The 
@@ -346,7 +346,7 @@ remote$ squeue -u yourUsername
 JOBID  USER  ACCOUNT  NAME  ST  REASON  START_TIME  TIME  TIME_LEFT  NODES CPUS
 ```
 
-::::challenge{id=cancel-multiple, title="Cancelling multiple jobs"}
+::::challenge{id=cancel-multiple title="Cancelling multiple jobs"}
 
 We can also cancel all of our jobs at once using the -u option. This will delete all 
 jobs for a specific user (in this case, yourself). Note that you can only delete your 

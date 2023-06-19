@@ -85,7 +85,7 @@ analysis without modifying it. For details about sub-workflows, see the
 `documentation <snakefiles-sub_workflows>`{.interpreted-text
 role="ref"}.
 
-::::challenge{id=add_include, title="Exercise"}
+::::challenge{id=add_include title="Exercise"}
 
 Put the read mapping related rules into a separate Snakefile and use
 the `include` directive to make them available in our example

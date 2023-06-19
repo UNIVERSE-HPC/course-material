@@ -303,7 +303,7 @@ def patient_normalise(data):
 ~~~
 
 
-::::challenge{id=edge-cases, title="Exploring Tests for Edge Cases"}
+::::challenge{id=edge-cases title="Exploring Tests for Edge Cases"}
 
 Think of some more suitable edge cases to test our `patient_normalise()` function and add them to the parametrised tests. After you have finished remember to commit your changes.
 
@@ -410,7 +410,7 @@ def test_patient_normalise(test, expected, expect_raises):
 
 Be sure to commit your changes so far and push them to GitHub.
 
-::::challenge{id=precondition, title="Optional Exercise: Add a Precondition to Check the Correct Type and Shape of Data"}
+::::challenge{id=precondition title="Optional Exercise: Add a Precondition to Check the Correct Type and Shape of Data"}
 
 Add preconditions to check that data is an `ndarray` object and that it is of the correct shape.
 Add corresponding tests to check that the function raises the correct exception.
@@ -569,7 +569,7 @@ trouble which may be difficult to trace).
 Feel free to rename the local variable `max` to something else (e.g. call it
 `max_data`) to get rid of this warning.
 
-::::challenge{id=fix-code-style, title="Fix Code Style Errors"}
+::::challenge{id=fix-code-style title="Fix Code Style Errors"}
 
 Rename our local variable max to something else (e.g. call it max_data), then
 rerun your tests.

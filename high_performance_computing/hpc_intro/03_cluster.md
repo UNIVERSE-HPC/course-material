@@ -26,7 +26,7 @@ Take a look at your home directory on the remote system:
 remote$ ls
 ```
 
-::::challenge{id=difference-remote, title="What's different between your machine and the remote?"}
+::::challenge{id=difference-remote title="What's different between your machine and the remote?"}
 
 Open a second terminal window on your local computer and run the `ls` command
 (without logging in to cluster.name). What differences do you see?
@@ -179,7 +179,7 @@ connect to a shared, remote fileserver or cluster of servers.
 
 ![Node anatomy](fig/node_anatomy.png)
 
-::::challenge{id=explore-local, title="Explore Your Computer"}
+::::challenge{id=explore-local title="Explore Your Computer"}
 
 Try to find out the number of CPUs and amount of memory available on your
 personal computer.
@@ -220,7 +220,7 @@ can be found on the command line:
 :::
 ::::
 
-::::challenge{id=explore-remote, title="Explore the Login Node"}
+::::challenge{id=explore-remote title="Explore the Login Node"}
 
 Now compare the resources of your computer with those of the login node.
 
@@ -265,7 +265,7 @@ This is an important point to remember: files saved on one node
 ::::
 
 
-::::challenge{id=compare-local-remote, title="Compare Your Computer, the Login Node and the Compute Node"}
+::::challenge{id=compare-local-remote title="Compare Your Computer, the Login Node and the Compute Node"}
 
 Compare your laptop's number of processors and memory with the numbers you
 see on the cluster login node and compute node. What implications do

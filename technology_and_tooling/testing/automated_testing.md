@@ -458,7 +458,7 @@ So if we have many tests, we essentially get a report indicating which tests
 succeeded or failed. Going back to our list of requirements, do we think these
 results are easy to understand?
 
-::::challenge{id=write-tests, title="Write Some Unit Tests"}
+::::challenge{id=write-tests title="Write Some Unit Tests"}
 
 We already have a couple of test cases in `test/test_models.py` that test the
 `daily_mean()` function. Looking at `inflammation/models.py`, write at least two

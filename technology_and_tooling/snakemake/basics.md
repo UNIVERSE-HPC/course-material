@@ -353,7 +353,7 @@ run (because their output is up-to-date) are dashed. For rules with
 wildcards, the value of the wildcard for the particular job is displayed
 in the job node.
 
-::::challenge{id=create_dag, title="Exercise"}
+::::challenge{id=create_dag title="Exercise"}
 
 Run parts of the workflow using different targets. Recreate the DAG
 and see how different rules\' frames become dashed because their
@@ -449,7 +449,7 @@ as long as it returns a string, or a list of strings. Here, we invoke
 our `expand` function to aggregate over the aligned reads of all
 samples.
 
-::::challenge{id=dag_all, title="Exercise"}
+::::challenge{id=dag_all title="Exercise"}
 
 obtain the updated DAG of jobs for the target file `calls/all.vcf`,
 it should look like this:
@@ -576,7 +576,7 @@ from Snakemake considering the first rule of the workflow as the default
 target, **the order of rules in the Snakefile is arbitrary and does not
 influence the DAG of jobs**.
 
-::::challenge{id=dag_complete, title="Exercise"}
+::::challenge{id=dag_complete title="Exercise"}
 
 -   Create the DAG of jobs for the complete workflow.
 -   Execute the complete workflow and have a look at the resulting

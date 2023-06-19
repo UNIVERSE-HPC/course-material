@@ -417,7 +417,7 @@ $ git commit -m "Code style fixes."
 ::::
 
 
-:::challenge{id=improve-code-style-of-others, title="(Optional) Improve Code Style of 
+:::challenge{id=improve-code-style-of-others title="(Optional) Improve Code Style of 
 Your Other Python Projects"}
 If you have another Python project, check to which extent it conforms to PEP8 coding 
 style.
@@ -505,7 +505,7 @@ PyCharm also displays the docstring for a function/module in a little help popup
 help(fibonacci)
  ~~~
 
-::::challenge{id=fix-docstrings, title="Fix the Docstrings"}
+::::challenge{id=fix-docstrings title="Fix the Docstrings"}
 
 Look into `models.py` in PyCharm and improve docstrings for functions 
 `daily_mean`, `daily_min`, `daily_max`. Commit those changes to feature branch 

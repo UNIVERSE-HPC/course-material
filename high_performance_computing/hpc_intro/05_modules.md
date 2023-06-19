@@ -398,7 +398,7 @@ The following have been reloaded with a version change:
 ```
 
 
-::::challenge{id=module-script, title="Using Software Modules in Scripts"}
+::::challenge{id=module-script title="Using Software Modules in Scripts"}
 
 Create a job that is able to run `python3 --version`. Remember, no software
 is loaded by default! Running a job is just like logging on to the system

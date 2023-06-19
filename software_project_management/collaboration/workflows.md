@@ -64,7 +64,7 @@ development process too.
 assurance practice where one or several people from the team (different from the code's author) check the software by
 viewing parts of its source code.
 
-::::challenge{id=code-review, title="Advantages of Code Review"}
+::::challenge{id=code-review title="Advantages of Code Review"}
 
 Discuss as a group: what do you think are the reasons behind, and advantages of, code review?
 
@@ -222,7 +222,7 @@ You might already have an issue from the previous section, but if not, head over
 
 #### Step 4: Adding New Code 
 
-:::challenge{id=implement, title="Implement Feature/Bugfix and Tests"}
+:::challenge{id=implement title="Implement Feature/Bugfix and Tests"}
 
 Now implement the new feature or bugfix that you have described in your issue. It is a 
 good idea to commit often while developing, providing you with a history of commits you 
@@ -360,7 +360,7 @@ that the team decides on this process and sticks to it. Here are some examples o
      changes or discuss more; `APPROVED` to let the author they can merge their pull 
      request.
 
-:::challenge{id=own-environment, title="Code Review in Your Own Working Environment"}
+:::challenge{id=own-environment title="Code Review in Your Own Working Environment"}
 
 At the start of this episode we briefly looked at a number of techniques for doing code 
 review, and as an example, went on to see how we can use GitHub Pull Requests to review 

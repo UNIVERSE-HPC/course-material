@@ -136,9 +136,10 @@ void add(double x, double y, double& rz) {
 }
 ~~~
 
-::::challenge(id=swap_cpp, title="Swap Two Numbers")
+::::challenge{id=swap_cpp title="Swap Two Numbers"}
 
-Write a function that accepts two floating point numbers (using references), and swaps the values of these numbers.
+Write a function that accepts two floating point numbers (using references), and
+swaps the values of these numbers.
 
 :::solution
 ```cpp
@@ -181,7 +182,7 @@ int main() {
 }
 ~~~
 
-::::challenge{id=dot_product, title="Scalar (dot) product"}
+::::challenge{id=dot_product title="Scalar (dot) product"}
 
 Write a function that returns the scalar (dot) product of two
 `std::array<double, 3>` vectors. Overload this function to multiply two scalar
@@ -393,7 +394,7 @@ int main(void) {
 }
 ~~~
 
-::::challenge{id=dot_product, title="Scalar (dot) product continued"}
+::::challenge{id=dot_product_cont title="Scalar (dot) product continued"}
 
 Rewrite your dot product function to take any two containers $a$ and $b$ that follow the standard container interface in C++. Your function should take three arguments:
 

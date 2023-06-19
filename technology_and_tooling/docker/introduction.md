@@ -30,7 +30,7 @@ Australian Research Data Commons, 2021. *How can software containers help your r
 
 ## Scientific Software Challenges
 
-:::challenge{id=what-is-your-experience, title="What's Your Experience?"}
+:::challenge{id=what-is-your-experience title="What's Your Experience?"}
 
 Take a minute to think about challenges that you have experienced in using
 scientific software (or software in general!) for your research. Then,
@@ -56,7 +56,7 @@ or missing piece may stop the whole thing from working or break something that w
 already running. It's no surprise that this situation is sometimes
 informally termed "dependency hell".
 
-:::challenge{id=software-and-science, title="Software and Science"}
+:::challenge{id=software-and-science title="Software and Science"}
 
 Again, take a minute to think about how the software challenges we've discussed
 could impact (or have impacted!) the quality of your work.
