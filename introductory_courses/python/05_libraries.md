@@ -313,7 +313,7 @@ ValueError: math domain error
 ~~~
 
 
-1. The logarithm of `x` is only defined for `x 0`, so 0 is outside the
+1. The logarithm of `x` is only defined for `x > 0`, so 0 is outside the
    domain of the function.
 2. You get an error of type `ValueError`, indicating that the function
    received an inappropriate argument value. The additional message
