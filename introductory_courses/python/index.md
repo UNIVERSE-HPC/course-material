@@ -4,6 +4,20 @@ name: Intro to Python
 dependsOn: [
 ]
 files: [
+    01_running_python.md,    
+    02_variables_and_types.md,
+    03_writing_and_running_ide.md,
+    04_built_in_functions_and_help.md,
+    05_libraries.md,
+    06_analyzing_and_visualizing_data.md,
+    07_pandas_dataframes.md,
+    08_lists.md,
+    09_for_loops.md,
+    10_conditionals.md,
+    11_looping_over_data_sets.md,
+    12_errors_and_exceptions.md,
+    13_writing_functions.md,
+    14_variable_scope.md,
 ]
 ---
 
