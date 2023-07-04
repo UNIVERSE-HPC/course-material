@@ -223,25 +223,25 @@ But when trying to read a huge piece of code written by someone else, or when ge
 :::
 ::::
 
-## There Are Many Ways To Import Libraries!
->
+::::challenge{id="many_ways_to_import_libraries" title="Many Ways To Import Libraries"}
+
 Match the following print statements with the appropriate library calls.
->
+
 Print commands:
->
+
 1. `print("sin(pi/2) =", sin(pi/2))`
 2. `print("sin(pi/2) =", m.sin(m.pi/2))`
 3. `print("sin(pi/2) =", math.sin(math.pi/2))`
->
+
 Library calls:
->
+
 1. `from math import sin, pi`
 2. `import math`
 3. `import math as m`
 4. `from math import *`
->
-## Solution
->
+
+:::solution
+
 1. Library calls 1 and 4. In order to directly refer to `sin` and `pi` without
    the library name as prefix, you need to use the `from ... import ...`
    statement. Whereas library call 1 specifically imports the two functions
@@ -252,58 +252,56 @@ Library calls:
    the shortened name `m`.
 3. Library call 2. Here `sin` and `pi` are referred to with the regular library
    name `math`, so the regular `import ...` call suffices.
->
+
 __Note:__ although library call 4 works, importing all names from a module using a wildcard 
 import is [not recommended][pep8-imports] as it makes it unclear which names from the module
 are used in the code. In general it is best to make your imports as specific as possible and to 
 only import what your code uses. In library call 1, the `import` statement explicitly tells us
 that the `sin` function is imported from the `math` module, but library call 4 does not
 convey this information.
-{: .solution}
-{: .challenge}
+:::
+::::
 
-## Importing Specific Items
->
+
+::::challenge{id="importing_specific_items" title="Importing specific items"}
+
 1. Fill in the blanks so that the program below prints `90.0`.
 2. Do you find this version easier to read than preceding ones?
 3. Why *wouldn't* programmers always use this form of `import`?
->
-~~~
+
+~~~python
 ____ math import ____, ____
 angle = degrees(pi / 2)
 print(angle)
 ~~~
-{: .language-python}
->
-## Solution
->
-~~~
+
+:::solution
+
+~~~python
 from math import degrees, pi
 angle = degrees(pi / 2)
 print(angle)
 ~~~
-{: .language-python}
->
+
 Most likely you find this version easier to read since it's less dense.
 The main reason not to use this form of import is to avoid name clashes.
-For instance, you wouldn't import `degrees` this way if you also wanted to
-use the name `degrees` for a variable or function of your own. Or if you
-were to also import a function named `degrees` from another library.
-{: .solution}
-{: .challenge}
+For instance, you wouldn't import `degrees` this way if you also wanted to use the name `degrees` for a variable or function of your own.
+Or if you were to also import a function named `degrees` from another library.
+:::
+::::
 
-## Reading Error Messages
->
+::::challenge{id="reading_error_messages" title="Reading Error Messages"}
+
 1. Read the code below and try to identify what the errors are without running it.
 2. Run the code, and read the error message. What type of error is it?
->
-~~~
+
+~~~python
 from math import log
 log(0)
 ~~~
-{: .language-python}
->
-## Solution
+
+:::solution
+
 ~~~
 ---------------------------------------------------------------------------
 ValueError                                Traceback (most recent call last)
@@ -313,17 +311,21 @@ ValueError                                Traceback (most recent call last)
 
 ValueError: math domain error
 ~~~
-{: .output}
->
+
+
 1. The logarithm of `x` is only defined for `x 0`, so 0 is outside the
    domain of the function.
 2. You get an error of type `ValueError`, indicating that the function
    received an inappropriate argument value. The additional message
    "math domain error" makes it clearer what the problem is.
-{: .solution}
-{: .challenge}
 
-[pypi]: https://pypi.python.org/pypi/
-[stdlib]: https://docs.python.org/3/library/
-[randommod]: https://docs.python.org/3/library/random.html
-[pep8-imports]: https://pep8.org/#imports
+:::
+::::
+
+
+## Some useful links
+
+- [pypi](https://pypi.python.org/pypi/)
+- [stdlib](https://docs.python.org/3/library/)
+- [randommod](https://docs.python.org/3/library/random.html)
+- [pep8-imports](https://pep8.org/#imports)
