@@ -3,6 +3,12 @@ name: Running Python
 dependsOn: [
 ]
 tags: [python]
+attribution: 
+    - citation: >
+        "Programming with Python" course by the Carpentries
+      url: https://swcarpentry.github.io/python-novice-inflammation/
+      image: https://carpentries.org/assets/img/TheCarpentries.svg
+      license: CC-BY-4.0
 ---
 Python is a programming language, a collection of syntax rules,
 keywords that can be used to specify operations to be executed by a
