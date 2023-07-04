@@ -13,9 +13,7 @@ attribution:
 ---
 
 :::callout
-
-For this lesson, you will need to download and unzip [python-novice-inflammation-data.zip](python-novice-inflammation-data.zip).
-
+For this lesson, you will need to download and unzip [uniqplus_python_data.zip](uniqplus_python_data.zip).
 :::
 
 
