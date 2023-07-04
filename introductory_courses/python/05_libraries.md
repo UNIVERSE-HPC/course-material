@@ -17,8 +17,8 @@ attribution:
 * A *library* is a collection of files (called *modules*) that contains functions for use by other programs.
     * May also contain data values (e.g., numerical constants) and other things.
     * Library's contents are supposed to be related, but there's no way to enforce that.
-* The Python [standard library][stdlib] is an extensive suite of modules that comes with Python itself.
-* Many additional libraries are available from [PyPI][pypi] (the Python Package Index).
+* The [Python standard library](https://docs.python.org/3/library/) is an extensive suite of modules that comes with Python itself.
+* Many additional libraries are available from [PyPI](https://pypi.python.org/pypi/) (the Python Package Index).
 * We will see later how to write new libraries.
 
 :::callout
@@ -137,7 +137,7 @@ bases = 'ACTTGCTTGAC'
 
 :::solution
 
-The [random module][randommod] seems like it could help you.
+The [random module](https://docs.python.org/3/library/random.html) seems like it could help you.
 
 The string has 11 characters, each having a positional index from 0 to 10.
 You could use either `random.randrange` or `random.randint` functions
@@ -254,7 +254,7 @@ Library calls:
    name `math`, so the regular `import ...` call suffices.
 
 __Note:__ although library call 4 works, importing all names from a module using a wildcard 
-import is [not recommended][pep8-imports] as it makes it unclear which names from the module
+import is [not recommended](https://pep8.org/#imports) as it makes it unclear which names from the module
 are used in the code. In general it is best to make your imports as specific as possible and to 
 only import what your code uses. In library call 1, the `import` statement explicitly tells us
 that the `sin` function is imported from the `math` module, but library call 4 does not
