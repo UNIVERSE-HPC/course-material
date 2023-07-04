@@ -240,8 +240,7 @@ americas.describe()
 :::
 ::::
 
-::::challenge{id="slicing_strings" title="Slicing Strings"}
-## Inspecting Data
+::::challenge{id="inspecting_data" title="Inspecting Data"}
 
 After reading the data for the Americas,
 use `help(americas.head)` and `help(americas.tail)`
