@@ -19,6 +19,12 @@ files: [
     13_writing_functions.md,
     14_variable_scope.md,
 ]
+attribution: 
+    - citation: >
+        "Programming with Python" course by the Carpentries
+      url: https://swcarpentry.github.io/python-novice-inflammation/
+      image: https://carpentries.org/assets/img/TheCarpentries.svg
+      license: CC-BY-4.0
 ---
 
 **Python: A High-Level Overview**

@@ -4,6 +4,12 @@ dependsOn: [
     introductory_courses.python.12_errors_and_exceptions
 ]
 tags: [python]
+attribution: 
+    - citation: >
+        "Programming with Python" course by the Carpentries
+      url: https://swcarpentry.github.io/python-novice-inflammation/
+      image: https://carpentries.org/assets/img/TheCarpentries.svg
+      license: CC-BY-4.0
 ---
 
 ## Break programs down into functions to make them easier to understand.

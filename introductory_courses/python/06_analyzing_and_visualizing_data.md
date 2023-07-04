@@ -4,6 +4,12 @@ dependsOn: [
     introductory_courses.python.05_libraries
 ]
 tags: [python]
+attribution: 
+    - citation: >
+        "Programming with Python" course by the Carpentries
+      url: https://swcarpentry.github.io/python-novice-inflammation/
+      image: https://carpentries.org/assets/img/TheCarpentries.svg
+      license: CC-BY-4.0
 ---
 
 Words are useful, but what's more useful are the sentences and stories we build with them.

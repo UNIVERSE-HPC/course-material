@@ -4,6 +4,12 @@ dependsOn: [
     introductory_courses.python.09_for_loops
 ]
 tags: [python]
+attribution: 
+    - citation: >
+        "Programming with Python" course by the Carpentries
+      url: https://swcarpentry.github.io/python-novice-inflammation/
+      image: https://carpentries.org/assets/img/TheCarpentries.svg
+      license: CC-BY-4.0
 ---
 
 ## Use `if` statements to control whether or not a block of code is executed.

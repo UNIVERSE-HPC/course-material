@@ -4,6 +4,12 @@ dependsOn: [
     introductory_courses.python.04_built_in_functions_and_help
 ]
 tags: [python]
+attribution: 
+    - citation: >
+        "Programming with Python" course by the Carpentries
+      url: https://swcarpentry.github.io/python-novice-inflammation/
+      image: https://carpentries.org/assets/img/TheCarpentries.svg
+      license: CC-BY-4.0
 ---
 
 ## Most of the power of a programming language is in its libraries.

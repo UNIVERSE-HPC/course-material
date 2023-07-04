@@ -4,6 +4,12 @@ dependsOn: [
     introductory_courses.python.08_lists
 ]
 tags: [python]
+attribution: 
+    - citation: >
+        "Programming with Python" course by the Carpentries
+      url: https://swcarpentry.github.io/python-novice-inflammation/
+      image: https://carpentries.org/assets/img/TheCarpentries.svg
+      license: CC-BY-4.0
 ---
 
 ## A *for loop* executes commands once for each value in a collection.
