@@ -24,10 +24,10 @@ Once you know *why* you get certain types of errors,
 they become much easier to fix.
 
 Errors in Python have a very specific form,
-called a [traceback]({{ page.root }}/reference.html#traceback).
+called a *traceback*.
 Let's examine one:
 
-~~~
+~~~ python
 # This code has an intentional error. You can type it directly or
 # use it for reference to understand the error message below.
 def favorite_ice_cream():
@@ -40,26 +40,26 @@ def favorite_ice_cream():
 
 favorite_ice_cream()
 ~~~
-{: .language-python}
+
 
 ~~~
 ---------------------------------------------------------------------------
 IndexError                                Traceback (most recent call last)
-<ipython-input-1-70bd89baa4df> in <module>()
+<ipython-input-1-70bd89baa4dfin <module>()
       9     print(ice_creams[3])
       10
-----> 11 favorite_ice_cream()
+----11 favorite_ice_cream()
 
-<ipython-input-1-70bd89baa4df> in favorite_ice_cream()
+<ipython-input-1-70bd89baa4dfin favorite_ice_cream()
       7         'strawberry'
       8     ]
-----> 9     print(ice_creams[3])
+----9     print(ice_creams[3])
       10
       11 favorite_ice_cream()
 
 IndexError: list index out of range
 ~~~
-{: .error}
+
 
 This particular traceback has two levels.
 You can determine the number of levels by looking for the number of arrows on the left hand side.
@@ -74,20 +74,21 @@ In this case:
 The last level is the actual place where the error occurred.
 The other level(s) show what function the program executed to get to the next level down.
 So, in this case, the program first performed a
-[function call]({{ page.root }}/reference.html#function-call) to the function `favorite_ice_cream`.
+*function call* to the function `favorite_ice_cream`.
 Inside this function,
 the program encountered an error on Line 6, when it tried to run the code `print(ice_creams[3])`.
 
-> ## Long Tracebacks
->
-> Sometimes, you might see a traceback that is very long
-> -- sometimes they might even be 20 levels deep!
-> This can make it seem like something horrible happened,
-> but the length of the error message does not reflect severity, rather,
-> it indicates that your program called many functions before it encountered the error.
-> Most of the time, the actual place where the error occurred is at the bottom-most level,
-> so you can skip down the traceback to the bottom.
-{: .callout}
+:::callout
+## Long Tracebacks
+
+Sometimes, you might see a traceback that is very long
+-- sometimes they might even be 20 levels deep!
+This can make it seem like something horrible happened,
+but the length of the error message does not reflect severity, rather,
+it indicates that your program called many functions before it encountered the error.
+Most of the time, the actual place where the error occurred is at the bottom-most level,
+so you can skip down the traceback to the bottom.
+:::
 
 So what error did the program actually encounter?
 In the last line of the traceback,
@@ -118,7 +119,7 @@ hopefully the custom error message is informative enough to help you figure out 
 When you forget a colon at the end of a line,
 accidentally add one space too many when indenting under an `if` statement,
 or forget a parenthesis,
-you will encounter a [syntax error]({{ page.root }}/reference.html#syntax-error).
+you will encounter a *syntax error*.
 This means that Python couldn't figure out how to read your program.
 This is similar to forgetting punctuation in English:
 for example,
@@ -133,13 +134,13 @@ If Python doesn't know how to read the program,
 it will give up and inform you with an error.
 For example:
 
-~~~
+~~~ python
 def some_function()
     msg = 'hello, world!'
     print(msg)
      return msg
 ~~~
-{: .language-python}
+
 
 ~~~
   File "<ipython-input-3-6bb841ea1423>", line 1
@@ -147,7 +148,7 @@ def some_function()
                        ^
 SyntaxError: invalid syntax
 ~~~
-{: .error}
+
 
 Here, Python tells us that there is a `SyntaxError` on line 1,
 and even puts a little arrow in the place where there is an issue.
@@ -158,13 +159,13 @@ If we fix the problem with the colon,
 we see that there is *also* an `IndentationError`,
 which means that the lines in the function definition do not all have the same indentation:
 
-~~~
+~~~ python
 def some_function():
     msg = 'hello, world!'
     print(msg)
      return msg
 ~~~
-{: .language-python}
+
 
 ~~~
   File "<ipython-input-4-ae290e7659cb>", line 4
@@ -172,42 +173,42 @@ def some_function():
     ^
 IndentationError: unexpected indent
 ~~~
-{: .error}
+
 
 Both `SyntaxError` and `IndentationError` indicate a problem with the syntax of your program,
 but an `IndentationError` is more specific:
 it *always* means that there is a problem with how your code is indented.
 
-> ## Tabs and Spaces
->
-> Some indentation errors are harder to spot than others.
-> In particular, mixing spaces and tabs can be difficult to spot
-> because they are both [whitespace]({{ page.root }}/reference.html#whitespace).
-> In the example below, the first two lines in the body of the function
-> `some_function` are indented with tabs, while the third line &mdash; with spaces.
-> If you're working in a Jupyter notebook, be sure to copy and paste this example
-> rather than trying to type it in manually because Jupyter automatically replaces
-> tabs with spaces.
->
-> ~~~
-> def some_function():
-> 	msg = 'hello, world!'
-> 	print(msg)
->         return msg
-> ~~~
-> {: .language-python}
->
-> Visually it is impossible to spot the error.
-> Fortunately, Python does not allow you to mix tabs and spaces.
->
-> ~~~
->   File "<ipython-input-5-653b36fbcd41>", line 4
->     return msg
->               ^
-> TabError: inconsistent use of tabs and spaces in indentation
-> ~~~
-> {: .error}
-{: .callout}
+:::callout
+## Tabs and Spaces
+
+Some indentation errors are harder to spot than others.
+In particular, mixing spaces and tabs can be difficult to spot
+because they are both whitespace.
+In the example below, the first two lines in the body of the function
+`some_function` are indented with tabs, while the third line &mdash; with spaces.
+If you're working in a Jupyter notebook, be sure to copy and paste this example
+rather than trying to type it in manually because Jupyter automatically replaces
+tabs with spaces.
+
+~~~ python
+def some_function():
+	msg = 'hello, world!'
+	print(msg)
+        return msg
+~~~
+
+
+Visually it is impossible to spot the error.
+Fortunately, Python does not allow you to mix tabs and spaces.
+
+~~~
+  File "<ipython-input-5-653b36fbcd41>", line 4
+    return msg
+              ^
+TabError: inconsistent use of tabs and spaces in indentation
+~~~
+:::
 
 ## Variable Name Errors
 
@@ -215,20 +216,20 @@ Another very common type of error is called a `NameError`,
 and occurs when you try to use a variable that does not exist.
 For example:
 
-~~~
+~~~ python
 print(a)
 ~~~
-{: .language-python}
+
 
 ~~~
 ---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
-<ipython-input-7-9d7b17ad5387> in <module>()
-----> 1 print(a)
+<ipython-input-7-9d7b17ad5387in <module>()
+----1 print(a)
 
 NameError: name 'a' is not defined
 ~~~
-{: .error}
+
 
 Variable name errors come with some of the most informative error messages,
 which are usually of the form "name 'the_variable_name' is not defined".
@@ -239,73 +240,73 @@ because it depends on what your code is supposed to do.
 However,
 there are a few very common reasons why you might have an undefined variable.
 The first is that you meant to use a
-[string]({{ page.root }}/reference.html#string), but forgot to put quotes around it:
+string, but forgot to put quotes around it:
 
-~~~
+~~~ python
 print(hello)
 ~~~
-{: .language-python}
+
 
 ~~~
 ---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
-<ipython-input-8-9553ee03b645> in <module>()
-----> 1 print(hello)
+<ipython-input-8-9553ee03b645in <module>()
+----1 print(hello)
 
 NameError: name 'hello' is not defined
 ~~~
-{: .error}
+
 
 The second reason is that you might be trying to use a variable that does not yet exist.
 In the following example,
 `count` should have been defined (e.g., with `count = 0`) before the for loop:
 
-~~~
+~~~ python
 for number in range(10):
     count = count + number
 print('The count is:', count)
 ~~~
-{: .language-python}
+
 
 ~~~
 ---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
-<ipython-input-9-dd6a12d7ca5c> in <module>()
+<ipython-input-9-dd6a12d7ca5cin <module>()
       1 for number in range(10):
-----> 2     count = count + number
+----2     count = count + number
       3 print('The count is:', count)
 
 NameError: name 'count' is not defined
 ~~~
-{: .error}
+
 
 Finally, the third possibility is that you made a typo when you were writing your code.
 Let's say we fixed the error above by adding the line `Count = 0` before the for loop.
 Frustratingly, this actually does not fix the error.
-Remember that variables are [case-sensitive]({{ page.root }}/reference.html#case-sensitive),
+Remember that variables are case-sensitive,
 so the variable `count` is different from `Count`. We still get the same error,
 because we still have not defined `count`:
 
-~~~
+~~~ python
 Count = 0
 for number in range(10):
     count = count + number
 print('The count is:', count)
 ~~~
-{: .language-python}
+
 
 ~~~
 ---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
-<ipython-input-10-d77d40059aea> in <module>()
+<ipython-input-10-d77d40059aeain <module>()
       1 Count = 0
       2 for number in range(10):
-----> 3     count = count + number
+----3     count = count + number
       4 print('The count is:', count)
 
 NameError: name 'count' is not defined
 ~~~
-{: .error}
+
 
 ## Index Errors
 
@@ -318,33 +319,33 @@ and they answered "caturday",
 you might be a bit annoyed.
 Python gets similarly annoyed if you try to ask it for an item that doesn't exist:
 
-~~~
+~~~ python
 letters = ['a', 'b', 'c']
 print('Letter #1 is', letters[0])
 print('Letter #2 is', letters[1])
 print('Letter #3 is', letters[2])
 print('Letter #4 is', letters[3])
 ~~~
-{: .language-python}
+
 
 ~~~
 Letter #1 is a
 Letter #2 is b
 Letter #3 is c
 ~~~
-{: .output}
+
 
 ~~~
 ---------------------------------------------------------------------------
 IndexError                                Traceback (most recent call last)
-<ipython-input-11-d817f55b7d6c> in <module>()
+<ipython-input-11-d817f55b7d6cin <module>()
       3 print('Letter #2 is', letters[1])
       4 print('Letter #3 is', letters[2])
-----> 5 print('Letter #4 is', letters[3])
+----5 print('Letter #4 is', letters[3])
 
 IndexError: list index out of range
 ~~~
-{: .error}
+
 
 Here,
 Python is telling us that there is an `IndexError` in our code,
@@ -361,20 +362,20 @@ returns an `UnsupportedOperationError`.
 More generally, problems with input and output manifest as
 `IOError`s or `OSError`s, depending on the version of Python you use.
 
-~~~
+~~~ python
 file_handle = open('myfile.txt', 'r')
 ~~~
-{: .language-python}
+
 
 ~~~
 ---------------------------------------------------------------------------
 FileNotFoundError                         Traceback (most recent call last)
-<ipython-input-14-f6e1ac4aee96> in <module>()
-----> 1 file_handle = open('myfile.txt', 'r')
+<ipython-input-14-f6e1ac4aee96in <module>()
+----1 file_handle = open('myfile.txt', 'r')
 
 FileNotFoundError: [Errno 2] No such file or directory: 'myfile.txt'
 ~~~
-{: .error}
+
 
 One reason for receiving this error is that you specified an incorrect path to the file.
 For example,
@@ -395,22 +396,22 @@ and then try to read from it,
 you will get an `UnsupportedOperation` error
 telling you that the file was not opened for reading:
 
-~~~
+~~~ python
 file_handle = open('myfile.txt', 'w')
 file_handle.read()
 ~~~
-{: .language-python}
+
 
 ~~~
 ---------------------------------------------------------------------------
 UnsupportedOperation                      Traceback (most recent call last)
-<ipython-input-15-b846479bc61f> in <module>()
+<ipython-input-15-b846479bc61fin <module>()
       1 file_handle = open('myfile.txt', 'w')
-----> 2 file_handle.read()
+----2 file_handle.read()
 
 UnsupportedOperation: not readable
 ~~~
-{: .error}
+
 
 These are the most common errors with files,
 though many others exist.
@@ -418,168 +419,166 @@ If you get an error that you've never seen before,
 searching the Internet for that error type
 often reveals common reasons why you might get that error.
 
-> ## Reading Error Messages
->
-> Read the Python code and the resulting traceback below, and answer the following questions:
->
-> 1.  How many levels does the traceback have?
-> 2.  What is the function name where the error occurred?
-> 3.  On which line number in this function did the error occur?
-> 4.  What is the type of error?
-> 5.  What is the error message?
->
-> ~~~
-> # This code has an intentional error. Do not type it directly;
-> # use it for reference to understand the error message below.
-> def print_message(day):
->     messages = {
->         'monday': 'Hello, world!',
->         'tuesday': 'Today is Tuesday!',
->         'wednesday': 'It is the middle of the week.',
->         'thursday': 'Today is Donnerstag in German!',
->         'friday': 'Last day of the week!',
->         'saturday': 'Hooray for the weekend!',
->         'sunday': 'Aw, the weekend is almost over.'
->     }
->     print(messages[day])
->
-> def print_friday_message():
->     print_message('Friday')
->
-> print_friday_message()
-> ~~~
-> {: .language-python}
->
-> ~~~
-> ---------------------------------------------------------------------------
-> KeyError                                  Traceback (most recent call last)
-> <ipython-input-1-4be1945adbe2> in <module>()
->      14     print_message('Friday')
->      15
-> ---> 16 print_friday_message()
->
-> <ipython-input-1-4be1945adbe2> in print_friday_message()
->      12
->      13 def print_friday_message():
-> ---> 14     print_message('Friday')
->      15
->      16 print_friday_message()
->
-> <ipython-input-1-4be1945adbe2> in print_message(day)
->       9         'sunday': 'Aw, the weekend is almost over.'
->      10     }
-> ---> 11     print(messages[day])
->      12
->      13 def print_friday_message():
->
-> KeyError: 'Friday'
-> ~~~
-> {: .error}
->
-> > ## Solution
-> > 1. 3 levels
-> > 2. `print_message`
-> > 3. 11
-> > 4. `KeyError`
-> > 5. There isn't really a message; you're supposed
-> > to infer that `Friday` is not a key in `messages`.
-> {: .solution}
-{: .challenge}
+::::challenge{id="reading_error_messages" title="Reading Error Messages"}
 
-> ## Identifying Syntax Errors
->
-> 1. Read the code below, and (without running it) try to identify what the errors are.
-> 2. Run the code, and read the error message. Is it a `SyntaxError` or an `IndentationError`?
-> 3. Fix the error.
-> 4. Repeat steps 2 and 3, until you have fixed all the errors.
->
-> ~~~
-> def another_function
->   print('Syntax errors are annoying.')
->    print('But at least Python tells us about them!')
->   print('So they are usually not too hard to fix.')
-> ~~~
-> {: .language-python}
->
-> > ## Solution
-> > `SyntaxError` for missing `():` at end of first line,
-> `IndentationError` for mismatch between second and third lines.
-> > A fixed version is:
-> >
-> > ~~~
-> > def another_function():
-> >     print('Syntax errors are annoying.')
-> >     print('But at least Python tells us about them!')
-> >     print('So they are usually not too hard to fix.')
-> > ~~~
-> > {: .language-python}
-> {: .solution}
-{: .challenge}
+Read the Python code and the resulting traceback below, and answer the following questions:
 
-> ## Identifying Variable Name Errors
->
-> 1. Read the code below, and (without running it) try to identify what the errors are.
-> 2. Run the code, and read the error message.
->    What type of `NameError` do you think this is?
->    In other words, is it a string with no quotes,
->    a misspelled variable,
->    or a variable that should have been defined but was not?
-> 3. Fix the error.
-> 4. Repeat steps 2 and 3, until you have fixed all the errors.
->
-> ~~~
-> for number in range(10):
->     # use a if the number is a multiple of 3, otherwise use b
->     if (Number % 3) == 0:
->         message = message + a
->     else:
->         message = message + 'b'
-> print(message)
-> ~~~
-> {: .language-python}
->
-> > ## Solution
-> > 3 `NameError`s for `number` being misspelled, for `message` not defined,
-> > and for `a` not being in quotes.
-> >
-> > Fixed version:
-> >
-> > ~~~
-> > message = ''
-> > for number in range(10):
-> >     # use a if the number is a multiple of 3, otherwise use b
-> >     if (number % 3) == 0:
-> >         message = message + 'a'
-> >     else:
-> >         message = message + 'b'
-> > print(message)
-> > ~~~
-> > {: .language-python}
-> {: .solution}
-{: .challenge}
+1.  How many levels does the traceback have?
+2.  What is the function name where the error occurred?
+3.  On which line number in this function did the error occur?
+4.  What is the type of error?
+5.  What is the error message?
 
-> ## Identifying Index Errors
->
-> 1. Read the code below, and (without running it) try to identify what the errors are.
-> 2. Run the code, and read the error message. What type of error is it?
-> 3. Fix the error.
->
-> ~~~
-> seasons = ['Spring', 'Summer', 'Fall', 'Winter']
-> print('My favorite season is ', seasons[4])
-> ~~~
-> {: .language-python}
->
-> > ## Solution
-> > `IndexError`; the last entry is `seasons[3]`, so `seasons[4]` doesn't make sense.
-> > A fixed version is:
-> >
-> > ~~~
-> > seasons = ['Spring', 'Summer', 'Fall', 'Winter']
-> > print('My favorite season is ', seasons[-1])
-> > ~~~
-> > {: .language-python}
-> {: .solution}
-{: .challenge}
+~~~ python
+# This code has an intentional error. Do not type it directly;
+# use it for reference to understand the error message below.
+def print_message(day):
+    messages = {
+        'monday': 'Hello, world!',
+        'tuesday': 'Today is Tuesday!',
+        'wednesday': 'It is the middle of the week.',
+        'thursday': 'Today is Donnerstag in German!',
+        'friday': 'Last day of the week!',
+        'saturday': 'Hooray for the weekend!',
+        'sunday': 'Aw, the weekend is almost over.'
+    }
+    print(messages[day])
 
-{% include links.md %}
+def print_friday_message():
+    print_message('Friday')
+
+print_friday_message()
+~~~
+
+
+~~~
+---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+<ipython-input-1-4be1945adbe2in <module>()
+     14     print_message('Friday')
+     15
+---16 print_friday_message()
+
+<ipython-input-1-4be1945adbe2in print_friday_message()
+     12
+     13 def print_friday_message():
+---14     print_message('Friday')
+     15
+     16 print_friday_message()
+
+<ipython-input-1-4be1945adbe2in print_message(day)
+      9         'sunday': 'Aw, the weekend is almost over.'
+     10     }
+---11     print(messages[day])
+     12
+     13 def print_friday_message():
+
+KeyError: 'Friday'
+~~~
+
+
+:::solution
+1. 3 levels
+2. `print_message`
+3. 11
+4. `KeyError`
+5. There isn't really a message; you're supposed
+to infer that `Friday` is not a key in `messages`.
+:::
+::::
+
+::::challenge{id="identifying_syntax_errors" title="Identifying Syntax Errors"}
+
+1. Read the code below, and (without running it) try to identify what the errors are.
+2. Run the code, and read the error message. Is it a `SyntaxError` or an `IndentationError`?
+3. Fix the error.
+4. Repeat steps 2 and 3, until you have fixed all the errors.
+
+~~~ python
+def another_function
+  print('Syntax errors are annoying.')
+   print('But at least Python tells us about them!')
+  print('So they are usually not too hard to fix.')
+~~~
+
+
+:::solution
+`SyntaxError` for missing `():` at end of first line,
+`IndentationError` for mismatch between second and third lines.
+A fixed version is:
+
+~~~ python
+def another_function():
+    print('Syntax errors are annoying.')
+    print('But at least Python tells us about them!')
+    print('So they are usually not too hard to fix.')
+~~~
+
+:::
+::::
+
+::::challenge{id="identifying_variable_name_errors" title="Identifying Variable Name Errors"}
+
+1. Read the code below, and (without running it) try to identify what the errors are.
+2. Run the code, and read the error message.
+   What type of `NameError` do you think this is?
+   In other words, is it a string with no quotes,
+   a misspelled variable,
+   or a variable that should have been defined but was not?
+3. Fix the error.
+4. Repeat steps 2 and 3, until you have fixed all the errors.
+
+~~~ python
+for number in range(10):
+    # use a if the number is a multiple of 3, otherwise use b
+    if (Number % 3) == 0:
+        message = message + a
+    else:
+        message = message + 'b'
+print(message)
+~~~
+
+
+:::solution
+3 `NameError`s for `number` being misspelled, for `message` not defined,
+and for `a` not being in quotes.
+
+Fixed version:
+
+~~~ python
+message = ''
+for number in range(10):
+    # use a if the number is a multiple of 3, otherwise use b
+    if (number % 3) == 0:
+        message = message + 'a'
+    else:
+        message = message + 'b'
+print(message)
+~~~
+
+:::
+::::
+
+::::challenge{id="identifying_index_errors" title="Identifying Index Errors"}
+
+1. Read the code below, and (without running it) try to identify what the errors are.
+2. Run the code, and read the error message. What type of error is it?
+3. Fix the error.
+
+~~~ python
+seasons = ['Spring', 'Summer', 'Fall', 'Winter']
+print('My favorite season is ', seasons[4])
+~~~
+
+
+:::solution
+`IndexError`; the last entry is `seasons[3]`, so `seasons[4]` doesn't make sense.
+A fixed version is:
+
+~~~ python
+seasons = ['Spring', 'Summer', 'Fall', 'Winter']
+print('My favorite season is ', seasons[-1])
+~~~
+
+:::
+::::

@@ -44,7 +44,7 @@ print("hello world")
 varint = 1
 print("Variable 'varint' is a", type(varint))
 varstr = "astring"
-print("Variable 'varfl' is a", type(varfl))
+print("Variable 'varstr' is a", type(varstr))
 ~~~
 
 Press the triangular `Play` button in the top right, and you should see the following output:

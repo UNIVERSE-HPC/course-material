@@ -18,6 +18,7 @@ files: [
     12_errors_and_exceptions.md,
     13_writing_functions.md,
     14_variable_scope.md,
+    15_snake_game.md,
 ]
 attribution: 
     - citation: >
