@@ -337,7 +337,7 @@ print(cumulative)
 :::
 ::::
 
-## Identifying Variable Name Errors
+::::challenge{id="identifying_variable_name_errors" title="Identifying Variable Name Errors"}
 
 1. Read the code below and try to identify what the errors are
    *without* running it.
