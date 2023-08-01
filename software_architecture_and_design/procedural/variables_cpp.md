@@ -64,9 +64,9 @@ configuration used to build and run the currently active file
 The file should compile successfully and output the text "hello world" in the
 debug console.
 
-## Variables
+## Static Typing
 
-Variables in C++ must be declared before they are used, along with their type, for example:
+Variables in C++ must be declared with their type, before they are used, for example:
 
 ~~~cpp
 int six = 2 * 3;
@@ -140,6 +140,8 @@ The compiler has saved us again! You can assist the compiler (and perhaps more
 importantly, other readers of your code!) by always marking variables that you
 expect to the constant with `const`.
 
+### Blocks and scope
+
 A C++ program is made up of many *blocks* which are delimited by curly brackets.
 As an example, lets define a `main` function with a `for` loop inside. The curly
 brackets after the `main` function delimite an outer block, whereas the curly
@@ -161,6 +163,69 @@ where the variable is declared and covers to the end of the current block,
 including any inner blocks. In the example above, the `two` variable is in
 scope until the end of the main function. However, the `i` and `x` variables
 are only in scope until the end of the `for` loop.
+
+
+::::challenge{id=scope title="Largest Circumference"}
+
+Below is a code snippet calculating the circumference for a series of
+ever-larger circles. At the end of the loop we wish to print out the largest
+circumference, but unfortunately our program won't compile.
+
+Fix the code so that it compiles and the largest circumference is printed.
+Ensure that all constant variables are explicitly marked `const`.
+
+```cpp
+int sum = 0;
+int pi = 3.14;
+for (int i = 0; i < 10; i++) {
+    double radius = static_cast<double>(i);
+    double circumference  = 2 * pi * radius;
+}
+std::cout << "largest circumference is " << circumference << std::endl;
+```
+
+
+:::callout
+In this snippet we *cast* the integer `i` to the floating point number `radius`,
+this is a way of converting between different types in C++. You will learn more
+about type conversions later in this section
+:::
+
+:::solution
+
+The simplest solution is to simple move the `circumference` variable to the outer scope, and correcting the type of `pi`.
+
+```cpp
+int sum = 0;
+const double pi = 3.14;
+double circumference  = 0;
+for (int i = 0; i < 10; i++) {
+    const double radius = static_cast<double>(i);
+    circumference  = 2 * pi * radius;
+}
+std::cout << "largest circumference is " << circumference << std::endl;
+```
+:::
+
+However, this code assumes that the largest circumference is computed last. You
+might later on decide to alter the loop so this is no longer the case, so it
+would be safer to not to make this assumption.
+
+```cpp
+int sum = 0;
+const double pi = 3.14;
+double largest_circumference = 0;
+for (int i = 0; i < 10; i++) {
+    const double radius = static_cast<double>(i);
+    const double circumference  = 2 * pi * radius;
+    if (circumference > largest_circumference) {
+        largest_circumference = circumference;
+    }
+}
+std::cout << "largest circumference is " << largest_circumference << std::endl;
+```
+
+::::
 
 
 ### Floating point numbers
