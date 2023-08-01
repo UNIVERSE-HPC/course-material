@@ -196,28 +196,41 @@ local$
 
 There are several ways to do this. Most operating systems have a graphical
 system monitor, like the Windows Task Manager. More detailed information
-can be found on the command line:
+can be found on the command line.
+
+In a Linux environment, you can use the following commands:
 
 * Run system utilities
-  ```
+  ```bash
   local$ nproc --all
   local$ free -m
   ```
-  {: .language-bash}
 
 * Read from `/proc`
-  ```
+  ```bash
   local$ cat /proc/cpuinfo
   local$ cat /proc/meminfo
   ```
-  {: .language-bash}
 
-* Run system monitor
+
   ```
-  local$ htop
-  ```
-  {: .language-bash}
 :::
+
+In a macOS environment, you can use the following to get the number of cpus and
+amount of free memory
+
+```bash
+sysctl -n hw.ncpu
+vm_stat | awk '/free/ {getline; print "Free memory: " $3 * 4096 / 1048576 " MB"}'
+```
+
+In both Linux and macOS, you can use system monitors such as the built in `top`,
+or install `htop` using `apt` in Ubuntu or `brew` in macOS.
+
+```bash
+local$ top
+local$ htop
+```
 ::::
 
 ::::challenge{id=explore-remote title="Explore the Login Node"}
