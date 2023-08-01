@@ -2,112 +2,94 @@
 name: Variables
 dependsOn: [
     technology_and_tooling.bash_shell.bash,
-    technology_and_tooling.ide.cpp,
+    technology_and_tooling.ide.rust,
 ]
-tags: [cpp]
+tags: [rust]
 ---
 
-## Getting started
+## Cargo
 
-Create a new folder and open it in VSCode:
+
+Cargo is the official build system and package manager for the Rust programming
+language. It serves as a central tool in the Rust development ecosystem,
+managing tasks like building and testing code, downloading and incorporating libraries or
+"crates", and handling dependencies. This integration of
+building, dependency management, and testing through Cargo simplifies the
+development process, making it more efficient and less error-prone. 
+
+To create a new Rust project, we use the `cargo new` command. This creates a new
+directory with the name of the project, and a `Cargo.toml` file that contains
+the project metadata and dependencies. It also creates a `src` directory
+containing a `main.rs` file, which is where we will write our code.
 
 ```bash
-mkdir procedural
-cd procedual
+cargo new procedural
+cd procedural
 code .
 ```
 
-### Compiling and Running a C++ executable
+### Compiling and Running a Rust Program
 
-Ensure that you have the `clang` cpp compiler installed using:
+Open the `main.rs` file and copy in the following contents:
 
-~~~bash
-clang++ --version
-~~~
-
-You should see something like:
-
-~~~
-Homebrew clang version 15.0.3
-Target: x86_64-apple-darwin22.1.0
-Thread model: posix
-InstalledDir: /usr/local/opt/llvm/bin
-~~~
-
-Check where the compiler executable is located on your machine
-
-~~~bash
-which clang++
-~~~
-
-You should see something like:
-
-~~~
-/usr/local/opt/llvm/bin/clang++
-~~~
-
-Create a new file `prodedural.cpp` and copy in the following contents:
-
-~~~cpp
-#include <iostream>
-
-int main() {
-    std::cout << "hello world" << std::endl;
+```rust
+fn main() {
+    println!("hello world");
 }
-~~~
+```
 
-Open the command palette and choose "C/C++ Run C/C++ File", or click on the play
-button in the top right hand corner of the screen. Choose the clang compiler
-located earlier, and it will create the file `.vscode/tasks.json` with the
-configuration used to build and run the currently active file
+To compile and run a Rust program, we use the `cargo run` command. In VSCode,
+you can also click on the "Run" button above the `main` function. This will
+compile the program, and then run it. If the program is already compiled, it
+will skip the compilation step and just run the program.
 
-The file should compile successfully and output the text "hello world" in the
-debug console.
+```bash
+cargo run
+```
+
+This will print out `hello world` to the terminal.
 
 ## Static Typing
 
-Variables in C++ must be declared with their type, before they are used, for example:
+Rust is a *statically typed* language, which means that the compiler must be
+able to determine the type of every variable when it compiles your code. This is
+in contrast to *dynamically typed* languages like Python, where the type of a
+variable is determined at runtime.
 
-~~~cpp
-int six = 2 * 3;
-std::cout << "six = " << six << std::endl;
-~~~
+Variables in Rust must be declared with their type, before they are used, for
+example:
 
-~~~
-six = 6
-~~~
+```rust
+let six: i32 = 2 * 3;
+println!("six = {}", six);
+```
 
-The compiler must be able to determine the type of every variable when it
-compiles your code. This is a characteristic of *statically typed* languages. It
-uses this type when working out how much memory to allocate for the value (in
-this case the number 6), and to determine the format for *how* this value is
-stored in memory. For example, consulting a reference webpage like
-[this](https://en.cppreference.com/w/cpp/language/types) tells us that the `int`
-type is at least 16 bits in size, each bit can be either 0 or 1, and so the
-value 6 will be stored in these 16 bits as the binary number 0000000000000110.
-In this case `int` is a *signed* type, and the first bit is 0 for positive, and
-1 for negative values, so -6 will be represented as 1000000000000110.
+Here we have declared a variable `six` of type `i32`, which is a 32-bit signed
+integer. The `let` keyword is used to declare a variable. The `print!` macro
+prints out the value of the variable `six` to the terminal. Note that we have
+used the `{}` syntax to indicate where the value of the variable should be
+substituted into the string.
 
-So the *type* of a variable tells the compiler how to interpret the data stored
-in memory to arrive at a value for our variable `six`. Simliarly, it tells the
-compiler what format to *write* to memory when the value of the variable is
-changed.
+Note that we don't need to always specify the type of a variable, as the rust compiler can
+infer the type from the value assigned to the variable:
+
+```rust
+let six = 2 * 3;
+println!("six = {}", six);
+```
 
 If we try to use a variable that hasn't been defined, we get a compiler error:
 
-~~~cpp
-int seven = sixe + 1;
+~~~rust
+let seven = sixe + 1;
 ~~~
 
 ~~~
-/Users/martinjrobins/git/thing/procedural.cpp:7:17: error: use of undeclared identifier 'sixe'; did you mean 'six'?
-    int seven = sixe + 1;
-                ^~~~
-                six
-/Users/martinjrobins/git/thing/procedural.cpp:5:9: note: 'six' declared here
-    int six = 2 * 3;
-        ^
-1 error generated.
+error[E0425]: cannot find value `sixe` in this scope
+ --> src/main.rs:5:17
+  |
+5 |     let seven = sixe + 1;
+  |                 ^^^^ help: a local variable with a similar name exists: `six`
 ~~~
 
 Note here we accidentally wrote `sixe` instead of `six`, so the compiler
@@ -115,54 +97,116 @@ recognised this as an *undeclared identifier* and gave an error. It even
 helpfully identified a variable with a similar name that you might have meant.
 This highlights one of the advantages of a compiler, it can catch a range of
 errors before you even run your program, which can be very useful if you have a
-large project that takes a significant time to run.
+large project that takes a significant time to run. In fact, if you are using
+VSCode (or another IDE) you will typically see this error highlighted in the
+editor before you even try to compile your code.
 
-If we know that a variable will be constant, we can indicate this using the `const` keyword, like so:
+In rust, all variables are *immutable* by default. This means that once you have
+assigned a value to a variable, you cannot change it. If you try to do so, you
+will get a compiler error:
 
-~~~cpp
-const int six = 2 * 3;
-~~~
-
-This has the advantage that if we try and modify `six` later on, the compiler will inform us of our error:
-
-~~~cpp
-const int six = 2 * 3;
-six = 7;
+~~~rust
+let six_or_seven = 2 * 3;
+six_or_seven = 7;
 ~~~
 
 ```
-/Users/martinjrobins/git/thing/procedural.cpp:8:9: error: cannot assign to variable 'six' with const-qualified type 'const int'
-    six = 7;
-    ~~~ ^
+error[E0384]: cannot assign twice to immutable variable `six`
+ --> src/main.rs:4:5
+  |
+3 |     let six = 2 * 3;
+  |         ---
+  |         |
+  |         first assignment to `six`
+  |         help: consider making this binding mutable: `mut six`
+4 |     six = 7;
+  |     ^^^^^^^ cannot assign twice to immutable variable
 ```
 
-The compiler has saved us again! You can assist the compiler (and perhaps more
-importantly, other readers of your code!) by always marking variables that you
-expect to the constant with `const`.
+The compiler has identified that we are trying to assign a new value to an immutable variable, and
+has suggested that we make the variable mutable by adding the `mut` keyword:
 
-### Blocks and scope
+```rust
+let mut six_or_seven = 2 * 3;
+six_or_seven = 7;
+```
 
-A C++ program is made up of many *blocks* which are delimited by curly brackets.
-As an example, lets define a `main` function with a `for` loop inside. The curly
-brackets after the `main` function delimite an outer block, whereas the curly
-brackets after the `for` loop delimite an inner block.
+Now the code compiles and runs as expected.
 
-```cpp
-int main() {
-  const int two = 2;
-  for (int i = 0; i < 10; i++) {
-    const int x = two * i;
-    std::cout << i << x << std::endl;
-  }
-  // i and x no longer valid here
+### Expression, Statements & Blocks
+
+In Rust, there are two types of code: *statements* and *expressions*. A *statement* is a piece of
+code that performs some action, but does not return a value. For example, the
+`let` keyword is a statement that declares a variable.
+
+```rust
+let a = 1;
+```
+
+An *expression* is a piece of code that returns a value. For example, the
+`+` operator is an expression that returns the sum of two numbers.
+
+```rust
+let b = 2 + 3;
+```
+
+A *block* is a collection of statements and expressions, delimited by curly
+brackets `{}`, and which returns the value of the last expression in the block. Therefore, a block
+can be used anywhere an expression can be used. For example, we can use a block
+as the value assigned to a variable:
+
+```rust
+let c = {
+    let d = 2;
+    d + 3
+};
+```
+
+Here we have declared a variable `c` and assigned it the value of the block. The
+second line of the block is an expression that returns the value `d + 3`. Since we have not put a
+semicolon `;` at the end of this line, it is not a statement, but an expression. If we had put a
+semicolon at the end of this line, it would have been a statement, and the block would have returned
+the value `()` (pronounced "unit"), which is the value of an empty statement. Try this out for yourself
+and see what type the variable `c` is.
+
+### Shadowing
+
+Rust allows you to *shadow* variables, which means that you can declare a new
+variable with the same name as an existing variable. The new variable will
+*shadow* the existing variable, meaning that the existing variable is no longer
+accessible. For example:
+
+```rust
+let x = 1;
+let x = x + 1;
+```
+
+We could have also written using a mutable variable:
+
+```rust
+let mut x = 1;
+x = x + 1;
+```
+
+But shadowing allows us to update the value of a variable, and still keep the
+variable immutable.
+
+Like other languages, Rust also allows shadowing of variables within a block. However, the difference here is that the
+shadowed variable is still accessible outside the block. For example:
+
+```rust
+let x = 1;
+{
+    let x = 2;
+    println!("inner x = {}", x);
 }
+println!("outer x = {}", x);
 ```
 
-Each variable has a particular block *scope* where it is valid, which starts
-where the variable is declared and covers to the end of the current block,
-including any inner blocks. In the example above, the `two` variable is in
-scope until the end of the main function. However, the `i` and `x` variables
-are only in scope until the end of the `for` loop.
+```
+inner x = 2
+outer x = 1
+```
 
 
 ::::challenge{id=scope title="Largest Circumference"}
@@ -174,146 +218,200 @@ circumference, but unfortunately our program won't compile.
 Fix the code so that it compiles and the largest circumference is printed.
 Ensure that all constant variables are explicitly marked `const`.
 
-```cpp
-int pi = 3.14;
-for (int i = 0; i < 10; i++) {
-    double radius = static_cast<double>(i);
-    double circumference  = 2 * pi * radius;
+```rust
+fn main() {
+    let pi = 3.14;
+    for i in 0..10 {
+        let radius = i / 10.0;
+        let circumference = 2.0 * pi * radius;
+    }
+    println!("largest circumference is {}", largest_circumference);
 }
-std::cout << "largest circumference is " << circumference << std::endl;
 ```
 
-
 :::callout
-In this snippet we *cast* the integer `i` to the floating point number `radius`,
-this is a way of converting between different types in C++. You will learn more
-about type conversions later in this section
+We have used the `..` operator to create a range of numbers from 0 to 9, and we 
+use a `for` loop to iterate over this range. Note that the range is exclusive of
+the last number, so the loop will iterate over the numbers 0 to 9.
 :::
+
 
 :::solution
 
-The simplest solution is to simple move the `circumference` variable to the outer scope, and correcting the type of `pi`.
+The simplest solution is to simple move the `circumference` variable to the outer block.
 
-```cpp
-const double pi = 3.14;
-double circumference  = 0;
-for (int i = 0; i < 10; i++) {
-    const double radius = static_cast<double>(i);
-    circumference  = 2 * pi * radius;
+```rust
+fn main() {
+    let pi = 3.14;
+    let mut circumference = 0.0;
+    for i in 0..10 {
+        let radius = i / 10.0;
+        circumference = 2.0 * pi * radius;
+    }
+    println!("largest circumference is {}", circumference);
 }
-std::cout << "largest circumference is " << circumference << std::endl;
 ```
 
 However, this code assumes that the largest circumference is computed last. You
 might later on decide to alter the loop so this is no longer the case, so it
 would be safer to not to make this assumption.
 
-```cpp
-const double pi = 3.14;
-double largest_circumference = 0;
-for (int i = 0; i < 10; i++) {
-    const double radius = static_cast<double>(i);
-    const double circumference  = 2 * pi * radius;
-    if (circumference > largest_circumference) {
-        largest_circumference = circumference;
+```rust
+fn main() {
+    let pi = 3.14;
+    let mut largest_circumference = 0.0;
+    for i in 0..10 {
+        let radius = i / 10.0;
+        let circumference = 2.0 * pi * radius;
+        if circumference > largest_circumference {
+            largest_circumference = circumference;
+        }
     }
+    println!("largest circumference is {}", largest_circumference);
 }
-std::cout << "largest circumference is " << largest_circumference << std::endl;
 ```
 :::
 
 ::::
 
 
-### Floating point numbers
+### Basic Types and Type conversions
 
-Lets declare a floating point number in C++:
+Rust has a number of built-in *primitive* types, including integers, floating
+point numbers, booleans, characters, and tuples. We have already seen the `i32`
+type, which is a 32-bit signed integer. Rust also has `i8`, `i16`, `i64`, and
+`i128` types, which are 8, 16, 64, and 128-bit signed integers respectively.
+There are also unsigned integer types `u8`, `u16`, `u32`, `u64`, and `u128`.
 
-~~~cpp
-const float weight_kg = 55.0;
-const float weight_lb = 2.2 * weight_kg;
-std::cout << "Weight in lb " << weight_lb << std::endl;
-~~~
+Rust also has floating point types `f32` and `f64`, which are 32-bit and 64-bit
+floating point numbers respectively. The `f64` type is the default floating
+point type, and is the same as the `double` type in C++.
 
-The useful resource
-[cppreference](https://en.cppreference.com/w/cpp/language/types) tells us that
-the type `float` in C++ is stored in 32 bits, and matches the [IEEE-754 binary32
-format](https://en.wikipedia.org/wiki/Single-precision_floating-point_format).
-If you follow this link to the wikipedia article, you can see that this format
-is very different to the format used to store an `int`.
+A *literal* is a value that is written directly into the source code. When we declare a variable
+with a literal, the compiler infers the type of the variable from the literal. For example:
 
-Note that literals like `55.0` also have a type in C++, and it is a good rule of
-thumb to be consistent with your types. Writing something like `float weight_kg
-= 55` is actually assigning an integer to a float and involves an *implicit*
-type conversion. In this case there is no harm done, but implicit type
-conversions are a source of bugs and should be avoided.
+```rust
+let x = 1; // x has type i32
+let y = 2.0; // y has type f64
+```
 
-Note that you can, and should, be even more explicit in type of literal you are using and
-specify it using a
-[suffix](https://en.cppreference.com/w/cpp/language/floating_literal):
+In the above example, `x` has type `i32` because `i32` is the default type for integer literals, and `y` has type `f64` because `f64` is the default type for floating point literals.
 
-~~~cpp
-const float weight_kg = 55.0f;
-const float weight_lb = 2.2f * weight_kg;
-std::cout << "Weight in lb " << weight_lb << std::endl;
-~~~
+We can also explicitly specify the type of a variable by using a *type suffix* on the literal. For example:
 
-Now we have specified that all the literals are `float` (as opposed to
-`double`, which is a 64 bit floating point type in C++). Writing the same code
-using `double` looks like this:
+```rust
+let x = 1i64; // x has type i64
+let y = 2.0f32; // y has type f32
+```
 
-~~~cpp
-const double weight_kg = 55.0;
-const double weight_lb = 2.2 * weight_kg;
-std::cout << "Weight in lb " << weight_lb << std::endl;
-~~~
+Many other languages allow you to convert between types implicitly, which is a
+common source of bugs. With its focus on safety, Rust does not allow implicit
+type conversions. Instead, you must explicitly convert between types using the
+`as` keyword. For example:
 
-## Strings
+```rust
+let x = 1i64; // x has type i64
+let y = x as f32; // y has type f32
+```
 
-Thus far we have been using only the *fundamental types* in C++. And we've only
-touched on a couple of these, you can see a more thoughor list
-[here](https://en.cppreference.com/w/cpp/language/types).
+Another common source of bugs in other languages is overflow, which is when a
+number is too large to be represented by its type. Rust prevents this by
+checking for overflow at compile time. For example:
 
-Like in many languages, C++ allows you to define *classes*. These are
-user-defined types that contain data in the form of *member variables* (in
-Python we call these "properties" or "attributes"), and functions that operate
-on that data in the form of *member functions* (in Python these are called
-"methods"). This follows a different programming paradigm known as
-*object-orientated* programming, or OO. We won't cover OO much in this course,
-but since many useful standard types in C++ are defined as classes in the C++
-standard library you need to be aware how to use classes in C++.
+```rust
+let x = 127i8;
+let y = x + 1;
+```
 
-A string in C++ typically uses the `std::string` class. Here `std::string`
-indicates the `string` class that is defined in the `std` namespace. Namespaces
-are a way to group together a number of related functions, types and classes in
-such a way that their names do not conflict with functions/types/classes in
-other namespaces. E.g. `std::string` refers to a different class than
-`my_namespace::string`. The `std::string` class is defined in the `string`
-header file, so before we use it we need to *include* this header in our source
-file (at the top of the file above our `main` function):
+```
+error: this arithmetic operation will overflow
+ --> src/main.rs:4:13
+  |
+4 |     let y = x + 1;
+  |             ^^^^^ attempt to compute `i8::MAX + 1_i8`, which would overflow
+```
 
-~~~cpp
-#include <iostream>
-#include <string>
+If the compiler cannot determine whether overflow will occur at compile time, it
+will panic at runtime. For example:
 
-int main() {
-    std::string given = "Joe";
-    std::string middle = "Frederick";
-    std::string family = "\'Bloggs\'";
-    std::string full = given + " " + middle + " " + family;
-    std::cout << full << std::endl;
+```rust
+let mut x = 0i8;
+for _ in 0..128 {
+    x += 1;
 }
-~~~
+```
 
-~~~
-Joe Frederick 'Bloggs'
-~~~
+```
+error: this arithmetic operation will overflow
+ --> src/main.rs:4:13
+  |
+4 |     let y = x + 1; // error: literal out of range for i8
+  |             ^^^^^ attempt to compute `i8::MAX + 1_i8`, which would overflow
+  |
+  = note: `#[deny(arithmetic_overflow)]` on by default
+```
 
-As with strings in Python, we can use the `+` operator to concatenate two C++
-strings together. However, we can only use double quotes for strings in C++, as
-single quotes are reserved for characters. To include the single quotes in our
-string, we use the backslash to *escape* the normal meaning of the single quote
-character.
+
+## char, str and String
+
+A `char` is a single Unicode character, and is denoted by single quotes `'`. For
+example:
+
+```rust
+let c = 'a';
+```
+
+A `str` is a *string slice*, which is a reference to a sequence of UTF-8 bytes
+in memory. A string slice is denoted by double quotes `"`. For example:
+
+```rust
+let s = "hello";
+```
+
+A `String` is a *heap-allocated* string. In a systems programming language like Rust, it is important to
+understand the difference between stack-allocated and heap-allocated data. Data
+allocated on the stack is stored directly in the memory where the function is
+executing. This is very fast, but the size of the data must be known at compile
+time. Data allocated on the heap is stored in a different part of memory, and
+the size of the data does not need to be known at compile time. This is slower
+that stack allocation, since the program must request memory from the operating
+system at runtime, but it is more flexible.
+
+A `String` is heap-allocated, and can be created from a string slice using the
+`to_string` method:
+
+```rust
+let s = "hello".to_string();
+```
+
+
+
+
+Often a String is created from the `format!` macro, which allows you to create a
+string from a template:
+
+
+```rust
+let given = "Joe";
+let middle = "Frederick";
+let family = "\'Bloggs\'";
+let full = format!("{} {} {}", given, middle, family);
+println!("{}", full);
+```
+
+The syntax for the `format!` macro is similar to the `println!` macro that we have already seen, so we could have also written:
+
+```rust
+println!("{} {} {}", given, middle, family);
+```
+
+A `str` reference can be created from a `String` using the `as_str` method:
+
+```rust
+let full_ref = full.as_str();
+```
+
+Now we have a `String` and a `str` reference to the same data.
 
 ## References
 
@@ -617,3 +715,4 @@ std::cout << "pi is about "<< std::sqrt(6.0*sum) << std::endl;
 :::
 
 ::::
+
