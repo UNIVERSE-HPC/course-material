@@ -358,11 +358,15 @@ int &r_number = six;
 int &r_number2 = six;
 std::cout << "six = " << r_number << std::endl;
 r_number += 1;
+std::cout << "seven = " << r_number << std::endl;
 std::cout << "seven = " << r_number2 << std::endl;
+std::cout << "seven = " << six << std::endl;
 ~~~
 
 ~~~
 six = 6
+seven = 7
+seven = 7
 seven = 7
 ~~~
 
