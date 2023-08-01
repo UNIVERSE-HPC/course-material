@@ -68,7 +68,7 @@ have the following structure:
 class Node(object):
     "Generic tree node."
     def __init__(self, name='root', children=None):
-        self.value = value
+        self.value = name
         self.children = children or []
 
     def __repr__(self):
@@ -79,9 +79,9 @@ class Node(object):
 #  1  *
 #    / \
 #   2   3
-t = Tree('+', [Tree('1'),
-               Tree('*', [Tree('2'),
-                          Tree('3')])])
+t = Node('+', [Node('1'),
+               Node('*', [Node('2'),
+                          Node('3')])])
 ```
 
 Write:
