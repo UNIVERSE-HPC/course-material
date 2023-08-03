@@ -8,4 +8,6 @@ files: [
     01_understanding_scalability.md,
     02_scalability_profiling.md
 ]
+summary: |
+    This session introduces the concept of scalability and how to profile the scalability of your code.
 ---

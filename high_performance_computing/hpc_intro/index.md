@@ -13,4 +13,7 @@ files: [
     05_modules.md,
     06_transferring_files.md
 ]
+summary: |
+    An introduction to high-performance computing (HPC), covering connecting to HPC resources and the slurm job scheduler.
+
 ---

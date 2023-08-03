@@ -15,6 +15,10 @@ attribution:
       url: https://doi.org/10.5281/zenodo.6532057
       image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
       license: CC-BY-4.0
+summary: |
+    This course will show you how to use Git for effective collaboration with others
+    using the GitHub platform. After completion of the course, you will be able to
+    contribute to projects on GitHub, including opening issues and pull requests.
 ---
 
 This course will show you how to use Git for effective collaboration with others

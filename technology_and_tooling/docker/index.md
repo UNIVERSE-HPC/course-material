@@ -25,6 +25,9 @@ attribution:
       url: https://github.com/carpentries-incubator/docker-introduction
       image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
       license: CC-BY-4.0
+summary: |
+    This course aims to introduce the use of Docker containers with the goal of
+    using them to effect reproducible computational environments.
 ---
 
 This session aims to introduce the use of Docker containers with the goal of

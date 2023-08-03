@@ -8,6 +8,10 @@ files: [
     python.md,
     cpp.md,
 ]
+summary: |
+    Integrated Development Environments (IDEs)provide programmers with a complete development environment to
+    write, edit, debug, and deploy their code. This course introduces the popular VSCode IDE, both for Python
+    and C++ development.
 ---
 
 Integrated Development Environments, commonly known as IDEs, are software

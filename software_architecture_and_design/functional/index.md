@@ -12,6 +12,10 @@ files: [
     higher_order_functions_cpp.md,
     higher_order_functions_python.md,
 ]
+summary: |
+    Functional Programming is based around the idea that programs are constructed
+    by applying and composing/chaining **functions**. This course will introduce
+    you to the basics of functional programming in either Python or C++.
 ---
 
 Functional programming is a programming paradigm where programs are constructed

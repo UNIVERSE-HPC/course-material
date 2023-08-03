@@ -21,6 +21,9 @@ attribution:
       url: https://snakemake.readthedocs.io/en/stable/tutorial/basics.html
       image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
       license: MIT license
+summary: |
+    This tutorial introduces the text-based workflow system
+    Snakemake. 
 ---
 
 This tutorial introduces the text-based workflow system

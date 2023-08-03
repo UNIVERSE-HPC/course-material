@@ -6,6 +6,10 @@ dependsOn: [
 files: [
     bash.md,
 ]
+summary: |
+    The Bash shell is a command-line interface used in Unix-based operating systems
+    such as Linux and macOS. This course will introduce you to the basics of using
+    the Bash shell.
 ---
 
 

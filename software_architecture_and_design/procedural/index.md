@@ -13,6 +13,10 @@ files: [
 dependsOn: [
   technology_and_tooling.ide
 ]
+summary: |
+  Procedural Programming is based around the idea that code should be structured
+  into a sequence of **procedures** that operate on data. This course will
+  introduce you to the basics of procedural programming in either Python or C++.
 ---
 
 ## The Procedural Paradigm

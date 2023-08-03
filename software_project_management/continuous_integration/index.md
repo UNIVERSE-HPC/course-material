@@ -9,6 +9,8 @@ files: [
     code_coverage.md,
     documentation.md
 ]
+summary: |
+    This course introduces the concept of continuous integration and how to set it up for a Python project using GitHub Actions.
 ---
 
 ## What is Continuous Integration?

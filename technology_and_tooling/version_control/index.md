@@ -19,6 +19,9 @@ attribution:
     url: https://swcarpentry.github.io/git-novice/
     image: https://swcarpentry.github.io/git-novice/assets/img/swc-icon-blue.svg
     license: CC-BY-4.0
+summary: |
+    This course introduces the basics of version control using the Git version control system.
+    We will learn how to setup Git, and use it to track changes in our code.
 
 ---
 

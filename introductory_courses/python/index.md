@@ -26,6 +26,10 @@ attribution:
       url: https://swcarpentry.github.io/python-novice-inflammation/
       image: https://carpentries.org/assets/img/TheCarpentries.svg
       license: CC-BY-4.0
+summary: |
+    This course introduces the basics of programming in Python.
+    We will learn how to run Python code, and how to use variables, functions, and control flow.
+    We will also learn how to use Python for data analysis and visualization.
 ---
 
 **Python: A High-Level Overview**

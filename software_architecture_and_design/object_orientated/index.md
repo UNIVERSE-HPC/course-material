@@ -12,6 +12,9 @@ files: [
     polymorphism.md,
     polymorphism_cpp.md,
 ]
+summary: |
+    The Object Oriented Paradigm builds upon the Procedural Paradigm, but builds code around data.
+    This course will introduce you to the basics of Object Oriented Programming in either Python or C++.
 ---
 
 ## The Object Oriented Paradigm

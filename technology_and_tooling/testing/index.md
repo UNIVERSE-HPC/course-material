@@ -16,6 +16,8 @@ attribution:
       url: https://doi.org/10.5281/zenodo.6532057
       image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
       license: CC-BY-4.0
+summary: |
+    This course introduces the basics of automated testing and debugging in Python, using the Pytest framework.
 ---
 
 in this section, we'll look at testing approaches that can help us ensure that the software we write is behaving as intended, and how we can diagnose and fix issues once faults are found. Using such approaches requires us to change our practice of development. This can take time, but potentially saves us considerable time in the medium to long term by allowing us to more comprehensively and rapidly find such faults, as well as giving us greater confidence in the correctness of our code - so we should try and employ such practices early on. We will also make use of techniques and infrastructure that allow us to do this in a scalable, automated and more performant way as our codebase grows.

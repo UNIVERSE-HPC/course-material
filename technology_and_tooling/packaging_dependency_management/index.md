@@ -20,5 +20,9 @@ attribution:
       url: https://github.com/OxfordRSE/python-packaging-course
       image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
       license: CC-BY-4.0
+summary: |
+    This course introduces the basics of packaging and dependency management in Python and C++.
+    For Python, we introduce `venv` for virtual envronments, and `pip` for package management and how to structure a modern Python package and publish it to PyPI.
+    For C++, we introduce the CMake build system and how use it to manage dependencies and the build process.
 ---
 
