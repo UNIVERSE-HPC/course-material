@@ -413,123 +413,399 @@ let full_ref = full.as_str();
 
 Now we have a `String` and a `str` reference to the same data.
 
-## References
+## Pattern matching with Enums and Option
 
-Previously we explained that variables in Python are only labels for a "box", or
-section of memory, that holds a value. You can therefore have multiple labels
-for the same box. In C++ a variables is the box itself, each variables is
-assigned a given section of memory where the value is stored according to its
-type. You can obtain the address, or *pointer*, to the start of this section of
-memory by using the *address-of* operator `&`. We can obtain the original
-variable by using the *dereferencing* operator `*`.
+An *enum* is a type that can have a number of different values. You can declare
+an enum using the `enum` keyword, and then list the possible values. For
+example:
 
-~~~cpp
-int *p_six = &six;
-std::cout << "six = *p_six" << std::endl;
-~~~
+```rust
+enum Direction {
+    Positive,
+    Negative,
+}
+```
 
-Note that the type of `p_six` is a pointer to an `int`, denoted as `int *`. On a
-64-bit operating system, all pointer types are stored in 64 bits of memory. You
-might think that this pointer is similar to a label, or Python variable, but a
-raw pointer like this is much more low-level and potentially dangerous than
-this, and you should generally avoid creating them. Instead, C++ features a wide
-variety of [*smart
-pointers*](https://en.cppreference.com/book/intro/smart_pointers) that you
-should use instead (a variable in Python is most closely related to a
-`std::shared_pointer`). However, all of these pointers share simliar semantics
-in that a pointer can point to nothing, otherwise known as a *null pointer* and
-represented in C++ by the literal `nullptr`. 
+The enum can hold data, for example we might want to store the magnitude of the change in either direction:
 
-Generally, you should not use pointers unless you need to worry about allocating
-memory (e.g. you are writing a custom data structure). A more useful
-label-to-a-box in C++ that must point to a valid memory location is provided by
-a *reference*. This is similar to a pointer in that it is a label to a box
-(rather than *being* that box), and therefore you can have multiple references
-to the same box. But you can use it in the same way you would the original
-variable. The type of a reference to an `int` is given by `int &`, so:
+```rust
+enum Change { 
+    Positive(i32),
+    Negative(i32),
+}
+```
 
-~~~cpp
-int &r_number = six;
-int &r_number2 = six;
-std::cout << "six = " << r_number << std::endl;
-r_number += 1;
-std::cout << "seven = " << r_number << std::endl;
-std::cout << "seven = " << r_number2 << std::endl;
-std::cout << "seven = " << six << std::endl;
-~~~
+Rust has a userful feature called *pattern matching*, which allows you to match on the
+value of an enum. For example:
 
-~~~
-six = 6
-seven = 7
-seven = 7
-seven = 7
-~~~
+```rust
+let change = Change::Positive(1);
+match change {
+    Change::Positive(x) => println!("change is positive by {}", x),
+    Change::Negative(x) => println!("change is negative by {}", x),
+}
+```
+
+Match is an expression and can be used on the right hand side of an assignment like so:
+
+```
+let mut value = 5;
+value += match change {
+    Change::Positive(x) => x,
+    Change::Negative(x) => -x,
+};
+
+
+A common use of enums is to represent the absence of a value, using the `Option`
+enum. The `Option` enum can have the value `Some` or `None`. The `Some` variant
+contains the value, and the `None` variant does not contain a value. For
+example:
+
+```rust
+let x: Option<i32> = Some(1);
+let y: Option<i32> = None;
+```
+
+We can use pattern matching to check if a value is present:
+
+```rust
+let x: Option<i32> = Some(1);
+match x {
+    Some(x) => println!("x is {}", x),
+    None => println!("x is not present"),
+}
+```
+
+You can also use the `if let` syntax to check if a value is present:
+
+```rust
+let x: Option<i32> = Some(1);
+if let Some(x) = x {
+    println!("x is {}", x);
+} else {
+    println!("x is not present");
+}
+```
+
+::::challenge{id=option title="Option"}
+
+The following code snippet loops through numbers from 0 to `x` and if the number
+5 exists, stores it in the variable `five`. It uses `five = 0` to indicate that
+the number 5 has not been found, but an `Option` type would be a more suitable
+choice. Using the `Option` enum, rewrite the code so that the number 5 is stored
+in the variable `five` if it exists, and `None` otherwise.
+
+```rust
+let max = 10;
+let five = 0;
+for i in 0..max {
+    if i == 5 {
+        five = i;
+    }
+}
+if five == 0 {
+    println!("five is not present");
+} else {
+    println!("five is {}", five);
+}
+```
+
+:::solution
+
+```rust
+let max = 10;
+let mut five = None;
+for i in 0..max {
+    if i == 5 {
+        five = Some(i);
+    }
+}
+if let Some(five) = five {
+    println!("five is {}", five);
+} else {
+    println!("five is not present");
+}
+```
+:::
+::::
+
+
+## Ownership
+
+Rust is a *memory safe* language and has an explicit model of *ownership* to
+ensure memory safety. The ownership model ensures that there is always exactly
+one owner of a piece of data, and that the owner is responsible for cleaning up
+the data when it is no longer needed. This put the responsibility of clearly
+defining the lifetime of data and ownership on the programmer, rather than the
+compiler. The compiler, however, will check that the rules of ownership are
+followed and will give an error if they are not, ensuring that the program is
+memory safe at compile time.
+
+The ownership model is one of the most important features of Rust, and is
+fundamental to understanding how to write Rust code. It is also one of the most
+difficult concepts to understand, and you will likely spend a lot of time
+fighting with the compiler to get your code to compile. However, once you
+understand the ownership model and how to work with it, you will find that it
+makes writing Rust code much easier and safer, and you will spend less time
+debugging your code at runtime.
+
+The rules of ownership are as follows:
+- Each value or data in Rust has a variable that is called its *owner*.
+- There can only be one owner at a time.
+- When the owner goes out of scope, the value or data will be dropped.
+
+Ownership is mainly relevent in the context of heap-allocated data, such as the `String` type. Let's look at an example:
+
+```rust
+{
+    let s = String::from("hello"); // The memory for storing "hello" is allocated on the heap, and s is the owner of the String data
+    println!("{}", s);             // s is valid within the block so we can access it here
+} // The memory for storing the "hello" String data is dropped here, since s goes out of scope
+println!("{}", s); // s is no longer valid here, so this will give a compiler error
+```
+
+Assigning one variable to another **moves** the data from one variable to the other, transferring ownership. For example:
+
+```rust
+let mut s_outer = String::from("hello");
+{
+    let s = String::from("goodbye"); // Allocate a new string and assign it to s
+    s_outer = s;                     // The memory for storing "goodbye" is moved from s to s_outer, and s is no longer valid
+}
+println!("{}", s_outer); // s_outer is still valid here, since it is the owner of the String data
+```
+
+If we try to access `s` after it has been moved, we get a compiler error:
+
+```rust
+let mut s_outer = String::from("hello");
+{
+    let s = String::from("goodbye");
+    s_outer = s;
+    println!("{}", s);
+}
+```
+
+```
+error[E0382]: borrow of moved value: `s`
+ --> src/main.rs:7:22
+  |
+5 |         let s = String::from("goodbye"); // The memory for storing "hello" is ...
+  |             - move occurs because `s` has type `String`, which does not implement the `Copy` trait
+6 |         s_outer = s;                     // The memory for storing "goodbye" i...
+  |                   - value moved here
+7 |         print!("{}", s);                 // s is no longer valid, so this line...
+  |                      ^ value borrowed here after move
+```
+
+This compiler message mentions the `Copy` trait, which is a trait that indicates
+that a type can be copied rather than moved. We will look at traits in more detail later.
+
+If we want to copy the data rather than move it, we can use the `clone` method:
+
+```rust
+let mut s_outer = String::from("hello");
+{
+    let s = String::from("goodbye");
+    s_outer = s.clone(); // The memory for storing "goodbye" is copied from s to s_outer, and s is still valid
+    println!("{}", s);
+}
+```
+
+Note that this discussion is only relevant for heap-allocated data, like `String`,
+and for containers such as `Vec`. For stack-allocated data, like integers, the
+data is copied rather than moved, so the original variable is still valid:
+
+```rust
+let mut x = 1;
+let y = x; // The value of x is copied to y, and x is still valid
+println!("x = {}, y = {}", x, y);
+```
+
+::::challenge{id=ownership title="Ownership"}
+
+The following code snippet will not compile. Fix the code so that it compiles.
+There are at least three ways to fix the code, can you list them all?
+
+```rust
+let hot_msg = "Its too hot!".to_string();
+let ok_msg = "Its ok!".to_string();
+for temp in 0..50 {
+    let msg = if temp > 30 {
+        hot_msg
+    } else {
+        ok_msg 
+    };
+    println!("{}: {}", temp, msg)
+}
+```
+
+:::solution
+
+You could either:
+- Move the `hot_msg` and `ok_msg` variables into the loop
+
+  ```rust
+  for temp in 0..50 {
+    let hot_msg = "Its too hot!".to_string();
+    let ok_msg = "Its ok!".to_string();
+    // ...
+  ```
+
+- Clone the `hot_msg` and `ok_msg` variables into the loop
+
+  ```rust
+    // ...
+    let msg = if temp > 30 {
+        hot_msg.clone()
+    } else {
+        ok_msg.clone()
+    };
+    // ...
+  ```
+
+- Use a literal `str` instead of a `String` for the `hot_msg` and `ok_msg` variables
+
+  ```rust
+  let hot_msg = "Its too hot!";
+  let ok_msg = "Its ok!";
+  for temp in 0..50 { //....
+  ```
+
+:::
+::::
+
+
+
+## References and the borrow checker
+
+A *reference* to a variable acts like a pointer to that variable. It is a
+lightweight way to allow multiple variables to access the same data, or to
+enable passing in a variable to a function without moving or copying the
+variable into the function scope. Unlike a pointer, a reference is guarenteed to
+always point to valid data, but the reference does not own the data. For
+example, we can create a reference to a variable using the `&` operator:
+
+```rust
+let x = 1;
+let y = &x;
+println!("x = {}, y = {}", x, y);
+```
+
+```
+x = 1, y = 1
+```
+
+Here we have created a reference `y` to the mutable variable `x`. But we cannot change
+the value of `x` through `y`:
+
+```rust
+let mut x = 1;
+let y = &x;
+*y = 2;
+```
+
+```
+error[E0594]: cannot assign to `*y`, which is behind a `&` reference
+ --> src/main.rs:5:5
+  |
+5 |     *y = 2;
+  |     ^^^^^^ `y` is a `&` reference, so the data it refers to cannot be written
+  |
+help: consider changing this to be a mutable reference
+  |
+4 |     let y = &mut x;
+  |             ~~~~~~
+```
+
+This is because `y` is an *immutable* reference to `x`. Helpfully, the compiler
+suggests a fix, if we want to be able to change the value of `x` through `y`, we
+need to make `y` a *mutable* reference:
+
+```rust
+let mut x = 1;
+let y = &mut x;
+*y = 2;
+println!("y = {}", y);
+```
+
+```
+y = 2
+```
+
+Here we have created a mutable reference `y` to the mutable variable `x`. We
+can now change the value of `x` through `y` by dereferencing `y` using the `*`
+operator.
+
+In Rust, taking a reference to a variable is called *borrowing*. The compiler
+enforces a set of rules to ensure that all borrows, or references, point to
+valid data. This is called the *borrow checker*, and while you will find it is a
+source of many compiler errors, it is a very powerful tool for ensuring the
+safety of your code and eliminates many bugs that would otherwise be difficult
+to find at runtime.
+
+The borrow checker ensures that at any given time you can have **one mutable
+reference** to a variable, or **any number of immutable references**.
+
+For example, the following code is fine:
+
+```rust
+let x = 1;
+let y = &x;
+let z = &x;
+```
+
+```rust
+let mut x = 1;
+let y = &mut x;
+```
+
+But the following code is not:
+
+```rust
+let mut x = 1;
+let y = &x;
+let z = &mut x;
+```
+
+```rust
+let mut x = 1;
+let y = &mut x;
+let z = &mut x;
+```
+
 
 ::::challenge{id=pointers title="Getting used references"}
 
-Declare a `double` called `d` with the value `5.0`. Create a reference to this
-double `r_d` and assign `6.0` to this reference. Verify that `d` has changed
-value by printing it out.
+This is an example of mixing mutable and immutable references. The code will
+not compile. Fix the code so that it compiles.
 
-Try and mark `d` as `const` and see what the compiler tells you.
+```rust
+let mut full_name = "John Doe".to_string();
+// Get the first name, split the string on whitespace and take the first element
+let first_name = full_name.split(" ").next().unwrap(); 
+println!("Hello, {}", first_name);
+full_name.push_str(" Jr.");
+println!("Hello, {}", first_name);
+```
 
 :::solution
-```cpp
-double d = 5.0;
-double& r_d = d;
-r_d = 6.0
-std::cout << d << std::endl;
+One solution is to move the immutable reference into a block, so that it goes
+out of scope before the mutable reference is created.
+
+```rust
+let mut full_name = "John Doe".to_string();
+{
+    // Get the first name, split the string on whitespace and take the first element
+    let first_name = full_name.split(" ").next().unwrap(); 
+    println!("Hello, {}", first_name);
+}
+full_name.push_str(" Jr.");
+{
+    let first_name = full_name.split(" ").next().unwrap();
+    println!("Hello, {}", first_name);
+}
 ```
-:::
-
-::::
-
-There are two types of references in C++, *lvalue* and *rvalue* references.
-Above we have used lvalue references, which are so-called because they can only
-be *bound* to an lvalue, such as a variable or element of a container (i.e.
-anything
- that you could put on the left hand side of an assignment `=`
-statement). An lvalue reference is declared using a single `&`. 
-
-```cpp
-int six = 6;
-int& r_six = six;
-```
-
-An rvalue refernce is more general in that it can also be bound to temporaries,
-or rvalues. An rvalue could be a literal like `6` or the result of an expression
-like `a + b` (i.e. something that you might see on the right hand side of an
-assignment `=` statement). An rvalue reference is declared using two ampersands `&&`.
-
-```cpp
-int&& rr_six = 6;
-```
-
-Rvalue references are commonly used to enable *move semantics* in C++. You
-often want to write code that minimises the number of copies, for example say
-you wished to swap the values of two (large) strings `war_and_peace` and `moby_dick`.
-
-
-```cpp
-T tmp(war_and_peace);
-war_and_peace = moby_dick;
-moby_dick = tmp;
-```
-
-Here we have done three copies of what could be very large strings. We can use
-the `std::move` function to do this more efficiently by changing the lvalue
-references to rvalue references.
-
-```cpp
-T tmp(std::move(war_and_peace);
-war_and_peace = std::move(moby_dick);
-moby_dick = std::move(tmp);
-```
-
-The `std::move` function allows us to transfer the value of variable `a` to
-variable `b`, without the requiriment of maintaining the value of `a`. Note that
-after we have moved `a` its value is now unspecified, so after the last
-statement in the snippet above, the value of `tmp` will be unspecified.
 
 
 ### Optional types
