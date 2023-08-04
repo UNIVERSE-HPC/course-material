@@ -790,7 +790,7 @@ println!("Hello, {}", first_name);
 :::solution
 One solution is to move the immutable reference into a block, so that it goes
 out of scope before the mutable reference is created. Since we need to repeat the code
-in each block, we should probably move it into a function. We'll cover functions
+in each block, we should probably move it into a function, but we'll cover functions
 in more detail later.
 
 ```rust
