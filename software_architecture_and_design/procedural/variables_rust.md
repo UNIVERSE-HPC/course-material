@@ -352,7 +352,7 @@ error: this arithmetic operation will overflow
 ```
 
 
-## char, str and String
+## Strings 
 
 A `char` is a single Unicode character, and is denoted by single quotes `'`. For
 example:
@@ -368,14 +368,14 @@ in memory. A string slice is denoted by double quotes `"`. For example:
 let s = "hello";
 ```
 
-A `String` is a *heap-allocated* string. In a systems programming language like Rust, it is important to
-understand the difference between stack-allocated and heap-allocated data. Data
-allocated on the stack is stored directly in the memory where the function is
-executing. This is very fast, but the size of the data must be known at compile
-time. Data allocated on the heap is stored in a different part of memory, and
-the size of the data does not need to be known at compile time. This is slower
-that stack allocation, since the program must request memory from the operating
-system at runtime, but it is more flexible.
+A `String` is a *heap-allocated* string. In a systems programming language like
+Rust, it is important to understand the difference between stack-allocated and
+heap-allocated data. Data allocated on the stack is stored directly in the
+memory where the function is executing. This is very fast, but the size of the
+data must be known at compile time. Data allocated on the heap is stored in a
+different part of memory, and the size of the data does not need to be known at
+compile time. This is slower that stack allocation, since the program must
+request memory from the operating system at runtime, but it is more flexible.
 
 A `String` is heap-allocated, and can be created from a string slice using the
 `to_string` method:
@@ -383,8 +383,6 @@ A `String` is heap-allocated, and can be created from a string slice using the
 ```rust
 let s = "hello".to_string();
 ```
-
-
 
 
 Often a String is created from the `format!` macro, which allows you to create a
@@ -448,7 +446,7 @@ match change {
 
 Match is an expression and can be used on the right hand side of an assignment like so:
 
-```
+```rust
 let mut value = 5;
 value += match change {
     Change::Positive(x) => x,
@@ -457,9 +455,9 @@ value += match change {
 
 
 A common use of enums is to represent the absence of a value, using the `Option`
-enum. The `Option` enum can have the value `Some` or `None`. The `Some` variant
-contains the value, and the `None` variant does not contain a value. For
-example:
+enum in the standard library. The `Option` enum can have the value `Some` or
+`None`. The `Some` variant contains the value, and the `None` variant does not
+contain a value. For example:
 
 ```rust
 let x: Option<i32> = Some(1);
@@ -791,7 +789,9 @@ println!("Hello, {}", first_name);
 
 :::solution
 One solution is to move the immutable reference into a block, so that it goes
-out of scope before the mutable reference is created.
+out of scope before the mutable reference is created. Since we need to repeat the code
+in each block, we should probably move it into a function. We'll cover functions
+in more detail later.
 
 ```rust
 let mut full_name = "John Doe".to_string();
