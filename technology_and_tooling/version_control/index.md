@@ -5,35 +5,30 @@ dependsOn: [
     technology_and_tooling.bash_shell
 ]
 files: [
-  01-basics.md,
+  01-background.md,
   02-setup.md,
   03-create.md,
   04-changes.md,
   05-history.md,
-  06-ignore.md
+  06-remote.md,
+  07-branches.md,
+  08-ignore.md
 ]
 attribution:
   - citation: >
-        This material was originally taken from sections 1-6 of the [software carpentries
-        course "Version Control with Git".
-    url: https://swcarpentry.github.io/git-novice/
-    image: https://swcarpentry.github.io/git-novice/assets/img/swc-icon-blue.svg
+        This material was originally taken from training materials developed by the
+        University of Southampton Research Software Group, which are based on
+        the [software carpentries course "Version Control with Git".
+    url: https://github.com/Southampton-RSG-Training/git-novice/
+    image: https://swcarpentry.github.io/git-novice/assets/img/home-logo.png
     license: CC-BY-4.0
 
 ---
 
-
-
-Wolfman and Dracula have been hired by Universal Missions (a space services
-spinoff from Euphoric State University) to investigate if it is possible to send
-their next planetary lander to Mars. They want to be able to work on the plans
-at the same time, but they have run into problems doing this in the past. If
-they take turns, each one will spend a lot of time waiting for the other to
-finish, but if they work on their own copies and email changes back and forth
-things will be lost, overwritten, or duplicated.
-
-A colleague suggests using version control to manage their work. Version control
-is better than mailing files back and forth:
+Version control (or VC for short ) can also be called revision control or source
+control. The simplest description is that VC is a tool that tracks changes to
+files. It’s like turning on “Track Changes” in Word or Google Docs, but for code.
+So why would you want to do that?
 
 Nothing that is committed to version control is ever lost, unless you work
 really, really hard at it. Since all old versions of files are saved, it’s
