@@ -45,7 +45,7 @@ $ git config --global user.email "fsurname@university.ac.uk"
 We're going to set **Nano**, a simple, minimal command-line text editor to be the default for when you need to edit messages.
 
 ~~~bash
-$ git config --global core.editor "nano -w"`
+$ git config --global core.editor "nano -w"
 ~~~
 
 If you're already comfortable with another command-line editor, feel free to select that!

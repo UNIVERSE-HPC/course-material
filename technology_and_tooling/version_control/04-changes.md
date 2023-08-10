@@ -120,7 +120,7 @@ nothing to commit, working directory clean
 
 it tells us our local repository is up-to-date, although now we have edits to it that the remote version of it doesn't (we'll get to that later!).
 
-![Add and Commit](fig/04-changes/add.svg){:width="60%"}
+![Add and Commit](fig/04-changes/add.svg)
 
 Git has a special **staging** area
 where it keeps track of things that have been **added** to

@@ -1,5 +1,5 @@
 ---
-name: Creating a Repository
+name: Ignoring Things
 dependsOn: [
     technology_and_tooling.version_control.07-branches
 ]
