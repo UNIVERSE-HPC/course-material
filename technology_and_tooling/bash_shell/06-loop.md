@@ -169,8 +169,7 @@ in order to make its purpose clearer to human readers.
 The shell itself doesn't care what the variable is called;
 if we wrote this loop as:
 
-{: .bash}
-~~~
+~~~bash
 for x in basilisk.dat minotaur.dat unicorn.dat
 do
     head -3 $x
@@ -179,8 +178,7 @@ done
 
 or:
 
-{: .bash}
-~~~
+~~~bash
 for temperature in basilisk.dat minotaur.dat unicorn.dat
 do
     head -3 $temperature
