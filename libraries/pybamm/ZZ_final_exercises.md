@@ -29,4 +29,10 @@ In [CROSSREF]() we saw how to run experiments, that is how to change the cycling
 
 ## Exercise 4: Multi-particle models
 
-## Exercise 5: Parameter sweeps and sensitivity analysis
+## Exercise 5: Batch study and sensitivity analysis
+One of the first examples we saw in [CROSSREF]() was how to compare various PyBaMM models. The goal of this exercise is to explore how to compare various simulations and perform sensitivity analysis.
+1. Compare the SPM, SPMe and DFN models as explained in [CROSSREF]().
+2. PyBaMM has the `BatchStudy` function that allows to streamline comparisons. Repeat the comparison above but using `BatchStudy`. Tip: check the docs for more information about this function.
+3. Compare the three models for two parameter sets of your choice. Tip: you may want to check what the `permutations` option does.
+4. Perform a parameter sweep for one parameter and one model of your choice.
+5. TODO: SOMETHING ON SENSITIVITIES
