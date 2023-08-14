@@ -441,8 +441,14 @@ fn main() -> Result<(), Box<dyn Error>> {
 ```
 
 :::callout
-Note that we are using the `?` operator to propagate errors from the csv crate `from_path` function, and the `parse` function to the return value of the `main` function. Helpfully, the text of the error is printed to the screen when the program is run and an error occurs.
+Note that we are using the `?` operator to propagate errors from the csv crate
+`from_path` function, and the `parse` function to the return value of the `main`
+function. Helpfully, the text of the error is printed to the screen when the
+program is run and an error occurs. You will learn more about error handling in
+the next section.
 :::
+
+
 
 :::callout
 You might run into an issue with the borrow checker using the example code above. Notice how we get a reference to a `str` for the `iris_class` variable. Think about the lifetime of this reference and how it relates to the `Vec` container you are constructing. You might need to use the `to_owned` or `to_string` methods to fix this.
