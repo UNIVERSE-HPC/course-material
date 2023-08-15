@@ -9,6 +9,9 @@ files: [
     containers_python.md,
     functions_python.md,
     arrays_python.md,
+    variables_rust.md,
+    functions_rust.md,
+    containers_rust.md,
 ]
 dependsOn: [
   technology_and_tooling.ide
