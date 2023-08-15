@@ -434,6 +434,7 @@ second call to `get_first`, the `push` to `x` is invalid because we already have
 an immutable reference to `x` (the returned reference).
 
 
+
 ## Return values
 
 Functions can have no return value
@@ -460,7 +461,7 @@ fn get_student_and_grade() -> (String, f64) {
 }
 ```
 
-or can *optionally* return value (i.e. either a value or nothing) via `Option`:
+or can *optionally* return a value (i.e. either a value or nothing) via `Option`:
 
 ```rust
 fn read_file_if_exists(filename: &str) -> Option<String> {
@@ -492,11 +493,11 @@ with it (if possible), or fail gracefully (perhaps clean up resources like an
 open file for example). In the previous section we saw one approach to dealling
 with an error, which is to return an optional value from the function. Another
 approach is to use a Rust `Result` type. This is a type that can either be a
-value or an error. For example, let us define a function for solving a particular problem (e.g. a root-finding
-problem). This function has an input argument `x` of type `f64`, but the
-solver we are writing can only solve the given problem for $x > 2.0$. Furthermore,
-even if $x > 2.0$ it is possible that the function fails to find a solution to
-the problem. 
+value or a specified error type. As an example, let us define a function for
+solving a particular numerical problem (e.g. a root-finding problem). This function has an
+input argument `x` of type `f64`, but the solver we are writing can only solve
+the given problem for $x > 2.0$. Furthermore, even if $x > 2.0$ it is possible
+that the function fails to find a solution to the problem. 
 
 Since we have two possible points of failure, we decide to use a `Result` to
 make the caller aware of any failures, and what in particular has gone wrong.
@@ -516,10 +517,10 @@ fn solve_problem(x: f64) -> Result<f64, String> {
 
 The `Result` type takes two type arguments, the first is the type of the value
 that is returned if the function succeeds, and the second is the type of the
-error that is returned if the function fails. It is common to use `String` as
-the error type, but you can use any type that implements the
-`std::error::Error`. Alternatively, you can use third-party error types such as
-the `anyhow` crate.
+error that is returned if the function fails. Here we use `String` as the error
+type, or you can use any type that implements `std::error::Error`.
+Alternatively, you can use other third-party error types such as the popular `anyhow`
+crate.
 
 Below is an example of how you might call `solve_problem` and handle the
 possible errors with a `match` statement:
@@ -580,3 +581,64 @@ The `?` operator can only be used in functions that return `Result` or `Option`,
 and is a convenient way of propagating errors or `None` values through deeply
 nested function calls.
 
+::::challenge{id=substring title="Finding a substring"}
+
+Write a function that takes two `&str` arguments `a` and `b`, and which tries to
+find if `b` is a substring of `a`. If `b` is a substring of `a`, then the
+function should return a `&str` reference of the first occurence of `b` in `a`.
+If `b` is not a substring of `a`, then the function should return `None`.
+
+Write a second function that instead of a `Option<&str>` return type, returns a
+`Option<usize>` return type, where the `usize` is the index of the first
+occurence of `b` in `a`. A common issue when using Rust is proving to the
+compiler that the returned reference is valid, and a common way of avoiding this is
+to use an index instead of a reference. Note that Rust also has automatic bounds
+checking on array and vector indexing, so you can be sure (at run-time at least)
+that the index is valid. 
+
+:::solution
+```rust
+fn find_substring<'a>(a: &'a str, b: &str) -> Option<&'a str> {
+    if a.len() < b.len() {
+        return None;
+    }
+    for i in 0..a.len() - b.len() + 1 {
+        if &a[i..i + b.len()] == b {
+            return Some(&a[i..i + b.len()]);
+        }
+    }
+    None
+}
+
+fn find_substring_index(a: &str, b: &str) -> Option<usize> {
+    if a.len() < b.len() {
+        return None;
+    }
+    for i in 0..a.len() - b.len() + 1 {
+        if &a[i..i + b.len()] == b {
+            return Some(i);
+        }
+    }
+    None
+}
+
+fn main() {
+    let a = "hello world";
+    let b = "world";
+    let c = "worlds";
+    println!("{}", find_substring(a, b).unwrap());
+    println!("{}", find_substring_index(a, b).unwrap());
+    println!("{}", find_substring(a, c).unwrap_or("not found"));
+    println!("{}", find_substring_index(a, c).unwrap_or(a.len()));
+}
+```
+:::
+::::
+
+## Key Points
+
+- A function is a block of code that can be called from other parts of the program, allowing code to be re-used.
+- A function can take zero or more arguments, and can optionally return a value.
+- Arguments can be copied (primitive types), moved (other types), or passed by mutable reference, or by immutable reference.
+- Functions can return an `Option` for optional return values, or a `Result` for error handling.
+- The `?` operator can be used to propagate `Option` or `Result` values to the caller.

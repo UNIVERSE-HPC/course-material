@@ -92,7 +92,7 @@ println!("The length of v is {}", v.len());
 
 For more methods on vectors, see the [documentation](https://doc.rust-lang.org/std/vec/struct.Vec.html).
 
-## Loop or iterate over a Vector
+### Loop or iterate over a Vector
 
 A vector can be iterated over using a `for` loop
 
@@ -179,7 +179,7 @@ println!("dot = {}", dot);
 :::
 ::::
 
-## Slices
+### Slices
 
 A *slice* is a reference to a contiguous region of a vector. Slices are
 represented as `&[T]`, where `T` is the type of the elements in the slice. For
@@ -303,12 +303,12 @@ std::cout << first << std::endl;
 
 It is not clear what the output of this program will be. The `push_back` method
 calls could re-allocate the memory for the vector, invalidating the `first`
-variable. In practice, this will probably print `1`, but it could print `2`, or
+reference. In practice, this will probably print `1`, but it could print `2`, or
 crash, or do something else entirely. This is an example of *undefined
 behaviour*, and is a common source of bugs in C++ programs.
 
 In Rust, the borrow checker will prevent this from happening. Consider the
-following Rust code:
+following equivilent Rust code:
 
 ```rust
 let mut v = vec![1];
@@ -335,9 +335,19 @@ error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immuta
 ```
 
 The borrow checker has detected that we are trying to mutate `v` while we still
-have an immutable reference to it. This is not allowed, as we have both a mutable
-and an immutable reference to the same value at the same time.
+have an immutable reference to it. This is not allowed, as we have both a
+mutable and an immutable reference to the same value at the same time. Once the
+compiler has alerted us to the mistake, we can fix it by moving the `first`
+reference to after the `push` calls:
 
+```rust
+let mut v = vec![1];
+v.push(2);
+v.push(3);
+v.push(4);
+let first = &v[0];
+println!("{}", first);
+```
 
 ## Other containers in Rust
 
@@ -493,3 +503,11 @@ fn main() -> Result<(), Box<dyn Error>> {
 ```
 :::
 ::::
+
+## Key Points
+
+- Rust has a number of different container types, including `Vec` and `HashMap`.
+- Slices are references to a contiguous region of a vector.
+- Move semantics are the default in Rust, so values are moved into containers rather than copied (except for primitive types)
+- The borrow checker prevents you from mutating a container while you have an immutable reference to it.
+- Tuples are fixed-size containers of values of different types, they are useful for returning multiple values from a function or holding a collection of useful variables.

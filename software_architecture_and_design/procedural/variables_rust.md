@@ -807,3 +807,17 @@ full_name.push_str(" Jr.");
 }
 ```
 
+## Key Points
+
+- Rust is a statically typed language, which means that the compiler must be
+  able to determine the type of every variable when it compiles your code.
+- Rust has a number of built-in primitive types, including integers, floating
+  point numbers, booleans, characters, and tuples.
+- All type conversions in Rust must be explicit.
+- Rust is a memory safe language and has an explicit model of ownership to
+  ensure memory safety.
+- The compiler enforces a set of rules via the borrow checker to ensure that all borrows, or
+  references, point to valid data.
+
+
+
