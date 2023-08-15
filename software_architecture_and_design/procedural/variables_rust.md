@@ -70,7 +70,7 @@ prints out the value of the variable `six` to the terminal. Note that we have
 used the `{}` syntax to indicate where the value of the variable should be
 substituted into the string.
 
-Note that we don't need to always specify the type of a variable, as the rust compiler can
+Note that we don't need to always specify the type of a variable, as the Rust compiler can
 infer the type from the value assigned to the variable:
 
 ```rust
@@ -101,13 +101,13 @@ large project that takes a significant time to run. In fact, if you are using
 VSCode (or another IDE) you will typically see this error highlighted in the
 editor before you even try to compile your code.
 
-In rust, all variables are *immutable* by default. This means that once you have
+In Rust, all variables are *immutable* by default. This means that once you have
 assigned a value to a variable, you cannot change it. If you try to do so, you
 will get a compiler error:
 
 ~~~rust
-let six_or_seven = 2 * 3;
-six_or_seven = 7;
+let six = 2 * 3;
+six = 7;
 ~~~
 
 ```
@@ -127,8 +127,8 @@ The compiler has identified that we are trying to assign a new value to an immut
 has suggested that we make the variable mutable by adding the `mut` keyword:
 
 ```rust
-let mut six_or_seven = 2 * 3;
-six_or_seven = 7;
+let mut six = 2 * 3;
+six = 7;
 ```
 
 Now the code compiles and runs as expected.
@@ -168,6 +168,17 @@ semicolon `;` at the end of this line, it is not a statement, but an expression.
 semicolon at the end of this line, it would have been a statement, and the block would have returned
 the value `()` (pronounced "unit"), which is the value of an empty statement. Try this out for yourself
 and see what type the variable `c` is.
+
+It is useful to know that the `if` statement in Rust is also an expression, and
+can be used in the same way as the block above:
+
+```rust
+let d = if c > 10 {
+    1
+} else {
+    0
+};
+```
 
 ### Shadowing
 
@@ -216,7 +227,6 @@ ever-larger circles. At the end of the loop we wish to print out the largest
 circumference, but unfortunately our program won't compile.
 
 Fix the code so that it compiles and the largest circumference is printed.
-Ensure that all constant variables are explicitly marked `const`.
 
 ```rust
 fn main() {
@@ -238,7 +248,7 @@ the last number, so the loop will iterate over the numbers 0 to 9.
 
 :::solution
 
-The simplest solution is to simple move the `circumference` variable to the outer block.
+The simplest solution is to simply move the `circumference` variable to the outer block.
 
 ```rust
 fn main() {
@@ -342,15 +352,8 @@ for _ in 0..128 {
 ```
 
 ```
-error: this arithmetic operation will overflow
- --> src/main.rs:4:13
-  |
-4 |     let y = x + 1; // error: literal out of range for i8
-  |             ^^^^^ attempt to compute `i8::MAX + 1_i8`, which would overflow
-  |
-  = note: `#[deny(arithmetic_overflow)]` on by default
+thread 'main' panicked at 'attempt to add with overflow', src/main.rs:6:9
 ```
-
 
 ## Strings 
 
@@ -811,6 +814,9 @@ full_name.push_str(" Jr.");
 
 - Rust is a statically typed language, which means that the compiler must be
   able to determine the type of every variable when it compiles your code.
+- A statement is a piece of code that performs some action, but does not return
+  a value. An expression is a piece of code that returns a value. A block is a
+  collection of statements and expressions, delimited by curly brackets `{}`,
 - Rust has a number of built-in primitive types, including integers, floating
   point numbers, booleans, characters, and tuples.
 - All type conversions in Rust must be explicit.
