@@ -25,8 +25,6 @@ Some previous experience with the shell is expected,
 
 ## Get Started
 
-The slides for this material [are located here](https://southampton-rsg-training.github.io/git-novice/slides/index.html).
-
 **Linux and Mac** users should open a **terminal**, Windows users to should go to the Start Menu and open **Git Bash** from the Git group.
 
 We’ll start by exploring how version control can be used to keep track of what **one person** did and when.

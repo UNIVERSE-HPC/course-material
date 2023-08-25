@@ -14,6 +14,8 @@ attribution:
   license: CC-BY-4.0
 ---
 
+The slides for this material [are located here](slides/index.html).
+
 ## What is Version Control?
 
 Version control (or **VC** for short ) can also be called **revision control** or **source control**. The simplest description is that VC is a tool that tracks **changes** to files. It's like turning on "Track Changes" in Word or Google Docs, but for code. So why would you want to do that?
