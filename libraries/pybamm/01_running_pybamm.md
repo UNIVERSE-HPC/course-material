@@ -157,7 +157,7 @@ experiment = [
 We aim to recognize all contributions by automatically generating citations to the relevant papers on which different parts of the code are built.
 These will change depending on what models and solvers you use. Adding the command
 
-```python3
+```python
 pybamm.print_citations()
 ```
 
