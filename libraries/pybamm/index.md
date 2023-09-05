@@ -4,7 +4,7 @@ name: Intro to PyBaMM
 dependsOn: [
 ]
 files: [
-    01_running_pybamm.md, Experiments.md, Parameter_sets.md, Outputs.md
+    01_running_pybamm.md, 02_experiments.md, 03_parameter_values.md, 04_outputs.md, 05_using_submodels.md, 06_final_exercises.md
 ]
 attribution: 
     - citation: >
