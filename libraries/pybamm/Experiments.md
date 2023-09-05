@@ -1,5 +1,6 @@
 ---
 name: The Experiment class
+id: experiments
 dependsOn: [
 ]
 tags: [pybamm]
@@ -34,8 +35,9 @@ The input argument for the `Experiment` class is a list [square brackets] of tex
 ```
 import pybamm
 model = pybamm.lithium_ion.DFN()
-experiment = pybamm.Experiment(["Discharge at 1C until 3.105 V", "Charge at 0.3C until 4.1 V", "Hold at 4.1 V until C/100"])
-simulation = pybamm.Simulation(model, experiment=experiment)
+parameter_values = pybamm.ParameterValues("Chen2020")
+experiment = pybamm.Experiment(["Discharge at 1C until 2.5 V", "Charge at 0.3C until 4.2 V", "Hold at 4.2 V until C/100"])
+simulation = pybamm.Simulation(model, parameter_values=parameter_values, experiment=experiment)
 ```
 
 If you solve the resulting simulation, the solution will have different cycles, one for each string in the list used to create the experiment.
@@ -59,10 +61,10 @@ You may have noticed that the experiment above, with three "cycles", is in fact 
 
 ```
 experiment2 = pybamm.Experiment([
-    ("Discharge at C/2 until 3.105 V", "Charge at C/2 until 4.1 V", "Hold at 4.1 V until C/100"),
-    ("Discharge at 1C until 3.105 V", "Charge at 1C until 4.1 V", "Hold at 4.1 V until C/100")
+    ("Discharge at C/4 until 2.5 V", "Charge at C/4 until 4.2 V", "Hold at 4.2 V until C/100"),
+    ("Discharge at C/2 until 2.5 V", "Charge at C/2 until 4.2 V", "Hold at 4.2 V until C/100")
 ])
-simulation2 = pybamm.Simulation(model, experiment=experiment2)
+simulation2 = pybamm.Simulation(model, parameter_values=parameter_values, experiment=experiment2)
 solution2 = simulation2.solve()
 fig, axs = plt.subplots(2, 3)
 for i in range(2):
@@ -86,6 +88,16 @@ experiment3 = pybamm.Experiment(
 )
 ```
 
+::::challenge{id=dot_product title="How many cycles?"}
+
 How many cycles does `experiment3` have, and how many steps in each cycle?
 
-Trying to run `experiment3` with the default parameters will result in an error. You'll find out why during the next exercise!
+::::
+
+:::solution
+
+There are 14 cycles in total. Each cycle has three steps, except for the first two, which only have one each.
+
+:::
+
+Don't try to run `experiment3` yet. We'll be doing that in Practical Session 2.

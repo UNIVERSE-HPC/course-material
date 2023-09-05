@@ -49,7 +49,13 @@ sol.save_data(path+"tIV.pkl", ["Time [s]", "Current [A]", "Voltage [V]"])
 sol.save_data(path+"tIV.csv", ["Time [s]", "Current [A]", "Voltage [V]"], to_format="csv")
 ```
 
-Can you think of three situations where you would save the entire solution, and three where you would only save selected variables? To help you think, have a look at this example from my own research:
+::::challenge{id=dot_product title="When to save what?"}
+
+Can you think of three situations where you would save the entire solution, and three where you would only save selected variables?
+
+::::
+
+To help you think, have a look at this example from my own research:
 
 ```
 model = pybamm.lithium_ion.DFN()
@@ -63,7 +69,7 @@ exp = pybamm.Experiment(
 )
 sim = pybamm.Simulation(model, parameter_values=param, experiment=exp)
 sol = sim.solve()
-path = "/mnt/c/Users/MyUsername/pybamm_data/"
+path = "/mnt/c/Users/sokane/pybamm_data/"
 sol.save_data(
     path+"tIVQ.csv",
     ["Time [s]", "Current [A]", "Voltage [V]", "Discharge capacity [A.h]"],
@@ -71,4 +77,14 @@ sol.save_data(
     )
 ```
 
+::::challenge{id=dot_product title="What does this code do?"}
+
 What does the above code do? What do you think the intended application was?
+
+::::
+
+:::solution
+
+This code simulates a GITT experiment. By exporting the parameters into a csv file, you can use the simulated data to parameterize an equivalent circuit network in the same way as experimental GITT data. 
+
+:::

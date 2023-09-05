@@ -1,6 +1,7 @@
 ---
 name: Parameter sets
 dependsOn: [
+    experiments
 ]
 tags: [pybamm]
 attribution: 
@@ -25,7 +26,7 @@ print(parameter_values["Upper voltage cut-off [V]"])
 print(parameter_values["Lower voltage cut-off [V]"])
 ```
 
-Recall the experiment that gave you an error when you tried to run it:
+Recall `experiment3` from the morning session:
 
 ```
 experiment3 = pybamm.Experiment(
@@ -36,7 +37,7 @@ experiment3 = pybamm.Experiment(
 )
 ```
 
-The above `experiment3` was designed for a different cell. Marquis et al. studied the Kokam SLPB78205130H 16 Ah prismatic cell, whereas `experiment3` is designed for the LG M50 5 Ah cylindrical cell. Four of PyBaMM's built-in parameter sets correspond to the LG M50:
+The above `experiment3` will not work with the default parameters, because it was designed for a different cell. Marquis et al. studied the Kokam SLPB78205130H 16 Ah prismatic cell, whereas `experiment3` is designed for the LG M50 5 Ah cylindrical cell. Four of PyBaMM's built-in parameter sets correspond to the LG M50:
 * `Chen2020` comes from the first study, published in 2020.
 * `Chen2020_composite` is an upgrade of `Chen2020` designed to work with PyBaMM's composite electrode model
 * `OKane2022` is a superset of `Chen2020` designed to work with PyBaMM's various degradation models
@@ -70,6 +71,8 @@ from your_parameter_set import get_parameter_values
 parameter_values = get_parameter_values()
 ```
 
-So try creating your own parameter set and running a simulation with it! Take one of PyBaMM's existing parameter sets and change some of the function parameters to make it your own!
+::::challenge{id=dot_product title="Create your own parameter set!"}
 
-If you can save input parameters, how do you save simulation outputs? And what do you do with them? Find out in the next exercise.
+Try creating your own parameter set and running a simulation with it! Take one of PyBaMM's existing parameter sets and change some of the function parameters to make it your own!
+
+::::
