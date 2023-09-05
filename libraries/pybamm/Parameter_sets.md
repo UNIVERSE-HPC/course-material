@@ -49,7 +49,7 @@ Like `Experiment` objects, `ParameterValues` objects are an optional argument to
 simulation3 = pybamm.Simulation(model, experiment=experiment3, parameter_values=parameter_values)
 ```
 
-With updated parameter values, the simulation will now run, but the results won't be very interesting. Try changing the model options to enable one or more degradation mechanisms. [This example notebook](https://docs.pybamm.org/en/latest/source/examples/notebooks/models/coupled-degradation.html) shows you how to do this, and how to interpret the results. However, 10 cycles isn't enough for the battery to degrade very much. Fortunately, `ParameterValues` objects are dictionaries and can therefore be updated easily:
+If you use suitable parameter values, the simulation will run, but the results won't be very interesting. Try changing the model options to enable one or more degradation mechanisms. [This example notebook](https://docs.pybamm.org/en/latest/source/examples/notebooks/models/coupled-degradation.html) shows you how to do this, and how to interpret the results. However, 10 cycles isn't enough for the battery to degrade very much. Fortunately, `ParameterValues` objects are dictionaries and can therefore be updated easily:
 
 ```
 parameter_values.update({
