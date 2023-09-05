@@ -12,7 +12,7 @@ attribution:
       license: BSD-3
 ---
 
-In the last session, you learned how to run PyBaMM simulations using the curent as an input. With the `Experiment` class, however, you can do so much more. The `Experiment` class works by converting text strings into instructions that PyBaMM can use to create a `Simulation` object. Here are some examples:
+We've already seen how you can run PyBaMM simulations using the current as an input. With the `Experiment` class, however, you can do so much more. The `Experiment` class works by converting text strings into instructions that PyBaMM can use to create a `Simulation` object. Here are some examples:
 
 ```
 "Discharge at 1C for 0.5 hours",
