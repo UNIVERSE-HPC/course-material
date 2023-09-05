@@ -152,3 +152,13 @@ experiment = [
 	"Discharge at C/20 for 0.5 hours"
 ] * 3 + ["Charge at 0.5 C for 45 minutes"]
 ```
+
+## Printing citations
+We aim to recognize all contributions by automatically generating citations to the relevant papers on which different parts of the code are built.
+These will change depending on what models and solvers you use. Adding the command
+
+```python3
+pybamm.print_citations()
+```
+
+to the end of a script or notebook will print all citations that were used by that piece of code. This will print BibTeX information to the terminal; passing a filename to `print_citations` will print the BibTeX information to the specified file instead.
