@@ -81,10 +81,10 @@ sol.save_data(
 
 What does the above code do? What do you think the intended application was?
 
-::::
-
 :::solution
 
 This code simulates a GITT experiment. By exporting the parameters into a csv file, you can use the simulated data to parameterize an equivalent circuit network in the same way as experimental GITT data. 
 
 :::
+
+::::
