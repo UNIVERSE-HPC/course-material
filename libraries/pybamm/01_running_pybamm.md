@@ -23,7 +23,7 @@ Together, these enable flexible model definitions and fast battery simulations, 
 
 ## First steps with PyBaMM
 
-The very first thing we need to do is to import PyBaMM by doing
+The very first thing we need to do is to import PyBaMM
 
 ```python
 import pybamm
@@ -93,7 +93,10 @@ simulation.plot(output_variables=output_variables)
 the argument should be a list of strings with the names of the variables to plot. We can also plot multiple variables on the same plot by nesting lists.
 
 ```python
-output_variables = ["Voltage [V]", ["Electrode current density [A.m-2]", "Electrolyte current density [A.m-2]"]]
+output_variables = [
+	"Voltage [V]", 
+	["Electrode current density [A.m-2]", "Electrolyte current density [A.m-2]"]
+]
 simulation.plot(output_variables=output_variables)
 ```
 
@@ -111,7 +114,7 @@ model.variables.search("electrolyte")
 
 ## Changing the parameters
 
-When running our simulations we have been using the default parameter values, which might not match the battery we want to simulate. PyBaMM has a number of in-built parameter sets (check the list here) that we can use. For example, to use the Chen et al (2020) parameter set we can do
+When running our simulations we have been using the default parameter values, which might not match the battery we want to simulate. PyBaMM has a number of in-built parameter sets (check the list [here](https://docs.pybamm.org/en/latest/source/api/parameters/parameter_sets.html)) that we can use. For example, to use the Chen et al (2020) parameter set we can do
 
 ```python
 parameter_values = pybamm.ParameterValues("Chen2020")
