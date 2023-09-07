@@ -127,30 +127,10 @@ and solve and plot as usual.
 
 ## Running experiments
 
-The default settings are to do a 1C discharge, but we normally want to simulate more complex cycling conditions. To do so, we can pass an experiment to the simulation. An experiment can be defined as a list of strings with the instructions on how to cycle the battery, for example
+The default settings are to do a 1C discharge, but we normally want to simulate other conditions. To do so, we can pass an experiment to the simulation, for example
 
 ```python
-experiment = [
-	"Discharge at 1C for 0.5 hours",
-	"Rest for 1 hour",
-	"Charge at C/3 until 4.2 V",
-	"Hold at 4.2 V until C/20",
-]
-```
-
-And then pass it to the simulation as
-
-```python
-simulation = pybamm.Simulation(model, experiment=experiment)
-```
-
-Note that, given the experiment is defined from a list, we can use the operators `+` and `*` to combine and repeat cycles
-
-```python
-experiment = [
-	"Discharge at 1C for 0.5 hours",
-	"Discharge at C/20 for 0.5 hours"
-] * 3 + ["Charge at 0.5 C for 45 minutes"]
+simulation = pybamm.Simulation(model, experiment="Discharge at 3C until 3.3 V")
 ```
 
 ## Printing citations
