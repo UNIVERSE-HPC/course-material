@@ -23,7 +23,7 @@ We saw in [Lesson 5](./05_using_submodels.md) how to include additional physics 
 5. Use the `plot_summary_variables` function and compate the summary degradation variables for the various degradation models. What do you observe? Tip: check the docs for more information about this function.
 
 ## Exercise 2: Long experiments
-In [CROSSREF]() we saw how to run experiments, that is how to change the cycling conditions between constant current, constant voltage, drive cycles... The goal of this exercise is to explore how to run very long experiments (i.e. experiments with hundreds or even thousands of cycles).
+In [lesson 2](./02_experiments.md) we saw how to run experiments, that is how to change the cycling conditions between constant current, constant voltage, drive cycles... The goal of this exercise is to explore how to run very long experiments (i.e. experiments with hundreds or even thousands of cycles).
 
 1. Run an experiment consisting of 10 cycles of 1C discharge, rest, a C/3 4.2 V CCCV charge and another rest.
 2. Now try running the same experiment but for 500 cycles. Which issues are you encountering? Tip: you might want to use a simple model (e.g. SPM) to get faster simulations.
@@ -42,8 +42,8 @@ A lithium counter-electrode can be used instead of a porous electrode, either to
 5. Using the parameter values found in the previous question, modify the `Chen2020` parameter set to work with the half-cell models.
 
 ## Exercise 4: Batch study and sensitivity analysis
-One of the first examples we saw in [CROSSREF]() was how to compare various PyBaMM models. The goal of this exercise is to explore how to compare various simulations and perform sensitivity analysis.
-1. Compare the SPM, SPMe and DFN models as explained in [CROSSREF]().
+One of the first examples we saw in [lesson 1](./01_running_pybamm.md) was how to compare various PyBaMM models. The goal of this exercise is to explore how to compare various simulations and perform sensitivity analysis.
+1. Compare the SPM, SPMe and DFN models as explained in [lesson 1](./01_running_pybamm.md).
 2. PyBaMM has the `BatchStudy` function that allows to streamline comparisons. Repeat the comparison above but using `BatchStudy`. Tip: check the docs for more information about this function.
 3. Compare the three models for two parameter sets of your choice. Tip: you may want to check what the `permutations` option does.
 4. Perform a parameter sweep for one parameter and one model of your choice.
