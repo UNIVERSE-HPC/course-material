@@ -9,7 +9,7 @@ attribution:
     - citation: >
         PyBaMM documentation by the PyBaMM Team
       url: https://docs.pybamm.org
-      image: https://github.com/pybamm-team/pybamm.org/blob/main/static/images/pybamm_logo.svg
+      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
       license: BSD-3
 ---
 
@@ -115,4 +115,4 @@ There are 14 cycles in total. Each cycle has three steps, except for the first t
 
 ::::
 
-Don't try to run `experiment3` yet. We'll be doing that in Practical Session 2.
+Don't try to run `experiment3` yet. We'll be doing that in the next session.

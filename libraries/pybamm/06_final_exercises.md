@@ -8,7 +8,7 @@ attribution:
     - citation: >
         PyBaMM documentation by the PyBaMM Team
       url: https://docs.pybamm.org
-      image: https://github.com/pybamm-team/pybamm.org/blob/main/static/images/pybamm_logo.svg
+      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
       license: BSD-3
 ---
 
