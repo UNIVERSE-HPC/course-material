@@ -12,7 +12,7 @@ attribution:
       license: BSD-3
 ---
 
-We've already seen how you can run PyBaMM simulations using the current as an input. With the `Experiment` class, however, you can do so much more. The `Experiment` class works by converting text strings into instructions that PyBaMM can use to create a `Simulation` object. Here are some examples:
+We already saw in [lesson 1](./01_running_pybamm.md) a very basic use of experiments in which we changed the discharge rate. With the `Experiment` class, however, you can do so much more. The `Experiment` class works by converting text strings into instructions that PyBaMM can use to create a `Simulation` object. Here are some examples:
 
 ```
 "Discharge at 1C for 0.5 hours",
@@ -30,61 +30,75 @@ We've already seen how you can run PyBaMM simulations using the current as an in
 "Discharge at C/3 for 2 hours or until 2.5 V",
 ```
 
-The input argument for the `Experiment` class is a list [square brackets] of text strings like these. The output is an `Experiment` object that can then be used as an optional argument for the `Simulation` class:
+The input argument for the `Experiment` class is a string, or a list [square brackets] of strings like these. The output is an `Experiment` object that can then be used as an optional argument for the `Simulation` class:
 
-```
-import pybamm
-model = pybamm.lithium_ion.DFN()
-parameter_values = pybamm.ParameterValues("Chen2020")
-experiment = pybamm.Experiment(["Discharge at 1C until 2.5 V", "Charge at 0.3C until 4.2 V", "Hold at 4.2 V until C/100"])
-simulation = pybamm.Simulation(model, parameter_values=parameter_values, experiment=experiment)
+```python
+experiment = pybamm.Experiment([
+    "Discharge at 1C until 3.3 V",
+    "Charge at 0.3C until 4.0 V",
+    "Hold at 4.0 V until C/100",
+])
+simulation = pybamm.Simulation(model, experiment=experiment)
 ```
 
-If you solve the resulting simulation, the solution will have different cycles, one for each string in the list used to create the experiment.
+If you solve the resulting simulation, the solution will have different cycles, one for each string in the list used to create the experiment. You can access them via the `cycles` attribute of the solution, and plot them as usual
 
-```
-solution = simulation.solve()
-import matplotlib.pyplot as plt
-fig, axs = plt.subplots(1, 3)
-for i in range(3):
-    t = solution.cycles[i]["Time (s)"].entries
-    V = solution.cycles[i]["Voltage [V]].entries
-    axs[i].plot(t, V)
-    axs[i].set_xlabel("Time [s]")
-    axs[i].set_ylabel("Voltage [V"])
-plt.show()
+```python
+solution.cycles[0].plot()
 ```
 
 You can of course plot the entire solution without specifying a cycle, but this is impractical for long simulations or simulations where the cycle you're interested in takes a very short time compared to everything else.
 
-You may have noticed that the experiment above, with three "cycles", is in fact only one cycle with three steps. PyBaMM allows you to specify this explititly using round brackets:
+You may have noticed that the experiment above, with three "cycles", is in fact only one cycle with three steps. PyBaMM allows you to explicitly specify what is a cycle using round brackets:
 
-```
+```python
 experiment2 = pybamm.Experiment([
-    ("Discharge at C/4 until 2.5 V", "Charge at C/4 until 4.2 V", "Hold at 4.2 V until C/100"),
-    ("Discharge at C/2 until 2.5 V", "Charge at C/2 until 4.2 V", "Hold at 4.2 V until C/100")
+    (
+        "Discharge at C/4 until 2.5 V",
+        "Charge at C/4 until 4.2 V",
+        "Hold at 4.2 V until C/100"
+    ),
+    (
+        "Discharge at C/2 until 2.5 V",
+        "Charge at C/2 until 4.2 V",
+        "Hold at 4.2 V until C/100"
+    )
 ])
-simulation2 = pybamm.Simulation(model, parameter_values=parameter_values, experiment=experiment2)
-solution2 = simulation2.solve()
-fig, axs = plt.subplots(2, 3)
-for i in range(2):
-    for j in range(3):
-        t = solution2.cycles[i].steps[j]["Time [s]"].entries
-        V = solution2.cycles[i].steps[j]["Voltage [V]"].entries
-        axs[i,j].plot(t, V)
-        axs[i,j].set_xlabel("Time [s]")
-        axs[i,j].set_ylabel("Voltage [V]")
-plt.show()
+simulation2 = pybamm.Simulation(model, experiment=experiment2)
 ```
 
-Like any list, you can use arithmetic operators to make more complex experiments:
-
+You can access a given step by accessing the `steps` attribute of the `cycles` (i.e. `solution.cycles[i].steps[j]`), and plot as usual
+```python
+solution.cycles[0].steps[1].plot()
 ```
+
+Like any list, you can use the arithmetic operators `+` and `*` to make more complex experiments:
+
+```python
 experiment3 = pybamm.Experiment(
-    ["Hold at 4.2 V until C/100", "Rest for 4 hours",] +  # Initialize
-    [("Discharge at C/10 until 2.5 V", "Charge at C/10 until 4.2 V", "Hold at 4.2 V until C/100")] +  # Capacity check
-    [("Discharge at 1C until 2.5 V", "Charge at 0.3C until 4.2 V", "Hold at 4.2 V until C/100",)] * 10 +  # Ageing cycles
-    [("Discharge at C/10 until 2.5 V", "Charge at C/10 until 4.2 V", "Hold at 4.2 V until C/100")]  # Capacity check
+    # Initialize
+    [
+        "Hold at 4.2 V until C/100",
+        "Rest for 4 hours",
+    ] +
+    # Capacity check
+    [(
+        "Discharge at C/10 until 2.5 V",
+        "Charge at C/10 until 4.2 V",
+        "Hold at 4.2 V until C/100"
+    )] +  
+    # Ageing cycles
+    [(
+        "Discharge at 1C until 2.5 V",
+        "Charge at 0.3C until 4.2 V",
+        "Hold at 4.2 V until C/100",
+    )] * 10 +
+    # Capacity check
+    [(
+        "Discharge at C/10 until 2.5 V",
+        "Charge at C/10 until 4.2 V",
+        "Hold at 4.2 V until C/100"
+    )]  
 )
 ```
 
