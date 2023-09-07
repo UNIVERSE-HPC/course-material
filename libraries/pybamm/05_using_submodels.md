@@ -80,7 +80,8 @@ pybamm.dynamic_plot(
 
 ```
 
-We observe that the voltage response is the same for all models, as the SEI contribution is very small. The SEI layer grows fairly homogeneously, and the fastest growing model is the reaction limited one, even though this is likely to be due to the choice of parameters. A possible way to extend this exercise would be to simulate many cycles.
+We observe that the temperature in the isothermal model remains constant, while for the x-full model the temperature rises almost 20 K. Despite being a spatial-dependent model, the temperature gradients are negligible, which is reasonable given how thin the cell is. We also observe that the voltage for the isothermal case is lower than for the temperature dependent one, given that at higher temperatures the overpotentials are smaller.
+
 :::
 
 ::::
@@ -137,7 +138,7 @@ pybamm.dynamic_plot(
   )
 ```
 
-A few key observations are that the surface radial stress is always zero. As expected, there is no cracking in the negative electrode (we did not enable that option) but there is cracking in the positive one. 
+We observe that the voltage response is the same for all models, as the SEI contribution is very small. The SEI layer grows fairly homogeneously, and the fastest growing model is the reaction limited one, even though this is likely to be due to the choice of parameters. A possible way to extend this exercise would be to simulate many cycles.
 
 :::
 
