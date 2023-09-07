@@ -13,7 +13,7 @@ attribution:
       license: BSD-3
 ---
 
-We already saw in [lesson 1](./01_running_pybamm.md) a very basic use of experiments in which we changed the discharge rate. With the `Experiment` class, however, you can do so much more. The `Experiment` class works by converting text strings into instructions that PyBaMM can use to create a `Simulation` object. Here are some examples:
+We already saw in [lesson 1](./01_running_pybamm) a very basic use of experiments in which we changed the discharge rate. With the `Experiment` class, however, you can do so much more. The `Experiment` class works by converting text strings into instructions that PyBaMM can use to create a `Simulation` object. Here are some examples:
 
 ```
 "Discharge at 1C for 0.5 hours",
