@@ -2,6 +2,7 @@
 id: intro_to_pybamm
 name: Intro to PyBaMM
 dependsOn: [
+    introductory_courses.python
 ]
 files: [
     01_running_pybamm.md, 02_experiments.md, 03_parameter_values.md, 04_outputs.md, 05_using_submodels.md, 06_final_exercises.md

@@ -1,6 +1,7 @@
 ---
 name: Final exercises
 dependsOn: [
+    libraries.pybamm.05_using_submodels,
 ]
 tags: [pybamm]
 attribution: 

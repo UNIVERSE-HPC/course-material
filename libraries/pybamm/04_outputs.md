@@ -1,6 +1,7 @@
 ---
 name: Making the most of PyBaMM outputs
 dependsOn: [
+    libraries.pybamm.03_parameter_values,
 ]
 tags: [pybamm]
 attribution: 

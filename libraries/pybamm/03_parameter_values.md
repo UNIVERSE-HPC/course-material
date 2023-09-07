@@ -1,7 +1,7 @@
 ---
 name: Parameter sets
 dependsOn: [
-    experiments
+    libraries.pybamm.02_experiments,
 ]
 tags: [pybamm]
 attribution: 

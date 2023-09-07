@@ -1,6 +1,7 @@
 ---
 name: Using submodels
 dependsOn: [
+    libraries.pybamm.04_outputs,
 ]
 tags: [pybamm]
 attribution: 

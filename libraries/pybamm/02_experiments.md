@@ -2,6 +2,7 @@
 name: The Experiment class
 id: experiments
 dependsOn: [
+    libraries.pybamm.01_running_pybamm,
 ]
 tags: [pybamm]
 attribution: 
