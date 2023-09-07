@@ -92,12 +92,12 @@ experiment3 = pybamm.Experiment(
 
 How many cycles does `experiment3` have, and how many steps in each cycle?
 
-::::
-
 :::solution
 
 There are 14 cycles in total. Each cycle has three steps, except for the first two, which only have one each.
 
 :::
+
+::::
 
 Don't try to run `experiment3` yet. We'll be doing that in Practical Session 2.
