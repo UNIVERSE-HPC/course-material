@@ -58,6 +58,21 @@ sol.save_data(
 
 Can you think of three situations where you would save the entire solution, and three where you would only save selected variables?
 
+:::solution
+There is no right answer to this question, but some examples are the following.
+
+When to save entire solution?
+* If you might want to do additional post-processing later.
+* If you're likely to need the solution as an initial condition for anoher simulation.
+* If you're submitting the data to an archive.
+
+When to save selected data?
+* If the full `.pkl` file would take up too much space or take too long to upload.
+* To feed the data to another software package.
+* To share the data with non-PyBaMM users.
+
+:::
+
 ::::
 
 To help you think, have a look at this example from my own research:
