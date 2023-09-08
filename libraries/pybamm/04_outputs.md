@@ -40,8 +40,8 @@ sol2 = pybamm.load(path + "my_pybamm_solution.pkl")
 ```
 
 PyBaMM has a lot of variables, so these `.pkl` files are huge! So why bother?
-1. You can run another PyBaMM model, with the final results of the saved solution as the initial conditions for the next, by using `model.set_initial_conditions_from(sol2)`, as shown in [this example](https://docs.pybamm.org/en/latest/source/examples/notebooks/initialize-model-with-solution.html)
-2. You can do the same post-processing on a solution loaded from disk as you can on a "fresh" solution.
+* You can run another PyBaMM model, with the final results of the saved solution as the initial conditions for the next, by using `model.set_initial_conditions_from(sol2)`, as shown in [this example](https://docs.pybamm.org/en/latest/source/examples/notebooks/initialize-model-with-solution.html)
+* You can do the same post-processing on a solution loaded from disk as you can on a "fresh" solution.
 
 If saving the entire solution would take up too much space, you can use `save_data` to only save the variables you need:
 
@@ -59,6 +59,7 @@ sol.save_data(
 Can you think of three situations where you would save the entire solution, and three where you would only save selected variables?
 
 :::solution
+
 There is no right answer to this question, but some examples are the following.
 
 When to save entire solution?
@@ -103,7 +104,7 @@ What does the above code do? What do you think the intended application was?
 
 :::solution
 
-This code simulates a GITT experiment. By exporting the parameters into a csv file, you can use the simulated data to parameterize an equivalent circuit network in the same way as experimental GITT data. 
+This code simulates a GITT experiment. By exporting the parameters into a `.csv` file, you can use the simulated data to parameterize an equivalent circuit network in the same way as experimental GITT data. 
 
 :::
 
