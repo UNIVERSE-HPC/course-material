@@ -1,39 +1,58 @@
 ---
 name: Parameter sets
 dependsOn: [
-    experiments
+    libraries.pybamm.02_experiments,
 ]
 tags: [pybamm]
 attribution: 
     - citation: >
         PyBaMM documentation by the PyBaMM Team
       url: https://docs.pybamm.org
-      image: https://github.com/pybamm-team/pybamm.org/blob/main/static/images/pybamm_logo.svg
+      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
       license: BSD-3
 ---
 
 PyBaMM comes with 12 ready-made parameter sets for lithium-ion batteries. To select one, pass the name of one of them as an input argument to the `ParameterValues` class. For now, select `Marquis2019`, which is the default parameter set for lithium-ion models.
 
-```
+```python
 import pybamm
 parameter_values = pybamm.ParameterValues("Marquis2019")
 ```
 
 There are over 100 parameter values! Fortunately, `ParameterValues` objects are dictionaries so you can look up the parameters you're interested in:
 
-```
+```python
 print(parameter_values["Upper voltage cut-off [V]"])
 print(parameter_values["Lower voltage cut-off [V]"])
 ```
 
 Recall `experiment3` from the morning session:
 
-```
+```python
 experiment3 = pybamm.Experiment(
-    ["Hold at 4.2 V until C/100", "Rest for 4 hours",] +  # Initialize
-    [("Discharge at C/10 until 2.5 V", "Charge at C/10 until 4.2 V", "Hold at 4.2 V until C/100")] +  # Capacity check
-    [("Discharge at 1C until 2.5 V", "Charge at 0.3C until 4.2 V", "Hold at 4.2 V until C/100",)] * 10 +  # Ageing cycles
-    [("Discharge at C/10 until 2.5 V", "Charge at C/10 until 4.2 V", "Hold at 4.2 V until C/100")]  # Capacity check
+    # Initialize
+    [
+        "Hold at 4.2 V until C/100",
+        "Rest for 4 hours",
+    ] +
+    # Capacity check
+    [(
+        "Discharge at C/10 until 2.5 V",
+        "Charge at C/10 until 4.2 V",
+        "Hold at 4.2 V until C/100"
+    )] +  
+    # Ageing cycles
+    [(
+        "Discharge at 1C until 2.5 V",
+        "Charge at 0.3C until 4.2 V",
+        "Hold at 4.2 V until C/100",
+    )] * 10 +
+    # Capacity check
+    [(
+        "Discharge at C/10 until 2.5 V",
+        "Charge at C/10 until 4.2 V",
+        "Hold at 4.2 V until C/100"
+    )]  
 )
 ```
 
@@ -45,13 +64,17 @@ The above `experiment3` will not work with the default parameters, because it wa
 
 Like `Experiment` objects, `ParameterValues` objects are an optional argument to the `Simulation` class:
 
-```
-simulation3 = pybamm.Simulation(model, experiment=experiment3, parameter_values=parameter_values)
+```python
+simulation3 = pybamm.Simulation(
+    model, 
+    experiment=experiment3, 
+    parameter_values=parameter_values
+)
 ```
 
 If you use suitable parameter values, the simulation will run, but the results won't be very interesting. Try changing the model options to enable one or more degradation mechanisms. [This example notebook](https://docs.pybamm.org/en/latest/source/examples/notebooks/models/coupled-degradation.html) shows you how to do this, and how to interpret the results. However, 10 cycles isn't enough for the battery to degrade very much. Fortunately, `ParameterValues` objects are dictionaries and can therefore be updated easily:
 
-```
+```python
 parameter_values.update({
     "Outer SEI solvent diffusivity [m2.s-1]": 1.25e-20,
     "Lithium plating kinetic rate constant [m.s-1]: 1e-8,
@@ -66,7 +89,7 @@ The updated parameter values will lead to faster degradation.
 
 You can also create, import and use your own parameter sets:
 
-```
+```python
 from your_parameter_set import get_parameter_values
 parameter_values = get_parameter_values()
 ```

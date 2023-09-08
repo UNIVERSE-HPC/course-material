@@ -2,17 +2,18 @@
 name: The Experiment class
 id: experiments
 dependsOn: [
+    libraries.pybamm.01_running_pybamm,
 ]
 tags: [pybamm]
 attribution: 
     - citation: >
         PyBaMM documentation by the PyBaMM Team
       url: https://docs.pybamm.org
-      image: https://github.com/pybamm-team/pybamm.org/blob/main/static/images/pybamm_logo.svg
+      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
       license: BSD-3
 ---
 
-We already saw in [lesson 1](./01_running_pybamm.md) a very basic use of experiments in which we changed the discharge rate. With the `Experiment` class, however, you can do so much more. The `Experiment` class works by converting text strings into instructions that PyBaMM can use to create a `Simulation` object. Here are some examples:
+We already saw in [lesson 1](./01_running_pybamm) a very basic use of experiments in which we changed the discharge rate. With the `Experiment` class, however, you can do so much more. The `Experiment` class works by converting text strings into instructions that PyBaMM can use to create a `Simulation` object. Here are some examples:
 
 ```
 "Discharge at 1C for 0.5 hours",
@@ -114,4 +115,4 @@ There are 14 cycles in total. Each cycle has three steps, except for the first t
 
 ::::
 
-Don't try to run `experiment3` yet. We'll be doing that in Practical Session 2.
+Don't try to run `experiment3` yet. We'll be doing that in the next session.
