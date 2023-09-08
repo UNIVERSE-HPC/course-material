@@ -5,782 +5,430 @@ dependsOn: [
 ]
 tags: [git]
 attribution:
-  - citation: >
-        This material was originally taken from sections 1-6 of the [software carpentries
-        course "Version Control with Git".
-    url: https://swcarpentry.github.io/git-novice/
-    image: https://swcarpentry.github.io/git-novice/assets/img/swc-icon-blue.svg
-    license: CC-BY-4.0
+- citation: >
+      This material was originally taken from training materials developed by the
+      University of Southampton Research Software Group, which are based on
+      the Software Carpentries course "Version Control with Git".
+  url: https://github.com/Southampton-RSG-Training/git-novice/
+  image: https://southampton-rsg-training.github.io/git-novice/assets/img/home-logo.png
+  license: CC-BY-4.0
 ---
 
+## Tracking Changes
 
+We've got a repository now containing a few pre-existing files - so let's add one more. You might remember seeing GitHub suggest we added a README.md to let people know what our code is about, so let's do that on the command line. We'll use the text editor `nano`, as:
 
-First let's make sure we're still in the right directory.
-You should be in the `planets` directory.
+~~~bash
+$ nano README.md
+~~~
+
+Then type an example description: 
 
 ~~~
-$ cd ~/Desktop/planets
-~~~
-{: .language-bash}
+# Climate Analysis Toolkit
 
-Let's create a file called `mars.txt` that contains some notes
-about the Red Planet's suitability as a base.
-We'll use `nano` to edit the file;
-you can use whatever editor you like.
-In particular, this does not have to be the `core.editor` you set globally earlier. But remember, the bash command to create or edit a new file will depend on the editor you choose (it might not be `nano`). For a refresher on text editors, check out ["Which Editor?"](https://swcarpentry.github.io/shell-novice/03-create/) in [The Unix Shell](https://swcarpentry.github.io/shell-novice/) lesson.
-
+This is a set of python scripts designed to analyse climate datafiles.
 ~~~
-$ nano mars.txt
-~~~
-{: .language-bash}
 
-Type the text below into the `mars.txt` file:
+We can save our file using `Control-O` (`Control` and `O` at the same time), then `Enter`, and quit out of nano using `Control-X`. 
+Our description is a bit brief, but it's enough for now!
+Let's try `git status` again:
 
-~~~
-Cold and dry, but everything is my favorite color
-~~~
-{: .output}
-
-Let's first verify that the file was properly created by running the list command (`ls`):
-
-
-~~~
-$ ls
-~~~
-{: .language-bash}
-
-~~~
-mars.txt
-~~~
-{: .output}
-
-
-`mars.txt` contains a single line, which we can see by running:
-
-~~~
-$ cat mars.txt
-~~~
-{: .language-bash}
-
-~~~
-Cold and dry, but everything is my favorite color
-~~~
-{: .output}
-
-If we check the status of our project again,
-Git tells us that it's noticed the new file:
-
-~~~
+~~~bash
 $ git status
 ~~~
-{: .language-bash}
 
 ~~~
-On branch main
-
-No commits yet
-
-Untracked files:
-   (use "git add <file>..." to include in what will be committed)
-
-	mars.txt
-
+# On branch main
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	README.md
 nothing added to commit but untracked files present (use "git add" to track)
 ~~~
-{: .output}
 
-The "untracked files" message means that there's a file in the directory
-that Git isn't keeping track of.
-We can tell Git to track a file using `git add`:
+Now, whilst our current snapshot of the repository is up-to-date, we've added a new file that we're not tracking yet. We can tell Git to track the file we've just created using `git add`:
 
+~~~bash
+$ git add README.md
 ~~~
-$ git add mars.txt
-~~~
-{: .language-bash}
 
 and then check that the right thing happened:
 
-~~~
+~~~bash
 $ git status
 ~~~
-{: .language-bash}
 
 ~~~
-On branch main
-
-No commits yet
-
-Changes to be committed:
-  (use "git rm --cached <file>..." to unstage)
-
-	new file:   mars.txt
-
+# On branch main
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	new file:   README.md
+#
 ~~~
-{: .output}
 
-Git now knows that it's supposed to keep track of `mars.txt`,
-but it hasn't recorded these changes as a commit yet.
+Git now knows that it's supposed to **keep track** of `README.md`, just like `climate_analysis.py` and `temp_conversion.py` but it **hasn't recorded that as a commit** yet. We dont have a snapshot of the repository with all the existing files *and* `README.md`.
+
+### Initial Commit
 To get it to do that,
 we need to run one more command:
 
+~~~bash
+$ git commit -m "Added a basic readme file."
 ~~~
-$ git commit -m "Start notes on Mars as a base"
-~~~
-{: .language-bash}
+
+We use the `-m` flag (for "**message**")
+to record a short, **descriptive comment** that will help us remember later on what we did and why.
+
+If we just run `git commit` without the `-m` option,
+Git will launch `nano` (or whatever other editor we configured at the start)
+so that we can write a longer message.
+
+**Good commit messages** start with a brief (<50 characters) summary of
+changes made in the commit, **NOT "Bug Fixes"** or **"Changes"**!
+
+If you want to go into more detail, add
+a blank line between the summary line and your additional notes.
 
 ~~~
-[main (root-commit) f22b25e] Start notes on Mars as a base
- 1 file changed, 1 insertion(+)
- create mode 100644 mars.txt
+[main fa90884] Added a basic readme file.
+ 1 file changed, 3 insertions(+)
+ create mode 100644 README.md
 ~~~
-{: .output}
 
 When we run `git commit`,
 Git takes everything we have told it to save by using `git add`
 and stores a copy permanently inside the special `.git` directory.
-This permanent copy is called a [commit]({{ page.root }}{% link reference.md %}#commit)
-(or [revision]({{ page.root }}{% link reference.md %}#revision)) and its short identifier is `f22b25e`. Your commit may have another identifier.
-
-We use the `-m` flag (for "message")
-to record a short, descriptive, and specific comment that will help us remember later on what we did and why.
-If we just run `git commit` without the `-m` option,
-Git will launch `nano` (or whatever other editor we configured as `core.editor`)
-so that we can write a longer message.
-
-[Good commit messages][commit-messages] start with a brief (<50 characters) statement about the
-changes made in the commit. Generally, the message should complete the sentence "If applied, this commit will" <commit message here>.
-If you want to go into more detail, add a blank line between the summary line and your additional notes. Use this additional space to explain why you made changes and/or what their impact will be.
+This permanent copy is called a **[revision](reference.html#revision)**
+and its short **identifier** is `fa90884`.
+(Your revision will have different identifier.)
 
 If we run `git status` now:
 
-~~~
+~~~bash
 $ git status
 ~~~
-{: .language-bash}
 
 ~~~
-On branch main
-nothing to commit, working tree clean
+# On branch main
+# Your branch is ahead of 'origin/main' by 1 commit.
+#   (use "git push" to publish your local commits)
+#
+nothing to commit, working directory clean
 ~~~
-{: .output}
 
-it tells us everything is up to date.
+it tells us our local repository is up-to-date, although now we have edits to it that the remote version of it doesn't (we'll get to that later!).
+
+![Add and Commit](fig/04-changes/add.svg)
+
+Git has a special **staging** area
+where it keeps track of things that have been **added** to
+the current [change set](reference.html#change-set)
+but **not yet committed**.
+`git add` puts things in this area,
+and `git commit` then copies them to long-term storage (as a commit)
+
+:::callout
+## What's the Point of the Staging Area?
+
+Why do we have this two-stage process, where we **add** files to the staging area, then create a **commit** from them?
+
+Among other reasons, it allows you to easily bundle together a lot of changes in one go. If you changed the name of a variable used in multiple files (e.g. from `t` to `temperature`), you'd need to change it in all your files in one go in order for it to make sense.
+If you stored a copy of each file one-by-one you'd end up with a lot of versions of the code that didn't work - variables with different names everywhere. The **staging area** lets you bundle together all those small changes that don't work in isolation into one big change that's coherent. 
+
+Git does give you shortcuts to reduce **add -> commit** to a single step, but when you're starting out it's always better to make sure you know what's going in to each commit!
+:::
+
+### Review the Log
+
 If we want to know what we've done recently,
-we can ask Git to show us the project's history using `git log`:
+we can ask Git to show us the **project's history** using `git log`:
 
-~~~
+~~~bash
 $ git log
 ~~~
-{: .language-bash}
 
 ~~~
-commit f22b25e3233b4645dabd0d81e651fe074bd8e73b
-Author: Vlad Dracula <vlad@tran.sylvan.ia>
-Date:   Thu Aug 22 09:51:46 2013 -0400
+commit fa90884ca03dcefb97e415a374ac1aacaaa94c91 (HEAD -> main)
+Author: Sam Mangham <mangham@gmail.com>
+Date:   Wed Mar 16 15:22:29 2022 +0000
 
-    Start notes on Mars as a base
+    Added a basic readme file.
+
+commit 499b6d18b36a25d3f5ab9be1b708ea48fef1dd65 (origin/main, origin/HEAD)
+Author: Sam Mangham <mangham@gmail.com>
+Date:   Wed Mar 16 14:19:13 2022 +0000
+
+    Initial commit
 ~~~
-{: .output}
 
-`git log` lists all commits  made to a repository in reverse chronological order.
-The listing for each commit includes
-the commit's full identifier
-(which starts with the same characters as
-the short identifier printed by the `git commit` command earlier),
-the commit's author,
-when it was created,
-and the log message Git was given when the commit was created.
+`git log` lists all **revisions committed** to a repository in reverse chronological order (most recent at the top).
 
-> ## Where Are My Changes?
->
-> If we run `ls` at this point, we will still see just one file called `mars.txt`.
-> That's because Git saves information about files' history
-> in the special `.git` directory mentioned earlier
-> so that our filesystem doesn't become cluttered
-> (and so that we can't accidentally edit or delete an old version).
-{: .callout}
+The listing for each revision includes
 
-Now suppose Dracula adds more information to the file.
-(Again, we'll edit with `nano` and then `cat` the file to show its contents;
-you may use a different editor, and don't need to `cat`.)
+* the **revision's full identifier** (which starts with the same characters as the short identifier printed by the `git commit` command earlier),
+* the **branch** it was created on (including whether or not it's up-to-date with any **remote versions of that branch** - in this case, our last README commit hasn't been pushed to the remote repo yet),
+* the revision's **author**,
+* **when** it was created,
+* the **log message** Git was given when the revision was committed.
+
+
+:::callout
+## Compatibility Notice
+
+If you don't see information on the **remote branches**, try `git log --decorate`.
+This ensures output will indicate, for each commit revision, whether it is up-to-date with its *remote* repository, if one exists.
+Older versions of git don't show this information by default.
+:::
+
+### Modify a file (1)
+Now suppose we modify an existing file, for example by adding a **Docstring** to the **top** of one of the files:
+
+~~~bash
+$ nano climate_analysis.py
+~~~
 
 ~~~
-$ nano mars.txt
-$ cat mars.txt
+""" Climate Analysis Tools """
 ~~~
-{: .language-bash}
-
-~~~
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-~~~
-{: .output}
 
 When we run `git status` now,
 it tells us that a file it already knows about has been modified:
 
-~~~
+~~~bash
 $ git status
 ~~~
-{: .language-bash}
 
 ~~~
-On branch main
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-	modified:   mars.txt
-
+# On branch main
+# Your branch is ahead of 'origin/main' by 1 commit.
+#   (use "git push" to publish your local commits)
+#
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   climate_analysis.py
+#
 no changes added to commit (use "git add" and/or "git commit -a")
 ~~~
-{: .output}
 
 The last line is the key phrase:
-"no changes added to commit".
-We have changed this file,
+"no changes added to **commit**".
+
+
+So, while we have changed this file,
 but we haven't told Git we will want to save those changes
 (which we do with `git add`)
-nor have we saved them (which we do with `git commit`).
-So let's do that now. It is good practice to always review
-our changes before saving them. We do this using `git diff`.
-This shows us the differences between the current state
-of the file and the most recently saved version:
+much less actually saved them (which we do with `git commit`).
 
-~~~
+**It's important to remember that git only stores changes when you make a commit**
+
+### Review Changes and Commit
+It is good practice to always **review
+our changes** before saving them. We do this using `git diff`.
+This shows us the differences between the current state
+of the file and the most recently commited version:
+
+~~~bash
 $ git diff
 ~~~
-{: .language-bash}
 
 ~~~
-diff --git a/mars.txt b/mars.txt
-index df0654a..315bf3a 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1 +1,2 @@
- Cold and dry, but everything is my favorite color
-+The two moons may be a problem for Wolfman
+diff --git a/climate_analysis.py b/climate_analysis.py
+index 277d6c7..d5b442d 100644
+--- a/climate_analysis.py
++++ b/climate_analysis.py
+@@ -1,3 +1,4 @@
++""" Climate Analysis Tools """
+ import sys
+ import temp_conversion
+ import signal
 ~~~
-{: .output}
 
-The output is cryptic because
-it is actually a series of commands for tools like editors and `patch`
-telling them how to reconstruct one file given the other.
-If we break it down into pieces:
+The output is **cryptic** because
+it is actually a series of **commands** for tools like editors and `patch`
+telling them how **to reconstruct one file given the other**.
 
-1.  The first line tells us that Git is producing output similar to the Unix `diff` command
-    comparing the old and new versions of the file.
-2.  The second line tells exactly which versions of the file
-    Git is comparing;
-    `df0654a` and `315bf3a` are unique computer-generated labels for those versions.
-3.  The third and fourth lines once again show the name of the file being changed.
-4.  The remaining lines are the most interesting, they show us the actual differences
-    and the lines on which they occur.
-    In particular,
-    the `+` marker in the first column shows where we added a line.
+The key things to note are:
+
+ 1. Line 1: The **files** that are being **compared** (a/ and b/ are labels, not paths)
+ 2. Line 2: The two **hex strings** on the second line which parts of the **hashes** of the files being compares
+ 3. Line 5: The **lines** that have changed. (It's complex)
+ 4. Below that, the changes - note the '**+**' marker which shows an addtion
 
 After reviewing our change, it's time to commit it:
 
+~~~bash
+$ git commit -m "Add Docstring"
 ~~~
-$ git commit -m "Add concerns about effects of Mars' moons on Wolfman"
-~~~
-{: .language-bash}
 
 ~~~
-On branch main
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-	modified:   mars.txt
-
+# On branch main
+# Your branch is ahead of 'origin/main' by 1 commit.
+#   (use "git push" to publish your local commits)
+#
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   climate_analysis.py
+#
 no changes added to commit (use "git add" and/or "git commit -a")
 ~~~
-{: .output}
 
-Whoops:
+**Whoops**:
 Git won't commit because we didn't use `git add` first.
 Let's fix that:
 
+~~~bash
+$ git add climate_analysis.py
+$ git commit -m "Add Docstring"
 ~~~
-$ git add mars.txt
-$ git commit -m "Add concerns about effects of Mars' moons on Wolfman"
-~~~
-{: .language-bash}
 
 ~~~
-[main 34961b1] Add concerns about effects of Mars' moons on Wolfman
+[main 55d3f56] Add Docstring
  1 file changed, 1 insertion(+)
 ~~~
-{: .output}
 
-Git insists that we add files to the set we want to commit
-before actually committing anything. This allows us to commit our
-changes in stages and capture changes in logical portions rather than
-only large batches.
+Git insists that we **add** files to the set we want to commit
+before actually committing anything
+because we may not want to commit **everything at once**.
+
 For example,
-suppose we're adding a few citations to relevant research to our thesis.
-We might want to commit those additions,
-and the corresponding bibliography entries,
-but *not* commit some of our work drafting the conclusion
-(which we haven't finished yet).
+suppose we might have **fixed a bug** in some existing code, but we might have added new code that's **not ready to share**.
 
-To allow for this,
-Git has a special *staging area*
-where it keeps track of things that have been added to
-the current [changeset]({{ page.root }}{% link reference.md %}#changeset)
-but not yet committed.
 
-> ## Staging Area
->
-> If you think of Git as taking snapshots of changes over the life of a project,
-> `git add` specifies *what* will go in a snapshot
-> (putting things in the staging area),
-> and `git commit` then *actually takes* the snapshot, and
-> makes a permanent record of it (as a commit).
-> If you don't have anything staged when you type `git commit`,
-> Git will prompt you to use `git commit -a` or `git commit --all`,
-> which is kind of like gathering *everyone* to take a group photo!
-> However, it's almost always better to
-> explicitly add things to the staging area, because you might
-> commit changes you forgot you made. (Going back to the group photo simile,
-> you might get an extra with incomplete makeup walking on
-> the stage for the picture because you used `-a`!)
-> Try to stage things manually,
-> or you might find yourself searching for "git undo commit" more
-> than you would like!
-{: .callout}
+### One more addition
 
-![The Git Staging Area](../fig/git-staging-area.svg)
+What if we've made some edits, added them, and then forgotten what they were?
+Let's add another line to the end of the file:
 
-Let's watch as our changes to a file move from our editor
-to the staging area
-and into long-term storage.
-First,
-we'll add another line to the file:
+~~~bash
+$ nano climate_analysis.py
+~~~
 
 ~~~
-$ nano mars.txt
-$ cat mars.txt
+# TODO(smangham): Add call to process rainfall
 ~~~
-{: .language-bash}
 
-~~~
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
-~~~
-{: .output}
+Check what's changed with **diff**:
 
-~~~
+~~~bash
 $ git diff
 ~~~
-{: .language-bash}
 
 ~~~
-diff --git a/mars.txt b/mars.txt
-index 315bf3a..b36abfd 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1,2 +1,3 @@
- Cold and dry, but everything is my favorite color
- The two moons may be a problem for Wolfman
-+But the Mummy will appreciate the lack of humidity
+diff --git a/climate_analysis.py b/climate_analysis.py
+index d5b442d..6f8ed8a 100644
+--- a/climate_analysis.py
++++ b/climate_analysis.py
+@@ -26,3 +26,5 @@ for line in climate_data:
+             kelvin = temp_conversion.fahr_to_kelvin(fahr)
+ 
+             print(str(celsius)+", "+str(kelvin))
++
++# TODO(smangham): Add call to process rainfall
 ~~~
-{: .output}
 
 So far, so good:
 we've added one line to the end of the file
 (shown with a `+` in the first column).
-Now let's put that change in the staging area
-and see what `git diff` reports:
 
-~~~
-$ git add mars.txt
+Now let's put that change in the staging area (or **add it to the change set**), then go away for the weekend. When we come back, we can't remember what we added, so we see what `git diff` reports:
+
+~~~bash
+$ git add climate_analysis.py
 $ git diff
 ~~~
-{: .language-bash}
-
-There is no output:
-as far as Git can tell,
-there's no difference between what it's been asked to save permanently
-and what's currently in the directory.
-However,
-if we do this:
 
 ~~~
+~~~
+
+**There is no output**! This is because **git diff** shows us the differences between the **working copy** and what's been added to the **change set** in staging area.
+
+However, if we add the `--staged` flag to the command:
+
+~~~bash
 $ git diff --staged
 ~~~
-{: .language-bash}
 
 ~~~
-diff --git a/mars.txt b/mars.txt
-index 315bf3a..b36abfd 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1,2 +1,3 @@
- Cold and dry, but everything is my favorite color
- The two moons may be a problem for Wolfman
-+But the Mummy will appreciate the lack of humidity
+diff --git a/climate_analysis.py b/climate_analysis.py
+index d5b442d..6f8ed8a 100644
+--- a/climate_analysis.py
++++ b/climate_analysis.py
+@@ -26,3 +26,5 @@ for line in climate_data:
+             kelvin = temp_conversion.fahr_to_kelvin(fahr)
+ 
+             print(str(celsius)+", "+str(kelvin))
++
++# TODO(smangham): Add call to process rainfall
 ~~~
-{: .output}
 
-it shows us the difference between
-the last committed change
-and what's in the staging area.
-Let's save our changes:
+it shows us the difference between the last **committed change** and what's in the **staging area**. You might not use this often, but it's very useful when you come back to a project you've left for a while!
 
-~~~
-$ git commit -m "Discuss concerns about Mars' climate for Mummy"
-~~~
-{: .language-bash}
+Let's **commit** our changes:
 
+~~~bash
+$ git commit -m "Add rainfall processing placeholder"
 ~~~
-[main 005937f] Discuss concerns about Mars' climate for Mummy
- 1 file changed, 1 insertion(+)
-~~~
-{: .output}
-
-check our status:
 
 ~~~
+[main 6f60ad6] Add rainfall processing placeholder
+ 1 file changed, 2 insertions(+)
+~~~
+
+Let's now check our status:
+
+~~~bash
 $ git status
 ~~~
-{: .language-bash}
 
 ~~~
-On branch main
-nothing to commit, working tree clean
+# On branch main
+# Your branch is ahead of 'origin/main' by 3 commits.
+#   (use "git push" to publish your local commits)
+#
+nothing to commit, working directory clean
 ~~~
-{: .output}
 
-and look at the history of what we've done so far:
+And now look at the history of what we've done so far:
 
-~~~
+~~~bash
 $ git log
 ~~~
-{: .language-bash}
 
 ~~~
-commit 005937fbe2a98fb83f0ade869025dc2636b4dad5 (HEAD -> main)
-Author: Vlad Dracula <vlad@tran.sylvan.ia>
-Date:   Thu Aug 22 10:14:07 2013 -0400
+commit 6f60ad638f344fbb5fdf81f05a804f7417984eec (HEAD -> main)
+Author: Sam Mangham <mangham@gmail.com>
+Date:   Wed Mar 16 15:40:30 2022 +0000
 
-    Discuss concerns about Mars' climate for Mummy
+    Add rainfall processing placeholder
 
-commit 34961b159c27df3b475cfe4415d94a6d1fcd064d
-Author: Vlad Dracula <vlad@tran.sylvan.ia>
-Date:   Thu Aug 22 10:07:21 2013 -0400
+commit 55d3f56c9f2d42919ffaff4fbaabd69fe99053eb
+Author: Sam Mangham <mangham@gmail.com>
+Date:   Wed Mar 16 15:35:42 2022 +0000
 
-    Add concerns about effects of Mars' moons on Wolfman
+    Add Docstring
 
-commit f22b25e3233b4645dabd0d81e651fe074bd8e73b
-Author: Vlad Dracula <vlad@tran.sylvan.ia>
-Date:   Thu Aug 22 09:51:46 2013 -0400
+commit fa90884ca03dcefb97e415a374ac1aacaaa94c91
+Author: Sam Mangham <mangham@gmail.com>
+Date:   Wed Mar 16 15:22:29 2022 +0000
 
-    Start notes on Mars as a base
+    Added a basic readme file.
+
+commit 499b6d18b36a25d3f5ab9be1b708ea48fef1dd65 (origin/main, origin/HEAD)
+Author: Sam Mangham <mangham@gmail.com>
+Date:   Wed Mar 16 14:19:13 2022 +0000
+
+    Initial commit
 ~~~
-{: .output}
 
-> ## Word-based diffing
->
-> Sometimes, e.g. in the case of the text documents a line-wise
-> diff is too coarse. That is where the `--color-words` option of
-> `git diff` comes in very useful as it highlights the changed
-> words using colors.
-{: .callout}
-
-> ## Paging the Log
->
-> When the output of `git log` is too long to fit in your screen,
-> `git` uses a program to split it into pages of the size of your screen.
-> When this "pager" is called, you will notice that the last line in your
-> screen is a `:`, instead of your usual prompt.
->
-> *   To get out of the pager, press <kbd>Q</kbd>.
-> *   To move to the next page, press <kbd>Spacebar</kbd>.
-> *   To search for `some_word` in all pages,
->     press <kbd>/</kbd>
->     and type `some_word`.
->     Navigate through matches pressing <kbd>N</kbd>.
-{: .callout}
-
-> ## Limit Log Size
->
-> To avoid having `git log` cover your entire terminal screen, you can limit the
-> number of commits that Git lists by using `-N`, where `N` is the number of
-> commits that you want to view. For example, if you only want information from
-> the last commit you can use:
->
-> ~~~
-> $ git log -1
-> ~~~
-> {: .language-bash}
->
-> ~~~
-> commit 005937fbe2a98fb83f0ade869025dc2636b4dad5 (HEAD -> main)
-> Author: Vlad Dracula <vlad@tran.sylvan.ia>
-> Date:   Thu Aug 22 10:14:07 2013 -0400
->
->    Discuss concerns about Mars' climate for Mummy
-> ~~~
-> {: .output}
->
-> You can also reduce the quantity of information using the
-> `--oneline` option:
->
-> ~~~
-> $ git log --oneline
-> ~~~
-> {: .language-bash}
-> ~~~
-> 005937f (HEAD -> main) Discuss concerns about Mars' climate for Mummy
-> 34961b1 Add concerns about effects of Mars' moons on Wolfman
-> f22b25e Start notes on Mars as a base
-> ~~~
-> {: .output}
->
-> You can also combine the `--oneline` option with others. One useful
-> combination adds `--graph` to display the commit history as a text-based
-> graph and to indicate which commits are associated with the
-> current `HEAD`, the current branch `main`, or
-> [other Git references][git-references]:
->
-> ~~~
-> $ git log --oneline --graph
-> ~~~
-> {: .language-bash}
-> ~~~
-> * 005937f (HEAD -> main) Discuss concerns about Mars' climate for Mummy
-> * 34961b1 Add concerns about effects of Mars' moons on Wolfman
-> * f22b25e Start notes on Mars as a base
-> ~~~
-> {: .output}
-{: .callout}
-
-> ## Directories
->
-> Two important facts you should know about directories in Git.
->
-> 1. Git does not track directories on their own, only files within them.
->    Try it for yourself:
->
->    ~~~
->    $ mkdir spaceships
->    $ git status
->    $ git add spaceships
->    $ git status
->    ~~~
->    {: .language-bash}
->
->    Note, our newly created empty directory `spaceships` does not appear in
->    the list of untracked files even if we explicitly add it (_via_ `git add`) to our
->    repository. This is the reason why you will sometimes see `.gitkeep` files
->    in otherwise empty directories. Unlike `.gitignore`, these files are not special
->    and their sole purpose is to populate a directory so that Git adds it to
->    the repository. In fact, you can name such files anything you like.
->
-> 2. If you create a directory in your Git repository and populate it with files,
->    you can add all files in the directory at once by:
->
->    ~~~
->    git add <directory-with-files>
->    ~~~
->    {: .language-bash}
->
->    Try it for yourself:
->
->    ~~~
->    $ touch spaceships/apollo-11 spaceships/sputnik-1
->    $ git status
->    $ git add spaceships
->    $ git status
->    ~~~
->    {: .language-bash}
->
->    Before moving on, we will commit these changes.
->
->    ~~~
->    $ git commit -m "Add some initial thoughts on spaceships"
->    ~~~
->    {: .language-bash}
->
-{: .callout}
+![Differences](fig/04-changes/diff.svg)
 
 To recap, when we want to add changes to our repository,
 we first need to add the changed files to the staging area
 (`git add`) and then commit the staged changes to the
-repository (`git commit`):
-
-![The Git Commit Workflow](../fig/git-committing.svg)
-
-> ## Choosing a Commit Message
->
-> Which of the following commit messages would be most appropriate for the
-> last commit made to `mars.txt`?
->
-> 1. "Changes"
-> 2. "Added line 'But the Mummy will appreciate the lack of humidity' to mars.txt"
-> 3. "Discuss effects of Mars' climate on the Mummy"
->
-> > ## Solution
-> > Answer 1 is not descriptive enough, and the purpose of the commit is unclear;
-> > and answer 2 is redundant to using "git diff" to see what changed in this commit;
-> > but answer 3 is good: short, descriptive, and imperative.
-> {: .solution}
-{: .challenge}
-
-> ## Committing Changes to Git
->
-> Which command(s) below would save the changes of `myfile.txt`
-> to my local Git repository?
->
-> 1. ~~~
->    $ git commit -m "my recent changes"
->    ~~~
->    {: .language-bash}
-> 2. ~~~
->    $ git init myfile.txt
->    $ git commit -m "my recent changes"
->    ~~~
->    {: .language-bash}
-> 3. ~~~
->    $ git add myfile.txt
->    $ git commit -m "my recent changes"
->    ~~~
->    {: .language-bash}
-> 4. ~~~
->    $ git commit -m myfile.txt "my recent changes"
->    ~~~
->    {: .language-bash}
->
-> > ## Solution
-> >
-> > 1. Would only create a commit if files have already been staged.
-> > 2. Would try to create a new repository.
-> > 3. Is correct: first add the file to the staging area, then commit.
-> > 4. Would try to commit a file "my recent changes" with the message myfile.txt.
-> {: .solution}
-{: .challenge}
-
-> ## Committing Multiple Files
->
-> The staging area can hold changes from any number of files
-> that you want to commit as a single snapshot.
->
-> 1. Add some text to `mars.txt` noting your decision
-> to consider Venus as a base
-> 2. Create a new file `venus.txt` with your initial thoughts
-> about Venus as a base for you and your friends
-> 3. Add changes from both files to the staging area,
-> and commit those changes.
->
-> > ## Solution
-> >
-> > The output below from `cat mars.txt` reflects only content added during 
-> > this exercise. Your output may vary.
-> > 
-> > First we make our changes to the `mars.txt` and `venus.txt` files:
-> > ~~~
-> > $ nano mars.txt
-> > $ cat mars.txt
-> > ~~~
-> > {: .language-bash}
-> > ~~~
-> > Maybe I should start with a base on Venus.
-> > ~~~
-> > {: .output}
-> > ~~~
-> > $ nano venus.txt
-> > $ cat venus.txt
-> > ~~~
-> > {: .language-bash}
-> > ~~~
-> > Venus is a nice planet and I definitely should consider it as a base.
-> > ~~~
-> > {: .output}
-> > Now you can add both files to the staging area. We can do that in one line:
-> >
-> > ~~~
-> > $ git add mars.txt venus.txt
-> > ~~~
-> > {: .language-bash}
-> > Or with multiple commands:
-> > ~~~
-> > $ git add mars.txt
-> > $ git add venus.txt
-> > ~~~
-> > {: .language-bash}
-> > Now the files are ready to commit. You can check that using `git status`. If you are ready to commit use:
-> > ~~~
-> > $ git commit -m "Write plans to start a base on Venus"
-> > ~~~
-> > {: .language-bash}
-> > ~~~
-> > [main cc127c2]
-> >  Write plans to start a base on Venus
-> >  2 files changed, 2 insertions(+)
-> >  create mode 100644 venus.txt
-> > ~~~
-> > {: .output}
-> {: .solution}
-{: .challenge}
-
-> ## `bio` Repository
->
-> * Create a new Git repository on your computer called `bio`.
-> * Write a three-line biography for yourself in a file called `me.txt`,
-> commit your changes
-> * Modify one line, add a fourth line
-> * Display the differences
-> between its updated state and its original state.
->
-> > ## Solution
-> >
-> > If needed, move out of the `planets` folder:
-> >
-> > ~~~
-> > $ cd ..
-> > ~~~
-> > {: .language-bash}
-> >
-> > Create a new folder called `bio` and 'move' into it:
-> >
-> > ~~~
-> > $ mkdir bio
-> > $ cd bio
-> > ~~~
-> > {: .language-bash}
-> >
-> > Initialise git:
-> >
-> > ~~~
-> > $ git init
-> > ~~~
-> > {: .language-bash}
-> >
-> > Create your biography file `me.txt` using `nano` or another text editor.
-> > Once in place, add and commit it to the repository:
-> >
-> > ~~~
-> > $ git add me.txt
-> > $ git commit -m "Add biography file" 
-> > ~~~
-> > {: .language-bash}
-> >
-> > Modify the file as described (modify one line, add a fourth line).
-> > To display the differences
-> > between its updated state and its original state, use `git diff`:
-> >
-> > ~~~
-> > $ git diff me.txt
-> > ~~~
-> > {: .language-bash}
-> >
-> {: .solution}
-{: .challenge}
-
-[commit-messages]: https://chris.beams.io/posts/git-commit/
-[git-references]: https://git-scm.com/book/en/v2/Git-Internals-Git-References
-
-{% include links.md %}
+repository (`git commit`).

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Introduction to Version Control</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/theme/black.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Introduction to Version Control</h1>
+</section>
+
+<section id="what-is-version-control" class="title-slide slide level2">
+<h2>What is Version Control?</h2>
+<style type="text/css">p { text-align: left; }</style>
+<ul>
+<li>A tool that tracks changes to files</li>
+<li>Records the changes you made, and the order in which you made
+them</li>
+<li>Like the history of a page on Wikipedia</li>
+<li>Or - like turning on ‘Track Changes’ in Word, but for code.</li>
+</ul>
+<p><img data-src="images/track_changes.svg" /></p>
+<aside class="notes">
+<ul>
+<li>Version control is a tool that tracks changes to files.</li>
+<li>Version control records the changes you made, and the order in which
+you made them.</li>
+<li>It’s like the history of a page on wikipedia or like turning on
+“Track Changes” in Word or Google Docs, but for code.</li>
+<li>So why would you want to do that?</li>
+</ul>
+</aside>
+</section>
+
+<section id="why-use-version-control" class="title-slide slide level2">
+<h2>Why use Version Control?</h2>
+<div class="columns">
+<div class="column">
+<p><strong>A more efficient backup</strong></p>
+<ul>
+<li>Avoid multiple versions of same file</li>
+</ul>
+</div><div class="column" style="width:40%;">
+<p><img data-src="images/revisions.gif" /></p>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>You may have experienced the common problem of having multiple
+nearly-identical versions of the same file with no meaningful
+explanation of what the differences are, just incremental changes in
+filename (thesis.doc, thesis_final.doc, thesis_final2.doc…).</li>
+<li>If we’re just dealing with text documents, some word processors let
+us deal with this a little better, like Microsoft Word’s “Track Changes”
+or Google Docs’ version history.</li>
+<li>However, research isn’t just Word docs, it’s code and data and
+diagrams too, and a single paper or project can involve a whole
+constellation of files, all of which need backing up!</li>
+<li>Using version control means we don’t keep dozens of different
+versions of our files hanging about taking up space, and when we store a
+revision, we store an explanation of what changed.</li>
+</ul>
+</aside>
+</section>
+
+<section id="why-use-version-control-1"
+class="title-slide slide level2">
+<h2>Why use Version Control?</h2>
+<p><strong>Reproducibility</strong></p>
+<ul>
+<li>Access to a copy of every version of the code</li>
+<li>Easy to replicate results from any paper!</li>
+<li>Easy to share full copy of any version</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>When you use version control, at any point in the future, you can
+retrieve the correct versions of your documents, scripts or code. So,
+for example, a year after publication, you can get hold of the precise
+combination of scripts and data that you used to assemble a paper.</li>
+<li>Version control makes reproducibility simpler. Without using version
+control it’s very hard to say that your research is truly
+reproducible…</li>
+</ul>
+</aside>
+</section>
+
+<section id="why-use-version-control-2"
+class="title-slide slide level2">
+<h2>Why use Version Control?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>To aid collaboration</strong></p>
+<ul>
+<li>Easy to build on others’ changes</li>
+<li>Share one version with collaborators whilst you work on another</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="images/versions.svg" /></p>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>As well as maintaining a revison history, VC tools also help
+multiple authors collaborate on the same file or set of files.</li>
+<li>Professional software developers use VC to work in large teams and
+to keep track of what they’ve done.</li>
+<li>If you know what changes have been made to each file, you can easily
+combine multiple people’s changes to a single file.</li>
+<li>You can also track down where and when (and by who!) bugs in the
+code were introduced.</li>
+</ul>
+</aside>
+</section>
+
+<section id="how-do-version-control-tools-work"
+class="title-slide slide level2">
+<h2>How do Version Control Tools Work?</h2>
+<ul>
+<li>Start by storing the base version of the file</li>
+<li>After that, only changes are stored</li>
+<li>Like instructions for building lego</li>
+</ul>
+<p><img data-src="images/track_changes.svg" /></p>
+<aside class="notes">
+<ul>
+<li>Version control systems start by storing the base version of the
+file that you save and then store just the changes you made at each step
+on the way.</li>
+<li>You can think of it like storing Lego bricks and the instructions
+for putting them together - if you start with the first piece, then add
+each other in turn, you end up with your final document.</li>
+</ul>
+</aside>
+</section>
+
+<section id="how-do-version-control-tools-work-1"
+class="title-slide slide level2">
+<h2>How do Version Control Tools Work?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Changes are separate from the document itself</li>
+<li>Two users can make independent sets of changes</li>
+<li>Creates two different versions of the document</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="images/versions.svg" /></p>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>Once you think of changes as separate from the document itself, you
+can then think about taking the same document and adding different
+changes to it, getting different versions of the document.</li>
+<li>For example, two users can make independent sets of changes based on
+the same document.</li>
+</ul>
+</aside>
+</section>
+
+<section id="how-do-version-control-tools-work-2"
+class="title-slide slide level2">
+<h2>How do Version Control Tools Work?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="images/merge.svg" /></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>If no conflicts - merge changes</li>
+<li>Two different sets of changes can be merged together onto the same
+base document</li>
+</ul>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>If there aren’t conflicts, you can even try to combine two different
+sets of changes together onto the same base document, a process called
+merging.</li>
+</ul>
+</aside>
+</section>
+
+<section id="version-control-systems" class="title-slide slide level2">
+<h2>Version Control Systems</h2>
+<ul>
+<li>Git - overwhelmingly the most popular
+<ul>
+<li>GitHub, GitLab</li>
+</ul></li>
+<li>Mercurial</li>
+<li>Subversion</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Git is overwhelmingly the most popular version control system in
+academia, and beyond.</li>
+<li>It’s a distributed version control system, where every developer in
+a team has their own full copy of a repository, and can synchronise
+between them.</li>
+<li>It’s partly become such a success thanks to sites like GitHub and
+GitLab, which make it easy to collaborate on a Git repository, and
+provide all kinds of extra tools to manage software projects.</li>
+</ul>
+</aside>
+</section>
+
+<section id="how-can-you-use-version-control"
+class="title-slide slide level2">
+<h2>How can you use Version Control?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Command-line <code>git</code></li>
+<li>Standalone graphical user interface
+<ul>
+<li>GitHub Desktop</li>
+<li>Git Kraken</li>
+<li>Sourcetree</li>
+</ul></li>
+<li>Built into most IDEs
+<ul>
+<li>Visual Studio Code</li>
+<li>RStudio</li>
+<li>PyCharm</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="images/integration-vscode.png" /></p>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>We’re going to teach you how to use Git on the command line, as it’s
+the same on every single platform (Mac, Linux &amp; Windows) - and it’s
+the only way to use it on high-performance clusters like Iridis.</li>
+<li>However, if you’re not working on a high-performance system you
+could use a graphical user interface rather than the command line.</li>
+<li>There are many different graphical user interfaces for Git, like
+GitHub desktop, git kraken and sourcetree.</li>
+<li>Git is also built into most integrated development environments
+including VSCode, RStudio, and Pycharm.</li>
+</ul>
+</aside>
+</section>
+
+<section id="lesson-outline" class="title-slide slide level2">
+<h2>Lesson Outline</h2>
+<p>We’ll cover how to use git to:</p>
+<ol type="1">
+<li>Create a ‘repository’ and use it to track changes to files</li>
+<li>Review how your code has changed over time</li>
+<li>Recover old versions of files</li>
+<li>Back up your files to GitHub (or another remote repository!)</li>
+<li>Collaborate remotely and resolve conflicting edits to files</li>
+</ol>
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^4//dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="https://unpkg.com/reveal.js@^4//plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
