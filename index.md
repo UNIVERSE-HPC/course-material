@@ -7,5 +7,6 @@ themes: [
   software_project_management,
   high_performance_computing,
   introductory_courses,
+  libraries,
 ]
 ---
