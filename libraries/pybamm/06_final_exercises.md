@@ -48,4 +48,11 @@ One of the first examples we saw in [lesson 1](./01_running_pybamm) was how to c
 2. PyBaMM has the `BatchStudy` function that allows to streamline comparisons. Repeat the comparison above but using `BatchStudy`. Tip: check the docs for more information about this function.
 3. Compare the three models for two parameter sets of your choice. Tip: you may want to check what the `permutations` option does.
 4. Perform a parameter sweep for one parameter and one model of your choice.
-5. TODO: SOMETHING ON SENSITIVITIES
+5. The `solve` method has a `calculate_sensitivities` method that allows you to
+   calculate the sensitivity of the solution with respect to a parameter (see the
+   [docs](https://docs.pybamm.org/en/latest/source/api/solvers/base_solver.html#pybamm.BaseSolver.solve)).
+   Perform a sensitivity analysis for a few different parameters and see which
+   parameter has the most effect on the solution. (Hint: you can access the
+   sensitivities of variable `var` with respect to parameter `param` by calling
+   `sol[var].sensitivities[param]`, which gives an array rather than a
+   `pybamm.ProcessedVariable`).

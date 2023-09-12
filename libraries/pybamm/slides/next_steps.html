@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Next steps with PyBaMM</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.9.2/css/reset.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.9.2/css/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.9.2/css/theme/beige.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.9.2/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.9.2/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.9.2/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <style>
+  .slides {
+      font-size: 0.75em;
+  }
+  .reveal ul {
+      display: block;
+  }
+  .reveal ol {
+      display: block;
+  }
+
+  img {
+      max-height: 350px !important;
+  }
+
+  figcaption {
+      font-size: 0.6em !important;
+      font-style: italic !important;
+  }
+
+  .subtitle {
+      font-style: italic !important;
+  }
+
+  .date {
+      font-size: 0.75em !important;
+  }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Next steps with PyBaMM</h1>
+</section>
+
+<section id="where-to-get-help-more-information" class="title-slide slide level2">
+<h2>Where to get help / more information</h2>
+<ul>
+<li>Documentation:
+<ul>
+<li><a href="https://pybamm.org/">PyBaMM website</a></li>
+<li><a href="https://docs.pybamm.org/en/latest/">PyBaMM documentation</a></li>
+<li><a href="https://docs.pybamm.org/en/latest/source/api/index.html">PyBaMM API documentation</a></li>
+</ul></li>
+<li>Community
+<ul>
+<li><a href="https://github.com/pybamm-team/PyBaMM/">PyBaMM github</a>
+<ul>
+<li>For questions, use the <a href="https://github.com/pybamm-team/PyBaMM/discussions">discussions</a></li>
+<li>For Bugs, Feature Requests, etc. look at the <a href="https://github.com/pybamm-team/PyBaMM/issues">issues</a></li>
+</ul></li>
+<li><a href="https://pybamm.slack.com/">PyBaMM Slack</a></li>
+<li>Monthly public development meetings (see #general on Slack for invite + agenda links)</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="contributing-to-pybamm" class="title-slide slide level2">
+<h2>Contributing to PyBaMM</h2>
+<ul>
+<li>PyBaMM is an open-source project, and we welcome contributions from the community</li>
+<li>Many ways to contribute: reporting bugs, improving the documentation, submitting feature requests, or writing code.</li>
+<li>If you are interested in contributing code, please see the <a href="https://github.com/pybamm-team/PyBaMM/blob/develop/CONTRIBUTING.md">contributing guide</a></li>
+</ul>
+</section>
+
+<section id="pybamm-development" class="title-slide slide level2">
+<h2>PyBaMM development</h2>
+<p>How code is added to PyBaMM:</p>
+<ol type="1">
+<li>An issue is opened on GitHub and discussed</li>
+<li>A developer is assigned to the issue</li>
+<li>The developer creates a branch and makes the changes</li>
+<li>The developer opens a pull request (PR) and requests a review</li>
+<li>After accepted review and passing tests, the PR is merged into the <code>develop</code> branch</li>
+<li>This code is published in the next release</li>
+</ol>
+</section>
+
+<section id="pybamm-roadmap" class="title-slide slide level2">
+<h2>PyBaMM roadmap</h2>
+<ul>
+<li>We have a (draft) <a href="https://github.com/orgs/pybamm-team/projects/2">public roadmap</a> for new features</li>
+<li>New features generaly focused on:
+<ul>
+<li>Documentation</li>
+<li>Improved customization of experiments</li>
+<li>Additional battery models and physics</li>
+<li>Performance improvements and solver enhancements</li>
+<li>Supporting standard formats like BPX data</li>
+<li>Integration of PyBaMM with:
+<ul>
+<li>inference software (e.g.  <a href="https://github.com/paramm-team/pybamm-param">pybamm-param</a> and <a href="https://github.com/pybop-team/PyBOP">PyBOP</a>)</li>
+<li>data sources (e.g. <a href="https://github.com/Battery-Intelligence-Lab/galv">galv</a>)</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="questions" class="title-slide slide level2">
+<h2>Questions?</h2>
+
+</section>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.9.2/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.9.2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.9.2/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.9.2/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>

@@ -12,6 +12,8 @@ attribution:
       license: BSD-3
 ---
 
+## Parameter Sets
+
 PyBaMM comes with 12 ready-made parameter sets for lithium-ion batteries. To select one, pass the name of one of them as an input argument to the `ParameterValues` class. For now, select `Marquis2019`, which is the default parameter set for lithium-ion models.
 
 ```python
@@ -98,4 +100,89 @@ parameter_values = get_parameter_values()
 
 Try creating your own parameter set and running a simulation with it! Take one of PyBaMM's existing parameter sets and change some of the function parameters to make it your own!
 
+::::
+
+## Input parameters
+
+Pybamm's parameter sets contain all the parameters needed to run a simulation,
+but often you want to see how the solution changes with respect to a single
+parameter or a small subset of parameters. Of course, you could create a new
+parameter set with the desired parameters changed, like so:
+
+```python
+parameter_values = pybamm.ParameterValues("Marquis2019")
+parameter_values.update({
+    "Current function [A]": 2,
+})
+```
+
+You would then need to create a new `Simulation` object with the updated parameter values.
+
+```python
+simulation = pybamm.Simulation(
+    model, 
+    parameter_values=parameter_values
+)
+```
+
+This is a lot of extra overhead for changing a single parameter, as the
+simulation needs to be recreated from scratch. Instead, you can use an input
+parameter, which tells the simulation that this parameter does not yet have a
+specific value, but one will be provided when the model is solved.
+
+An input parameter can be created by setting its value to the string `[input]`, like so:
+
+```python
+parameter_values = pybamm.ParameterValues("Marquis2019")
+parameter_values.update({
+    "Current function [A]": "[input]",
+})
+```
+
+When the model is solved, you can provide a value for the input parameter
+
+```python
+simulation = pybamm.Simulation(
+    model, 
+    parameter_values=parameter_values
+)
+solution = simulation.solve([0, 3600], inputs={"Current function [A]": 2})
+```
+
+::::challenge{id=input_parameters title="Input parameters"}
+
+Try creating a new parameter set with an input parameter, and then solve the
+model with a value for the input parameter. Vary the value of the input
+parameter and see how the solution changes.
+
+:::callout
+
+Hint: To plot multiple solutions, you can pass a list of solutions to `pybamm.dynamic_plot`
+
+:::
+
+:::solution
+
+```python
+model = pybamm.lithium_ion.DFN()
+parameter_values = pybamm.ParameterValues("Marquis2019")
+parameter_values.update({
+    "Current function [A]": "[input]",
+})
+simulation = pybamm.Simulation(
+    model, 
+    parameter_values=parameter_values
+)
+
+solutions = []
+labels = []
+for value in [1, 2, 3]:
+    solution = simulation.solve([0, 3600], inputs={"Current function [A]": value})
+    solutions.append(solution)
+    labels.append(f"Current function [A] = {value}")
+
+pybamm.dynamic_plot(solutions, labels=labels)
+```
+
+:::
 ::::
