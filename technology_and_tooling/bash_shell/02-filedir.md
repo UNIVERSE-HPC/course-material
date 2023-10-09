@@ -195,6 +195,28 @@ $ pwd
 /Users/nelle
 ~~~
 
+Let's first get hold of some example files we can explore. First, download the example zip file to your home directory.
+If on WSL or Linux (e.g. Ubuntu or the Ubuntu VM), then do:
+
+~~~bash
+$ wget https://www.uhpc-training.co.uk/material/technology_and_tooling/bash_shell/shell-novice.zip
+~~~
+
+Or, if on a Mac, do:
+
+~~~bash
+$ curl -O https://www.uhpc-training.co.uk/material/technology_and_tooling/bash_shell/shell-novice.zip
+~~~
+
+Once done, you can unzip this file using the `unzip` command in Bash, which will unpack all the files
+in this zip archive into the current directory:
+
+~~~bash
+$ unzip shell-novice.zip
+~~~
+
+If you do `ls` now, you should see a new `shell-novice` directory.
+
 We can use `cd` followed by a directory name to change our working directory.
 `cd` stands for "change directory",
 which is a bit misleading:
