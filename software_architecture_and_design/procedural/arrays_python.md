@@ -175,19 +175,39 @@ matrices, it's much faster.
 
 We're now going to use an example dataset based on a clinical trial of
 inflammation in patients who have been given a new treatment for arthritis.
-There are a number of these data sets in the `data` directory.
 
-To download the dataset files into the current directory you can use `wget`:
+Let's download this dataset now. First, create a new directory inflammation and `cd` to it:
 
-```bash
-wget -r -l1 -nd -A csv https://gutenberg.fly.dev/material/software_architecture_and_design/procedural/inflammation/data/
-```
+~~~bash
+$ mkdir inflammation
+$ cd inflammation
+~~~
 
-This command will recursively download all `.csv` files from the specified URL
-to the current directory (`-nd` option). The `-r` option enables recursive
-downloading, while `-l1` limits the depth of recursion to 1 (i.e., it only
-downloads files from the specified URL). The `-A` option specifies the file
-extension to download (in this case, `.csv`).
+If on WSL or Linux (e.g. Ubuntu or the Ubuntu VM), then do:
+
+~~~bash
+$ wget https://www.uhpc-training.co.uk/material/software_architecture_and_design/procedural/inflammation/inflammation.zip
+~~~
+
+Or, if on a Mac, do:
+
+~~~bash
+$ curl -O https://www.uhpc-training.co.uk/material/software_architecture_and_design/procedural/inflammation/inflammation.zip
+~~~
+
+Once done, you can unzip this file using the `unzip` command in Bash, which will unpack all the files
+in this zip archive into the current directory:
+
+~~~bash
+$ unzip inflammation.zip
+~~~
+
+This zip file contains some code as well as the datasets we need stored in the `data` directory (which is what we're 
+interested in).
+
+~~~bash
+$ cd data
+~~~
 
 :::callout
 ## What Does the Patient Inflammation Data Contain?
