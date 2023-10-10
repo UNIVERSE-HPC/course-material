@@ -31,7 +31,7 @@ x = y
 ```
 
 Here we have two lists `x` and `y` with initial values, when the last line
-is executed the state is updated so that `x` now has the value 3. We can clearly
+is executed the state is updated so that `x` now has the value `[3, 2]`. We can clearly
 see this from the code given, but it can be less obvious when this code is
 hidden in a function:
 
@@ -53,7 +53,7 @@ even be declared in a separate file and brought in via an `import`
 z = 3 
 def my_cool_function(x, y):
     x = y
-    z++;
+    z = z + 1;
 
 
 y = [3, 2]
