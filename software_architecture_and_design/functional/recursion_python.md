@@ -115,13 +115,13 @@ def evaluate(tree):
     else:
         left = evaluate(tree.children[0])
         right = evaluate(tree.children[1])
-        if tree.name == '+':
+        if tree.value == '+':
             return left + right
-        elif tree.name == '-':
+        elif tree.value == '-':
             return left - right
-        elif tree.name == '*':
+        elif tree.value == '*':
             return left * right
-        elif tree.name == '/':
+        elif tree.value == '/':
             return left / right
         else:
             raise ValueError(f"Unknown operator: {tree.value}")
