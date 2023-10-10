@@ -64,12 +64,33 @@ tests too.
 
 ## Inflammation Data Analysis
 
-We will be using a simple inflammation data analysis python package to demonstrate the use of automated testing. You can obtain the code for this package, and the associated data files by downloading them using `wget`
+We will be using a simple inflammation data analysis python package to demonstrate the use of automated testing. Let's download this now. First, create a new directory inflammation and `cd` to it:
 
-```bash
-wget -r -nd  https://gutenberg.fly.dev/material/software_architecture_and_design/procedural/inflammation
-```
-This will download the `inflammation` directory and all its contents into your current directory. The file structure should look like this: 
+~~~bash
+$ mkdir inflammation
+$ cd inflammation
+~~~
+
+If on WSL or Linux (e.g. Ubuntu or the Ubuntu VM), then do:
+
+~~~bash
+$ wget https://www.uhpc-training.co.uk/material/software_architecture_and_design/procedural/inflammation/inflammation.zip
+~~~
+
+Or, if on a Mac, do:
+
+~~~bash
+$ curl -O https://www.uhpc-training.co.uk/material/software_architecture_and_design/procedural/inflammation/inflammation.zip
+~~~
+
+Once done, you can unzip this file using the `unzip` command in Bash, which will unpack all the files
+in this zip archive into the current directory:
+
+~~~bash
+$ unzip inflammation.zip
+~~~
+
+This will unpack the zip file's contents into the new `inflammation` directory. The file structure should look like this: 
 
 ```text
 inflammation/
@@ -93,29 +114,6 @@ The only files we'll be working with in this course are the following, so you ca
 1. `inflammation/models.py` - contains the functions we'll be testing
 2. `tests/test_models.py` - contains the tests we'll be writing
 3. `data/inflammation-*.csv` - contains the data we'll be using to test our functions
-
-## Working in a Virtual Environment
-
-Before we start, we'll create a virtual environment for our project and install
-the dependencies we need. You can create a virtual environment using the `venv`
-module that comes with Python. To do this, change directory to the
-`inflammation` directory and run the following:
-
-```bash
-python3 -m venv venv
-```
-
-Then activate the virtual environment:
-
-```bash
-source venv/bin/activate
-```
-
-The `requirements.txt` file contains a list of dependencies we need to install. We can install these using `pip`:
-
-```bash
-pip install -r requirements.txt
-```
 
 :::callout
 ## What Does the Patient Inflammation Data Contain?
@@ -146,11 +144,10 @@ then start the Python console by invoking the Python interpreter without any
 parameters, e.g.:
 
 ~~~bash
-cd inflammation
-python3 -m venv venv
-source venv/bin/activate
-pip install numpy matplotlib
-python
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install numpy matplotlib
+$ python
 ~~~
 
 The last command will start the Python console within your shell, which enables us to execute Python commands
