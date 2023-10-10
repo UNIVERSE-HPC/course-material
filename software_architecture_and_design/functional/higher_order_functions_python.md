@@ -68,8 +68,8 @@ pass into higher order functions. A higher order function is simply a function
 that has other functions as one of its arguments. 
 
 To illustrate the benifits of higher order functions, let us define two
-functions, one that calculates the sum of a `std::vector<int>`, the other
-which calculates the maximum value the same vector type.
+functions, one that calculates the sum of a list of values, the other
+which calculates the maximum value of the list.
 
 ```python
 def sum(data):
