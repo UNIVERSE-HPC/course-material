@@ -136,9 +136,7 @@ and use them accordingly. As you become more familiar with them you will realise
 way even though the command syntax may be different (and that there are equivalent tools for other programming languages
 too to which your knowledge can be ported).
 
-![Python environment hell XKCD comic](../fig/python-environment-hell.png){: .image-with-shadow width="500px"}
-<p style="text-align: center;">Python Environment Hell<br>
-From <a href="https://xkcd.com/1987/" target="_blank">XKCD</a> (Creative Commons Attribution-NonCommercial 2.5 License)</p>
+![Python environment hell XKCD comic](../fig/python-environment-hell.png)
 
 Let us have a look at how we can create and manage virtual environments from the command line using `venv` and manage packages using `pip`.
 
