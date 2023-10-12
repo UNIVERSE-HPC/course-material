@@ -66,7 +66,6 @@ In this course we aim to walk you through a hands-on session which will set up C
 We will go through:
 
 1. An introduction to GitHub actions ([link](./continuous_integration/github_actions))
-1. Automating tests ([link](./continuous_integration/testing))
 1. Generating code coverage information ([link](./continuous_integration/code_coverage))
 1. Generating and deploying documenation ([link](./continuous_integration/documentation))
 
