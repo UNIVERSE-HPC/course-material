@@ -6,4 +6,15 @@ dependsOn: [
 tags: []
 ---
 
+--- 
+
+## YouTube lecture recording from October 2020
+
+The following YouTube video was recorded for the 2020 iteration of the course.
+The material is still very similar:
+
+[![Youtube lecture thumbnail](fig/youtube11.jpg)](https://youtu.be/zAZ-FPnLvCg)
+
+---
+
 Coming soon.
