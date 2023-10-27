@@ -2,7 +2,7 @@
 name: Graphs
 dependsOn: [
 ]
-tags: [maths]
+tags: []
 ---
 
 ## Basics
