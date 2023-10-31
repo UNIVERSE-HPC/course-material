@@ -122,7 +122,7 @@ We can write this as $y = g^4$, where $g = 5x^2 + 2$. Given this, we have that
 
 This means that
 
-> $\frac{dy}{dx} = \frac{dy}{dg} \frac{dg}{dx} = 4 (5x^2 + 2)^3 10 x = 40 x (5x^3 + 2)^3$
+> $\frac{dy}{dx} = \frac{dy}{dg} \frac{dg}{dx} = 4 (5x^2 + 2)^3 10 x = 40 x (5x^2 + 2)^3$
 
 This extends infinitely to nested functions, meaning
 $\frac{d}{dx}(a(b(c)) = \frac{d a}{d b} \frac{d}{dx} (b(c)) = \frac{d a}{db} \frac{d b}{dc}\frac{dc}{dx}$
