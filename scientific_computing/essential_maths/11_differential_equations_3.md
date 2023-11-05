@@ -6,9 +6,9 @@ dependsOn: [
 tags: []
 ---
 
---- 
-
 ## Steady State Solutions and Mass Action
+
+---
 
 ## YouTube lecture recording from October 2020
 
