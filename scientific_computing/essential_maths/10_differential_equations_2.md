@@ -249,7 +249,7 @@ How long would it take for the concentration to reach 5.0 mM?
 ::::challenge{id="10_ext_01" title="Extension problems 1"}
 Consider a simple model of the production and degradation of a protein, shown by the reaction chain
 
-> $$\stackrel{k_1}{\longrightarrow} S \stackrel{k_2}{\longrightarrow}$$
+> $$\displaystyle \stackrel{k_1}{\longrightarrow} S \stackrel{k_2}{\longrightarrow}$$
 
 where $k_1$ and $k_2$ are mass action coefficients.
 
