@@ -1,5 +1,5 @@
 ---
-name: "Getting started"
+name: "Aims and workflows"
 teaching: 15
 exercises: 15
 dependsOn: [

@@ -18,3 +18,10 @@ attribution:
 To go through this tutorial, you need R installed on your machine, which can be freely downloaded from [R](https://www.r-project.org/). Whilst it is not prerequisite, we strongly suggest that you use the [RStudio](https://posit.co/download/rstudio-desktop/) IDE when developing your package.
 
 You also need the [devtools](https://www.r-project.org/nosvn/pandoc/devtools.html) package installed on your machine which can be achieved by typing `install.packages(devtools)` from the R console. Internally, loading `devtools` also loads the `usethis` package which we will make extensive use of throughout this tutorial.
+
+## Before starting the tutorial
+
+1. Create a fresh folder where you intend to house an R package
+2. Open up RStudio and change the working directory to be within the folder
+3. Load `devtools` via `library(devtools)` (which loads `usethis`):
+   - this is the interface to a range of tools which greatly facilitate R package development
