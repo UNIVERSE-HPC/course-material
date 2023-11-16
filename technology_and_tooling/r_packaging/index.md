@@ -10,6 +10,7 @@ files: [
   creating_your_package.md,
   function_documentation.md,
   testing.md,
+  dependencies.md,
   vignettes.md
 ]
 attribution:
@@ -22,7 +23,7 @@ summary: |
     basic unit tests and create pedagogical vignettes which explain how to use a package
 ---
 
-This short course describes how to make an R package. It broadly follows Chapter 2 of the [online version](https://r-pkgs.org/) of "R Packages (2nd edition)", by Hadley Wickham and Jennifer Bryan.
+This short course describes how to make an R package. It broadly follows Chapter 2 of the [free online version](https://r-pkgs.org/) of "R Packages (2nd edition)", by Hadley Wickham and Jennifer Bryan, but it also expands on this in various ways. Here, we aim only to cover those aspects of package development which a user most typically encounters during this process. The [R Packages](https://r-pkgs.org/) book goes into much more detail and is well worth reading in its entirety as this goes into much more detail than in this tutorial. 
 
 Creating an R package is important because the fundamental unit of shareable code in R is a package. Packages can either be shared directly with collaborators or, if they are hosted on online repositories (such as [Github](https://github.com/)) and are accompanied by appropriate software licenses, they can be made freely available for others to use.
 
