@@ -7,7 +7,10 @@ dependsOn: [
 files: [
   setup.md,
   basics.md,
-  testing.md
+  creating_your_package.md,
+  function_documentation.md,
+  testing.md,
+  vignettes.md
 ]
 attribution:
     - citation: >
