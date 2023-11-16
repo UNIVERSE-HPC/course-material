@@ -23,6 +23,6 @@ This short course describes how to make an R package. It broadly follows Chapter
 
 Creating an R package is important because the fundamental unit of shareable code in R is a package. Packages can either be shared directly with collaborators or, if they are hosted on online repositories (such as [Github](https://github.com/)) and are accompanied by appropriate software licenses, they can be made freely available for others to use.
 
-Creating an R package is not only useful if sharing code. Doing so also enforces good habits which means that code is developed into more manageable chunks and documented -- both of which are
+Creating an R package is not only useful if sharing code. Doing so also enforces good habits which means that code is developed into more manageable chunks and is documented -- both of which are helpful for developing robust code which a future self will undoubtedly be thankful for.
 
 In this tutorial, we use a toy example to explain how to setup an R package. Whenever you are developing code, and especially if that code is intended for use by the community, taking steps to minimise the risks of incorrect code. Unit testing is one way to achieve this, and in this tutorial, we explain how to write basic unit tests for your package. In R, it is also good practice to create a vignette (or multiple vignettes) which are typically pedagogical reference documents that explain to users how to use your package. The final part of this tutorial illustrates how to do this.

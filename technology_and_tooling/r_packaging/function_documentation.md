@@ -12,45 +12,39 @@ attribution:
       license:  CC BY-NC-ND 4.0
 ---
 
-## Creating documentation
+## Creating function documentation
 
 Function documentation tells future users of your package (yourself included) what inputs a function expects and the types of output it produces. Thankfully much of this process is entirely automated, reducing the demands on users.
 
-We are going to create documentation for your recently created `strsplit1` function.
+We are now going to create documentation for your recently created `strsplit1` function.
 
-1. Create documentation for your `strsplit1` function:
+Open again your `R/strsplit1.R` file and place your cursor within the `strsplit1` function body:
+  - in your Rstudio window do *Code > Insert roxygen skeleton*, which should create boilerplate code above the function written in the `roxygen` style
+  - add a title
+  - describe the inputs and the return value
+  - include an example
 
-   * open again your `R/strsplit1.R` file and place your cursor within the `strsplit1` function body
+Trigger creation of the documentation via `document()`. This will create a folder `man/` which houses automatically built documentation for your package.
 
-   * do *Code > Insert roxygen skeleton*, which should create boilerplate code above the function
+After doing so, test your documentation using `?strsplit1`. Does it appear as you hope it should to a user? If not, adjust the documentation and iteratively execute `document()` and `?strsplit1` until you are happy with it.
 
-   * add a title
+## External and internal functions
 
-   * describe the inputs and the return value
+Notice that when you executed *Code > Insert roxygen skeleton* above, an `@export` was added near the bottom of your function documentation. This means that your `strsplit1` function will be accessible by users of the package; after users execute `library(regexcite)` they can then use your `strsplit1` function.
 
-   * include an example
+To see that this is the case, examine the `NAMESPACE` file. You will see that `document()` added *export(strsplit1)* there which is the way that R packages keep tabs on which functions should be exposed to users.
 
-2. Trigger creation of the documentation via `document()`
+You may also want internal functions in your package, which you don't make available to users. For example, helper functions that are used by other functions in your package but which a user is unlikely to want to use themselves. To achieve this, just remove the `@export` from your function's documentation.
 
-   * this will create a folder `man/` which houses automatically built documentation for your package
 
-3. Test your documentation using `?strsplit1`
+## Test driving your package
+Double check that your package is all ok by running `check()`.
 
-4. Examine the `NAMESPACE` file. You will see that `document()` added *export(strsplit1)* there
+Now that we have a package that works, we can install it via `install()`.
 
-   * this makes the function available to users of the package
+Restart your R session and do `library(regexcite)` to load the package. Then test the package using:
 
-   * note, you may want internal functions in your package which you don't make available to users
-
-5. Double check that your package is all ok via `check()`
-
-6. Now that we have a package that works, we can install it via `install()`
-
-7. Restart your R session and do `library(regexcite)` to load the package
-
-8. Test the package using:
-
-   ```R
-   x <- "alfa,bravo,charlie,delta"
-   strsplit1(x, split = ",")
-   ```
+```R
+ x <- "alfa,bravo,charlie,delta"
+ strsplit1(x, split = ",")
+```
