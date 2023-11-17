@@ -21,10 +21,11 @@ We aim to create an R package, "regexcite", which contains a few simple function
 - create the functions themselves
 - show how to set up version control
 - explain workflows for package development including:
+  - package documentation
   - function documentation
   - unit testing
-  - package documentation
   - how to include package dependencies
+  - how to help users to better understand how to use your package by creating vignettes
 
 There's a short presentation [here](dependencies/how_to_make_an_R_package.pdf), which explains a little more about R packages and software licenses.
 
@@ -35,9 +36,9 @@ Key to the process of our package development will be the following commands, wh
 
 This figure has been reproduced from "R Packages (2nd edition)", by Hadley Wickham and Jennifer Bryan.
 
-- `load_all()` loads all functions (both those internal to the package and exposed to the user -- more on this distinction later) so that a user can test them out interactively in the RStudio console. You should **never** during package development load code from your package into the environment directly by highlighting your own function then executing it. This is because `load_all()` much more accurately simulates the process of installing your package than relying on things defined in your global environment
-- `test()` runs all unit tests for the package. A useful alternative is `test_active_file()` which runs only those unit tests given in a file currently active in RStudio
-- `document()` builds the documentation for your package's functions using `roxygen`. It then allows you to browse the help page for your own functions by executing `?custom_function_name`
+- `load_all()` loads all functions (both those internal to the package and exposed to the user -- more on this distinction later) so that a user can test them out interactively in the RStudio console. You should **never** during package development load code from your package into the environment directly by highlighting your own function then executing it. This is because `load_all()` much more accurately simulates the process of installing your package than relying on things defined in your global environment.
+- `test()` runs all unit tests for the package. A useful alternative is `test_active_file()` which runs only those unit tests given in a file currently active in RStudio.
+- `document()` builds the documentation for your package's functions using `roxygen`. It then allows you to browse the help page for your own functions by executing `?custom_function_name`.
 - `check()` automatically builds and checks a source package, using all known best practices. If your package passes this, it is a good sign that it may be ready to share with others.
 
 One thing that the above workflow diagram is missing is a check of code unit testing coverage, which can be achieved via the `test_coverage()` function in the `covr` package.

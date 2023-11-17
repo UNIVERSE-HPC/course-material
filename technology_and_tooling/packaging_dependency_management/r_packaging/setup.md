@@ -15,7 +15,7 @@ attribution:
 
 ## Requirements
 
-To go through this tutorial, you need R installed on your machine, which can be freely downloaded from [R](https://www.r-project.org/). Whilst it is not prerequisite, we strongly suggest that you use the [RStudio](https://posit.co/download/rstudio-desktop/) IDE when developing your package.
+To go through this tutorial, you need R installed on your machine, which can be freely downloaded from [R](https://www.r-project.org/). Whilst it is not prerequisite, we strongly suggest that you use the [RStudio](https://posit.co/download/rstudio-desktop/) IDE when developing your package since it helps to automate a number of steps (like automating the generation of docstrings for a function).
 
 You also need the [devtools](https://www.r-project.org/nosvn/pandoc/devtools.html) package installed on your machine which can be achieved by typing `install.packages(devtools)` from the R console. Internally, loading `devtools` also loads the `usethis` package which we will make extensive use of throughout this tutorial.
 
