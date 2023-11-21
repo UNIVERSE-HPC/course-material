@@ -1,7 +1,7 @@
 ---
 name: Iterative solvers in Scipy
 dependsOn: [
-  'scientific_computing.sparse_linear_algebra.06-jacobi-relaxation-methods'
+  'scientific_computing.sparse_linear_algebra.07-conjugate-gradient-method',
 ]
 tags: []
 ---
