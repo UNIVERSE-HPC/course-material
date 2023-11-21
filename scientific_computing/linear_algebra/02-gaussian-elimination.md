@@ -16,7 +16,7 @@ objectives:
 
 ## Gaussian Elimination
 
-Consider the problem: Find $x, y,z$ such that 
+Consider the problem: Find $x, y, z$ such that 
 
 $$
 \begin{aligned}
@@ -78,7 +78,8 @@ $$
 eq1: &  x & + & y & + & z & =  & a \\
 eq2: & 2x & + & 2y & + &  5z &  = & b \\
 eq3: & 4x & +&  6y  & + & 8z &  = &  c 
-\end{aligned} $$
+\end{aligned} 
+$$
 
 This firstly reduces to 
 
@@ -105,7 +106,8 @@ $$
 eq1: &  x & + & y & + & z & =  & a \\
 eq2: & 2x & + & 2y & + &  5z &  = & b \\
 eq3: & 4x & +&  4y  & + & 8z &  = &  c 
-\end{aligned} $$
+\end{aligned} 
+$$
 
 This firstly reduces to 
 
@@ -161,17 +163,15 @@ understand how it works:
              k := k + 1
 
 
-{{% notice question %}}
+::::challenge{id=gaussian-elimination title="Gaussian Elimination"}
+
 1. Code a Python function that takes an 2D numpy array representing a matrix $A$, and a 
    1D array representing a RHS $b$, and returns the solution of the linear equation $Ax 
    = b$. If you wish you can assume that the matrix has an inverse. Try it out on a few 
    test matrices and check your answer using 
    [`scipy.linalg.solve`](https://docs.scipy.org/doc/scipy-0.18.1/reference/generated/scipy.linalg.solve.html).
 
-{{% /notice %}}
-
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
+:::solution
 ```python
 import numpy as np
 import matplotlib.pylab as plt
@@ -257,8 +257,8 @@ for A, b in zip(As, bs):
     x_mine = solve_gaussian_elimination(A, b)
     np.testing.assert_almost_equal(x_scipy, x_mine)
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::
 
 ## Condition Number
 
@@ -274,7 +274,7 @@ solution is to the input values of the matrix or rhs vector. An identity matrix 
 condition number of 1, while an exactly singular matrix has a condition number of 
 infinity.
 
-{{% notice question %}}
+::::challenge{id=condition-number title="Condition Number"}
 
 Suppose an experiment leads to the following system of equations:
 
@@ -301,10 +301,8 @@ $$
 4. Use `numpy.linalg.cond` to produce the condition number of the coefficient matrix in 
    (1).
 
-{{% /notice %}}
+:::solution
 
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
 ```python
 A = np.array([
     [4.5, 3.1],
@@ -315,6 +313,7 @@ x2 = scipy.linalg.solve(A, np.array([19.25, 6.84]))
 print('percentage error is ', np.linalg.norm(x2 - x1) / np.linalg.norm(x1) * 100)
 print('condition number is ', np.linalg.cond(A))
 ```
-{{% /notice %}}
-{{% /expand %}}
+
+:::
+::::
 

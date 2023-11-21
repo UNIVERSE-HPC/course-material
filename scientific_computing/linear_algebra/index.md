@@ -7,7 +7,6 @@ dependsOn: [
 files: [
   01-matrix-form-of-equations.md,
   02-gaussian-elimination.md,
-  03-matrix-decompositions.md,
   04-LU-decomposition.md,
   06-Cholesky-decomposition.md,
   07-QR-decomposition.md,

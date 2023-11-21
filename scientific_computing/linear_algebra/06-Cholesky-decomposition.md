@@ -6,8 +6,6 @@ dependsOn: [
 tags: []
 ---
 
-
-
 ## Cholesky decomposition
 
 *Symmetric positive definite* matrices are a very special type of matrix that often 
@@ -79,55 +77,61 @@ requiring taking the square root of the diagonal elements.
 
 ## Problems
 
-{{% notice question %}}
+::::challenge{id=sampling-random-fields title="Sampling random fields"}
+
 Imagine that we wanted to sample an array of values $x_i$, for $i = 1...n$, where each 
 value is sampled from an independent normal distribution with standard deviation 
 $\sigma$
 
- $$x_i \sim \mathcal{N}(0, \sigma)$$
+$$
+x_i \sim \mathcal{N}(0, \sigma)
+$$
 
- This could be achieved, for example, by sampling from a normal distribution with unit 
- standard deviation, a function that typically exists in any computer language, then 
- multiplying by $\sigma$
+This could be achieved, for example, by sampling from a normal distribution with unit 
+standard deviation, a function that typically exists in any computer language, then 
+multiplying by $\sigma$
 
- $$x_i = \sigma \eta$$
+$$
+x_i = \sigma \eta
+$$
 
- where $\eta \sim \mathcal{N}(0, 1)$
+where $\eta \sim \mathcal{N}(0, 1)$
 
- Now imagine that instead of an independent normal distribution you wish to sample 
- $\mathbf{x} = [x_1, x_2, ..., x_n]$ from a multivariate normal distribution with some 
- covariance matrix $\Sigma$
+Now imagine that instead of an independent normal distribution you wish to sample 
+$\mathbf{x} = [x_1, x_2, ..., x_n]$ from a multivariate normal distribution with some 
+covariance matrix $\Sigma$
 
- $$\mathbf{x} \sim \mathcal{N}(\mathbf{0}, \Sigma)$$
+$$
+\mathbf{x} \sim \mathcal{N}(\mathbf{0}, \Sigma)
+$$
 
- We can achive this in practice by using the Cholesky decomposition. A covariance 
- matrix is a symmetic positive semidefinite matrix (i.e. $x^T \Sigma x \ge 0$}, and 
- therefore can be decomposed into  $\Sigma = LL^T$. We can then draw a sample from 
- $\mathcal{N}(\mathbf{0}, \Sigma)$ by scaling an independently generated random vector 
- by $L$
+We can achive this in practice by using the Cholesky decomposition. A covariance 
+matrix is a symmetic positive semidefinite matrix (i.e. $x^T \Sigma x \ge 0$}, and 
+therefore can be decomposed into  $\Sigma = LL^T$. We can then draw a sample from 
+$\mathcal{N}(\mathbf{0}, \Sigma)$ by scaling an independently generated random vector 
+by $L$
 
- $$\mathbf{x} = L \mathbf{\eta}$$
+$$
+\mathbf{x} = L \mathbf{\eta}
+$$
 
- where each element of the vector $\eta$ is $\eta_i \sim \mathcal{N}(0, 1)$.
+where each element of the vector $\eta$ is $\eta_i \sim \mathcal{N}(0, 1)$.
 
- Write Python code to randomly sample an n-dimensional vector $x$ from 
- 
- 1. an independent normal distribution with variance $\sigma_1^2$.
+Write Python code to randomly sample an n-dimensional vector $x$ from 
 
- 2. a multivariate normal distribution using a covariance matrix $\Sigma_{ij} = 
-    \sigma_1^2 \exp{(-(i- j)^2 / \sigma_2^2)}$. Try different values for the magnitute 
-    $\sigma_1$, and lenghtscale $\sigma_2$ parameters and their effect on the sampled 
-    $\mathbf{x}$. Hint: while the expression for $\Sigma$ is guarrenteed to be positive 
-    definte for all values of $\sigma_1$ and $\sigma_2$, numerical round-off can mean 
-    that the Cholesky decomposition can fail. To guarrentee a positive definite 
-    $\Sigma$, try adding a small amount (e.g. 1e-5) to the diagonal of $\Sigma$. This 
-    is equivilent to adding a very small amount of independent normal noise to 
-    $\mathbf{x}$.
+1. an independent normal distribution with variance $\sigma_1^2$.
 
-{{% /notice %}}
+2. a multivariate normal distribution using a covariance matrix $\Sigma_{ij} = 
+   \sigma_1^2 \exp{(-(i- j)^2 / \sigma_2^2)}$. Try different values for the magnitute 
+   $\sigma_1$, and lenghtscale $\sigma_2$ parameters and their effect on the sampled 
+   $\mathbf{x}$. Hint: while the expression for $\Sigma$ is guarrenteed to be positive 
+   definte for all values of $\sigma_1$ and $\sigma_2$, numerical round-off can mean 
+   that the Cholesky decomposition can fail. To guarrentee a positive definite 
+   $\Sigma$, try adding a small amount (e.g. 1e-5) to the diagonal of $\Sigma$. This 
+   is equivilent to adding a very small amount of independent normal noise to 
+   $\mathbf{x}$.
 
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
+:::solution
 
 ```python
 import numpy as np
@@ -159,20 +163,26 @@ plt.plot(sample_zero_mean_random_field(K1))
 plt.plot(sample_zero_mean_random_field(K2))
 plt.show()
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::
 
-{{% notice question %}}
+
+::::challenge{id=likelihood title="Likelihood"}
+
 Now imagine that we have a vector of measurements $\mathbf{x}$, and we assume that a 
 suitable model for these measurements is that they are generated from a zero-mean, 
 multivariate normal distribuion, i.e.
 
-$$\mathbf{x} \sim \mathcal{N}(\mathbf{0}, \Sigma)$$
+$$
+\mathbf{x} \sim \mathcal{N}(\mathbf{0}, \Sigma)
+$$
 
 We assume that the covariance matrix is of the following form, with two parameters 
 $\mathbf{\theta} = (\sigma_1, \sigma_2)$. 
 
-$$\Sigma_{ij} = \sigma_1^2 \exp{(-(i- j)^2/ \sigma_2^2)}$$
+$$
+\Sigma_{ij} = \sigma_1^2 \exp{(-(i- j)^2/ \sigma_2^2)}
+$$
 
 We can write down the *likelihood* of the covariance parameters $\mathbf{\theta}$, given 
 a given dataset $\mathbf{x}$, by using the probability distribution function (PDF) for a 
@@ -201,10 +211,8 @@ $$
    parameters that give rise to your data.
 
 
-{{% /notice %}}
+:::solution
 
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
 ```python
 def log_likelihood(sigma1, sigma2, x):
     K = construct_covariance(sigma1, sigma2)
@@ -236,6 +244,6 @@ plt.xlabel(r'$\sigma_1$')
 plt.ylabel(r'$\sigma_2$')
 plt.show()
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::
  

@@ -39,7 +39,7 @@ Since $\hat{b}$ is the closest point to $b$ in the column space of $A$, we can t
 say that $\hat{x}$ is the least-squares solution.
 
 
-![least squares problem](/scientific-computing/images/unit_01/linear-least-squares.svg)
+![least squares problem](images/linear-least-squares.svg)
 
 
 We can show that the vector $b - \hat{b} = b - A \hat{x}$ is orthogonal to Col $A$ and 
@@ -193,7 +193,8 @@ Additional reading on the $QR$ decomposition can be found at:
 
 ## Problems
 
-{{% notice question %}}
+::::challenge{id=model-fitting title="Model fitting"}
+
 For this exercises we will be using some data on Oxford's weather which is hosted by 
 [Saad Jbabdi](https://users.fmrib.ox.ac.uk/~saad/) from the Wellcome Centre for 
 Integrative NeuroImaging (FMRIB), which can be obtained 
@@ -212,10 +213,9 @@ $$
 Use a $QR$ decomposition to find the least-squares solution to these equations (you can 
 check it using `np.linalg.lstsq` if you like), and therefore fit the model to the data. 
 Plot the model and the data side by side to qualitatively evaluate the fit.
-{{% /notice %}}
 
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
+:::solution
+
 ```python
 import pandas as pd
 import matplotlib.pylab as plt
@@ -251,5 +251,5 @@ plt.xlabel('month')
 plt.ylabel('hoursSun')
 plt.show()
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::

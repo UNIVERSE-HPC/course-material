@@ -1,10 +1,31 @@
 ---
 name: LU decomposition
 dependsOn: [
-    'scientific_computing.linear_algebra.03-matrix-decompositions',
+    'scientific_computing.linear_algebra.02-gaussian-elimination',
 ]
 tags: []
 ---
+
+## Matrix decompositions
+
+Matrix factorisations play a key role in the solution of problems of the type $A x = b$. 
+Often (e.g. ODE solvers), you have a fixed matrix $A$ that must be solved with many 
+different $b$ vectors. A matrix factorisation is effectivly a pre-processing step that 
+allows you to partition $A$ into multiple factors (e.g. $A = LU$ in the case of $LU$ 
+decomposition), so that the actual solve is as quick as possible. Different 
+decompositions have other uses besides solving $A x = b$, for example:
+
+- the $LU$, $QR$ and Cholesky decomposition can be used to quickly find the determinant 
+  of a large matrix, since $\det(AB) = \det(A) \det(B)$ and the determinant of a 
+  triangular matrix is simply the product of its diagonal entries. 
+- The Cholesky decomposition can be used to [sample from a multivariate normal 
+  distribution](https://stats.stackexchange.com/questions/89796/can-i-use-the-cholesky-method-for-generating-correlated-random-variables-with-gi/89830#89830), 
+  and is a very efficient technique to solve $A x = b$ for the specific case of a 
+  positive definite matrix. 
+- The $QR$ decomposition can be used to solve a minimum least squares problem, to find 
+  the eigenvalues and eigenvectors of a matrix, and to calulcate the [Singular Value 
+  Decomposition](https://en.wikipedia.org/wiki/Singular_value_decomposition) (SVD), 
+  which is itself another very useful decomposition!
 
 ## $LU$ decomposition
 
@@ -18,7 +39,6 @@ L y &= b \\
 U x &= y
 \end{aligned}
 $$
-
 
 where $A = LU$. The $L$ matrix is a *unit* lower triangular matrix and thus has ones on 
 the diagonal, whereas $U$ is in row echelon form with pivot values in the leading 
@@ -248,7 +268,7 @@ about a half that required for the $LU$ decomposition.
 
 ## Problems
 
-{{% notice question %}}
+::::challenge{id=lu-decomposition title="LU decomposition"}
 
 Take your gaussian elimination code that you wrote in the previous lesson and use it to 
 write an LU decomposition function that takes in a martix $A$, and returns $L$, $U$ and 
@@ -257,10 +277,8 @@ the array $p_i$. You can check your answer using
 Hint: the permutation matrix is tricky to construct, so you might want to use the test 
 given in the documentation for `lu_factor`.
 
-{{% /notice %}}
+:::solution
 
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
 ```python
 import numpy as np
 import matplotlib.pylab as plt
@@ -341,5 +359,5 @@ for A in As:
     np.testing.assert_almost_equal(calculate_L_mult_U(LU_scipy),  A[row_indices_scipy])
     np.testing.assert_almost_equal(calculate_L_mult_U(LU_mine),  A[row_indices_mine])
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::
