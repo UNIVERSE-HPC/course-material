@@ -5,6 +5,9 @@ courses: [
   essential_maths,
   linear_algebra,
   sparse_linear_algebra,
+  optimisation,
+  ode_solvers,
+  bayesian_inference,
 ]
 ---
 

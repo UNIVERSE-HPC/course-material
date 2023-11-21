@@ -1,6 +1,6 @@
 ---
 id: linear_algebra
-name: Linear Algebra
+name: Linear Algebra Solvers
 dependsOn: [
   scientific_computing.essential_maths,
 ]
