@@ -58,13 +58,12 @@ further in the next chapter.
 Your goal for this problem is to construct the FD matrix $A$ given above, using 
 `scipy.sparse`, and:
 
-{{% notice question %}}
+::::challenge{id=scipy-sparse-poisson title="Visualise Poisson Matrix"}
+
 1. Visualise the matrix $A$ using the Matplotlib 
    [`spy`](https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.spy.html) plot
-{{% /notice %}}
 
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
+:::solution
 ```python
 import scipy.sparse.linalg
 import scipy.sparse as sp
@@ -78,21 +77,17 @@ A = sp.spdiags([e, -2*e, e], [-1, 0, 1], N, N, format='csc')
 plt.spy(A)
 plt.show()
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::
 
-{{% notice question %}}
+::::challenge{id=scipy-sparse-poisson-solve title="Solve Poisson problem"}
 2. Solve the Poisson problem using:
   - $f(x) = 2 \cos(x) / e^x$, with boundary conditions $g(0) = 0$ and $g(2 \pi)=0$. The 
     analytical solution is  $u_{a}(x) = -\sin(x) / e^x$.
   - $f(x) = 2 \sin(x) / e^x$, with boundary conditions $g(0) = 1$ and $g(2 \pi)=1 / e^{2 
     \pi}$. The analytical solution is  $u_{a}(x) = \cos(x) / e^x$
 
-{{% /notice %}}
-
-
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
+:::solution
 ```python
 L = 2*np.pi
 x = np.linspace(0, L, N+2)
@@ -122,11 +117,11 @@ for f, a in zip([fcos, fsin], [analytical_cos, analytical_sin]):
     plt.legend()
     plt.show()
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::
 
 
-{{% notice question %}}
+::::challenge{id=sparse-versus-dense-mult title="Sparse versus dense: matrix multiplication"}
 3. Vary the number of discretisation points $N$ and calculate $AA$ using both sparse and 
    dense matrices. For each $N$ calculate the time to calculate the matix 
    multiplicatiion using Python's 
@@ -134,10 +129,8 @@ for f, a in zip([fcos, fsin], [analytical_cos, analytical_sin]):
    and plot execution time versus $N$ for dense and sparse matrix multiplication. 
    Comment on how the time varies with $N$.
 
-{{% /notice %}}
 
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
+:::solution
 ```python
 import time
 
@@ -170,20 +163,18 @@ plt.ylabel('time taken')
 plt.legend()
 plt.show()
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::
 
-{{% notice question %}}
+::::challenge{id=sparse-versus-dense-solve title="Sparse versus dense: solving Poisson problem"}
+
 4. Vary the number of discretisation points $N$ and solve the Poisson problem with 
    varying $N$, and with using both the sparse and direct $LU$ solvers. For each $N$ 
    record the time taken for both the dense and sparse solvers, and record the numerical 
    error $||\mathbf{v} - \mathbf{v}_a||_2$. Generate plots of both error and time versus 
    $N$, and comment on how they vary with $N$
 
-{{% /notice %}}
-
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
+:::solution
 ```python
 times = np.empty(num, dtype=float)
 times_dense = np.empty(num, dtype=float)
@@ -225,5 +216,5 @@ plt.ylabel('time taken')
 plt.legend()
 plt.show()
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::

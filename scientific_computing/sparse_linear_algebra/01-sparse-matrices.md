@@ -25,7 +25,7 @@ matrix of double precision numbers (taken from the excellent
 [scipy-lectures](http://scipy-lectures.org/advanced/scipy_sparse/introduction.html#why-sparse-matrices)) 
 
 
-![least squares problem](/scientific-computing/images/unit_02/sparse_versus_dense.svg)
+![least squares problem](images/sparse_versus_dense.svg)
 
 A sparse matrix only stores non-zero elements, and in many different applications this 
 represents a huge memory saving as matrices are often very sparse, holding only a few 

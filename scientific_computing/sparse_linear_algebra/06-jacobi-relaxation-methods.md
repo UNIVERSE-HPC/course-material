@@ -63,14 +63,20 @@ The Jacobi method is an example of a relaxation method, where the matrix $A$ is 
 into a dominant part $M$ (which is easy to solve), and the remainder $N$. That is, $A = 
 M - N$
 
-$$M\mathbf{x}_{k+1} = N\mathbf{x}_k + \mathbf{b}$$
+$$
+M\mathbf{x}_{k+1} = N\mathbf{x}_k + \mathbf{b}
+$$
 
-$$\mathbf{x}_{k+1} = M^{-1}N\mathbf{x}_k + M^{-1}\mathbf{b}$$
+$$
+\mathbf{x}_{k+1} = M^{-1}N\mathbf{x}_k + M^{-1}\mathbf{b}
+$$
 
 This can be rearranged in terms of the *residual* $\mathbf{r}_k = \mathbf{b} - A 
 \mathbf{x}_k$ to the update equation
 
-$$\mathbf{x}_{k+1} = \mathbf{x}_{k} + M^{-1}\mathbf{r}_k$$
+$$
+\mathbf{x}_{k+1} = \mathbf{x}_{k} + M^{-1}\mathbf{r}_k
+$$
 
 For the Jacobi method $M = D$ and $N = -(L + U)$. Other relaxation methods include 
 Gauss-Seidel, where $M = (D + L)$ and $N = -U$, and successive over-relaxation (SOR), 
@@ -103,7 +109,8 @@ optimal $\omega$.
 ### Problems
 
 
-{{% notice question %}}
+::::challenge{id=2d-poisson-jacobi-relaxation title="2D Poisson Jacobi Relaxation"}
+
 This exercise involves the manipulation and solution of the linear system resulting from 
 the finite difference solution to Poisson's equation in *two* dimensions. Let $A$ be a 
 sparse symmetric positive definite matrix of dimension $(N-1)^2 \times (N-1)^2$ created 
@@ -160,10 +167,9 @@ analysis.
 1. Write a function to solve a linear system using the Jacobi method. In
   terms of $N$, how many iterations does it take to converge? (Try
   $N=4,8,16,32,64$.)
-{{% /notice %}}
 
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
+:::solution
+
 ```python
 import numpy as np
 import scipy.sparse as sp
@@ -208,20 +214,18 @@ plt.xlabel('N')
 plt.ylabel('iterations')
 plt.show()
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::
 
-{{% notice question %}}
+::::challenge{id=2d-poisson-sor-relaxation title="2D Poisson SOR Relaxation"}
+
 2. Write a function to solve a linear system using the SOR method. For
   $N=64$ and right-hand-side $\mathbf{f}_2$ determine numerically the best
   choice of the relaxation parameter to 2 decimal places  and compare this
   with theory. Hint, use 
   [`scipy.optimize.minimize_scalar`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize_scalar.html#scipy.optimize.minimize_scalar).
 
-{{% /notice %}}
-
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
+:::solution
 ```python
 def SOR(A, b, omega, x0=None, tol=1e-5, max_iter=300):
     if x0 is None:
@@ -255,5 +259,5 @@ def SOR_iterations(omega):
 res = scipy.optimize.minimize_scalar(SOR_iterations, bracket=[0.1, 1.0, 1.99], tol=1e-2)
 print('ideal omega is', res.x, 'versus analytic value of', 2 / (1 + np.sin(np.pi/N)))
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::

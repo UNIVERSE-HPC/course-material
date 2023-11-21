@@ -9,15 +9,19 @@ tags: []
 
 
 Many matrices in scientific computing contain mostly zeros, particularly those arising 
-from the discretistaion of partial differential equations (PDEs). Here we will construct 
+from the discretisation of partial differential equations (PDEs). Here we will construct 
 a sparse matrix using `scipy.sparse` that is derived from the finite difference 
 discretistaion of the Poisson equation. In 1D, Poisson equation is
 
-$$u_{xx} = f(x)\text{ for }0 \le x \le 1$$
+$$
+u_{xx} = f(x)\text{ for }0 \le x \le 1
+$$
 
 The central FD approximation of $u_{xx}$ is:
 
-$$u_{xx} \approx \frac{u(x + h) - 2u(x) + u(x-h)}{h^2}$$
+$$
+u_{xx} \approx \frac{u(x + h) - 2u(x) + u(x-h)}{h^2}
+$$
 
 We will discretise $u_{xx} = 0$ at $N$ regular points along $x$ from 0 to 1, given by 
 $x_1$, $x_2$:
@@ -28,7 +32,9 @@ $x_1$, $x_2$:
 Using this set of point and the discretised equation, this gives a set of $N$ equations 
 at each interior point on the domain:
 
-$$\frac{v_{i+1} - 2v_i + v_{i-1}}{h^2} = f(x_i) \text{ for } i = 1...N$$
+$$
+\frac{v_{i+1} - 2v_i + v_{i-1}}{h^2} = f(x_i) \text{ for } i = 1...N
+$$
 
 where $v_i \approx u(x_i)$.
 
@@ -37,11 +43,15 @@ the *boundary conditions*. For this example we will use $u(x) = g(x)$ at $x=0$ a
 (also known as a non-homogenous Dirichlet bc), so that $v_0 = g(0)$, and $v\_{N+1} = 
 g(1)$, and the equation at $x_1$ becomes:
 
-$$\frac{v_{i+1} - 2v_i + g(0)}{h^2} = f(x_i)$$
+$$
+\frac{v_{i+1} - 2v_i + g(0)}{h^2} = f(x_i)
+$$
 
 and the equation at $x_N$ becomes:
 
-$$\frac{g(1) - 2v_i + v_{i-1}}{h^2} = f(x_i)$$
+$$
+\frac{g(1) - 2v_i + v_{i-1}}{h^2} = f(x_i)
+$$
 
 We can therefore represent the final $N$ equations in matrix form like so:
 

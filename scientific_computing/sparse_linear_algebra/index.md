@@ -11,7 +11,6 @@ files: [
   04-scipy-sparse.md,
   06-jacobi-relaxation-methods.md,
   07-conjugate-gradient-method.md,
-  08-scipy.sparse.linalg.md,
 ]
 summary: |
   This course covers the basics of iterative methods for
