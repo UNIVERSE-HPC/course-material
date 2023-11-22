@@ -1,5 +1,5 @@
 ---
-id: essential maths
+id: essential_maths
 name: Essential Maths
 dependsOn: []
 files: [
