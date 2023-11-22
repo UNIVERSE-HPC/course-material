@@ -1,8 +1,8 @@
 ---
-id: ode_solvers
-name: Solving ODEs
+id: bayesian_inference
+name: Bayesian Inference
 dependsOn: [
-  scientific_computing.essential_maths,
+  scientific_computing.ode_solvers,
 ]
 files: [
   01-AM.md,
