@@ -17,7 +17,7 @@ arises when the hessian is singular, and are characterised by a plateau around t
 stationary point, like the [monkey saddle](https://en.wikipedia.org/wiki/Monkey_saddle) 
 depicted in the plot to the right. 
 
-![Two examples of saddle points](/scientific-computing/images/unit_04/saddle.svg)
+![Two examples of saddle points](images/saddle.svg)
 
 Near the location of the critical point, the function $f$ can be restated using the quadratic form like so (see also [Pascanu, Dauphin and Ganguli 2014](https://arxiv.org/abs/1405.4604)):
 
@@ -87,25 +87,33 @@ to or greater than 1 we can be confident in our model and thus increase $\Delta_
 general algorithm for a trust region method (reproduced from the text by Nocedal and 
 Wright cited below) is:
 
+### Trust region algorithm
+
 Given $a_0$, $\hat{\Delta} > 0$, $\Delta_0 \in (0, \hat{\Delta})$, and $\nu \in [0, 
-\frac{1}{4})$: \\
-**for** $k = 0, 1, 2, ...$ \\
-&nbsp;&nbsp; Obtain $p_k$ by (approximately) minimising $m_k(p)$ where $||p|| < \Delta_k$ 
-\\
-&nbsp;&nbsp; $\rho_k := \frac{f(a_k) - f(a_k + p_k)}{m_k(0) - m_k(p_k)}$ \\
-&nbsp;&nbsp; **if** $\rho_k < \frac{1}{4}$ \\
-&nbsp;&nbsp;&nbsp;&nbsp; $\Delta\_{k+1} := \frac{1}{4} \Delta_k$ \\
-&nbsp;&nbsp; **else** \\
-&nbsp;&nbsp; &nbsp;&nbsp;**if** $\rho_k > \frac{3}{4}$ and $||p_k|| = \Delta_k$ \\
-&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; $\Delta\_{k+1} := \min(2 \Delta_k, \hat{\Delta})$ 
-\\
-&nbsp;&nbsp; &nbsp;&nbsp;**else** \\
-&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; $\Delta\_{k+1} := \Delta_k$ \\
-&nbsp;&nbsp; **if** $\rho\_k > \nu$ \\
-&nbsp;&nbsp; &nbsp;&nbsp; $a\_{k+1} := a_k + p_k$\\
-&nbsp;&nbsp;**else** \\
-&nbsp;&nbsp; &nbsp;&nbsp; $a\_{k+1} := a_k$\\
-**end for** 
+\frac{1}{4})$:
+
+**for** $k = 0, 1, 2, ...$   
+>  Obtain $p_k$ by (approximately) minimising $m_k(p)$ where $||p|| < \Delta_k$   
+>  $\rho_k := \frac{f(a_k) - f(a_k + p_k)}{m_k(0) - m_k(p_k)}$   
+>  **if** $\rho_k < \frac{1}{4}$   
+>>   $\Delta\_{k+1} := \frac{1}{4} \Delta_k$    
+
+>  **else**     
+>>   **if** $\rho_k > \frac{3}{4}$ and $||p_k|| = \Delta_k$   
+>>>    $\Delta\_{k+1} := \min(2 \Delta_k, \hat{\Delta})$   
+
+>>   **else**   
+>>>    $\Delta\_{k+1} := \Delta_k$   
+
+>  **if** $\rho\_k > \nu$   
+>>   $a\_{k+1} := a_k + p_k$  
+
+>  **else**   
+>>   $a\_{k+1} := a_k$  
+
+**end for**   
+
+### Solving the trust region subproblem
 
 We will describe two algorithms for minimising $m_k(p)$, the *Cauchy point* and the 
 *dogleg* methods. The Cauchy point first solves a linear version of $m_k$ defined as
@@ -173,7 +181,8 @@ $$
 
 ### Problems
 
-{{% notice question %}}
+::::challenge{id="the-dog-leg" title="The Dog Leg"}
+
 1. Let $f(x) = 10 \left( x_2 − x^2_1 \right)^2 + (1 − x_1)^2$. At $x = (0,−1)$ draw the 
    contour lines of the quadratic model 
    
@@ -184,11 +193,9 @@ $$
    assuming that $B\_k$ is the Hessian of $f$. Draw the family of solutions of $\min_{p 
    \in \mathcal{R}^n}m_k(p)$ so that $||p|| \le \Delta_k$  as the trust region radius 
    varies from $\Delta_k = 0$ to $\Delta_k = 2$. Repeat this at $x = (0, 0.5)$.
-{{% /notice %}}
 
+:::solution
 
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
 ```python
 import numpy as np
 import matplotlib.pylab as plt
@@ -238,20 +245,19 @@ for x0 in [np.array([0., -1.]), np.array([0., 0.5])]:
 
 plt.show()
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::
 
-{{% notice question %}}
+
+::::challenge{id="dogleg-method" title="Dogleg method"}
+
 2. Write a program that implements the dogleg method. Choose $B_k$ to be the exact 
    Hessian. Apply it to minimise the function in (1) from the same two starting 
    points. If you wish, experiment with the update rule for the trust region by 
    changing the constants in the trust region algorithm given above, or by designing 
    your own rules.
-{{% /notice %}}
-
-
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
+   
+:::solution
 ```python
 def line_sphere_intersect(o, u, r2):
     """
@@ -335,5 +341,5 @@ for x0 in [np.array([0., -1.]), np.array([0., 0.5])]:
 
 plt.show()
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::

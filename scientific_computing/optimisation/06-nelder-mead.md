@@ -39,7 +39,7 @@ contracting the simplex to one of these points. If it cannot find a better point
 all the vertices on the simplex are shrunk towards the best vertex $x_1$. 
 
 ![Nelder–Mead simplex search over the Rosenbrock banana 
-function](/scientific-computing/images/unit_04/Nelder-Mead_Rosenbrock.gif) 
+function](images/Nelder-Mead_Rosenbrock.gif) 
 
 ## Algorithm
 
@@ -81,18 +81,16 @@ function evaluations is reached.
 
 ### Problems
 
-{{% notice question %}}
+::::challenge{id=nelder-mead title="Nelder-Mead algorithm"}
+
 Code up the Nelder-Mead algorithm and compare its performance against the steepest 
 descent, Newton and dogleg algorithms you did in the last lesson. You can evaluate them 
 on the 2D quadratic function $f(x, y) = x^2 + y^2$, the 2D [Rosenbrock
 function](https://en.wikipedia.org/wiki/Rosenbrock_function) or on one of many different 
 [optimisation test 
 functions](https://en.wikipedia.org/wiki/Test_functions_for_optimization)
-{{% /notice %}}
 
-
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
+:::solution
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -231,5 +229,5 @@ if __name__ == '__main__':
         )
         plt.show()
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::

@@ -1,12 +1,10 @@
 ---
-name: Finite Difference Method
+name: Derivative-free methods
 dependsOn: [
     scientific_computing.optimisation.03-trust-region-methods,
 ]
 tags: []
 ---
-
-## Derivative-free methods
 
 The line search and trust region methods introduced in the previous lesson all required 
 that the user be able to calculate the gradient of the function $\nabla f$. However, in 
@@ -43,20 +41,30 @@ The Finite Difference (FD) method is based on taking a Taylor series expansion o
 $f(x+h)$ and $f(x-h)$ (and others) for a small parameter $f$ about $x$. Consider a 
 smooth function $f(x)$ then its Taylor expansion is
 
-$$f(x+h) = f(x) + h f'(x) + \frac{h^2}{2} f''(x) + \frac{h^3}{6} f'''(x) + \frac{h^4}{24} f'''''(x) + \ldots $$
+$$
+f(x+h) = f(x) + h f'(x) + \frac{h^2}{2} f''(x) + \frac{h^3}{6} f'''(x) + \frac{h^4}{24} f'''''(x) + \ldots 
+$$
 
-$$f(x-h) = f(x) - h f'(x) + \frac{h^2}{2} f''(x) - \frac{h^3}{6} f'''(x) + \frac{h^4}{24} f'''''(x) - \ldots $$
+$$
+f(x-h) = f(x) - h f'(x) + \frac{h^2}{2} f''(x) - \frac{h^3}{6} f'''(x) + \frac{h^4}{24} f'''''(x) - \ldots
+$$
 
-From this, we can compute three different \emph{schemes} (approximations) to $u'(x)$:
+From this, we can compute three different *schemes* (approximations) to $u'(x)$:
 
 **Forward difference**:
-$$u'(x) = \frac{u(x+h)-u(x)}{h} + O(h)$$
+$$
+u'(x) = \frac{u(x+h)-u(x)}{h} + O(h)
+$$
 
 **Backward difference**:
-$$u'(x) = \frac{u(x)-u(x-h)}{h} + O(h)$$
+$$
+u'(x) = \frac{u(x)-u(x-h)}{h} + O(h)
+$$
 
 **Centered difference**:
-$$u'(x) = \frac{u(x+h)-u(x-h)}{2h} + O(h^2)$$
+$$
+u'(x) = \frac{u(x+h)-u(x-h)}{2h} + O(h^2)
+$$
 
 Finite difference approximations are easily computed, but suffer from innacuracies which 
 can cause optimisation algorithms to fail or perform poorely. As well as the error in 
@@ -80,7 +88,7 @@ user-supplied functions.
 
 ### Problems
 
-{{% notice question %}}
+::::challenge{id=comparing-methods title="Comparing optimisation methods"}
 Use the following methods from 
 [`scipy.optimize`](https://docs.scipy.org/doc/scipy/reference/optimize.html) to minimize 
 the 2D [Rosenbrock 
@@ -98,11 +106,9 @@ evaluate the effect on the number of evaluations of the function $f$ required to
 converge to the optimum. Optional: You can take the derivatives by hand, or use 
 automatic differentiation via the [`autograd`](https://github.com/HIPS/autograd) or 
 [`JAX`](https://github.com/google/jax) packages
-{{% /notice %}}
 
+:::solution
 
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
 ```python
 import autograd.numpy as np
 import matplotlib.pyplot as plt
@@ -209,6 +215,6 @@ if __name__ == '__main__':
                     continue
                 optimize(f, m, a)
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::
 

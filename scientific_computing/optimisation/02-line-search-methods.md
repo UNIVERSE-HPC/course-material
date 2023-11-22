@@ -155,10 +155,16 @@ approach implicitly satisfies the condition on too small $\alpha_k$, and only re
 test for the common sufficient decrease condition that appears in both the Wolfe and 
 Goldstein condtitions.
 
-Choose $\bar{\alpha} > 0$, $\rho \in (0, 1)$, $c \in (0, 1)$ \\
-$\alpha_k := \bar{\alpha}$ \\
-**repeat** until $f(a_k + \alpha_k p_k) \le f(a_k) + c \alpha_k \nabla f(a_k)^T p_k$ \\
-&nbsp;&nbsp; $\alpha_k := \rho \alpha_k$ \\
+### Backtracking algorithm
+
+Choose $\bar{\alpha} > 0$, $\rho \in (0, 1)$, $c \in (0, 1)$
+
+$\alpha_k := \bar{\alpha}$
+
+**repeat** until $f(a_k + \alpha_k p_k) \le f(a_k) + c \alpha_k \nabla f(a_k)^T p_k$ 
+
+>   $\alpha_k := \rho \alpha_k$ 
+
 **end repeat**
 
 
@@ -182,7 +188,8 @@ $\alpha_k := \bar{\alpha}$ \\
 
 ### Problems 
 
-{{% notice question %}}
+::::challenge{id=line-search-problems title="Line Search Problems" }
+
 1. Program the steepest descent and Newton algorithms using the backtracking line 
    search. Use them to minimize the [Rosenbrock 
    function](https://en.wikipedia.org/wiki/Rosenbrock_function). Set the initial step 
@@ -196,10 +203,10 @@ $\alpha_k := \bar{\alpha}$ \\
 3. Repeat (1) and (2) above using the line search implemented in Scipy 
    [`scipy.optimize.line_search`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.line_search.html), 
    which uses the strong Wolfe conditions.
-{{% /notice %}}
+   
 
-{{% expand "Expand for solution" %}}
-{{% notice solution %}}
+:::solution
+
 ```python
 import matplotlib.pylab as plt
 import numpy as np
@@ -312,5 +319,5 @@ for x0 in [x01, x02]:
 ax2.legend()
 plt.show()
 ```
-{{% /notice %}}
-{{% /expand %}}
+:::
+::::
