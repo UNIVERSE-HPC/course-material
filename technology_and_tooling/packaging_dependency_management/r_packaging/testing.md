@@ -29,4 +29,26 @@ Write an additional separate test that checks if `strsplit1` can split a string 
 
 Try `test()` again to check that all unit tests pass.
 
-Add in a `expect_error` example.
+## Checking for appropriate function arguments
+
+It is good practice to check that a function's inputs are what are expected and to build your function to raise an informative error message if not. We are now going to modify the function to check that the input `x` is a character string and, if not, raise an error message. Our modified function is shown below:
+
+```R
+strsplit1 <- function(x, split) {
+
+	if(!is.character(x))
+		stop("Input must be a character string")
+
+	unlist(strsplit(x, split = split))
+}
+```
+
+We now want to check that, if an argument is supplied that is not a character string, then the function raises the appropriate error. To do so, write an additional test function in the same file that uses the following error check:
+
+```R
+expect_error(strsplit1(123, ","), "Input must be a character string")
+```
+
+If calling `strsplit1(123, ",")` raises the error message "Input must be a character string" then the function has behaved as intended.
+
+Try `test()` again to check that all unit tests pass.

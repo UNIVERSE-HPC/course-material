@@ -30,9 +30,9 @@ string_df <- function(x, split) {
 }
 ```
 
-Need to add a note of why using ::.
+Note that we have used `dplyr::tibble` rather than `tibble` to indicate that we are wanting to access a function that is amongst the exported variables of the `dplyr` package. In practice, when developing an R package, it should be your default behaviour to use `::` to access functions belonging to a specific package. This adds clarity to your code and helps you (and anyone else developing a package after you) to keep track of exactly which functions are being used from which packages.
 
-Create documentation for this function.
+Create documentation for the above function.
 
 Call `use_test()` from within the R file to create a test file, and add a unit test for `string_df`.
 
