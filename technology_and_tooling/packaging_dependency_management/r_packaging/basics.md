@@ -1,7 +1,6 @@
 ---
 name: "Aims and workflows"
-teaching: 15
-exercises: 15
+teaching: 10
 dependsOn: [
   technology_and_tooling.r_packaging.setup
 ]

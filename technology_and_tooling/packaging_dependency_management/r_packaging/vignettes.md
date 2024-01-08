@@ -1,7 +1,6 @@
 ---
 name: "Package vignettes"
-teaching: 15
-exercises: 15
+teaching: 10
 dependsOn: [
   technology_and_tooling.r_packaging.dependencies
 ]
@@ -20,4 +19,4 @@ Vignettes in R help others to understand the broader purpose of your package and
 1. Call `use_vignette("playing_with_strings")`
   - You'll notice that this creates a folder called `vignettes` and within this folder there should be a Rmarkdown file with the correct name
 
-2. Edit the vignette, including both code and descriptive text to exemplify the use of your package.
+2. Edit the vignette, including both code and descriptive text to exemplify the use of your package for a new user of it.

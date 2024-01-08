@@ -1,7 +1,6 @@
 ---
 name: "Unit tests"
-teaching: 15
-exercises: 15
+teaching: 20
 dependsOn: [
 	technology_and_tooling.r_packaging.function_documentation
 ]
