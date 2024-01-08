@@ -1,6 +1,7 @@
 ---
 name: "Setup"
 dependsOn: [
+    technology_and_tooling.r_packaging.index
 ]
 tags: [rpackaging]
 attribution:

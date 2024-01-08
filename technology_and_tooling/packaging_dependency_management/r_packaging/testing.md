@@ -3,6 +3,7 @@ name: "Unit tests"
 teaching: 15
 exercises: 15
 dependsOn: [
+	technology_and_tooling.r_packaging.function_documentation
 ]
 tags: [rpackaging]
 attribution:

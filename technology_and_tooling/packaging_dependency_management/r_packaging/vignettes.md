@@ -3,6 +3,7 @@ name: "Package vignettes"
 teaching: 15
 exercises: 15
 dependsOn: [
+  technology_and_tooling.r_packaging.dependencies
 ]
 tags: [rpackaging]
 attribution:

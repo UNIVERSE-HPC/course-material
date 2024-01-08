@@ -3,6 +3,7 @@ name: "Creating your package"
 teaching: 15
 exercises: 15
 dependsOn: [
+	technology_and_tooling.r_packaging.basics
 ]
 tags: [rpackaging]
 attribution:

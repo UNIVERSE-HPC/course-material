@@ -3,6 +3,7 @@ name: "Function documentation"
 teaching: 15
 exercises: 15
 dependsOn: [
+  technology_and_tooling.r_packaging.creating_your_package
 ]
 tags: [rpackaging]
 attribution:

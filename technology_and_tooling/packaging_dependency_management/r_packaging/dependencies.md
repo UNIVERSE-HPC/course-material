@@ -3,6 +3,7 @@ name: "Package dependencies"
 teaching: 15
 exercises: 15
 dependsOn: [
+  technology_and_tooling.r_packaging.testing
 ]
 tags: [rpackaging]
 attribution:
