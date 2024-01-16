@@ -1,6 +1,9 @@
 ---
 id: high_performance_computing
 name: High Performance Computing
+dependsOn: [
+  technology_and_tooling.bash_shell
+]
 courses: [
   hpc_intro,
   hpc_scalability_profiling
