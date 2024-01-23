@@ -22,15 +22,16 @@ This language shortcut is harmless most of the time, but it's good to know that 
 
 ## Starting Python
 
-You can start Python (the *Python runtime*) through the command line or through an application also called 
+You can start Python (the *Python runtime*) through the command line or through an application also called
 `Python`.
 
 ### macOS - Command Line
-To start Python you will need to access the command line through the Terminal. 
+
+To start Python you will need to access the command line through the Terminal.
 There are two ways to open Terminal on Mac.
 
 1. In your Applications folder, open Utilities and double-click on Terminal
-2. Press **_Command_** + **_spacebar_** to launch Spotlight. Type `Terminal` and then double-click the search result or hit **_Enter_**
+2. Press ***Command*** + ***spacebar*** to launch Spotlight. Type `Terminal` and then double-click the search result or hit ***Enter***
 
 After you have launched Terminal, type the command to start Python
 
@@ -39,6 +40,7 @@ $ python
 ~~~
 
 ### Windows Users - Command Line
+
 To start Python you will need to access the Terminal.
 
 Press **_Windows Logo Key_** and search for `Terminal`, click the result or press enter.
@@ -60,7 +62,7 @@ After you have launched the terminal emulator, type the command:
 $ python
 ~~~
 
-###  Using the Python application
+### Using the Python application
 
 Instead of launching the terminal, you can instead search for and launch the Python application in a similar way.
 
@@ -98,7 +100,7 @@ Just printing this on the screen
 >>> word = "Hello"
 >>> len(word)
 
-4
+5
 ~~~
 
 ~~~ python
@@ -123,7 +125,7 @@ TypeError: object of type 'int' has no len()
 
 ## Quitting
 
-You can quit Python by typing 
+You can quit Python by typing:
 
 ~~~ python
 >>> quit()
