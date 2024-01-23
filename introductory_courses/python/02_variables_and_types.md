@@ -152,7 +152,7 @@ nested functions are evaluated from the inside out, like in mathematics.
 
 ## Python is case-sensitive
 
-Python treats that upper- and lower-case characters as distinct:
+Python treats upper- and lower-case characters as distinct:
 
 * `Name` and `name` are different variables.
 
