@@ -22,7 +22,8 @@ In this case, the equation is used in a simplified form to describe how heat dif
 
 In the simulation the stick is split into a given number of slices, each with a constant temperature.
 
-![Subdividing a metal stick into elements](fig/09_porting_serial_to_mpi/subdivided-stick-serial.svg)
+
+![Stick divided into separate slices with touching boundaries at each end](fig/poisson_stick.png)
 
 The temperature of the stick itself across each slice is initially set to zero, whilst at one boundary of the stick the amount of heat is set to 10.
 The code applies steps that simulates heat transfer along it, bringing each slice of the stick closer to a solution until it reaches a desired equilibrium in temperature along the whole stick.
@@ -175,13 +176,9 @@ A good place to start is to consider the nature of the data within this computat
 
 For a number of iterative steps, currently the code computes the next set of values for the entire stick.
 So at a high level one approach using MPI would be to split this computation by dividing the stick into sections each with a number of slices, and have a separate rank responsible for computing iterations for those slices within its given section.
-Essentially then, for simplicity we may consider each section a stick on its own, with either two neighbours at touching boundaries (for middle sections of the stick), or one touching boundary neighbour (for sections at the beginning and end of the stick).
+Essentially then, for simplicity we may consider each section a stick on its own, with either two neighbours at touching boundaries (for middle sections of the stick), or one touching boundary neighbour (for sections at the beginning and end of the stick, which also have either a start or end stick boundary touching them). For example, considering a `GRIDSIZE` of 12 and three ranks:
 
-We might also consider subdividing the number of iterations, and parallelise across these instead.
-However, this is far less compelling since each step is completely dependent on the results of the prior step, so by its nature steps must be done serially.
-
-
-![Distributing a subdivided stick across tasks](fig/09_porting_serial_to_mpi/subdivided-stick-parallel.svg)
+![Stick divisions subdivided across ranks](fig/poisson_stick_subdivided.png)
 
 The next step is to consider in more detail this approach to parallelism with our code.
 
@@ -389,8 +386,9 @@ We also need to ensure that we don't encounter a deadlock situation when exchang
 They can't all send to the rightmost neighbour simultaneously, since none will then be waiting and able to receive.
 We need a message exchange strategy here, so let's have all odd-numbered ranks send their data first (to be received by even ranks),
 then have our even ranks send their data (to be received by odd ranks).
+Such an order might look like this (highlighting the odd ranks - only one in this example - with the order of communications indicated numerically):
 
-![Staggered exchange between odd and even ranks](fig/09_porting_serial_to_mpi/subdivided-stick-exchange.svg)
+![Communication strategy - odd ranks send to potential neighbours first, then receive from them](fig/poisson_comm_strategy_1.png)
 
 So following the `MPI_Allreduce()` we've just added, let's deal with odd ranks first (again, put the declarations at the top of the function):
 
@@ -431,7 +429,10 @@ Then, if the rank following us exists, we do the same, but this time we send the
 and receive the corresponding value from that rank.
 
 These exchanges mean that - as an even rank - we now have effectively exchanged the states of the start and end of our slices with our respective neighbours.
-And now we need to do the same for those neighbours (the even ranks), in the opposite order of receive/send:
+And now we need to do the same for those neighbours (the even ranks), mirroring the same communication pattern but in the opposite order of receive/send.
+From the perspective of evens, it should look like the following (highlighting the two even ranks):
+
+![Communication strategy - even ranks first receive from odd ranks, then send to them](fig/poisson_comm_strategy_2.png)
 
 ```c
   } else {
