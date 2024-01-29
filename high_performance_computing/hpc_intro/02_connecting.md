@@ -36,6 +36,7 @@ network connection between two machines, allowing you to send & receive text
 and data without having to worry about prying eyes.
 
 ![Connect to cluster](fig/connect-to-remote.svg)
+*Icons made by Delapouite. Available on https://game-icons.net*
 
 SSH clients are usually command-line tools, where you provide the remote
 machine address as the only required argument. If your username on the remote

@@ -2,7 +2,6 @@
 name: Introduction to High Performance Computing
 id: hpc_intro
 dependsOn: [
-    technology_and_tooling.bash_shell
 ]
 files: [
     01_hpc_intro.md,
