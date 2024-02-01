@@ -138,7 +138,7 @@ int main(int argc, char** argv) {
 
   if (rank == 0) {
     printf("Final result:\n");
-    for (int j = ; j < GRIDSIZE; j++) {
+    for (int j = 0; j < GRIDSIZE; j++) {
       printf("%d-", (int) resultbuf[j]);
     }
     printf("\nRun completed in %d iterations with residue %g\n", i, unorm, n_ranks);

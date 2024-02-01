@@ -61,6 +61,11 @@ In general, an MPI program follows a basic outline that includes the following s
 
 ## Getting Started with MPI: MPI on HPC
 
+As MPI codes allow you to run a code on multiple cores, we typically develop them to run on large systems like HPC clusters. 
+These are usually configured with versions of OpenMPI that have been optimised for the specific hardware involved, for maximum performance.
+
+For this episode, log into whichever HPC system you have access to - this could be a group server, or university- or national-level cluster (e.g. Iridis or DiRAC).
+
 HPC clusters typically have **more than one version** of MPI available, so you may need to tell it which one you want to use before it will give you access to it.
 First check the available MPI implementations/modules on the cluster using the command below: 
 
@@ -78,6 +83,38 @@ module load openmpi/4.0.5
 
 This sets up the necessary environment variables and paths for the MPI implementation and will give you access to the MPI library. 
 If you are not sure which implementation/version of MPI you should use on a particular cluster, ask a helper or consult your HPC facility's documentation. 
+
+::::callout
+## MPI Elsewhere
+This episode assumes you will be using a HPC cluster, but you can also install OpenMPI on a desktop or laptop:
+
+* **Linux:** Most distributions have OpenMPI available in their package manager:
+  ```bash
+  $ sudo apt install openmpi-bin openmpi-dev
+  ```
+* **Mac:** The MacPorts and Homebrew package managers both have OpenMPI available:
+  ```bash
+  $ brew install openmpi
+  # or
+  $ port install openmpi
+  ```
+* **Windows:** Whilst you *can* build OpenMPI yourself on Windows, it's generally easier to use the **Windows Subsystem for Linux**.
+
+This can be useful for when you're writing code or testing it on a smaller scale, but you will need to check that you're installing a version of OpenMPI that's also available on whichever HPC cluster you're likely to scale up to.
+::::
+
+
+::::callout
+## Developing on a cluster
+HPC clusters don't usually have GUI-based IDEs installed on them.
+We can write code locally, and copy it across using `scp` or `rsync`, but most IDEs have the ability to open folders on a remote machine, or to automatically synchronise a local folder with a remote one.
+
+For **VSCode**, the [Remote-SSH](https://code.visualstudio.com/docs/remote/ssh) extension provides most of the functionality of a regular VSCode window, but on a remote machine.
+Some older Linux systems don't support it - in that case, try the [SSH FS](https://marketplace.visualstudio.com/items?itemName=Kelvin.vscode-sshfs) extension instead.
+
+Other IDEs like **CLion** also support [a variety of remote development methods](https://www.jetbrains.com/help/clion/remote-development.html).
+::::
+
 
 ## Running a code with MPI
 
