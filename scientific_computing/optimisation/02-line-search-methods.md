@@ -31,8 +31,7 @@ optimisation problem along $p_k$ to find the optimal value of $\alpha$. Each lin
 algorithm is thus defined on how it chooses both the search direction $p_k$ and the 
 optimal $\alpha$.
 
-{{< figure src="/scientific-computing/images/unit_04/Gradient_descent.gif" 
-title="Illustration of Gradient Descent on a 2D test function. Taken from Wikimedia Commons">}}
+![](images/Gradient_descent.gif)
 
 ### Plateaus with low gradient 
 
@@ -147,7 +146,7 @@ conditions are often used in Newton-type methods but for quasi-Newton methods th
 conditions are prefered. The diagrams from the text by Nocedal and Wright
 illustrate the two conditions
 
-![](/scientific-computing/images/unit_04/conditions.jpg)
+![](images/conditions.jpg)
 
 Algorithms for choosing candidate step size values $\alpha_k$ can be complicated, so we 
 will only mention here one of the simplest, which is the *backtracking* method. This 
