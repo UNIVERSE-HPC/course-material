@@ -199,13 +199,13 @@ Let's first get hold of some example files we can explore. First, download the e
 If on WSL or Linux (e.g. Ubuntu or the Ubuntu VM), then do:
 
 ~~~bash
-$ wget https://www.uhpc-training.co.uk/material/technology_and_tooling/bash_shell/shell-novice.zip
+$ wget https://train.oxrse.uk/material/HPCu/technology_and_tooling/bash_shell/shell-novice.zip
 ~~~
 
 Or, if on a Mac, do:
 
 ~~~bash
-$ curl -O https://www.uhpc-training.co.uk/material/technology_and_tooling/bash_shell/shell-novice.zip
+$ curl -O https://train.oxrse.uk/material/HPCu/technology_and_tooling/bash_shell/shell-novice.zip
 ~~~
 
 Once done, you can unzip this file using the `unzip` command in Bash, which will unpack all the files
