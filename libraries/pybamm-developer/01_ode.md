@@ -74,6 +74,7 @@ $x_n$ and $x_p$.
 ```python
 x_n = pybamm.Variable("Negative electrode stochiometry")
 x_p = pybamm.Variable("Positive electrode stochiometry")
+```
 :::
 ::::
 
