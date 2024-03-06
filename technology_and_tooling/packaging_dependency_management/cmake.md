@@ -9,7 +9,7 @@ attribution:
         "Introduction to CMake" course developed by Fergus Cooper and the Oxford Research 
         Software Engineering group
       url: https://github.com/OxfordRSE/IntroCMakeCourse
-      image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
+      image: https://www.rse.ox.ac.uk/sites/default/files/rse/site-logo/banner_ox_rse_desktop.svg
       license: CC-BY-4.0
 ---
 
