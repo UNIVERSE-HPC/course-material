@@ -14,7 +14,7 @@ attribution:
 
 ## Python scripts
 
-So far we've worked in the REPL and we cannot save our programs.
+So far we've worked in the REPL which does not allow us to save our programs.
 
 Instead of the interactive mode, Python can read a file that contains Python instructions.
 This file is commonly referred to as a Python *script*.
@@ -22,14 +22,16 @@ This file is commonly referred to as a Python *script*.
 Python scripts are plain text files.
 To create a plain text file, you need to use a *text editor*.
 When we do programming, typically we will use a special text editor called an IDE, or *integrated development environment*, that contains lots of tools to help us.
+We will use Visual Studio Code (vscode), which is a free IDE available for Windows, Mac, and Linux.
 
 :::callout
+
 ## Writing text files with Visual Studio Code
 
 Follow these steps:
 
 1. Create a folder on your computer for the python files you will write later
-2. Open Visual Studio Code, and go `File` -> `Open Folder...`, and select it
+2. Open Visual Studio Code, and go `File` -> `Open Folder...`, and select your folder
 3. Create a new file, with `File` -> `New Text File`
 4. Click `Select a language` and choose `Python`
 5. Write `print("hello world")` in the file, and save it as `my_first_script.py`
@@ -49,7 +51,7 @@ print("Variable 'varstr' is a", type(varstr))
 
 Press the triangular `Play` button in the top right, and you should see the following output:
 
-~~~
+~~~ python
 hello world
 Variable 'varint' is a <class 'int'>
 Variable 'varstr' is a <class 'str'>
@@ -58,6 +60,7 @@ Variable 'varstr' is a <class 'str'>
 Can you guess what happened?
 Python read the file, executing each line one after the other.
 This is equivalent to typing the 5 lines in the REPL, except you wrote them all at once in the file.
+This allows you to save your program, make changes, and run it again later.
 
 ## Programming in Python in practice
 
