@@ -6,9 +6,9 @@ $$
 \begin{align*}
 \frac{dx_n}{dt} &= -\frac{I(t)}{Q_n}, \\
 \frac{dx_p}{dt} &= \frac{I(t)}{Q_p}, \\
-V(t) = U_p(x_p) - U_n(x_n) - I(t)R, \\
-x_n(0) = x0_n, \\
-x_p(0) = x0_p, \\
+V(t) &= U_p(x_p) - U_n(x_n) - I(t)R, \\
+x_n(0) &= x0_n, \\
+x_p(0) &= x0_p, \\
 \end{align*}
 $$
 
