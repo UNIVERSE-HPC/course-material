@@ -46,6 +46,7 @@ U_n = pybamm.FunctionParameter("Negative electrode OCV", {"x_n": x_n})
 Q_n = pybamm.Parameter("Negative electrode capacity [A.h]")
 Q_p = pybamm.Parameter("Positive electrode capacity [A.h]")
 R = pybamm.Parameter("Electrode resistance [Ohm]")
+```
 :::
 ::::
 
