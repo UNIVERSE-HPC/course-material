@@ -37,14 +37,14 @@ above command will only work on systems with the Boost and Eigen libraries
 installed in the specified locations. We might also have to change the compiler,
 and would have to change the command line invocation.
 
-Another option is to use a build system like Make, which allows us to specify
+Another option is to use a build tool like [Make](https://www.gnu.org/software/make/), which allows us to specify
 the build process by defining rules. This can scale to larger projects, but
 still is not completely portable as the rules are specific to Make, and we still
 have to manually specify the compiler and libraries.
 
 CMake is a build system generator that allows us to specify the build process for large project, in
-a portable way, and to generate build files for a variety of build systems like
-Unix Makefiles, Visual Studio projects, or the Ninja build system. It has a lot
+a portable way, and to generate build files for a variety of build tools like
+Unix Makefiles, Visual Studio projects, or the [Ninja build tool](https://ninja-build.org/). It has a lot
 of features for finding dependencies and for making the build process more portable across
 operating systems, compilers, and architectures. It has many features, but we
 will only cover the basics here.
@@ -57,7 +57,7 @@ and _configuration_ (what libraries to use, what compiler settings, etc.).
 
 CMake uses that with its own _rules_ (how to turn sources into programs) to
 generate makefiles, IDE projects, or other outputs. CMake doesn't build your
-project itself!
+project itself.
 
 CMake works on Linux, Windows, macOS and more.
 
@@ -69,7 +69,7 @@ step through this course. Each checkpoint contains a small C++ project along wit
 Checkpoint 0 is a simple "hello, world" program written in C++. Let's use CMake to build it.
 
 ```bash
-$ cd checkpoint_0
+cd checkpoint_0
 ```
 
 ### `CMakeLists.txt`
@@ -136,22 +136,38 @@ generated files out of your source folder and allows you to have multiple
 builds, for instance for different compilers or build configurations.
 
 ```bash
-checkpoint0$ mkdir build
-checkpoint0$ cd build
-build$ cmake ..
+# from checkpoint0$
+mkdir build
+cd build
+cmake ..
+```
+```output
 [...]
 -- Build files have been written to: <...>/checkpoint_0/build
 ```
 
 ### Build your project
 
-CMake only generated the build script, it didn't actually compile anything. To compile the project, we use the build system that CMake generated, in this case Make:
+CMake only generated the build script, it didn't actually compile anything.
+To compile the project, we use the build system that CMake generated, in this case Make:
 
 ```bash
-build$ make
+# from build$
+make
+```
+
+```output
 [...]
 [100%] Built target main_executable
-build$ ./main_executable
+```
+
+We can then run the executable directly:
+
+```bash
+./main_executable
+```
+
+```output
 Checkpoint 0
 Hello, World!
 ```
@@ -161,7 +177,11 @@ We can also use CMake to build the project. This does the same thing as the
 too.
 
 ```bash
-build$ cmake --build .
+# from build$
+cmake --build .
+```
+
+```output
 [...]
 [100%] Built target main_executable
 ```
