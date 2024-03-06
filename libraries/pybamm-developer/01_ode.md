@@ -266,18 +266,18 @@ following values:
 - The electrode resistance is 0.1 Ohm
 - The OCV functions are the graphite LGM50 OCP from the Chen2020 model, which is given by the function:
 
-  ```python
-  def graphite_LGM50_ocp_Chen2020(sto):
-    u_eq = (
-        1.9793 * np.exp(-39.3631 * sto)
-        + 0.2482
-        - 0.0909 * np.tanh(29.8538 * (sto - 0.1234))
-        - 0.04478 * np.tanh(14.9159 * (sto - 0.2769))
-        - 0.0205 * np.tanh(30.4444 * (sto - 0.6103))
-    )
+```python
+def graphite_LGM50_ocp_Chen2020(sto):
+  u_eq = (
+      1.9793 * np.exp(-39.3631 * sto)
+      + 0.2482
+      - 0.0909 * np.tanh(29.8538 * (sto - 0.1234))
+      - 0.04478 * np.tanh(14.9159 * (sto - 0.2769))
+      - 0.0205 * np.tanh(30.4444 * (sto - 0.6103))
+  )
 
-    return u_eq
-  ```
+  return u_eq
+```
 
 
 :::solution
