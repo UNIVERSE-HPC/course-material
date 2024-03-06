@@ -183,10 +183,8 @@ solve the model equations over time.
 
 ## PyBaMM events
 
-
-The final thing we need to define for the reservoir model is the events. An
-event is a condition that can be used to stop the solver, for example when the
-voltage reaches a certain value. In PyBaMM an event can be defined using the
+An event is a condition that can be used to stop the solver, for example when
+the voltage reaches a certain value. In PyBaMM an event can be defined using the
 [`pybamm.Event`](https://docs.pybamm.org/en/stable/source/api/events/event.html)
 class. For example, if you wanted to define an event that stops the solver when
 the time reaches 3, you would write
