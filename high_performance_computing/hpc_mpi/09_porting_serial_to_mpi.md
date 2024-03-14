@@ -130,7 +130,8 @@ Next, it calculates a value representing the overall cumulative change in temper
 
 ```c
   unorm = 0.0;
-  for (int i = 1;i <= points; i++) {
+  for (int i = 1; i <= points; i++) {
+
      float diff = unew[i]-u[i];
      unorm += diff*diff;
   }
