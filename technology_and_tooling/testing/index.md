@@ -8,7 +8,8 @@ dependsOn: [
 files: [
   automated_testing.md,
   diagnosing_issues.md,
-  scaling_up.md
+  scaling_up.md,
+  more_advanced_topics.md
 ]
 attribution: 
     - citation: >
