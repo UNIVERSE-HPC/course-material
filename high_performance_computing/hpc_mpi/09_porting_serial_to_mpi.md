@@ -141,7 +141,8 @@ And finally, the state of the stick is set to the newly calculated values, and `
 
 ```c
   // Overwrite u with the new field
-  for (int i = 1;i <= points;i++) {
+  for (int i = 1; i <= points; i++) {
+
      u[i] = unew[i];
   }
 
