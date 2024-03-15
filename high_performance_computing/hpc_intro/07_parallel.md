@@ -107,6 +107,7 @@ remote$ mv mpi4py* mpi4py        # rename the directory
 remote$ cd mpi4py
 remote$ python3 -m pip install --user .
 remote$ cd ../amdahl
+remote$ module load openmpi/2.1.1
 remote$ python3 -m pip install --user .
 ```
 
@@ -435,7 +436,6 @@ remote$ cat parallel-job.sh
 ```bash
 #!/bin/bash
 #SBATCH -J parallel-job
-#SBATCH -p cpubase_bycore_b1
 #SBATCH -N 1
 #SBATCH -n 8
 
