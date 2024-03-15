@@ -12,9 +12,8 @@ attribution:
       license: CC-BY-4.0
 ---
 
-We now have the tools we need to run a multi-processor job. This is a very
-important aspect of HPC systems, as parallelism is one of the primary tools
-we have to improve the performance of computational tasks.
+We now have the tools we need to run a multi-processor job. 
+This is a very important aspect of HPC systems, as parallelism is one of the primary tools we have to improve the performance of computational tasks.
 
 If you disconnected, log back in to the cluster.
 
@@ -22,41 +21,76 @@ If you disconnected, log back in to the cluster.
 local$ ssh user@cluster.name
 ```
 
+
 ## Install the Amdahl Program
 
-With the Amdahl source code on the cluster, we can install it, which will
-provide access to the `amdahl` executable.
-Move into the extracted directory, then use the Package Installer for Python,
-or `pip`, to install it in your ("user") home directory:
+With the Amdahl source code on the cluster, we can install it, which will provide access to the `amdahl` executable.
+
+::::callout
+## Amdahl is Python Code
+
+The Amdahl program is written in Python, and installing or using it requires locating the `python3` executable on the login node.
+::::
+
+Move into the extracted directory, then use the Package Installer for Python, or `pip`, to install it in your ("user") home directory:
+
+To do this, we'll need to make sure we have our required packages installed:
+```bash
+remote$ module load python/3.11
+remote$ module load openmpi/2.1.1
+```
 
 ```bash
 remote$ cd amdahl
 remote$ python3 -m pip install --user .
 ```
+:::::callout{variant="warning"}
+## Dependencies and Clusters
+As they're shared computing environments, and can be a target for hacking, many high performance clusters block the kind of automatic dependency resolution you're used to on regular machines. You can see this if you call `python3 -m pip install .` and it hangs for a while, before reporting it can't find `setuptools` (or another package).
+
+You may have to rely on their 'walled garden' of resources, or install any extras manually - to reduce the risk of malware sneaking onto the cluster.
+
+If `python3 -m pip install --user .` fails, you have a few possibilities to manage the dependencies:
 
 ::::callout
-## Amdahl is Python Code
+### Use a module
 
-The Amdahl program is written in Python, and installing or using it requires
-locating the `python3` executable on the login node.
-If it can't be found, try listing available modules using `module avail`,
-load the appropriate one, and try the command again.
+The easiest fix is to look for a `mpi4py` module already available on your cluster. 
+Try `module avail mpi4py`, and load it if you can find one.
 ::::
 
-### MPI for Python
+::::callout
+### Use Anaconda
 
-The Amdahl code has one dependency: __`mpi4py`__.
-If it hasn't already been installed on the cluster, `pip` will attempt to
-collect `mpi4py` from the Internet and install it for you.
-If this fails due to a one-way firewall, you must retrieve `mpi4py` on your
-local machine and upload it, just as we did for Amdahl.
+Some clusters prefer you to use Anaconda, a heavier-weight package and environment manager for Python that has a vetted list of packages. Your system might have it down as `conda`, `miniconda` or `anaconda` - try `module avail conda` to search for it:
+```bash
+remote$ module avail conda
+```
+```
+------------------------------------------------- /local/modules/apps --------------------------------------------------
+   anaconda/py3.10    conda/py2-latest    conda/py3-latest (D)
+```
+Conda requires you to make some modifications to your `.bashrc` file, then re-load it to allow you to work with environments.
+We'll unload `python` and load `conda` instead:
+```bash
+remote$ module unload python
+remote$ module load conda
+remote$ conda init
+remote$ source ~/.bashrc
+```
+Then, once you've done that, you can create an `amdahl` environment, and install the prerequisites for it using `conda` instead of `pip`.
+```bash
+remote$ conda create amdahl
+remote$ conda activate amdahl
+remote$ conda install --yes --file requirements.txt
+```
+::::
 
 ::::callout
-## Retrieve and Upload `mpi4py`
+### Install manually
 
-If installing Amdahl failed because `mpi4py` could not be installed,
-retrieve the tarball from <https://github.com/mpi4py/mpi4py/tarball/master>
-then `rsync` it to the cluster, extract, and install:
+You can try and install `mpi4py` from its source code, just like we're doing with `amdahl`.
+You can dowload and copy it across just as with `amdahl`:
 
 ```bash
 local$ wget -O mpi4py.tar.gz https://github.com/mpi4py/mpi4py/releases/download/3.1.4/mpi4py-3.1.4.tar.gz
@@ -65,8 +99,9 @@ local$ scp mpi4py.tar.gz user@cluster.name:
 local$ rsync -avP mpi4py.tar.gz user@cluster.name:
 ```
 
+Then install it on the cluster:
+
 ```bash
-local$ ssh user@cluster.name
 remote$ tar -xvzf mpi4py.tar.gz  # extract the archive
 remote$ mv mpi4py* mpi4py        # rename the directory
 remote$ cd mpi4py
@@ -74,17 +109,30 @@ remote$ python3 -m pip install --user .
 remote$ cd ../amdahl
 remote$ python3 -m pip install --user .
 ```
+
+You might get some errors during install, including `Could not find "Python.h"`.
+This happens if the 'development version' of Python isn't installed - you might be able to find a `python3-dev` module, or you may have to just use **Anaconda** instead.
 ::::
 
-::::callout
-## If `pip` Raises a Warning...
+**Finally, install `amdahl`.**
 
-`pip` may warn that your user package binaries are not in your PATH.
+Once your dependencies are sorted, you can then install `amdahl` without looking on the Python Package Index (PyPI):
+```
+python3 -m pip install --user --no-index .
+```
+
+:::::
+
+
+
+::::callout{variant="warning"}
+## Binaries and `PATH`s
+
+`pip` may warn that your user package binaries are not in your `PATH`.
 
 ```
-WARNING: The script amdahl is installed in "${HOME}/.local/bin" which is
-not on PATH. Consider adding this directory to PATH or, if you prefer to
-suppress this warning, use --no-warn-script-location.
+WARNING: The script amdahl is installed in "${HOME}/.local/bin" which is not on PATH. 
+Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
 ```
 
 To check whether this warning is a problem, use `which` to search for the
@@ -94,11 +142,9 @@ To check whether this warning is a problem, use `which` to search for the
 remote$ which amdahl
 ```
 
-If the command returns no output, displaying a new prompt, it means the file
-`amdahl` has not been found. You must update the environment variable named
-`PATH` to include the missing folder.
-Edit your shell configuration file as follows, then log off the cluster and
-back on again so it takes effect.
+If the command returns no output, displaying a new prompt, it means the file `amdahl` has not been found. 
+You must update the environment variable named `PATH` to include the missing folder.
+Edit your shell configuration file as follows, then log off the cluster and back on again so it takes effect.
 
 ```bash
 remote$ nano ~/.bashrc
@@ -108,10 +154,11 @@ remote$ tail ~/.bashrc
 export PATH=${PATH}:${HOME}/.local/bin
 ```
 
-After logging back in to cluster.name, `which` should be able to
-find `amdahl` without difficulties.
+After logging back in to the cluster, `which` should be able to find `amdahl` without difficulties.
 If you had to load a Python module, load it again.
 ::::
+
+
 
 ## Help!
 
@@ -133,8 +180,8 @@ optional arguments:
                         Random jitter: a float between -1 and +1
 ```
 
-This message doesn't tell us much about what the program _does_, but it does
-tell us the important flags we might want to use when launching it.
+This message doesn't tell us much about what the program _does_, 
+but it does tell us the important flags we might want to use when launching it.
 
 ## Running the Job on a Compute Node
 
@@ -152,30 +199,52 @@ remote$ cat serial-job.sh
 #SBATCH -n 1
 
 # Load the computing environment we need
-module load Python
+module load python
 
 # Execute the task
 amdahl
 ```
+:::::callout{variant="warning"}
+## Dependency Variants
+If you weren't able to just use `pip install` to handle all of `amdahl`'s dependencies, you'll need to do something different in the submission script:
+
+::::callout
+### Using a Module
+```bash
+# Load the computing environment we need
+module load python/3.11
+module load mpi4py
+```
+::::
+
+::::callout
+### Using Anaconda
+```bash
+# Load the computing environment we need
+module load conda
+conda init
+conda activate amdahl
+```
+::::
+:::::
 
 ```bash
 remote$ sbatch serial-job.sh
 ```
 
-As before, use the Slurm status commands to check whether your job
-is running and when it ends:
+As before, use the Slurm status commands to check whether your job is running and when it ends:
 
 ```bash
 remote$ squeue -u yourUsername
 ```
 
 :::::challenge{id=read-output, title="Read the Job Output"}
-Use `ls` to locate the output file. The `-t` flag sorts in
-reverse-chronological order: newest first. What was the output?
+Use `ls` to locate the output file. The `-t` flag sorts in reverse-chronological order: newest first. 
+What was the output?
 
 ::::solution
-The cluster output should be written to a file in the folder you launched the
-job from. For example,
+The cluster output should be written to a file in the folder you launched the job from. 
+For example,
 
 ```bash
 remote$ ls -t
@@ -198,22 +267,20 @@ Total execution time (according to rank 0): 30.033 seconds
 ::::
 :::::
 
-As we saw before, two of the `amdahl` program flags set the amount of work and
-the proportion of that work that is parallel in nature. Based on the output, we
-can see that the code uses a default of 30 seconds of work that is 85%
-parallel. The program ran for just over 30 seconds in total, and if we run the
-numbers, it is true that 15% of it was marked 'serial' and 85% was 'parallel'.
+As we saw before, two of the `amdahl` program flags set the amount of work and the proportion of that work that is parallel in nature.
+Based on the output, we can see that the code uses a default of 30 seconds of work that is 85% parallel. 
+The program ran for just over 30 seconds in total, and if we run the numbers, 
+it is true that 15% of it was marked 'serial' and 85% was 'parallel'.
 
-Since we only gave the job one CPU, this job wasn't really parallel: the same
-processor performed the 'serial' work for 4.5 seconds, then the 'parallel' part
-for 25.5 seconds, and no time was saved. The cluster can do better, if we ask.
+Since we only gave the job one CPU, this job wasn't really parallel: 
+the same processor performed the 'serial' work for 4.5 seconds, then the 'parallel' part for 25.5 seconds, and no time was saved. 
+The cluster can do better, if we ask.
 
 ## Running the Parallel Job
 
-The `amdahl` program uses the Message Passing Interface (MPI) for parallelism
--- this is a common tool on HPC systems.
+The `amdahl` program uses the Message Passing Interface (MPI) for parallelism -- this is a common tool on HPC systems.
 
-::::callout
+::::callout{variant="note"}
 ## What is MPI?
 
 The Message Passing Interface is a set of tools which allow multiple tasks
@@ -227,15 +294,15 @@ transfer data.
 An MPI instance typically has its own copy of all the local variables.
 ::::
 
-While MPI-aware executables can generally be run as stand-alone programs, in
-order for them to run in parallel they must use an MPI _run-time environment_,
+While MPI-aware executables can generally be run as stand-alone programs,
+in order for them to run in parallel they must use an MPI _run-time environment_,
 which is a specific implementation of the MPI _standard_.
 To activate the MPI environment, the program should be started via a command
 such as `mpiexec` (or `mpirun`, or `srun`, etc. depending on the MPI run-time
 you need to use), which will ensure that the appropriate run-time support for
 parallelism is included.
 
-::::callout
+::::callout{variant="note"}
 ## MPI Runtime Arguments
 
 On their own, commands such as `mpiexec` can take many arguments specifying
@@ -257,22 +324,30 @@ remote$ cat parallel-job.sh
 ```bash
 #!/bin/bash
 #SBATCH -J parallel-job
-#SBATCH -p cpubase_bycore_b1
 #SBATCH -N 1
 #SBATCH -n 4
 
 # Load the computing environment we need
-# (mpi4py and numpy are in SciPy-bundle)
-module load Python
-module load SciPy-bundle
+module load python/3.11
 
 # Execute the task
 mpiexec amdahl
 ```
+:::::callout{variant="warning"}
+## Dependency Variants: Using Anaconda
+If you had to install your code using `conda`, as part of installing `mpi4py` it'll have built its own version of `mpiexec`.
+That will be in your `conda` environment directory.
 
-Then submit your job. Note that the submission command has not really changed
-from how we submitted the serial job: all the parallel settings are in the
-batch file rather than the command line.
+Try `which mpiexec` to see what your default version of `mpiexec` is.
+If the path it shows doesn't include `.conda/envs`, you'll have to call the correct version explicitly in your script:
+```bash
+#Execute the task
+~/.conda/envs/amdahl/bin/mpiexec amdahl
+```
+:::::
+
+Then submit your job. Note that the submission command has not really changed from how we submitted the serial job: 
+all the parallel settings are in the batch file rather than the command line.
 
 ```bash
 remote$ sbatch parallel-job.sh
@@ -365,17 +440,20 @@ remote$ cat parallel-job.sh
 #SBATCH -n 8
 
 # Load the computing environment we need
-# (mpi4py and numpy are in SciPy-bundle)
-module load Python
-module load SciPy-bundle
+module load python/3.11
 
 # Execute the task
 mpiexec amdahl
 ```
 
-Then submit your job. Note that the submission command has not really changed
-from how we submitted the serial job: all the parallel settings are in the
-batch file rather than the command line.
+::::callout{variant="warning"}
+## Dependency Variants
+As before, you'll need to modify this script if you used a module or Anaconda.
+::::
+
+Then submit your job. 
+Note that the submission command has not really changed from how we submitted the serial job:
+all the parallel settings are in the batch file rather than the command line.
 
 ```bash
 remote$ sbatch parallel-job.sh
@@ -408,15 +486,13 @@ which should take 7.688 seconds with 0.850 parallel proportion of the workload.
 Total execution time (according to rank 0): 7.697 seconds
 ```
 
-:::callout
+:::callout{variant="note"}
 ## Non-Linear Output
-When we ran the job with 4 parallel workers, the serial job wrote its output
-first, then the parallel processes wrote their output, with process 0 coming
-in first and last.
+When we ran the job with 4 parallel workers, the serial job wrote its output first, 
+then the parallel processes wrote their output, with process 0 coming in first and last.
 
-With 8 workers, this is not the case: since the parallel workers take less
-time than the serial work, it is hard to say which process will write its
-output first, except that it will _not_ be process 0!
+With 8 workers, this is not the case: since the parallel workers take less time than the serial work,
+it is hard to say which process will write its output first, except that it will _not_ be process 0!
 :::
 
 Now, let's summarize the amount of time it took each job to run:
@@ -439,20 +515,17 @@ remote$ for n in 30.033 10.888 7.697; do python3 -c "print(30.033 / $n)"; done
 | 4              | 2.75    | 4     |
 | 8              | 3.90    | 8     |
 
-The job output files have been telling us that this program is performing 85%
-of its work in parallel, leaving 15% to run in serial. This seems reasonably
-high, but our quick study of speedup shows that in order to get a 4× speedup,
-we have to use 8 or 9 processors in parallel. In real programs, the speedup
-factor is influenced by
+The job output files have been telling us that this program is performing 85% of its work in parallel, leaving 15% to run in serial.
+This seems reasonably high, but our quick study of speedup shows that in order to get a 4× speedup, we have to use 8 or 9 processors in parallel.
+In real programs, the speedup factor is influenced by
 
 * CPU design
 * communication network between compute nodes
 * MPI library implementations
 * details of the MPI program itself
 
-Using Amdahl's Law, you can prove that with this program, it is _impossible_
-to reach 8× speedup, no matter how many processors you have on hand. Details of
-that analysis, with results to back it up, are left for the next section of the material,  _Scalability Profiling_.
+Using Amdahl's Law, you can prove that with this program, it is _impossible_ to reach 8× speedup, no matter how many processors you have on hand. 
+Details of that analysis, with results to back it up, are left for the next section of the material,  _Scalability Profiling_.
 
 [amdahl]: https://en.wikipedia.org/wiki/Amdahl's_law
 [cmd-line]: https://swcarpentry.github.io/python-novice-inflammation/12-cmdline/index.html

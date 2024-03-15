@@ -160,10 +160,10 @@ remote$ echo $PATH
 /path/to/python:/another/path:/some/other/path:/yet/another/path
 ```
 
-You'll notice a similarity to the output of the `which` command. In this case,
-there's only one difference: the different directory at the beginning. When we
-ran the `module load` command, it added a directory to the beginning of our
-`$PATH`. Let's examine what's there:
+You'll notice a similarity to the output of the `which` command. 
+In this case, there's only one difference: the different directory at the beginning. 
+When we ran the `module load` command, it added a directory to the beginning of our `$PATH`. 
+Let's examine what's there:
 
 
 ```bash
@@ -179,12 +179,11 @@ idle3             pydoc3   python3.5-config  pyvenv-3.5
 ```
 
 Taking this to its conclusion, `module load` will add software to your `$PATH`.
-It "loads" software. A special note on this - depending on which version of the
-`module` program that is installed at your site, `module load` will also load
-required software dependencies.
+It "loads" software. 
+A special note on this - depending on which version of the `module` program that is installed at your site, 
+`module load` will also load required software dependencies.
 
-To demonstrate, let’s use `module list`. `module list` shows all loaded software 
-modules.
+To demonstrate, let’s use `module list`. `module list` shows all loaded software modules.
 
 ```bash
 remote$ module list
@@ -204,11 +203,13 @@ Currently Loaded Modules:
    H:             Hidden Module
 ```
 
+The list of modules available will vary widely by HPC system. 
+If your system has the `beast` module available, then loading `beast` module (a bioinformatics software package) will do something like this:
+
 ```bash
 remote$ module load beast
 remote$ module list
 ```
-
 ```
 Currently Loaded Modules:
   1) nixpkgs/.16.09    (H,S)  5) intel/2016.4  (t)   9) java/1.8.0_121   (t)
@@ -225,15 +226,13 @@ Currently Loaded Modules:
    H:                Hidden Module
 ```
 
-So in this case, loading the `beast` module (a bioinformatics software package), also 
-loaded `java/1.8.0_121` and `beagle-lib/2.1.2` as well. Let’s try unloading the `beast` 
-package.
+So in this case, `beast` also loaded `java/1.8.0_121` and `beagle-lib/2.1.2` as well. 
+Let’s try unloading the `beast` package.
 
 ```bash
 remote$ module unload beast
 remote$ module list
 ```
-
 ```
 Currently Loaded Modules:
   1) nixpkgs/.16.09    (H,S)      5) intel/2016.4  (t)
@@ -248,8 +247,8 @@ Currently Loaded Modules:
    H:             Hidden Module
 ```
 
-So using `module unload` “un-loads” a module along with its dependencies. If we wanted to 
-unload everything at once, we could run `module purge` (unloads everything).
+So using `module unload` “un-loads” a module along with its dependencies. 
+If we wanted to unload everything at once, we could run `module purge` (unloads everything).
 
 ```bash
 remote$ module purge
@@ -265,31 +264,26 @@ The following modules were not unloaded:
   4) gcccore/.5.4.0               8) openmpi/2.1.1
 ```
 
+Note that `module purge` is informative. 
+It lets us know that all but a default set of packages have been unloaded (and how to actually unload these if we truly so desired).
 
-Note that `module purge` is informative. It lets us know that all but a default set of 
-packages have been unloaded (and how to actually unload these if we truly so desired).
-
-Note that this module loading process happens principally through the manipulation of 
-environment variables like $PATH. There is usually little or no data transfer involved.
+Note that this module loading process happens principally through the manipulation of environment variables like $PATH. There is usually little or no data transfer involved.
 
 The module loading process manipulates other special environment variables as well, 
-including variables that influence where the system looks for software libraries, and 
-sometimes variables which tell commercial software packages where to find license 
-servers.
+including variables that influence where the system looks for software libraries, 
+and  sometimes variables which tell commercial software packages where to find license servers.
 
-The module command also restores these shell environment variables to their previous 
-state when a module is unloaded.
+The module command also restores these shell environment variables to their previous state when a module is unloaded.
 
 
 ## Software Versioning
 
-So far, we've learned how to load and unload software packages. This is very
-useful. However, we have not yet addressed the issue of software versioning. At
-some point or other, you will run into issues where only one particular version
-of some software will be suitable. Perhaps a key bugfix only happened in a
-certain version, or version X broke compatibility with a file format you use.
-In either of these example cases, it helps to be very specific about what
-software is loaded.
+So far, we've learned how to load and unload software packages. 
+This is very useful. 
+However, we have not yet addressed the issue of software versioning. 
+At some point or other, you will run into issues where only one particular version of some software will be suitable. 
+Perhaps a key bugfix only happened in a certain version, or version X broke compatibility with a file format you use.
+In either of these example cases, it helps to be very specific about what software is loaded.
 
 Let's examine the output of `module avail` more closely.
 
@@ -305,7 +299,7 @@ remote$ module avail
  cdo/1.7.2        (geo)            pnetcdf/1.8.1       (io)
  lammps/20170331                   quantumespresso/6.0 (chem)
  mrbayes/3.2.6            (bio)    ray/2.3.1           (bio)
-
+ gcc/4.8.5                         gcc/5.4.0           (D)
 
 [removed most of the output here for clarity]
 
@@ -323,16 +317,41 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ```
 
-Let’s take a closer look at the gcc module. GCC is an extremely widely used 
-C/C++/Fortran compiler. Tons of software is dependent on the GCC version, and might not 
-compile or run if the wrong version is loaded. In this case, there are two different 
-versions: `gcc/4.8.5` and `gcc/5.4.0`. How do we load each copy and which copy is the 
-default?
-
+Let’s take a closer look at the gcc module. 
+GCC is an extremely widely used  C/C++/Fortran compiler. 
+Tons of software is dependent on the GCC version, and might not compile or run if the wrong version is loaded. 
+In this case, there are two different versions: `gcc/4.8.5` and `gcc/5.4.0`. 
+How do we load each copy, and which copy is the default?
 
 In this case, `gcc/5.4.0` has a `(D)` next to it. This indicates that it is the default 
 — if we type `module load gcc`, this is the copy that will be loaded.
 
+::::callout{variant="tip"}
+## Filtering Lists
+A lot of HPC systems will have so many modules available that looking through the whole of `module avail` is just not practical.
+You can use `module avail gcc` to check out the versions of GCC available on yours.
+An example output from a different system might be:
+```bash
+remote$ module avail gcc
+```
+```
+------------------------------------------------- /local/modules/apps --------------------------------------------------
+[removed for clarity]
+
+----------------------------------------------- /local/modules/compilers -----------------------------------------------
+   gcc/6.4.0    gcc/10.2.0    gcc/11.1.0    gcc/12.2.0    gcc/13.2.0 (D)
+   gcc/8.5.0    gcc/10.3.0    gcc/12.1.0    gcc/13.1.0
+
+------------------------------------------------- /local/modules/libs --------------------------------------------------
+[removed for clarity]
+
+-------------------------------------------------- /local/modules/mpi --------------------------------------------------
+[removed for clarity]
+
+  Where:
+   D:  Default Module
+```
+::::
 
 ```bash
 remote$ module load gcc

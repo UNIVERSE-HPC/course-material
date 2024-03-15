@@ -1,7 +1,6 @@
 ---
 name: Introduction to the Message Passing Interface
 dependsOn: [
-  high_performance_computing.hpc_mpi.01_introduction
 ]
 tags: []
 attribution: 

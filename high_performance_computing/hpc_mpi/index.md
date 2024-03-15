@@ -2,9 +2,9 @@
 name: Introduction to the Message Passing Interface
 id: hpc_mpi
 dependsOn: [
+    high_performance_computing.hpc_parallel_intro
 ]
 files: [
-    01_introduction.md,
     02_mpi_api.md,
     03_communicating_data.md,
     04_point_to_point_communication.md,
@@ -16,6 +16,5 @@ files: [
     10_optimising_mpi.md,
 ]
 summary: |
-    This session introduces the Message Passing Interface, and shows how to use it to parallelise
-    your code.
+    This session introduces the Message Passing Interface, and shows how to use it to parallelise your code.
 ---
