@@ -108,5 +108,5 @@ This will take you to the website `https://<project_name>.readthedocs.io/en/late
 
 ::::challenge{id="start-documenting" title="Start documenting"}
 
-Read through the [Sphinx documentation]((https://www.sphinx-doc.org/en/master/)) and start fleshing out the documenation for your repository.
+Read through the [Sphinx documentation](https://www.sphinx-doc.org/en/master/) and start fleshing out the documenation for your repository.
 ::::
