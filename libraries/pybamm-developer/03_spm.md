@@ -115,7 +115,7 @@ model.rhs = {c_i[i]: dcdt_i[i] for i in [0, 1]}
 
 # boundary conditions
 lbc = pybamm.Scalar(0)
-rbc = [-j_i[i] / F / D_i[i] for i in [0, 1]]
+rbc = [-j_i[i] / D_i[i] for i in [0, 1]]
 model.boundary_conditions = {c_i[i]: {"left": (lbc, "Neumann"), "right": (rbc[i], "Neumann")} for i in [0, 1]}
 
 # initial conditions
@@ -238,16 +238,11 @@ c_i_max = [pybamm.Parameter(f"Maximum concentration for {d} [mol.m-3]") for d in
 # define intermediate variables and OCP function parameters
 c_i_s = [pybamm.surf(c_i[i]) for i in [0, 1]]
 x_i_s = [c_i_s[i] / c_i_max[i] for i in [0, 1]]
-i_0_i = [k_i[i] * F * (c_e * c_i_s[i] * (c_i_max[i] - c_i_s[i])) ** 0.5 for i in [0, 1]]
+i_0_i = [k_i[i] * F * (pybamm.sqrt(c_e) * pybamm.sqrt(c_i_s[i]) * pybamm.sqrt(c_i_max[i] - c_i_s[i])) for i in [0, 1]]
 eta_i = [2 * R * T / F * pybamm.arcsinh(j_i[i] * F / (2 * i_0_i[i])) for i in [0, 1]]
 U_i = [pybamm.FunctionParameter(f"Open circuit potential for {d}", {"stoichiometry": x_i_s[i]}) for (i, d) in enumerate(domains)]
 
 # define output variables
-# print domains of the variables
-print(U_i[0].domain)
-print(U_i[1].domain)
-print(eta_i[0].domain)
-print(eta_i[1].domain)
 [U_n_plus_eta, U_p_plus_eta] = [U_i[i] + eta_i[i] for i in [0, 1]]
 V = U_p_plus_eta - U_n_plus_eta
 model.variables = {
@@ -287,7 +282,7 @@ param = pybamm.ParameterValues({
     "Diffusion coefficient for positive particle [m2.s-1]": 1.7e-13,
     "Particle radius for negative particle [m]": 1.5e-5,
     "Particle radius for positive particle [m]": 1.5e-5,
-    "Initial concentration for negative particle [mol.m-3]": 2.87e3,
+    "Initial concentration for negative particle [mol.m-3]": 0.87e3,
     "Initial concentration for positive particle [mol.m-3]": 1.14e3,
     "Electrode thickness for negative particle [m]": 7.5e-5,
     "Electrode thickness for positive particle [m]": 7.5e-5,
@@ -335,7 +330,7 @@ disc.process_model(model)
 
 # solve
 solver = pybamm.ScipySolver()
-t = np.linspace(0, 3600, 600)
+t = np.linspace(0, 5, 600)
 solution = solver.solve(model, t)
 
 # post-process, so that the solution can be called at any time t or space r
