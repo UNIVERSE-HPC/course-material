@@ -11,7 +11,7 @@ positive and negative electrodes, $c_n$ and $c_p$. The diffusion of lithium ions
 in each electrode particle $c_i$ is given by:
 
 $$
-\frac{\partial c_i}{\partial t} &= \nabla \cdot (D_i \nabla c_i) \\
+\frac{\partial c_i}{\partial t} = \nabla \cdot (D_i \nabla c_i)
 $$
 
 subject to the following boundary and initial conditions:
