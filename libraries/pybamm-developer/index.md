@@ -2,10 +2,12 @@
 id: pybamm_developer
 name: PyBaMM Model Development
 dependsOn: [
-    libraries.intro_to_pybamm
+    libraries.pybamm
 ]
 files: [
-
+    01_ode.md,
+    02_pde.md,
+    03_spm.md,
 ]
 attribution: 
     - citation: >

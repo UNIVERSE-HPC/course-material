@@ -1,3 +1,17 @@
+---
+name: Single Particle Model
+dependsOn: [
+    libraries.pybamm_developer.02_pde
+]
+tags: [pybamm]
+attribution: 
+    - citation: >
+        PyBaMM documentation by the PyBaMM Team
+      url: https://docs.pybamm.org
+      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
+      license: BSD-3
+---
+
 # The Single Particle Model
 
 Now we will extend our PDE model to the full single particle model. The single

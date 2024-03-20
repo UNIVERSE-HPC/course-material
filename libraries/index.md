@@ -3,6 +3,7 @@ id: libraries
 name: Libraries
 courses: [
   pybamm,
+  pybamm-developer,
 ]
 ---
 

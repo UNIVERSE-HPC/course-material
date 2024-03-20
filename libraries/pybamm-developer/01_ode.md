@@ -1,7 +1,7 @@
 ---
 name: ODE models in PyBaMM
 dependsOn: [
-    libraries.pybamm.06_final_exercises
+    libraries.pybamm
 ]
 tags: [pybamm]
 attribution: 
