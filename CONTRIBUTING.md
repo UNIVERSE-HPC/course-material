@@ -9,11 +9,6 @@ To contribute new material, or update existing material please:
 
 It is useful to see how your change is rendered into a webpage using the [Gutenberg platform](https://github.com/OxfordRSE/gutenberg). In development, you will need to follow the [Gutenburg development guide](https://blog.oxrse.uk/gutenberg/development/) to install the platform locally. You will then be able to update material in the "MATERIAL_DIR" directory which will be built into a webapp and hosted on your local machine.
 
-If you wish to redeploy the training material in production (and have permission to do so), this can be by using this [deploy
-action](https://github.com/OxfordRSE/gutenberg/actions/workflows/deploy.yml). Click the "Run workflow" button on the right-hand-side pane of the action. If
-this button does not appear on your screen then you don't have the necessary
-permissions to run the workflow. 
-
 ## Structure
 
 The file structure in this repo defines the structure of the generated material, there are three levels of subdirectories, each with their own `index.md` file, which contains metadata:
