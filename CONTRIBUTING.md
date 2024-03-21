@@ -7,23 +7,12 @@ To contribute new material, or update existing material please:
 
 ## Rendering website
 
-It is useful to see how your change is rendered into a webpage on the [Gutenberg platform](https://train.oxrse.uk/material). You can render your forked repository by using this [deploy
-action](https://github.com/OxfordRSE/gutenberg/actions/workflows/deploy.yml). This is part of a web app that takes material in the format described below, and renders it as HTML. 
+It is useful to see how your change is rendered into a webpage using the [Gutenberg platform](https://github.com/OxfordRSE/gutenberg). In development, you will need to follow the [Gutenburg development guide](https://blog.oxrse.uk/gutenberg/development/) to install the platform locally. You will then be able to update material in the "MATERIAL_DIR" directory which will be built into a webapp and hosted on your local machine.
 
-To render your material, click the "Run workflow" button on the right-hand-side pane
-of the [deploy
-action](https://github.com/OxfordRSE/gutenberg/actions/workflows/deploy.yml). If
+If you wish to redeploy the training material in production (and have permission to do so), this can be by using this [deploy
+action](https://github.com/OxfordRSE/gutenberg/actions/workflows/deploy.yml). Click the "Run workflow" button on the right-hand-side pane of the action. If
 this button does not appear on your screen then you don't have the necessary
-permissions to run the workflow. In this case first fork this repository too into
-your personal github account, then click on the "Run workflow" button within
-your fork.
-
-Clicking this button will open a small dialog where you can enter the name of
-your fork in the textfield labeled "Github path of material repository". Then
-click the "Run workflow" button, and wait until the action has completed. Once
-the "deploy" job has completed, navigate to the [deployed
-site](https://oxfordrse.github.io/gutenberg/) and here you will hopefully see
-your updated material.
+permissions to run the workflow. 
 
 ## Structure
 
