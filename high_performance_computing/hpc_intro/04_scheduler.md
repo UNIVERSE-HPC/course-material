@@ -25,7 +25,7 @@ in a restaurant. If you can relate to an instance where you had to wait for a
 while in a queue to get in to a popular restaurant, then you may now understand
 why sometimes your job do not start instantly as in your laptop.
 
-![Compare a job schedular to a waiter in a restaurant](fig/restaurant_queue_manager.svg)
+![Compare a job scheduler to a waiter in a restaurant](fig/restaurant_queue_manager.svg)
 
 The scheduler used in this lesson is Slurm. Although
 Slurm is not used everywhere, running jobs is quite similar
@@ -39,7 +39,7 @@ command (or series of commands) that you want to run on the cluster is called a
 _job_, and the process of using a scheduler to run the job is called _batch job
 submission_.
 
-In this case, the job we want to run is a shell script -- essentially a
+In this case, the job we want to run is a shell script - essentially a
 text file containing a list of UNIX commands to be executed in a sequential
 manner. Our shell script will have three parts:
 
@@ -77,7 +77,7 @@ remote$ bash example-job.sh
 ```
 
 ```
-This script is running on cluster.name
+This script is running on <<cluster.name>>
 ```
 :::
 ::::
@@ -100,7 +100,7 @@ remote$ sbatch example-job.sh
 Submitted batch job 36855
 ```
 
-And that's all we need to do to submit a job. Our work is done -- now the
+And that's all we need to do to submit a job. Our work is done - now the
 scheduler takes over and tries to run the job for us. While the job is waiting
 to run, it goes into a list of jobs called the _queue_. To check on our job's
 status, we check the queue using the command `squeue -u yourUsername`
@@ -120,7 +120,7 @@ state. Sometimes our jobs might need to wait in a queue (PENDING) or have an err
 :::callout
 ## Where's the Output?
 
-On the login node, this script printed output to the terminal -- but
+On the login node, this script printed output to the terminal - but
 now, when `squeue` shows the job has finished,
 nothing was printed to the terminal.
 
