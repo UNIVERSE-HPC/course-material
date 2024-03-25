@@ -48,7 +48,7 @@ Traceback (most recent call last):
 ModuleNotFoundError: No module named 'tstools'
 ```
 
-At the moment lives in the directory `analysis1/`, and, unfortunately, Python cannot find it!
+At the moment `tstools` lives in the directory `analysis1/`, and, unfortunately, Python cannot find it!
 How can we tell Python where our package is?
 
 ## Where does Python look for packages?

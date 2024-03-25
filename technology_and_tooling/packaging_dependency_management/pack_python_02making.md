@@ -34,7 +34,7 @@ for our analysis. The test data is in the `data` directory and the `tests.py`
 file contains the tests we will use to check that our functions are working as
 expected.
 
-It is possible to import functions from the modules it contains:
+It is possible to import functions from the specific modules containing them:
 
 ```python
 import numpy as np
