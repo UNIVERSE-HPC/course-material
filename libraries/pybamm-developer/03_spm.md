@@ -124,7 +124,7 @@ j_i = [I / a_i[0] / delta_i[0] / F / A, -I / a_i[1] / delta_i[1] / F / A]
 c_i = [pybamm.Variable(f"Concentration in {d} [mol.m-3]", domain=d) for d in domains]
 
 # governing equations
-dcdt_i = [-pybamm.div(D_i[i] * pybamm.grad(c_i[i])) for i in [0, 1]]
+dcdt_i = [pybamm.div(D_i[i] * pybamm.grad(c_i[i])) for i in [0, 1]]
 model.rhs = {c_i[i]: dcdt_i[i] for i in [0, 1]}
 
 # boundary conditions
@@ -277,43 +277,37 @@ spatial domains.
 ::::challenge{id=spm-discretise-solve, title=Discretise and solve the SPM model}
 
 Discretise and solve the SPM model using the same methods as in the previous
-section. Use the following parameter values object to solve the model:
+section. The following parameter values object copies the parameters from the PyBaMM
+Chen2020 model, feel free to use this to define the parameters for the SPM model.
     
 ```python
-def graphite_LGM50_ocp_Chen2020(sto):
-    u_eq = (
-        1.9793 * np.exp(-39.3631 * sto)
-        + 0.2482
-        - 0.0909 * np.tanh(29.8538 * (sto - 0.1234))
-        - 0.04478 * np.tanh(14.9159 * (sto - 0.2769))
-        - 0.0205 * np.tanh(30.4444 * (sto - 0.6103))
-    )
-    return u_eq
-
-param = pybamm.ParameterValues({
-    "Applied current [A]": 1,
-    "Diffusion coefficient for negative particle [m2.s-1]": 3.9e-14,
-    "Diffusion coefficient for positive particle [m2.s-1]": 1.7e-13,
-    "Particle radius for negative particle [m]": 1.5e-5,
-    "Particle radius for positive particle [m]": 1.5e-5,
-    "Initial concentration for negative particle [mol.m-3]": 0.87e3,
-    "Initial concentration for positive particle [mol.m-3]": 1.14e3,
-    "Electrode thickness for negative particle [m]": 7.5e-5,
-    "Electrode thickness for positive particle [m]": 7.5e-5,
-    "Faraday constant [C.mol-1]": 96485,
-    "Electrode surface area [m2]": 0.1,
-    "Volume fraction of active material for negative particle": 0.3,
-    "Volume fraction of active material for positive particle": 0.7,
-    "Gas constant [J.mol-1.K-1]": 8.314,
-    "Temperature [K]": 298.15,
-    "Electrolyte concentration [mol.m-3]": 1000,
-    "Reaction rate constant for negative particle [m.s-1]": 1e-3,
-    "Reaction rate constant for positive particle [m.s-1]": 1e-3,
-    "Maximum concentration for negative particle [mol.m-3]": 2.87e3,
-    "Maximum concentration for positive particle [mol.m-3]": 1.14e3,
-    "Open circuit potential for negative particle": graphite_LGM50_ocp_Chen2020,
-    "Open circuit potential for positive particle": graphite_LGM50_ocp_Chen2020,
-})
+p = pybamm.ParameterValues("Chen2020")
+param = pybamm.ParameterValues(
+    {
+        "Applied current [A]": 1,
+        "Diffusion coefficient for negative particle [m2.s-1]": p['Negative electrode diffusivity [m2.s-1]'],
+        "Diffusion coefficient for positive particle [m2.s-1]": p['Positive electrode diffusivity [m2.s-1]'],
+        "Particle radius for negative particle [m]": p['Negative particle radius [m]'],
+        "Particle radius for positive particle [m]": p['Positive particle radius [m]'],
+        "Initial concentration for negative particle [mol.m-3]": p['Initial concentration in negative electrode [mol.m-3]'],
+        "Initial concentration for positive particle [mol.m-3]": p['Initial concentration in positive electrode [mol.m-3]'],
+        "Electrode thickness for negative particle [m]": p['Negative electrode thickness [m]'],
+        "Electrode thickness for positive particle [m]": p['Positive electrode thickness [m]'],
+        "Faraday constant [C.mol-1]": p['Faraday constant [C.mol-1]'],
+        "Electrode surface area [m2]": p['Electrode width [m]']*p['Electrode height [m]'],
+        "Volume fraction of active material for negative particle": p['Negative electrode active material volume fraction'],
+        "Volume fraction of active material for positive particle": p['Positive electrode active material volume fraction'],
+        "Gas constant [J.mol-1.K-1]": p['Ideal gas constant [J.K-1.mol-1]'],
+        "Temperature [K]": p['Ambient temperature [K]'],
+        "Electrolyte concentration [mol.m-3]": p['Initial concentration in electrolyte [mol.m-3]'],
+        "Reaction rate constant for negative particle [m.s-1]": 1e-3,
+        "Reaction rate constant for positive particle [m.s-1]": 1e-3,
+        "Maximum concentration for negative particle [mol.m-3]": p['Maximum concentration in negative electrode [mol.m-3]'],
+        "Maximum concentration for positive particle [mol.m-3]": p['Maximum concentration in positive electrode [mol.m-3]'],
+        "Open circuit potential for negative particle": p['Negative electrode OCP [V]'],
+        "Open circuit potential for positive particle": p['Positive electrode OCP [V]'],
+    }
+)
 ```
 
 :::solution
@@ -344,7 +338,7 @@ disc.process_model(model)
 
 # solve
 solver = pybamm.ScipySolver()
-t = np.linspace(0, 5, 600)
+t = np.linspace(0, 3600, 600)
 solution = solver.solve(model, t)
 
 # post-process, so that the solution can be called at any time t or space r
