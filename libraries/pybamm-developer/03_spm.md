@@ -45,15 +45,15 @@ dependent on the applied current $I$:
 
 $$
 \begin{align*}
-j_n &= \frac{I}{a_n \delta_n \mathcal{F}, \mathcal{A}}
-j_p &= \frac{-I}{a_p \delta_p \mathcal{F}, \mathcal{A}}
+j_n &= \frac{I}{a_n \delta_n F, \mathcal{A}}
+j_p &= \frac{-I}{a_p \delta_p F, \mathcal{A}}
 \end{align*}
 $$
 
 
 where $a_i = 3 \epsilon_i / R_i$ is the specific surface area of the electrode,
 $\epsilon_i$ is the volume fraction of active material, $\delta_i$ is the
-thickness of the electrode, $\mathcal{F}$ is the Faraday constant, and
+thickness of the electrode, $F$ is the Faraday constant, and
 $\mathcal{A}$ is the electrode surface area.
 
 ## Function Parameters in PyBaMM
@@ -157,13 +157,13 @@ overpotential.
 Assuming Butler-Volmer kinetics and $\alpha_i = 0.5$, the overpotential is given by:
 
 $$
-\eta_i = \frac{2RT}{\mathcal{F}} \sinh^{-1} \left( \frac{j_i \mathcal{F}}{2i_{0,i}} \right)
+\eta_i = \frac{2RT}{F} \sinh^{-1} \left( \frac{j_i F}{2i_{0,i}} \right)
 $$
 
 where the exchange current density $i_{0,i}$ is given by:
 
 $$
-i_{0,i} = k_i \mathcal{F} \sqrt{c_e} \sqrt{c_i(r=R_i)} \sqrt{c_i^{max} - c_i(r=R_i)}
+i_{0,i} = k_i F \sqrt{c_e} \sqrt{c_i(r=R_i)} \sqrt{c_i^{max} - c_i(r=R_i)}
 $$
 
 where $c_e$ is the concentration of lithium ions in the electrolyte, and $k_i$
