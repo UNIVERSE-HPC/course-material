@@ -15,8 +15,8 @@ attribution:
 # Creating a simple PDE model
 
 In the previous section, we showed how to create, and solve an ODE model in
-pybamm. In this section we show how to create and solve a PDE problem, which
-will require meshing of the spatial domain.
+pybamm. In this section we show how to create and solve a PDE problem, which is
+more complex and requires meshing of the spatial domain.
 
 As an example, we consider the problem of linear diffusion on a unit sphere,
 
@@ -63,7 +63,7 @@ model.rhs = {c: dcdt}  # add the equation to rhs dictionary
 Unlike ODE models, PDE models require both initial and boundary conditions.
 Similar to initial conditions, boundary conditions can be added using the
 dictionary [`model.boundary_conditions`](https://docs.pybamm.org/en/stable/source/api/models/base_models/base_model.html#pybamm.BaseModel.boundary_conditions). Boundary conditions for each variable
-are provided as a dictionary of the form `{side: (value, type)`, where, in 1D,
+are provided as a dictionary of the form `{side: (value, type)}`, where, in 1D,
 side can be "left" or "right", value is the value of the boundary conditions,
 and type is the type of boundary condition (at present, this can be "Dirichlet"
 or "Neumann").
@@ -161,9 +161,10 @@ disc.process_model(model);
 
 Now that the model has been discretised we are ready to solve. 
 
-```python
-### Solving the model
+## Solving the model
 As before, we choose a solver and times at which we want the solution returned. We then solve, extract the variables we are interested in, and plot the result.
+
+```python
 # solve
 solver = pybamm.ScipySolver()
 t = np.linspace(0, 1, 100)
