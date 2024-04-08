@@ -14,7 +14,7 @@ attribution:
 
 # A simple ODE battery model
 
-In this section, we will learn how to develop a simple battery model using PyBaMM. We'll be using the reservoir model, which is a simple ODE model that represents the battery as two reservoirs of charge, one for the positive electrode and one for the negative electrode. The model is described by the following equations:
+In this section, we will learn how to develop a simple battery model using PyBaMM. We'll be using the reservoir model, which is a simple ordinary differential equation (ODE) model that represents the battery as two reservoirs of charge, one for the positive electrode and one for the negative electrode. The model is described by the following equations:
 
 $$
 \begin{align*}
