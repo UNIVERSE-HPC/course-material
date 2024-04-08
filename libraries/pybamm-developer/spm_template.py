@@ -22,17 +22,17 @@ class WorkshopSPM(pybamm.BaseModel):
         pybamm.citations.register("Marquis2019")
 
         ######################
+        # Variables
+        ######################
+        # Define the variables of the model.
+
+
+        ######################
         # Parameters
         ######################
         # You need to fill this section with the parameters of the model. To ensure
         # it works within PyBaMM, you need to use the same names as in PyBaMM's parameter
         # sets (e.g. see https://github.com/pybamm-team/PyBaMM/blob/develop/pybamm/input/parameters/lithium_ion/Chen2020.py)
-
-
-        ######################
-        # Variables
-        ######################
-        # Define the variables of the model.
 
 
         ######################
