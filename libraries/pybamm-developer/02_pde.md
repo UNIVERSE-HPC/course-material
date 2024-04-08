@@ -14,9 +14,7 @@ attribution:
 
 # Creating a simple PDE model
 
-In the previous section, we showed how to create, and solve an ODE model in
-pybamm. In this section we show how to create and solve a PDE problem, which is
-more complex and requires meshing of the spatial domain.
+In the previous section, we showed how to create, and solve an ODE model in pybamm. In this section we show how to create and solve a partial differential equation (PDE) model. PDE models are more complex than ODEs as they include derivatives with respect two different variables (in our problems these will be a spatial variable and a time variable). Additional steps will be required to solve PDE models, like discretising the spatial domain.
 
 As an example, we consider the problem of linear diffusion on a unit sphere,
 
@@ -39,6 +37,8 @@ object and define our model variables. Since we are now solving a PDE we need to
 tell pybamm the domain each variable belongs to so that it can be discretised in
 space in the correct way. This is done by passing the keyword argument `domain`,
 and in this example we choose the domain "negative particle".
+This argument is a string and we will later on define the geometry of
+the domain.
 
 ```python
 model = pybamm.BaseModel()
@@ -65,8 +65,8 @@ Similar to initial conditions, boundary conditions can be added using the
 dictionary [`model.boundary_conditions`](https://docs.pybamm.org/en/stable/source/api/models/base_models/base_model.html#pybamm.BaseModel.boundary_conditions). Boundary conditions for each variable
 are provided as a dictionary of the form `{side: (value, type)}`, where, in 1D,
 side can be "left" or "right", value is the value of the boundary conditions,
-and type is the type of boundary condition (at present, this can be "Dirichlet"
-or "Neumann").
+and type is the type of boundary condition (at present, this can be ["Dirichlet"](https://en.wikipedia.org/wiki/Dirichlet_boundary_condition)
+or ["Neumann"](https://en.wikipedia.org/wiki/Neumann_boundary_condition)).
 
 ```python
 # initial conditions
@@ -101,6 +101,7 @@ r = pybamm.SpatialVariable(
     "r", domain=["negative particle"], coord_sys="spherical polar"
 )
 ```
+As with the concentration variable, we give it the spatial variable an informative name `"r"` but the variable is represented by `r` in the code (in this case it is a bit more confusing as the names are more similar). The domain needs to match the domain we have defined in our concentration variable, and the coordinate system can be chosen from `"cartesian"`, `"cylindrical polar"` and `"spherical polar"`.
 
 The geometry on which we wish to solve the model is defined using a nested
 dictionary. The first key is the domain name (here "negative particle") and the
@@ -114,7 +115,7 @@ geometry = {"negative particle": {r: {"min": pybamm.Scalar(0), "max": pybamm.Sca
 
 We then create a uniform one-dimensional mesh with 20 points, using the
 [`pybamm.Mesh`](https://docs.pybamm.org/en/stable/source/api/meshes/meshes.html#pybamm.Mesh)
-class. As well as the geometry, the mesh class also takes a dictionary of
+class. The mesh determines at which points of our spatial domain we will compute the solution. As well as the geometry, the mesh class also takes a dictionary of
 submesh types (see below, for more details), and a dictionary specifying the number of mesh
 points for each spatial variable.
 
@@ -146,7 +147,7 @@ The list of available submeshes is given in the [documentation](https://docs.pyb
 
 ## Discretising the domains
 
-After defining a mesh we choose a spatial method to discretise the "nagative
+After defining a mesh we choose a spatial method to discretise the "negative
 particle" domain. Here we choose the Finite Volume Method. We then set up a
 discretisation by passing the mesh and spatial methods to the class
 [`pybamm.Discretisation`](https://docs.pybamm.org/en/stable/source/api/spatial_methods/discretisation.html#pybamm.Discretisation). The model is then processed, turning the variables into
