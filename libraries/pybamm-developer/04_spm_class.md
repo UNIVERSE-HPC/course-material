@@ -30,7 +30,7 @@ Next, we see that the class has an `__init__` method. All classes have an `__ini
 
 The next line
 ```python
-super().__init__({}, name)
+super().__init__(name=name)
 ```
 looks a bit obscure, but basically calls the `__init__` method of the class we are inheriting from (i.e. `BaseModel`). This does some useful initialisation of the class, but we do not need to delve in the details.
 
@@ -106,15 +106,15 @@ Once we have defined the variables and the parameters we can write the governing
 ```python
 # governing equations
 dcdt_i = [pybamm.div(D_i[i] * pybamm.grad(c_i[i])) for i in [0, 1]]
-model.rhs = {c_i[i]: dcdt_i[i] for i in [0, 1]}
+self.rhs = {c_i[i]: dcdt_i[i] for i in [0, 1]}
 
 # boundary conditions
 lbc = pybamm.Scalar(0)
 rbc = [-j_i[i] / D_i[i] for i in [0, 1]]
-model.boundary_conditions = {c_i[i]: {"left": (lbc, "Neumann"), "right": (rbc[i], "Neumann")} for i in [0, 1]}
+self.boundary_conditions = {c_i[i]: {"left": (lbc, "Neumann"), "right": (rbc[i], "Neumann")} for i in [0, 1]}
 
 # initial conditions
-model.initial_conditions = {c_i[i]: c0_i[i] for i in [0, 1]}
+self.initial_conditions = {c_i[i]: c0_i[i] for i in [0, 1]}
 ```
 :::
 
@@ -131,9 +131,9 @@ eta_i = [2 * R * T / F * pybamm.arcsinh(j_i[i] * F / (2 * i_0_i[i])) for i in [0
 
 
 # define output variables
-[U_n_plus_eta, U_p_plus_eta] = [U_i[i] + eta_i[i] for i in [0, 1]]
+[U_n_plus_eta, U_p_plus_eta] = [pybamm.surf(U_i[i]) + eta_i[i] for i in [0, 1]]
 V = U_p_plus_eta - U_n_plus_eta
-model.variables = {
+self.variables = {
   "Time [s]": pybamm.t,
   "Voltage [V]": V,
   "Current [A]": I,
@@ -225,6 +225,16 @@ to run both unit and integration tests.
 Once your tests run locally you can open a pull request (PR) to the PyBaMM main repository. This will run a whole suite of tests on the cloud (they will take a few minutes to run) that might unearth some more issues with the code. It will also generate a coverage report that will tell you if any parts of your code are not tested.
 
 ## Troubleshooting
-Writing the equations is not hard, what is hard is getting the model to actually work.
+Writing the equations is not hard, what is hard is getting the model to actually work. Here are a list of the most common errors when writing PyBaMM models and some tips on how to fix it. Remember that using the debugging mode in your code editor is also very useful.
 
-TODO
+### Domain error
+```bash
+pybamm.expression_tree.exceptions.DomainError: children must have same or empty domains, not ['positive particle'] and ['negative particle']
+```
+
+This means that at some point in your expression tree an operator takes two nodes (i.e. children) that have incompatible domains. The error message will tell you which line in your model triggered the error, so a good way is to set a debug breakpoint there and analyse the domains of the various symbols in the expression by running
+```python
+symbol.domains
+```
+
+Sometimes the issue is further down the expression tree, remember you can visualise the expression tree (see [ODE models in PyBaMM](./01_ode.md)). To access the list of children of a node, you can call the `children` command. You can then access the relevant element in the list and call the `children` command again to navigate down the tree.
