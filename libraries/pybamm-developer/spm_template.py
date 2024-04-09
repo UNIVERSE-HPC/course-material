@@ -15,7 +15,7 @@ class WorkshopSPM(pybamm.BaseModel):
     """
 
     def __init__(self, name="Single Particle Model"):
-        super().__init__({}, name)
+        super().__init__(name=name)
 
         # This command registers the article where the model comes from so it appears
         # when calling `pybamm.print_citations()`
