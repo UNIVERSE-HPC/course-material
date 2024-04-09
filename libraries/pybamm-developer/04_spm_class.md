@@ -238,3 +238,10 @@ symbol.domains
 ```
 
 Sometimes the issue is further down the expression tree, remember you can visualise the expression tree (see [ODE models in PyBaMM](./01_ode.md)). To access the list of children of a node, you can call the `children` command. You can then access the relevant element in the list and call the `children` command again to navigate down the tree.
+
+### Missing parameters
+```bash
+KeyError: "'Applied current [A]' not found. Best matches are ['Current function [A]']"
+```
+
+This error means that the model requires a parameter that has not been passed when processing the model. PyBaMM will try to provide a guess of the best matches. In this case, the model has a parameter called `Applied current [A]` but the parameters when solving the model do not include it and the best match is `Current function [A]`.
