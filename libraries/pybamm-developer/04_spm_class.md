@@ -34,7 +34,7 @@ super().__init__(name=name)
 ```
 looks a bit obscure, but basically calls the `__init__` method of the class we are inheriting from (i.e. `BaseModel`). This does some useful initialisation of the class, but we do not need to delve in the details.
 
-::::challenge{id=spm-class, title=Wrap SPM as a class}
+::::challenge{id="spm-class" title="Wrap SPM as a class"}
 The main task for this lesson is to wrap the SPM model we previously built into a class, and to open a pull request to add it to PyBaMM which passes all the tests.
 
 The first question is where do we need to place the model within the PyBaMM directory structure. For the purpose of the exercise, we want to be able to call the model as `pybamm.WorkshopSPM`, is there anything else we need to do?
@@ -201,13 +201,13 @@ Note that we could significantly simplify the code by defining `self.domains`, `
 ## Adding the model to PyBaMM
 We have now written the model into a class, so the next milestone will be to open a PR to add it to PyBaMM. Before we do that, though, there a few other things we need to do.
 
-::::challenge{id=spm-example, title=Write an example for the model}
+::::challenge{id="spm-example" title="Write an example for the model"}
 We still have not checked if the model works so the first thing we need to do is to write an example for the model. You can write it either as a script or a notebook (just place it in the relevant folder) and ensure the example is well-commented so other users can understand it.
 ::::
 
 When running the example you might realise your model does not work so you need to do some debugging (see the Troubleshooting section below for some tips). Once the example runs it is time to write some tests.
 
-::::challenge{id=spm-tests, title=Write some tests}
+::::challenge{id="spm-tests" title="Write some tests"}
 Tests are bits of code that check that the rest of the code performs as expected. The tests can be found in the `pybamm/tests` directory, and they are automatically run for every pull request to ensure the changes do not break the code. Tests are split between unit tests and integration tests. Unit tests focus on specific parts of code in isolation, while integration tests check that various parts of the code work well together. For example, a unit test for our model would check that when called it is properly initialised, while an integration tests would check that when the model is solved yields the right result.
 
 The goal for this task is to write some tests for your model (at least unit tests, ideally unit and integration tests as well). You can draw some inspiration from the following existing tests for models ([unit](https://github.com/pybamm-team/PyBaMM/blob/develop/tests/unit/test_models/test_full_battery_models/test_lithium_ion/test_basic_models.py) and [integration](https://github.com/pybamm-team/PyBaMM/blob/develop/tests/integration/test_models/test_full_battery_models/test_lithium_ion/test_compare_basic_models.py)).

@@ -24,7 +24,7 @@ $$
 $$
 where $i_{0,\mathrm{diss}}$ is the dissolution exchange current density and $U_\mathrm{diss}$ is the dissolution open-circuit potential. The positive electrode potential is given by $\phi_p = U_p + \eta_p$.
 
-::::challenge{id=spm-acid, title=Write SPM with acid dissolution}
+::::challenge{id="spm-acid" title="Write SPM with acid dissolution"}
 The challenge for this lesson is to write a new class for SPM with acid dissolution. You can create a copy of the SPM model you wrote in the previous lesson and update it accordingly. As before, you should include an example on how to run it (with the additional parameters required, which you can find in [Kindermann et al (2017)](https://iopscience.iop.org/article/10.1149/2.0321712jes)) and tests. Once it is done, you can push to the same PR as before.
 
 :::solution

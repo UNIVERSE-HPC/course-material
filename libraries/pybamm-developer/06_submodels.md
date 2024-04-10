@@ -45,7 +45,7 @@ Finally, we can define initial and boundary conditions if our submodel requires 
 There are some other more advanced features of the submodels that we have not covered here. Before implementing any submodels, it is useful to check any existing submodels that are similar and how they have been implemented, and to open an issue to discuss ideas with the other developers.
 
 
-::::challenge{id=acid-submodel, title=Implement the acid dissolution submodel}
+::::challenge{id="acid-submodel" title="Implement the acid dissolution submodel"}
 The task for this lesson is to implement the acid dissolution as a submodel. For a refresher on submodels it might be useful to check the [submodels notebook](https://docs.pybamm.org/en/stable/source/examples/notebooks/models/using-submodels.html). The acid dissolution is a specific type of loss of active material submodel, so it needs to be implemented in `loss_active_material.py` as an additional case in the if statement.
 
 In addition to implementing the submodel, write an example (you can add a new case to the [loss of active material notebook](https://docs.pybamm.org/en/stable/source/examples/notebooks/models/loss_of_active_materials.html)) and add some tests. Once tests pass, you can push to your previous PR.
