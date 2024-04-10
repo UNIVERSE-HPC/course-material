@@ -1,7 +1,7 @@
 ---
 name: Single Particle Model (now as a class)
 dependsOn: [
-    libraries.pybamm_developer.03_spm
+    libraries.pybamm-developer.03_spm
 ]
 tags: [pybamm]
 attribution: 

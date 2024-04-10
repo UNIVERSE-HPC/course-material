@@ -1,7 +1,7 @@
 ---
 name: Submodels
 dependsOn: [
-    libraries.pybamm_developer.05_spm_acid
+    libraries.pybamm-developer.05_spm_acid
 ]
 tags: [pybamm]
 attribution: 

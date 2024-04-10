@@ -1,7 +1,7 @@
 ---
-name: Single Particle Model with Acid Dissolution
+name: SPM with Acid Dissolution
 dependsOn: [
-    libraries.pybamm_developer.04_spm_class
+    libraries.pybamm-developer.04_spm_class
 ]
 tags: [pybamm]
 attribution: 

@@ -1,7 +1,7 @@
 ---
 name: PDE models in PyBaMM
 dependsOn: [
-    libraries.pybamm_developer.01_ode
+    libraries.pybamm-developer.01_ode
 ]
 tags: [pybamm]
 attribution: 
