@@ -1,7 +1,7 @@
 ---
 name: Single Particle Model
 dependsOn: [
-    libraries.pybamm_developer.02_pde
+    libraries.pybamm-developer.02_pde
 ]
 tags: [pybamm]
 attribution: 
@@ -45,20 +45,20 @@ dependent on the applied current $I$:
 
 $$
 \begin{align*}
-j_n &= \frac{I}{a_n \delta_n \mathcal{F}, \mathcal{A}}
-j_p &= \frac{-I}{a_p \delta_p \mathcal{F}, \mathcal{A}}
+j_n &= \frac{I}{a_n \delta_n F \mathcal{A}}, \qquad
+j_p &= \frac{-I}{a_p \delta_p F \mathcal{A}},
 \end{align*}
 $$
 
 
 where $a_i = 3 \epsilon_i / R_i$ is the specific surface area of the electrode,
 $\epsilon_i$ is the volume fraction of active material, $\delta_i$ is the
-thickness of the electrode, $\mathcal{F}$ is the Faraday constant, and
+thickness of the electrode, $F$ is the Faraday constant, and
 $\mathcal{A}$ is the electrode surface area.
 
 ## Function Parameters in PyBaMM
 
-The applied current $I(t)$ is an input parameter to the model, but unlike the
+The applied current $I(t)$ is a parameter to the model, but unlike the
 other parameters we have seen so far, it is a function of time. We can define
 this using `pybamm.FunctionParameter`:
 
@@ -82,7 +82,7 @@ param = pybamm.ParameterValues(
 ## Domains in PyBaMM
 
 In the SPM model we have two different spatial domains, one for the positive
-electrode and one for the negative electrode. When we define a variable in
+electrode and one for the negative electrode. Remember that when we define a variable in
 PyBaMM, we can specify the domain using the `domain` keyword argument:
 
 ```python
@@ -112,9 +112,11 @@ D_i = [pybamm.Parameter(f"Diffusion coefficient for {d} [m2.s-1]") for d in doma
 R_i = [pybamm.Parameter(f"Particle radius for {d} [m]") for d in domains]
 c0_i = [pybamm.Parameter(f"Initial concentration for {d} [mol.m-3]") for d in domains]
 delta_i = [pybamm.Parameter(f"Electrode thickness for {d} [m]") for d in domains]
-F = pybamm.Parameter("Faraday constant [C.mol-1]")
 A = pybamm.Parameter("Electrode surface area [m2]")
 epsilon_i = [pybamm.Parameter(f"Volume fraction of active material for {d}") for d in domains]
+
+# define universal constants (PyBaAMM has them built in)
+F = pybamm.constants.F
 
 # define variables that depend on the parameters
 a_i = [3 * epsilon_i[i] / R_i[i] for i in [0, 1]]
@@ -157,13 +159,13 @@ overpotential.
 Assuming Butler-Volmer kinetics and $\alpha_i = 0.5$, the overpotential is given by:
 
 $$
-\eta_i = \frac{2RT}{\mathcal{F}} \sinh^{-1} \left( \frac{j_i \mathcal{F}}{2i_{0,i}} \right)
+\eta_i = \frac{2RT}{F} \sinh^{-1} \left( \frac{j_i F}{2i_{0,i}} \right)
 $$
 
 where the exchange current density $i_{0,i}$ is given by:
 
 $$
-i_{0,i} = k_i \mathcal{F} \sqrt{c_e} \sqrt{c_i(r=R_i)} \sqrt{c_i^{max} - c_i(r=R_i)}
+i_{0,i} = k_i F \sqrt{c_e} \sqrt{c_i(r=R_i)} \sqrt{c_i^{max} - c_i(r=R_i)}
 $$
 
 where $c_e$ is the concentration of lithium ions in the electrolyte, and $k_i$
@@ -242,9 +244,13 @@ Define the following output variables for the model
 
 :::solution
 ```python
-# define new parameters for the output variables
-R = pybamm.Parameter("Gas constant [J.mol-1.K-1]")
+# call universal constants (PyBaMM has them built in)
+R = pybamm.constants.R
+
+# define temperature
 T = pybamm.Parameter("Temperature [K]")
+
+# define new parameters for the output variables
 c_e = pybamm.Parameter("Electrolyte concentration [mol.m-3]")
 k_i = [pybamm.Parameter(f"Reaction rate constant for {d} [m.s-1]") for d in domains]
 c_i_max = [pybamm.Parameter(f"Maximum concentration for {d} [mol.m-3]") for d in domains]
@@ -293,11 +299,9 @@ param = pybamm.ParameterValues(
         "Initial concentration for positive particle [mol.m-3]": p['Initial concentration in positive electrode [mol.m-3]'],
         "Electrode thickness for negative particle [m]": p['Negative electrode thickness [m]'],
         "Electrode thickness for positive particle [m]": p['Positive electrode thickness [m]'],
-        "Faraday constant [C.mol-1]": p['Faraday constant [C.mol-1]'],
         "Electrode surface area [m2]": p['Electrode width [m]']*p['Electrode height [m]'],
         "Volume fraction of active material for negative particle": p['Negative electrode active material volume fraction'],
         "Volume fraction of active material for positive particle": p['Positive electrode active material volume fraction'],
-        "Gas constant [J.mol-1.K-1]": p['Ideal gas constant [J.K-1.mol-1]'],
         "Temperature [K]": p['Ambient temperature [K]'],
         "Electrolyte concentration [mol.m-3]": p['Initial concentration in electrolyte [mol.m-3]'],
         "Reaction rate constant for negative particle [m.s-1]": 1e-3,
