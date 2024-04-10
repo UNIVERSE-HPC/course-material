@@ -8,6 +8,9 @@ files: [
     01_ode.md,
     02_pde.md,
     03_spm.md,
+    04_spm_class.md,
+    05_spm_acid.md,
+    06_submodels.md,
 ]
 attribution: 
     - citation: >

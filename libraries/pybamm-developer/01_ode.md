@@ -14,19 +14,50 @@ attribution:
 
 # A simple ODE battery model
 
-In this section, we will learn how to develop a simple battery model using PyBaMM. We'll be using the reservoir model, which is a simple ODE model that represents the battery as two reservoirs of charge, one for the positive electrode and one for the negative electrode. The model is described by the following equations:
+In this section, we will learn how to develop a simple battery model using PyBaMM. We'll be using the reservoir model, which is a simple ordinary differential equation (ODE) model that represents the battery as two reservoirs of charge, one for the positive electrode and one for the negative electrode. The model is described by the following equations:
 
 $$
 \begin{align*}
 \frac{dx_n}{dt} &= -\frac{I(t)}{Q_n}, \\
 \frac{dx_p}{dt} &= \frac{I(t)}{Q_p}, \\
 V(t) &= U_p(x_p) - U_n(x_n) - I(t)R, \\
-x_n(0) &= x0_n, \\
-x_p(0) &= x0_p, \\
+x_n(0) &= x_{n0}, \\
+x_p(0) &= x_{p0}, \\
 \end{align*}
 $$
 
 where $x_n$ and $x_p$ are the dimensionless stochiometries of the negative and positive electrodes, $I(t)$ is the current, $Q_n$ and $Q_p$ are the capacities of the negative and positive electrodes, $U_p(x_p)$ and $U_n(x_n)$ are the open circuit potentials of the positive and negative electrodes, and $R$ is the resistance of the battery.
+
+## PyBaMM variables
+
+The reservoir model has a number of output variables, which are either the state
+variables $x_n$ and $x_p$ that are explicitly solved for, or derived variables
+such as the voltage $V(t)$. 
+
+In PyBaMM a state variable can be defined using the
+[`pybamm.Variable`](https://docs.pybamm.org/en/stable/source/api/expression_tree/variable.html#variable)
+class. For example, if you wanted to define a state variable with name "x", you
+would write
+
+```python
+x = pybamm.Variable("x")
+```
+
+::::challenge{id="ode-variables" title="Define the state variables for the reservoir model"}
+
+Define the state variables for the reservoir model, including the stochiometries
+$x_n$ and $x_p$.
+
+:::solution
+```python
+x_n = pybamm.Variable("Negative electrode stochiometry")
+x_p = pybamm.Variable("Positive electrode stochiometry")
+```
+:::
+::::
+
+We will leave the derived variables like $V(t)$ for now, and come back to them
+later once we have defined the expressions for the ODEs.
 
 ## PyBaMM parameters
 
@@ -63,38 +94,6 @@ R = pybamm.Parameter("Electrode resistance [Ohm]")
 ```
 :::
 ::::
-
-## PyBaMM variables
-
-The reservoir model has a number of output variables, which are either the state
-variables $x_n$ and $x_p$ that are explicitly solved for, or derived variables
-such as the voltage $V(t)$. 
-
-In PyBaMM a state variable can be defined using the
-[`pybamm.Variable`](https://docs.pybamm.org/en/stable/source/api/expression_tree/variable.html#variable)
-class. For example, if you wanted to define a state variable with name "x", you
-would write
-
-```python
-x = pybamm.Variable("x")
-```
-
-::::challenge{id="ode-variables" title="Define the state variables for the reservoir model"}
-
-Define the state variables for the reservoir model, including the stochiometries
-$x_n$ and $x_p$.
-
-:::solution
-```python
-x_n = pybamm.Variable("Negative electrode stochiometry")
-x_p = pybamm.Variable("Positive electrode stochiometry")
-```
-:::
-::::
-
-We will leave the derived variables like $V(t)$ for now, and come back to them
-later once we have defined the expressions for the ODEs.
-
 
 ## A PyBaMM Model
 
@@ -275,10 +274,10 @@ following values:
 - The current is a function of time, $I(t) = 1 + 0.5 \sin(100t)$
 - The initial negative electrode stochiometry is 0.9
 - The initial positive electrode stochiometry is 0.1
-- The negative electrode capacity is 1 A.h
-- The positive electrode capacity is 1 A.h
+- The negative electrode capacity is 1 Ah
+- The positive electrode capacity is 1 Ah
 - The electrode resistance is 0.1 Ohm
-- The OCV functions are the graphite LGM50 OCP from the Chen2020 model, which is given by the function:
+- The OCV functions are the LGM50 OCP from the Chen2020 model, which are given by the functions:
 
 ```python
 def graphite_LGM50_ocp_Chen2020(sto):
@@ -290,6 +289,17 @@ def graphite_LGM50_ocp_Chen2020(sto):
       - 0.0205 * np.tanh(30.4444 * (sto - 0.6103))
   )
 
+  return u_eq
+
+def nmc_LGM50_ocp_Chen2020(sto):
+  u_eq = (
+      -0.8090 * sto
+      + 4.4875
+      - 0.0428 * np.tanh(18.5138 * (sto - 0.5542))
+      - 17.7326 * np.tanh(15.7890 * (sto - 0.3117))
+      + 17.5842 * np.tanh(15.9308 * (sto - 0.3120))
+  )
+  
   return u_eq
 ```
 
@@ -303,7 +313,7 @@ param = pybamm.ParameterValues({
     "Negative electrode capacity [A.h]": 1,
     "Positive electrode capacity [A.h]": 1,
     "Electrode resistance [Ohm]": 0.1,
-    "Positive electrode OCV": graphite_LGM50_ocp_Chen2020,
+    "Positive electrode OCV": nmc_LGM50_ocp_Chen2020,
     "Negative electrode OCV": graphite_LGM50_ocp_Chen2020,
 })
 ```
