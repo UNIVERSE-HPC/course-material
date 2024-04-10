@@ -90,7 +90,7 @@ c_n = pybamm.Variable("Concentration in negative electrode [mol.m-3]", domain="n
 ```
 
 
-::::challenge{id=spm-state-equations, title=SPM governing equations}
+::::challenge{id="spm-state-equations" title="SPM governing equations"}
 
 Copy your PDE model from the previous challenge to a new file, and modify it to
 include the state equations for the concentration of lithium ions in both the
@@ -227,7 +227,7 @@ arcsinh_four = pybamm.arcsinh(four)
 
 You can see a list of all the functions available in PyBaMM in the [documentation](https://docs.pybamm.org/en/stable/source/api/expression_tree/functions.html).
 
-::::challenge{id=spm-output-variables, title=SPM output variables}
+::::challenge{id="spm-output-variables" title="SPM output variables"}
 
 Define the output variables for the SPM model. You will need to define the
 overpotentials $\eta_n$ and $\eta_p$, the exchange current densities $i_{0,n}$
@@ -274,7 +274,7 @@ PyBaMM. We can use the same meshing and discretisation methods as in the
 previous section, but we now need to discretise the model on two different
 spatial domains.
 
-::::challenge{id=spm-discretise-solve, title=Discretise and solve the SPM model}
+::::challenge{id="spm-discretise-solve" title="Discretise and solve the SPM model"}
 
 Discretise and solve the SPM model using the same methods as in the previous
 section. The following parameter values object copies the parameters from the PyBaMM
