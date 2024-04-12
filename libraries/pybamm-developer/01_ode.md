@@ -72,10 +72,9 @@ The name of the parameter is used to identify it in the model, the name of the P
 You can also define a parameter that is defined as a function using the [`pybamm.FunctionParameter`](ihttps://docs.pybamm.org/en/stable/source/api/expression_tree/parameter.html#pybamm.FunctionParameter) class, which is useful for time varying parameters such as the current, or functions like the OCV function parameters $U_p(x_p)$ and $U_n(x_n)$, which are both functions of the stochiometries $x_p$ and $x_n$. For example, to define a parameter that is a function of time, you would write
 
 ```python
-I = pybamm.FunctionParameter("I", {"Time [s]": pybamm.t})
+P = pybamm.FunctionParameter("Your parameter name here", {"Time [s]": pybamm.t})
 ```
-
-where `pybamm.t` is a special variable that represents time.
+where the first argument is a string with the name of your parameter (which is used when passing the parameter values) and the second argument is a dictionary of `name: symbol` of all the variables on which the function parameter depends on. In particular, `pybamm.t` is a special variable that represents time.
 
 ::::challenge{id="ode-parameters" title="Define the parameters for the reservoir model"}
 
@@ -107,14 +106,19 @@ would write
 model = pybamm.BaseModel("my model")
 ```
 
-This class has four useful attributes for defining a model, which are:
-1. `rhs` - a python dictionary of the right-hand-side equations
-2. `algebraic` - a python dictionary of the algebraic equations (we won't need this for our ODE model)
-3. `initial_conditions` - a python dictionary of the initial conditions
-4. `variables` - a python dictionary of the output variables
+By construction, PyBaMM expects the equations to be written in a very specific, with time derivatives playing a central role: ODEs must be written in explicit form, that is $\frac{\mathrm{d} u}{\mathrm{d} t} = f(u, t)$. Then, we only need to define the $f(u,t)$ term (called RHS for right hand side) for a given variable $u$, as the left hand side will be assumed to be $\frac{\mathrm{d} u}{\mathrm{d} t}$. PyBaMM can also have equations with no time derivatives, which are called algebraic equations.
+
+Going back to the PyBaMM model, the class has four useful attributes for defining a model, which are:
+1. `rhs` - a python dictionary of the right-hand-side equations with the form `variable: rhs`.
+2. `algebraic` - a python dictionary of the algebraic equations (we won't need this for our ODE model). Should be passed as a dictionary of the form `variable: algebraic`. Note that the variable is only for indexing purposes, and this imposes `algebraic = 0` not `variable = algebraic`.
+3. `initial_conditions` - a python dictionary of the initial conditions of the form `variable: ic`, which imposes `variable = ic` at the initial time.
+4. `variables` - a python dictionary of the output variables of the form `name: variable`, where `name` is a string.
 
 As an example, lets define a simple model for exponential decay with a single state variable $x$ and a single parameter $a$:
 
+$$\frac{\mathrm d x}{\mathrm d t} = - a x, \qquad x(0) = 1.$$
+
+We can write this as a PyBaMM model by writing:
 ```python
 x = pybamm.Variable("x")
 a = pybamm.Parameter("a")
@@ -193,6 +197,15 @@ So you can see that the expression tree is a symbolic representation of the
 mathematical equation, which can then be later on used by the PyBaMM solvers to
 solve the model equations over time.
 
+The variable `children` returns a list of the children nodes of a given parent node. For example, to access the `Negative electrode capacity` parameter we could type
+```python
+model.rhs[x_n].children[1]
+```
+as it is the second children of the division node (remember python starts indexing at 0). The command can be used recursively to navigate across the expression tree. For example, if we want to access the time variable in the expression tree above, we can type
+```python
+model.rhs[x_n].children[0].children[0].children[0]
+```
+This is extremely useful to debug the expression tree as it allows you to access the relevant nodes.
 
 ## PyBaMM events
 
