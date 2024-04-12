@@ -31,10 +31,10 @@ The challenge for this lesson is to write a new class for SPM with acid dissolut
 To extend the SPM model to account for acid dissolution we need to add some additional lines in various parts of the code. Below we include these lines with a hint on which part of the code they should be.
 ```python
 # variables
-epsilon_s_p = pybamm.Variable("Volume fraction of active material for positive particle")
+epsilon_s_p = pybamm.Variable("Positive electrode active material volume fraction")
 
 # parameters
-epsilon_s_p_0 = pybamm.Parameter("Initial volume fraction of active material for positive particle")
+epsilon_s_p_0 = pybamm.Parameter("Positive electrode active material volume fraction")
 i_0_diss = pybamm.Parameter("Dissolution exchange-current density [A.m-2]")
 U_diss = pybamm.Parameter("Dissolution open-circuit potential [V]")
 

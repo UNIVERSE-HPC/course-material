@@ -58,36 +58,36 @@ We have broken this into various challenges to guide you step-by-step.
 ### Variables
 First we need to define the variables of our model. These are any variables we need to solve for (e.g. concentrations), but not any derived quantities we will compute from them (e.g. voltage), as these will be defined in the output variables section.
 
-As this is an exercise so it does not matter how the variables are called, but if you wanted to integrate your model into PyBaMM you should stick to the PyBaMM name convention (see [Tutorial 3](https://docs.pybamm.org/en/latest/source/examples/notebooks/getting_started/tutorial-3-basic-plotting.html) for a list of all variables in the DFN model).
+If you want to integrate your model into PyBaMM you should stick to the PyBaMM name convention (see [Tutorial 3](https://docs.pybamm.org/en/latest/source/examples/notebooks/getting_started/tutorial-3-basic-plotting.html) for a list of all variables in the DFN model).
 
 :::solution
 In this case we only need to define two variables: the concentrations in the positive and negative particle, respectively.
 
 ```python
-domains = ["negative particle", "positive particle"]
-c_i = [pybamm.Variable(f"Concentration in {d} [mol.m-3]", domain=d) for d in domains]
+electrodes = ["negative", "positive"]
+c_i = [pybamm.Variable(f"{e.capitalize()} particle concentration [mol.m-3]", domain=f"{e} particle") for e in electrodes]
 ```
 :::
 
 
 ### Parameters
-Next we need to define the parameters used in our model. Similarly to the variables, we can use any name convention we want, but it can be useful to stick to the one PyBaMM uses so you can try various parameter sets. Check [Tutorial 4](https://docs.pybamm.org/en/latest/source/examples/notebooks/getting_started/tutorial-4-setting-parameter-values.html) to see the standard names for the parameters.
+Next we need to define the parameters used in our model. Similarly to the variables, we can use any name convention we want, but it is useful to stick to the one PyBaMM uses so you can use the in-build parameter sets. Check [Tutorial 4](https://docs.pybamm.org/en/latest/source/examples/notebooks/getting_started/tutorial-4-setting-parameter-values.html) to see the standard names for the parameters.
 
 :::solution
 ```python
 # define parameters
-I = pybamm.FunctionParameter("Applied current [A]", {"Time [s]": pybamm.t})
-D_i = [pybamm.Parameter(f"Diffusion coefficient for {d} [m2.s-1]") for d in domains]
-R_i = [pybamm.Parameter(f"Particle radius for {d} [m]") for d in domains]
-c0_i = [pybamm.Parameter(f"Initial concentration for {d} [mol.m-3]") for d in domains]
-delta_i = [pybamm.Parameter(f"Electrode thickness for {d} [m]") for d in domains]
-A = pybamm.Parameter("Electrode surface area [m2]")
-epsilon_i = [pybamm.Parameter(f"Volume fraction of active material for {d}") for d in domains]
-T = pybamm.Parameter("Temperature [K]")
-c_e = pybamm.Parameter("Electrolyte concentration [mol.m-3]")
-k_i = [pybamm.Parameter(f"Reaction rate constant for {d} [m.s-1]") for d in domains]
-c_i_max = [pybamm.Parameter(f"Maximum concentration for {d} [mol.m-3]") for d in domains]
-U_i = [pybamm.FunctionParameter(f"Open circuit potential for {d}", {"stoichiometry": c_i[i] / c_i_max[i]}) for (i, d) in enumerate(domains)]
+I = pybamm.FunctionParameter("Current function [A]", {"Time [s]": pybamm.t})
+D_i = [pybamm.Parameter(f"{e.capitalize()} electrode diffusivity [m2.s-1]") for e in electrodes]
+R_i = [pybamm.Parameter(f"{e.capitalize()} particle radius [m]") for e in electrodes]
+c0_i = [pybamm.Parameter(f"Initial concentration in {e} electrode [mol.m-3]") for e in electrodes]
+delta_i = [pybamm.Parameter(f"{e.capitalize()} electrode thickness [m]") for e in electrodes]
+A = pybamm.Parameter("Electrode width [m]") * pybamm.Parameter("Electrode height [m]")  # PyBaMM takes the width and height of the electrodes (assumed rectangular) rather than the total area
+epsilon_i = [pybamm.Parameter(f"{e.capitalize()} electrode active material volume fraction") for e in electrodes]
+T = pybamm.Parameter("Ambient temperature [K]")
+c_e = pybamm.Parameter("Initial concentration in electrolyte [mol.m-3]")
+k_i = [pybamm.Parameter(f"{e.capitalize()} electrode reaction rate [m.s-1]") for e in electrodes]
+c_i_max = [pybamm.Parameter(f"Maximum concentration in {e} electrode [mol.m-3]") for e in electrodes]
+U_i = [pybamm.FunctionParameter(f"{e.capitalize()} electrode OCP [V]", {"stoichiometry": c_i[i] / c_i_max[i]}) for (i, e) in enumerate(electrodes)]
 
 # define universal constants (PyBaAMM has them built in)
 F = pybamm.constants.F
@@ -137,10 +137,10 @@ self.variables = {
   "Time [s]": pybamm.t,
   "Voltage [V]": V,
   "Current [A]": I,
-  "Concentration in negative particle [mol.m-3]": c_i[0],
-  "Concentration in positive particle [mol.m-3]": c_i[1],
-  "Surface concentration in negative particle [mol.m-3]": c_i_s[0],
-  "Surface concentration in positive particle [mol.m-3]": c_i_s[1],
+  "Negative particle concentration [mol.m-3]": c_i[0],
+  "Positive particle concentration [mol.m-3]": c_i[1],
+  "Negative particle surface concentration [mol.m-3]": c_i_s[0],
+  "Positive particle surface concentration [mol.m-3]": c_i_s[1],
 }
 ```
 :::
@@ -153,10 +153,10 @@ What we have done so far is enough to run the model, but there are some optional
 ```python
 @property
 def default_geometry(self):
-    domains = ["negative particle", "positive particle"]
-    r_i = [pybamm.SpatialVariable("r", domain=[d], coord_sys="spherical polar") for d in domains]
-    R_i = [pybamm.Parameter(f"Particle radius for {d} [m]") for d in domains]
-    geometry = {d: {r_i[i]: {"min": pybamm.Scalar(0), "max": R_i[i]}} for (i, d) in enumerate(domains)}
+    electrodes = ["negative", "positive"]
+    r_i = [pybamm.SpatialVariable("r", domain=[f"{e} particle"], coord_sys="spherical polar") for e in electrodes]
+    R_i = [pybamm.Parameter(f"{e.capitalize()} particle radius [m]") for e in electrodes]
+    geometry = {f"{e} particle": {r_i[i]: {"min": pybamm.Scalar(0), "max": R_i[i]}} for (i, e) in enumerate(electrodes)}
 
     return geometry
 
@@ -185,10 +185,10 @@ def default_quick_plot_variables(self):
     return [
         "Voltage [V]",
         "Current [A]",
-        "Concentration in negative particle [mol.m-3]",
-        "Concentration in positive particle [mol.m-3]",
-        "Surface concentration in negative particle [mol.m-3]",
-        "Surface concentration in positive particle [mol.m-3]",
+        "Negative particle concentration [mol.m-3]",
+        "Positive particle concentration [mol.m-3]",
+        "Negative particle surface concentration [mol.m-3]",
+        "Positive particle surface concentration [mol.m-3]",
     ]
 ```
 
@@ -244,4 +244,4 @@ Sometimes the issue is further down the expression tree, remember you can visual
 KeyError: "'Applied current [A]' not found. Best matches are ['Current function [A]']"
 ```
 
-This error means that the model requires a parameter that has not been passed when processing the model. PyBaMM will try to provide a guess of the best matches. In this case, the model has a parameter called `Applied current [A]` but the parameters when solving the model do not include it and the best match is `Current function [A]`.
+This error means that the model requires a parameter that has not been passed when processing the model. PyBaMM will try to provide a guess of the best matches. In this case, the model has a parameter called `Applied current [A]` but the parameters when solving the model do not include it and the best match is `Current function [A]`. This is a common error if the naming convention of your model does not match PyBaMM's.
