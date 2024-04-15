@@ -63,7 +63,7 @@ other parameters we have seen so far, it is a function of time. We can define
 this using `pybamm.FunctionParameter`:
 
 ```python
-I = pybamm.FunctionParameter("Applied current [A]", {"Time [s]": pybamm.t})
+I = pybamm.FunctionParameter("Current function [A]", {"Time [s]": pybamm.t})
 ```
 
 This will allow us to define the applied current as a function of time when we
@@ -74,7 +74,7 @@ def current(t):
     return 1
 param = pybamm.ParameterValues(
     {
-        "Applied current [A]": current
+        "Current function [A]": current
     }
 )
 ```
@@ -86,7 +86,7 @@ electrode and one for the negative electrode. Remember that when we define a var
 PyBaMM, we can specify the domain using the `domain` keyword argument:
 
 ```python
-c_n = pybamm.Variable("Concentration in negative electrode [mol.m-3]", domain="negative particle")
+c_n = pybamm.Variable("Negative particle concentration [mol.m-3]", domain="negative particle")
 ```
 
 
@@ -106,14 +106,14 @@ import pybamm
 model = pybamm.BaseModel()
 
 # define parameters
-domains = ["negative particle", "positive particle"]
-I = pybamm.FunctionParameter("Applied current [A]", {"Time [s]": pybamm.t})
-D_i = [pybamm.Parameter(f"Diffusion coefficient for {d} [m2.s-1]") for d in domains]
-R_i = [pybamm.Parameter(f"Particle radius for {d} [m]") for d in domains]
-c0_i = [pybamm.Parameter(f"Initial concentration for {d} [mol.m-3]") for d in domains]
-delta_i = [pybamm.Parameter(f"Electrode thickness for {d} [m]") for d in domains]
-A = pybamm.Parameter("Electrode surface area [m2]")
-epsilon_i = [pybamm.Parameter(f"Volume fraction of active material for {d}") for d in domains]
+electrodes = ["negative", "positive"]
+I = pybamm.FunctionParameter("Current function [A]", {"Time [s]": pybamm.t})
+D_i = [pybamm.Parameter(f"{e.capitalize()} electrode diffusivity [m2.s-1]") for e in electrodes]
+R_i = [pybamm.Parameter(f"{e.capitalize()} particle radius [m]") for e in electrodes]
+c0_i = [pybamm.Parameter(f"Initial concentration in {e} electrode [mol.m-3]") for e in electrodes]
+delta_i = [pybamm.Parameter(f"{e.capitalize()} electrode thickness [m]") for e in electrodes]
+A = pybamm.Parameter("Electrode width [m]") * pybamm.Parameter("Electrode height [m]")  # PyBaMM takes the width and height of the electrodes (assumed rectangular) rather than the total area
+epsilon_i = [pybamm.Parameter(f"{e.capitalize()} electrode active material volume fraction") for e in electrodes]
 
 # define universal constants (PyBaAMM has them built in)
 F = pybamm.constants.F
@@ -123,7 +123,7 @@ a_i = [3 * epsilon_i[i] / R_i[i] for i in [0, 1]]
 j_i = [I / a_i[0] / delta_i[0] / F / A, -I / a_i[1] / delta_i[1] / F / A]
 
 # define state variables
-c_i = [pybamm.Variable(f"Concentration in {d} [mol.m-3]", domain=d) for d in domains]
+c_i = [pybamm.Variable(f"{e.capitalize()} particle concentration [mol.m-3]", domain=f"{e} particle") for e in electrodes]
 
 # governing equations
 dcdt_i = [pybamm.div(D_i[i] * pybamm.grad(c_i[i])) for i in [0, 1]]
@@ -209,7 +209,7 @@ current $I$. For example, to define the OCP of the positive electrode as a
 function of the surface stoichiometry $x_p^s$:  
 
 ```python
-U_p = pybamm.FunctionParameter("Open circuit potential for positive electrode", {"stoichiometry": x_p_s})
+U_p = pybamm.FunctionParameter("Positive electrode OCP [V]", {"stoichiometry": x_p_s})
 ```
 
 ### PyBaMM's built-in functions
@@ -248,26 +248,26 @@ Define the following output variables for the model
 R = pybamm.constants.R
 
 # define temperature
-T = pybamm.Parameter("Temperature [K]")
+T = pybamm.Parameter("Ambient temperature [K]")
 
 # define new parameters for the output variables
-c_e = pybamm.Parameter("Electrolyte concentration [mol.m-3]")
-k_i = [pybamm.Parameter(f"Reaction rate constant for {d} [m.s-1]") for d in domains]
-c_i_max = [pybamm.Parameter(f"Maximum concentration for {d} [mol.m-3]") for d in domains]
+c_e = pybamm.Parameter("Initial concentration in electrolyte [mol.m-3]")
+k_i = [pybamm.Parameter(f"{e.capitalize()} electrode reaction rate [m.s-1]") for e in electrodes]
+c_i_max = [pybamm.Parameter(f"Maximum concentration in {e} electrode [mol.m-3]") for e in electrodes]
 
 # define intermediate variables and OCP function parameters
 c_i_s = [pybamm.surf(c_i[i]) for i in [0, 1]]
 x_i_s = [c_i_s[i] / c_i_max[i] for i in [0, 1]]
 i_0_i = [k_i[i] * F * (pybamm.sqrt(c_e) * pybamm.sqrt(c_i_s[i]) * pybamm.sqrt(c_i_max[i] - c_i_s[i])) for i in [0, 1]]
 eta_i = [2 * R * T / F * pybamm.arcsinh(j_i[i] * F / (2 * i_0_i[i])) for i in [0, 1]]
-U_i = [pybamm.FunctionParameter(f"Open circuit potential for {d}", {"stoichiometry": x_i_s[i]}) for (i, d) in enumerate(domains)]
+U_i = [pybamm.FunctionParameter(f"{e.capitalize()} electrode OCP [V]", {"stoichiometry": x_i_s[i]}) for (i, e) in enumerate(electrodes)]
 
 # define output variables
 [U_n_plus_eta, U_p_plus_eta] = [U_i[i] + eta_i[i] for i in [0, 1]]
 V = U_p_plus_eta - U_n_plus_eta
 model.variables = {
-  "Terminal voltage [V]": V,
-  "Surface concentration in negative particle [mol.m-3]": c_i_s[0],
+  "Voltage [V]": V,
+  "Negative particle surface concentration [mol.m-3]": c_i_s[0],
 }
 ```
 :::
@@ -287,31 +287,12 @@ section. The following parameter values object copies the parameters from the Py
 Chen2020 model, feel free to use this to define the parameters for the SPM model.
     
 ```python
-p = pybamm.ParameterValues("Chen2020")
-param = pybamm.ParameterValues(
-    {
-        "Applied current [A]": 1,
-        "Diffusion coefficient for negative particle [m2.s-1]": p['Negative electrode diffusivity [m2.s-1]'],
-        "Diffusion coefficient for positive particle [m2.s-1]": p['Positive electrode diffusivity [m2.s-1]'],
-        "Particle radius for negative particle [m]": p['Negative particle radius [m]'],
-        "Particle radius for positive particle [m]": p['Positive particle radius [m]'],
-        "Initial concentration for negative particle [mol.m-3]": p['Initial concentration in negative electrode [mol.m-3]'],
-        "Initial concentration for positive particle [mol.m-3]": p['Initial concentration in positive electrode [mol.m-3]'],
-        "Electrode thickness for negative particle [m]": p['Negative electrode thickness [m]'],
-        "Electrode thickness for positive particle [m]": p['Positive electrode thickness [m]'],
-        "Electrode surface area [m2]": p['Electrode width [m]']*p['Electrode height [m]'],
-        "Volume fraction of active material for negative particle": p['Negative electrode active material volume fraction'],
-        "Volume fraction of active material for positive particle": p['Positive electrode active material volume fraction'],
-        "Temperature [K]": p['Ambient temperature [K]'],
-        "Electrolyte concentration [mol.m-3]": p['Initial concentration in electrolyte [mol.m-3]'],
-        "Reaction rate constant for negative particle [m.s-1]": 1e-3,
-        "Reaction rate constant for positive particle [m.s-1]": 1e-3,
-        "Maximum concentration for negative particle [mol.m-3]": p['Maximum concentration in negative electrode [mol.m-3]'],
-        "Maximum concentration for positive particle [mol.m-3]": p['Maximum concentration in positive electrode [mol.m-3]'],
-        "Open circuit potential for negative particle": p['Negative electrode OCP [V]'],
-        "Open circuit potential for positive particle": p['Positive electrode OCP [V]'],
-    }
-)
+param = pybamm.ParameterValues("Chen2020")
+# PyBaMM parameters provide the exchange current density directly, rather than the reaction rate, so define here
+param.update({
+    "Positive electrode reaction rate [m.s-1]": 1e-3,
+    "Negative electrode reaction rate [m.s-1]": 1e-3,
+}, check_already_exists=False)
 ```
 
 :::solution
@@ -321,19 +302,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # create geometry
-r_i = [pybamm.SpatialVariable("r", domain=[d], coord_sys="spherical polar") for d in domains]
-geometry = {d: {r_i[i]: {"min": pybamm.Scalar(0), "max": R_i[i]}} for (i, d) in enumerate(domains)}
+r_i = [pybamm.SpatialVariable("r", domain=[f"{e} particle"], coord_sys="spherical polar") for e in electrodes]
+geometry = {f"{e} particle": {r_i[i]: {"min": pybamm.Scalar(0), "max": R_i[i]}} for (i, e) in enumerate(electrodes)}
 
 param.process_model(model)
 param.process_geometry(geometry)
 
 # meshs
-submesh_types = {d: pybamm.Uniform1DSubMesh for d in domains}
+submesh_types = {f"{e} particle": pybamm.Uniform1DSubMesh for e in electrodes}
 var_pts = {r: 20 for r in r_i}
 mesh = pybamm.Mesh(geometry, submesh_types, var_pts)
 
 # spatial methods
-spatial_methods = {d: pybamm.FiniteVolume() for d in domains}
+spatial_methods = {f"{e} particle": pybamm.FiniteVolume() for e in electrodes}
 
 # discretise model
 disc = pybamm.Discretisation(mesh, spatial_methods)
@@ -347,19 +328,19 @@ solution = solver.solve(model, t)
 
 # post-process, so that the solution can be called at any time t or space r
 # (using interpolation)
-v = solution["Terminal voltage [V]"]
-csurf = solution["Surface concentration in negative particle [mol.m-3]"]
+v = solution["Voltage [V]"]
+csurf = solution["Negative particle surface concentration [mol.m-3]"]
 
 # plot
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13, 4))
 
 ax1.plot(solution.t, v(solution.t))
 ax1.set_xlabel("Time [s]")
-ax1.set_ylabel("Terminal voltage [V]")
+ax1.set_ylabel("Voltage [V]")
 
 ax2.plot(solution.t, csurf(solution.t))
 ax2.set_xlabel("Time [s]")
-ax2.set_ylabel("Surface concentration in negative particle [mol.m-3]")
+ax2.set_ylabel("Negative particle surface concentration [mol.m-3]")
 
 plt.tight_layout()
 plt.show()
