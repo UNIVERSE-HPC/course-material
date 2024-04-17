@@ -2,6 +2,7 @@
 name: Optimising MPI Applications
 dependsOn: [
   high_performance_computing.hpc_mpi.09_porting_serial_to_mpi,
+  high_performance_computing.hpc_intro
 ]
 tags: []
 attribution: 
@@ -11,7 +12,6 @@ attribution:
       image: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/assets/img/home-logo.png
       license: CC-BY-4.0
 ---
-
 Now we have parallelised our code, we should determine how well it performs.
 Given the various ways code can be parallellised, the underlying scientific implementation,and the type and amount of data the code is expected to process,
 the performance of different parallelised code can vary hugely under different circumstances,
@@ -21,6 +21,11 @@ in order to make best (in particular, efficient) use of underlying HPC infrastru
 Also, we may want to consider how best to optimise the code to make more efficient use of its parallelisation.
 
 Therefore, it's really helpful to understand how well our code *scales* in performance terms as we increase the resources available to it.
+
+::::callout{variant="note"}
+## Prerequisite: [Intro to High Performance Computing](../hpc_intro/01_hpc_intro)
+Whilst the previous episodes can be done on a laptop or desktop, this episode covers how to profile your code using tools that are only available on a HPC cluster.
+::::
 
 ## Characterising the Scalability of Code
 
@@ -228,7 +233,7 @@ module avail allinea
 
 For more information on ARM Forge see the [product website](https://www.arm.com/products/development-tools/server-and-hpc/forge).
 
-::::callout
+::::callout{variant="note"}
 ## Software Availability
 The ARM Forge suite of tools are licensed, and so may or may not be available on your HPC cluster (and certainly won't be on your laptop or desktop unless you buy a license and build them yourself!).
 
@@ -321,7 +326,7 @@ What has changed now?
 In the Poisson code, try changing the location of the calls to `MPI_Send`. How does this affect performance?
 :::::
 
-::::callout
+::::callout{variant="tip"}
 ## A General Optimisation Workflow?
 
 A general workflow for optimising a code, whether parallel or serial, is as follows:
