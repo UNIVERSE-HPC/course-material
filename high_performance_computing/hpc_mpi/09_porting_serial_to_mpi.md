@@ -170,6 +170,16 @@ Run completed in 182 iterations with residue 9.60328e-06
 Here, we can see a basic representation of the temperature of each slice of the stick at the end of the simulation, and how the initial `10.0` temperature applied at the beginning of the stick has transferred along it to this final state.
 Ordinarily, we might output the full sequence to a file, but we've simplified it for convenience here.
 
+::::callout{variant="warning"}
+## Missing Links
+Depending on your system, you might get an error along the line of `undefined reference to symbol 'sqrt'`.
+
+This error was generated when the compiler attempted to link together the compiled versions of your code and the libraries it depends on to produce the final executable. The `sqrt` function is present in `math.h`, but on some systems the compiled `math` library isn't linked by default. You can explicitly include it using the `-lm` flag:
+```bash
+gcc -poisson.c -o poisson -lm
+```
+::::
+
 
 ## Approaching Parallelism
 
@@ -340,7 +350,7 @@ Before we parallelise the `poisson_step()` function, let's amend how we invoke i
 We need to amend how many slices it will compute, and add the `rank` and `n_ranks` variables, since we know from `Parallelism and Data Exchange` that it will need to perform some data exchange with other ranks:
 
 ```c
-    unorm = poisson_step(u, unew, rho, hsq, rank_gridsize, rank, n_ranks );
+    unorm = poisson_step(u, unew, rho, hsq, rank_gridsize, rank, n_ranks);
 ```
 
 ### `poisson_step()`: Updating our Function Definition
@@ -361,12 +371,13 @@ We know from `Parallelism and Data Exchange` that we need to calculate `unorm` a
 We already have it calculated for separate ranks, so need to *reduce* those values in an MPI sense to a single summed value.
 For this, we can use `MPI_Allreduce()`.
 
-Insert the following into the `poisson_step()` function, putting the declarations at the top of the function,
-and the `MPI_Allreduce()` after the calculation of `unorm`:
+Insert the following into the `poisson_step()` function, putting the declarations at the top of the function:
 
 ```c
   double unorm, global_unorm;
-  
+```
+Then add `MPI_Allreduce()` after the calculation of `unorm`:
+```c
   MPI_Allreduce(&unorm, &global_unorm, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
 ```
 
@@ -484,9 +495,9 @@ This may not be possible initially, particularly as large parts of the code need
 So we should test once we have an initial MPI version, and as our code develops, perhaps with new optimisations to improve performance, we should test then too.
 
 :::::challenge{id=an-initial-test, title="An Initial Test"}
-Test the MPI version of your code against the serial version, using 1, 2, 3, and 4 ranks with the MPI version.
-Are the results as you would expect?
-What happens if you test with 5 ranks, and why?
+Test the MPI version of your code against the serial version, using 1, 2, 3, and 4 ranks with the MPI version. Are the results as you would expect?
+
+What happens if you test with 5 ranks, and why? Write a simple test into the code that would catch the error using the `assert(condition)` function from the `assert.h` library, which will terminate the program if `condition` evalutes to `false`.
  
 ::::solution
 Using these ranks, the MPI results should be the same as our serial version.
@@ -495,8 +506,27 @@ This is because the `rank_gridsize = GRIDSIZE / n_ranks` calculation becomes `ra
 This is then converted to the integer 2, which means each of the 5 ranks is only operating on 2 slices each, for a total of 10 slices.
 This doesn't fill `resultbuf` with results representing an expected `GRIDSIZE` of 12, hence the incorrect answer.
 
-This highlights another aspect of complexity we need to take into account when writing such parallel implementations, where we must ensure a problem space is correctly subdivided.
-In this case, we could implement a more careful way to subdivide the slices across the ranks, with some ranks obtaining more slices to make up the shortfall correctly.
+This highlights another aspect of complexity we need to take into account when writing such parallel implementations, where we must ensure a problem space is correctly subdivided. We especially want to prevent situations where the code *appears* to run without a crash or error, but still gives a completely wrong answer.
+
+We can catch the error using an assertion by importing the `assert.h` library at the top of the file:
+```c
+#include <assert.h>
+```
+Then we can add the check itself just after calculating `rank_gridsize`, where we test to see if the gridsize calculation would have left a non-zero remainder. This means there are cells that can't be evenly distributed across the ranks. 
+
+If we don't add any conditions, we'll get one error message per rank, so we want to condition it to only run on a single one:
+```c
+  // Test that the grid can be subdivided between the ranks properly
+  if (rank == 0) {
+    assert(GRIDSIZE % n_ranks == 0);
+  }
+```
+This should give us a helpful error when we try to run the code for an invalid number of ranks, instead of simply giving us the wrong answer at the end:
+```
+poisson_mpi: poisson_mpi.c:105: main: Assertion `GRIDSIZE % n_ranks == 0' failed.
+```
+
+If we wanted our code to be more flexible, we could implement a more careful way to subdivide the slices across the ranks, with some ranks obtaining more slices to make up the shortfall correctly.
 ::::
 :::::
 
