@@ -22,23 +22,418 @@ In this section of the course, we will cover a number of topics that will help u
 - Fixtures
 - Mocking
 
-We will be moving away from our inflammation analysis example for now and will focus on testing some functions that interact with a database. In the future, having our inflammation data stored in a database may well be useful, however, especially if we add data from further studies or from other sources and would like to link together and structure our data in a more formalised way.
 
 ## Designing testable code
 
-It is worth taking time to think about how your code will be structured, not only for readability that will allow others (and perhaps yourself, when viewing it several months later!) to understand what the code does and how it does it, but also to make testing more straightforward. Increasing the ease of writing tests can result in increased test coverage, and thereby reduce the chance that future changes made to the codebase will introduce regressions. In fact, writing testable code often also results in a cleaner and more modular structure that adheres to best practices.
+We will be developing our inflammation analysis software into a different, object-orientated structure. This will allow us to add flexibility to the program as well as increasing the testability. Ideally we would like our functions that analyse the data to be agnostic to the way that data is stored and loaded. For example having our inflammation data stored in a database rather then CSV files may well be useful, especially if we add data from further studies or from other sources and would like to link together and structure our data in a more formalised way. We should not have to rewrite our tests for the analysis functions to reflect this change.
 
-### Test-driven development
+Increasing the ease of writing tests can result in increased test coverage, and thereby reduce the chance that future changes made to the codebase will introduce regressions. In fact, writing testable code often also results in a cleaner and more modular structure that adheres to best practices. Before we dive into refactoring our code and our tests, here is a summary of some things to think about when writing your software that will make it more testable:
 
-In one software development methodology, Test-Driven Development (TDD), tests are actually written before the code which ensures that the design for testability is in mind from the onset. TDD typically involves a process of adding one test at time. This newest test will initially fail since the functionality has not yet been implemented. The code is then written that allows this test to pass and the process is repeated, ensuring that requirements are thought about before diving in and starting to implement algorithms.
+### Separation of concerns
+
+It is good practice to organise code into modular function or classes that each have a single, well-defined responsibility. By doing this, not only will it be more readable, but also it will be more straightforward to isolate and test individual components of your system. 
+
+### Avoid duplication
+
+Extract common functionality into reusable functions and classes that can be tested thoroughly in isolation. This will also help to reduce the complexity of your code.
 
 ### Programming paradigms
 
-Another technique, which can lead to more testable software, is to use pure functions that have no side effects, this is because the outputs depend on the inputs alone. In this case, it can be ensured that the results are deterministic. For more information, see the [functional programming paradigm](https://train.oxrse.uk/material/HPCu/software_architecture_and_design/functional), pages in our training material.
+Another technique, which can result in more testable software, is to use pure functions that have no side effects, this is because the outputs depend on the inputs alone. In this case, it can be ensured that the results are deterministic. For more information, see the [functional programming paradigm](https://train.oxrse.uk/material/HPCu/software_architecture_and_design/functional), pages in our training material.
 
-### Dependency injection
+### Test-driven development
 
-A way to reduce the degree of coupling between a function being tested by a unit test and any dependencies, is to use *dependency injection*. This involves passing an object or function to our routines rather than creating such objects internally. In the following example, we have a function `query_database` that utilises a connection to a [SQLite](https://www.sqlite.org/) database. It is going to be difficult to test this function without connecting to the `example.db` database. The contents of our file, named `sqlite_example.py` are shown here:
+Improving the testability of your code can also be achieved by creating tests before actually writing the classes and functions. This software development methodology is called Test-Driven Development (TDD). TDD ensures that the design for testability is in mind from the onset and typically involves a process of adding one test at time. This newest test will initially fail since the functionality has not yet been implemented. The code is then written that allows this test to pass and the process is repeated, ensuring that requirements are thought about before diving in and starting to implement algorithms.
+
+### Minimise dependencies using dependency injection
+
+A way to reduce the degree of coupling between a function being tested by a unit test and any dependencies, is to use *dependency injection*. This involves passing an object or function to our routines rather than creating such objects internally. 
+
+
+## Refactoring our code and our tests
+Firstly, we are going to change our procedural inflammation project into an object-orientated version, let's start by creating classes to represent the different types of data in our study. This was already investigated in the [object-orientated programming](https://train.oxrse.uk/material/HPCu/software_architecture_and_design/object_orientated) part of the course, where we created different subclasses of the `Person` class and added them to a `Trial` object. We use similar concepts, but will doing things slightly differently here.
+
+We would ideally like to have models that represent individual patients and their associated data. It is going to be up to you to write them!
+
+::::challenge{id=patient-class title="Creating a `Patient` class."}
+
+ Write a class `Patient`. For now, the only attributes a `Patient` has is an `id` and a list of numbers containing their inflammation scores (flare-ups per day) as recorded in a row of one of the CSV files. We would also like to add some useful methods to the `Patient` class that will return the mean, max and min of the data for that patient. Call these `data_mean`, `data_max` and `data_min`.
+
+:::solution
+~~~python
+import numpy as np
+
+class Patient:
+    def __init__(self, id, data):
+        self.id = id
+        self.data = data
+
+    def data_mean(self):
+        """Calculate the mean of patient's inflammation data."""
+        return np.mean(self.data)
+
+    def data_max(self):
+        """Calculate the max of patient's inflammation data."""
+        return np.max(self.data)
+
+    def data_min(self):
+        """Calculate the min of patient's inflammation data."""
+        return np.min(self.data)
+
+~~~
+
+:::
+::::
+
+Now we have a class that represents a patient in the study, we can also create a class representing a trial (each of the 12 CSV files represents a separate trial). A trial has an `id` of its own and the attribute `data`, which holds a 2D numpy array from one CSV file (note, this is different to how we set up the `Trial` object in the object-orientated programming section).
+
+::::challenge{id=trial-class title="Creating a `Trial` class."}
+
+ Write a class `Trial` that represents a trial. For now, the only attributes a `Trial` has are an `id` and `data`, which is a 2D numpy array with the data from one CSV file. The data from the CSV should be read in by calling a method `load_csv` which can be called from the class constructor (`__init__`). You can also add all the functions from our `models.py` file to this class: `daily_mean` and `daily_max`, `daily_min` and `patient_normalise`, they will need to be modified slightly to work as methods of the `Trial` class.
+
+:::solution
+~~~python
+class Trial:
+    def __init__(self, filename, id):
+        self.data = self.load_csv(filename)
+        self.id = id
+
+    @staticmethod
+    def load_csv(filename):
+        """Load a Numpy array from a CSV
+
+        :param filename: Filename of CSV to load
+        """
+        return np.loadtxt(fname=filename, delimiter=',')
+
+    def daily_mean(self):
+        """Calculate the daily mean of a 2d inflammation data array."""
+        return np.mean(self.data, axis=0)
+
+    def daily_max(self):
+        """Calculate the daily max of a 2d inflammation data array."""
+        return np.max(self.data, axis=0)
+
+    def daily_min(self):
+        """Calculate the daily min of a 2d inflammation data array."""
+        return np.min(self.data, axis=0)
+
+    def patient_normalise(self):
+        """
+        Normalise patient data from a 2D inflammation data array.
+
+        NaN values are ignored, and normalised to 0.
+
+        Negative values are rounded to 0.
+        """
+        if np.any(self.data < 0):
+            raise ValueError('Inflammation values should not be negative')
+        if not isinstance(self.data, np.ndarray):
+            raise TypeError('data input should be ndarray')
+        if len(self.data.shape) != 2:
+            raise ValueError('inflammation array should be 2-dimensional')
+        max_data = np.nanmax(self.data, axis=1)
+        with np.errstate(invalid='ignore', divide='ignore'):
+            normalised = self.data / max_data[:, np.newaxis]
+        normalised[np.isnan(normalised)] = 0
+        normalised[normalised < 0] = 0
+        return normalised
+
+~~~
+
+:::
+::::
+
+Now we can create `Trial` objects, with associated `data` attributes, but how can we create `Patient` objects? We could do that by creating them in the standard way:
+
+~~~python
+filename = "inflammation-01.csv"
+data = np.loadtxt(fname=filename, delimiter=',')
+row = data[0, :] # The first row of the 2D data array
+patient_0 = Patient(0, row) # Create a Patient with id 0
+
+~~~
+
+Alternatively we could create a `Person` using a method in the `Trial` class, since all the required data is already there:
+
+~~~python
+class Trial:
+    def __init__(self, filename, id):
+        self.data = self.load_csv(filename)
+        self.id = id
+
+    def get_patient(self, row):
+        """Get a Patient object by data row. The id of the object is the 
+        same as the row number."""
+        return Patient(row, self.data[row, :])
+
+    ...
+
+filename = "inflammation-01.csv"
+trail_group_01 = Trial(filename, "Group01")
+patient_0 = trail_group_01.get_patient(0) # Create a Patient with id 0
+~~~
+
+
+We should now adjust and extend our existing tests from the previous lesson in order to fit with these changes. 
+
+::::challenge{id=test-patient title="Testing the `Patient` class."}
+
+ Write some tests for the `Patient` class that cover the functions `data_mean`, `data_max` and `data_min` as well as a test that checks that the attributes of the class are created correctly. You do not need to write extensive parametrised tests at this stage, this is more an exercise to practice testing class methods as opposed to standard procedural functions.
+
+:::solution
+~~~python
+import pytest
+from inflammation.models import Patient
+
+def test_patient_data_mean():
+    patient = Patient(id=1, data=[1, 2, 3, 4, 5])
+    assert patient.data_mean() == 3.0
+
+def test_patient_data_max():
+    patient = Patient(id=1, data=[1, 2, 3, 4, 5])
+    assert patient.data_max() == 5
+
+def test_patient_data_min():
+    patient = Patient(id=1, data=[1, 2, 3, 4, 5])
+    assert patient.data_min() == 1
+
+def test_patient_attributes():
+    patient = Patient(id=2, data=[10, 20, 30, 40, 50])
+    assert patient.id == 2
+    assert patient.data == [10, 20, 30, 40, 50]
+~~~
+
+:::
+::::
+
+In the exercise above, we found ourselves having to create the same or similar `Patient` objects multiple times. To prevent this repetition, we could encapsulate these tests in their own class like this:
+
+~~~python
+import pytest
+from inflammation.models import Patient
+
+class TestPatient:
+    def setup_class(self):
+        self.patient1 = Patient(id=1, data=[1, 2, 3, 4, 5])
+        self.patient2 = Patient(id=2, data=[10, 20, 30, 40, 50])
+
+    def test_patient_data_mean(self):
+        assert self.patient1.data_mean() == 3.0
+
+    def test_patient_data_max(self):
+        assert self.patient1.data_max() == 5
+
+    def test_patient_data_min(self):
+        assert self.patient1.data_min() == 1
+
+    def test_patient_attributes(self):
+        assert self.patient2.id == 2
+        assert self.patient2.data == [10, 20, 30, 40, 50]
+~~~
+
+Writing tests in this manner helps to organise similar tests into groups and also allows sharing of data between tests. The `pytest` library will run the `setup_class` method before running all of the tests in the class, if you wish to run the setup before each individual test, the `setup_method` method can be used. Similarly, if you want to perform any actions after running the test methods in the class, `teardown_class` and `teardown_method` methods exist. These can be useful for cleaning up, for example if any files were created on your system or an connections were opened. For more information you can [view the documentation here](https://docs.pytest.org/en/latest/how-to/xunit_setup.html).
+
+:::callout
+## Fixtures
+
+As an alternative to encapsulating test methods in a class and using `setup` and `teardown` methods, we can use *fixtures*. Fixtures are defined by using the `@pytest.fixture` decorator on a function. Then this function will become available to be passed as an argument to your tests and used within them. If there is a cleanup part to the code, then the fixture function should be written to include a `yield` statement rather than a `return` statement. Anything up to the `yield` statement is setup code, and anything after the statement will be run post-testing in order to clean up.
+
+Here is how we can write our tests for the `Person` class using fixtures instead of a `setup_class` method:
+
+~~~python
+import pytest
+from inflammation.models import Patient
+
+@pytest.fixture()
+def patient_1():
+    return Patient(id=1, data=[1, 2, 3, 4, 5])
+
+@pytest.fixture()
+def patient_2():
+    return Patient(id=2, data=[10, 20, 30, 40, 50])
+
+def test_patient_data_mean(patient_1):
+    assert patient_1.data_mean() == 3.0
+
+def test_patient_data_max(patient_1):
+    assert patient_1.data_max() == 5
+
+def test_patient_data_min(patient_1):
+    assert patient_1.data_min() == 1
+
+def test_patient_attributes(patient_2):
+    assert patient_2.id == 2
+    assert patient_2.data == [10, 20, 30, 40, 50]
+~~~
+
+We could also encapsulate our tests in a class as well as using fixtures if we wished in order to keep them organised. In this case, the fixtures are available to be used within any classes we create in the file:
+
+~~~python
+import pytest
+from inflammation.models_oo import Patient
+
+@pytest.fixture()
+def patient_1():
+    return Patient(id=1, data=[1, 2, 3, 4, 5])
+
+@pytest.fixture()
+def patient_2():
+    return Patient(id=2, data=[10, 20, 30, 40, 50])
+
+class TestPatient:
+    
+    def test_patient_data_mean(self, patient_1):
+        assert patient_1.data_mean() == 3.0
+
+    def test_patient_data_max(self, patient_1):
+        assert patient_1.data_max() == 5
+
+    def test_patient_data_min(self, patient_1):
+        assert patient_1.data_min() == 1
+
+    def test_patient_attributes(self, patient_2):
+        assert patient_2.id == 2
+        assert patient_2.data == [10, 20, 30, 40, 50]
+~~~
+
+By default, fixtures will be created when first requested by a test and will be destroyed at the end of the test. We can change this behaviour by defining the *scope* of the fixture. If we want to use the decorator `@pytest.fixture(scope="session")` for example, the fixture will only be destroyed at the end of the entire test session. Modifying this behaviour is especially useful if the fixture is expensive to create (such as a large file) and we do not need to recreate it for each test.
+
+:::
+
+Next we can adapt our tests from the previous lesson that test the analysis functions that are now methods in the `Trial` class. 
+
+::::challenge{id=test-trial title="Testing the `Trial` class."}
+
+ Write some tests for the `Trial` class and the associated methods. You can adapt the tests that you wrote in your `test_models.py` file from the previous lesson. You can use fixtures to help with creating instances of the class for testing. 
+
+:::solution
+
+Here is the solution for the first three of the tests, the others should have been refactored in a similar fashion.
+
+~~~python
+@pytest.fixture()
+def trial_instance():
+    return Trial("test_data.csv", 1)
+
+
+class TestTrial:
+    def test_daily_mean_zeros(self, trial_instance):
+        """Test that mean function works for an array of zeros."""
+        trial_instance.data = np.array([[0, 0],
+                            [0, 0],
+                            [0, 0]])
+        test_result = np.array([0, 0])
+
+        # Need to use Numpy testing functions to compare arrays
+        npt.assert_array_equal(trial_instance.daily_mean(), test_result)
+
+
+    def test_daily_mean_integers(self, trial_instance):
+        """Test that mean function works for an array of positive integers."""
+
+        trial_instance.data = np.array([[1, 2],
+                            [3, 4],
+                            [5, 6]])
+        test_result = np.array([3, 4])
+
+        # Need to use Numpy testing functions to compare arrays
+        npt.assert_array_equal(trial_instance.daily_mean(), test_result)
+
+
+    @pytest.mark.parametrize(
+        "test, expected",
+        [
+            ([ [0, 0, 0], [0, 0, 0], [0, 0, 0] ], [0, 0, 0]),
+            ([ [4, 2, 5], [1, 6, 2], [4, 1, 9] ], [4, 6, 9]),
+            ([ [4, -2, 5], [1, -6, 2], [-4, -1, 9] ], [4, -1, 9]),
+        ])
+    def test_daily_max(self, test, expected, trial_instance):
+        """Test max function works for zeroes, positive integers, mix of positive/negative integers."""
+        trial_instance.data = np.array(test)
+        npt.assert_array_equal(trial_instance.daily_max(), np.array(expected))
+
+    ...
+~~~
+
+:::
+::::
+
+In our tests for the `Trial` class, we have to initialise the class using a CSV file in order to create an instance, even if we do not use the data in our tests.  How can we simplify this? One thing that can be changed is the `__init__` method, if we just needed the data as an argument, rather than the path to a CSV file, that would make testing easier. After this change, a separate method is going to be needed to allow creating a `Trial` from a CSV filepath, this can be achieved using a class method. Here is the first section of our adjusted object code:
+
+~~~python
+class Trial:
+    def __init__(self, data, id):
+        self.data = data
+        self.id = id
+
+   @classmethod
+    def from_csv(cls, filename, id):
+        """
+        Class method to create a Trial instance from data in a CSV file.
+
+        Parameters:
+        filename (str): The file path of the CSV file to read.
+        id (str): The id to assign to the Trial instance.
+
+        Returns:
+        Trial: A Trial instance with the data and id from the CSV file.
+        """
+        data = cls.load_csv(filename)
+        return cls(data, id)
+
+    @staticmethod
+    def load_csv(filename):
+        """Load a Numpy array from a CSV
+
+        :param filename: Filename of CSV to load
+        """
+        return np.loadtxt(fname=filename, delimiter=',')
+
+    ...
+~~~
+
+Now, a `Trial` object can be instantiated in two ways:
+
+~~~python
+import numpy as np
+from inflammation.models import Trial
+
+filename = "inflammation-01.csv"
+data = np.loadtxt(fname=filename, delimiter=',')
+
+trial_group_01 = Trial(data, "Group01")
+trial_group_02 = Trial.from_csv("inflammation-02.csv", "Group02")
+~~~
+
+For our tests, we no longer need a CSV file in order to ensure that the statistical methods from the class give the expected results and we can replace our `trial_instance` fixture:
+
+~~~python
+@pytest.fixture()
+def trial_instance():
+    return Trial(np.array([[0, 0],[0, 0]]), 1)
+~~~
+
+Alternatively, we can create objects within test methods, if we prefer to do things that way:
+
+~~~python
+class TestTrial:
+    def test_daily_mean_zeros(self):
+        """Test that mean function works for an array of zeros."""
+        trial_instance = Trial(np.array([[0, 0],[0, 0],[0, 0]]), "Test")
+        test_result = np.array([0, 0])
+
+        # Need to use Numpy testing functions to compare arrays
+        npt.assert_array_equal(trial_instance.daily_mean(), test_result)
+
+    ...
+~~~
+
+### Using a database rather than CSV files
+
+Our alterations to the `Trial` class to make it easier to test have also paved the way to easily adding more methods that allow objects to be created from alternative data sources, such as a database. In order to achieve this, we are going to need to create separate functionality to query a database and return some data from it. Since we are writing new functions, we are also going to need to test them! We will now focus on ensuring this database functionality is tested before returning to our inflammation study to incorporate it.
+
+In the following example, we have a function `query_database` that utilises a connection to a [SQLite](https://www.sqlite.org/) database. In a similar fashion to how a CSV file was needed for a `Trial` object, this function is going to be difficult to test without connecting to the `example.db` database. The contents of our file, named `sqlite_example.py` are shown here:
 
 ~~~python
 # Original code: Function that performs a database query
@@ -58,7 +453,7 @@ def query_database(sql):
 
 ~~~
 
-If we refactor the function to inject the database connection dependency, we can easily replace that connection during testing with one that is connected to a test database. Alternatively we could replace it with a fake (*mocked*) object that represents the connection, meaning that we do not have to connect to an actual database at all in order to test the function. Information on mocking will be given later in this lesson.
+If we refactor the function to inject the database connection dependency, we can easily replace that connection during testing with one that is connected to a test database. This also means we can test the two distinct tasks, connecting to the database and querying the database, separately. Additionally, we have the option to replace the connection with a fake (*mocked*) object, meaning that we do not have to connect to an actual database at all in order to test the function. Information on mocking will be given later in this lesson.
 
 ~~~python
 # Rewritten code: Performs a database query with dependency injection
@@ -77,7 +472,7 @@ def query_database(sql, connection=None):
     return result
 ~~~
 
-Here is an example of some tests for these functions, these can be created in a new file named `test_sqlite.py` within a `/tests` directory. If you would like to learn more about the Structured Query Language (SQL) expressions in this example that are used to interact with the database see the [SQL Zoo](https://sqlzoo.net/wiki/SQL_Tutorial) site:
+Here is an example of some tests for these functions, these can be created in a new file named `test_sqlite.py` within the `/tests` directory. If you would like to learn more about the Structured Query Language (SQL) expressions in this example that are used to interact with the database see the [SQL Zoo](https://sqlzoo.net/wiki/SQL_Tutorial) site:
 
 ~~~python
 import pytest
@@ -143,13 +538,9 @@ def test_query_database_without_connection():
 
 As you can see, we can test the `connect_to_database` and `query_database` functions separately. The tests are becoming complex, however, especially the one for `query_database`. Next we can look at how fixtures can help us to reduce this complexity, especially when we want to reuse resources such as a test database.
 
-## Fixtures
+### More about Fixtures
 
-When writing your tests, you will often find that different tests benefit from the same or similar setup of objects, variables or even connections to allow creation of certain scenarios. After testing, there may also be *teardown* functions or procedures that need to be run in order to clean up files that have be generated or to close database connections that have been opened. This is where fixtures come to the rescue. 
-
-Fixtures are created by using the `@pytest.fixture` decorator on a function which allows this function to be passed as an argument to your tests and used within them. If there is a cleanup part to the code, then the fixture function should be written using the `yield` statement rather than a `return` statement. Anything up to the `yield` statement is setup code, and anything after the statement will be run post-testing in order to clean up.
-
-In the example below, we can use a fixture named `setup_database` to create our test database, add data and also remove the database file once the tests have finished running. As a result, our `test_query_database` function can be simplified and if we want to use the test database in an other tests, we simply need to add `setup_database` as an argument to those tests.
+In the example below, we can use a fixture named `setup_database` to create our test database, add data and also remove the database file once the tests have finished running. As a result, our `test_query_database` function can be simplified and if we want to use the test database in other tests, we simply need to add `setup_database` as an argument to those tests.
 
 ~~~python
 import pytest
@@ -166,8 +557,10 @@ def setup_database():
     cur = conn.cursor()
     cur.execute("CREATE TABLE Animals(Name, Species, Age)")
     cur.execute("INSERT INTO Animals VALUES ('Bugs', 'Rabbit', 6)")
+    conn.commit()
     yield conn  # Provide the fixture value
     # Teardown database connection
+    cur.execute("DROP TABLE Animals")
     conn.close()
     Path.unlink("test.db")
 
@@ -230,7 +623,9 @@ def setup_database(database_connection):
     cur = conn.cursor()
     cur.execute("CREATE TABLE Animals(Name, Species, Age)")
     cur.execute("INSERT INTO Animals VALUES ('Bugs', 'Rabbit', 6)")
-    yield conn 
+    conn.commit()
+    yield conn
+    cur.execute("DROP TABLE Animals")
 
 def test_query_database(setup_database):
     """
@@ -250,7 +645,7 @@ def test_query_database(setup_database):
 :::
 ::::
 
-By default, fixtures will be created when first requested by a test and will be destroyed at the end of the test. We can change this behaviour by defining the *scope* of the fixture. If we want to use the decorator `@pytest.fixture(scope="session")` for example, the fixture will only be destroyed at the end of the entire test session. Modifying this behaviour is especially useful if the fixture is expensive to create (such as a large file) and we do not need to recreate it for each test. 
+
 
 As well as writing our own fixtures, we can use those that are [predefined/(built-in)](https://docs.pytest.org/en/latest/reference/fixtures.html). For example we may want to use a temporary directory for our files during testing, rather than creating files in the directory that we are working from (this is what currently happens when we run our database tests). The built-in fixture `temp_path_factory` allows us to to do this. We can refactor our code to add an extra fixture that uses feature and then it can be used by all the tests that we have written as well as by the `setup_database` fixture. The contents of our `test_sqlite.py` is now:
 
@@ -287,7 +682,9 @@ def setup_database(database_connection):
     cur = conn.cursor()
     cur.execute("CREATE TABLE Animals(Name, Species, Age)")
     cur.execute("INSERT INTO Animals VALUES ('Bugs', 'Rabbit', 6)")
-    yield conn 
+    conn.commit()
+    yield conn
+    cur.execute("DROP TABLE Animals")
 
 def test_connect_to_db_type(database_fn_fixture):
     """
@@ -336,7 +733,7 @@ def test_query_database_without_connection():
 
 ~~~
 
-Congratulations, you now know about fixtures. For more details on what you can do please refer to the [pytest fixtures documentation](https://docs.pytest.org/en/7.1.x/how-to/fixtures.html).
+For more details on what you can do with fixtures, please refer to the [pytest fixtures documentation](https://docs.pytest.org/en/7.1.x/how-to/fixtures.html).
 
 ## Mocking
 
@@ -646,3 +1043,193 @@ def test_query_db_mocked_connection_mocker(mocker):
 ~~~
 
 Well done for making it this far, mocking is often a confusing subject due to the many ways in which it can be done and the abstract nature of temporarily replacing parts of the thing you are testing.  After this introduction, you can now solidify your learning by practicing the techniques here on your own code whilst using the documentation as a reference.
+
+## Putting it all together - adding a database as a data source
+
+Finally, we can come back to our `Trial` object and integrate the functions to connect to and query an SQLite database. We have provided a file `inflammation_data.db` that contains all of the data from the 12 csv files in one table called `data`. 
+
+To get this file, if on WSL or Linux (e.g. Ubuntu or the Ubuntu VM), then do:
+
+~~~bash
+$ wget https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation_data.db
+~~~
+
+Or, if on a Mac, do:
+
+~~~bash
+$ curl -O https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation_data.db
+~~~
+
+Save the file into the `inflammation/data` directory of your project. 
+
+The `data` table has 43 columns, `patient_id`, `trial_id`, `filename` and `day01` to `day40` that record the number of inflammation flare-ups for these days. The `patient_id` field is in the form of `pxx` where patient 1 is `p01`, for `trial_id` the format is `txx` where trial 1 is `t01`. Now we can add a new method `from_database` to our class:
+
+~~~python
+import numpy as np
+from sqlite_example import connect_to_database, query_database
+
+class Trial:
+    def __init__(self, data, id):
+        self.data = data
+        self.id = id
+
+    @classmethod
+    def from_csv(cls, filename, id):
+        """
+        Class method to create a Trial instance from data in a CSV file.
+
+        Parameters:
+        filename (str): The file path of the CSV file to read.
+        id (str): The id to assign to the Trial instance.
+
+        Returns:
+        Trial: A Trial instance with the data and id from the CSV file.
+        """
+        data = cls.load_csv(filename)
+        return cls(data, id)
+    
+    @classmethod
+    def from_database(cls, db_filepath, trial_id):
+        """
+        Class method to create a Trial instance from data in a SQLite database.
+
+        Parameters:
+        db_filepath (str): The file path of the SQLite database to connect to.
+        trial_id (str): The trial_id to query the database for.
+
+        Returns:
+        Trial: A Trial instance with the data and id from the database.
+        """
+        query = f'SELECT * FROM data WHERE trial_id = "{trial_id}"'
+        connection = connect_to_database(db_filepath)
+        data = query_database(query, connection)
+        if not data:
+            raise ValueError("No data found for trial_id")
+        # Convert the list of tuples to a numpy array and skip the first two columns
+        if np.shape(data)[0] == 1:  # If only one row is returned, convert to 2D array
+            data = np.array([data[0][3:]]).astype(float)
+        else:
+            data = np.array(data)[:, 3:].astype(float)
+        return cls(data, trial_id)
+
+    @staticmethod
+    def load_csv(filename):
+        """Load a Numpy array from a CSV
+
+        :param filename: Filename of CSV to load
+        """
+        return np.loadtxt(fname=filename, delimiter=',')
+
+    ...
+~~~
+
+Using our new method, an instance of the `Trial` class can now be created in the following way:
+
+~~~python
+from inflammation.models import Trial
+
+trial_group01 = Trial.from_database("inflammation_data.db", "t01")
+~~~
+
+Our existing tests for the statistical methods from the `Trial` object do not need to be altered even if the underlying data storage has changed, as long as the data is loaded into a numpy array of the same format as we had previously.
+
+::::challenge{id=test_db_load title="Testing loading from a database."}
+
+Write some more tests for the `Trial` class. These should check that the data loaded via the `from_database` class method is stored in the `data` attribute in the same format as when using either the `from_csv` class method or when using the normal constructor (`Trial(data, id)`). Feel free to use mocking and/or fixtures as appropriate.
+
+:::solution
+Here we give some example tests using the `mocker` fixture from `pytest-mock` as well as a real test database. Your tests do not need to be identical to these ones. At this stage, you should know that testing the functionality can be done in in a number of ways!
+
+~~~python
+import numpy as np
+import pytest
+from inflammation.models import Trial
+from sql_example import connect_to_database, query_database
+
+@pytest.fixture(scope="session")
+def database_fn_fixture(tmp_path_factory):
+    """
+    Uses tmp_path_factory to create a filename in a temp directory
+    """
+    yield tmp_path_factory.mktemp("data") / "test.db"
+
+@pytest.fixture(scope="session")
+def database_connection(database_fn_fixture):
+    """
+    Create database connection
+    """
+    conn = sqlite3.connect(database_fn_fixture)
+    yield conn
+    conn.close()
+    Path.unlink(database_fn_fixture)
+
+@pytest.fixture(scope="session")
+def setup_database(database_connection):
+    """
+    Populate data in database
+    """
+    conn = database_connection
+    cur = conn.cursor()
+    cur.execute('''
+        CREATE TABLE data (
+            patient_id TEXT,
+            trial_id TEXT,
+            filename TEXT,
+            value1 INTEGER,
+            value2 INTEGER
+        )
+    ''')
+    cur.execute('''
+        INSERT INTO data VALUES
+        ('p01', 't02', 'filename3', 4, 5),
+        ('p05', 't02', 'filename3', 2, 1),
+        ('p05', 't03', 'filename4', 3, 2)
+    ''')
+    conn.commit()
+    yield conn 
+    cur.execute("DROP TABLE data")
+
+def test_trial_from_database(database_fn_fixture, setup_database):
+    # Create a Trial object
+    trial = Trial.from_database(database_fn_fixture, "t02")
+    assert isinstance(trial.data, np.ndarray)
+    # Check that the data attribute is correct (the first three columns should be skipped)
+    npt.assert_array_equal(trial.data, np.array([[4, 5], [2, 1]]))
+    assert trial.id == "t02"
+
+def test_trial_from_database_no_data(database_fn_fixture, setup_database):
+    # Try to create a Trial object with a trial_id that doesn't exist in the database
+    with pytest.raises(ValueError, match='No data found for trial_id'):
+        Trial.from_database(database_fn_fixture, 't01')
+
+def test_trial_from_database_one_row(database_fn_fixture, setup_database):
+    # Try to create a Trial object with a trial_id that only has one row in the database
+    trial = Trial.from_database(database_fn_fixture, 't03')
+    assert isinstance(trial.data, np.ndarray)
+    # Check that the data attribute is correct (the first three columns should be skipped)
+    np.testing.assert_array_equal(trial.data, np.array([[3., 2.]]))
+    assert trial.id == 't03'
+
+def test_trial_from_mock_database(mocker):
+    # Create a mock sqlite3.Connection object
+    mock_conn = mocker.Mock(spec=sqlite3.Connection)
+    # Create a mock sqlite3.Cursor object
+    mock_cursor = mocker.Mock(spec=sqlite3.Cursor)
+    mock_cursor.fetchall.return_value = [('p01', 't02', 'filename3', 4, 5),
+                                         ('p05', 't02', 'filename3', 2, 1)]
+    mock_conn.cursor.return_value = mock_cursor
+    # Replace the sqlite3.connect function with a mock
+    mocker.patch('sqlite3.connect', return_value=mock_conn)
+    # Create a Trial object
+    trial = Trial.from_database('test_db.db', 1)
+    assert isinstance(trial.data, np.ndarray)
+    # Check that the data attribute is correct (the first three columns should be skipped)
+    npt.assert_array_equal(trial.data, np.array([[4, 5], [2, 1]]))
+    assert trial.id == 1
+
+~~~
+
+:::
+::::
+
+We have now covered a number of topics, designing testable code, using fixtures and mocking. These should help you to ensure you write reliable and maintainable software. Happy testing!
