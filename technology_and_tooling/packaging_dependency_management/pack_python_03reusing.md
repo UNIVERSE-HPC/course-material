@@ -399,8 +399,8 @@ pip install -e .
     maximum value of the timeseries `analysis2/data/hotwire.csv` between t=0
     and t = 0.25. 
 
-In editable mode, `pip install` just write a file
-`<package-name>.egg-link` at the package installation location in
+In editable mode, `pip install` creates a file,
+`<package-name>.egg-link`, at the package installation location in
 place of the actual package. This file contains the location of the
 package in your package project directory:
 

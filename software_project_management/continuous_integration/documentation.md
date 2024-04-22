@@ -74,8 +74,8 @@ Here are some of its key features:
 
 From your repository, run:
 
-~~~
-pip install -e .[dev,docs]
+~~~ bash
+pip install -e ."[dev,docs]"
 ~~~
 
 to ensure you have all development and documentation dependencies installed.

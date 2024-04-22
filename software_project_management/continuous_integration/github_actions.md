@@ -143,7 +143,7 @@ Push your fixed code, and check that the workflow now passes.
 :::solution
 
 This one is a simple fix - the code on line 36 of `functionality.py` is over-indented.
-Fix the indenttion, and that should be enough.
+Fix the indentation, and that should be enough.
 
 :::
 ::::

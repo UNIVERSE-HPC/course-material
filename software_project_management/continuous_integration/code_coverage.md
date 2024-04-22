@@ -70,8 +70,13 @@ Your repository is now set up and ready to use with Codecov.
 ## Creating coverage data
 
 We will use the [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/) tool to generate coverage information when running our unit tests with pytest.
+To install this locally, using pip, run:
 
-We can run pytest in the following way to generate an xml file containing coverage information for the whole project:
+~~~ bash
+pip install pytest-cov
+~~~
+
+We can now run pytest in the following way to generate an xml file containing coverage information for the whole project:
 
 ~~~ bash
 pytest --cov-config=.coveragerc --cov=./ci_course --cov-report=xml

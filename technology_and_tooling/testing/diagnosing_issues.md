@@ -168,7 +168,7 @@ of the program.
 
 To set a breakpoint, navigate to the `models.py` file and move your mouse to the
 `return` statement of the `patient_normalise` function. Click to just to the
-right of the line number for that line and a small red dot will appear,
+left of the line number for that line and a small red dot will appear,
 indicating that you have placed a breakpoint on that line.
 
 
