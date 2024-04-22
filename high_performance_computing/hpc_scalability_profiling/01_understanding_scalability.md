@@ -1,9 +1,8 @@
 ---
 name: Understanding Code Scalability
 dependsOn: [
-  technology_and_tooling.hpc.06_transferring_files
 ]
-tags: [scalability, optimisation]
+tags: [optimisation]
 ---
 
 When we submit a job to a cluster that runs our code, we have the option of specifying the number of CPUs (and in some cases GPUs) that will be allocated to the job. We need to consider to what extent that code is *scalable* with regards to how it uses these resources, to avoid the risk of consuming more resources than can be effectively used. As part of the application process for having new code installed on DiRAC, its scalability characteristics need to be measured. This helps inform how best to assign CPU resources when configuring jobs to run with that code.
@@ -24,7 +23,7 @@ Before we consider running and using code on an HPC resource, we need to underst
 
  <!-- - the improvement in speed of execution of a task executed on two similar architectures with different resources.  -->
 
-Once we understand these scaling profiles for our code, we'll have an idea of the **speedup** capable when using multiple cores. These measurements give us good indications for how our code should be specified on DiRAC, in terms of the overall job size and the amount of resources that should be requested.
+Once we understand these scaling profiles for our code, we'll have an idea of the **speedup** capable when using multiple cores. These measurements give us good indications for how our code should be specified on for our cluster, in terms of the overall job size and the amount of resources that should be requested.
 
 ## I'm a Developer, Should I Optimise my Code?
 
@@ -41,22 +40,23 @@ In non-trivial cases premature optimisation is regarded as bad practice, since o
 
 So what is *profiling*? Profiling your code is all about understanding its complexity and performance characteristics. The usual intent of profiling is to work out how best to *optimise* your code to improve its performance in some way, typically in terms of speedup or memory and disk usage. In particular, profiling helps identify *where* bottlenecks exist in your code, and helps avoid summary judgments and guesses which will often lead to unnecessary optimisations.
 
-> ## Profilers
->
-> Each programming language will typically offer some open-source and/or free tools
-> on the web, with you can use to profile your code. Here are some examples of
-> tools. Note though, depending on the nature of the language of choice, the
-> results can be hard or easy to interpret. In the following we will only list
-> open and free tools:
->
-> - Python: [line_profiler](https://github.com/pyutils/line_profiler),
->   [prof](https://docs.python.org/3.9/library/profile.html)
-> - JavaScript: [firebug](https://github.com/firebug/firebug)
-> - Ruby: [ruby-prof](https://github.com/ruby-prof/ruby-prof)
-> - C/C++: [xray](https://llvm.org/docs/XRay.html),
->   [perf](https://perf.wiki.kernel.org/index.php/Main_Page),
->   [gprof](https://ftp.gnu.org/old-gnu/Manuals/gprof-2.9.1/html_mono/gprof.html)
-> - R: [profvis](https://github.com/rstudio/profvis)
-{: .callout }
+::::callout
+## Profilers
 
-Donald Knuth said *"we should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%."* In short, optimise the obvious trivial things, but avoid non-trivial optimisations until you've understood what needs to change. Optimisation is often difficult and time consuming. Pre-mature optimization may be a waste of your time!
+Each programming language will typically offer some open-source and/or free tools
+on the web, with you can use to profile your code. Here are some examples of
+tools. Note though, depending on the nature of the language of choice, the
+results can be hard or easy to interpret. In the following we will only list
+open and free tools:
+>
+- Python: [line_profiler](https://github.com/pyutils/line_profiler),
+  [prof](https://docs.python.org/3.9/library/profile.html)
+- JavaScript: [firebug](https://github.com/firebug/firebug)
+- Ruby: [ruby-prof](https://github.com/ruby-prof/ruby-prof)
+- C/C++: [xray](https://llvm.org/docs/XRay.html),
+  [perf](https://perf.wiki.kernel.org/index.php/Main_Page),
+  [gprof](https://ftp.gnu.org/old-gnu/Manuals/gprof-2.9.1/html_mono/gprof.html)
+- R: [profvis](https://github.com/rstudio/profvis)
+::::
+
+Donald Knuth said *"we should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%."* In short, optimise the obvious trivial things, but avoid non-trivial optimisations until you've understood what needs to change. Optimisation is often difficult and time consuming. Premature optimization may be a waste of your time!

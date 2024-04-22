@@ -157,7 +157,7 @@ hpc-carpentry-amdahl-46c9b4b/setup.py
 ```
 
 Note that we did not need to type out `-x -v -z -f`, thanks to flag
-concatenation, though the command works identically either way --
+concatenation, though the command works identically either way -
 so long as the concatenated list ends with `f`, because the next string
 must specify the name of the file to extract.
 :::
@@ -183,8 +183,8 @@ local$ du -sh amdahl
 Text files (including Python source code) compress nicely:
 the "tarball" is one-sixth the total size of the raw data!
 
-If you want to reverse the process -- compressing raw data instead of
-extracting it -- set a `c` flag instead of `x`, set the archive filename,
+If you want to reverse the process - compressing raw data instead of
+extracting it - set a `c` flag instead of `x`, set the archive filename,
 then provide a directory to compress:
 
 ```bash
@@ -269,8 +269,7 @@ Upload the lesson material to your remote home directory like so:
 local$ scp amdahl.tar.gz user@cluster.name:
 ```
 
-::::challenge{ie=download-directly, title="Why Not Download on {{ site.remote.name }} 
-Directly?"}
+:::::challenge{id=download-directly, title="Why Not Download on the Cluster Directly?"}
 
 Most computer clusters are protected from the open internet by a _firewall_.
 For enhanced security, some are configured to allow traffic _inbound_, but
@@ -295,7 +294,7 @@ remote$ curl -o amdahl.tar.gz https://github.com/hpc-carpentry/amdahl/tarball/ma
 
 Did it work? If not, what does the terminal output tell you about what
 happened?
-::::
+:::::
 
 ## Transferring a Directory
 
@@ -311,7 +310,7 @@ local$ scp -r amdahl user@cluster.name:
 :::callout
 ## Caution
 
-For a large directory -- either in size or number of files --
+For a large directory  either in size or number of files -
 copying with `-r` can take a long time to complete.
 :::
 
@@ -329,11 +328,11 @@ above the root `/`.
 A path that does not start with `/` is called _relative_, since it is not
 anchored to the root.
 
-If you want to upload a file to a location inside your home directory --
-which is often the case -- then you don't need a _leading_ `/`. After the `:`,
+If you want to upload a file to a location inside your home directory -
+which is often the case - then you don't need a _leading_ `/`. After the `:`,
 you can type the destination path relative to your home directory.
 If your home directory _is_ the destination, you can leave the destination
-field blank, or type `~` -- the shorthand for your home directory -- for
+field blank, or type `~` - the shorthand for your home directory - for
 completeness.
 
 With `scp`, a trailing slash on the target directory is optional, and has
@@ -406,7 +405,7 @@ local$ man rsync
 local$ rsync --help | grep port
      --port=PORT             specify double-colon alternate port number
 See http://rsync.samba.org/ for updates, bug reports, and answers
-local$ rsync --port=768 amdahl.tar.gz {{ site.remote.user }}@{{ site.remote.login }}:
+local$ rsync --port=768 amdahl.tar.gz user@cluster.name:
 ```
 
 (Note that this command will fail, as the correct port in this case is the
