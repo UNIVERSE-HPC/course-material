@@ -74,8 +74,8 @@ Here are some of its key features:
 
 From your repository, run:
 
-~~~
-pip install -e .[dev,docs]
+~~~ bash
+pip install -e ."[dev,docs]"
 ~~~
 
 to ensure you have all development and documentation dependencies installed.
@@ -108,5 +108,5 @@ This will take you to the website `https://<project_name>.readthedocs.io/en/late
 
 ::::challenge{id="start-documenting" title="Start documenting"}
 
-Read through the [Sphinx documentation]((https://www.sphinx-doc.org/en/master/)) and start fleshing out the documenation for your repository.
+Read through the [Sphinx documentation](https://www.sphinx-doc.org/en/master/) and start fleshing out the documenation for your repository.
 ::::

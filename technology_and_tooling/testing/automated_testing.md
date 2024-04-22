@@ -406,7 +406,7 @@ Catch for C++, etc.
 You can install `pytest` using `pip` - exit the Python console first (either with `Ctrl-D` or by typing `exit()`), then do:
 
 ~~~bash
-$ pip3 install pytest
+$ pip install pytest
 ~~~
 
 Whether we do this via VsCode or the command line, the results are exactly the same: our virtual environment will now have the `pytest` package installed for use.
