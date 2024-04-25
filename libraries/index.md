@@ -8,4 +8,4 @@ courses: [
 summary: Courses on using individual libraries.
 ---
 
-Courses on using individual python libraries.
+Courses on using individual libraries.
