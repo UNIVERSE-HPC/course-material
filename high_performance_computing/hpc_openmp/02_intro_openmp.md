@@ -1,6 +1,6 @@
 ---
 name: Introduction to OpenMP
-dependsOn: [high_performance_computing.hpc_openmp.01_intro_parallelisation]
+dependsOn: []
 tags: [parallelisation, OMP]
 ---
 
@@ -10,9 +10,8 @@ OpenMP is an industry-standard API specifically designed for parallel programmin
 
 ::::challenge{title="An OpenMP Timeline"}
 
-![OpenMP-history](fig/OpenMP_Timeline.png)
-
-The timeline provides an overview of OpenMP's evolution until 2014, with significant advancements 
+If you're interested, there's a [timeline of how OpenMP developed](https://www.openmp.org/uncategorized/openmp-timeline/).
+It provides an overview of OpenMP's evolution until 2014, with significant advancements 
 occurring thereafter. Notably, OpenMP 5.0 marked a significant step in 2018, followed by the latest 
 iteration, OpenMP 5.2, which was released in November 2021.
 ::::
@@ -37,6 +36,9 @@ OpenMP consists of three key components that enable parallel programming using t
 ## Running a Code with OpenMP
 
 Before we delve into specifics of writing code that uses OpenMP, let's first look at how we compile and run an example "Hello World!" OpenMP program that prints this to the console.
+
+ First, log into whichever HPC system you have access to - this could be a group server, or university- or national-level cluster (e.g. Iridis or DiRAC). Alternatively, you may have OpenMP installed on your local machine.
+ 
 Save the following code in `hello_world_omp.c`:
 
 ~~~c
@@ -51,7 +53,7 @@ int main() {
 }
 ~~~
 
-You'll want to compile it using a standard compiler such as `gcc`. To enable the creation of multi-threaded code based on OpenMP directives, pass the `-fopenmp` flag to the compiler. This flag indicates that you're compiling an OpenMP program:
+You'll likely want to compile it using a standard compiler such as `gcc`, although this may depend on your system. To enable the creation of multi-threaded code based on OpenMP directives, pass the `-fopenmp` flag to the compiler. This flag indicates that you're compiling an OpenMP program:
 
 ~~~bash
 gcc hello_world_omp.c -o hello_world_omp -fopenmp

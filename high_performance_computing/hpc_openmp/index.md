@@ -2,10 +2,9 @@
 name: Parallel Programming with OpenMP
 id: hpc_openmp
 dependsOn: [
-    high_performance_computing.parallel_computing
+    high_performance_computing.hpc_parallel_intro
 ]
 files: [
-    01_intro_parallelisation.md,
     02_intro_openmp.md,
     03_parallel_api.md,
     04_synchronisation.md,

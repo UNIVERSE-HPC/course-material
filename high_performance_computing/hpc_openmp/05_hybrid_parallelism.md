@@ -420,7 +420,7 @@ delicate balance of balancing overheads associated with thread synchronisation i
 MPI. As mentioned earlier, a hybrid implementation will typically be slower than a "pure" MPI implementation for example.
 :::
 
-::::challenge{title="Optimum combination of threads and ranks for approximating $\pi$"}
+::::challenge{title="Optimum combination of threads and ranks for approximating Pi"}
 
 Try various combinations of the number of OpenMP threads and number of MPI processes. For this program, what's faster?
 Only using [MPI](code/examples/05-pi-mpi.c), only using [OpenMP](code/examples/05-pi-omp.c) or a

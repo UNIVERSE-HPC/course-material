@@ -7,8 +7,8 @@ dependsOn: [
 courses: [
   hpc_intro,
   hpc_parallel_intro,
-  hpc_mpi,
   hpc_scalability_profiling,
+  hpc_mpi,
   hpc_openmp
 ]
 summary: |
