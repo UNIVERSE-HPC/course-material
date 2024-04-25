@@ -7,7 +7,7 @@ courses: [
   functional,
 ]
 summary: |
-  Programming design concepts and patterns, such as proceedural, object-orientated, functional, generic. Covers data structures, memory allocation, ownership.
+  Programming design concepts and patterns, such as procedural, object-orientated, functional, generic. Covers data structures, memory allocation, ownership.
 ---
 
-Programming design concepts and patterns, such as proceedural, object-orientated, functional, generic. Covers data structures, memory allocation, ownership.
+Programming design concepts and patterns, such as procedural, object-orientated, functional, generic. Covers data structures, memory allocation, ownership.

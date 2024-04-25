@@ -22,7 +22,7 @@ The most obvious benefit of a sparse matrix is low memory usage. A dense matrix 
 store all the elements of a matrix of size $n$, and thus the memory requirements scale 
 as $\mathcal{O}(n^2)$. For example, the following show the memory requirements of a 
 matrix of double precision numbers (taken from the excellent 
-[scipy-lectures](http://scipy-lectures.org/advanced/scipy_sparse/introduction.html#why-sparse-matrices)) 
+[scipy-lectures](http://scipy-lectures.org/advanced/scipy_sparse/introduction.html#why-sparse-matrices) 
 
 
 ![least squares problem](images/sparse_versus_dense.svg)
