@@ -5,7 +5,7 @@ courses: [
   pybamm,
   pybamm-developer,
 ]
-summary: Courses on using individual python libraries.
+summary: Courses on using individual libraries.
 ---
 
 Courses on using individual python libraries.
