@@ -12,7 +12,7 @@ courses: [
   snakemake,
 ]
 summary: |
-  Programming design concepts and patterns, such as proceedural, object-orientated, functional, generic. Covers data structures, memory allocation, ownership.
+  Basic tools like bash, version control, containers, IDEs, and snakemake.
 ---
 
-Programming design concepts and patterns, such as proceedural, object-orientated, functional, generic. Covers data structures, memory allocation, ownership.
+Basic tools like bash, version control, containers, IDEs, and snakemake.
