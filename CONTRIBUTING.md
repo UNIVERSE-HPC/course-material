@@ -153,5 +153,31 @@ be found on [the series Wikipedia entry](https://en.wikipedia.org/wiki/The_Hitch
 
 :::
 ```
+Different variants/flavours of callout are available by using the syntax 
+```pandoc
+:::callout{variant="variant"}
+Text
+:::
+```
 
+Variants available are "danger", "warning", "tip", "discussion", "note" and "keypoints".
 
+![image](https://private-user-images.githubusercontent.com/60351846/301895586-343ade2a-0c4e-4f20-9559-8e3a4986a523.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTQxMjkxMjcsIm5iZiI6MTcxNDEyODgyNywicGF0aCI6Ii82MDM1MTg0Ni8zMDE4OTU1ODYtMzQzYWRlMmEtMGM0ZS00ZjIwLTk1NTktOGUzYTQ5ODZhNTIzLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA0MjYlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNDI2VDEwNTM0N1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPThjYjRmMGVkYTJmNWRmNTZkZWQwYWUzMzI0MTg0N2I0M2Q4ZDBkYWJlMmMwOWU3MWNmYTkzMTdiYzFmZGRhZjAmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.I4hgqTxWYcVN9TXzcFjDcyxotBrq_-o0TFWuVlJXW14)
+
+#### Danger
+Used to inform students to be aware that there is a danger that they could break their development environment or lose data if an action is not performed correctly.
+
+#### Warning
+Used to warn students that they should be careful when performing a task in case there is a risk of a breaking change or issue arising that is less serious than something in the "danger" category or precautions to take to ensure good practice.
+
+#### Tip
+Used to inform students of a useful tip that may help them complete a task or help them in a wider context.
+
+#### Discussion
+Used to introduce a discussion topics as part of a training session or as a thinking point if completing the training individually, these help students better understand a concept.
+
+#### Note
+Used to highlight additional information that the student may wat to bear in mind when completing a task or thinking about a topic.
+
+#### Key Points
+Used to summarise the most essential or critical information in a topic. These can be takeaways or highlights that students should focus on.
