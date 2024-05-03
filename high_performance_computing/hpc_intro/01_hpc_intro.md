@@ -44,11 +44,6 @@ In all these cases, access to more (and larger) computers is needed. Those
 computers should be usable at the same time, __solving many researchers'
 problems in parallel__.
 
-## Jargon Busting Presentation
-
-Open the [HPC Jargon Buster]({{ site.url }}{{ site.baseurl }}/files/jargon.html#p1)
-in a new tab. To present the content, press `C` to open a **c**lone in a
-separate window, then press `P` to toggle **p**resentation mode.
 
 ::::challenge{id=never-used-server title="I've Never Used a Server, Have I?"}
 
