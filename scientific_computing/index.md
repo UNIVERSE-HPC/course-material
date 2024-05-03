@@ -9,7 +9,8 @@ courses: [
   ode_solvers,
   bayesian_inference,
 ]
-summary: Courses on scientific computing on subjects including linear algebra, ode solving, bayesian statistics etc.
+summary: |
+  Courses on scientific computing on subjects including linear algebra, ode solving, bayesian statistics etc.
 ---
 
 Courses on scientific computing on subjects including linear algebra, ode solving, bayesian statistics etc.
