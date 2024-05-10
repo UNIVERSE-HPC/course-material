@@ -54,8 +54,8 @@ following yaml config under `advanced-details.user-data`:
 ``` yaml
 #cloud-config
 write_files:
-  -	content: |
-		  SHAREPUBKEY=true
+  - content: |
+      SHAREPUBKEY=true
     path: /opt/flight/cloudinit.in
     permissions: '0600'
     owner: root:root
@@ -172,7 +172,7 @@ modules:
         conflict:        
         - '{name}'        
       projections:        
-	      all: '{name}/{version}'        
+        all: '{name}/{version}'        
 ```
 
 Where you'll need to replace `{PACKAGE_LIST}` with the yaml-formatted list of 
