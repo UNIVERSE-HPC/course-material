@@ -194,54 +194,7 @@ As an alternative to using the `unitest.mock` library, its possible to use a ver
 - `monkeypatch.setitem()` - used to modify a dictionary item
 - `monkeypatch.delitem()` - used to delete an item from a dictionary
 
-Here is an example of how we could replace `unitest.mock` with `monkeypatch` in our `test_query_db_mocked_connection()` test:
-
-~~~python
-import pytest
-import sqlite3
-from sqlite_example import query_database
-
-class MockSQLiteConnection:
-    
-    def __init__(self, filename):
-        # Define any attributes or methods needed for your mock cursor
-        self.filename = filename
-
-    def cursor(self):
-        # Implement a method to return a mock cursor
-        return MockSQLiteCursor()
-    
-    def close(self):
-        # Implement a method to close connection
-        pass
-
-class MockSQLiteCursor:
-
-    def execute(self, query):
-        # Implement a method to simulate executing a query
-        pass
-
-    def fetchall(self):
-        # Implement a method to simulate fetching a result
-        return [("Jerry", "Mouse", 1)]
-
-
-def test_query_db_mocked_connection(monkeypatch):
-    # a function that returns our mock connection
-    def mock_connection(*args, **kwargs):
-        return MockSQLiteConnection(*args)
-    # replace the sqlite3 connect() method with our function
-    monkeypatch.setattr("sqlite3.connect", mock_connection)
-    # make our fake connection
-    conn = sqlite3.connect("my_non_existent_file")
-    sql = "SELECT * FROM Animals"
-    # test what query_database does with our fake connection
-    result = query_database(sql, connection=conn)
-    assert result[0] == ("Jerry", "Mouse", 1)
-
-~~~
-
-As can be seen, if we do not use the `unittest.mock` library at all, we have to write our own  `MockSQLiteConnection` and `MockSQLiteCursor` objects. Also we can no longer use the functions that allow us to check how our functions interacted with the mock objects such as `assert_called_once_with()`. In reality, it would make more sense to use both the pytest `monkeypatch` fixture and `unittest.mock`.
+It makes sense to use both the pytest `monkeypatch` fixture and `unittest.mock` together, otherwise we will have to write our own mock objects from scratch; the `monkeypatch` fixture does not provide mock objects, nor does it allow us to check how our functions interacted with mock objects.
 
 ::::challenge{id=mock-monkeypatch title="Using `monkeypatch` and `Mock`"}
 
@@ -288,41 +241,12 @@ def test_query_db_mocked_connection(monkeypatch):
 :::
 ::::
 
+:::callout
 #### Using the `mocker` fixture from `pytest-mock`
 
-Another alternative to using the `unitest.mock` library is to install `pytest-mock` alongside `pytest`. This wil give you access to a fixture called `mocker` which provides access to the `unittest.patch` functionalities through this fixture, which means that mocking will automatically be reversed after the test is run. There is no need to `import unittest` and no `monkeypatch` functions are required. Here is how our test would look if we were to use this library:
+An alternative to using the `unitest.mock` library is to install `pytest-mock` alongside `pytest`. This wil give you access to a fixture called `mocker`. This fixture provides access to `unittest.patch` functionalities as well as mocks. There is no need to `import unittest` and no `monkeypatch` functions are required. For more information see the [pytest-mock documentation](https://pytest-mock.readthedocs.io/en/latest/index.html).
 
-~~~python
-import pytest
-import sqlite3
-from sqlite_example import query_database
-
-def test_query_db_mocked_connection_mocker(mocker):
-    """Mock the database connection and cursor to ensure the correct methods are called within the query_database function"""
-    # Create a mock sqlite3.Connection object
-    mock_conn = mocker.Mock(spec=sqlite3.Connection)
-
-    # Create a mock sqlite3.Cursor object
-    mock_cursor = mocker.Mock(spec=sqlite3.Cursor)
-    mock_cursor.fetchall.return_value = [("Jerry", "Mouse", 1)]
-    mock_conn.cursor.return_value = mock_cursor
-
-    # Replace the sqlite3.connect function with a mock
-    mocker.patch('sqlite3.connect', return_value=mock_conn)
-
-    conn = sqlite3.connect("my_non_existent_file")
-    # Call the function and assert the expected behavior
-    sql = "SELECT * FROM Animals"
-    result = query_database(sql, connection=conn)
-    assert result[0] == ("Jerry", "Mouse", 1)
-    # check that query_database passes our SQL string to cursor.execute()
-    mock_cursor.execute.assert_called_once_with(sql)
-    # check that fetchall() was called
-    mock_cursor.fetchall.assert_called_once()
-    # check that query_database closes the connection
-    conn.close.assert_called_once()
-    
-~~~
+:::
 
 Well done for making it this far, mocking is often a confusing subject due to the many ways in which it can be done and the abstract nature of temporarily replacing parts of the thing you are testing.  After this introduction, you can now solidify your learning by practicing the techniques here on your own code whilst using the documentation as a reference.
 

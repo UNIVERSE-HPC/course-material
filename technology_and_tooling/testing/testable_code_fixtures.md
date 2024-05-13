@@ -244,40 +244,11 @@ class TestPatient:
 :::
 ::::
 
-:::callout{variant="note"}
 ## Fixtures
 
-As an alternative to encapsulating test methods in a class and using `setup` and `teardown` methods, we can use *fixtures*. Fixtures are defined by using the `@pytest.fixture` decorator on a function. This function will then become available to be passed as an argument to your tests and used within them. If there is a cleanup part to the code, then the fixture function should use a `yield` statement rather than a `return` statement. Anything up to the `yield` statement is setup code, and anything after the statement will be run post-testing in order to clean up (teardown code).
+As an alternative to encapsulating test methods in a class and using `setup` and `teardown` methods, we can use *fixtures*. Fixtures are defined by using the `@pytest.fixture` decorator on a function. This function will then become available to be passed as an argument to your tests and used within them. 
 
 Here is how we can write our tests for the `Person` class using fixtures instead of a `setup_class` method:
-
-~~~python
-import pytest
-from inflammation.models import Patient
-
-@pytest.fixture()
-def patient_1():
-    return Patient(id=1, data=[1, 2, 3, 4, 5])
-
-@pytest.fixture()
-def patient_2():
-    return Patient(id=2, data=[10, 20, 30, 40, 50])
-
-def test_patient_data_mean(patient_1):
-    assert patient_1.data_mean() == 3.0
-
-def test_patient_data_max(patient_1):
-    assert patient_1.data_max() == 5
-
-def test_patient_data_min(patient_1):
-    assert patient_1.data_min() == 1
-
-def test_patient_attributes(patient_2):
-    assert patient_2.id == 2
-    assert patient_2.data == [10, 20, 30, 40, 50]
-~~~
-
-We could also encapsulate our tests in a class as well as using fixtures if we wished in order to keep them organised. In this case, the fixtures are available to be used within any classes we create in the file:
 
 ~~~python
 import pytest
@@ -308,8 +279,6 @@ class TestPatient:
 ~~~
 
 By default, fixtures will be created when first requested by a test and will be destroyed at the end of the test. We can change this behaviour by defining the *scope* of the fixture. If we want to use the decorator `@pytest.fixture(scope="session")` for example, the fixture will only be destroyed at the end of the entire test session. Modifying this behaviour is especially useful if the fixture is expensive to create (such as a large file) and we do not need to recreate it for each test.
-
-:::
 
 Next we can adapt our tests from the previous lesson that test the analysis functions that are now methods in the `Trial` class. 
 
@@ -374,7 +343,7 @@ In our tests for the `Trial` class, we have to initialise the class using a CSV 
 
 ::::challenge{id=load-from-csv title="Refactor the `Trial` class."}
 
-As described above, refactor the `--init__` method of the `Trial` class to take `data` and `id` as arguments. Then create a class method called `from_csv` that accepts a filepath to a CSV file and returns an instance of the `Trial` class with the data loaded.
+As described above, refactor the `__init__` method of the `Trial` class to take `data` and `id` as arguments. Then create a class method called `from_csv` that accepts a filepath to a CSV file and returns an instance of the `Trial` class with the data loaded.
 
 :::solution
 Here is the first section of our adjusted object code:
@@ -403,7 +372,8 @@ class Trial:
     def load_csv(filename):
         """Load a Numpy array from a CSV
 
-        :param filename: Filename of CSV to load
+        Parameters: 
+        filename (str). Filename of CSV to load
         """
         return np.loadtxt(fname=filename, delimiter=',')
 
@@ -572,7 +542,10 @@ As you can see, the tests are becoming complex, especially the one for `query_da
 
 Our `test_query_database` function can be simplified by separating the processes of creating the database and populating it with data from the test itself. We can create a fixture to do this which can then be passed to the `test_query_database` function. The fixture can also be responsible for removing the database after the tests have run. 
 
-in order to In the example below, we can use a fixture named `setup_database` to create our test database, add data and also remove the database file once the tests have finished running. As a result, our `test_query_database` function can be simplified and if we want to use the test database in other tests, we simply need to add `setup_database` as an argument to those tests.
+in order to In the example below, we can use a fixture named `setup_database` to create our test database, add data and also remove the database file once the tests have finished running. As a result, our `test_query_database` function can be simplified and if we want to use the test database in other tests, we simply need to add `setup_database` as an argument to those tests. 
+
+#### Using `yield` instead of `return`
+If there is a cleanup part to the fixture code, then the fixture function should use a `yield` statement rather than a `return` statement. Anything up to the `yield` statement is setup code, and anything after the statement will be run post-testing in order to clean up (teardown code).
 
 ::::challenge{id=database-fixture title="Adding a fixture to setup the database."}
 
