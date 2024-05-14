@@ -106,7 +106,7 @@ print(reduce(data, lambda a, b: min(a, b)))
 
 ```
 9
--24
+0
 4
 -1
 ```
