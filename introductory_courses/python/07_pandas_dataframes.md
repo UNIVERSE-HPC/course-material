@@ -544,7 +544,7 @@ subset = data.loc['Italy':'Poland', 'gdpPercap_1962':'gdpPercap_1972']
 print('Subset of data:\n', subset)
 
 # Which values were greater than 10000 ?
-print('\nWhere are values large?\n', subset 10000)
+print('\nWhere are values large?\n', subset > 10000)
 ~~~
 
 ~~~
@@ -572,7 +572,7 @@ Poland               False          False          False
 *   A frame full of Booleans is sometimes called a *mask* because of how it can be used.
 
 ~~~ python
-mask = subset 10000
+mask = subset > 10000
 print(subset[mask])
 ~~~
 
@@ -590,7 +590,7 @@ Poland                  NaN             NaN             NaN
 *   Useful because NaNs are ignored by operations like max, min, average, etc.
 
 ~~~ python
-print(subset[subset 10000].describe())
+print(subset[subset > 10000].describe())
 ~~~
 
 ~~~
