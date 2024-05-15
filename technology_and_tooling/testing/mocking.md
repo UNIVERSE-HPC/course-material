@@ -187,7 +187,7 @@ def test_query_db_mocked_connection(mock_connection):
 
 #### Monkeypatching in pytest
 
-As an alternative to using the `unitest.mock` library, its possible to use a version of mocking from within `pytest`, termed *monkeypatching*. A built-in fixture called `monkeypatch` allows modifying attributes, functions or classes within the scope of the test function. Some example methods are:
+As an alternative to using the `unitest.mock` library, its possible to use a version of mocking from within `pytest`, termed *monkeypatching*. This may be a simpler alternative in cases when a full mock to replace an object is not required, such as when you wish to just replace a single method or attribute. A built-in fixture called `monkeypatch` allows modifying attributes, functions or classes within the scope of the test function. Some example methods are:
 
 - `monkeypatch.setattr()` - used to set an attribute to a new value or replace it with a new function
 - `monkeypatch.delattr()` - used to delete an attribute
