@@ -82,14 +82,6 @@ $ git config --help
 In order to make sure all our work is backed up online, as well as making it easy to share with collaborators, we're going to link our version control content to [GitHub](https://github.com/). You'll need to [create an account there](https://github.com/signup). As your GitHub 
 username will appear in the URLs of your projects there, it's best to use a short, clear version of your name if you can.
 
-:::callout
-## Other Platforms
-
-There are other repository hosting sites like GitHub - Southampton has its own instance of [GitLab](https://git.soton.ac.uk) that's only accessible to Southampton user accounts.
-We'll use GitHub today, as it's the easiest one to use if you want to share your code with collaborators from outside the University - getting them access to the Southampton GitLab can be a pain!
-Both GitHub and GitLab have the same features, though some menu names will be different!
-:::
-
 ### Creating an SSH Key
 
 We'll need to set up SSH access to GitHub from your computer. This is how GitHub checks your identity when you try to access it - and is more secure than a password. To set up SSH access, we generate a pair of keys - one public, one private. We want to add the public key to GitHub, whilst the private one stays on our computer.
