@@ -71,7 +71,7 @@ and run this program? Where do you think the race condition is?
 int main(void) {
     int value = 0;
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int i = 0; i < NUM_TIMES; ++i) {
         value += 1;
     }
@@ -115,8 +115,8 @@ as the calculation depends on this data.
     /* The initialisation of the look up table is done in parallel */
     initialise_lookup_table(thread_id);
 
-#pragma omp barrier  /* As all threads depend on the table, we have to wait until all threads
-                        are done and have reached the barrier */
+    #pragma omp barrier  /* As all threads depend on the table, we have to wait until all threads
+                            are done and have reached the barrier */
 
     do_main_calculation(thread_id);
 }
@@ -133,7 +133,9 @@ double new_matrix[NX][NY];
 for (int i = 0; i < NUM_ITERATIONS; ++i) {
     int thread_id = omp_get_thread_num();
     iterate_matrix_solution(old_matrix, new_matrix, thread_id);
-#pragma omp barrier  /* You may want to wait until new_matrix has been updated by all threads */
+    
+    #pragma omp barrier  /* You may want to wait until new_matrix has been updated by all threads */
+    
     copy_matrix(new_matrix, old_matrix);
 }
 ```
@@ -193,8 +195,9 @@ write the result to disk.
 {
     int thread_id = omp_get_num_thread();
     initialise_lookup_table(thread_id);
-#pragma omp barrier  /* Add a barrier to ensure the lookup table is ready to be written to disk */
-#pragma omp single   /* We don't want multiple threads trying to write to file -- this could also be master */
+    
+    #pragma omp barrier  /* Add a barrier to ensure the lookup table is ready to be written to disk */
+    #pragma omp single   /* We don't want multiple threads trying to write to file -- this could also be master */
     {
         write_table_to_disk();
     }
@@ -237,14 +240,14 @@ when you use different loop schedulers? You can use the code example below as yo
 #define NUM_ELEMENTS 10000
 
 int main(int argc, char **argv) {
-  int array[NUM_ELEMENTS] = {0};
+    int array[NUM_ELEMENTS] = {0};
 
-#pragma omp parallel for schedule(static)
-  for (int i = 0; i < NUM_ELEMENTS; ++i) {
-    array[i] = log(i) * cos(3.142 * i);
-  }
+    #pragma omp parallel for schedule(static)
+    for (int i = 0; i < NUM_ELEMENTS; ++i) {
+        array[i] = log(i) * cos(3.142 * i);
+    }
 
-  return 0;
+    return 0;
 }
 ```
 
@@ -263,22 +266,22 @@ divisible by `output_frequency`.
 #define NUM_ELEMENTS 1000
 
 int main(int argc, char **argv) {
-  int array[NUM_ELEMENTS] = {0};
+    int array[NUM_ELEMENTS] = {0};
 
-  int progress = 0;
-  int output_frequency = NUM_ELEMENTS / 10; /* output every 10% */
+    int progress = 0;
+    int output_frequency = NUM_ELEMENTS / 10; /* output every 10% */
 
-#pragma omp parallel for schedule(static)
-  for (int i = 0; i < NUM_ELEMENTS; ++i) {
-    array[i] = log(i) * cos(3.142 * i);
+    #pragma omp parallel for schedule(static)
+    for (int i = 0; i < NUM_ELEMENTS; ++i) {
+        array[i] = log(i) * cos(3.142 * i);
 
-#pragma omp critical
+    #pragma omp critical
     {
-       progress++;
-       if (progress % output_frequency == 0) {
-         int thread_id = omp_get_thread_num();
-         printf("Thread %d: overall progress %3.0f%%\n", thread_id,
-                (double)progress / NUM_ELEMENTS * 100.0);
+         progress++;
+         if (progress % output_frequency == 0) {
+             int thread_id = omp_get_thread_num();
+             printf("Thread %d: overall progress %3.0f%%\n", thread_id,
+                    (double)progress / NUM_ELEMENTS * 100.0);
        }
     }
  }
@@ -388,7 +391,6 @@ int shared_array[4] = {0, 0, 0, 0};
 {
     #pragma omp atomic
     shared_variable += 1;
-
 }
 
 /* Can also use in a parallel for */
@@ -441,24 +443,24 @@ In the following program, an array of values is created and then summed together
 #define ARRAY_SIZE 524288
 
 int main(int argc, char **argv) {
-  float sum = 0;
-  float array[ARRAY_SIZE];
+    float sum = 0;
+    float array[ARRAY_SIZE];
 
-  omp_set_num_threads(4);
+    omp_set_num_threads(4);
 
-#pragma omp parallel for schedule(static)
-  for (int i = 0; i < ARRAY_SIZE; ++i) {
-    array[i] = cos(M_PI * i);
-  }
+    #pragma omp parallel for schedule(static)
+    for (int i = 0; i < ARRAY_SIZE; ++i) {
+        array[i] = cos(M_PI * i);
+    }
 
-#pragma omp parallel for schedule(static)
-  for (int i = 0; i < ARRAY_SIZE; i++) {
-    sum += array[i];
-  }
+    #pragma omp parallel for schedule(static)
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        sum += array[i];
+    }
 
-  printf("Sum: %f\n", sum);
+    printf("Sum: %f\n", sum);
 
-  return 0;
+    return 0;
 }
 ```
 
@@ -489,25 +491,25 @@ memory, meaning there will be no race condition. In the code below, we have used
 #define ARRAY_SIZE 524288
 
 int main(int argc, char **argv) {
-  float sum = 0;
-  float array[ARRAY_SIZE];
+    float sum = 0;
+    float array[ARRAY_SIZE];
 
-  omp_set_num_threads(4);
+    omp_set_num_threads(4);
 
-#pragma omp parallel for schedule(static)
-   for (int i = 0; i < ARRAY_SIZE; ++i) {
-    array[i] = cos(M_PI * i);
-   }
+    #pragma omp parallel for schedule(static)
+    for (int i = 0; i < ARRAY_SIZE; ++i) {
+        array[i] = cos(M_PI * i);
+    }
 
-#pragma omp parallel for schedule(static)
-   for (int i = 0; i < ARRAY_SIZE; i++) {
-#pragma omp atomic
-    sum += array[i];
-  }
+    #pragma omp parallel for schedule(static)
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        #pragma omp atomic
+        sum += array[i];
+    }
 
-  printf("Sum: %f\n", sum);
+    printf("Sum: %f\n", sum);
 
-  return 0;
+    return 0;
 }
 ```
 

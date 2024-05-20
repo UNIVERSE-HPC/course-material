@@ -1,6 +1,9 @@
 ---
-name: Introduction to Hybrid Paralellism
-dependsOn: [high_performance_computing.hpc_openmp.04_synchronisation]
+name: Introduction to Hybrid Parallelism
+dependsOn: [
+  high_performance_computing.hpc_openmp.04_synchronisation,
+  high_performance_computing.hpc_mpi
+]
 tags: [hybrid APIs]
 ---
 

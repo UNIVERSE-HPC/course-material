@@ -28,17 +28,23 @@ In simpler terms, when your program finds a special "parallel" section, it's lik
 
 OpenMP consists of three key components that enable parallel programming using threads:
 
-- **Compiler directives:** OpenMP makes use of special code markers known as *compiler directives* to indicate to the compiler when and how to parallelise various sections of code. These directives are prefixed with `#pragma omp`, and mark sections of code to be executed concurrently by multiple threads.
+- **Compiler Directives:** OpenMP makes use of special code markers known as *compiler directives* to indicate to the compiler when and how to parallelise various sections of code. These directives are prefixed with `#pragma omp`, and mark sections of code to be executed concurrently by multiple threads.
 - **Runtime Library Routines:** These are predefined functions provided by the OpenMP runtime library. They allow you to control the behavior of threads, manage synchronization, and handle parallel execution. For example, we can use the function `omp_get_thread_num()` to obtain the unique identifier of the calling thread.
 - **Environment Variables:** These are settings that can be adjusted to influence the behavior of the OpenMP runtime. They provide a way to fine-tune the parallel execution of your program. Setting OpenMP environment variables is typically done similarly to other environment variables for your system. For instance, you can adjust the number of threads to use for a program you are about to execute by specifying the value in the `OMP_NUM_THREADS` environment variable.
 
+Since parallelisation using OpenMP is accomplished by adding compiler directives to existing code structures, it's relatively easy to get started using it.
+This also means it's straightforward to use on existing code, so it can prove a good approach to migrating serial code to parallel.
+Since OpenMP support is built into existing compilers, it's also a defacto standard for C parallel programming.
+However, it's worth noting that other options exist in different languages (e.g. there are c++many options in C++, the [multiprocessing library](https://docs.python.org/3/library/multiprocessing.html) for Python, [Rayon](https://docs.rs/rayon/latest/rayon/) for Rust).
 
 ## Running a Code with OpenMP
 
 Before we delve into specifics of writing code that uses OpenMP, let's first look at how we compile and run an example "Hello World!" OpenMP program that prints this to the console.
 
- First, log into whichever HPC system you have access to - this could be a group server, or university- or national-level cluster (e.g. Iridis or DiRAC). Alternatively, you may have OpenMP installed on your local machine.
- 
+Wherever you may eventually run your OpenMP code - locally, on another machine, or on an HPC infrastructure - it's a good practice to develop OpenMP programs on your local machine first.
+This has the advantage of allowing you to more easily configure your development environment to suit your needs, particularly for making use of tools like Integrated Development Environments (IDEs), such as Microsoft VSCode.
+In order to make use of OpenMP itself, it's usually a case of ensuring you have the [right compiler installed on your system](https://www.openmp.org/resources/openmp-compilers-tools/), such as gcc.
+
 Save the following code in `hello_world_omp.c`:
 
 ~~~c
@@ -83,64 +89,17 @@ Hello World!
 Hello World!
 ~~~
 
-## OpenMP vs. Low-Level Threading APIs (POSIX Threads)
+::::callout
+## How to Use in Microsoft VSCode?
 
-When it comes to parallel programming with threads, there are two main ways to tackle it: the 
-user-friendly OpenMP and the more intricate Low-Level Threading APIs. In this context, **Low-Level 
-Threading APIs**, refer to interfaces like the Portable Operating System Interface (POSIX), which 
-defines a set of standard functions and interfaces for interacting with operating systems. Each 
-approach has its own advantages and considerations, so let's break them down in simpler terms:
+If you're looking to develop OpenMP programs in VSCode, here are three configuration hints which can help:
 
-OpenMP serves as a gentle introduction to parallel programming. It offers an easy way to parallelize 
-your code without delving into complex technicalities. This makes it ideal for beginners or anyone 
-seeking a straightforward approach. It's like choosing a reliable car that gets you from point A to 
-point B comfortably. 
+- **Language Extensions:** Installing the Microsoft [C/C++ language extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) in VSCode will provide IntelliSense and debugging features for C/C++. There is also an [extension for OpenMP](https://marketplace.visualstudio.com/items?itemName=idma88.omp-pragma) pragma directive support.
+- **Compiler Support:** OpenMP C programs need to be compiled with a `-fopenmp` flag, so creating/modifying a custom `tasks.json` file for VSCode can do this. Here's an [example tasks.json](code/vscode/tasks.json) which makes use of `-fopenmp` which you can copy into the project's `.vscode` folder (or merge into an existing one). The key thing is to ensure this flag is added into `args` within the task.
+- **Runtime/Debugging Support:** Configuring the number of threads for an OpenMP program to use when it's run can be accomplished using a custom `launch.json` file. Here's an [example launch.json](code/vscode/launch.json) which sets the `OMP_NUM_THREADS` environment variable before running the program (by default, it's set to 4). Copy this to the project's `.vscode` folder (or merge it with an existing one).
 
-### Advantages of OpenMP:
+You may need to adapt the `tasks.json` and `launch.json` depending on your platform (in particular, the `program` field in `launch.json` may need to reference a `hello_world_omp.exe` file if running on Windows, and the location of gcc in the `command` field may be different in `tasks.json`).
 
-- ***User-Friendly:*** OpenMP requires minimal code adjustments, making it a friendly choice for 
- newcomers.
-- ***Automated Work Distribution:*** It divides tasks among threads, ensuring balanced workloads.
-- ***Wider Applicability:*** OpenMP functions across different systems and programming languages.
+Once you've compiled `hello_world_omp.c` the first time, then, by selecting VSCode's `Run and Debug` tab on the left, the `C++ OpenMP: current file` configuration should appear in the top left which will set `OMP_NUM_THREADS` before running it.
+::::
 
-For instance, consider a scenario where you have a task that involves doing the same thing over and 
-over again, like processing a bunch of images. With OpenMP, you can split up the work among different 
-threads, so they each handle a part of the task at the same time.
-
-Now, imagine you're a master chef who wants complete control over every ingredient and spice in a 
-recipe. That's what Low-Level Threading APIs, like POSIX, offer – a lot of control over threads and 
-how they work together. But this kind of control requires a bit more knowledge and effort.
-
-Benefits of Low-Level Threading APIs:
-
-- ***Full Control:*** These APIs allow you to customize every aspect of threads, but it requires a 
-deeper understanding.
-- ***Better Performance:*** If you know exactly what you're doing, you can make things run faster and 
-more efficiently.
-- ***Flexible Solutions:*** You can create solutions that perfectly match your unique needs.
-
-Let's say you're building a game where players from different parts of the world can interact with 
-each other in real-time. Here, using POSIX threading would give you the control you need to manage 
-these interactions smoothly and avoid any weird glitches.
-
-### Choosing the Right Framework
-
-When deciding between OpenMP and Low-Level Threading APIs like POSIX for your parallel programming 
-needs, several factors come into play:
-
-| Aspect                  | OpenMP                                   | Low-Level Threading APIs like POSIX                    |
- |-------------------------|------------------------------------------|------------------------------------------------------|
-| **Ease of Use**             | User-friendly, higher-level abstractions | Lower-level, more manual management of threads       |
-| **Parallelism Scope**       | Parallel regions, loops, tasks            | Usually limited to thread creation and synchronization |
-| **Portability**             | Portable across different systems        | Depends on system-specific implementation           |
-| **Abstraction Level**       | Higher-level constructs and directives   | Direct interaction with system-level threading       |
-| **GPU Offloading Support**  | Supports offloading work to GPUs         | Typically lacks built-in support for GPU offloading  |
-| **Maintenance Complexity**  | Easier maintenance due to higher abstractions | Requires more low-level management                |
-| **Performance Optimization** | May offer automatic optimization         | Requires manual tuning for performance               |
-| **Common Usage**            | Widely used in research and industry      | Less common due to lower-level complexities         |
-
-In summary, OpenMP offers a more user-friendly and productive experience, especially for researchers 
-who want to focus on problem-solving rather than thread management. Additionally, its support for GPU #
-offloading enhances performance in certain scenarios. On the other hand, Low-Level Threading APIs like 
-POSIX provide greater control and are suitable for those with a solid grasp of system-level 
-programming.

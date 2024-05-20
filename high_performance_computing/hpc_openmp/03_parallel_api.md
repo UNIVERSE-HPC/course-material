@@ -1,5 +1,5 @@
 ---
-name: Writing Parallel Applications with OpenMP
+name: Parallelisation with OpenMP
 dependsOn: [high_performance_computing.hpc_openmp.02_intro_openmp]
 tags: [parallelisation, OMP APIs]
 ---
