@@ -4,6 +4,10 @@ dependsOn: [
     software_architecture_and_design.procedural.variables_python,
 ]
 tags: [python]
+learningObjectives:
+  - Use container-type variables to hold multiple sets of data.
+  - Use indexing and other access methods to access data within containers.
+  - Differentiate between mutable and immutable variable types.
 ---
 
 *Container* types are those that can hold other objects, and Python supports a

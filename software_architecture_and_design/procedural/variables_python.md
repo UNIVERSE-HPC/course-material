@@ -5,6 +5,10 @@ dependsOn: [
     technology_and_tooling.ide.cpp,
 ]
 tags: [python]
+learningObjectives:
+  - Describe the fundamental types of variables.
+  - Assign values to basic variables and make use of them.
+  - Print the content of variables.
 ---
 
 ## Getting started
