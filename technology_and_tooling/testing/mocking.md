@@ -5,6 +5,12 @@ dependsOn: [
   technology_and_tooling.testing.testable_code_fixtures
 ]
 tags: [pytest]
+attribution: 
+    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
+      url: https://www.universe-hpc.ac.uk
+      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+      license: CC-BY-4.0
+
 ---
 
 ## Why use mocking?

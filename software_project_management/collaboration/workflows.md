@@ -15,6 +15,11 @@ attribution:
       url: https://github.com/OxfordRSE/intermediate-git-collaboration
       image: https://avatars.githubusercontent.com/u/38728121?s=200&v=4
       license: CC-BY-4.0
+    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
+      url: https://www.universe-hpc.ac.uk
+      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+      license: CC-BY-4.0
+
 
 ---
 
