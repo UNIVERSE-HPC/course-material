@@ -13,8 +13,6 @@ attribution:
       url: https://github.com/carpentries-incubator/docker-introduction
       image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
       license: CC-BY-4.0
-
-
 ---
 
 In order to create and use your own container images, you may need more information than

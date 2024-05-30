@@ -15,6 +15,13 @@ summary: |
     The Bash shell is a command-line interface used in Unix-based operating systems
     such as Linux and macOS. This course will introduce you to the basics of using
     the Bash shell.
+attribution: 
+    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
+      url: https://www.universe-hpc.ac.uk
+      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+      license: CC-BY-4.0
+
+
 ---
 
 

@@ -20,6 +20,12 @@ attribution:
       url: https://github.com/OxfordRSE/python-packaging-course
       image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
       license: CC-BY-4.0
+    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
+      url: https://www.universe-hpc.ac.uk
+      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+      license: CC-BY-4.0
+
+
 summary: |
     This course introduces the basics of packaging and dependency management in Python and C++.
     For Python, we introduce `venv` for virtual envronments, and `pip` for package management and how to structure a modern Python package and publish it to PyPI.
