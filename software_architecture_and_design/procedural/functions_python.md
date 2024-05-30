@@ -4,7 +4,7 @@ dependsOn: [
     software_architecture_and_design.procedural.containers_python,
 ]
 tags: [python]
-learningObjectives:
+learningOutcomes:
     - Define a function that takes parameters.
     - Return a value from a function.
     - Test and debug a function.
