@@ -4,6 +4,12 @@ dependsOn: [
     software_architecture_and_design.procedural.containers_python,
 ]
 tags: [python]
+learningObjectives:
+    - Define a function that takes parameters.
+    - Return a value from a function.
+    - Test and debug a function.
+    - Set default values for function parameters.
+    - Explain why we should divide programs into small, single-purpose functions.
 ---
 ## Using Functions
 In most modern programming languages these procedures are called **functions**.
