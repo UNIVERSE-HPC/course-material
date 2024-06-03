@@ -5,6 +5,11 @@ dependsOn: [
   high_performance_computing.hpc_mpi
 ]
 tags: [hybrid APIs]
+learningOutcomes:
+  - Describe hybrid parallelism and its relevance in modern computing.
+  - Identify the advantages and disadvantages of combining OpenMP and MPI for parallel computing tasks.
+  - Assess the suitability of hybrid parallelism for specific software applications.
+  - Compare and contrast the performance of hybrid parallelism with other parallelization approaches.
 ---
 
 

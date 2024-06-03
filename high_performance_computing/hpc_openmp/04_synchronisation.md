@@ -2,6 +2,11 @@
 name: Synchronisation and Race Conditions
 dependsOn: [high_performance_computing.hpc_openmp.03_parallel_api]
 tags: [parallelisation,synchronisation]
+learningOutcomes:
+  - Define thread synchronization and its importance in parallel programming.
+  - Explain what race conditions are and how they occur in parallel programs.
+  - Implement thread synchronization mechanisms to prevent race conditions.
+  - Modify code to avoid race condition errors.
 ---
 
 In the previous episode, we saw how to use parallel regions, and the shortcut parallel for, to split work across
