@@ -10,6 +10,10 @@ attribution:
       url: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/
       image: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/assets/img/home-logo.png
       license: CC-BY-4.0
+learningOutcomes:
+  - Understand the problems of non-contiguous memory in MPI.
+  - Know how to define and use derived datatypes.
+
 ---
 
 We've so far seen the basic building blocks for splitting work and communicating data between ranks, meaning we're now dangerous enough to write a simple and successful MPI application. 

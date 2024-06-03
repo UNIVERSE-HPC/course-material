@@ -10,6 +10,11 @@ attribution:
       url: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/
       image: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/assets/img/home-logo.png
       license: CC-BY-4.0
+learningOutcomes:
+  - Understand the advantages and disadvantages of non-blocking communication.
+  - Use non-blocking MPI communication functions in a program.
+  - Describe deadlock in an MPI program.
+
 ---
 
 In the previous episodes, we learnt how to send messages between two ranks or collectively to multiple ranks.

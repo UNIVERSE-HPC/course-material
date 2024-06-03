@@ -10,6 +10,11 @@ attribution:
       url: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/
       image: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/assets/img/home-logo.png
       license: CC-BY-4.0
+learningOutcomes:
+  - Identify which parts of a codebase would benefit from parallelisation, and those that need to be done serially or only once.
+  - Convert a serial scientific code into a parallel code.
+  - Differentiate between choices of communication pattern and algorithm design.
+
 ---
 
 In this section we will look at converting a complete code from serial to parallel in a number of steps.

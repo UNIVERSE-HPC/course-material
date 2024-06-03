@@ -9,6 +9,12 @@ attribution:
       url: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/
       image: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/assets/img/home-logo.png
       license: CC-BY-4.0
+learningOutcomes:
+  - Learn what the Message Passing Interface (MPI) is.
+  - Understand how to use the MPI API.
+  - Learn how to compile and run MPI applications.
+  - Use MPI to coordinate the use of multiple processes across CPUs.
+
 ---
 
 ## What is MPI?
