@@ -10,6 +10,10 @@ attribution:
       url: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/
       image: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/assets/img/home-logo.png
       license: CC-BY-4.0
+learningOutcomes:
+  - Learn and understand common communication patterns in MPI programs.
+  - Determine what communication pattern you should use for your own MPI applications.
+
 ---
 
 We have now come across the basic building blocks we need to create an MPI application.

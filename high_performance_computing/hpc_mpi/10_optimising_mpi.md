@@ -11,6 +11,11 @@ attribution:
       url: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/
       image: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/assets/img/home-logo.png
       license: CC-BY-4.0
+learningOutcomes:
+  - Describe and differentiate between strong and weak scaling.
+  - Test the strong and weak scaling performance of our MPI code.
+  - Use a profiler to identify performance characteristics of our MPI application.
+
 ---
 Now we have parallelised our code, we should determine how well it performs.
 Given the various ways code can be parallellised, the underlying scientific implementation,and the type and amount of data the code is expected to process,
