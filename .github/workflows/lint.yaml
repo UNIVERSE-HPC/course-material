@@ -9,7 +9,7 @@ on:
       - '**/*.md'
 
 jobs:
-  check-markdown:
+  check-markdown-yaml:
     runs-on: ubuntu-latest
 
     steps:
