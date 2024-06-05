@@ -1,0 +1,22 @@
+name: Check Markdown and Front Matter
+
+on:
+  push:
+    paths:
+      - '**/*.md'
+  pull_request:
+    paths:
+      - '**/*.md'
+
+jobs:
+  check-markdown:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run Front Matter Linting
+        uses: alasdairwilson/front-matter-lint@main
+        with:
+          directory: '.'
