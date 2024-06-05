@@ -2,6 +2,14 @@
 name: Parallelisation with OpenMP
 dependsOn: [high_performance_computing.hpc_openmp.02_intro_openmp]
 tags: [parallelisation, OMP APIs]
+learningOutcomes:
+  - Describe the functionality of OpenMP pragma directives.
+  - Explain the concept of a parallel region and its significance in OpenMP.
+  - Understand the scope of variables in OpenMP parallel regions.
+  - Implement parallelization in a program using OpenMP directives.
+  - Use OpenMP library functions to manage threads and thread-specific information.
+  - Evaluate different schedulers available in OpenMP for loop iterations.
+  - Assess the impact of scheduling behaviors on program execution.
 ---
 
 
