@@ -10,6 +10,10 @@ attribution:
       url: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/
       image: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/assets/img/home-logo.png
       license: CC-BY-4.0
+learningOutcomes:
+  - Understand the different types of collective communication and their advantages.
+  - Learn how to use collective communication functions.
+
 ---
 
 The previous episode showed how to send data from one rank to another using point-to-point communication. 

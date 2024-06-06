@@ -10,6 +10,10 @@ attribution:
       url: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/
       image: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/assets/img/home-logo.png
       license: CC-BY-4.0
+learningOutcomes:
+  - Describe what is meant by point-to-point communication.
+  - Learn how to send and receive data between ranks.
+
 ---
 
 In the previous episode we introduced the various types of communication in MPI.

@@ -10,6 +10,12 @@ attribution:
       url: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/
       image: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/assets/img/home-logo.png
       license: CC-BY-4.0
+learningOutcomes:
+  - Understand how data is exchanged between MPI ranks.
+  - Briefly describe the modes of communication within an MPI program.
+  - Differentiate between blocking and non-blocking communication.
+  - Use an MPI communicator within a program.
+  - List the basic MPI data types.
 ---
 
 In previous episodes we've seen that when we run an MPI application, multiple *independent* processes are created which do their own work, on their own data, in their own private memory space. 

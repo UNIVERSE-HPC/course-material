@@ -2,6 +2,11 @@
 name: Introduction to OpenMP
 dependsOn: []
 tags: [parallelisation, OMP]
+learningOutcomes:
+  - Define OpenMP and its purpose.
+  - Recall the basic syntax of OpenMP directives.
+  - Explain how OpenMP works to parallelize computations.
+  - Understand the process of compiling and executing OpenMP applications.
 ---
 
 ## What is OpenMP?

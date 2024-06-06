@@ -1,48 +1,41 @@
 ---
 name: Functions
-dependsOn: [
-    software_architecture_and_design.procedural.containers_cpp,
-]
+dependsOn: [software_architecture_and_design.procedural.containers_cpp]
 tags: [cpp]
-- citation: >
-        This material was adapted from an "Introduction to C++" course developed by the
-        Oxford RSE group.
-      url: https://www.rse.ox.ac.uk
-      image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
+attribution:
+- citation: This material was adapted from an "Introduction to C++" course developed by the Oxford RSE group.
+  url: https://www.rse.ox.ac.uk
+  image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
+  license: CC-BY-4.0
+- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+  url: https://www.universe-hpc.ac.uk
+  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+  license: CC-BY-4.0
 ---
-
-
 
 # Functions
 
-The *function* (aka *procedure*) is a one of the defining aspects of proceedural programming. It
+The _function_ (aka _procedure_) is a one of the defining aspects of proceedural programming. It
 allows you to package up some code defining a particular operation into a
-re-useable *function* can can take zero or more *arguments* and (optionally)
-*return* a value.
+re-useable _function_ can can take zero or more _arguments_ and (optionally)
+_return_ a value.
 
 ## Declaring and calling funcitons
 
-The following *function prototypes* declare two functions: one called
+The following _function prototypes_ declare two functions: one called
 `my_func` that takes two parameters of type `double`{.Cpp} and returns a
 variable of type `double`{.Cpp}, and one called `main` that takes no parameters
 and returns an `int`{.Cpp}:
 
-~~~Cpp
+```Cpp
 double my_func(double x, double y);
 int main();
-~~~
+```
 
 The function prototype tells the compiler about function's name, return type,
 and parameters. You must declare the function before you can use it, like so:
 
-
-~~~Cpp
+```Cpp
 #include <iostream>
 double multiply(double x, double y); // function prototype
 
@@ -58,12 +51,11 @@ double multiply(double x, double y) // function definition
 {
   return x * y;
 }
-~~~
-
+```
 
 A function may also return no value, and be declared as `void`{.Cpp}.
 
-~~~Cpp
+```Cpp
 #include <iostream>
 void output(int score, int passMark);
 
@@ -79,36 +71,34 @@ void output(int score, int passMark) {
   else
     std::cout << "Fail - better luck next time\n";
 }
-~~~
-
+```
 
 Any variables that are used in the function must be declared as normal.
 
 For example:
 
-~~~Cpp
+```Cpp
 double multiply_by_5(double x)
 {
   double y = 5.0;
   return x * y;
 }
-~~~
+```
 
-Recall the rules about *scope*, the scope of `y` lasts until the end of the
+Recall the rules about _scope_, the scope of `y` lasts until the end of the
 function (the last curly bracket) after which `y` is removed from memory and is
 no longer available.
-
 
 ## Pass by value
 
 A function can only change the value of a variable inside the function, and not
-in the main program. This is because, by default, variables are *passed by value*, and the function
+in the main program. This is because, by default, variables are _passed by value_, and the function
 only sees a **copy**.
 
 Changes in this copied variable have no effect on the original variable, for
 example the function `no_effect` has no effect on the `x` variable passed into it in `main`:
 
-~~~Cpp
+```Cpp
 #include <iostream>
 
 void no_effect(double x) {
@@ -120,18 +110,18 @@ int main() {
   no_effect(x);
   std::cout << x << '\n';
 }
-~~~
+```
 
 [`[< compiler explorer >]`](https://gcc.godbolt.org/z/F1MBsS)
 
 # Pass by reference
 
 A common way of allowing a function to change the value of a variable outside the
-function is to use *references*. You can do this by adding 
+function is to use _references_. You can do this by adding
 the `&` symbol before the variable name in the declaration of the
 function and the prototype.
 
-~~~Cpp
+```Cpp
 #include <iostream>
 void add(double x, double y, double& rz);
 
@@ -145,7 +135,7 @@ int main() {
 void add(double x, double y, double& rz) {
   rz = x + y;
 }
-~~~
+```
 
 ::::challenge{id=swap_cpp title="Swap Two Numbers"}
 
@@ -153,6 +143,7 @@ Write a function that accepts two floating point numbers (using references), and
 swaps the values of these numbers.
 
 :::solution
+
 ```cpp
 void swap_these(float &x, float &y) {
     float tmp = x;
@@ -160,6 +151,7 @@ void swap_these(float &x, float &y) {
     y = tmp;
 }
 ```
+
 :::
 
 ::::
@@ -178,7 +170,7 @@ More than one function `mult` can be written - one that takes two
 integers and returns an integer, one that takes two floating point
 numbers and returns a floating point number, etc.
 
-~~~Cpp
+```Cpp
 float mult(float x, float y) {
   return x * y;
 }
@@ -191,7 +183,7 @@ int main() {
   int i = mult(7, 10);
   float f = mult(21.5f, 14.5f);
 }
-~~~
+```
 
 ::::challenge{id=dot_product title="Scalar (dot) product"}
 
@@ -200,6 +192,7 @@ Write a function that returns the scalar (dot) product of two
 `double` values.
 
 :::solution
+
 ```cpp
 double dot_product(const std::array<double, 3>& x, const std::array<double, 3>& y) {
     double dot = 0.0;
@@ -213,10 +206,10 @@ double dot_product(const double x, const double y) {
     return x * y;
 }
 ```
+
 :::
 
 ::::
-
 
 ## Return values
 
@@ -238,7 +231,7 @@ multiple return values via a `std::tuple`
 std::tuple<std::string, float> get_student_and_grade();
 ```
 
-or can *optionally* return value (i.e. either a value or nothing) via `std::optional`
+or can _optionally_ return value (i.e. either a value or nothing) via `std::optional`
 
 ```cpp
 std::optional<std::string> read_file_if_exists(const std::string& filename);
@@ -265,13 +258,13 @@ such a way that the caller of that function is aware of the error and can deal
 with it (if possible), or fail gracefully (perhaps clean up resources like an
 open file for example). In the previous section we saw one approach to dealling
 with an error, which is to return an optional value from the function. Another
-approach is to use C++ *exceptions*.
+approach is to use C++ _exceptions_.
 
 Let us define a function for solving a particular problem (e.g. a root-finding
 problem). This function has an input argument `x` of type `double`, but the
 solver we are writing can only solve the given problem for $x > 2.0$. Furthermore,
 even if $x > 2.0$ it is possible that the function fails to find a solution to
-the problem. 
+the problem.
 
 Since we have two possible points of failure, we decide to use exceptions to
 make the caller aware of any failures, and what in particular has gone wrong.
@@ -298,14 +291,14 @@ exceptions thrown (here either `std::invalid_argument` or `std::runtime_error`).
 If none is found then the program halts with an error.
 
 Below is an example of how you might call `solve_problem` and handle the
-possible errors with a *try-catch* expression:
+possible errors with a _try-catch_ expression:
 
 ```cpp
 int main() {
     double solve_for_x = 1.456;
     try {
         solve_problem(solve_for_x);
-    } 
+    }
     catch (std::invalid_argument err) {
         // oh no, double it and try again
         solve_problem(2 * solve_for_x);
@@ -326,8 +319,7 @@ Here we have three `catch` blocks, corresponding with different exceptions we
 want to handle. The first two are the ones we saw in the definition of
 `solve_problem`. The third is the base exception class in the standard library,
 so any exception in the standard library (or any exception derived from one of
-these) will be caught. 
-
+these) will be caught.
 
 ## Templated functions
 
@@ -337,7 +329,7 @@ differing types). Templates can be used to where the same code may need to
 repeated for different values or for different types. For example, say we had a
 function `get_min` that could accept either `double` or `int` via overloading:
 
-~~~Cpp
+```Cpp
 double get_min(double a, double b)
 {
    if (a < b) {return a;} return b;
@@ -347,13 +339,13 @@ int get_min(int a, int b)
 {
    if (a < b) {return a;} return b;
 }
-~~~
+```
 
 This is rather cumborsome as we have to repeat the implementation of the two
 overloaded functions. Instead, we can use the `template`{.Cpp} keyword to
 produce as many functions as may be required:
 
-~~~Cpp
+```Cpp
 template <typename Number>
 Number get_min (Number a, Number b) {
     if (a < b) {
@@ -367,7 +359,7 @@ int main(void) {
    double d1 = get_min<double>(22.0/7.0, 3.14159265359);
    double d2 = get_min(22.0/7.0, 3.14159265359);
 }
-~~~
+```
 
 [`[< compiler explorer >]`](https://gcc.godbolt.org/z/O5DSn8)
 
@@ -380,20 +372,20 @@ template argument `Number` replaced by the type given by the template argument.
 Note: it is not always necessary to provide the typename when calling a
 templated function, as long as the compiler can infer it:
 
-~~~Cpp
+```Cpp
 int main(void) {
    int arg1 = 10;
    int arg2 = -1;
    std::cout << get_min(arg1,arg2) << std::endl;
 }
-~~~
+```
 
 ### Multiple template arguments
 
 You can list multiple template arguments one after the other. These can be types
 (e.g. `typename T`{.Cpp}) or non-types (e.g. `int N`{.Cpp})
 
-~~~Cpp
+```Cpp
 template <int N, typename T>
 T multiply_by_n (T a) {
     return N*a;
@@ -403,23 +395,24 @@ int main(void) {
     int i = 1;
     std::cout << multiply_by_n<2>(i) << std::endl;
 }
-~~~
+```
 
 ::::challenge{id=dot_product_cont title="Scalar (dot) product continued"}
 
 Rewrite your dot product function to take any two containers $a$ and $b$ that follow the standard container interface in C++. Your function should take three arguments:
 
-1. A start iterator for vector $a$ 
-1. An end iterator for vector $a$ 
+1. A start iterator for vector $a$
+1. An end iterator for vector $a$
 1. A start iterator for vector $b$ (vector $b$ is assumed to be the same size as vector $a$)
 
 Template your function on the iterator type for $a$ `Ta`, and the iterator type
 for $b$ `Tb`. If you like, you can perform the calculation of the dot product
 using a fixed type `double`. For an extra challenge, make sure you use the same
 type contained in $a$ (hint: each iterator and container in the standard library
-has a subtype `value_type` that is the value type held by the container). 
+has a subtype `value_type` that is the value type held by the container).
 
 :::solution
+
 ```cpp
 template <typename Ta, typename Tb>
 Ta::value_type dot_product(Ta start_a, Ta end_a, Tb start_b) {
@@ -433,6 +426,6 @@ Ta::value_type dot_product(Ta start_a, Ta end_a, Tb start_b) {
 }
 
 ```
+
 :::
 ::::
-
