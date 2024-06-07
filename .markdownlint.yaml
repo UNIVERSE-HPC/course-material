@@ -1,0 +1,3 @@
+default: true
+MD041: false # Ignore first line heading warnings (because we title set in front matters)
+MD013: false # Ignore line length warnings
