@@ -1,12 +1,10 @@
---
+---
 name: State and Side Effects
 dependsOn: [
 ]
 tags: [cpp]
 attribution: 
-    - citation: >
-        This material was adapted from an "Introduction to C++" course developed by the
-        Oxford RSE group.
+    - citation: This material was adapted from an "Introduction to C++" course developed by the Oxford RSE group.
       url: https://www.rse.ox.ac.uk
       image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
       license: CC-BY-4.0
@@ -14,7 +12,6 @@ attribution:
       url: https://www.universe-hpc.ac.uk
       image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
       license: CC-BY-4.0
-
 ---
 
 ## Program state
