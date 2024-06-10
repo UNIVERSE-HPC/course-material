@@ -240,18 +240,13 @@ authors = [
     {name = "Spam Eggs", email = "spam.eggs@email.com"}
 ]
 readme = "README.md"
-homepage = "myfancywebsite.com"
-license = "GPLv3"
+license = {text = "MIT"}
+dependencies = ["numpy", "matplotlib", "scipy"]
 
 [project.urls]
-Source = "myfancywebsite.com"
+Source = "example.com"
 
 [project.scripts] # Define scripts here if you have any
-
-[project.dependencies]
-numpy = "*"
-matplotlib = "*"
-scipy = "*"
 
 [project.optional-dependencies] # Define optional dependencies here if you have any
 ```
