@@ -56,7 +56,7 @@ We can test our installation by running a Python command:
 Once Python is installed, we can add Python packages using the pip package installer:
 
 ~~~bash
-/# pip install cython
+/# pip install pandas
 ~~~
 
 ::::challenge{id=searching-for-help title="Searching for Help"}
@@ -149,14 +149,14 @@ to look like this:
 ~~~dockerfile
 FROM alpine
 RUN apk add --update python3 py3-pip python3-dev
-RUN pip install cython
+RUN pip install pandas
 CMD ["python3", "--version"]
 ~~~
 :::
 ::::
 
 The recipe provided by the `Dockerfile` shown in the solution to the preceding exercise will use Alpine Linux as the base container image,
-add Python 3 and the Cython library, and set a default command to request Python 3 to report its version information.
+add Python 3 and the Pandas library, and set a default command to request Python 3 to report its version information.
 
 ## Create a new Docker image
 
