@@ -176,9 +176,12 @@ rendering the latter format obsolete. For more information, refer to [Wheel vs E
     ```shell
     python -m build --wheel
     ```
-5.  Install the wheel using `pip`.
-    Hint: wheels are written in the `dist/` directory, just
+5.  Install the wheel using `pip`. Wheels are written in the `dist/` directory, just
     like source distributions.
+
+    ```shell
+    python -m pip install ./dist/tstools*.whl
+    ```
 6.  `.whl` files are basically zip files. Unzip the wheel and explore its contents.
 
 :::callout
