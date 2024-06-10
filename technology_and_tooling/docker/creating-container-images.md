@@ -53,10 +53,10 @@ We can test our installation by running a Python command:
 /# python3 --version
 ~~~
 
-Once Python is installed, we can add Python packages using the pip package installer:
+Once Python is installed, we can add Python packages using the pip package installer (note: the --break-system-packages flag is required in some Docker containers to allow pip to install packages that might otherwise conflict with system-managed packages):
 
 ~~~bash
-/# pip install pandas
+/# pip install pandas --break-system-packages
 ~~~
 
 ::::challenge{id=searching-for-help title="Searching for Help"}
@@ -149,7 +149,7 @@ to look like this:
 ~~~dockerfile
 FROM alpine
 RUN apk add --update python3 py3-pip python3-dev
-RUN pip install pandas
+RUN pip install pandas --break-system-packages
 CMD ["python3", "--version"]
 ~~~
 :::
