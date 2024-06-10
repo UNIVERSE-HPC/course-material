@@ -72,7 +72,7 @@ $ python
 
 The order of this list matters: it is the order in which python looks into the directories that constitute the python path.
 To begin with, Python first looks in the current directory.
-If the package/module isn't found there, the python intepreter looks in the following directories
+If the package/module isn't found there, the python interpreter looks in the following directories
 (in this order):
 
 -   `/usr/lib/python38.zip`
@@ -86,7 +86,7 @@ interpreter looks inside the directory
 currently active virtual environment.
 
 :::callout
-The output of `sys.path` is probaby different on your machine. It depends on many 
+The output of `sys.path` is probably different on your machine. It depends on many 
 factors,
 like your operating system, your version of Python, the location of your current active Python
 environment.
@@ -100,7 +100,7 @@ ways we can make the `tstools` package importable from the `analysis2/`
 directory:
 
 1.  **Copy (`analysis1/tstools/`) in `analysis2/`**.
-    You end up with two independant packages. If you make changes to one, you have to remember to make the same
+    You end up with two independent packages. If you make changes to one, you have to remember to make the same
     changes to the other. It's the usual copy and paste problems: inefficient and error-prone.
 2.  **Add `analysis1/` to `sys.path`**.
     At the beginning of `analysis2.py`, you could just add
@@ -113,7 +113,7 @@ directory:
     This approach can be sufficient in some situations, but generally not recommended. What if the package directory is relocated?
 3.  **Copy `analysis1/tstools` directory to the `site-packages/` directory.**
     You have to know where the `site-packages` is. This depends on your current system and python environment (see below).
-    The location on your macine may very well be differnt from the location on your colleague's machine.
+    The location on your machine may very well be different from the location on your colleague's machine.
 
 More generally, the three above approaches overlook a very important
 point: **dependencies**.  Our package has two: numpy and matplotlib.
@@ -226,7 +226,7 @@ tool-agnostic and easily extensible, allowing for the coexistence and
 cooperation of different tools in the same project, which makes the packaging
 process more uniform across different tools.
 
-Here is an equivilant `pyproject.toml` file for our `tstools` package:
+Here is an equivalent `pyproject.toml` file for our `tstools` package:
 
 ```toml
 [build-system]
@@ -256,10 +256,10 @@ scipy = "*"
 [project.optional-dependencies] # Define optional dependencies here if you have any
 ```
 
-Note that both `setup.py` and `pyproject.toml` can be used in conjection, and in
+Note that both `setup.py` and `pyproject.toml` can be used in conjunction, and in
 the transition period it is common for Python packages to include both these files, as we
 will do in this workshop. In this case, we can create a minimal `pyproject.toml` file that just
-specificies the use of `setuptools` and links to the `setup.py` file:
+specifies the use of `setuptools` and links to the `setup.py` file:
 
 ```toml
 [build-system]
@@ -290,12 +290,12 @@ python-workshop/
 ```
 
 Actually, there are no reasons for our `tstools` package to be located
-in the `analysis1/` directory.  Indeed, the package is independant
+in the `analysis1/` directory.  Indeed, the package is independent
 from this specific analysis, and we want to share it among multiple
 analyses.
 
 To reflect this, let's move the `tstools` package into a new directory
-`tstools-dist` located next to the `anaylis1` and `analysis2`
+`tstools-dist` located next to the `analysis1` and `analysis2`
 directories:
 
 ```text
@@ -396,7 +396,7 @@ pip install -e .
 
 1.  Uninstall the package with `pip uninstall tstools`
 2.  List all the installed packages and check that `tstools` is not among them
-    Hint: Use `pip --help` to get alist of available `pip` commands.
+    Hint: Use `pip --help` to get a list of available `pip` commands.
 3.  re-install `tstools` in editable mode.
 4.  Modify the `tstools.vis.plot_trajectory_subset` so that it returns the maximum value
     over the trajectory subset, in addition to `figure` and `axis`.
