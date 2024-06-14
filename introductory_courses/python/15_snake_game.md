@@ -33,4 +33,3 @@ The instructions for the game are self-contained at the following link:
 3. Follow the five walkthrough vignettes to gradually build up your game of Snake
 
 ::::
-

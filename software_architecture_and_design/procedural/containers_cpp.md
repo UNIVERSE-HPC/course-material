@@ -18,49 +18,49 @@ attribution:
 
 ---
 
-*Container* types are those that can hold other objects, and C++ supports a number of 
-different [containers](https://en.cppreference.com/w/cpp/container) we can use to hold 
-data of differing types in a multitude of ways. 
+*Container* types are those that can hold other objects, and C++ supports a number of
+different [containers](https://en.cppreference.com/w/cpp/container) we can use to hold
+data of differing types in a multitude of ways.
 
 ## Vector and Arrays
 
-One of the most fundamental data structures in any language is the array, used to hold 
-many values at once in a contiguous region of memory. There are two array containers in 
-C++, depending on if you have a fixed sized array (`std::array`), or variable sized 
-(`std::vector`). When using these a user needs to specify the type of value held by that 
-container, and for the `std::array` you also need to specify the length. For example, to 
+One of the most fundamental data structures in any language is the array, used to hold
+many values at once in a contiguous region of memory. There are two array containers in
+C++, depending on if you have a fixed sized array (`std::array`), or variable sized
+(`std::vector`). When using these a user needs to specify the type of value held by that
+container, and for the `std::array` you also need to specify the length. For example, to
 define a `std::vector` of `double` values you could write
 
-```cpp
+~~~cpp
 std::vector<double> x;
-```
+~~~
 
 or a `std::array` of five `int` values is declared as:
 
-```cpp
+~~~cpp
 std::array<int, 5> y;
-```
+~~~
 
-The angle bracket syntax here is an example of using *templates* in C++, and both 
-`std::vector` and `std::array` are examples of *templated* classes. Templates in C++ are 
-a form of *generic programming*, and allow us to write classes (and functions) that can 
-accept many different types. All the container in C++ need to be able to hold any type 
-of value, and therefore all of the container types in C++ are templated on the value 
-type. The `std::array` class represents an array with a pre-defined size, and so this 
-size is another template arguement. Note that unlike arguements to functions, all 
+The angle bracket syntax here is an example of using *templates* in C++, and both
+`std::vector` and `std::array` are examples of *templated* classes. Templates in C++ are
+a form of *generic programming*, and allow us to write classes (and functions) that can
+accept many different types. All the container in C++ need to be able to hold any type
+of value, and therefore all of the container types in C++ are templated on the value
+type. The `std::array` class represents an array with a pre-defined size, and so this
+size is another template arguement. Note that unlike arguements to functions, all
 template arguements must be know *at compile time*.
 
-Since `std::array` has more limited use compared with `std::vector`, we will focus the 
-remainder of this section on `std::vector`. The interface to `std::array` is very 
-similar, and you can read about this particular container 
-[here](https://en.cppreference.com/w/cpp/container/array). We will also from here on 
-refer to `std::vector` as a vector, rather than the more general term "array", to match 
+Since `std::array` has more limited use compared with `std::vector`, we will focus the
+remainder of this section on `std::vector`. The interface to `std::array` is very
+similar, and you can read about this particular container
+[here](https://en.cppreference.com/w/cpp/container/array). We will also from here on
+refer to `std::vector` as a vector, rather than the more general term "array", to match
 with the name of the class itself.
 
 ### Creating and Extracting Things from Vectors
 
-To define a vector initialised to a list of values, we can simply write a comma 
-separated list of items in curly brackets. We can also define a two dimensional vector 
+To define a vector initialised to a list of values, we can simply write a comma
+separated list of items in curly brackets. We can also define a two dimensional vector
 by defining a "vector of vectors".
 
 ~~~cpp
@@ -68,13 +68,13 @@ std::vector<int> odds = {1, 3, 5, 7, 9, 11, 15};
 std::vector<std::vector<int>> more_numbers = { {1, 2}, {3, 4, 5}, { {6, 7}, {8} } }
 ~~~
 
-We can see that our multi-dimensional vector can contain elements themselves of any size 
-and depth. This could be used as way of representing matrices, but later we'll learn a 
+We can see that our multi-dimensional vector can contain elements themselves of any size
+and depth. This could be used as way of representing matrices, but later we'll learn a
 better way to represent these.
 
-This curly bracket syntax is for representing *initializer lists* in C++. These 
-initializer lists can only be used when initialising, or constructing, an instance of a 
-class, and cannot be used once the instance has been already created. For example, the 
+This curly bracket syntax is for representing *initializer lists* in C++. These
+initializer lists can only be used when initialising, or constructing, an instance of a
+class, and cannot be used once the instance has been already created. For example, the
 following code will give a compile error:
 
 ~~~cpp
@@ -82,10 +82,10 @@ std::vector<int> odds;
 odds = {1, 3, 5, 7, 9, 11, 15};
 ~~~
 
-Note that every value in a vector must be of the same type, and this must match the type 
+Note that every value in a vector must be of the same type, and this must match the type
 that the `std::vector` is templated on.
 
-We can select individual elements from vecotrs by indexing them. Looking at our `odds` 
+We can select individual elements from vecotrs by indexing them. Looking at our `odds`
 list:
 
 ![index-list](../fig/05-index-list-odd.png)
@@ -98,11 +98,11 @@ std::cout << odds[0] << ' ' << odds[-1] << std::endl;
 
 This will print the first and last elements of a list:
 
-~~~
+~~~text
 1 15
 ~~~
 
-We can replace elements within a specific part of the list (note that in C++, indexes 
+We can replace elements within a specific part of the list (note that in C++, indexes
 start at 0):
 
 ~~~cpp
@@ -135,10 +135,10 @@ for (std::vector<double>::iterator i = x.begin();
 }
 ~~~
 
-An iterator acts like a pointer to each element of the vector, and thus it can be 
+An iterator acts like a pointer to each element of the vector, and thus it can be
 dereferenced using `*` to obtain a reference to the value pointed to.
 
-We can simplify this rather verbose iterator classname by using the `auto`{.Cpp} 
+We can simplify this rather verbose iterator classname by using the `auto`{.Cpp}
 keyword. This tells the compiler to infer the
 correct type (i.e. what is returned from `x.begin()`{.Cpp}:
 
@@ -149,7 +149,7 @@ for (auto i = x.begin(); i != x.end(); ++i)
 }
 ~~~
 
-Another `for` loop in C++ is the *range-based* loop, and these have the most compact 
+Another `for` loop in C++ is the *range-based* loop, and these have the most compact
 syntax, and work with any container that has `begin` and `end` methods.
 
 ~~~cpp
@@ -194,7 +194,8 @@ for (const auto& i: x)
 Write code to calculate the scalar (dot) product of two `std::vector<double>` variables
 
 :::solution
-```cpp
+
+~~~cpp
 std::vector<double> x = {1.0, 2.0, 3.0};
 std::vector<double> y = {1.0, 2.0, 3.0};
 
@@ -205,18 +206,19 @@ for (int i = 0; i < x.size(); ++i) {
 }
 
 std::cout << "dot with vectors = "<< dot << std::endl;
-```
+~~~
+
 :::
 ::::
 
 ::::challenge{id=matrix_multiply title="Matrix multiply" }
 
-Write code to multiply two 3 x 3 matrices $C = AB$ using `std::array`. Think about how you would 
-store your matrices. You could use a flat array `std::array<double, 9>`, or 
-you could use nested arrays `std::array<std::array<double, 3>, 3>`. Output the 
+Write code to multiply two 3 x 3 matrices $C = AB$ using `std::array`. Think about how you would
+store your matrices. You could use a flat array `std::array<double, 9>`, or
+you could use nested arrays `std::array<std::array<double, 3>, 3>`. Output the
 result in a nicely formatted way, for example:
 
-~~~
+~~~text
 C =
 | 1, 2, 3 |
 | 4, 5, 6 |
@@ -224,7 +226,8 @@ C =
 ~~~
 
 :::solution
-```cpp
+
+~~~cpp
 std::array<std::array<double,3>,3> A = {{{5, 8, 2}, {8, 3, 1}, {5, 3, 9}}};
 std::array<std::array<double,3>,3> B = {{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}};
 std::array<std::array<double,3>,3> C = {};
@@ -249,26 +252,27 @@ for (int i = 0; i < 3; ++i) {
     }
   }
 }
-```
+~~~
+
 :::
 
 ### Deleting Values, big-O notation and std::list
 
-Deleting elements from the end of a vector is simple and fast and can be done using the 
-`pop_back` function, which takes constant, or $\mathcal{O}(1)$ time using big-O notation. This 
-means that the time taken is a constant or fixed amount of time independent of the size 
-of the vector. Deleting elements from the *start* or *middle* of the vector is more 
-difficult. An vector in C++ is an implementation of an *array* data structure, and 
-therefore the values contained occupy a *contiguous* section of memory, the start of 
-which is also the start of the vector. When deleting an element from the start or 
-middle, the remainder of the vector must be shifted down to maintain the contiguous 
-nature of the vector and the alignment of the first element to the start of the 
-allocated memory. Therefore deleting elmements from the start or middle of a vector 
-takes an amount of time that scales linearly with the size of the vector $n$, or 
+Deleting elements from the end of a vector is simple and fast and can be done using the
+`pop_back` function, which takes constant, or $\mathcal{O}(1)$ time using big-O notation. This
+means that the time taken is a constant or fixed amount of time independent of the size
+of the vector. Deleting elements from the *start* or *middle* of the vector is more
+difficult. An vector in C++ is an implementation of an *array* data structure, and
+therefore the values contained occupy a *contiguous* section of memory, the start of
+which is also the start of the vector. When deleting an element from the start or
+middle, the remainder of the vector must be shifted down to maintain the contiguous
+nature of the vector and the alignment of the first element to the start of the
+allocated memory. Therefore deleting elmements from the start or middle of a vector
+takes an amount of time that scales linearly with the size of the vector $n$, or
 $\mathcal{O}(n)$ time.
 
 For example, if we want to delete an element from the middle of a vector while
-preserving the order of the elements, we can do the 
+preserving the order of the elements, we can do the
  following:
 
 ~~~cpp
@@ -287,15 +291,15 @@ for (auto i = x.begin(); i != x.end(); i++) {
 std::cout << "]" << std::endl;
 ~~~
 
-Notice that this requires a loop through all the elements of the vector, hence the time 
-taken is $\mathcal{O}(n)$. The output of this program will show us the vector with a '2' 
+Notice that this requires a loop through all the elements of the vector, hence the time
+taken is $\mathcal{O}(n)$. The output of this program will show us the vector with a '2'
 removed:
 
-~~~
+~~~text
 [1, 3, 4, ]
 ~~~
 
-A linked list is a data structure that provides constant-time insertion or deletion of 
+A linked list is a data structure that provides constant-time insertion or deletion of
 elements in the middle/start of the container. The C++ implmentation of a linked list is `std::list`, which you can use like this:
 
 ~~~cpp
@@ -316,13 +320,13 @@ Recall that we can use `std::move` to move rather than copy values in C++. This
 is often useful to efficiently move values into a container without the expense
 of copying them, e.g.
 
-```cpp
+~~~cpp
 std::string war_and_peace = "....";
 std::string moby_dick = "....";
 std::list books;
 books.push_back(std::move(war_and_peace));
 books.push_back(std::move(moby_dick));
-```
+~~~
 
 ## Memory allocation and iterator invalidation
 
@@ -332,7 +336,7 @@ is useful to have an awareness of how this allocation works. Generally
 the memory allocation is handled automatically by the allocator, which reserves a
 certain amount of memory (its capacity) which might be greater than the size of
 the vector. Whenever the size of the vector exceeds this capacity the allocator
-reallocates the memory for that vector, reserving a greater amount. 
+reallocates the memory for that vector, reserving a greater amount.
 
 ~~~cpp
 std::vector<int> x;
@@ -346,7 +350,7 @@ for (int i = 0; i < 3000; i++) {
 }
 ~~~
 
-~~~
+~~~text
 Size = 1 Capacity = 1
 Size = 2 Capacity = 2
 Size = 3 Capacity = 4
@@ -401,7 +405,7 @@ might look like the below. In this case the reallocated vector has been moved
 to a section of memory far away from the original location, and all the
 intermediate memory locations are processed as well as the vector itself:
 
-~~~
+~~~text
 1 2 3 4 0 0 1041 0 540155953 540287027 540024880 825503793 891301920 892416052 859126069 808727840 808925234 891303730 842018868 808990772 892483616 926101557 941634361 808661305 808597809 842610720 808857908 941634101 842086709 959852598 942684192 943141431 941633588 842610736 875770421 825833504 926101555 941633587 825242164 943077432 942684192 925907257 941634103 942944825 909194803 909261088 892416049 958412597 859189556 825635636 942684192 858863158 941634864 959789104 959461431 842283040 925905206 941633586 892876848 942684471 825506080 825504566 941633840 942682676 959461174 959789344 892482872 958412857 943075892 842608948 859060512 875639857 958411059 859189556 943207731 842283040 925905206 941635123 926364983 825373744 892483616 892547896 958411824 808531506 892679473 825506080 892547894 941635384 875705650 875966770 859060512 876033840 958411315 943075892 842608948 892483872 842477625 958412597 859189556 858796340 842283296 942945337 958412082 959527216 858798132 959461664 808531506 941635640 825504313 959721526 943012128 892481844 941635385 942750005 909456697 892483616 909456182 958412339 943075892 842608948 943011872 825439800 958412853 859189556 875968564 959789344 825833527 958411824 909392181 825439281 842283040 808663090 958410804 809055538 909128245 825506080 892547894 941635128 926429753 942946358 842283296 875837494 941633847 808793394 808988726 892483616 892612661 958412342 859189556 808728627 842283296 909260854 958412343 909392181 876032305 959789344 859387959 941634612 942944825 842479666 943012128 942813492 958412597 925905716 842610741 842283040 959983670 941635636 909130037 842085680 892811296 943272758 958412597 825505845 959787057 959789088 891303992 808661305 842610995 942684192 858863158 941634864 825635380 892942640 842283296 825505846 941634105 909654069 943010099 825506080 942945078 941634614 859190578 808989493 842610720 909259833 941633588 942813748 909718067 892483616 943009845 958412340 859189556 892350772 959461664 808727862 958413110 825242420 960049200 892483616 808857653 958410808 876163636 943140917 825506080 909390646 941634609 959527221 943142192 942684192 876165177 941634361 825635380 808597296 959461664 943273266 958411571 859189556 943207731 842283296 926101816 958412852 825702704 926298168 842610720 909326388 958412337 808465204 892614713 943012128 858927412 941633588 942750005 909456697 842610720 925906227 958411319 909392181 875968049 942684192 943141431 958411318 825505845 808530227 892483616 875705394 958410802 875573302 808464953 842610720 909326388 941635121 892876848 859125303 0 0 49 0 1641085147 5 469321016 -564037215 0 1 2 3 0 0 81 0 1 2 3 4 0 1 2 3 4 5 6 7 8 9
 ~~~
 
@@ -428,7 +432,7 @@ std::cout << std::endl;
 
 gives the output
 
-~~~
+~~~text
 x oxygen!
 ~~~
 
@@ -449,7 +453,7 @@ std::cout << "water is " << water << std::endl;
 std::cout << "first element in water is " << first_hydrogen << std::endl;
 ~~~
 
-~~~
+~~~text
 water is hydrogen-oxygen-hydrogen
 first element in water is hydrogen
 ~~~
@@ -489,7 +493,7 @@ const auto key = "Liverpool"s;
 std::cout << "The population of " << key << " is " << populations[key] << std::endl; 
 ~~~
 
-~~~
+~~~text
 [Edinburgh] = 448850; [Liverpool] = 467995; [Manchester] = 430818; [Oxford] = 137343; 
 The population of Liverpool is 467995
 ~~~
@@ -511,22 +515,18 @@ auto fruits = sdt::make_tuple(3.14, 2, 'Cherry');
 
 Values can be obtained from a tuple via *destructuring*. For C++17 and onwards, the syntax is
 
-```cpp
+~~~cpp
 auto [weight, number, name] = fruits;
-```
+~~~
 
 Note that previously the syntax was more cumbersome:
 
-```cpp
+~~~cpp
 double weight; 
 int number;
 std::string name;
 std::tie(weight, number, name) = fruits;
-```
-
-
-
-
+~~~
 
 ## General Rule
 
@@ -545,7 +545,7 @@ Download the iris dataset hosted by the UCI Machine Learning Repository [here](h
 2. sepal width in cm
 3. petal length in cm
 4. petal width in cm
-5. class: 
+5. class:
    -- Iris Setosa
    -- Iris Versicolour
    -- Iris Virginica)_)
@@ -557,7 +557,7 @@ more `std::vector`'s. Subsequently, calculate the minimum/maximum sepal length
 using your data vector(s) and store the result in a `std::map` which maps
 class name to min/max bounds.
 
-```cpp
+~~~cpp
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -585,10 +585,11 @@ int main() {
     std::cout << sepal_len << ' ' << iris_class << std::endl;
   }
 }
-```
+~~~
 
 :::solution
-```cpp
+
+~~~cpp
 #include <iostream>
 #include <string>
 #include <map>
@@ -640,6 +641,6 @@ int main() {
     std::cout << iris_class << " = (" << min << " - " << max << ")" << std::endl; 
   }
 }
-```
+~~~
 
 ::::

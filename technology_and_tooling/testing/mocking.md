@@ -19,7 +19,7 @@ Sometimes we may not want to use "real" objects or functions in our tests, such 
 
 ### Using the `unittest.mock` library
 
-Let us continue with previous example from the  [testable code and fixtures section](testable_code_fixtures), where we were testing functions to connect to and query a SQLite database. We will be testing the functionality of code in the `sqlite_example.py` file that we created previously. This time, instead of actually connecting to the database, we can mock an object to replace it with one that we can control and monitor. We will need to import a library in order to create our mocks. Rather than `pytest`, another library `unittest`, which is the testing library that comes as standard with Python, will be used. We can use the `unittest.mock.Mock` class to create a mock object. As a simple example, we can replace our `query_database` function with this `Mock` object. Then we are able to replace the value returned from `query_database` with whatever we want. Here is the contents of a new file `test_mocks.py`. 
+Let us continue with previous example from the  [testable code and fixtures section](testable_code_fixtures), where we were testing functions to connect to and query a SQLite database. We will be testing the functionality of code in the `sqlite_example.py` file that we created previously. This time, instead of actually connecting to the database, we can mock an object to replace it with one that we can control and monitor. We will need to import a library in order to create our mocks. Rather than `pytest`, another library `unittest`, which is the testing library that comes as standard with Python, will be used. We can use the `unittest.mock.Mock` class to create a mock object. As a simple example, we can replace our `query_database` function with this `Mock` object. Then we are able to replace the value returned from `query_database` with whatever we want. Here is the contents of a new file `test_mocks.py`.
 
 ~~~python
 import pytest
@@ -51,6 +51,7 @@ def test_query_database_mock(database_fn_fixture):
 In the example above, we do not require a database connection, a database file, or to perform any query on a database at all, since we have replaced the entire `query_database` function. The test is not especially useful, however, since we are now simply testing that the `Mock` object returns the value that we asked it to return. Note that we also test that the function was called with the correct arguments (although in this case we could call `query_database` with any arguments we liked since it is actually an `Mock` object).
 
 :::callout{variant="note"}
+
 ## The difference between `Mock` and `MagicMock`
 
 In the examples in this lesson, we will use the `Mock` object from the `unittest` library. When looking elsewhere for information you may find examples that use the `MagicMock` object. The difference between the two is that `MagicMock` objects have default implementations of Python "magic" methods. These are also sometimes referred to as *dunder methods* (double underscore methods), officially however, they are known as [*special methods*](https://docs.python.org/3/reference/datamodel.html#specialnames). Since we will not be relying on any of these methods for our examples, we will stick with the more simple object that does not risk bringing any unexpected behaviour to our mocks.
@@ -87,9 +88,9 @@ def test_query_db_mocked_connection():
 
 ~~~
 
-#### Patching functions
+### Patching functions
 
-If we add the test above to our `test_mocks.py` file and run `python -m pytest tests/test_mocks.py ` we find that the tests pass. If we run this file along with the `test_sqlite.py` file that we created in the [previous lesson](testable_code_fixtures), however, we may find that we start to get test failures with errors similar to this:
+If we add the test above to our `test_mocks.py` file and run `python -m pytest tests/test_mocks.py` we find that the tests pass. If we run this file along with the `test_sqlite.py` file that we created in the [previous lesson](testable_code_fixtures), however, we may find that we start to get test failures with errors similar to this:
 
 ~~~bash
  def test_connect_to_db_type(database_fn_fixture):
@@ -121,14 +122,14 @@ tests/test_sqlite.py:68: TypeError
 
 We can see that in the first case, the test is failing because `assert isinstance(conn, sqlite3.Connection)` is actually receiving a `Mock` object instead of an `sqlite3.Connection` object. In the second case, a `Mock` object is received instead of the `tuple` we would expect from the `cursor.fetchone()` function, so we get an error when trying to unpack it.
 
-It appears that our mocked `sqlite.connection` has created issues in other test functions where we did not intend to use it. To overcome this behaviour, we will need to use a *patch* which will only affect the scope of the function. There are two ways of using a patch, a *context manager* or a *function decorator*. 
+It appears that our mocked `sqlite.connection` has created issues in other test functions where we did not intend to use it. To overcome this behaviour, we will need to use a *patch* which will only affect the scope of the function. There are two ways of using a patch, a *context manager* or a *function decorator*.
 
 ::::challenge{id=patch-context-manager title="Using the `with patch` context manager."}
 
 Rewrite `test_query_db_mocked_connection` to use a context manager. You can view the [unittest documentation](https://docs.python.org/3/library/unittest.mock.html#unittest.mock.patch) as a guide.
 
 :::solution
-Below is an example of using a context manager to patch the test. When we use a patch we are actually receiving a `Mock` object that behaves in exactly the same way as in the previous examples. First we `import patch` from the `unitest.mock` library, then we create a patch called `mock_connection` which only exists within the context of the `with` statement. After this statement, the context will be cleaned up automatically. 
+Below is an example of using a context manager to patch the test. When we use a patch we are actually receiving a `Mock` object that behaves in exactly the same way as in the previous examples. First we `import patch` from the `unitest.mock` library, then we create a patch called `mock_connection` which only exists within the context of the `with` statement. After this statement, the context will be cleaned up automatically.
 
 ~~~python
 import pytest
@@ -167,6 +168,7 @@ Now lets look at using a function decorator.
 Rewrite `test_query_db_mocked_connection` to use a function decorator instead of a context manager. You can view the [unittest documentation](https://docs.python.org/3/library/unittest.mock.html#unittest.mock.patch) as a guide.
 
 :::solution
+
 ~~~python
 @patch('sqlite3.connect')
 def test_query_db_mocked_connection(mock_connection):
@@ -207,6 +209,7 @@ It makes sense to use both the pytest `monkeypatch` fixture and `unittest.mock` 
 Rewrite `test_query_db_mocked_connection` to use the pytest `monkeypatch` fixture alongside `unittest.mock`. You can view the [pytest monkeypatch documentation](https://docs.pytest.org/en/7.1.x/how-to/monkeypatch.html) if needed.
 
 :::solution
+
 ~~~python
 import pytest
 import sqlite3
@@ -248,6 +251,7 @@ def test_query_db_mocked_connection(monkeypatch):
 ::::
 
 :::callout
+
 #### Using the `mocker` fixture from `pytest-mock`
 
 An alternative to using the `unitest.mock` library is to install `pytest-mock` alongside `pytest`. This wil give you access to a fixture called `mocker`. This fixture provides access to `unittest.patch` functionalities as well as mocks. There is no need to `import unittest` and no `monkeypatch` functions are required. For more information see the [pytest-mock documentation](https://pytest-mock.readthedocs.io/en/latest/index.html).
@@ -258,21 +262,21 @@ Well done for making it this far, mocking is often a confusing subject due to th
 
 ## Putting it all together - adding a database as a data source
 
-Finally, we can come back to our `Trial` object and integrate the functions to connect to and query an SQLite database. We have provided a file `inflammation_data.db` that contains all of the data from the 12 csv files in one table called `data`. 
+Finally, we can come back to our `Trial` object and integrate the functions to connect to and query an SQLite database. We have provided a file `inflammation_data.db` that contains all of the data from the 12 csv files in one table called `data`.
 
 To get this file, if on WSL or Linux (e.g. Ubuntu or the Ubuntu VM), then do:
 
 ~~~bash
-$ wget https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation_data.db
+wget https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation_data.db
 ~~~
 
 Or, if on a Mac, do:
 
 ~~~bash
-$ curl -O https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation_data.db
+curl -O https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation_data.db
 ~~~
 
-Save the file into the `inflammation/data` directory of your project. 
+Save the file into the `inflammation/data` directory of your project.
 
 The `data` table has 43 columns, `patient_id`, `trial_id`, `filename` and `day01` to `day40` that record the number of inflammation flare-ups for these days. The `patient_id` field is in the form of `pxx` where patient 1 is `p01`, for `trial_id` the format is `txx` where trial 1 is `t01`. Now we can add a new method `from_database` to our class:
 
@@ -447,10 +451,12 @@ def test_trial_from_mock_database(mocker):
 When combined with the previous course, we have now covered a number of more advanced topics: Designing testable code, using fixtures and mocking. These should help you to ensure you write reliable and maintainable software. Happy testing!
 
 :::callout{variant="keypoints"}
+
 - Mocking allows objects and functions to be **replaced** during testing with fake versions that **simulate attributes and behaviours**
 - Examples of mocked classes and methods are those that **write to a production database**, those that **read data from external services** or simply **those parts that take a long time to run**
 - Mocking allows checking if a **specific function is called, how many times it was called** and **if the arguments passed to the call were correct**
 - Mocking is available through the `unitest.mock` library, the `monkeypatch` fixture in `pytest` and the `mocker` fixture in `pytest-mock`
 - Using a **context manager** or a **function decorator** to **patch** a method ensures that a `unittest.Mock` object will only affect the scope of the test function
 - Mocking can be used alongside **fixtures** and **writing testable code** to **isolate components** for effective testing  
+
 :::

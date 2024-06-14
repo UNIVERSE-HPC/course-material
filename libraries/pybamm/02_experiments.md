@@ -15,7 +15,7 @@ attribution:
 
 We already saw in [lesson 1](./01_running_pybamm) a very basic use of experiments in which we changed the discharge rate. With the `Experiment` class, however, you can do so much more. The `Experiment` class works by converting text strings into instructions that PyBaMM can use to create a `Simulation` object. Here are some examples:
 
-```
+```text
 "Discharge at 1C for 0.5 hours",
 "Discharge at C/20 for 0.5 hours",
 "Charge at 0.5 C for 45 minutes",
@@ -69,6 +69,7 @@ simulation2 = pybamm.Simulation(model, experiment=experiment2)
 ```
 
 You can access a given step by accessing the `steps` attribute of the `cycles` (i.e. `solution.cycles[i].steps[j]`), and plot as usual
+
 ```python
 solution.cycles[0].steps[1].plot()
 ```

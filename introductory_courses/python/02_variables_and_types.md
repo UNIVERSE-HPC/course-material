@@ -18,10 +18,10 @@ attribution:
 In Python, the `=` symbol assigns the value on the right to the name on the left. The variable is created when a value is assigned to it.
 Here, Python assigns an age to a variable `age` and a name in quotes to a variable `first_name`.
 
-~~~ python
+``` python
 age = 42
 first_name = 'Ahmed'
-~~~
+```
 
 * Variable names in Python
   * can **only** contain letters, digits, and underscore `_` (typically used to separate words in long variable names)
@@ -36,13 +36,13 @@ Like any function, we can call print (i.e., tell Python to run it) by using its 
 To add a string to the printout, wrap the string in single or double quotes
 The values passed to the function are called **arguments** (or args for short).
 
-~~~ python
+``` python
 print(first_name, 'is', age, 'years old')
-~~~
+```
 
-~~~ text
+``` text
 Ahmed is 42 years old
-~~~
+```
 
 `print` automatically puts a single space between items to separate them
 and wraps around to a new line at the end.
@@ -51,15 +51,15 @@ and wraps around to a new line at the end.
 
 If a variable doesn't exist yet, or if the name has been mis-spelled, Python reports an error (unlike some languages, which "guess" a default value)
 
-~~~ python
+``` python
 print(last_name)
-~~~
+```
 
-~~~ error
+``` error
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 NameError: name 'last_name' is not defined
-~~~
+```
 
 * The last line of an error message is usually the most informative
 * We will look at error messages in detail [later](12_errors_and_exceptions)
@@ -69,27 +69,27 @@ NameError: name 'last_name' is not defined
 * We can use variables in calculations just as if they were values.
   * Remember, we assigned the value `42` to `age` a few lines ago.
 
-~~~ python
+``` python
 print('Age in three years:', age + 3)
-~~~
+```
 
-~~~ text
+``` text
 Age in three years: 45
-~~~
+```
 
 ## Variables can be replaced
 
 * We can replace the value associated with a variable by assigning it a new one.
 * Replacing a variable permanently deletes the old value.
 
-~~~ python
+``` python
 age = age + 3
 print('Age in three years:', age)
-~~~
+```
 
-~~~ text
+``` text
 Age in three years: 45
-~~~
+```
 
 ## Use an index to get a single character from a string
 
@@ -106,17 +106,16 @@ Age in three years: 45
 
 ![an illustration of indexing](fig/02_indexing.svg)
 
-~~~ python
+``` python
 atom_name = 'helium'
 print(atom_name[0])
-~~~
+```
 
-~~~ text
+``` text
 h
-~~~
+```
 
 ## Use a slice to get a substring
-
 
 A slice is subpart of a string (or, more generally, any list-like thing).
 When a slice is taken of a string, this is called a **substring**.
@@ -128,24 +127,24 @@ The difference between `stop` and `start` is the slice's length.
 Taking a slice does not change the contents of the original string,
 instead, the slice is a copy of part of the original string.
 
-~~~ python
+``` python
 atom_name = 'sodium'
 print(atom_name[0:3])
-~~~
+```
 
-~~~ text
+``` text
 sod
-~~~
+```
 
 ## Use the built-in function `len` to find the length of a string
 
-~~~ python
+``` python
 print(len('helium'))
-~~~
+```
 
-~~~ text
+``` text
 6
-~~~
+```
 
 Here we have nested two function calls, `len` and `print`,
 nested functions are evaluated from the inside out, like in mathematics.
@@ -162,11 +161,11 @@ There are conventions for when to use upper-case letters at the start of variabl
 
 Python doesn't care what you call variables as long as they obey the rules (alphanumeric characters and the underscore).
 
-~~~ python
+``` python
 flabadab = 42
 ewr_422_yY = 'Ahmed'
 print(ewr_422_yY, 'is', flabadab, 'years old')
-~~~
+```
 
 However, code is supposed to be read by other humans:
 
@@ -176,25 +175,25 @@ However, code is supposed to be read by other humans:
 ::::challenge{id="swapping_values" title="Swapping Values"}
 Fill the table showing the values of the variables in this program *after* each statement is executed.
 
-~~~ python
+``` python
 # Command  # Value of x   # Value of y   # Value of swap #
 x = 1.0    #              #              #               #
 y = 3.0    #              #              #               #
 swap = x   #              #              #               #
 x = y      #              #              #               #
 y = swap   #              #              #               #
-~~~
+```
 
 :::solution
 
-~~~ text
+``` text
 # Command  # Value of x   # Value of y   # Value of swap #
 x = 1.0    # 1.0          # not defined  # not defined   #
 y = 3.0    # 1.0          # 3.0          # not defined   #
 swap = x   # 1.0          # 3.0          # 1.0           #
 x = y      # 3.0          # 3.0          # 1.0           #
 y = swap   # 3.0          # 1.0          # 1.0           #
-~~~
+```
 
 These three lines exchange the values in `x` and `y` using the `swap` variable for temporary storage. This is a fairly common programming idiom.
 :::
@@ -203,16 +202,16 @@ These three lines exchange the values in `x` and `y` using the `swap` variable f
 ::::challenge{id="slicing_practice" title="Slicing practice"}
 What does the following program print?
 
-~~~ python
+``` python
 atom_name = 'carbon'
 print('atom_name[1:3] is:', atom_name[1:3])
-~~~
+```
 
 :::solution
 
-~~~ text
+``` text
 atom_name[1:3] is: ar
-~~~
+```
 
 :::
 ::::
@@ -234,6 +233,7 @@ atom_name[1:3] is: ar
 4. `thing[:]` returns all of `thing`
 5. `thing[number:some-negative-number]` returns a slice from `number` to `some-negative-number` values from the end of `thing`
 6. If a part of the slice is out of range, the operation does not fail. `atom_name[0:15]` gives the same result as `atom_name[0:]`.
+
 :::
 ::::
 
@@ -248,7 +248,7 @@ Every value in a program has a specific type:
   * Written in either single quotes or double quotes (as long as they match).
   * The quote marks aren't printed when the string is displayed.
 
-## Use the built-in function `type` to find the type of a value.
+## Use the built-in function `type` to find the type of a value
 
 We can use the built-in function `type` to find out what type a value has, this works on variables as well.
 
@@ -296,7 +296,7 @@ TypeError                                 Traceback (most recent call last)
 TypeError: unsupported operand type(s) for -: 'str' and 'str'
 ```
 
-## You can use the "+" and "*" operators on strings.
+## You can use the "+" and "*" operators on strings
 
 "Adding" character strings concatenates them.
 
@@ -309,7 +309,7 @@ print(full_name)
 Ahmed Walsh
 ```
 
-Multiplying a character string by an integer _N_ creates a new string that consists of that character string repeated  _N_ times. Since multiplication is repeated addition.
+Multiplying a character string by an integer *N* creates a new string that consists of that character string repeated  *N* times. Since multiplication is repeated addition.
 
 ``` python
 separator = '=' * 10
@@ -320,7 +320,7 @@ print(separator)
 ==========
 ```
 
-## Strings have a length (but numbers don't).
+## Strings have a length (but numbers don't)
 
 The built-in function `len` counts the number of characters in a string.
 
@@ -347,7 +347,7 @@ TypeError                                 Traceback (most recent call last)
 TypeError: object of type 'int' has no len()
 ```
 
-## Must convert numbers to strings or vice versa when operating on them.
+## Must convert numbers to strings or vice versa when operating on them
 
 Cannot add numbers and strings.
 
@@ -444,6 +444,7 @@ The answers to the questions are:
 4. This will vary! How do you define a specimen's age? whole days since collection (integer)? date and time (string)?
 5. Choose floating point to represent population as large aggregates (eg millions), or integer to represent population in units of individuals.
 6. Floating point number, since an average is likely to have a fractional part.
+
 :::
 ::::
 
@@ -452,17 +453,17 @@ The answers to the questions are:
 In Python 3, the `//` operator performs integer (whole-number) floor division, the `/` operator performs floating-point
 division, and the `%` (or *modulo*) operator calculates and returns the remainder from integer division:
 
-~~~ python
+``` python
 print('5 // 3:', 5 // 3)
 print('5 / 3:', 5 / 3)
 print('5 % 3:', 5 % 3)
-~~~
+```
 
-~~~ python
+``` python
 5 // 3: 1
 5 / 3: 1.6666666666666667
 5 % 3: 2
-~~~
+```
 
 If `num_subjects` is the number of subjects taking part in a study, and `num_per_survey` is the number that can take part in a single survey, write an expression that calculates the number of surveys needed to reach everyone once.
 
@@ -471,17 +472,17 @@ We want the minimum number of surveys that reaches everyone once, which is the r
 This is equivalent to performing a floor division with `//` and adding 1.
 Before the division we need to subtract 1 from the number of subjects to deal with the case where `num_subjects` is evenly divisible by `num_per_survey`.
 
-~~~ python
+``` python
 num_subjects = 600
 num_per_survey = 42
 num_surveys = (num_subjects - 1) // num_per_survey + 1
 
 print(num_subjects, 'subjects,', num_per_survey, 'per survey:', num_surveys)
-~~~
+```
 
-~~~  text
+```  text
 600 subjects, 42 per survey: 15
-~~~
+```
 
 :::
 ::::

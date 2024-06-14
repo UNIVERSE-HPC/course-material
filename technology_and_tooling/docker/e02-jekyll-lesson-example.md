@@ -25,9 +25,10 @@ This requires installing Jekyll and dependencies such as Ruby and Gemfiles to yo
 which can be difficult to achieve given complexities such as needing to match specific versions of the software components. Instead you could use Docker and a pre-built Jekyll container image.
 
 First we need to get a copy of the website source to work with on your computer.
-In your shell window, in your `docker-intro` create a new directory `build-website` and `cd` into it. We will be expanding a ZIP file into this directory later. 
+In your shell window, in your `docker-intro` create a new directory `build-website` and `cd` into it. We will be expanding a ZIP file into this directory later.
 
 Now open a web browser window and:
+
 1. Navigate to the [GitHub repository](https://github.com/carpentries-incubator/docker-introduction) that contains the files for this session;
 2. Click the green "Clone or download" button on the right-hand side of the page;
 3. Click "Download ZIP".
@@ -35,6 +36,7 @@ Now open a web browser window and:
 5. Move the `docker-introduction-gh-pages` folder into the `build-website` folder you created above.
 
 :::callout
+
 ## There are many ways to work with ZIP files
 
 Note that the last two steps can be achieved using a Mac or Windows graphical user interface. There are also ways to effect expanding the ZIP archive on the command line, for example, on my Mac I can achieve the effect of those last two steps through running the command `unzip ~/Downloads/docker-introduction-gh-pages.zip`.
@@ -43,19 +45,19 @@ Note that the last two steps can be achieved using a Mac or Windows graphical us
 In your shell window, if you `cd` into the `docker-introduction-gh-pages` folder and list the files, you should see something similar to what I see:
 
 ~~~bash
-$ cd docker-introduction-gh-pages
-$ ls
+cd docker-introduction-gh-pages
+ls
 ~~~
 
-~~~
-AUTHORS			_episodes		code
-CITATION		_episodes_rmd		data
-CODE_OF_CONDUCT.md	_extras			fig
-CONTRIBUTING.md		_includes		files
-LICENSE.md		_layouts		index.md
-Makefile		aio.md			reference.md
-README.md		assets			setup.md
-_config.yml		bin
+~~~text
+AUTHORS   _episodes  code
+CITATION  _episodes_rmd  data
+CODE_OF_CONDUCT.md _extras   fig
+CONTRIBUTING.md  _includes  files
+LICENSE.md  _layouts  index.md
+Makefile  aio.md   reference.md
+README.md  assets   setup.md
+_config.yml  bin
 ~~~
 
 You can now request that a container is created that will compile the files in
@@ -70,12 +72,12 @@ away the container.
 For macOS, Linux and PowerShell:
 
 ~~~bash
-$ docker run --rm -it --mount type=bind,source=${PWD},target=/srv/jekyll -p 127.0.0.1:4000:4000 jekyll/jekyll:3 jekyll serve
+docker run --rm -it --mount type=bind,source=${PWD},target=/srv/jekyll -p 127.0.0.1:4000:4000 jekyll/jekyll:3 jekyll serve
 ~~~
 
 When I ran the macOS command, the output was as follows:
 
-~~~
+~~~text
 Unable to find image 'jekyll/jekyll:3' locally
 3: Pulling from jekyll/jekyll
 9d48c3bd43c5: Pull complete 

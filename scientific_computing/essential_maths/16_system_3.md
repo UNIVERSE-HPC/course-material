@@ -18,7 +18,7 @@ attribution:
 
 ## Phase Planes and Stability
 
---- 
+---
 
 ## YouTube lecture recording from October 2020
 
@@ -46,7 +46,6 @@ $$
 $$
 
 ![Plot of the phase plane](fig/16_01_phase_plane.svg)
-
 
 ## Linear ODEs for understanding nonlinear
 
@@ -107,8 +106,7 @@ can be written
 $$
 \left(
 \begin{array}{c} \dot{x} \\ \dot{y} \end{array}
-\right)
-=
+\right) =
 \left(
 \begin{array}{cc} a & b \\ c& d \end{array}
 \right)
@@ -127,8 +125,7 @@ It has a fixed point at
 $$
 \left(
 \begin{array}{c} x \\ y \end{array}
-\right)
-=
+\right) =
 -\left(
 \begin{array}{cc} a & b \\ c& d \end{array}
 \right)^{-1}
@@ -200,7 +197,6 @@ J = \left(
 \right)
 $$
 
-
 - $\lambda_1<\lambda_2<0$ Stable node
 - $\lambda_1=\lambda_2<0$ Stable star
 - $\lambda_1>\lambda_2>0$ Unstable node
@@ -208,7 +204,6 @@ $$
 - $\lambda_1<0<\lambda_2$ Saddle (or hyperbolic) point:  unstable
 - Complex $\lambda$: Spiral (with real part determining stability)
 - Imaginary $\lambda$: Neutral (solution cycles round fixed point)
-
 
 The presence of negative eigenvalues determines whether a steady state is physically viable.
 
@@ -297,16 +292,12 @@ $$
 
 If we now look again at the phase plane, after having calculated the stability of the fixed points, we can see that the arrows move towards the stable fixed points, and away from the unstable ones.
 
-
 ![Plot of the phase plane](fig/16_01_phase_plane.svg)
-
 
 ## Summary
 
 - Eigenvalues tell us about the behaviour of  linear systems
 - Eigenvalues tell us about the stability of nonlinear systems
-
-
 
 ### Main problems
 
@@ -318,6 +309,7 @@ Classify the fixed points and discuss stability of the following linear systems:
 1. $\displaystyle \dot{x} = x+3y,   \qquad \dot{y}=-6x+5y;$
 1. $\displaystyle \dot{x} = x+3y+4, \qquad \dot{y}=-6x+5y-1;$
 1. $\displaystyle \dot{x} = x+3y+1, \qquad \dot{y}=-6x+5y.$
+
 ::::
 
 ::::challenge{id="16_main_02" title="Main problems 2"}
@@ -325,6 +317,7 @@ Classify the fixed points and discuss stability of the following nonlinear syste
 
 1. $\displaystyle \dot{x} = -4y+2xy-8   \qquad \dot{y}=4y^2-x^2;$
 1. $\displaystyle \dot{x} = y-x^2+2, \qquad \dot{y}=2(x^2-y^2).$
+
 ::::
 
 ::::challenge{id="16_main_03" title="Main problems 3"}
@@ -365,6 +358,7 @@ The $\dot{x}$ notation represents the derivative with respect to non-dimensional
 1. Calculate the steady states of the system.
 1. Determine the stability of the fixed points in the case $\beta = r = 4$.
 1. Draw the phase plane, including the nullclines and phase trajectories.
+
 ::::
 
 ### Extension problems

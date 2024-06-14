@@ -30,16 +30,16 @@ formats implemented in Scipy, the The COOrdinate format (COO). This is also know
 - fast matrix-vector multiplication
 - fast elementwise operations (e.g. multiply each element by 2 is just `data * 2`)
 
-However, slicing using this format is difficult. 
+However, slicing using this format is difficult.
 
-Here are some examples of the COO matrix format using 
-[`scipy.sparse.coo_matrix`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.coo_matrix.html). 
-Again, these have been taken from 
-[scipy-lectures](http://scipy-lectures.org/advanced/scipy_sparse/introduction.html#why-sparse-matrices), 
-which is an excellent resource and contains examples of the other sparse matrix formats 
+Here are some examples of the COO matrix format using
+[`scipy.sparse.coo_matrix`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.coo_matrix.html).
+Again, these have been taken from
+[scipy-lectures](http://scipy-lectures.org/advanced/scipy_sparse/introduction.html#why-sparse-matrices),
+which is an excellent resource and contains examples of the other sparse matrix formats
 implemented in Scipy.
 
-### create empty COO matrix:
+### create empty COO matrix
 
 ```python
 mtx = sparse.coo_matrix((3, 4), dtype=np.int8)
@@ -47,13 +47,14 @@ mtx.todense()
 ```
 
 Output:
-```
+
+```text
 matrix([[0, 0, 0, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0]], dtype=int8)
 ```
 
-### create using (data, ij) tuple:
+### create using (data, ij) tuple
 
 ```python
 row = np.array([0, 3, 1, 0])
@@ -66,7 +67,7 @@ mtx.todense()
 
 Output:
 
-```
+```text
 >>> mtx
 <4x4 sparse matrix of type '<class 'numpy.int64'>'
         with 4 stored elements in COOrdinate format>
@@ -77,8 +78,7 @@ matrix([[4, 0, 9, 0],
         [0, 0, 0, 5]])
 ```
 
-
-### duplicates entries are summed together:
+### duplicates entries are summed together
 
 ```python
 row = np.array([0, 0, 1, 3, 1, 0, 0])
@@ -90,7 +90,7 @@ mtx.todense()
 
 Output:
 
-```
+```text
 >>> mtx.todense()
 matrix([[3, 0, 1, 0],
         [0, 2, 0, 0],
@@ -98,7 +98,7 @@ matrix([[3, 0, 1, 0],
         [0, 0, 0, 1]])
 ```
 
-### no slicing…:
+### no slicing…
 
 ```python
 mtx[2, 3]
@@ -106,7 +106,7 @@ mtx[2, 3]
 
 Output:
 
-```
+```text
 >>> mtx[2, 3]
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>

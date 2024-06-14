@@ -30,15 +30,15 @@ variables. In C++ this is typically done via lamda functions or function objects
 *Lambda functions* are small, nameless functions which are defined in the
 normal flow of the program, typically as they are needed. They consist of three part,
 delimited by square, round, then curly brackets. The curly brackets form the
-body of the function, for example 
+body of the function, for example
 
-~~~cpp
+```cpp
 auto hello_world = []() {
   std::cout << "hello world" << std::endl;
 };
 
 hello_world();
-~~~
+```
 
 The `auto`{.Cpp} keyword allows the compiler to determine the correct type for
 the lambda, rather than you declaring it manually (impossible for lambda
@@ -47,26 +47,26 @@ functions). You can call or execute a lambda as you would any other function.
 The round brackets contain the list of arguments to the function, and the square
 brackets **capture** variables from the outside scope, for example
 
-~~~cpp
+```cpp
 int i = 1;
 auto add_i_to_arg = [i](int arg) { return arg + i; };
 std::cout << add_i_to_arg(3) << std::endl; // prints 4
-~~~
+```
 
 This captures `i` by value. To capture by reference use `&`:
 
-~~~cpp
+```cpp
 int i = 1;
 auto add_arg_to_i = [&i](int arg) { i += arg; };
 add_arg_to_i(3);
 std::cout << i << std::endl; // prints 4
-~~~
+```
 
 You can capture all variables used in the lambda function using either `[=]`,
 which captures everything by value, or `[&]`, which captures everything by
 reference:
 
-~~~cpp
+```cpp
 int i = 1;
 auto add_i_to_arg = [=](int arg) { return arg + i; };
 std::cout << add_i_to_arg(3) << std::endl; // prints 4
@@ -74,7 +74,7 @@ std::cout << add_i_to_arg(3) << std::endl; // prints 4
 auto add_arg_to_i = [&](int arg) { i += arg; };
 add_arg_to_i(3);
 std::cout << i << std::endl; // prints 4
-~~~
+```
 
 ### Function objects
 
@@ -118,7 +118,7 @@ add = [](int i) { return i + 2; };
 
 The two lambdas have different types, even though they are both functions that take a single `int` as an argument and return another `int`.
 
-```
+```text
 /home/mrobins/git/cpp_tmp/prodecural.cpp:14:35: error: no match for 'operator=' (operand types are 'main()::<lambda(int)>' and 'main()::<lambda(int)>')
    14 |   add = [](int i) { return i + 2; };
       |                                   ^
@@ -149,12 +149,11 @@ std::cout << result << std::end; // prints 6
 
 `std::function` is an example of *type erasure*.
 
-
 ## Higher Order Functions
 
 One of the main uses of lambda functions is to create temporary functions to
 pass into higher order functions. A higher order function is simply a function
-that has other functions as one of its arguments. 
+that has other functions as one of its arguments.
 
 To illustrate the benifits of higher order functions, let us define two
 functions, one that calculates the sum of a `std::vector<int>`, the other
@@ -237,7 +236,7 @@ std::transform(std::begin(data), std::end(data), std::begin(new_data),
 
 ```
 
-Then the filter, or `std::copy_if`, which we will use to print out all the prime numbers to 1000. 
+Then the filter, or `std::copy_if`, which we will use to print out all the prime numbers to 1000.
 
 Here we also introduce two more useful tools:
 
@@ -277,9 +276,9 @@ self-contained `is_prime` function we can potentially reuse.
 Finally, the reduce, or `std::reduce`, which we will use to calculate the min and
 maximum elements of an vector. At the same time we introduce another algorithm
 `std::generate`, which assigns values to a range based on a generator function, and some
-of the random number generation options in the standard library. 
+of the random number generation options in the standard library.
 
-~~~ cpp
+``` cpp
 #include <algorithm>
 #include <iostream>
 #include <functional>
@@ -308,28 +307,26 @@ int main() {
   auto [min, max] = std::accumulate(data.begin(), data.end(), std::make_tuple(0., 0.), calc_min_max);
   std::cout << "min is "<< min << " max is "<< max << std::endl;
 }
-~~~
-
+```
 
 ::::challenge{id=sum_squares title="Sum of Squares"}
 
 Use `std::accumulate` to write a function that calculates the sum of the squares of the values in a vector.
 Your function should behave as below:
 
-~~~ cpp 
+``` cpp
 std::cout << sum_of_squares({0}) << std::endl;
 std::cout << sum_of_squares({1, 3, -2}) << std::endl;
-~~~
+```
 
-~~~
+```text
 0
 14
-~~~
-
+```
 
 :::solution
 
-~~~cpp
+```cpp
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -339,51 +336,53 @@ int sum_of_squares(const std::vector<int>& data) {
   auto sum_squares = [](int sum, int x) { return sum + std::pow(x, 2); };
   return std::accumulate(data.begin(), data.end(), 0, sum_squares);
 }
-~~~
-:::
+```
 
+:::
 
 Now let's assume we're reading in these numbers from an input file, so they arrive as a list of strings.
 Write a new function `map_str_to_int` using `std::transform` that passes the following tests:
 
-~~~ cpp
+``` cpp
 std::cout << sum_of_squares(map_str_to_int({"1", "2", "3"})) << std::endl;
 std::cout << sum_of_squares(map_str_to_int({"-1", "-2", "-3"})) << std::endl;
-~~~
+```
 
-~~~
+```text
 14
 14
-~~~
+```
 
 :::solution
-~~~cpp
+
+```cpp
 const std::vector<int> map_str_to_int(const std::vector<std::string>& data) {
   std::vector<int> new_data(data.size());
   auto str_to_int = [](std::string x) { return std::atoi(x.c_str()); };
   std::transform(data.begin(), data.end(), new_data.begin(), str_to_int);
   return new_data;
 }
-~~~
+```
+
 :::
 
 Finally, we'd like it to be possible for users to comment out numbers in the input file they give to our program.
 Extend your `map_str_to_int` function so that the following tests pass:
 
-~~~ cpp
+``` cpp
 std::cout << sum_of_squares(map_str_to_int({"1", "2", "3"})) << std::endl;
 std::cout << sum_of_squares(map_str_to_int({"1", "2", "#100", "3"})) << std::endl;
-~~~
+```
 
-~~~
+```text
 14
 14
 14
-~~~
+```
 
 :::solution
 
-~~~cpp
+```cpp
 std::vector<int> map_str_to_int(const std::vector<std::string>& data) {
   std::vector<int> new_data;
   std::vector<std::string> filtered_data;
@@ -395,11 +394,11 @@ std::vector<int> map_str_to_int(const std::vector<std::string>& data) {
                  [](std::string x) { return std::atoi(x.c_str()); });
   return new_data;
 }
-~~~
+```
 
 or
 
-~~~cpp
+```cpp
 std::vector<int> map_str_to_int(const std::vector<std::string>& data) {
   std::vector<int> new_data;
   new_data.reserve(data.size());
@@ -411,7 +410,7 @@ std::vector<int> map_str_to_int(const std::vector<std::string>& data) {
   }
   return new_data; 
 }
-~~~
+```
 
 Here you can start to see a limitation of the algorithms in the standard
 library, in that it is difficult to efficiently compose together multiple
@@ -422,7 +421,8 @@ more about the ranges library [here](https://en.cppreference.com/w/cpp/ranges).
 :::
 ::::
 
-## Key Points:
+## Key Points
+
 - Higher-order functions in C++: Functions that accept other functions as arguments or return them as results, enabling more modular, reusable, and expressive code.
 - Lambda expressions: Anonymous functions defined using lambda syntax, often utilized as arguments for higher-order functions, offering flexibility and conciseness.
 - Polymorphic functions: `std::function` allows functions to be passed around as objects with a common interface, enabling polymorphism and more flexible higher-order function usage.

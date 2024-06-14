@@ -16,6 +16,7 @@ attribution:
 ---
 
 :::callout
+
 ## Learning about Docker Containers
 
 The Australian Research Data Commons has produced a short introductory video
@@ -24,9 +25,8 @@ or after you go through this section to reinforce your understanding!
 
 [How can software containers help your research?](https://www.youtube.com/watch?v=HelrQnm3v4g)
 
-Australian Research Data Commons, 2021. *How can software containers help your research?*. [video] Available at: https://www.youtube.com/watch?v=HelrQnm3v4g DOI: http://doi.org/10.5281/zenodo.5091260
+Australian Research Data Commons, 2021. *How can software containers help your research?*. [video] Available at: <https://www.youtube.com/watch?v=HelrQnm3v4g> DOI: <http://doi.org/10.5281/zenodo.5091260>
 :::
-
 
 ## Scientific Software Challenges
 
@@ -66,6 +66,7 @@ doesn't work?
 
 Unsurprisingly, software installation and configuration challenges can have
 negative consequences for research:
+
 - you can't use a specific tool at all, because it's not available or installable.
 - you can't reproduce your results because you're not sure what tools you're actually using.
 - you can't access extra/newer resources because you're not able to replicate your software set up.
@@ -112,6 +113,7 @@ creation of a complete software system: you can drop a container into any comput
 the container software installed (the 'container host'), and it should "just work".
 
 :::callout
+
 ## Virtualization
 
 Containers are an example of what's called **virtualization** -- having a
@@ -134,7 +136,6 @@ You could think of the container image like a cookie cutter -- it
 can be used to create multiple copies of the same shape (or container)
 and is relatively unchanging, where cookies come and go. If you want a
 different type of container (cookie) you need a different container image (cookie cutter).
-
 
 ## Putting the Pieces Together
 
@@ -173,7 +174,8 @@ a research context include:
 - Archiving the container images so you can repeat analysis/modelling using the
   same software and configuration in the future -- capturing your workflow.
 
-## Key Points:
+## Key Points
+
 - Almost all software depends on other software components to function, but these components have independent evolutionary paths.
 - Small environments that contain only the software that is needed for a given task are easier to replicate and maintain.
 - Critical systems that cannot be upgraded, due to cost, difficulty, etc. need to be reproduced on newer systems in a maintainable and self-documented way.

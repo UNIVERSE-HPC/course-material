@@ -24,7 +24,8 @@ attribution:
 Unit testing can tell us something is wrong in our code and give a rough idea of where the error is by which
 test(s) are failing. But it does not tell us exactly where the problem is (i.e. what line of code), or how it came about.
 To give us a better idea of what is going on, we can:
- - output program state at various points, e.g. by using print statements to output the contents of
+
+- output program state at various points, e.g. by using print statements to output the contents of
 variables,
 - use a logging capability to output the state of everything as the program progresses, or
 - look at intermediately generated files.
@@ -38,7 +39,7 @@ to get inside the code while it is running and explore.  This is where using a
 
 Let us add a new function called `patient_normalise()` to our inflammation example to normalise a
 given inflammation data array so that all entries fall between 0 and 1.
-To normalise each patient's inflammation data we need to divide it by the maximum inflammation 
+To normalise each patient's inflammation data we need to divide it by the maximum inflammation
 experienced by that patient. To do so, we can add the following code to `inflammation/models.py`:
 
 ~~~python
@@ -78,6 +79,7 @@ performed.
 ![NumPy arrays' shapes after broadcasting](fig/numpy-shapes-after-broadcasting.png)
 
 :::callout
+
 ## Broadcasting
 
 The term broadcasting describes how NumPy treats arrays with different shapes
@@ -120,7 +122,7 @@ Run the tests again using `python -m pytest tests/test_models.py` and you will
 note that the new test is failing, with an error message that does not give many
 clues as to what went wrong.
 
-~~~
+~~~text
 E       AssertionError:
 E       Arrays are not almost equal to 2 decimals
 E
@@ -149,21 +151,20 @@ performs its functions.
 
 ### Setup testing in VSCode
 
-First we will set up VSCode to run and debug our tests. If you haven't done so already, 
-you will first need to enable the PyTest framework in VSCode. You can do this by 
-selecting the `Python: Configure Tests` command in the Command Palette (Ctrl+Shift+P). 
-This will then prompt you to select a test framework (`Pytest`), and a directory 
-containing the tests (`tests`). You should then see the Test view, shown as a beaker, in 
-the left hand activity sidebar. Select this and you should see the list of tests, along 
-with our new test `test_patient_normalise`. If you select this test you should see some 
-icons to the right that either run, debug or open the `test_patient_normalise` test. You 
+First we will set up VSCode to run and debug our tests. If you haven't done so already,
+you will first need to enable the PyTest framework in VSCode. You can do this by
+selecting the `Python: Configure Tests` command in the Command Palette (Ctrl+Shift+P).
+This will then prompt you to select a test framework (`Pytest`), and a directory
+containing the tests (`tests`). You should then see the Test view, shown as a beaker, in
+the left hand activity sidebar. Select this and you should see the list of tests, along
+with our new test `test_patient_normalise`. If you select this test you should see some
+icons to the right that either run, debug or open the `test_patient_normalise` test. You
 can see what this looks like in the screenshot below.
-
 
 ![Patient normalise tests in VSCode](fig/testsInVSCode.jpg)
 
-Click on the "run" button next to `test_patient_normalise`, and you will be able to see 
-that VSCode runs the function, and the same `AssertionError` that we saw before. 
+Click on the "run" button next to `test_patient_normalise`, and you will be able to see
+that VSCode runs the function, and the same `AssertionError` that we saw before.
 
 ### Running the Debugger
 
@@ -177,27 +178,26 @@ To set a breakpoint, navigate to the `models.py` file and move your mouse to the
 left of the line number for that line and a small red dot will appear,
 indicating that you have placed a breakpoint on that line.
 
-
-Now if you debug `test_patient_normalise`, you will notice that execution will be paused 
-at the return statement of `patient_normalise`, and we can investigate the exact state 
-of the program as it is executing this line of code. Navigate to the Run view, and you 
-will be able to see the local and global variables currently in memory, the call stack 
-(i.e. what functions are currently running), and the current list of breakpoints. In the 
-local variables section you will be able to see the `data` array that is input to the 
-`patient_normalise` function, as well as the `max` local array that was created to hold 
+Now if you debug `test_patient_normalise`, you will notice that execution will be paused
+at the return statement of `patient_normalise`, and we can investigate the exact state
+of the program as it is executing this line of code. Navigate to the Run view, and you
+will be able to see the local and global variables currently in memory, the call stack
+(i.e. what functions are currently running), and the current list of breakpoints. In the
+local variables section you will be able to see the `data` array that is input to the
+`patient_normalise` function, as well as the `max` local array that was created to hold
 the maximum inflammation values for each patient. See below for a screenshot.
 
 ![Debugging function in VSCode](fig/debugInVSCode.jpg)
 
-In the Watch section of the Run view you can write any expression you want the debugger 
-to calculate, this is useful if you want to view a particular combination of variables, 
-or perhaps a single element or slice of an array. Try putting in the expression `max[:, 
-np.newaxis]` into the Watch section, and you will be able to see the column vector that 
-we are dividing `data` by in the return line of the function. You can also open the 
+In the Watch section of the Run view you can write any expression you want the debugger
+to calculate, this is useful if you want to view a particular combination of variables,
+or perhaps a single element or slice of an array. Try putting in the expression `max[:,
+np.newaxis]` into the Watch section, and you will be able to see the column vector that
+we are dividing `data` by in the return line of the function. You can also open the
 Debug Console and type in `max[:, np.newaxis]` to see the same result.
 
-Looking at the `max` variable, we can see that something looks wrong, as the maximum 
-values for each patient do not correspond to the `data` array. Recall that the input 
+Looking at the `max` variable, we can see that something looks wrong, as the maximum
+values for each patient do not correspond to the `data` array. Recall that the input
 `data` array we are using for the function is
 
 ~~~python
@@ -206,22 +206,21 @@ values for each patient do not correspond to the `data` array. Recall that the i
    [7, 8, 9]]
 ~~~
 
-
-So the maximum inflammation for each patient should be `[3, 6, 9]`, whereas the debugger 
-shows `[7, 8, 9]`. You can see that the latter corresponds exactly to the last column of 
-`data`, and we can immediately conclude that we took the maximum along the wrong axis of 
-`data`. So to fix the function we can change `axis=0` in the first line to `axis=1`. 
-With this fix in place, running the tests again will result in a passing test, and a 
+So the maximum inflammation for each patient should be `[3, 6, 9]`, whereas the debugger
+shows `[7, 8, 9]`. You can see that the latter corresponds exactly to the last column of
+`data`, and we can immediately conclude that we took the maximum along the wrong axis of
+`data`. So to fix the function we can change `axis=0` in the first line to `axis=1`.
+With this fix in place, running the tests again will result in a passing test, and a
 nice green tick next to the test in the VSCode IDE.
 
 :::callout
+
 ## NumPy Axis
 
-Getting the axes right in NumPy is not trivial - the 
-[following tutorial](https://www.sharpsightlabs.com/blog/numpy-axes-explained/#:~:text=NumPy%20axes%20are%20the%20directions,along%20the%20rows%20and%20columns.) 
+Getting the axes right in NumPy is not trivial - the
+[following tutorial](https://www.sharpsightlabs.com/blog/numpy-axes-explained/#:~:text=NumPy%20axes%20are%20the%20directions,along%20the%20rows%20and%20columns.)
 offers a good explanation on how axes work when applying NumPy functions to arrays.
 :::
-
 
 ## Corner or Edge Cases
 
@@ -268,7 +267,7 @@ input array of all 0, and an input array of all 1.
 
 Running the tests now from the command line results in the following assertion error, due to the division by zero as we predicted.
 
-~~~
+~~~text
 E           AssertionError:
 E           Arrays are not almost equal to 2 decimals
 E
@@ -308,12 +307,12 @@ def patient_normalise(data):
 ...
 ~~~
 
-
 ::::challenge{id=edge-cases title="Exploring Tests for Edge Cases"}
 
 Think of some more suitable edge cases to test our `patient_normalise()` function and add them to the parametrised tests. After you have finished remember to commit your changes.
 
 :::solution
+
 ~~~python
 @pytest.mark.parametrize(
     "test, expected",
@@ -504,7 +503,7 @@ You can also decide against adding explicit preconditions in your code, and inst
 limitations of your code for users of your code in the docstring and rely on them to invoke your code correctly.
 This approach is useful when explicitly checking the precondition is too costly.
 
-## Improving Robustness with Automated Code Style Checks 
+## Improving Robustness with Automated Code Style Checks
 
 Linters are tools that analyze source code to detect and report errors,
 inconsistencies, and stylistic issues. They are widely used in software
@@ -513,14 +512,14 @@ practices.
 
 Let's look at a very well used one of these called `pylint`. First install it into your virtual environment and check that it runs:
 
-```bash
+~~~bash
 pip install pylint
 pylint --version
-```
+~~~
 
 We should see the version of Pylint, something like:
 
-~~~
+~~~text
 pylint 2.13.3
 ~~~
 
@@ -534,6 +533,7 @@ Pylint is a command-line tool that can help our code in many ways:
 Pylint can also identify **code smells**.
 
 :::callout
+
 ## How Does Code Smell?
 
 There are many ways that code can exhibit bad design whilst not breaking any
@@ -545,16 +545,15 @@ rather are certain structures that violate principles of good design and impact
 design quality. They can also indicate that code is in need of maintenance and
 refactoring.
 
-The phrase has its origins in Chapter 3 "Bad smells in code" by Kent Beck and Martin Fowler in 
+The phrase has its origins in Chapter 3 "Bad smells in code" by Kent Beck and Martin Fowler in
 [Fowler, Martin (1999). Refactoring. Improving the Design of Existing Code. Addison-Wesley. ISBN 0-201-48567-2](https://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672/).
 
 :::
 
-
 Let's run Pylint over our project after having added some more code to it. From the project root do:
 
 ~~~bash
-$ pylint inflammation
+pylint inflammation
 ~~~
 
 You may see something like the following in Pylint's output:

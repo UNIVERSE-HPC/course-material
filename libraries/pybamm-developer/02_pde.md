@@ -28,7 +28,6 @@ $$
   \left.\frac{\partial c}{\partial r}\right\vert_{r=0} = 0, \quad \left.\frac{\partial c}{\partial r}\right\vert_{r=1} = 2, \quad \left.c\right\vert_{t=0} = 1.
 $$
 
-
 ## Setting up the model
 
 As in the previous example, we start with a
@@ -88,6 +87,7 @@ model.variables = {"Concentration": c, "Flux": N}
 ```
 
 ## Using the model
+
 Now the model is now completely defined all that remains is to discretise and solve. Since this model is a PDE we need to define the geometry on which it will be solved, and choose how to mesh the geometry and discretise in space.
 
 ### Defining a geometry
@@ -101,6 +101,7 @@ r = pybamm.SpatialVariable(
     "r", domain=["negative particle"], coord_sys="spherical polar"
 )
 ```
+
 As with the concentration variable, we give it the spatial variable an informative name `"r"` but the variable is represented by `r` in the code (in this case it is a bit more confusing as the names are more similar). The domain needs to match the domain we have defined in our concentration variable, and the coordinate system can be chosen from `"cartesian"`, `"cylindrical polar"` and `"spherical polar"`.
 
 The geometry on which we wish to solve the model is defined using a nested
@@ -137,7 +138,7 @@ side on which more points should be clustered. For example, to create a mesh
 with more nodes clustered to the right (i.e. the surface in the particle
 problem), using a stretch factor of 2, we pass an instance of the exponential
 submesh class and a dictionary of parameters into the `MeshGenerator` class as
-follows: 
+follows:
 
 ```python
 exp_mesh = pybamm.MeshGenerator(pybamm.Exponential1DSubMesh, submesh_params={"side": "right", "stretch": 2})
@@ -160,9 +161,10 @@ disc = pybamm.Discretisation(mesh, spatial_methods)
 disc.process_model(model);
 ```
 
-Now that the model has been discretised we are ready to solve. 
+Now that the model has been discretised we are ready to solve.
 
 ## Solving the model
+
 As before, we choose a solver and times at which we want the solution returned. We then solve, extract the variables we are interested in, and plot the result.
 
 ```python
@@ -205,7 +207,7 @@ $$
 
 where $c$ is the concentration, $r$ the radial coordinate, $t$ time, $R$ the
 particle radius, $D$ the diffusion coefficient, $j$ the interfacial current
-density, $F$ Faraday's constant, and $c_0$ the initial concentration. 
+density, $F$ Faraday's constant, and $c_0$ the initial concentration.
 
 We use the following parameters:
 
@@ -311,6 +313,6 @@ ax2.legend()
 plt.tight_layout()
 plt.show()
 ```
+
 :::
 ::::
-

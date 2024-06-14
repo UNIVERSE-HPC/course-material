@@ -35,21 +35,21 @@ There are two ways to open Terminal on Mac.
 
 After you have launched Terminal, type the command to start Python
 
-~~~ bash
-$ python
-~~~
+``` bash
+python
+```
 
 ### Windows Users - Command Line
 
 To start Python you will need to access the Terminal.
 
-Press **_Windows Logo Key_** and search for `Terminal`, click the result or press enter.
+Press ***Windows Logo Key*** and search for `Terminal`, click the result or press enter.
 
 After you have launched the Terminal, type the command:
 
-~~~ bash
-$ python
-~~~
+``` bash
+python
+```
 
 ### GNU/Linux Users - Command Line
 
@@ -58,9 +58,9 @@ You can usually find it under "Accessories".
 
 After you have launched the terminal emulator, type the command:
 
-~~~ bash
-$ python
-~~~
+``` bash
+python
+```
 
 ### Using the Python application
 
@@ -76,34 +76,34 @@ Type the lines preceded by `>>>` or `...` and hit ENTER between each one.
 
 Try to guess what these little snippets of Python do, but don't try to understand the details of them yet - it will be clear to you by the end of this course.
 
-~~~ python
+``` python
 >>> 1 + 6
 
 7
-~~~
+```
 
-~~~ python
+``` python
 >>> a = 2
 >>> b = 3
 >>> a + b
 
 5
-~~~
+```
 
-~~~ python
+``` python
 >>> print("Just printing this on the screen")
 
 Just printing this on the screen
-~~~
+```
 
-~~~ python
+``` python
 >>> word = "Hello"
 >>> len(word)
 
 5
-~~~
+```
 
-~~~ python
+``` python
 >>> for word in ["Leeds", "Munich", "Marseille"]:
 ...   print("City name has", len(word), "letters in it.")
 ...
@@ -111,9 +111,9 @@ Just printing this on the screen
 City name has 5 letters in it.
 City name has 6 letters in it.
 City name has 9 letters in it.
-~~~
+```
 
-~~~ python
+``` python
 >>> for word in ["London", 3, "Marseille"]:
 ...   print("City name has", len(word), "letters in it.")
 ... 
@@ -121,15 +121,15 @@ City name has 6 letters in it.
 Traceback (most recent call last):
 File "<stdin>", line 2, in <module>
 TypeError: object of type 'int' has no len()
-~~~
+```
 
 ## Quitting
 
 You can quit Python by typing:
 
-~~~ python
+``` python
 >>> quit()
-~~~
+```
 
 then ENTER.
 

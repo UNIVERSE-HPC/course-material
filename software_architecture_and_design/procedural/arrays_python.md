@@ -54,7 +54,7 @@ virtual environment and install the packages we'll need for the work.
 
 ## NumPy Arrays vs Python Lists
 
-NumPy's array type represents a multidimensional array or tensor *M<sub>i,j,k...n</sub>*
+NumPy's array type represents a multidimensional array or tensor **M**~i,j,k...n~
 
 The NumPy array seems at first to be just like a list:
 
@@ -68,7 +68,7 @@ Note here we are importing the NumPy module as `np`, an established convention
 for using NumPy which means we can refer to NumPy using `np.` instead of the
 slightly more laborious `numpy.`.
 
-~~~
+~~~text
 array([0, 1, 2, 3, 4])
 ~~~
 
@@ -78,7 +78,7 @@ Ok, so they *look* like a list.
 my_array[2]
 ~~~
 
-~~~
+~~~text
 2
 ~~~
 
@@ -91,7 +91,7 @@ for element in my_array:
     print("Hello" * element)
 ~~~
 
-~~~
+~~~text
 Hello
 HelloHello
 HelloHelloHello
@@ -104,7 +104,7 @@ However, we can also see our first weakness of NumPy arrays versus Python lists:
 my_array.append(4)
 ~~~
 
-~~~
+~~~text
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 AttributeError: 'numpy.ndarray' object has no attribute 'append'
@@ -125,14 +125,13 @@ my_array + 2
 
 `+` in this context is an elementwise operation performed on all the matrix elements, and gives us:
 
-~~~
+~~~text
 array([2, 3, 4, 5, 6])
 ~~~
 
 ::::challenge{id=elementwise-operations Title="Other elementwise operations"}
 
 Try using `-`, `*`, `/` in the above statement instead. Do they do what you expect?
-
 
 :::solution
 
@@ -144,7 +143,7 @@ my_array / 2
 
 Will yield the following respectively:
 
-~~~
+~~~text
 array([-2, -1,  0,  1,  2])
 array([0, 2, 4, 6, 8])
 array([0. , 0.5, 1. , 1.5, 2. ])
@@ -189,37 +188,38 @@ inflammation in patients who have been given a new treatment for arthritis.
 Let's download this dataset now. First, create a new directory inflammation and `cd` to it:
 
 ~~~bash
-$ mkdir inflammation
-$ cd inflammation
+mkdir inflammation
+cd inflammation
 ~~~
 
 If on WSL or Linux (e.g. Ubuntu or the Ubuntu VM), then do:
 
 ~~~bash
-$ wget https://www.uhpc-training.co.uk/material/software_architecture_and_design/procedural/inflammation/inflammation.zip
+wget https://www.uhpc-training.co.uk/material/software_architecture_and_design/procedural/inflammation/inflammation.zip
 ~~~
 
 Or, if on a Mac, do:
 
 ~~~bash
-$ curl -O https://www.uhpc-training.co.uk/material/software_architecture_and_design/procedural/inflammation/inflammation.zip
+curl -O https://www.uhpc-training.co.uk/material/software_architecture_and_design/procedural/inflammation/inflammation.zip
 ~~~
 
 Once done, you can unzip this file using the `unzip` command in Bash, which will unpack all the files
 in this zip archive into the current directory:
 
 ~~~bash
-$ unzip inflammation.zip
+unzip inflammation.zip
 ~~~
 
-This zip file contains some code as well as the datasets we need stored in the `data` directory (which is what we're 
+This zip file contains some code as well as the datasets we need stored in the `data` directory (which is what we're
 interested in).
 
 ~~~bash
-$ cd data
+cd data
 ~~~
 
 :::callout
+
 ## What Does the Patient Inflammation Data Contain?
 
 Each dataset records inflammation measurements from a separate clinical trial of the drug, and each dataset contains information for 60 patients, who had their inflammation levels recorded for 40 days whilst participating in the trial.
@@ -232,6 +232,7 @@ Each of the data files uses the popular [comma-separated (CSV) format](https://e
 - Each row holds inflammation measurements for a single patient,
 - Each column represents a successive day in the trial,
 - Each cell represents an inflammation reading on a given day for a patient (in some arbitrary units of inflammation measurement).
+
 :::
 
 We can use first NumPy to load our dataset into a Python variable:
@@ -241,7 +242,7 @@ data = np.loadtxt(fname='../data/inflammation-01.csv', delimiter=',')
 data
 ~~~
 
-~~~
+~~~text
 array([[0., 0., 1., ..., 3., 0., 0.],
        [0., 1., 2., ..., 1., 0., 1.],
        [0., 1., 1., ..., 2., 1., 1.],
@@ -253,7 +254,8 @@ array([[0., 0., 1., ..., 3., 0., 0.],
 
 So, the data in this case has 60 rows (one for each patient) and 40 columns (one for each day) as we would expect. Each cell in the data represents an inflammation reading on a given day for a patient. So this shows the results of measuring the inflammation of 60 patients over a 40 day period.
 
-:::callout
+:::callout{variant="info"}
+
 ## In the Corner
 
 What may also surprise you is that when Python displays an array,
@@ -273,13 +275,14 @@ Let's ask what type of thing `data` refers to:
 print(type(data))
 ~~~
 
-~~~
+~~~text
 <class 'numpy.ndarray'>
 ~~~
 
 The output tells us that `data` currently refers to an N-dimensional array, the functionality for which is provided by the NumPy library.
 
 :::callout
+
 ## Data Type
 
 A Numpy array contains one or more elements of the same type. The `type` function will only tell you that a variable is a NumPy array but won't tell you the type of thing inside the array. We can find out the type of the data contained in the NumPy array.
@@ -288,7 +291,7 @@ A Numpy array contains one or more elements of the same type. The `type` functio
 print(data.dtype)
 ~~~
 
-~~~
+~~~text
 float64
 ~~~
 
@@ -301,7 +304,7 @@ With the following command, we can see the array's *shape*:
 print(data.shape)
 ~~~
 
-~~~
+~~~text
 (60, 40)
 ~~~
 
@@ -313,7 +316,7 @@ We can also access specific elements of our 2D array (such as the first value) l
 data[0, 0]
 ~~~
 
-~~~
+~~~text
 0.0
 ~~~
 
@@ -323,10 +326,9 @@ Or the value in the middle of the dataset:
 data[30, 20]
 ~~~
 
-~~~
+~~~text
 13.0
 ~~~
-
 
 ### Slicing our Inflammation Data
 
@@ -338,7 +340,7 @@ For example, we can select the first ten days (columns) of values for the first 
 data[0:4, 0:10]
 ~~~
 
-~~~
+~~~text
 array([[0., 0., 1., 3., 1., 2., 4., 7., 8., 3.],
        [0., 1., 2., 1., 2., 1., 3., 2., 2., 6.],
        [0., 1., 1., 3., 3., 2., 6., 2., 5., 9.],
@@ -358,7 +360,7 @@ data[5:10, 0:10]
 
 Which will show us data from patients 5-9 (rows) across the first 10 days (columns):
 
-~~~
+~~~text
 array([[0., 0., 1., 2., 2., 4., 2., 1., 6., 4.],
        [0., 0., 2., 2., 4., 2., 2., 5., 5., 8.],
        [0., 0., 1., 2., 3., 1., 2., 3., 5., 3.],
@@ -375,13 +377,14 @@ small
 
 The above example selects rows 0 through 2 and columns 36 through to the end of the array:
 
-~~~
+~~~text
 array([[2., 3., 0., 0.],
        [1., 1., 0., 1.],
        [2., 2., 1., 1.]])
 ~~~
 
 :::callout
+
 ## Numpy Memory
 
 Numpy memory management can be tricksy:
@@ -396,7 +399,7 @@ y[2] = 0
 x
 ~~~
 
-~~~
+~~~text
 array([0, 1, 0, 3, 4])
 ~~~
 
@@ -412,7 +415,7 @@ y[2] = 0
 x
 ~~~
 
-~~~
+~~~text
 [0, 1, 2, 3, 4]
 ~~~
 
@@ -428,9 +431,10 @@ y[2] = 0
 x
 ~~~
 
-~~~
+~~~text
 array([0, 1, 2, 3, 4])
 ~~~
+
 :::
 
 ### Elementwise Operations on Multiple Arrays
@@ -450,7 +454,7 @@ print('doubledata:')
 doubledata[:3, 36:]
 ~~~
 
-~~~
+~~~text
 original:
 array([[2., 3., 0., 0.],
        [1., 1., 0., 1.],
@@ -477,7 +481,7 @@ print('tripledata:')
 print(tripledata[:3, 36:])
 ~~~
 
-~~~
+~~~text
 tripledata:
 array([[6., 9., 0., 0.],
        [3., 3., 0., 3.],
@@ -505,7 +509,7 @@ print('C = ')
 print(C)
 ~~~
 
-~~~
+~~~text
 A =
 [[1 2 3]
  [4 5 6]
@@ -542,7 +546,7 @@ print('D = ')
 print(D)
 ~~~
 
-~~~
+~~~text
 D =
 [[0. 0.]
  [0. 1.]
@@ -550,6 +554,7 @@ D =
  [0. 0.]
  [0. 0.]]
 ~~~
+
 :::
 ::::
 
@@ -564,11 +569,10 @@ b = np.array([[5, 6], [7, 8]])
 np.dot(a, b)
 ~~~
 
-~~~
+~~~text
 array([[19, 22],
        [43, 50]])
 ~~~
-
 
 ### More Complex Operations
 
@@ -578,13 +582,14 @@ Often, we want to do more than add, subtract, multiply, and divide array element
 print(np.mean(data))
 ~~~
 
-~~~
+~~~text
 6.14875
 ~~~
 
 `mean` is a function that takes an array as an argument.
 
 :::callout
+
 ## Not All Functions Have Input
 
 Generally, a function uses inputs to produce outputs.
@@ -592,15 +597,17 @@ However, some functions produce outputs without
 needing any input. For example, checking the current time
 doesn't require any input.
 
-~~~
+~~~text
 import time
 print(time.ctime())
 ~~~
+
 {: .language-python}
 
-~~~
+~~~text
 Fri Sep 30 14:52:40 2022
 ~~~
+
 {: .output}
 
 For functions that don't take in any arguments,
@@ -625,7 +632,7 @@ print('std deviation:', stdval)
 Here we've assigned the return value from `np.max(data)` to the variable `maxval`, the value
 from `np.min(data)` to `minval`, and so on.
 
-~~~
+~~~text
 max inflammation: 20.0
 min inflammation: 0.0
 std deviation: 4.613833197118566
@@ -639,7 +646,7 @@ np.max(data[0, :])
 
 So here, we're looking at the maximum inflammation across all days for the first patient, which is
 
-~~~
+~~~text
 18.0
 ~~~
 
@@ -656,7 +663,7 @@ To support this functionality, most array functions allow us to specify the axis
 print(np.mean(data, axis=0))
 ~~~
 
-~~~
+~~~text
 [  0.           0.45         1.11666667   1.75         2.43333333   3.15
    3.8          3.88333333   5.23333333   5.51666667   5.95         5.9
    8.35         7.73333333   8.36666667   9.5          9.58333333
@@ -673,7 +680,7 @@ As a quick check, we can ask this array what its shape is:
 print(np.mean(data, axis=0).shape)
 ~~~
 
-~~~
+~~~text
 (40,)
 ~~~
 
@@ -686,7 +693,7 @@ patients_avg = np.mean(data, axis=1)
 patients_avg
 ~~~
 
-~~~
+~~~text
 [ 5.45   5.425  6.1    5.9    5.55   6.225  5.975  6.65   6.625  6.525
   6.775  5.8    6.225  5.75   5.225  6.3    6.55   5.7    5.85   6.55
   5.775  5.825  6.175  6.1    5.8    6.425  6.05   6.025  6.175  6.55
@@ -699,7 +706,7 @@ Which is the average inflammation per patient across all days.
 
 ::::challenge{id=change-in-inflammation title="Change in Inflammation"}
 
-This patient data is _longitudinal_ in the sense that each row represents a
+This patient data is *longitudinal* in the sense that each row represents a
 series of observations relating to one individual.  This means that
 the change in inflammation over time is a meaningful concept.
 
@@ -737,6 +744,7 @@ concept.
 ~~~python
 np.diff(data, axis=1)
 ~~~
+
 :::
 
 If the shape of an individual data file is `(60, 40)` (60 rows and 40
@@ -774,7 +782,7 @@ one element to the next will be negative. If
 you are interested in the **magnitude** of the change and not the
 direction, the `np.absolute()` function will provide that.
 
-Notice the difference if you get the largest _absolute_ difference
+Notice the difference if you get the largest *absolute* difference
 between readings.
 
 ~~~python
@@ -789,6 +797,7 @@ array([ 12.,  14.,  11.,  13.,  11.,  13.,  10.,  12.,  10.,  10.,  10.,
         13.,  10.,   9.,  10.,  10.,   9.,   9.,  13.,  10.,   9.,  10.,
         11.,  13.,  10.,  10.,  12.])
 ~~~
+
 :::
 ::::
 
@@ -802,7 +811,7 @@ By default, array operations are element-by-element:
 np.arange(5) * np.arange(5)
 ~~~
 
-~~~
+~~~text
 array([ 0,  1,  4,  9, 16])
 ~~~
 
@@ -812,7 +821,7 @@ If we multiply arrays with non-matching shapes we get an error:
 np.arange(5) * np.arange(6)
 ~~~
 
-~~~
+~~~text
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 ValueError: operands could not be broadcast together with shapes (5,) (6,)
@@ -824,7 +833,7 @@ Or with a multi-dimensional array:
 np.zeros([2,3]) * np.zeros([2,4])
 ~~~
 
-~~~
+~~~text
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 ValueError: operands could not be broadcast together with shapes (2,3) (2,4)
@@ -836,7 +845,7 @@ Arrays must match in all dimensions in order to be compatible:
 np.ones([3, 3]) * np.ones([3, 3]) # Note elementwise multiply, *not* matrix multiply.
 ~~~
 
-~~~
+~~~text
 array([[ 1.,  1.,  1.],
        [ 1.,  1.,  1.],
        [ 1.,  1.,  1.]])
@@ -854,7 +863,7 @@ subset = data[:10, :10]
 subset
 ~~~
 
-~~~
+~~~text
 array([[0., 0., 1., 3., 1., 2., 4., 7., 8., 3.],
        [0., 1., 2., 1., 2., 1., 3., 2., 2., 6.],
        [0., 1., 1., 3., 3., 2., 6., 2., 5., 9.],
@@ -875,7 +884,7 @@ multiplier = np.arange(1, 11)
 multiplier
 ~~~
 
-~~~
+~~~text
 array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 ~~~
 
@@ -887,7 +896,7 @@ We can just do:
 subset * multiplier
 ~~~
 
-~~~
+~~~text
 array([[ 0.,  0.,  3., 12.,  5., 12., 28., 56., 72., 30.],
        [ 0.,  2.,  6.,  4., 10.,  6., 21., 16., 18., 60.],
        [ 0.,  2.,  3., 12., 15., 12., 42., 16., 45., 90.],
@@ -911,7 +920,8 @@ automatically repeats the data in `multiplier` to match the number of patients
 (the first dimension in `subset`) so the `*` operation can be applied over
 arrays of equal shape.
 
-## Key Points:
+## Key Points
+
 - Processing NumPy arrays is generally much faster than processing Python lists.
 - NumPy arrays have specialised capabilities to support complex mathematical operations, and are less flexible that Python lists.
 - Slicing NumPy arrays returns a reference to the original dataset, not a copy of it like with Python lists.

@@ -24,7 +24,7 @@ variables. This is a powerful feature of functional programming languages, and i
 
 In Python, functions are first-class citizens, which means that they can be passed to other functions as arguments, for example:
 
-~~~ python
+``` python
 def add_one(x):
     return x + 1
 
@@ -32,11 +32,11 @@ def apply_function(f, x):
     return f(x)
 
 print(apply_function(add_one, 1))
-~~~
+```
 
-~~~
+```text
 2
-~~~
+```
 
 ## Lambda Functions
 
@@ -47,16 +47,15 @@ keyword `lambda`, a list of parameters, a colon, then the function body.  In
 Python, the function body is limited to a single expression, which becomes the
 return value.
 
-
-~~~ python
+``` python
 add_one = lambda x: x + 1
 
 print(add_one(1))
-~~~
+```
 
-~~~
+```text
 2
-~~~
+```
 
 We have assigned the lambda function to a variable, so we can see it more clearly, but we'd normally use it immediately.
 Most style guides (we'll come back to these later in the course) consider it bad style to assign a lambda to a variable.
@@ -75,7 +74,7 @@ Due to their simplicity, it can be useful to have a lamdba function as the inner
 
 One of the main uses of lambda functions is to create temporary functions to
 pass into higher order functions. A higher order function is simply a function
-that has other functions as one of its arguments. 
+that has other functions as one of its arguments.
 
 To illustrate the benifits of higher order functions, let us define two
 functions, one that calculates the sum of a list of values, the other
@@ -114,7 +113,7 @@ print(reduce(data, lambda a, b: max(a, b)))
 print(reduce(data, lambda a, b: min(a, b)))
 ```
 
-```
+```text
 9
 0
 4
@@ -141,7 +140,7 @@ documentation](https://docs.python.org/3/library/collections.abc.html#collection
 The results of each of those applications become the values in the **iterable**
 that is returned.
 
-~~~python
+```python
 l = [1, 2, 3]
 
 def add_one(x):
@@ -150,16 +149,16 @@ def add_one(x):
 # Returns a <map object> so need to cast to list
 print(list(map(add_one, l)))
 print(list(map(lambda x: x + 1, l)))
-~~~
+```
 
-~~~
+```text
 [2, 3, 4]
 [2, 3, 4]
-~~~
+```
 
 Like `map`, `filter` takes a function and applies it to each value in an iterable, keeping the value if the result of the function application is `True`.
 
-~~~ python
+``` python
 l = [1, 2, 3]
 
 def is_gt_one(x):
@@ -168,18 +167,18 @@ def is_gt_one(x):
 # Returns a <filter object> so need to cast to list
 print(list(filter(is_gt_one, l)))
 print(list(filter(lambda x: x > 1, l)))
-~~~
+```
 
-~~~
+```text
 [2, 3]
 [2, 3]
-~~~
+```
 
 The `reduce` function is different.
 This function uses a function which accepts two values to accumulate the values in the iterable.
 The simplest uses here are to calculate the sum or product of a sequence.
 
-~~~ python
+``` python
 from functools import reduce
 
 l = [1, 2, 3]
@@ -189,22 +188,21 @@ def add(a, b):
 
 print(reduce(add, l))
 print(reduce(lambda a, b: a + b, l))
-~~~
+```
 
-~~~
+```text
 6
 6
-~~~
+```
 
 These are the fundamental components of the MapReduce style, and can be combined to perform much more complex data processing operations.
-
 
 ::::challenge{id=sum_squares title="Sum of Squares"}
 
 Using `map` and `reduce`, write a function that calculates the sum of the squares of the values in a list.
 Your function should behave as below:
 
-~~~ python
+``` python
 def sum_of_squares(l):
     # Your code here
 
@@ -213,70 +211,72 @@ print(sum_of_squares([1]))
 print(sum_of_squares([1, 2, 3]))
 print(sum_of_squares([-1]))
 print(sum_of_squares([-1, -2, -3]))
-~~~
+```
 
-~~~
+```text
 0
 1
 14
 1
 14
-~~~
+```
 
 :::solution
 
-~~~ python
+``` python
 from functools import reduce
 
 def sum_of_squares(l):
     squares = map(lambda x: x * x, l)
     return reduce(lambda a, b: a + b, squares)
-~~~
+```
+
 :::
 
 Now let's assume we're reading in these numbers from an input file, so they arrive as a list of strings.
 Modify your function so that it passes the following tests:
 
-~~~ python
+``` python
 print(sum_of_squares(['1', '2', '3']))
 print(sum_of_squares(['-1', '-2', '-3']))
-~~~
+```
 
-~~~
+```text
 14
 14
-~~~
+```
 
 :::solution
-~~~ python
+
+``` python
 from functools import reduce
 
 def sum_of_squares(l):
     integers = map(int, l)
     squares = map(lambda x: x * x, integers)
     return reduce(lambda a, b: a + b, squares)
-~~~
+```
 
 :::
 
 Finally, like comments in Python, we'd like it to be possible for users to comment out numbers in the input file they give to our program.
 Extend your function so that the following tests pass (don't worry about passing the first set of tests with lists of integers):
 
-~~~ python
+``` python
 print(sum_of_squares(['1', '2', '3']))
 print(sum_of_squares(['-1', '-2', '-3']))
 print(sum_of_squares(['1', '2', '#100', '3']))
-~~~
+```
 
-~~~
+```text
 14
 14
 14
-~~~
+```
 
 :::solution
 
-~~~ python
+``` python
 from functools import reduce
 
 def sum_of_squares(l):
@@ -284,7 +284,8 @@ def sum_of_squares(l):
     integers = map(int, not_comments)
     squares = map(lambda x: x * x, integers)
     return reduce(lambda a, b: a + b, squares)
-~~~
+```
+
 :::
 ::::
 
@@ -303,9 +304,9 @@ Is this as much as you would expect for the number of cores your CPU has?
 
 **Hint:** To time the execution of a Python script we can use the Linux program `time`:
 
-~~~bash
+```bash
 time python3 my_script.py
-~~~
+```
 
 Would we get the same benefits from parallel equivalents of the `filter` and `reduce` functions?
 Why, or why not?
@@ -333,26 +334,26 @@ literal of that type (in the case below, a list literal) containing what looks
 like the top of a for loop.  To the left of the `for` we put the equivalent of
 the map operation we want to use:
 
-~~~python
+```python
 print([i for i in range(5)])
 print([2 * i for i in range(5)])
-~~~
+```
 
-~~~
+```text
 [0, 1, 2, 3, 4]
 [0, 2, 4, 6, 8]
-~~~
+```
 
 We can also use list comprehensions to perform the equivalent of a filter
 operation, by putting the filter condition at the end:
 
-~~~python
+```python
 print([2 * i for i in range(5) if i % 2 == 0])
-~~~
+```
 
-~~~
+```text
 [0, 4, 8]
-~~~
+```
 
 ### Dictionary and Set Comprehensions
 
@@ -361,36 +362,36 @@ comprehensions but use the dictionary or set literal syntax.
 
 So set comprehensions are:
 
-~~~python
+```python
 print({2 * i for i in range(5)})
-~~~
+```
 
-~~~
+```text
 {0, 2, 4, 6, 8}
-~~~
+```
 
 While dictionary comprehensions are:
 
-~~~python
+```python
 print({i: 2 * i for i in range(5)})
-~~~
+```
 
-~~~
+```text
 {0: 0, 1: 2, 2: 4, 3: 6, 4: 8}
-~~~
+```
 
 :::callout
+
 ## Why No Tuple Comprehension
 
 Raymond Hettinger, one of the Python core developers, said in 2013:
 
-~~~
+```text
 Generally, lists are for looping; tuples for structs. Lists are homogeneous; tuples heterogeneous. Lists for variable length.
-~~~
+```
 
 Since tuples aren't intended to represent sequences, there's no need for them to have a comprehension structure.
 :::
-
 
 ## Generators
 
@@ -400,21 +401,21 @@ Since tuples aren't intended to represent sequences, there's no need for them to
 What happens if we try to use them in the same was as we did list
 comprehensions?
 
-~~~python
+```python
 print((2 * i for i in range(5)))
-~~~
+```
 
-~~~
+```text
 <generator object <genexpr> at 0x7efc21efcdd0>
-~~~
+```
 
 Like the `map` and `filter` functions, generator expressions are not evaluated
 until you iterate over them.
 
-~~~python
+```python
 for i in (2 * i for i in range(5)):
     print(i)
-~~~
+```
 
 ## Decorators
 
@@ -422,7 +423,7 @@ Decorators are higher order functions that take a function as an argument, modif
 
 Let's look at the following code for ways on how to "decorate" functions.
 
-~~~python
+```python
 def with_logging(func):
 
     """A decorator which adds logging to a function."""
@@ -450,9 +451,9 @@ def add_two(n):
 
 print(add_one(1))
 print(add_two(1))
-~~~
+```
 
-~~~
+```text
 Before function call
 Adding one
 After function call
@@ -461,7 +462,7 @@ Before function call
 Adding two
 After function call
 3
-~~~
+```
 
 In this example, we see a decorator (`with_logging`) and two different syntaxes
 for applying the decorator to a function. The decorator is implemented here as a
@@ -503,18 +504,18 @@ different use-cases, but we won’t worry about that here.
 
 For the function to measure, you may wish to use this as an example:
 
-~~~python
+```python
 def measure_me(n):
     total = 0
     for i in range(n):
         total += i * i
 
     return total
-~~~
+```
 
 :::solution
 
-~~~python
+```python
 import time
 
 def profile(func):
@@ -537,16 +538,17 @@ def measure_me(n):
     return total
 
 print(measure_me(1000000))
-~~~
+```
 
-~~~
+```text
 Took 0.124199753 seconds
 333332833333500000
-~~~
+```
+
 :::
 ::::
 
-## Key Points:
+## Key Points
 
 - *First-Class Functions*: functions that can be passed as arguments to other functions, returned from functions, or assigned to variables.
 - *Lambda Functions*: small, nameless functions defined in the normal flow of the program with a keyword lambda.

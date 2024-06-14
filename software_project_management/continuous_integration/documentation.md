@@ -45,7 +45,6 @@ Writing documentation for software is crucial.
 
 We will be using [Sphinx](https://www.sphinx-doc.org/en/master/) and [Read the Docs](https://readthedocs.org/) to create and deploy documentation pages for our repository.
 
-
 ## Sphinx
 
 Sphinx is a powerful and flexible open-source documentation generation tool primarily used for Python, but it can be used for other programming languages as well.
@@ -61,7 +60,6 @@ Here are some key features:
 1. **Indexing and Searching**: Sphinx provides robust indexing that is crucial for larger projects. It supports glossaries and can generate search pages for HTML output.
 
 1. **Theming Support**: Sphinx supports themes for its HTML output, allowing documentation to match the aesthetic and branding of a project or organization.
-
 
 ## Read the Docs
 
@@ -80,7 +78,6 @@ Here are some of its key features:
 
 1. **PDF and EPUB Export**: Users can download a PDF or EPUB version of your documentation for offline reading.
 
-
 ## Getting started
 
 From your repository, run:
@@ -95,7 +92,7 @@ Next, create a directory at the top level of your project called `docs`.
 
 From the `docs` directory, run
 
-~~~
+~~~shell
 sphinx-quickstart
 ~~~
 

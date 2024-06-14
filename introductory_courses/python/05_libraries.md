@@ -35,13 +35,13 @@ Using libraries brings several benefits:
   * How did they accomplish something?
 
 :::callout
+
 ## Libraries and modules
 
 A library is a collection of modules, but the terms are often used
 interchangeably, especially since many libraries only consist of a single
 module, so don't worry if you mix the terms.
 :::
-
 
 ## Importing modules
 
@@ -54,17 +54,17 @@ A module must be imported before it can be used.
 
 Using `math`, one of the modules in the standard library:
 
-~~~python
+```python
 import math
 
 print('pi is', math.pi)
 print('cos(pi) is', math.cos(math.pi))
-~~~
+```
 
-~~~ text
+``` text
 pi is 3.141592653589793
 cos(pi) is -1.0
-~~~
+```
 
 We always have to refer to each item with the module's name.
 
@@ -74,11 +74,11 @@ We always have to refer to each item with the module's name.
 
 We can find more out about a module with `help`, this works just like with a function.
 
-~~~ python
+``` python
 help(math)
-~~~
+```
 
-~~~ text
+``` text
 Help on module math:
 
 NAME
@@ -101,7 +101,7 @@ FUNCTIONS
     acos(x, /)
         Return the arc cosine (measured in radians) of x.
 ⋮ ⋮ ⋮
-~~~
+```
 
 ## Importing specific items
 
@@ -110,15 +110,15 @@ We can simplify and speed up our programs by importing only what we need.
 * Use the form `from ... import ...` to load only specific items from a library module.
 * Then refer to them directly without library name as prefix.
 
-~~~ python
+``` python
 from math import cos, pi
 
 print('cos(pi) is', cos(pi))
-~~~
+```
 
-~~~ text
+``` text
 cos(pi) is -1.0
-~~~
+```
 
 ## Creating aliases
 
@@ -127,15 +127,15 @@ We can create an alias for a library module when importing it to make our progra
 * Use the form `import ... as ...` to give a library a short *alias* while importing it.
 * Then refer to items in the library using that shortened name.
 
-~~~ python
+``` python
 import math as m
 
 print('cos(pi) is', m.cos(m.pi))
-~~~
+```
 
-~~~ text
+``` text
 cos(pi) is -1.0
-~~~
+```
 
 * Commonly used for libraries that are frequently used or have long names.
   * E.g., the `matplotlib` plotting library is often aliased as `mpl`.
@@ -143,9 +143,9 @@ Overusing aliasing can make programs harder to understand, since readers must le
 
 We can, of course, also combine both selective importing and aliasing using `from ... import ... as ...` to do both things at once.
 
-~~~ python
+``` python
 from matplotlib import pyplot as plt
-~~~
+```
 
 Will alias just the matplotlib.pyplot module into `plt`.
 
@@ -153,11 +153,11 @@ Will alias just the matplotlib.pyplot module into `plt`.
 
 You want to select a random character from a string:
 
-~~~ python
+``` python
 bases = 'ACTTGCTTGAC'
-~~~
+```
 
-1. Which [standard library][stdlib] module could help you?
+1. Which standard library [stdlib] module could help you?
 2. Which function would you select from that module? Are there alternatives?
 3. Try to write a program that uses the function.
 
@@ -170,28 +170,28 @@ You could use either `random.randrange` or `random.randint` functions
 to get a random integer between 0 and
 10, and then pick out the character at that position:
 
-~~~ python
+``` python
 from random import randrange
 
 random_index = randrange(len(bases))
 print(bases[random_index])
-~~~
+```
 
 or more compactly:
 
-~~~ python
+``` python
 from random import randrange
 
 print(bases[randrange(len(bases))])
-~~~
+```
 
 Perhaps you found the `random.sample` function? It allows for slightly less typing:
 
-~~~ python
+``` python
 from random import sample
 
 print(sample(bases, 1)[0])
-~~~
+```
 
 Note that this function returns a list of values.
 We will learn about [lists](08_lists) later.
@@ -204,9 +204,9 @@ There's also other functions you could use, but with more convoluted code as a r
 
 When a colleague of yours types `help(math)`, Python reports an error:
 
-~~~
+```text
 NameError: name 'math' is not defined
-~~~
+```
 
 What has your colleague forgotten to do?
 
@@ -222,27 +222,27 @@ Importing the math module (`import math`)
 2. Rewrite the program so that it uses `import` *without* `as`.
 3. Which form do you find easier to read?
 
-~~~ python
+``` python
 import math as m
 angle = ____.degrees(____.pi / 2)
 print(____)
-~~~
+```
 
 :::solution
 
-~~~ python
+``` python
 import math as m
 angle = m.degrees(m.pi / 2)
 print(angle)
-~~~
+```
 
 can be written as
 
-~~~ python
+``` python
 import math
 angle = math.degrees(math.pi / 2)
 print(angle)
-~~~
+```
 
 Since you just wrote the code and are familiar with it, you might actually find the first version easier to read.
 But when trying to read a huge piece of code written by someone else, or when getting back to your own huge piece of code after several months, non-abbreviated names are often easier, except where there are clear abbreviation conventions.
@@ -294,19 +294,19 @@ convey this information.
 2. Do you find this version easier to read than preceding ones?
 3. Why *wouldn't* programmers always use this form of `import`?
 
-~~~ python
+``` python
 ____ math import ____, ____
 angle = degrees(pi / 2)
 print(angle)
-~~~
+```
 
 :::solution
 
-~~~python
+```python
 from math import degrees, pi
 angle = degrees(pi / 2)
 print(angle)
-~~~
+```
 
 Most likely you find this version easier to read since it's less dense.
 The main reason not to use this form of import is to avoid name clashes.
@@ -320,14 +320,14 @@ Or if you were to also import a function named `degrees` from another library.
 1. Read the code below and try to identify what the errors are without running it.
 2. Run the code, and read the error message. What type of error is it?
 
-~~~python
+```python
 from math import log
 log(0)
-~~~
+```
 
 :::solution
 
-~~~ text
+``` text
 ---------------------------------------------------------------------------
 ValueError                                Traceback (most recent call last)
 <ipython-input-1-d72e1d780babin <module>
@@ -335,7 +335,7 @@ ValueError                                Traceback (most recent call last)
 ----2 log(0)
 
 ValueError: math domain error
-~~~
+```
 
 1. The logarithm of `x` is only defined for `x > 0`, so 0 is outside the
    domain of the function.

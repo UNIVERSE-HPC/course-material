@@ -39,7 +39,7 @@ You would likely see something more like this:
 local$ ls
 ```
 
-```
+```text
 Applications Documents    Library      Music        Public
 Desktop      Downloads    Movies       Pictures
 ```
@@ -58,7 +58,7 @@ devices are anchored to the "root" directory, which is `/`:
 remote$ ls /
 ```
 
-```
+```text
 bin   etc   lib64  proc  sbin     sys  var
 boot  home  mnt    root  scratch  tmp  working
 dev   lib   opt    run   srv      usr
@@ -69,6 +69,7 @@ folders on a UNIX OS contain system files and change as you install new software
 upgrade your OS.
 
 :::callout
+
 ## Using HPC filesystems
 
 On HPC systems, you have a number of places where you can store your files.
@@ -87,6 +88,7 @@ are backed up.
   Scratch; it may not be backed up. It differs from Scratch space in that
   files in a work file system are not automatically deleted for you: you must
   manage the space yourself.
+
   :::
 
 ## Nodes
@@ -115,6 +117,7 @@ This may show only your user ID, but there are likely several other people
 (including fellow learners) connected right now.
 
 :::callout
+
 ## Dedicated Transfer Nodes
 
 If you want to transfer larger amounts of data to or from the cluster, some
@@ -143,7 +146,7 @@ For example, we can view all of the compute nodes by running the command
 remote$ sinfo
 ```
 
-```
+```text
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
 compute*     up 7-00:00:00      1 drain* gra259
 compute*     up 7-00:00:00     11  down* gra[8,99,211,268,376,635,647,803,85...
@@ -201,19 +204,19 @@ can be found on the command line.
 In a Linux environment, you can use the following commands:
 
 * Run system utilities
+
   ```bash
   local$ nproc --all
   local$ free -m
   ```
 
 * Read from `/proc`
+
   ```bash
   local$ cat /proc/cpuinfo
   local$ cat /proc/meminfo
   ```
 
-
-  ```
 :::
 
 In a macOS environment, you can use the following to get the number of cpus and
@@ -231,6 +234,7 @@ or install `htop` using `apt` in Ubuntu or `brew` in macOS.
 local$ top
 local$ htop
 ```
+
 ::::
 
 ::::challenge{id=explore-remote title="Explore the Login Node"}
@@ -277,14 +281,12 @@ This is an important point to remember: files saved on one node
 :::
 ::::
 
-
 ::::challenge{id=compare-local-remote title="Compare Your Computer, the Login Node and the Compute Node"}
 
 Compare your laptop's number of processors and memory with the numbers you
 see on the cluster login node and compute node. What implications do
 you think the differences might have on running your research work on the
 different systems and nodes?
-
 
 :::solution
 Compute nodes are usually built with processors that have _higher
@@ -297,6 +299,7 @@ more, faster memory is key for large or _complex numerical tasks_.
 ::::
 
 :::callout
+
 ## Differences Between Nodes
 
 Many HPC clusters have a variety of nodes optimized for particular workloads.

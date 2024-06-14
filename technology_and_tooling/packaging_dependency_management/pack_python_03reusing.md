@@ -33,7 +33,7 @@ In the directory `analysis2/`, let's write a script `analysis2.py`, that imports
 analysis2/
       analysis2.py
       data/
-  	      hotwire.csv
+         hotwire.csv
 ```
 
 ```python
@@ -75,9 +75,9 @@ To begin with, Python first looks in the current directory.
 If the package/module isn't found there, the python interpreter looks in the following directories
 (in this order):
 
--   `/usr/lib/python38.zip`
--   `/usr/lib/python3.8`
--   `/usr/lib/python3.8/lib-dynload`
+- `/usr/lib/python38.zip`
+- `/usr/lib/python3.8`
+- `/usr/lib/python3.8/lib-dynload`
 
 The above contain the modules and packages in the _standard library_, _i.e_ the
 packages and modules that come "pre-installed" with Python.  Finally, the python
@@ -85,10 +85,9 @@ interpreter looks inside the directory
 `/home/thibault/python-workshop-venv/lib/python3.8/site-packages/`, which is our
 currently active virtual environment.
 
-:::callout
-The output of `sys.path` is probably different on your machine. It depends on many 
-factors,
-like your operating system, your version of Python, the location of your current active Python
+:::callout{variant="info"}
+The output of `sys.path` is probably different on your machine. It depends on many factors;
+such as your operating system, your version of Python, and the location of your current active Python
 environment.
 :::
 
@@ -100,9 +99,9 @@ ways we can make the `tstools` package importable from the `analysis2/`
 directory:
 
 1.  **Copy (`analysis1/tstools/`) in `analysis2/`**.
-    You end up with two independent packages. If you make changes to one, you have to remember to make the same
+    You end up with two independant packages. If you make changes to one, you have to remember to make the same
     changes to the other. It's the usual copy and paste problems: inefficient and error-prone.
-2.  **Add `analysis1/` to `sys.path`**.
+2. **Add `analysis1/` to `sys.path`**.
     At the beginning of `analysis2.py`, you could just add
 
     ```python
@@ -111,7 +110,7 @@ directory:
     ```
 
     This approach can be sufficient in some situations, but generally not recommended. What if the package directory is relocated?
-3.  **Copy `analysis1/tstools` directory to the `site-packages/` directory.**
+3. **Copy `analysis1/tstools` directory to the `site-packages/` directory.**
     You have to know where the `site-packages` is. This depends on your current system and python environment (see below).
     The location on your machine may very well be different from the location on your colleague's machine.
 
@@ -132,12 +131,10 @@ install a package, using `setuptools` and `pip`.
 
 ## setuptools, pyproject dot toml, setup dot pie and pip
 
-
 The recommended way to install a package is to use the `setuptools` library in
 conjunction with `pip`, the official python _package manager_.  Effectively,
 this approach is roughly equivalent to copying the package to the
 `site-packages` directory, but the process is **automated**.
-
 
 ### pip
 
@@ -171,7 +168,6 @@ about it. In fact, `pip` expects to find either a `pyproject.toml` configuration
 file or a python file named `setup.py` in the directory that it is given as an
 argument. These file will contain some metadata about the package and tell `pip`
 the location of the actual source of the package.
-
 
 ### `setup.py` (setup dot pie)
 
@@ -273,15 +269,14 @@ tools that can be used to install Python packages, such as [`flit`](https://flit
 
 After writing a `setup.py` and `pyproject.toml` file, our directory structure looks like this:
 
-
 ```text
 python-workshop/
       analysis1/
-  	      data/
-  	      analysis1.py
-  	      setup.py
+         data/
+         analysis1.py
+         setup.py
           pyproject.toml
-  	      tstools/
+         tstools/
 ```
 
 Actually, there are no reasons for our `tstools` package to be located
@@ -296,65 +291,60 @@ directories:
 ```text
 python-workshop/
       analysis1/
-  	      data/
-  	      analysis1.py
+         data/
+         analysis1.py
       analysis2/
-  	      data/
-  	      analysis2.py
+         data/
+         analysis2.py
       tsools-dist/
-  	      setup.py
+         setup.py
           pyproject.toml
-  	      tstools/
+         tstools/
 ```
 
 The directory `tstools-dist` is a _distribution package_, containing the `setup.py` file and the package itself - the `tstools` directory.
 These are the two minimal ingredients required to _distribute_ a package.
 
-::::challenge{id=installing-tstools title="Installing `tsools` with pip"} 
+::::challenge{id=installing-tstools title="Installing `tsools` with pip"}
 
-1.  Write a stand-alone `pyproject.toml` file, or use a combination of
+1. Write a stand-alone `pyproject.toml` file, or use a combination of
     `setup.py` and `pyproject.toml` files in directory `tstools-dist`. Include the
     following metadata:
-    -   The name of the package (could be `tstools` but also could be anything else)
-    -   The version of the package (for example 0.1)
-    -   A one-line description
-    -   Your name as the author
-    -   Your email
-    -   The GPLv3 license
+    - The name of the package (could be `tstools` but also could be anything else)
+    - The version of the package (for example 0.1)
+    - A one-line description
+    - Your name as the author
+    - Your email
+    - The GPLv3 license
 
-2.  *Un*install numpy and matplotlib
+2. *Un*install numpy and matplotlib
 
     ```shell
     pip uninstall numpy matplotlib
     ```
 
-:::callout
-Make sure `pip` points to your current virtual environment (you can check this by typing 
-`pip --version`. Particularly, if admin rights are necessary to uninstall and install 
-packages, you're probably using `pip` in your global Python environment. To make sure 
-that you run the correct `pip` for your correct Python environment, run `python -m pip 
-<pip command>` instead of `pip <pip command>`.)
-:::
+    :::callout{variant="tip"}
+    Make sure `pip` points to your current virtual environment (you can check this by typing `pip --version`.
+    Particularly, if it becomes necessary to use admin rights to uninstall and install packages, you're probably using `pip` in your global Python environment.
+    To ensure that you run the correct `pip` for your correct Python environment, run `python -m pip <pip command>` instead of `pip <pip command>`.)
+    :::
 
-
-3.  Install the `tstools` package with `pip`.
+3. Install the `tstools` package with `pip`.
     Remember: `pip install <location of setup file>`
     Notice how `numpy` and `matplotlib` are automatically downloaded (can you find from where?) even though your just uninstalled them.
-4.  Move to the directory `analysis2/` and check that you can import
+4. Move to the directory `analysis2/` and check that you can import
     your package from there.  Where is this package located?  Hint:
     You can check the location a package using the `__file__`
     attribute.
-5.  The directory `analysis2` contains a timeseries under
+5. The directory `analysis2` contains a timeseries under
     `data/`. What is the average value of the timeseries?
 
 ::::
-
 
 Congratulations! Your `tstools` package is now installed can be reused
 across your analyses...  no more dangerous copying and pasting!
 
 ## Maintaining your package
-
 
 In the previous section you made your package "pip installable" by
 creating a `setup.py` file.  You then installed the package,
@@ -369,7 +359,6 @@ to it, but this obviously becomes tedious if you are constantly making
 changes (maybe to hunt down a bug) and/or testing your package.  In
 addition, you may simply forget to reinstall your package, leading to
 potentially very frustrating and time-consuming errors.
-
 
 ### Editable installs
 
@@ -386,19 +375,18 @@ To install your package in editable mode, use the `-e` option for the `install` 
 pip install -e .
 ```
 
-
 ::::challenge{id=editable-install title="Editable install"}
 
 1.  Uninstall the package with `pip uninstall tstools`
 2.  List all the installed packages and check that `tstools` is not among them
-    Hint: Use `pip --help` to get a list of available `pip` commands.
+    Hint: Use `pip --help` to get alist of available `pip` commands.
 3.  re-install `tstools` in editable mode.
 4.  Modify the `tstools.vis.plot_trajectory_subset` so that it returns the maximum value
     over the trajectory subset, in addition to `figure` and `axis`.
     Hint: You can use the numpy function `amax` to find the maximum of an array.
-5.  Edit and run the script `analysis2/analysis2.py` to print the
+5. Edit and run the script `analysis2/analysis2.py` to print the
     maximum value of the timeseries `analysis2/data/hotwire.csv` between t=0
-    and t = 0.25. 
+    and t = 0.25.
 
 In editable mode, `pip install` creates a file,
 `<package-name>.egg-link`, at the package installation location in
@@ -409,19 +397,20 @@ package in your package project directory:
 cat ~/python-workshop-venv/lib/python3.8/site-packages/tstools.egg-link
 /home/thibault/python-packaging-workshop/tstools
 ```
+
 ::::
 
 ## Summary
 
--   In order to reuse our package across different analyses, we must _install_ it.
+- In order to reuse our package across different analyses, we must _install_ it.
     In effect, this means copying the package into a directory that is in the python path.
-    This shouldn't be done manually, but instead using a `pyproject.toml` (or `setup.py`) 
+    This shouldn't be done manually, but instead using a `pyproject.toml` (or `setup.py`)
     configuration file that a tool like `pip` can process using the  `pip install` command.
--   It would be both cumbersome and error-prone to have to reinstall the package each time
+- It would be both cumbersome and error-prone to have to reinstall the package each time
     we make a change to it (to fix a bug for instance). Instead, the package can be installed
     in "editable" mode using the `pip install -e` command. This just redirects the python
     interpreter to your project directory.
--   The main value of packaging software is to facilitate its reuse across different projects.
+- The main value of packaging software is to facilitate its reuse across different projects.
     One you have extracted the right operations into a package that is independent of your
     analysis, you can easily "share" it between projects. In this way you avoid inefficient
     and dangerous duplication of code.

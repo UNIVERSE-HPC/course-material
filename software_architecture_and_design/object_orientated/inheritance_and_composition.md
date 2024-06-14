@@ -78,7 +78,7 @@ obs = alice.add_observation(3)
 print(obs)
 ~~~
 
-~~~
+~~~text
 3
 ~~~
 
@@ -147,7 +147,7 @@ obs = bob.add_observation(4)
 print(obs)
 ~~~
 
-~~~
+~~~text
 Alice
 3
 Bob
@@ -166,7 +166,6 @@ The order in which it does this search is known as the **method resolution order
 
 The line `super().__init__(name)` gets the parent class, then calls the `__init__` method, providing the `name` variable that `Person.__init__` requires.
 This is quite a common pattern, particularly for `__init__` methods, where we need to make sure an object is initialised as a valid `X`, before we can initialise it as a valid `Y` - e.g. a valid `Person` must have a name, before we can properly initialise a `Patient` model with their inflammation data.
-
 
 ## Composition vs Inheritance
 
@@ -218,12 +217,12 @@ It exists in Python, but is often not present in other Object Oriented languages
 Although this might seem useful, like in our inheritance-based model of the photocopier above, it's best to avoid it unless you're sure it's the right thing to do, due to the complexity of the inheritance heirarchy.
 Often using multiple inheritance is a sign you should instead be using composition - again like the photocopier model above.
 
-
 ::::challenge{id="a-model-patient" title="A Model Patient"}
 
 Above we gave an example of a `Patient` class which inherits from `Person`. Let's can start with extending the system such that there must be a `Doctor` class to hold the data representing a single doctor, which:
-  - must have a `name` attribute
-  - must have a list of patients that this doctor is responsible for.
+
+- must have a `name` attribute
+- must have a list of patients that this doctor is responsible for.
 
 In addition to these, try to think of an extra feature you could add to the
 models which would be useful for managing a dataset like this - imagine we're
@@ -239,7 +238,7 @@ For any extra features you've added, explain them and how you implemented them
 to your neighbour.  Would they have implemented that feature in the same way?
 
 :::solution
-One example solution is shown below. You may start by writing some tests (that will initially fail), and then 
+One example solution is shown below. You may start by writing some tests (that will initially fail), and then
 develop the code to satisfy the new requirements and pass the tests.
 
 ~~~ python
@@ -290,7 +289,7 @@ def test_no_duplicate_patients():
     doc.add_patient(alice)
     assert len(doc.patients) == 1   
 ...
-~~~    
+~~~
 
 ~~~ python
 # file: inflammation/models.py
@@ -333,9 +332,11 @@ class Doctor(Person):
                 return
         self.patients.append(new_patient)
 ...
-~~~    
+~~~
+
 :::
 ::::
 
-## Key Points:
+## Key Points
+
 - Relationships between concepts can be described using inheritance (*is a*) and composition (*has a*).

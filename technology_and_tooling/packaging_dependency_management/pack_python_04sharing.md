@@ -80,9 +80,9 @@ removing 'tstools-0.1' (and everything under it)
 
 This mainly does three things:
 
--   It gathers the python source files that consitute the package (incuding the `setup.py` or `pyproject.toml` if present).
--   It writes some metadata about the package in a directory `<package name>.egg-info`.
--   It bundles everyting into a tar archive.
+- It gathers the python source files that consitute the package (incuding the `setup.py` or `pyproject.toml` if present).
+- It writes some metadata about the package in a directory `<package name>.egg-info`.
+- It bundles everyting into a tar archive.
 
 The newly created sdist is written in a directory `dist` in the root of the package:
 
@@ -152,7 +152,7 @@ rendering the latter format obsolete. For more information, refer to [Wheel vs E
 
 ::::challenge{id=python-wheel title="Building a Python wheel"}
 
-1.  If you don't have one, create a new developement virtual environment in the
+1. If you don't have one, create a new developement virtual environment in the
     `tstools-dist` directory:
 
     ```shell
@@ -161,25 +161,29 @@ rendering the latter format obsolete. For more information, refer to [Wheel vs E
     tstools-venv\Scripts\activate.bat # (Windows command prompt)
     tstools-venv\Scripts\Activate.ps1 # (Windows PowerShell)
     ```
-2.  Update `pip`
+
+2. Update `pip`
 
     ```shell
     pip install --upgrade pip
     ```
-3.  Install `build` tool and the `wheel` extension:
+
+3. Install `build` tool and the `wheel` extension:
 
     ```shell
     pip install wheel build
     ```
-4.  Build a wheel
+
+4. Build a wheel
 
     ```shell
     python -m build --wheel
     ```
-5.  Install the wheel using `pip`.
+
+5. Install the wheel using `pip`.
     Hint: wheels are written in the `dist/` directory, just
     like source distributions.
-6.  `.whl` files are basically zip files. Unzip the wheel and explore its contents.
+6. `.whl` files are basically zip files. Unzip the wheel and explore its contents.
 
 :::callout
 The [wheel](https://pypi.org/project/wheel/) package is a built-in extension to the `setuptools` package.
@@ -189,6 +193,7 @@ Using the `build` tool with no arguments will build both a source distribution a
 ```shell
 python -m build
 ```
+
 :::
 
 ::::
@@ -199,7 +204,6 @@ In the previous section you learned how to create distributions for your
 packages.  In this section, we look at how to share them with others, so that
 other people can easily install and use your packages.
 
-
 ### Package repositories
 
 Let's think about distributing packages for a minute.
@@ -209,10 +213,10 @@ If you both work next to each other, you could simply exchange a USB stick. If n
 
 Although effective on a short term basis, these solutions present serious shortcomings:
 
--   You would have to share the distribution again each time you make a change to the package.
--   If your colleague wants a specific version (that's not the latest), you would have to check out the old version of your package and build the distribution again - unless your manually
+- You would have to share the distribution again each time you make a change to the package.
+- If your colleague wants a specific version (that's not the latest), you would have to check out the old version of your package and build the distribution again - unless your manually
     keep track of all your distributions.
--   Users of your package must contact you to get the distribution, and wait for you to get back to them.
+- Users of your package must contact you to get the distribution, and wait for you to get back to them.
 
 These issues can be overcome by using _package repositories_. A package repository is just an index of packages hosted on distant servers, available to download from installation.
 If you're using GNU/Linux, you use a package repository each time you install new software: `apt install libreoffice` is nothing but a request for the package `libreoffice` to one of
@@ -222,8 +226,7 @@ The main reposotiry for Python is the [Python Package Index](https://pypi.org/) 
 Whenever you install a package with `pip install package`, `pip` first check than `package` isnt a directory on your machine (in which case `pip` tries to install it as a package).
 If not, `pip` makes a request to PyPI and, if it exists, downloads and install package `package`.
 
-
-### Publishing distributions to the test PyPI index 
+### Publishing distributions to the test PyPI index
 
 Once a package is uploaded to PyPI, it cannot easily be removed.
 This is to prevent packages from disappearing without warning while other software depends on it.
@@ -250,37 +253,41 @@ without entering your username and password every time. Note that you might want
 
 ::::challenge{id=publishing-distributions title="Publishing distributions to TestPyPI"}
 
-1.  On PyPI (or TestPyPI), there cannot be two package with the same name. Therefore, before you upload your `tstools` package,
+1. On PyPI (or TestPyPI), there cannot be two package with the same name. Therefore, before you upload your `tstools` package,
     you must give the project a unique name. To do so, open the `tstools-dist/setup.py` or `tstools-dist/pyproject.toml` file and change the `name` entry
     to something unique to you, for instance:
 
     ```python
     name='tstools-<yourname>'
     ```
-2.  Install `twine` in your `python-packaging-venv` environment
+
+2. Install `twine` in your `python-packaging-venv` environment
 
     ```shell
     pip install twine
     ```
-3.  If you created some distributions in the previous sections, remove everything inside your `dist/` directory
+
+3. If you created some distributions in the previous sections, remove everything inside your `dist/` directory
 
     ```shell
     rm dist/*
     ```
-4.  Create a source distribution and a wheel for your `tstools` package
+
+4. Create a source distribution and a wheel for your `tstools` package
 
     ```shell
     python -m build
     ```
-5.  If you don't have one, create an account on the Test PyPI index by visiting <https://test.pypi.org/account/register/>.
-6.  Lastly, publish your distributions to the test PyPI index:
+
+5. If you don't have one, create an account on the Test PyPI index by visiting <https://test.pypi.org/account/register/>.
+6. Lastly, publish your distributions to the test PyPI index:
 
     ```shell
     twine upload --repository testpypi dist/*
     ```
 
     Can you find your package on [test.pypi.org](https://test.pypi.org) ?
-7.  Create a new virtual environment and install your `tstools` package from the test PyPI index
+7. Create a new virtual environment and install your `tstools` package from the test PyPI index
 
     ```shell
     pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple your-package
@@ -291,21 +298,23 @@ without entering your username and password every time. Note that you might want
     to look for the package at `test.pypi.org` instead of `pypi.org` (which is the default).
     In addition, `--extra-index-url https://pypi.org/simple` tells `pip` to looks for dependencies
     in the regular index, instead of the test one. In our case dependencies are `numpy` and `matplotlib`.
+
 ::::
 
 Congratulations! You just published your first Python package.
 
 Remarks:
 
--   It's always a good idea to first publish your package on the test index, before
+- It's always a good idea to first publish your package on the test index, before
     you publish it to the real index.
--   `twine` and `pip` defaut to the real index <https://pypi.org>, so commands are really simple:
+- `twine` and `pip` defaut to the real index <https://pypi.org>, so commands are really simple:
 
     ```shell
     twine upload <distributions> # Publish package
     pip install <package name> # Install package from pypi.org
     ```
--   You can, and _should_ publish your package each time you make a new version of it.
+
+- You can, and _should_ publish your package each time you make a new version of it.
     All versions are stored on PyPI, and are accessible from pip.
     See the [release history for numpy](https://pypi.org/project/numpy/#history) for example.
     You could just install a specific version of numpy with:
@@ -313,7 +322,8 @@ Remarks:
     ```shell
     pip install numpy==1.17.5
     ```
--   Note that _you cannot_ erase a published version of your package.
+
+- Note that _you cannot_ erase a published version of your package.
     If you discover a bug in a version of your package that already has been published and want to fix it without changing the version number,
     what is known as a _post-release_, _i.e_ adding `.postX` add the end of the faulty version number.
     For instance:

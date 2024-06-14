@@ -22,19 +22,19 @@ When we ran our π code in a previous episode, we got some timing results for ru
 
 As we saw, by using MPI we were able to reduce the run time of our code by using more cores without affecting the results. The new column `speedup` shown in the table above was calculated using, e.g. with 1 core:
 
-> *Speedup = T<sub>1</sub> / T<sub>n</sub>*
+> *Speedup = T~1~ / T~n~*
 
-Where *T<sub>1</sub>* denotes the time taken to run the code with only 1 core, and *T<sub>n</sub>* denotes the time taken to run the code with `n` cores.
+Where *T~1~* denotes the time taken to run the code with only 1 core, and *T~n~* denotes the time taken to run the code with `n` cores.
 
 The speedup efficiency, which measures how efficiently the additional resources are being used, is,
 
-> *Efficiency<sub>n</sub> = Speedup<sub>n</sub> / n*,
+> *Efficiency~n~ = Speedup~n~ / n*,
 
 Which could be as high as 1, but probably will never reach that in practice.
 
 :::::challenge(id=calculate-speedup-1, title="Calculate using your Own Results I"}
 Submit your Pi job again, as you did in the previous episode. e.g. with a job script called `mpi-pi.sh`:
- 
+
 ```bash
 remote$ sbatch mpi-pi.sh
 ```
@@ -66,37 +66,37 @@ If we use *n* processors, we might expect *n* times speedup. But as we've mentio
 
 We can think of a program as being operations which *can* and *can't* be parallelised, i.e. the part of the code we can and can't be speeded up. The time taken for a program to finish executing is the sum of the fractions of time spent in the serial and parallel portion of the code,
 
-> *Time to Complete (T) = Fraction of time taken in Serial Portion (F<sub>S</sub>) + Fraction of time taken in Parallel Portion (F<sub>P</sub>)*
+> *Time to Complete (T) = Fraction of time taken in Serial Portion (F~S~) + Fraction of time taken in Parallel Portion (F~P~)*
 >
-> *T = F<sub>S</sub> + F<sub>P</sub>*
+> *T = F~S~ + F~P~*
 
 When a program executes in parallel, the parallel portion of the code is split between the available cores. But since the serial portion is not split in this way, the time to complete is therefore,
 
-> *T<sub>n</sub> = F<sub>S</sub> + F<sub>P</sub> / n*
+> *T~n~ = F~S~ + F~P~ / n*
 
 We can see that as the number of cores in use increases, then the time to complete decreases until it approaches that of the serial portion. The speedup from using more cores is,
 
-> *Speedup = T<sub>1</sub> / T<sub>n</sub> = ( F<sub>S</sub> + F<sub>P</sub> ) / ( F<sub>S</sub> + F<sub>P</sub> / n )*
+> *Speedup = T~1~ / T~n~ = ( F~S~ + F~P~ ) / ( F~S~ + F~P~ / n )*
 
-To simplify the above, we will define the single core execution time as a single unit of time, such that *F<sub>S</sub> + F<sub>P</sub> = 1*.
+To simplify the above, we will define the single core execution time as a single unit of time, such that *F~S~ + F~P~ = 1*.
 
-> *Speedup = 1 / ( F<sub>S</sub> + F<sub>P</sub> / n )*
+> *Speedup = 1 / ( F~S~ + F~P~ / n )*
 
 Again this shows us that as the number of cores increases, the serial portion of the code will dominate the run time as when *n = ∞*,
 
-> *Max speedup = 1 / F<sub>S</sub>*
+> *Max speedup = 1 / F~S~*
 
 ## What's the Maximum Speedup?
 
 From the previous section, we know the the maximum speedup achievable is limited to how long a program takes to execute in serial. If we know the portion of time spent in the serial and parallel code, we will theoretically know by how much we can accelerate our program. However, it's not always simple to know the exact value of these fractions. But from Amdahl's law, if we can measure the speedup as a function of number of cores, we can estimate that maximum speed up.
 
-We can rearrange Amdahl's law to estimate the parallel portion *F<sub>P</sub>*,
+We can rearrange Amdahl's law to estimate the parallel portion *F~P~*,
 
-> *F<sub>P</sub> = n / ( n - 1 ) ( ( T<sub>1</sub> - T<sub>n</sub> ) / T<sub>1</sub> )*
+> *F~P~ = n / ( n - 1 ) ( ( T~1~ - T~n~ ) / T~1~ )*
 
 Using the above formula on our example code we get the following results:
 
-| Cores (n) | T<sub>n</sub>   | F<sub>p</sub> | F<sub>s</sub> = 1 - F<sub>p</sub> |
+| Cores (n) | T~n~   | F~p~ | F~s~ = 1 - F~p~ |
 |-----------|-----------------|---------------|-----------------------------------|
 | 1         | 3.99667         | -             | -                                 |
 | 2         | 2.064242        | 0.967019      | 0.0329809                         |
@@ -110,10 +110,11 @@ Using the above formula on our example code we get the following results:
 We now have an estimated percentage for our serial and parallel portion of our code. As you can see, as the number of cores we use increases, the time spent in the serial portion of the code increases.
 
 :::::challenge{id=calculate-speedup-2, title="Calculate using your Own Results II"}
-Looking back at your own results from the previous *Calculate using your Own Results I* exercise, create new columns for F<sub>p</sub> and F<sub>s</sub> and calculate the results for each, using the formula above. Finally, calculate the average for each of these as in the table above.
+Looking back at your own results from the previous *Calculate using your Own Results I* exercise, create new columns for F~p~ and F~s~ and calculate the results for each, using the formula above. Finally, calculate the average for each of these as in the table above.
 :::::
 
 ::::callout
+
 ## Differences in Serial Timings
 
 Similarly, in this instance we see that serial run times may vary depending on the run. There are several factors that are impacting our code. Firstly as we've discussed, these were run on a working system with other users, so runtime will be affected depending on the load of the system. Throughout DiRAC, it is normal when you run your code to have exclusive access, so this will be less of an issue. But if, for example, your code accesses bulk storage then there may be an impact since these are shared resources. As we are using the MPI library in our code, it would be expected that the serial portion will actually increase slightly with the number of cores due to additional MPI overheads. This will have a noticeable impact if you try scaling your code into the thousands of cores.
@@ -121,11 +122,11 @@ Similarly, in this instance we see that serial run times may vary depending on t
 
 If we have several values, we can take the average to estimate an upper bound on how much benefit we will get from adding more processors. In our case then, the maximum speedup we can expect is,
 
-> *Max speedup = 1 / F<sub>S</sub> = 1 / ( 1 - F<sub>P</sub> ) = 1 / ( 1 - 0.965375 ) = 29*
+> *Max speedup = 1 / F~S~ = 1 / ( 1 - F~P~ ) = 1 / ( 1 - 0.965375 ) = 29*
 
-Using this formula we can calculate a table of the expected maximum speedup for a given F<sub>P</sub>:
+Using this formula we can calculate a table of the expected maximum speedup for a given F~P~:
 
-| F<sub>P</sub> | Max Speedup |
+| F~P~ | Max Speedup |
 |---------------|-------------|
 | 0.0           | 1.00        |
 | 0.1           | 1.11        |
@@ -140,16 +141,16 @@ Using this formula we can calculate a table of the expected maximum speedup for 
 | 0.95          | 20.00       |
 | 0.99          | 100.00      |
 |---------------|-------------|
-       
+
 :::::challenge{id=cores-vs-speedup, title="Number of Cores vs Expected Speedup"}
-Using what we've learned about Amdahl's Law and the average percentages of serial and parallel proportions of our example code we calculated earlier in the *Calculate using your Own Results II* exercise, fill in or create a table estimating the expected total speedup and change in speedup when doubling the number of cores, in a table like the following (with the number of cores doubling each time until a total of 4096). Substitute the initial T<sub>1</sub> `???????` value with the initial T<sub>n</sub> value from your own run.
+Using what we've learned about Amdahl's Law and the average percentages of serial and parallel proportions of our example code we calculated earlier in the *Calculate using your Own Results II* exercise, fill in or create a table estimating the expected total speedup and change in speedup when doubling the number of cores, in a table like the following (with the number of cores doubling each time until a total of 4096). Substitute the initial T~1~ `???????` value with the initial T~n~ value from your own run.
 
 Hints: use the following formula:
- 
-> *T<sub>n</sub> = F<sub>s</sub> + ( F<sub>p</sub> / n )* <br>
-> *Speedup = T<sub>1</sub> / T<sub>n</sub>*
- 
-| Cores (n) | T<sub>n</sub> | Speedup | Change in Speedup |
+
+> *T~n~ = F~s~ + ( F~p~ / n )*
+> *Speedup = T~1~ / T~n~*
+
+| Cores (n) | T~n~ | Speedup | Change in Speedup |
 |-----------|---------------|---------|-------------------|
 | 1         | ???????   |         |                   |
 | 2         |           |         |                   |
@@ -164,9 +165,9 @@ How closely do these estimations correlate with your actual results to 16 cores?
 
 Hopefully from your results you will find that we can get close to the maximum speedup calculated earlier, but it requires ever more resources. From our own trial runs, we expect the speedup to drop below 1% at 4096 cores, but it is expected that we would never run this code at these core counts as it would be a waste of resources.
 
-Using the `3.9967` T<sub>1</sub> starting value, we get the following estimations:
+Using the `3.9967` T~1~ starting value, we get the following estimations:
 
-| Cores (n) | T<sub>n</sub> | Speedup   | Change in Speedup |
+| Cores (n) | T~n~ | Speedup   | Change in Speedup |
 |-----------|---------------|-----------|-------------------|
 | 1         | 3.99667       | 1         | 0         |
 | 2         | 2.067504      | 1.933089  | 0.933089  |
@@ -184,7 +185,6 @@ Using the `3.9967` T<sub>1</sub> starting value, we get the following estimation
 ::::
 :::::
 
-
 :::::challenge{id=how-many-cores, title="How Many Cores Should we Use?"}
 From the data you have just calculated, what do you think the maximum number of cores we should use with our code to balance reduced execution time versus efficient usage of compute resources.?
 
@@ -192,7 +192,6 @@ From the data you have just calculated, what do you think the maximum number of 
 > > Within DiRAC we do not impose such a limit, this is a decision made by you. Every project has an allocation and it is up to you to decide what is efficient use of your allocation. In this case I personally would not waste my allocation on any runs over 128 cores.
 ::::
 :::::
-
 
 ## Calculating a Weak Scaling Profile
 
@@ -216,7 +215,7 @@ When presenting your weak scaling it is common to show how well it scales, this 
 
 ![Weak Scaling - Cores vs Time](fig/scalability-weak-scaling-time.png){: width="650px"}
 
-We can also plot the scaling factor. This is the percentage increase in run time compared to base run time for a normal run. In this case we are just using *T<sub>1</sub>*:
+We can also plot the scaling factor. This is the percentage increase in run time compared to base run time for a normal run. In this case we are just using **T**~1~:
 
 ![Weak Scaling - Cores vs Scaling Factor](fig/scalability-weak-scaling-factor.png){: width="650px"}
 
@@ -224,6 +223,7 @@ The above plot shows that the code is highly scalable. We do have an anomaly wit
 
 :::::challenge{id=calculate-speeup-3, title="Calculate using your Own Results III"}
 You can reproduce this weak scaling profile with the Pi code by submitting a job which executes the following instead, in `mpi-pi.sh`:
+
  ```bash
 ...
 ./run.sh Weak
