@@ -37,4 +37,4 @@ jobs:
         run: npm install -g markdownlint-cli
 
       - name: Lint Markdown files
-        run: markdownlint -f  '**/*.md' --ignore '*/*/slides/*' --ignore README.md
+        run: markdownlint '**/*.md' --ignore '*/*/slides/*' --ignore README.md
