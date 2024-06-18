@@ -98,7 +98,7 @@ Looking back at the example in the previous section, let's list some potential
 ways we can make the `tstools` package importable from the `analysis2/`
 directory:
 
-1.  **Copy (`analysis1/tstools/`) in `analysis2/`**.
+1. **Copy (`analysis1/tstools/`) in `analysis2/`**.
     You end up with two independant packages. If you make changes to one, you have to remember to make the same
     changes to the other. It's the usual copy and paste problems: inefficient and error-prone.
 2. **Add `analysis1/` to `sys.path`**.
@@ -377,11 +377,11 @@ pip install -e .
 
 ::::challenge{id=editable-install title="Editable install"}
 
-1.  Uninstall the package with `pip uninstall tstools`
-2.  List all the installed packages and check that `tstools` is not among them
+1. Uninstall the package with `pip uninstall tstools`
+2. List all the installed packages and check that `tstools` is not among them
     Hint: Use `pip --help` to get alist of available `pip` commands.
-3.  re-install `tstools` in editable mode.
-4.  Modify the `tstools.vis.plot_trajectory_subset` so that it returns the maximum value
+3. re-install `tstools` in editable mode.
+4. Modify the `tstools.vis.plot_trajectory_subset` so that it returns the maximum value
     over the trajectory subset, in addition to `figure` and `axis`.
     Hint: You can use the numpy function `amax` to find the maximum of an array.
 5. Edit and run the script `analysis2/analysis2.py` to print the

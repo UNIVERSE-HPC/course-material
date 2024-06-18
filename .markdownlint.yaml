@@ -5,6 +5,3 @@ MD033:
   allowed_elements: ["kbd"]
 MD024:
   siblings_only: true
-ignore:
-  "*/*/slides/*.md"
-  "README.md"
