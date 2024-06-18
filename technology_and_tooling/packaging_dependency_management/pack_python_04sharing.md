@@ -180,10 +180,13 @@ rendering the latter format obsolete. For more information, refer to [Wheel vs E
     python -m build --wheel
     ```
 
-5. Install the wheel using `pip`.
-    Hint: wheels are written in the `dist/` directory, just
+5.  Install the wheel using `pip`. Wheels are written in the `dist/` directory, just
     like source distributions.
-6. `.whl` files are basically zip files. Unzip the wheel and explore its contents.
+
+    ```shell
+    python -m pip install ./dist/tstools*.whl
+    ```
+6.  `.whl` files are basically zip files. Unzip the wheel and explore its contents.
 
 :::callout
 The [wheel](https://pypi.org/project/wheel/) package is a built-in extension to the `setuptools` package.
