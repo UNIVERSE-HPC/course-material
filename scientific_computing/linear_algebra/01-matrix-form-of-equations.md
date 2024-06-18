@@ -18,7 +18,7 @@ attribution:
 
 ## Systems of linear equations
 
-Linear algebra is largely concerned with representing, manipulating and solving large 
+Linear algebra is largely concerned with representing, manipulating and solving large
 systems of linear equations. Consider the following 2 linear equations:
 
 $$
@@ -28,8 +28,8 @@ a_2x+b_2y &= c_2, \quad (2)
 \end{aligned}
 $$
 
-where the values $\;x\;$ and $\;y\;$ are to be found, and $\;a_1, \;b_1, \;a_2, \;b_2, 
-\;c_1\;$ and $\;c_2\;$ are given constants. We know that we can use linear combinations 
+where the values $\;x\;$ and $\;y\;$ are to be found, and $\;a_1, \;b_1, \;a_2, \;b_2,
+\;c_1\;$ and $\;c_2\;$ are given constants. We know that we can use linear combinations
 of these two equations to solve this sytem for $\;x\;$ and $\;y\;$, like so:
 
 $$
@@ -42,9 +42,9 @@ $$
 
 ## The Matrix
 
-We can also write these linear equations using a matrix. Matrices are structures that 
-allow us to more easily manipulate linear systems. While not particularly useful for 
-just 2 equations, using a matrix representation allows us to generalise to, say $N$ 
+We can also write these linear equations using a matrix. Matrices are structures that
+allow us to more easily manipulate linear systems. While not particularly useful for
+just 2 equations, using a matrix representation allows us to generalise to, say $N$
 equations and $M$ unknowns, or to solve large systems of equations on a computer.
 
 Consider the original system:
@@ -52,7 +52,7 @@ Consider the original system:
 $$
 \begin{aligned}
 a_1x+b_1y &= c_1, \\
-a_2x+b_2y &= c_2. 
+a_2x+b_2y &= c_2.
 \end{aligned}
 $$
 
@@ -63,8 +63,8 @@ $$
 \left(\begin{matrix}x\\y\end{matrix}\right)
 =\left(\begin{matrix}c_1\\ c_2 \end{matrix}\right).
 $$
- 
-Think about how this form relates to the original linear system. 
+
+Think about how this form relates to the original linear system.
 
 ## Geometry of linear equations
 
@@ -73,7 +73,7 @@ Consider the following system of equations
 $$
 \begin{aligned}
  x + -2y &= -1, \\
--x +  3y &=  3. 
+-x +  3y &=  3.
 \end{aligned}
 $$
 
@@ -83,12 +83,12 @@ $$
 A = \left(\begin{matrix} 1 & -2 \\ -1 & 3\end{matrix}\right)
 $$
 
-Plotting these two linear equations on a graph shows graphically the solution to this 
+Plotting these two linear equations on a graph shows graphically the solution to this
 equation given by
 
 $$
-\left(\begin{matrix} x \\ y \end{matrix}\right) = A^{-1} \left(\begin{matrix} -1 \\ 3 
-\end{matrix}\right) = \left(\begin{matrix} 3 \\ 2 
+\left(\begin{matrix} x \\ y \end{matrix}\right) = A^{-1} \left(\begin{matrix} -1 \\ 3
+\end{matrix}\right) = \left(\begin{matrix} 3 \\ 2
 \end{matrix}\right)
 $$
 
@@ -106,7 +106,7 @@ $$
 -x +  2y &=  3. \end{aligned}
 $$
 
-and 
+and
 
 $$
 \begin{aligned}
@@ -116,14 +116,14 @@ $$
 
 ![(left) infinite solutions, (right) no solutions](images/01-sim2.svg)
 
-The first gives the plot on the left, while the second, which has a different vector of 
-constants on the RHS, gives the plot on the right. You can see that depending on the 
-constants, the system of equations can have an infinite number of solutions, or no 
-solutions at all. 
+The first gives the plot on the left, while the second, which has a different vector of
+constants on the RHS, gives the plot on the right. You can see that depending on the
+constants, the system of equations can have an infinite number of solutions, or no
+solutions at all.
 
-The matrix $A$ in this case is singular, and therefore does not have an inverse. Looking 
-at the equations again, you can see that the two rows of the matrix $A$ are multiples of 
-the other, and thus there is only *one* independent row. That is, the *rank* of the 
+The matrix $A$ in this case is singular, and therefore does not have an inverse. Looking
+at the equations again, you can see that the two rows of the matrix $A$ are multiples of
+the other, and thus there is only *one* independent row. That is, the *rank* of the
 matrix is one.
 
 ## Singular matrices
@@ -142,8 +142,8 @@ When $\;\text{rank}(A) < n\;$ then
 
 ### The determinant
 
-One way of solving a system of equations represented by $A x = b$ is to calculate the 
-*inverse* of A, giving the solution as $x = A^{-1} b$. This can be done by calculating 
+One way of solving a system of equations represented by $A x = b$ is to calculate the
+*inverse* of A, giving the solution as $x = A^{-1} b$. This can be done by calculating
 what is known as the *determinant* of $A$.
 
 If
@@ -164,12 +164,12 @@ $$
 A^{-1} = \frac{1}{ps-qr} \left(\begin{matrix} s & -q \\ -r & p\end{matrix}\right)
 $$
 
-Calculating the inverse of a matrix using its determinant can be very costly for larger 
-matrices, therefore other algorithms are used (e.g. Gaussian Elimination, which is 
+Calculating the inverse of a matrix using its determinant can be very costly for larger
+matrices, therefore other algorithms are used (e.g. Gaussian Elimination, which is
 introduced in the next section)
 
-If $|A| = 0$, A is said to be **singular** (have no inverse). Graphically, this is 
-represented by the parallel or non-intersecting lines in the figure above. 
+If $|A| = 0$, A is said to be **singular** (have no inverse). Graphically, this is
+represented by the parallel or non-intersecting lines in the figure above.
 
 ### Using Python to calculate the inverse
 
@@ -178,9 +178,9 @@ To find $A^{-1}$  for
 $$
 A = \left(\begin{matrix}3&0&2\\ 3&0&-3\\ 0&1&-1\end{matrix}\right)
 $$
- 
+
 you can using numpy like so:
- 
+
 ```python
 A = np.array([[3, 0, 2], [3, 0, -3], [0, 1, 1]])
 np.linalg.inv(A)
@@ -188,7 +188,7 @@ np.linalg.inv(A)
 
 Output:
 
-```
+```text
 array([[ 0.2       ,  0.13333333,  0.        ],
        [-0.2       ,  0.2       ,  1.        ],
        [ 0.2       , -0.2       , -0.        ]])
@@ -207,7 +207,7 @@ np.linalg.inv(A)
 
 Output:
 
-```
+```text
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
   File "<__array_function__ internals>", line 6, in inv
@@ -225,34 +225,34 @@ numpy.linalg.LinAlgError: Singular matrix
 - Strang, G. (2016). Introduction to linear algebra (Fifth ed.). Wellesley.
 - Linear algebra and its applications by Gilbert Strang
   - lots of supplimentary material via MIT course page here:
-https://github.com/mitmath/1806/blob/master/summaries.md
-- LA from an ODE perspective: Kapitula, T. (2015). Ordinary Differential Equations and 
+<https://github.com/mitmath/1806/blob/master/summaries.md>
+- LA from an ODE perspective: Kapitula, T. (2015). Ordinary Differential Equations and
   Linear Algebra. Society for Industrial and Applied Mathematics.
 
 ## Problems
 
 ::::challenge{id=intersection-of-planes title="Intersection of planes" }
 
-1. Describe the intersection of the three planes $u+v+w+z = 6$, $u+w+z = 4$ and $u+w = 
-   2$ (all in four-dimensional space). Is it a line or a point or a fourth equation that 
-   leaves us with no solution. an empty set? What is the intersection if the fourth 
+1. Describe the intersection of the three planes $u+v+w+z = 6$, $u+w+z = 4$ and $u+w =
+   2$ (all in four-dimensional space). Is it a line or a point or a fourth equation that
+   leaves us with no solution. an empty set? What is the intersection if the fourth
    plane $u = −1$ is included? Find a fourth equation that leaves us with no solution.
 
 :::solution
 
-The intersection of the 3 planes is the 1d line $u + w = 2$, $v=2$ and $z=2$. 
-Introducing a fourth equation that does not intersect this line (e.g. $u + w = 3$) 
+The intersection of the 3 planes is the 1d line $u + w = 2$, $v=2$ and $z=2$.
+Introducing a fourth equation that does not intersect this line (e.g. $u + w = 3$)
 leaves us with no solutions.
 
 :::
 ::::
 
-
 ::::challenge{id=python-intersection-of-planes title="Python: Intersection of planes" }
-2. Sketch or plot in Python these three lines and decide if the equations are solvable: 
-   3 by 2 system $x + 2y = 2$, $x − y = 2$, and $y = 1$. What happens if all right-hand 
-   sides are zero? Is there any nonzero choice of right- hand sides that allows the 
-   three lines to intersect at the same point?
+
+Sketch or plot in Python these three lines and decide if the equations are solvable:
+3 by 2 system $x + 2y = 2$, $x − y = 2$, and $y = 1$. What happens if all right-hand
+sides are zero? Is there any nonzero choice of right- hand sides that allows the
+three lines to intersect at the same point?
 
 :::solution
 
@@ -282,10 +282,10 @@ plot_lines(2, -1, 1)
 
 ::::challenge{id=upper-triangular-matrix title="Upper triangular matrix" }
 
-3. Write a Python function that takes in a $3 \times 3$ upper triangular matrix $A$ 
-   represented as an `ndarray`, and a rhs vector $b$, and solves the equation $A x = b$. 
-   i.e. the function will solve the following triangular system for $x = (x_1, x_2, 
-   x_3)$:
+Write a Python function that takes in a $3 \times 3$ upper triangular matrix $A$
+represented as an `ndarray`, and a rhs vector $b$, and solves the equation $A x = b$.
+i.e. the function will solve the following triangular system for $x = (x_1, x_2,
+x_3)$:
 
 $$
 \begin{aligned}

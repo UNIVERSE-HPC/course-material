@@ -130,6 +130,7 @@ sol2 = pybamm.load(path + "my_pybamm_solution.pkl")
 ```
 
 PyBaMM has a lot of variables, so these `.pkl` files are huge! So why bother?
+
 * You can run another PyBaMM model, with the final results of the saved solution as the initial conditions for the next, by using `model.set_initial_conditions_from(sol2)`, as shown in [this example](https://docs.pybamm.org/en/latest/source/examples/notebooks/initialize-model-with-solution.html)
 * You can do the same post-processing on a solution loaded from disk as you can on a "fresh" solution.
 
@@ -153,11 +154,13 @@ Can you think of three situations where you would save the entire solution, and 
 There is no right answer to this question, but some examples are the following.
 
 When to save entire solution?
+
 * If you might want to do additional post-processing later.
 * If you're likely to need the solution as an initial condition for anoher simulation.
 * If you're submitting the data to an archive.
 
 When to save selected data?
+
 * If the full `.pkl` file would take up too much space or take too long to upload.
 * To feed the data to another software package.
 * To share the data with non-PyBaMM users.
@@ -194,10 +197,8 @@ What does the above code do? What do you think the intended application was?
 
 :::solution
 
-This code simulates a GITT experiment. By exporting the parameters into a `.csv` file, you can use the simulated data to parameterize an equivalent circuit network in the same way as experimental GITT data. 
+This code simulates a GITT experiment. By exporting the parameters into a `.csv` file, you can use the simulated data to parameterize an equivalent circuit network in the same way as experimental GITT data.
 
 :::
 
 ::::
-
-## 

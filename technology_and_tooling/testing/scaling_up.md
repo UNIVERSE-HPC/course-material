@@ -110,9 +110,9 @@ def test_daily_min(test, expected):
     npt.assert_array_equal(daily_min(np.array(test)), np.array(expected))
 ...
 ~~~
+
 :::
 ::::
-
 
 ## Code Coverage - How Much of Our Code is Tested?
 
@@ -134,13 +134,13 @@ package to our virtual environment called `pytest-cov` that is used by Pytest
 and using that, we can find this out:
 
 ~~~bash
-$ pip install pytest-cov
-$ python -m pytest --cov=inflammation.models tests/test_models.py
+pip install pytest-cov
+python -m pytest --cov=inflammation.models tests/test_models.py
 ~~~
 
 So here, we specify the additional named argument `--cov` to `pytest` specifying the code to analyse for test coverage.
 
-~~~
+~~~text
 ============================= test session starts ==============================
 platform darwin -- Python 3.9.6, pytest-6.2.5, py-1.11.0, pluggy-1.0.0
 rootdir: /Users/alex/python-intermediate-inflammation
@@ -164,10 +164,10 @@ Here we can see that our tests are doing very well - 89% of statements in
 tested? The additional argument `--cov-report term-missing` can tell us:
 
 ~~~bash
-$ python -m pytest --cov=inflammation.models --cov-report term-missing tests/test_models.py
+python -m pytest --cov=inflammation.models --cov-report term-missing tests/test_models.py
 ~~~
 
-~~~
+~~~text
 ...
 Name                     Stmts   Miss  Cover   Missing
 ------------------------------------------------------
@@ -187,6 +187,7 @@ used, how complex they are, and importantly, the extent to which they affect our
 program's results.
 
 :::callout
+
 ## What about Testing Against Indeterminate Output?
 
 What if your implementation depends on a degree of random behaviour? This can be
@@ -226,7 +227,7 @@ print(random.sample(range(0, 100), 10))
 
 Will produce:
 
-~~~
+~~~text
 [17, 72, 97, 8, 32, 15, 63, 57, 60, 83]
 [17, 72, 97, 8, 32, 15, 63, 57, 60, 83]
 ~~~
@@ -267,7 +268,6 @@ gives you greater confidence that the results are correct.
 Our software will inevitably increase in complexity as it develops. Using
 automated testing where appropriate can save us considerable time, especially in
 the long term, and allows others to verify against correct behaviour.
-
 
 ## Key Points
 

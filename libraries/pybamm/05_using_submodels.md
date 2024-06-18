@@ -12,7 +12,7 @@ attribution:
       license: BSD-3
 ---
 
-One of the main features of PyBaMM is its modular structure that allows for plug and play models. At the core, all models in PyBaMM are built as a collection of submodels, where a submodel determines a specific subset of the physics. For example, the particle submodel would specify how lithium is transported in the particles. 
+One of the main features of PyBaMM is its modular structure that allows for plug and play models. At the core, all models in PyBaMM are built as a collection of submodels, where a submodel determines a specific subset of the physics. For example, the particle submodel would specify how lithium is transported in the particles.
 
 The full list of submodels can be found in the [PyBaMM docs](https://docs.pybamm.org/en/latest/source/api/models/submodels/index.html). You can check which submodels a given model uses by calling
 
@@ -44,8 +44,8 @@ Thermal models add extra physics on top of the electrochemical models, so we nee
 ```python
 model = pybamm.lithium_ion.DFN(options={"thermal": "lumped"})
 ```
-and then we can solve the model as usual. 
 
+and then we can solve the model as usual.
 
 ::::challenge{id=thermal title="Comparing thermal models"}
 
@@ -59,9 +59,9 @@ thermal_options = ["isothermal", "x-full"]
 solutions = []
 
 for option in thermal_options:
-	model = pybamm.lithium_ion.DFN(name=option, options={"thermal": option})
-	simulation = pybamm.Simulation(model)
-	solutions.append(simulation.solve([0, 3600]))
+ model = pybamm.lithium_ion.DFN(name=option, options={"thermal": option})
+ simulation = pybamm.Simulation(model)
+ solutions.append(simulation.solve([0, 3600]))
 
 pybamm.dynamic_plot(
     solutions,
@@ -118,12 +118,12 @@ SEI_options = [
 solutions = []
 
 for option in SEI_options:
-	model = pybamm.lithium_ion.DFN(
+ model = pybamm.lithium_ion.DFN(
         name=option, 
         options={"SEI": option, "SEI porosity change": "true"}
     )
-	simulation = pybamm.Simulation(model)
-	solutions.append(simulation.solve([0, 3600]))
+ simulation = pybamm.Simulation(model)
+ solutions.append(simulation.solve([0, 3600]))
 
 pybamm.dynamic_plot(
     solutions,
@@ -145,6 +145,7 @@ We observe that the voltage response is the same for all models, as the SEI cont
 ::::
 
 ## Particle mechanics
+
 Finally, we consider the models for particle mechanics. These models account for the deformation and cracking on the particles. The models available in PyBaMM are
 
 * None: no mechanical effects included.
@@ -152,11 +153,13 @@ Finally, we consider the models for particle mechanics. These models account for
 * Swelling and cracking: accounts for the swelling and also the crack formation on the particle surface.
 
 The mechanical models can be set differently for each electrode by passing a tuple as the option. For example, the following option
+
 ```python
 model = pybamm.lithium_ion.DFN(
     options={"particle mechanics": ("swelling only", "none")}
 )
 ```
+
 will include swelling model for the negative electrode and no mechanical effects for the positive electrode.
 
 ::::challenge{id=mechanics title="Particle mechanics models"}
@@ -180,7 +183,7 @@ solution.plot([
     "Negative particle surface radial stress [Pa]",
     "Negative particle surface tangential stress [Pa]",
     "Negative particle surface displacement [m]",
-	"Negative particle crack length [m]",
+ "Negative particle crack length [m]",
     "Positive particle surface radial stress [Pa]",
     "Positive particle surface tangential stress [Pa]",
     "Positive particle surface displacement [m]",
@@ -188,7 +191,7 @@ solution.plot([
 ])
 ```
 
-A few key observations are that the surface radial stress is always zero. As expected, there is no cracking in the negative electrode (we did not enable that option) but there is cracking in the positive one. 
+A few key observations are that the surface radial stress is always zero. As expected, there is no cracking in the negative electrode (we did not enable that option) but there is cracking in the positive one.
 
 :::
 

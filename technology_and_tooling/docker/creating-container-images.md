@@ -16,6 +16,7 @@ attribution:
 ---
 
 There are lots of reasons why you might want to create your **own** Docker container image.
+
 - You can't find a container image with all the tools you need on Docker Hub.
 - You want to have a container image to "archive" all the specific software versions you ran for a project.
 - You want to share your workflow with someone else.
@@ -26,7 +27,7 @@ Before creating a reproducible installation, let's experiment with installing
 software inside a container. Start a container from the `alpine` container image we used before, interactively:
 
 ~~~bash
-$ docker container run -it alpine sh
+docker container run -it alpine sh
 ~~~
 
 Because this is a basic container, there's a lot of things not installed -- for
@@ -36,7 +37,7 @@ example, `python3`.
 /# python3
 ~~~
 
-~~~
+~~~text
 sh: python3: not found
 ~~~
 
@@ -56,7 +57,7 @@ We can test our installation by running a Python command:
 Once Python is installed, we can add Python packages using the pip package installer:
 
 ~~~bash
-/# pip install cython
+/# pip install pandas
 ~~~
 
 ::::challenge{id=searching-for-help title="Searching for Help"}
@@ -95,11 +96,11 @@ From your shell, go to the folder you downloaded at the start of the lesson
 and print out the Dockerfile inside:
 
 ~~~bash
-$ cd ~/Desktop/docker-intro/basic
-$ cat Dockerfile
+cd ~/Desktop/docker-intro/basic
+cat Dockerfile
 ~~~
 
-~~~
+~~~text
 FROM <EXISTING IMAGE>
 RUN <INSTALL CMDS FROM SHELL>
 RUN <INSTALL CMDS FROM SHELL>
@@ -124,7 +125,9 @@ example, `CMD ["ls", "-lF", "--color", "/etc"]` would translate
 to `ls -lF --color /etc`.
 
 :::callout
+
 ## *shell-form* and *exec-form* for CMD
+
 Another way to specify the parameter for the
 [`CMD` instruction](https://docs.docker.com/engine/reference/builder/#cmd)
 is the *shell-form*. Here you type the command as you would call it
@@ -149,14 +152,15 @@ to look like this:
 ~~~dockerfile
 FROM alpine
 RUN apk add --update python3 py3-pip python3-dev
-RUN pip install cython
+RUN pip install pandas
 CMD ["python3", "--version"]
 ~~~
+
 :::
 ::::
 
 The recipe provided by the `Dockerfile` shown in the solution to the preceding exercise will use Alpine Linux as the base container image,
-add Python 3 and the Cython library, and set a default command to request Python 3 to report its version information.
+add Python 3 and the Pandas library, and set a default command to request Python 3 to report its version information.
 
 ## Create a new Docker image
 
@@ -167,6 +171,7 @@ resulting container as a new container image. To do this we will use the
 `docker image build` command.
 
 We have to provide `docker image build` with two pieces of information:
+
 - the location of the `Dockerfile`
 - the name of the new container image. Remember the naming scheme from before? You should name
 your new image with your Docker Hub username and a name for the container image, like this: `USERNAME/CONTAINER_IMAGE_NAME`.
@@ -174,7 +179,7 @@ your new image with your Docker Hub username and a name for the container image,
 All together, the build command that you should run on your computer, will have a similar structure to this:
 
 ~~~bash
-$ docker image build -t USERNAME/CONTAINER_IMAGE_NAME .
+docker image build -t USERNAME/CONTAINER_IMAGE_NAME .
 ~~~
 
 The `-t` option names the container image; the final dot indicates that the `Dockerfile` is in
@@ -184,10 +189,11 @@ For example, if my user name was `alice` and I wanted to call my
 container image `alpine-python`, I would use this command:
 
 ~~~bash
-$ docker image build -t alice/alpine-python .
+docker image build -t alice/alpine-python .
 ~~~
 
 :::callout
+
 ## Build Context
 
 Notice that the final input to `docker image build` isn't the Dockerfile -- it's
@@ -203,7 +209,6 @@ Even if it won't need all of the files in the build context directory, Docker do
 only what you need for the container image in a build context directory, as we've done
 in this example.
 :::
-
 
 ::::challenge{id=review title="Review!"}
 
@@ -230,14 +235,15 @@ The following command should run a container and print out our default message, 
 of Python:
 
 ~~~bash
-$ docker container run alice/alpine-python
+docker container run alice/alpine-python
 ~~~
 
 To run a container based on our container image and print out "Hello world" instead:
 
 ~~~bash
-$ docker container run alice/alpine-python echo "Hello World"
+docker container run alice/alpine-python echo "Hello World"
 ~~~
+
 :::
 ::::
 
@@ -261,9 +267,9 @@ recommend a particular distribution of Linux, and if so, it may be useful to sta
 lean towards using smaller starting container images and installing only what's needed for
 your software, as a bigger container image means longer download times to use.
 - **Know (or Google) your Linux**. Different distributions of Linux often have distinct sets of tools for installing software. The `apk` command we used above is the software package installer for Alpine Linux. The installers for various common Linux distributions are listed below:
-    - Ubuntu: `apt` or `apt-get`
-    - Debian: `deb`
-    - CentOS: `yum`
+  - Ubuntu: `apt` or `apt-get`
+  - Debian: `deb`
+  - CentOS: `yum`
   Most common software installations are available to be installed via these tools.
   A web search for "install X on Y Linux" is usually a good start for common software
   installation tasks; if something isn't available via the Linux distribution's installation
@@ -276,6 +282,7 @@ that lay out how to install software. You want to look for instructions for Linu
 the install instructions include options like those suggested above, try those first.
 
 In general, a good strategy for installing software is:
+
 - Make a list of what you want to install.
 - Look for pre-existing container images.
 - Read through instructions for software you'll need to install.
@@ -290,7 +297,7 @@ name your container image as described above, with your Docker Hub username, all
 is run the opposite of `docker image pull` -- `docker image push`.
 
 ~~~bash
-$ docker image push alice/alpine-python
+docker image push alice/alpine-python
 ~~~
 
 Make sure to substitute the full name of your container image!
@@ -299,6 +306,7 @@ In a web browser, open <https://hub.docker.com>, and on your user page you
 should now see your container image listed, for anyone to use or build on.
 
 :::callout
+
 ## Logging In
 
 Technically, you have to be logged into Docker on your computer for this to work.
@@ -322,13 +330,14 @@ with the name `workflow-complete` and a tag of `v1`. Her `docker image tag` comm
 would look like this:
 
 ~~~bash
-$ docker image tag workflow-test alice/workflow-complete:v1
+docker image tag workflow-test alice/workflow-complete:v1
 ~~~
 
 She could then push the re-named container image to Docker Hub,
 using `docker image push alice/workflow-complete:v1`
 
-## Key Points:
+## Key Points
+
 - `Dockerfiles` specify what is within Docker container images.
 - The docker image build command is used to build a container image from a Dockerfile.
 - You can share your Docker container images through the Docker Hub so that others can create Docker containers from your container images.

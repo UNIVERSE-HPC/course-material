@@ -129,6 +129,7 @@ void increment_x(int& x) {
 ```
 
 :::solution
+
 ```cpp
 // a pure function, no side effects :)
 int increment_and_return_x(const int& x) {
@@ -156,6 +157,7 @@ void increment_x(int& x) {
   x += one;
 }
 ```
+
 :::
 ::::
 
@@ -327,11 +329,9 @@ int main() {
     return 0;
 }
 ```
+
 :::
 ::::
-
-
-
 
 ## Benefits of Functional Code
 
@@ -375,7 +375,7 @@ is much smaller than the data, sending the code to where data is located is
 cheaper and faster than the other way round. Let's see how we can do data
 processing using functional programming.
 
-## Key Points:
+## Key Points
 
 - Program state is composed of variables' values, including those modified by functions and interactions with the Operating System.
 - Functional computations rely only on input values, are immutable, and do not create side effects. Pure functions are testable, composable, and parallelizable.

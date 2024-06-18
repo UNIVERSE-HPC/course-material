@@ -16,12 +16,12 @@ attribution:
 ---
 
 In order to create and use your own container images, you may need more information than
-our previous example. You may want to use files from outside the container, 
-that are not included within the container image, either by copying the files 
-into the container image, or by making them visible within a running container from their 
-existing location on your host system. You may also want to learn a little bit 
-about how to install software within a running container or a container image. 
-This episode will look at these advanced aspects of running a container or building 
+our previous example. You may want to use files from outside the container,
+that are not included within the container image, either by copying the files
+into the container image, or by making them visible within a running container from their
+existing location on your host system. You may also want to learn a little bit
+about how to install software within a running container or a container image.
+This episode will look at these advanced aspects of running a container or building
 a container image. Note that the examples will get gradually
 more and more complex -- most day-to-day use of containers and container images can be accomplished
 using the first 1--2 sections on this page.
@@ -32,8 +32,8 @@ In your shell, change to the `sum` folder in the `docker-intro` folder and look 
 the files inside.
 
 ~~~bash
-$ cd ~/Desktop/docker-intro/sum
-$ ls
+cd ~/Desktop/docker-intro/sum
+ls
 ~~~
 
 This folder has both a `Dockerfile` and a Python script called `sum.py`. Let's say
@@ -48,10 +48,10 @@ What command would we use to run Python from the `alpine-python` container?
 If we try running the container and Python script, what happens?
 
 ~~~bash
-$ docker container run alice/alpine-python python3 sum.py
+docker container run alice/alpine-python python3 sum.py
 ~~~
 
-~~~
+~~~text
 python3: can't open file 'sum.py': [Errno 2] No such file or directory
 ~~~
 
@@ -82,6 +82,7 @@ _visible_ within the container that is about to be started, and inside this cont
 directory `/temp` -- the target.
 
 :::callout
+
 ## Types of mounts
 
 You will notice that we set the mount `type=bind`, there are other types of mount that
@@ -94,12 +95,12 @@ topic. You can find more information on the different mount types in
 Let's try running the command now:
 
 ~~~bash
-$ docker container run --mount type=bind,source=${PWD},target=/temp alice/alpine-python python3 sum.py
+docker container run --mount type=bind,source=${PWD},target=/temp alice/alpine-python python3 sum.py
 ~~~
 
 But we get the same error!
 
-~~~
+~~~text
 python3: can't open file 'sum.py': [Errno 2] No such file or directory
 ~~~
 
@@ -109,7 +110,7 @@ mapped to `/temp` -- so we need to include that in the path to the script. This
 command should give us what we need:
 
 ~~~bash
-$ docker container run --mount type=bind,source=${PWD},target=/temp alice/alpine-python python3 /temp/sum.py
+docker container run --mount type=bind,source=${PWD},target=/temp alice/alpine-python python3 /temp/sum.py
 ~~~
 
 Note that if we create any files in the `/temp` directory while the container is
@@ -117,24 +118,25 @@ running, these files will appear on our host filesystem in the original director
 and will stay there even when the container stops.
 
 :::callout
+
 ## Other Commonly Used Docker Run Flags
 
 Docker run has many other useful flags to alter its function.
 A couple that are commonly used include `-w` and `-u`.
 
-The `--workdir`/`-w` flag sets the working directory a.k.a. runs the command 
+The `--workdir`/`-w` flag sets the working directory a.k.a. runs the command
 being executed inside the directory specified.
 For example, the following code would run the `pwd` command in a container
 started from the latest ubuntu image in the `/home/alice` directory and print
 `/home/alice`.  If the directory doesn't exist in the image it will create it.
 
-~~~
+~~~text
 docker container run -w /home/alice/ ubuntu pwd
 ~~~
 
 The `--user`/`-u` flag lets you specify the username you would like to run the
 container as.  This is helpful if you'd like to write files to a mounted folder
-and not write them as `root` but rather your own user identity and group. 
+and not write them as `root` but rather your own user identity and group.
 A common example of the `-u` flag is `--user $(id -u):$(id -g)` which will
 fetch the current user's ID and group and run the container as that user.
 :::
@@ -183,7 +185,7 @@ Can you find the folder that's connected to your host computer? What's inside?
 The docker command to run the container interactively is:
 
 ~~~bash
-$ docker container run --mount type=bind,source=${PWD},target=/temp -it alice/alpine-python sh
+docker container run --mount type=bind,source=${PWD},target=/temp -it alice/alpine-python sh
 ~~~
 
 Once inside, you should be able to navigate to the `/temp` folder
@@ -193,6 +195,7 @@ and see that's contents are the same as the files on your host computer:
 /# cd /temp
 /# ls
 ~~~
+
 :::
 ::::
 
@@ -212,11 +215,11 @@ image itself.
 In your shell, you should still be in the `sum` folder in the `docker-intro` folder.
 
 ~~~bash
-$ pwd
+pwd
 ~~~
 
 ~~~bash
-$ /Users/yourname/Desktop/docker-intro/sum
+/Users/yourname/Desktop/docker-intro/sum
 ~~~
 
 Let's add a new line to the `Dockerfile` we've been using so far to create a copy of `sum.py`.
@@ -230,30 +233,30 @@ This line will cause Docker to copy the file from your computer into the contain
 filesystem. Let's build the container image like before, but give it a different name:
 
 ~~~bash
-$ docker image build -t alice/alpine-sum .
+docker image build -t alice/alpine-sum .
 ~~~
 
 :::callout
+
 ## The Importance of Command Order in a Dockerfile
 
 When you run `docker build` it executes the build in the order specified
 in the `Dockerfile`.
-This order is important for rebuilding and you typically will want to put your `RUN` 
+This order is important for rebuilding and you typically will want to put your `RUN`
 commands before your `COPY` commands.
 
 Docker builds the layers of commands in order.
 This becomes important when you need to rebuild container images.
-If you change layers later in the `Dockerfile` and rebuild the container image, Docker doesn't need to 
+If you change layers later in the `Dockerfile` and rebuild the container image, Docker doesn't need to
 rebuild the earlier layers but will instead used a stored (called "cached") version of
 those layers.
 
-For example, in an instance where you wanted to copy `multiply.py` into the container 
+For example, in an instance where you wanted to copy `multiply.py` into the container
 image instead of `sum.py`.
-If the `COPY` line came before the `RUN` line, it would need to rebuild the whole image. 
+If the `COPY` line came before the `RUN` line, it would need to rebuild the whole image.
 If the `COPY` line came second then it would use the cached `RUN` layer from the previous
 build and then only rebuild the `COPY` layer.
 :::
-
 
 ::::challenge{id=did-it-work title="Did it work?"}
 
@@ -263,8 +266,9 @@ Once inside, try running the Python script.
 :::solution
 
 You can start the container interactively like so:
+
 ~~~bash
-$ docker container run -it alice/alpine-sum sh
+docker container run -it alice/alpine-sum sh
 ~~~
 
 You should be able to run the python command inside the container like this:
@@ -272,6 +276,7 @@ You should be able to run the python command inside the container like this:
 ~~~bash
 /# python3 /home/sum.py
 ~~~
+
 :::
 ::::
 
@@ -284,13 +289,16 @@ run `docker image ls` you'll see the size of each container image all the way on
 the screen. The bigger your container image becomes, the harder it will be to easily download.
 
 :::callout
+
 ## Security warning
+
 Login credentials including passwords, tokens, secure access tokens or other secrets
 must never be stored in a container. If secrets are stored, they are at high risk to
 be found and exploited when made public.
 :::
 
 :::callout
+
 ## Copying alternatives
 
 Another trick for getting your own files into a container image is by using the `RUN`
@@ -298,19 +306,19 @@ keyword and downloading the files from the internet. For example, if your code
 is in a GitHub repository, you could include this statement in your Dockerfile
 to download the latest version every time you build the container image:
 
-~~~
+~~~text
 RUN git clone https://github.com/alice/mycode
 ~~~
 
 Similarly, the `wget` command can be used to download any file publicly available
 on the internet:
 
-~~~
+~~~text
 RUN wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.10.0/ncbi-blast-2.10.0+-x64-linux.tar.gz
 ~~~
 
-Note that the above `RUN` examples depend on commands (`git` and `wget` respectively) that 
-must be available within your container: Linux distributions such as Alpine may require you to 
+Note that the above `RUN` examples depend on commands (`git` and `wget` respectively) that
+must be available within your container: Linux distributions such as Alpine may require you to
 install such commands before using them within `RUN` statements.
 :::
 
@@ -333,8 +341,8 @@ CMD ["python3", "/home/sum.py"]
 Build and test it:
 
 ~~~bash
-$ docker image build -t alpine-sum:v1 .
-$ docker container run alpine-sum:v1
+docker image build -t alpine-sum:v1 .
+docker container run alpine-sum:v1
 ~~~
 
 You'll notice that you can run the container without arguments just fine,
@@ -347,18 +355,18 @@ docker container run alpine-sum:v1 10 11 12
 
 results in
 
-~~~
+~~~text
 docker: Error response from daemon: OCI runtime create failed:
 container_linux.go:349: starting container process caused "exec:
 \"10\": executable file not found in $PATH": unknown.
 ~~~
 
 This is because the arguments `10 11 12` are interpreted as a
-*command* that replaces the default command given by `CMD
+_command_ that replaces the default command given by `CMD
 ["python3", "/home/sum.py"]` in the image.
 
-To achieve the goal of having a command that *always* runs when a
-container is run from the container image *and* can be passed the arguments given on the
+To achieve the goal of having a command that _always_ runs when a
+container is run from the container image _and_ can be passed the arguments given on the
 command line, use the keyword `ENTRYPOINT` in the `Dockerfile`.
 
 ~~~dockerfile
@@ -387,30 +395,33 @@ $ docker container run alpine-sum:v2 12 13 14
 ~~~
 
 :::callout
+
 ## Overriding the ENTRYPOINT
+
 Sometimes you don't want to run the
 image's `ENTRYPOINT`. For example if you have a specialized container image
 that does only sums, but you need an interactive shell to examine
 the container:
 
 ~~~bash
-$ docker container run -it alpine-sum:v2 /bin/sh
+docker container run -it alpine-sum:v2 /bin/sh
 ~~~
 
 will yield
 
-~~~
+~~~text
 Please supply integer arguments
 ~~~
 
 You need to override the `ENTRYPOINT` statement in the container image like so:
 
 ~~~bash
-$ docker container run -it --entrypoint /bin/sh alpine-sum:v2
+docker container run -it --entrypoint /bin/sh alpine-sum:v2
 ~~~
+
 :::
 
-### Add the `sum.py` script to the `PATH` so you can run it directly:
+### Add the `sum.py` script to the `PATH` so you can run it directly
 
 ~~~dockerfile
 FROM alpine
@@ -427,21 +438,23 @@ ENV PATH /home:$PATH
 Build and test it:
 
 ~~~bash
-$ docker image build -t alpine-sum:v3 .
-$ docker container run alpine-sum:v3 sum.py 1 2 3 4
+docker image build -t alpine-sum:v3 .
+docker container run alpine-sum:v3 sum.py 1 2 3 4
 ~~~
 
 :::callout
+
 ## Best practices for writing Dockerfiles
-Take a look at Nüst et al.'s "[_Ten simple rules for writing Dockerfiles for reproducible data science_](https://doi.org/10.1371/journal.pcbi.1008316)" \[1\] 
-for some great examples of best practices to use when writing Dockerfiles. 
-The [GitHub repository](https://github.com/nuest/ten-simple-rules-dockerfiles) associated with the paper also has a set of [example `Dockerfile`s](https://github.com/nuest/ten-simple-rules-dockerfiles/tree/master/examples) 
+
+Take a look at Nüst et al.'s "[_Ten simple rules for writing Dockerfiles for reproducible data science_](https://doi.org/10.1371/journal.pcbi.1008316)" \[1\]
+for some great examples of best practices to use when writing Dockerfiles.
+The [GitHub repository](https://github.com/nuest/ten-simple-rules-dockerfiles) associated with the paper also has a set of [example `Dockerfile`s](https://github.com/nuest/ten-simple-rules-dockerfiles/tree/master/examples)
 demonstrating how the rules highlighted by the paper can be applied.
 
-[1] Nüst D, Sochat V, Marwick B, Eglen SJ, Head T, et al. (2020) Ten simple rules for writing Dockerfiles for reproducible data science. PLOS Computational Biology 16(11): e1008316. https://doi.org/10.1371/journal.pcbi.1008316
+[1] Nüst D, Sochat V, Marwick B, Eglen SJ, Head T, et al. (2020) Ten simple rules for writing Dockerfiles for reproducible data science. PLOS Computational Biology 16(11): e1008316. <https://doi.org/10.1371/journal.pcbi.1008316>
 :::
 
-## Key points:
+## Key points
 
 - Docker allows containers to read and write files from the Docker host.
 - You can include files from your Docker host into your Docker container images by using the COPY instruction in your Dockerfile.

@@ -47,7 +47,6 @@ focussed on **what** transformations are done to the data, rather than **how**
 these transformations are performed (i.e. a detailed sequence of steps which
 update the state of the code to reach a desired state).
 
-
 :::callout
 
 In his introduction to functional programming in Advanced R, Hadley Wickham gives a good summary of the style:

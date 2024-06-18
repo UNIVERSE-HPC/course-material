@@ -60,7 +60,7 @@ output = attach_names(data, ['Alice', 'Bob'])
 print(output)
 ~~~
 
-~~~
+~~~text
 [
     {
         'name': 'Alice',
@@ -119,6 +119,7 @@ def attach_names(data, names):
 
     return output
 ~~~
+
 :::
 
 ::::
@@ -155,7 +156,7 @@ print(type(my_dict))
 print(type(my_set))
 ~~~
 
-~~~
+~~~text
 <class 'list'>
 <class 'dict'>
 <class 'set'>
@@ -169,8 +170,8 @@ Lists, dictionaries and sets are a slightly special type of class, but they beha
 The behaviours we may have seen previously include:
 
 - Lists can be appended to
-- Lists can be indexed 
-- Lists can be sliced 
+- Lists can be indexed
+- Lists can be sliced
 - Key-value pairs can be added to dictionaries
 - The value at a key can be looked up in a dictionary
 - The union of two sets can be found (the set of values present in any of the sets)
@@ -192,7 +193,7 @@ alice = Patient('Alice')
 print(alice.name)
 ~~~
 
-~~~
+~~~text
 Alice
 ~~~
 
@@ -268,7 +269,7 @@ print(observation)
 print(alice.observations)
 ~~~
 
-~~~
+~~~text
 <__main__.Patient object at 0x7fd7e61b73d0>
 {'day': 0, 'value': 3}
 [{'day': 0, 'value': 3}]
@@ -278,6 +279,7 @@ Note also how we used `day=None` in the parameter list of the `add_observation` 
 This is one of the common ways to handle an optional argument in Python, so we'll see this pattern quite a lot in real projects.
 
 :::callout
+
 ## Class and Static Methods
 
 Sometimes, the function we're writing doesn't need access to any data belonging to a particular object.
@@ -296,7 +298,7 @@ Both of these method types are created using **decorators** - for more informati
 Why is the `__init__` method not called `init`?
 There are a few special method names that we can use which Python will use to provide a few common behaviours, each of which begins and ends with a **d**ouble-**under**score, hence the name **dunder method**.
 
-When writing your own Python classes, you'll almost always want to write an `__init__` method, but there are a few other common ones you might need sometimes. You may have noticed in the code above that the method `print(alice)` returned `<__main__.Patient object at 0x7fd7e61b73d0>`, which is the string represenation of the `alice` object. We 
+When writing your own Python classes, you'll almost always want to write an `__init__` method, but there are a few other common ones you might need sometimes. You may have noticed in the code above that the method `print(alice)` returned `<__main__.Patient object at 0x7fd7e61b73d0>`, which is the string represenation of the `alice` object. We
 may want the print statement to display the object's name instead. We can achieve this by overriding the `__str__` method of our class.
 
 ~~~ python
@@ -333,7 +335,7 @@ alice = Patient('Alice')
 print(alice)
 ~~~
 
-~~~
+~~~text
 Alice
 ~~~
 
@@ -362,7 +364,7 @@ book = Book('A Book', 'Me')
 print(book)
 ~~~
 
-~~~
+~~~text
 A Book by Me
 ~~~
 
@@ -377,6 +379,7 @@ class Book:
     def __str__(self):
         return self.title + ' by ' + self.author
 ~~~
+
 :::
 ::::
 
@@ -404,7 +407,7 @@ obs = alice.last_observation
 print(obs)
 ~~~
 
-~~~
+~~~text
 {'day': 1, 'value': 4}
 ~~~
 
@@ -414,7 +417,8 @@ decorator is taking the `last_observation` function and modifying its behaviour,
 so it can be accessed as if it were a normal attribute.  It is also possible to
 make your own decorators, but we won't cover it here.
 
-## Key Points:
+## Key Points
+
 - Object oriented programming is a programming paradigm based on the concept of classes, which encapsulate data and code.
 - Classes allow us to organise data into distinct concepts.
 - By breaking down our data into classes, we can reason about the behaviour of parts of our data.

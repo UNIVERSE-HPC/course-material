@@ -24,16 +24,19 @@ MPI stands for ***Message Passing Interface*** and was developed in the early 19
 To address this challenge, researchers and computer scientists from leading vendors and organizations, including Intel, IBM, and Argonne National Laboratory, collaborated to develop MPI. Their collective efforts resulted in the release of the first version of the MPI standard, MPI-1, in 1994. This standardisation initiative aimed to provide a unified communication protocol and library for parallel computing.
 
 ::::callout
+
 ## MPI versions
+
 Since its inception, MPI has undergone several revisions, each introducing new features and improvements:
+
 - **MPI-1 (1994):** The initial release of the MPI standard provided a common set of functions, datatypes, and communication semantics.
   It formed the foundation for parallel programming using MPI.
-- **MPI-2 (1997):** This version expanded upon MPI-1 by introducing additional features such as dynamic process management, one-sided communication, paralell I/O, C++ and Fortran 90 bindings. 
-  MPI-2 improved the flexibility and capabilities of MPI programs. 
-- **MPI-3 (2012):** MPI-3 brought significant enhancements to the MPI standard, including support for non-blocking collectives, improved multithreading, and performance optimizations. 
-  It also addressed limitations from previous versions and introduced fully compliant Fortran 2008 bindings. 
+- **MPI-2 (1997):** This version expanded upon MPI-1 by introducing additional features such as dynamic process management, one-sided communication, paralell I/O, C++ and Fortran 90 bindings.
+  MPI-2 improved the flexibility and capabilities of MPI programs.
+- **MPI-3 (2012):** MPI-3 brought significant enhancements to the MPI standard, including support for non-blocking collectives, improved multithreading, and performance optimizations.
+  It also addressed limitations from previous versions and introduced fully compliant Fortran 2008 bindings.
   Moreover, MPI-3 completely removed the deprecated C++ bindings, which were initially marked as deprecated in MPI-2.2.
-- **MPI-4.0 (2021):** On June 9, 2021, the MPI Forum approved MPI-4.0, the latest major release of the MPI standard. 
+- **MPI-4.0 (2021):** On June 9, 2021, the MPI Forum approved MPI-4.0, the latest major release of the MPI standard.
   MPI-4.0 brings significant updates and new features, including enhanced support for asynchronous progress, improved support for dynamic and adaptive applications, and better integration with external libraries and programming models.
 
 These revisions, along with subsequent updates and errata, have refined the MPI standard, making it more robust, versatile, and efficient.
@@ -46,6 +49,7 @@ The key concept in MPI is **message passing**, which involves the explicit excha
 Processes can send messages to specific destinations, broadcast messages to all processes, or perform collective operations where all processes participate.
 This message passing and coordination among parallel processes are facilitated through a set of fundamental functions provided by the MPI standard.
 Typically, their names start with `MPI_` and followed by a specific function or datatype identifier. Here are some examples:
+
 - **MPI_Init:** Initializes the MPI execution environment.
 - **MPI_Finalize:** Finalises the MPI execution environment.
 - **MPI_Comm_rank:** Retrieves the rank of the calling process within a communicator.
@@ -66,51 +70,58 @@ In general, an MPI program follows a basic outline that includes the following s
 
 ## Getting Started with MPI: MPI on HPC
 
-As MPI codes allow you to run a code on multiple cores, we typically develop them to run on large systems like HPC clusters. 
+As MPI codes allow you to run a code on multiple cores, we typically develop them to run on large systems like HPC clusters.
 These are usually configured with versions of OpenMPI that have been optimised for the specific hardware involved, for maximum performance.
 
 For this episode, log into whichever HPC system you have access to - this could be a group server, or university- or national-level cluster (e.g. Iridis or DiRAC).
 
 HPC clusters typically have **more than one version** of MPI available, so you may need to tell it which one you want to use before it will give you access to it.
-First check the available MPI implementations/modules on the cluster using the command below: 
+First check the available MPI implementations/modules on the cluster using the command below:
 
 ```bash
 module avail
 ```
 
 This will display a list of available modules, including MPI implementations.
-As for the next step, you should choose the appropriate MPI implementation/module from the list based on your requirements and load it using `module load <mpi_module_name>`. 
+As for the next step, you should choose the appropriate MPI implementation/module from the list based on your requirements and load it using `module load <mpi_module_name>`.
 For example, if you want to load OpenMPI version 4.0.5, you can use:
 
 ```bash
 module load openmpi/4.0.5
 ```
 
-This sets up the necessary environment variables and paths for the MPI implementation and will give you access to the MPI library. 
-If you are not sure which implementation/version of MPI you should use on a particular cluster, ask a helper or consult your HPC facility's documentation. 
+This sets up the necessary environment variables and paths for the MPI implementation and will give you access to the MPI library.
+If you are not sure which implementation/version of MPI you should use on a particular cluster, ask a helper or consult your HPC facility's documentation.
 
 ::::callout
+
 ## MPI Elsewhere
+
 This episode assumes you will be using a HPC cluster, but you can also install OpenMPI on a desktop or laptop:
 
-* **Linux:** Most distributions have OpenMPI available in their package manager:
+- **Linux:** Most distributions have OpenMPI available in their package manager:
+
   ```bash
-  $ sudo apt install openmpi-bin openmpi-dev
+  sudo apt install openmpi-bin openmpi-dev
   ```
-* **Mac:** The MacPorts and Homebrew package managers both have OpenMPI available:
+
+- **Mac:** The MacPorts and Homebrew package managers both have OpenMPI available:
+
   ```bash
   $ brew install openmpi
   # or
   $ port install openmpi
   ```
-* **Windows:** Whilst you *can* build OpenMPI yourself on Windows, it's generally easier to use the **Windows Subsystem for Linux**.
+
+- **Windows:** Whilst you *can* build OpenMPI yourself on Windows, it's generally easier to use the **Windows Subsystem for Linux**.
 
 This can be useful for when you're writing code or testing it on a smaller scale, but you will need to check that you're installing a version of OpenMPI that's also available on whichever HPC cluster you're likely to scale up to.
 ::::
 
-
 ::::callout
+
 ## Developing on a cluster
+
 HPC clusters don't usually have GUI-based IDEs installed on them.
 We can write code locally, and copy it across using `scp` or `rsync`, but most IDEs have the ability to open folders on a remote machine, or to automatically synchronise a local folder with a remote one.
 
@@ -119,7 +130,6 @@ Some older Linux systems don't support it - in that case, try the [SSH FS](https
 
 Other IDEs like **CLion** also support [a variety of remote development methods](https://www.jetbrains.com/help/clion/remote-development.html).
 ::::
-
 
 ## Running a code with MPI
 
@@ -142,30 +152,33 @@ Therefore the below command generates an executable file named **hello_world** .
 ```bash
 mpicc -o hello_world hello_world.c 
 ```
- 
+
 Now let's try the following command:
+
 ```bash
 mpiexec -n 4 ./hello_world
 ```
 
 ::::callout
+
 ## What if `mpiexec` doesn't exist?
+
 If `mpiexec` is not found, try `mpirun` instead. This is another common name for the command.
 
-When launching MPI applications and managing parallel processes, we often rely on commands like `mpiexec` or `mpirun`. 
-Both commands act as wrappers or launchers for MPI applications, allowing us to initiate and manage the execution of multiple parallel processes across nodes in a cluster. 
+When launching MPI applications and managing parallel processes, we often rely on commands like `mpiexec` or `mpirun`.
+Both commands act as wrappers or launchers for MPI applications, allowing us to initiate and manage the execution of multiple parallel processes across nodes in a cluster.
 While the behavior and features of `mpiexec` and `mpirun` may vary depending on the MPI implementation being used (such as OpenMPI, MPICH, MS MPI, etc.), they are commonly used interchangeably and provide similar functionality.
 
-It is important to note that `mpiexec` is defined as part of the MPI standard, whereas `mpirun` is not. 
-While some MPI implementations may use one name or the other, or even provide both as aliases for the same functionality, `mpiexec` is generally considered the preferred command. 
-Although the MPI standard does not explicitly require MPI implementations to include `mpiexec`, it does provide guidelines for its implementation. 
-In contrast, the availability and options of `mpirun` can vary between different MPI implementations. 
+It is important to note that `mpiexec` is defined as part of the MPI standard, whereas `mpirun` is not.
+While some MPI implementations may use one name or the other, or even provide both as aliases for the same functionality, `mpiexec` is generally considered the preferred command.
+Although the MPI standard does not explicitly require MPI implementations to include `mpiexec`, it does provide guidelines for its implementation.
+In contrast, the availability and options of `mpirun` can vary between different MPI implementations.
 To ensure compatibility and adherence to the MPI standard, it is recommended to primarily use `mpiexec` as the command for launching MPI applications and managing parallel execution.
 ::::
 
 The expected output would be as follows:
 
-````
+````text
 Hello World!
 Hello World!
 Hello World!
@@ -173,8 +186,10 @@ Hello World!
 ````
 
 ::::callout
+
 ## What did `mpiexec` do?
-Just running a program with `mpiexec` creates several instances of our application. 
+
+Just running a program with `mpiexec` creates several instances of our application.
 The number of instances is determined by the `-n` parameter, which specifies the desired number of processes.
 These instances are independent and execute different parts of the program simultaneously. Behind the scenes, `mpiexec` undertakes several critical tasks.
 It sets up communication between the processes, enabling them to exchange data and synchronize their actions.
@@ -190,12 +205,12 @@ As we've just learned, running a program with `mpiexec` or `mpirun` results in t
 mpirun -n 4 ./hello_world
 ```
 
-However, in the example above, the program does not know it was started by `mpirun`, and each copy just works as if they were the only one. 
-For the copies to work together, they need to know about their role in the computation, in order to properly take advantage of parallelisation. 
+However, in the example above, the program does not know it was started by `mpirun`, and each copy just works as if they were the only one.
+For the copies to work together, they need to know about their role in the computation, in order to properly take advantage of parallelisation.
 This usually also requires knowing the total number of tasks running at the same time.
 
 - The program needs to call the `MPI_Init` function.
-- `MPI_Init` sets up the environment for MPI, and assigns a number (called the _rank_) to each process.
+- `MPI_Init` sets up the environment for MPI, and assigns a number (called the *rank*) to each process.
 - At the end, each process should also cleanup by calling `MPI_Finalize`.
 
 ```c
@@ -215,7 +230,7 @@ int MPI_Comm_size(MPI_COMM_WORLD, &num_ranks);
 int MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
 ```
 
-Here, `MPI_COMM_WORLD` is a **communicator**, which is a collection of ranks that are able to exchange data between one another. 
+Here, `MPI_COMM_WORLD` is a **communicator**, which is a collection of ranks that are able to exchange data between one another.
 We'll look into these in a bit more detail in the next episode, but essentially we use `MPI_COMM_WORLD` which is the default communicator which refers to all ranks.
 
 Here's a more complete example:
@@ -242,10 +257,11 @@ int main(int argc, char** argv) {
 ```
 
 :::::challenge{id=compile-run, title="Compile and Run"}
-Compile the above C code with `mpicc`, then run the code with `mpirun`. 
+Compile the above C code with `mpicc`, then run the code with `mpirun`.
 You may find the output for each rank is returned out of order. Why is this?
 
 ::::solution
+
 ```bash
 mpicc mpi_rank.c -o mpi_rank
 mpirun -n 4 mpi_rank
@@ -253,14 +269,14 @@ mpirun -n 4 mpi_rank
 
 You should see something like (although the ordering may be different):
 
-```
+```text
 My rank number is 1
 My rank number is 2
 My rank number is 0
 My rank number is 3
 ```
 
-The reason why the results are not returned in order is because the order in which the processes run is arbitrary. 
+The reason why the results are not returned in order is because the order in which the processes run is arbitrary.
 As we'll see later, there are ways to synchronise processes to obtain a desired ordering!
 ::::
 :::::
@@ -277,7 +293,7 @@ rank `my_rank`, and the total workload (i.e. 100,000 iterations), and using the 
 evenly across our ranks. Therefore, given 4 CPUs, for each rank the work would be divided into 25,000 iterations per
 CPU, as:
 
-```
+```text
 Rank 1: 1 - 25,000
 Rank 2: 25,001 - 50,000
 Rank 3: 50,001 - 75,000
@@ -285,6 +301,7 @@ Rank 4: 75,001 - 100,000
 ```
 
 We can work out the iterations to undertake for a given rank number, by working out:
+
 - Work out the number of iterations per rank by dividing the total number of iterations we want to calculate by `num_ranks`
 - Determine the start of the work iterations for this rank by multiplying our rank number by the iterations per rank
 - Determine the end of the work iterations for this rank by working out the hypothetical start of the next rank and deducting 1
@@ -298,7 +315,7 @@ int rank_start = my_rank * iterations_per_rank;
 int rank_end = ((my_rank + 1) * iterations_per_rank) - 1;
 ```
 
-We also need to cater for the case where work may not be distributed evenly across ranks, where the total work isn't directly divisible by the number of CPUs. 
+We also need to cater for the case where work may not be distributed evenly across ranks, where the total work isn't directly divisible by the number of CPUs.
 In which case, we adjust the last rank's end of iterations to be the total number of iterations.
 This ensures the entire desired workload is calculated:
 
@@ -341,12 +358,14 @@ mpicc -o count_primes count_primes.c
 mpiexec -n 2 count_primes
 ```
 
-Of course, this solution only goes so far. 
-We can add the resulting counts from each rank together to get our final number of primes between 0 and 100,000, but what would be useful would be to have our code somehow retrieve the results from each rank and add them together, and output that overall result. 
-More generally, ranks may need results from other ranks to complete their own computations. 
+Of course, this solution only goes so far.
+We can add the resulting counts from each rank together to get our final number of primes between 0 and 100,000, but what would be useful would be to have our code somehow retrieve the results from each rank and add them together, and output that overall result.
+More generally, ranks may need results from other ranks to complete their own computations.
 For this we would need ways for ranks to communicate - the primary benefit of MPI - which we'll look at in subsequent episodes.
 
 ::::callout
+
 ## What About Python?
+
 In [MPI for Python (mpi4py)](https://mpi4py.readthedocs.io/en/stable/), the initialization and finalization of MPI are handled by the library, and the user can perform MPI calls after ``from mpi4py import MPI``.
 ::::

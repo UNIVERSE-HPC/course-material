@@ -17,13 +17,13 @@ At this point in the lesson, we've introduced the basics you need to get out the
 OpenMP. There is one thing still worth being brought to your attention, and that is *hybrid parallelism*.
 
 :::callout
+
 ## The Message Passing Interface (MPI)
 
-In this episode, we will assume you have some knowledge about the Message Passing Interface (MPI) and that you have a 
+In this episode, we will assume you have some knowledge about the Message Passing Interface (MPI) and that you have a
 basic understand of how to paralleise code using MPI. If you're not sure, you can think of MPI as being like an OpenMP
 program where everything is in a `pragma omp parallel` directive.
 :::
-
 
 ## What is hybrid parallelism?
 
@@ -34,6 +34,7 @@ research is *MPI+X*. What this means is that an application is *mostly* parallel
 (MPI), which has been extended using some +X other paradigm. A common +X is OpenMP, creating MPI+OpenMP.
 
 :::callout
+
 ## Heterogeneous Computing
 
 An MPI+OpenMP scheme is known as homogenous computing, meaning all the processing units involved are of the same type.
@@ -264,6 +265,7 @@ for (int i = rank_lower_limit; i < rank_upper_limit; ++i) {
 ```
 
 :::callout
+
 ## Still not sure about MPI?
 
 If you're still a bit unsure of how MPI is working, you can basically think of it as wrapping large parts of  your
@@ -287,6 +289,7 @@ struct input_par_t input_parameters[total_work];
     }
 }
 ```
+
 :::
 
 In the above example, we have only included the parallel region of code. It is unfortunately not as simple as this,
@@ -418,6 +421,7 @@ Total time = 5.377609 seconds
 ```
 
 :::callout
+
 ## How many ranks and threads should I use?
 
 How many ranks and threads you should use depends on lots of parameters, such as the size of your problem (e.g. do you

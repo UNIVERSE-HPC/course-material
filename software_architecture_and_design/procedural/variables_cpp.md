@@ -35,7 +35,7 @@ clang++ --version
 
 You should see something like:
 
-```
+```text
 Homebrew clang version 15.0.3
 Target: x86_64-apple-darwin22.1.0
 Thread model: posix
@@ -50,7 +50,7 @@ which clang++
 
 You should see something like:
 
-```
+```text
 /usr/local/opt/llvm/bin/clang++
 ```
 
@@ -81,7 +81,7 @@ int six = 2 * 3;
 std::cout << "six = " << six << std::endl;
 ```
 
-```
+```text
 six = 6
 ```
 
@@ -107,10 +107,10 @@ If we try to use a variable that hasn't been defined, we get a compiler error:
 int seven = sixe + 1;
 ```
 
-```
+```text
 /Users/martinjrobins/git/thing/procedural.cpp:7:17: error: use of undeclared identifier 'sixe'; did you mean 'six'?
     int seven = sixe + 1;
-                ^~~~
+                ^```
                 six
 /Users/martinjrobins/git/thing/procedural.cpp:5:9: note: 'six' declared here
     int six = 2 * 3;
@@ -138,10 +138,10 @@ const int six = 2 * 3;
 six = 7;
 ```
 
-```
+```text
 /Users/martinjrobins/git/thing/procedural.cpp:8:9: error: cannot assign to variable 'six' with const-qualified type 'const int'
     six = 7;
-    ~~~ ^
+    ``` ^
 ```
 
 The compiler has saved us again! You can assist the compiler (and perhaps more
@@ -314,7 +314,7 @@ int main() {
 }
 ```
 
-```
+```text
 Joe Frederick 'Bloggs'
 ```
 
@@ -369,7 +369,7 @@ std::cout << "seven = " << r_number2 << std::endl;
 std::cout << "seven = " << six << std::endl;
 ```
 
-```
+```text
 six = 6
 seven = 7
 seven = 7
@@ -499,7 +499,7 @@ be represented by a `float`, according to the rules dictated
 [here](https://en.cppreference.com/w/cpp/language/implicit_conversion). Since
 the value now in `y` is different to the value in `x`, the result is:
 
-```
+```text
 x != y
 ```
 
@@ -535,7 +535,7 @@ std::cout << "mean is " << mean << std::endl;
 Here we are creating a vector of `double` with all the elements initialised to
 1.0. This program outputs:
 
-```
+```text
 mean is 0
 ```
 

@@ -13,6 +13,7 @@ attribution:
 ---
 
 # The Single Particle Model with Acid Dissolution
+
 The next step will be to extend the Single Particle Model to include acid dissolution.  We will use the model introduced by [Kindermann et al (2017)](https://iopscience.iop.org/article/10.1149/2.0321712jes), in particular equations [8]-[10]. Rewritten to match our notation, we have
 
 $$
@@ -29,6 +30,7 @@ The challenge for this lesson is to write a new class for SPM with acid dissolut
 
 :::solution
 To extend the SPM model to account for acid dissolution we need to add some additional lines in various parts of the code. Below we include these lines with a hint on which part of the code they should be.
+
 ```python
 # variables
 epsilon_s_p = pybamm.Variable("Positive electrode active material volume fraction")
@@ -44,6 +46,7 @@ self.rhs[epsilon_s_p] = depsdt
 
 self.initial_conditions[epsilon_s_p] = epsilon_s_p_0
 ```
+
 :::
 
 ::::

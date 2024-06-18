@@ -15,7 +15,7 @@ attribution:
 
 ---
 
---- 
+---
 
 ## YouTube lecture recording from October 2020
 
@@ -55,11 +55,9 @@ Interpretation:
 - The intercept of this line on the $y$ axis is given by $y=c$, since at $x=0$,
   $y = c$
 
-
 - The gradient of this line (also called its "slope") is given by
   $$m = {y_2-y_1\over x_2 - x_1}$$
   ("change in $y$ divided by change in $x$")
-
 
 - The intercept of this line on the $x$ axis is given by $x = -{c \over m}$,
   since at $y=0$ we must have $mx=-c$
@@ -89,6 +87,7 @@ If we wish to test visually whether some data fit a particular relationship, we 
 - We can plot $Y$ against $X$ where we let $Y=y$ and $X=x^2$.
 
 #### First plot the original data
+
 There's a definite curve, and we may suspect the trend is quadratic
 
 ![Graph of data with nonlinear trend](fig/01_03_nonlinear_trend.svg)
@@ -107,9 +106,7 @@ We next add a trendline through these points which we can use to determine the g
 
 - We find $(X,Y)$ lie along a straight line with slope 5 and Y-intercept 87.
 
-
 - This means that $Y=5X+87$
-
 
 - So, $y$ and $x$ can be modelled by the polynomial equation $y=5x^2+87$.
 
@@ -118,29 +115,25 @@ We next add a trendline through these points which we can use to determine the g
 The rate at which a given enzyme can catalyse a reaction can be dependent upon the substrate concentration:
 $${1\over V} = {m\over S} + c$$
 
-
 where $V$ is the rate of the reaction, $S$ is the substrate concentration and
 $m$ and $c$ are constants.
-
 
 - We can derive a straight line graph from the above formula by plotting
   $Y=1/V$ against $X=1/S$
 
-
 - It will have gradient $m$ and ordinate intercept $c$
-
 
 First, plot the original data which is observations of $V$ given varying $S$:
 
 ![Graph of original data](fig/01_06_original_data.svg)
 
-#### Now plot the data nonlinearly
+### Now plot the data nonlinearly
 
 If the hypothesised relationship holds, plotting $Y=1/V$ against $X=1/S$ should result in a straight line.
 
 ![Graph of linear trend](fig/01_07_linear_trend.svg)
 
-#### Calculate the gradient and the intercept
+### Calculate the gradient and the intercept
 
 We next add a trendline through these points which we can use to determine the gradient and intercept.
 
@@ -152,8 +145,7 @@ We next add a trendline through these points which we can use to determine the g
 
 - So, $V$ and $S$ can be modelled by the equation $1/V=3/S+5$.
 
-
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="01_intro_01" title="Introductory problems 1"}
 Sketch the following graphs.
@@ -178,6 +170,7 @@ y = 3 * x + 5
 
 plt.plot(x, y)
 ```
+
 ::::
 
 ::::challenge{id="01_intro_02" title="Introductory problems 2"}
@@ -187,8 +180,8 @@ For which values of $x$ are the following functions positive? Negative? Zero?
 1. $\displaystyle\sin(x)$
 1. $\displaystyle\sin(3x)$
 1. $\displaystyle\frac{2}{x} - \frac{1}{x^2}$
-::::
 
+::::
 
 ### Main problems
 
@@ -206,6 +199,7 @@ where $A$ and $B$ are positive constants, $V(R)$ is the potential energy, measur
 1. What is the physical interpretation of the sign of $V(R)$, and of its slope?
 1. What are the dimensions ([Length], [Mass], [Time]) and units of the constants $A$ and $B$?
 1. Use Python to plot the graph of $V$ versus $R$ for $A=0.06$ and $B = 0.03$. Remember to add relevant axis labels. Plot on the same graph the line of $V = 0$, so you can verify your answers in 1. and b).
+
 ::::
 
 ::::challenge{id="01_main_02" title="Main problems 2"}
@@ -215,6 +209,7 @@ Write down expressions for the gradient, $X$-intercept and $Y$-intercept of each
 1. $\displaystyle y = \frac{a}{x}$
 1. $\displaystyle y = b - a \sqrt{x}$
 1. $\displaystyle y = \frac{b}{1+ax}$
+
 ::::
 
 ::::challenge{id="01_main_03" title="Main problems 3"}
@@ -232,7 +227,6 @@ Hint: compare the function with the equation of a straight line, $y=mx+c$, and t
 
 Use Python to plot the graph and confirm your pen & paper solution.
 ::::
-
 
 ### Extension problems
 

@@ -16,7 +16,7 @@ attribution:
 
 ---
 
---- 
+---
 
 ## YouTube lecture recording from October 2020
 
@@ -31,6 +31,7 @@ The material is still very similar:
 
 We often want to know about the *rate* at which one quantity changes over time.
 Examples:
+
 1. The rate of disappearance of substrate with time in an enzyme reaction.
 1. The rate of decay of a radioactive substance (how long will it have activity above a certain level?)
 1. The rate of bacterial cell growth over time.
@@ -63,12 +64,9 @@ For this function, the gradient is always sloping up to the right, but gets shal
 
 ### Algebraic example
 
-
 If we want to find $y'(x)$ for $y = x^3 + 2$:
 
-
 $$ \text{Gradient} = \frac{y_2 - y_1}{x_2-x_1} = \frac{\Delta y}{\Delta x}$$
-
 
 Try with
 
@@ -92,7 +90,7 @@ y_1 = x_1**3 + 2; y_2 = x_2**3 + 2
 print((y_2-y_1)/(x_2-x_1))
 ```
 
-```
+```text
 12.25
 12.010000000000003
 12.00009999999997
@@ -111,7 +109,7 @@ When using the approximation, we denote the changes as $\frac{\Delta y}{\Delta x
 
 In this way, $\frac{d}{dx}$ is an operator, acting on $y$.
 
-Note, the $d$s cannot be cancelled out, as they aren't variables, they denote an infinitely small change. 
+Note, the $d$s cannot be cancelled out, as they aren't variables, they denote an infinitely small change.
 
 Notice how, as the finite difference gets smaller and smaller, the approximation to the gradient (the green line) gets closer and closer to the true gradient (the orange line):
 
@@ -124,31 +122,30 @@ Notice how, as the finite difference gets smaller and smaller, the approximation
 Find the gradient of $y = f(x) = x^3 + 2$.
 
 > $\frac{dy}{dx} = \frac{f(x+h) - f(x)}{h}$
-
 > $\frac{dy}{dx} = \frac{(x+h)^3 + 2 - (x^3 + 2)}{h}$
-
 > $\frac{dy}{dx} = \frac{x^3 + 3x^2 h + 3xh^2 + h^3 + 2 - x^3 - 2}{h}$
-
 > $\frac{dy}{dx} = \frac{3x^2h + 3xh^2 + h^3}{h}$
-
 > $\frac{dy}{dx} = 3x^2 + 3xh + h^3$
 
 Now this is only exactly right when $h \rightarrow 0$. So letting that happen, we have
 $\frac{dy}{dx} = 3x^2$
 
 ## Derivative of polynomial functions
+
 Using techniques like the one above (which is called differentiation from first principles), one can generalise the connection between powers of $x$ and their derivatives:
 
 If $y = a x^n$, then its **derivative** is
 $\frac{dy}{dx} = y'(x) = a n x^{n-1}$
 
 ### Examples to try
+
 1. $y = x^4$
 2. $y = 7x^5$
 3. $y = x^{-2} = \frac{1}{x^2}$
 4. $y = \sqrt{1/x} = (1/x)^{1/2} = x^{-1/2}$
 
 ## Summing and multiplying derivatives
+
 ### Summing
 
 > $(f(x) \pm g(x))' = f'(x) \pm g'(x)$
@@ -158,6 +155,7 @@ e.g.
 > $y = x^2 + x^3, \quad y' = 2x + 3x^2$
 
 ### Multiplying (by a scalar)
+>
 > $ (a f(x))' = a f'(x)$
 
 e.g.
@@ -173,23 +171,22 @@ e.g.
 > $y = x\cdot x = x^2, \quad y' \neq 1$
 
 ## Higher-order derivatives
+
 You can take a derivative of a function multiple times in a row. This is usually denoted either $y''(x),\;\;f''(x)\;$ or $\;\frac{d^2 y}{dx^2}\;$ for second-order derivatives (differentiating twice), and similar for higher orders.
 
 e.g.
 
 > $y = x^3$
-
 > $y' = 3x^2$
-
 > $y'' = \frac{d^2 y}{dx^2} = 6 x$
 
-## Interpreting derivatives:
+## Interpreting derivatives
 
 The sign of the first derivative $\;f'(x)\;$ tells us how $\;f(x)\;$ is growing
 
-- Positive gradient: If $\;y' > 0\;$ then $\;y\;$ is **increasing** at $\;x\;$
-- Negative gradient: If $\;y' < 0\;$ then $\;y\;$ is **decreasing** at $\;x\;$
-- Zero gradient: If $\;y' = 0\;$ then $\;y\;$ is not changing (flat) at $\;x\;$
+* Positive gradient: If $\;y' > 0\;$ then $\;y\;$ is **increasing** at $\;x\;$
+* Negative gradient: If $\;y' < 0\;$ then $\;y\;$ is **decreasing** at $\;x\;$
+* Zero gradient: If $\;y' = 0\;$ then $\;y\;$ is not changing (flat) at $\;x\;$
 
 ### Extreme values (turning points and points of inflection)
 
@@ -204,15 +201,12 @@ The sign of the first derivative $\;f'(x)\;$ tells us how $\;f(x)\;$ is growing
 To do this, we need to know both $\;y'(x)\;$ and $\;y''(x)\;$.
 
 > $y'(x) = 6x^2 - 10x - 4$
-
 > $y''(x) = 12x - 10$
 
 Stationary points occur when $\;y'(x) = 0\;$
 
 > $6x^2 - 10x - 4 = 0$
-
 > $(3x + 1)(2x - 4) = 0$
-
 > $x = -1/3,\;2$
 
 At $x = -1/3$:
@@ -230,7 +224,6 @@ So this point is a **mimimum**.
 Inflection points occur whenever $y''(x) = 0$
 
 > $y''(x) = 12x - 10 = 0$
-
 > $x = \frac{10}{12} = \frac{5}{6}$
 
 This is an **inflection point**.
@@ -243,16 +236,14 @@ Points of inflection are important in biology as they define conditions where a 
 
 ## Reminder on curve sketching
 
+* Aim to evaluate and identify key values of the function (i.e. turning points, points of inflection)
 
-- Aim to evaluate and identify key values of the function (i.e. turning points, points of inflection)
+* Look at the limit behaviour as $\;x \to \pm \infty\;$ and as $\;x\;$ approaches any points where the function is undefined (e.g. $\;x \to 0\;$ for $\;y = 1/x\;$).
 
-
-- Look at the limit behaviour as $\;x \to \pm \infty\;$ and as $\;x\;$ approaches any points where the function is undefined (e.g. $\;x \to 0\;$ for $\;y = 1/x\;$).
-
-
-- Determine the first and second order derivatives to find turning points and points of inflection. 
+* Determine the first and second order derivatives to find turning points and points of inflection.
 
 ## Real life example
+
 The number $n$ (in thousands) of bacteria on an agar plate at time $t$ (in days) is given by the expression:
 
 $n = 15.42 + 6t - t^2$
@@ -266,9 +257,9 @@ To do this we must find the turning points of the function.
 
 1. Find the time at which the greatest number of bacteria are present on the plate
 
-   - $n(t) = 15.42 + 6t - t^2$
-   - $n'(t) = 6 - 2t$
-   - $n'(t) = 0 \quad\implies\quad6-2t=0\quad\implies t=3$
+   * $n(t) = 15.42 + 6t - t^2$
+   * $n'(t) = 6 - 2t$
+   * $n'(t) = 0 \quad\implies\quad6-2t=0\quad\implies t=3$
 
     To show this is a maximum, we need to check $n''(t)$
 
@@ -283,6 +274,7 @@ To do this we must find the turning points of the function.
     The greatest number of bacteria on the plate is **24,420**.
 
 ## Real life example 2
+
 The growth rate $R$ of a cell colony with $N$ cells at time $t$ can be represented by the equation
 
 $R = \frac{d N}{d t} = kN - bN^2$
@@ -298,28 +290,26 @@ For this example take the constants $k$ and $b$ as $k = 3.8$/hr, and $b = 0.01$/
 1. The equilibrium will occur when the population stops changing, i.e. when $R = 0$. Meaning:
 
     $R = 3.8 N - 0.01 N^2 = 0$
-    
+
     $N (3.8 - 0.01 N) = 0$
 
     We can disregard the $N = 0$ solution, as it represents population extinction. This means that
-    
-    $N = \frac{3.8}{0.01} = 380$. 
+
+    $N = \frac{3.8}{0.01} = 380$.
 
 1. To find the largest growth rate, we want the maximal value of $R(N)$. This means we need to find $R'(N) = 0$.
 
     $R(N) = 3.8 N - 0.01 N^2$
-    
+
     $R'(N) = 3.8 - 0.02 N$
-    
+
     If $R'(N) = 0$
-    
+
     $3.8 - 0.02N = 0$
-    
+
     $N = 190$
-    
-    Since $R''(N) = -0.02 < 0$, we can be sure that this is a maximum. 
 
-
+    Since $R''(N) = -0.02 < 0$, we can be sure that this is a maximum.
 
 ### Introductory problems
 
@@ -331,6 +321,7 @@ Check your answers by using the standard rules for differentiation:
 1. $\displaystyle y = 4x^2 - 3x + 2$
 1. $\displaystyle y = 2x^3-5$
 1. $\displaystyle y=\frac{1}{x^2}\qquad$ (harder)
+
 ::::
 
 ::::challenge{id="03_intro_02" title="Introductory problems 2"}
@@ -338,6 +329,7 @@ Find the gradient at the given points of the following curves:
 
 1. $\displaystyle y = x^3 - 4 \qquad\rm{where}\qquad x = 1$
 1. $\displaystyle y = 3x^3 + 4x - 3 \qquad\rm{where}\qquad x = -2$
+
 ::::
 
 ::::challenge{id="03_intro_03" title="Introductory problems 3"}
@@ -347,10 +339,10 @@ Find the $x$ and $y$ coordinates of the points on the given curves at which the 
 1. $\displaystyle y = x^3 - 4x^2 + 2x - 2$
 1. $\displaystyle y = \frac{4x+1}{x}$
 1. $\displaystyle y = 16 - 2x^3$
+
 ::::
 
 ### Main problems
-
 
 ::::challenge{id="03_main_01" title="Main problems 1"}
 One hour after taking $x\,\rm{mg}$ of a drug, the body temperature, $T$, in $^\circ$C of a patient is given by:
@@ -359,6 +351,7 @@ where $T_0$ is the initial body temperature.
 
 1. Determine the value of $x$ that produces the greatest drop in body temperature, and the magnitude of that temperature change.
 1. Sketch $T$ as a function of the concentration.
+
 ::::
 
 ::::challenge{id="03_main_02" title="Main problems 2"}
@@ -368,16 +361,18 @@ $$V(R)={A\over R^{12}} - {B \over R^6}$$
 1. Use this formula to calculate $\displaystyle \frac{{\rm d}V}{{\rm d}R}$ as a function of $R$.
 1. Show that the potential where the gradient is zero is  $\displaystyle V(R)=\frac{-B^2}{4A}$.
 1. Find mathematically whether this point is a maximum, minimum or point of inflexion.
+
 ::::
 
 ::::challenge{id="03_main_03" title="Main problems 3"}
 The number $n$ (in thousands) of bacteria on an agar plate at time $t$ days is given by the expression:
 $$n = 21.35 + 1.34t - t^2$$
 
-1. Draw a graph of the function $n(t)$ between $t=0$ and $t=7$ days. Give one reason why this function might be a reasonable model for the number of bacteria on the plate at time $t$. Are there any values of $t$ for which this is probably _not_ a good model?
+1. Draw a graph of the function $n(t)$ between $t=0$ and $t=7$ days. Give one reason why this function might be a reasonable model for the number of bacteria on the plate at time $t$. Are there any values of $t$ for which this is probably *not* a good model?
 1. Calculate the time at which the greatest number of bacteria are present on the plate and show that this must be a maximum number.
 1. By finding the roots of the equation for $n$, find the two times at which the value of $n$ is zero and say why only one of these times is physically reasonable. Mark and label the maximum point on your graph together with the point at which the number of bacteria is zero.
 1. Find the rates at which the bacteria are growing when $t=0.8$ and $t=3.5$ days.
+
 ::::
 
 ::::challenge{id="03_main_04" title="Main problems 4"}
@@ -387,10 +382,11 @@ where for rainbow trout $k=300\,{\rm cm}\,{\rm s}^{-1.6}$, $b=1.60$, and for gre
 
 1. Compare the distance travelled, and the instantaneous velocity and acceleration for these species at $t=0.1\,$s.
 1. Compare the velocities in fish lengths per second, given that the lengths of trout and sunfish are $14.4\,$cm and $8.0\,$cm respectively, commenting on your answer.
+
 ::::
 
 ::::challenge{id="03_main_05" title="Main problems 5"}
-A researcher measured the concentration $c$ of a protein _in vitro_ and obtained the readings below:
+A researcher measured the concentration $c$ of a protein *in vitro* and obtained the readings below:
 
 | time (min) |  0    |   1  |   2  |  3   |   4  |  5   |   6  |
 |-----------:|:-----:|:----:|:----:|:----:|:----:|:----:|:----:|
@@ -405,6 +401,7 @@ under mass action kinetics.
 1. Use a suitable transformation to draw a straight-line graph of the data, in order to test her hypothesis.
 1. Find the maximum rate of decay and the time at which this occurs.
 1. Find the concentration of protein remaining after 10 minutes.
+
 ::::
 
 ### Extension problems
@@ -429,6 +426,7 @@ $\displaystyle y = Ax^{2} + Bx + C$
 
 1. By using the points $(10,3), (106,14), (166,42)$ taken from the best fit lines, evaulate the coefficients $A$, $B$, and $C$ in this model.
 1. Find the minima of this quadratic curve. Use this to assess the suitability of the quadratic model as a fit for the data.
+
 ::::
 
 ::::challenge{id="03_ext_03" title="Extension problems 3"}
@@ -440,7 +438,6 @@ where $p$ is the protein concentration, $P_0$ is the initial concentration, $k$ 
 
 Find the rate for this reaction and deduce a plausible reaction schema. Hint: you may find it useful to express the derivative in terms of $p(t)$.
 ::::
-
 
 ::::challenge{id="03_ext_04" title="Extension problems 4"}
 

@@ -16,7 +16,7 @@ attribution:
 
 ---
 
---- 
+---
 
 ## YouTube lecture recording from October 2020
 
@@ -29,10 +29,9 @@ The material is still very similar:
 
 ## Introduction and Integration by Substitution
 
-
 ## Integration
 
-**Calculating the area under a curve**
+**Calculating the area under a curve**:
 
 If we want to find the area under a curve, we can divide the area into strips, calculate the area of each strip, and sum these areas together.
 
@@ -61,11 +60,9 @@ But, as the size of each rectangle reduces, we converge the true area under the 
 
 ![Fine approximation to the integral](fig/06_03_fine.svg)
 
-
 $\displaystyle \int$ is the old English `S` and stands for the phrase "Sum Over".
 
 This process is called **integration**.
-
 
 ## Calculating the integral
 
@@ -79,9 +76,7 @@ With this (imagined) function, we can find the area of one of our tiny steps **e
 Remember we approximated this as $\displaystyle y\,\delta x = f(x)\,\delta x$, so:
 
 > $$\displaystyle  F(x + \delta x) - F(x) \approx f(x)\delta x$$
-
 > $$\displaystyle  f(x) \approx {F(x+\delta x)-F(x)\over\delta x}$$
-
 
 The error in this approximation tends to $0$ as $\displaystyle \delta x\to 0$, so
 
@@ -94,8 +89,6 @@ In other words, for our example,
 > $$\displaystyle A(x) = \int\limits^{x}_{1} y(t)~{\rm d}t\qquad{\rm then}\qquad y(x) = A'(x)$$
 
 **Integration reverses the process of differentiation**.
-
-
 
 ## Calculating integrals
 
@@ -110,7 +103,6 @@ Likewise:
 
 > $$\displaystyle {{\rm d}\left(a\thinspace x^{n+1}\right)\over {\rm d}x}=(n+1)a\thinspace~x^n~~~~~\Rightarrow ~~~~\int_{x_1}^{x_2} a\thinspace x^n~{\rm d}x = \biggr[{a\over(n+1)} \thinspace x^{(n+1)}\biggl]_{x_1}^{x_2}$$
 
-
 ## SymPy examples
 
 $$\displaystyle \int_{x_1}^{x_2} x^6~{\rm d}x =$$
@@ -119,6 +111,7 @@ $$\displaystyle \int_{x_1}^{x_2} x^6~{\rm d}x =$$
 x, x1, x2 = sp.symbols('x x_1 x_2')
 sp.integrate(x**6,(x,x1,x2))
 ```
+
 > $\displaystyle - \frac{x_{1}^{7}}{7} + \frac{x_{2}^{7}}{7}$
 
 ---
@@ -128,6 +121,7 @@ $$\displaystyle \int_{x_1}^{x_2} x^{3\over 2}~{\rm d}x =$$
 ```python
 sp.integrate(x**(sp.sympify(3)/2),(x,x1,x2))
 ```
+
 > $\displaystyle - \frac{2 x_{1}^{\frac{5}{2}}}{5} + \frac{2 x_{2}^{\frac{5}{2}}}{5}$
 
 ---
@@ -137,15 +131,14 @@ $$\displaystyle \int_{x_1}^{x_2} x^{-{1\over 2}}~{\rm d}x = $$
 ```python
 sp.integrate(x**(-sp.sympify(1)/2),(x,x1,x2))
 ```
-> $\displaystyle - 2 \sqrt{x_{1}} + 2 \sqrt{x_{2}}$
 
+> $\displaystyle - 2 \sqrt{x_{1}} + 2 \sqrt{x_{2}}$
 
 ## Indefinite integrals
 
 Consider now the functions:
 
 > $$\displaystyle y=x^2+7 ~~~~~~~~~~{\rm (3)}$$
-
 > $$\displaystyle y=x^2-100 ~~~~~~~~~{\rm (4)}$$
 
 Differentiating (3):
@@ -160,12 +153,13 @@ This implies that the integral:
 
 An integral without limits is called an **indefinite integral**.
 
-## Indefinite integrals in SymPy:
+## Indefinite integrals in SymPy
 
 ```python
 x = sp.symbols('x')
 sp.integrate(2*x,x)
 ```
+
 > $\displaystyle x^{2}$
 
 ## Other integrals
@@ -173,7 +167,6 @@ sp.integrate(2*x,x)
 Recall that:
 
 > $$\displaystyle {{\rm d}\over {\rm d}x}\ln x={1\over x}$$
-
 
 And, that:
 
@@ -194,37 +187,12 @@ Recall that:
 > $$\displaystyle {{\rm d}\over {\rm d}x}\biggr(\sin x\biggl)= \cos x~~~~~~~~~~~~~{\rm and}~~~~~~~~~~~ {{\rm d}\over {\rm d}x}\biggr(\cos x\biggl)= -\sin x$$
 
 Example (i):
-> $$\displaystyle \int_{0}^{\pi/2} \cos x \thinspace dx =$$
-
-```python
-sp.integrate(sp.cos(x),(x,0,sp.pi/2))
-```
-> $\displaystyle 1$
-
-
-Example (ii):
-> $$\displaystyle \int_{0}^{\pi/2} \sin x \thinspace {\rm d}x =$$
-
-```python
-sp.integrate(sp.sin(x),(x,0,sp.pi/2))
-```
-> $\displaystyle 1$
-
-
-## Integrating trigonometric functions
-
-Recall that:
-
-> $$\displaystyle {{\rm d}\over {\rm d}x}\biggr(\sin x\biggl)= \cos x~~~~~~~~~~~~~{\rm and}~~~~~~~~~~~ {{\rm d}\over {\rm d}x}\biggr(\cos x\biggl)= -\sin x$$
-
-Example (i):
 > $$\displaystyle \int_{0}^{\pi/2} \cos x \thinspace {\rm d}x = \biggr[\sin x \biggl]_0^{\pi/2}=1-0=1$$
 
 Example (ii):
 > $$\displaystyle \int_{0}^{\pi/2} \sin x \thinspace {\rm d}x =\biggr[-\cos x \biggl]_0^{\pi/2}=0-(-1)=1$$
 
-
-## Summary of integration formulae:
+## Summary of integration formulae
 
 $\displaystyle \int a\,{\rm d}x=ax+C$
 
@@ -240,8 +208,7 @@ $\displaystyle \int ax^n\,{\rm d}x={1\over{n+1}}ax^{n+1}+C\qquad{\rm for~all}n{\
 
 $\displaystyle \int x^{-1}\,{\rm d}x=\int {1\over x}\,dx = \ln \vert x\vert +C$
 
-
-## Application:
+## Application
 
 Recall that $f'(t)$ gives the rate at which $f(t)$ changes at time $t$.
 
@@ -251,7 +218,7 @@ Integrating the derivative $f'(t)$, we see:
 
 Therefore, the definite integral from $a$ to $b$ of $f'(t)$ with respect to $t$ will always give the **net** change that $f(t)$ has undergone as the parameter $t$ moves from $a$ to $b$.
 
-## Example:
+## Example
 
 A chemical process produces NaCl at the rate of $3\sqrt{t}$ grams per minute.
 We ask three questions:
@@ -260,7 +227,7 @@ We ask three questions:
 2. What is the quantity of NaCl produced over the next three minutes?
 3. What is the mean rate of NaCl production over this interval?
 
-## Solution:
+## Solution
 
 Let $f(t)$ denote the grams of NaCl produced after $t$ minutes.  Then $f'(t)= 3\sqrt{t}$.
 
@@ -274,17 +241,18 @@ Let $f(t)$ denote the grams of NaCl produced after $t$ minutes.  Then $f'(t)= 3\
    t = sp.Symbol('t')
    sp.integrate(3*sp.sqrt(t),(t,1,4))
    ```
+
    > $\displaystyle 14$
 
 3. The mean rate is the constant rate which would give the same overall effect:
-   
+
    > $$\displaystyle {1\over b-a}\int_a^b\,f'(t)\,{\rm d}t = {1\over 4-1}\int_1^4\,3\sqrt{t}\,{\rm d}t = {14\over 3}$$
 
    ```python
    sp.integrate(3*sp.sqrt(t),(t,1,4))/(4-1)
    ```
-   $\displaystyle \frac{14}{3}$
 
+   $\displaystyle \frac{14}{3}$
 
 ## Substitution Method
 
@@ -298,7 +266,7 @@ In general, for $g(x)=u$, we can write:
 
 This can be thought of as being like the integral version of the chain rule.
 
-### Examples:
+### Examples
 
 Consider:
 
@@ -307,16 +275,17 @@ Consider:
 Multiplying this out and then integrating it would be very tedious.
 Try a substitution instead:
 
-> $$\displaystyle u=2x+3~~~\Longleftrightarrow x={1\over 2}(u-3)={u\over 2}-{3\over 2}~~~~ \Longleftrightarrow {{\rm d}x\over {\rm d}u}={1\over 2}$$ 
+> $$\displaystyle u=2x+3~~~\Longleftrightarrow x={1\over 2}(u-3)={u\over 2}-{3\over 2}~~~~ \Longleftrightarrow {{\rm d}x\over {\rm d}u}={1\over 2}$$
 
 Substitute into Equation (7) above:
 
-> $$\displaystyle \int_{u(1.}^{u(b)} u^4 \times {1\over 2}~{\rm d}u ={1\over 2}\int_{u(1.}^{u(b)} u^4~du = {1\over 2}\biggr[{1\over 5}u^5\biggl]_{u(1.}^{u(b)}= {1\over 2}\biggr[{1\over 5}(2x+3)^5\biggl]_a^b$$ 
+> $$\displaystyle \int_{u(1.}^{u(b)} u^4 \times {1\over 2}~{\rm d}u ={1\over 2}\int_{u(1.}^{u(b)} u^4~du = {1\over 2}\biggr[{1\over 5}u^5\biggl]_{u(1.}^{u(b)}= {1\over 2}\biggr[{1\over 5}(2x+3)^5\biggl]_a^b$$
 
 ```python
 a, b = sp.symbols('a b')
 sp.integrate((2*x + 3)**4,(x,a,b))
 ```
+
 $\displaystyle - \frac{16 a^{5}}{5} - 24 a^{4} - 72 a^{3} - 108 a^{2} - 81 a + \frac{16 b^{5}}{5} + 24 b^{4} + 72 b^{3} + 108 b^{2} + 81 b$
 
 ---
@@ -327,21 +296,18 @@ Let's look at another example:
 
 Let:
 
-> $$\displaystyle u=3-4x~~~\Longleftrightarrow x={1\over 4}(3-u)={3\over 4}-{u\over 4}~~~~\Longleftrightarrow {{\rm d}x\over {\rm d}u}=-{1\over 4}$$ 
+> $$\displaystyle u=3-4x~~~\Longleftrightarrow x={1\over 4}(3-u)={3\over 4}-{u\over 4}~~~~\Longleftrightarrow {{\rm d}x\over {\rm d}u}=-{1\over 4}$$
 
 Substitute into Equation (8) above:
-
 
 > $$\displaystyle \int_{u(1.}^{u(b)} u^{-5} \times {-1\over 4}~{\rm d}u = -{1\over 4}\int_{u(1.}^{u(b)} u^{-5}~{\rm d}u = -{1\over 4}\biggr[{1\over-4}u^{-4}\biggl]_{u(1.}^{u(b)}$$
 > $$\displaystyle \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad ~~~ = {1\over 16}\biggr[(3-4x)^{-4}\biggl]_a^b$$
 
-
 ```python
 sp.integrate((3 - 4*x)**(-5),(x,a,b))
 ```
+
 > $\displaystyle \frac{1}{4096 b^{4} - 12288 b^{3} + 13824 b^{2} - 6912 b + 1296} - \frac{1}{4096 a^{4} - 12288 a^{3} + 13824 a^{2} - 6912 a + 1296}$
-
-
 
 ### Introductory problems
 
@@ -351,8 +317,8 @@ Integrate the following functions with respect to $x$. Remember that you can che
 1. $\displaystyle x^3-{1\over{x^4}}+x^2$
 1. $\displaystyle \sqrt[3]{x}+\frac{1}{3\sqrt[4]{x}}$
 1. $\displaystyle \frac{1}{x^2} + \frac{1}{\sqrt[3]{x}} - 7$
-::::
 
+::::
 
 ::::challenge{id="06_intro_02" title="Introductory problems 2"}
 Evaluate the following definite integrals:
@@ -361,6 +327,7 @@ Evaluate the following definite integrals:
 1. $\displaystyle \int_2^3 x^{-2/3}~{\rm d}x$
 1. $\displaystyle \int_0^{\ln(2)}e^{3x}~{\rm d}x$
 1. $\displaystyle \int_0^2(x+1)^{1/5}~{\rm d}x$
+
 ::::
 
 ::::challenge{id="06_intro_03" title="Introductory problems 3"}
@@ -372,6 +339,7 @@ Find the integrals below by making the substitution suggested:
 1. $\displaystyle \int x^3\sqrt{15-3x^4}~{\rm d}x \qquad\rm{using}\qquad u = 15-3x^4$
 1. $\displaystyle \int_0^4 \sqrt{x^3}\,\sqrt{4+x^{5/2}}~{\rm d}x \qquad\rm{using}\qquad u = 4+x^{5/2}$
 1. $\displaystyle \int_0^1 x^{n-1}(1-x^{n})^2~{\rm d}x \qquad\rm{using}\qquad u = 1-x^{n}$
+
 ::::
 
 ::::challenge{id="06_intro_04" title="Introductory problems 4"}
@@ -381,6 +349,7 @@ By making suitable substitutions, find the indefinite integrals of:
 1. $\displaystyle \frac{7x}{x^2-2}$
 1. $\displaystyle \frac{3}{\sqrt{5-x}}$
 1. $\displaystyle \frac{1}{x-a}$
+
 ::::
 
 ### Main problems
@@ -406,15 +375,16 @@ The force $F$ must be applied to overcome the repulsion.
    - $x =5.3 \times 10^{-11}\,\rm{m}$,
    - $q_1=q_2=1.6 \times 10^{-19}\,\rm{C}$,
    - $\epsilon_0=8.85 \times 10^{-12}\,\rm{Fm}^{-1}$.
+
 ::::
 
-     
 ::::challenge{id="06_main_02" title="Main problems 2"}
 The rate at which the world's oil is being consumed is continuously increasing.
 Suppose the rate (in billions of barrels per year) is given by the function $r=f(t)$, where $t$ is measured in years and $t=0$ is the start of 1990.
 
 1. Write down a definite integral which represents the total quantity of oil used between the start of 1990 and the end of 2020.
 1. Calculate this integral using the function $\displaystyle r(t)=32 e^{0.05t}$.
+
 ::::
 
 ::::challenge{id="06_main_03" title="Main problems 3"}
@@ -427,8 +397,8 @@ where $k$ and $p$ are positive constants.
 1. What are the units of $k$ and $p$?
 1. Given that, at the start of 1850, the global emission rate was 0.2 Gigatonnes per year, and that at the start of 2010 the global emission rate was 32 Gigatonnes per year, calculate $k$ and $p$.
 1. Calculate the total quantity of carbon emitted since the start of 1850.
-::::
 
+::::
 
 ::::challenge{id="06_main_04" title="Main problems 4"}
 The velocity $v$ of blood in a cylindrical vessel of radius $R$ and length $l$ is given by
@@ -440,8 +410,6 @@ where $\eta$ and $P$ are constants, and $r$ is the radial distance from the cyli
 Find the average velocity of blood along the radius of the cylinder (i.e. for $0\leq r\leq R$), and compare this with the maximum velocity.
 ::::
 
-
-
 ::::challenge{id="06_main_05" title="Main problems 5"}
 Consider the function $\displaystyle y = 4x^3 +2x^2-8x + 2$.
 
@@ -450,9 +418,8 @@ Consider the function $\displaystyle y = 4x^3 +2x^2-8x + 2$.
 1. On your graph, shade in the region under the curve between $x=-2$ and $x=2$ and _estimate_ its area.
 1. Integrate the function between $x=-2$ and $x=2$. Is this an accurate calculation of the area of the shaded region in part 3?
 1. Identify and explain any differences you find between your estimate in part 3 and your calculation in part 4.
+
 ::::
-
-
 
 ### Extension problems
 
@@ -462,9 +429,8 @@ Evaluate the following definite integrals:
 1. $\displaystyle \int_{-\pi/2}^{\pi/2} 3\cos (x)\,{\rm d}x$
 1. $\displaystyle \int_{\pi\over 2}^{\pi}\cos (x)\,\sin(x)\,{\rm d}x$
 1. $\displaystyle \int_0^\pi(\cos^2(x)+\sin^2(x))\,{\rm d}x$
+
 ::::
-
-
 
 ::::challenge{id="06_ext_02" title="Extension problems 2"}
 Let $u$ and $v$ be functions of $x$.
@@ -475,19 +441,19 @@ $$\int_0^{\infty} x^n~e^{-x^2}~{\rm d}x={1\over 2}(n-1)\int_0^{\infty} x^{n-2}e 
 1. Hence evaluate $\displaystyle \int_0^{\infty} x^5~e^{-x^2}~{\rm d}x.$
 :::
 
-
 ::::challenge{id="06_ext_03" title="Extension problems 3"}
 A country wishes to achieve net-zero CO$_{2}$ emissions in 50 years. At the start of the program, their emissions ($E$) are 800MtCO$_{2}$year$^{-1}$. They decide that they will be able to reduce their emissions at a stable rate, so that each year they emit 12MtCO$_{2}$year$^{-1}$ less than the previous year.
 
-1. Write down the rate of change of the countries emissions ($E$), each year ($t$), $\def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{E}{t}$. Use this to calculate the total emissions that the country had produced over the 50 years.
+- Write down the rate of change of the countries emissions ($E$), each year ($t$), $\def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{E}{t}$. Use this to calculate the total emissions that the country had produced over the 50 years.
 
 After 10 years of these emissions, the country starts a CO$_{2}$ removal program, whereby a certain amount of CO$_{2}$ is captured from the atmosphere and sequestered underground each year. This CO$_{2}$ follows the curve
 $$R = 0.1t^{2} - t$$
 where $R$ is the amount of CO$_{2}$ removal in MtCO$_{2}$year$^{-1}$.
 
-2. Determine whether the country achieves their 50 year net-zero emissions goal by finding the year in which the emissions produced are equal to the emissions removed.
+- Determine whether the country achieves their 50 year net-zero emissions goal by finding the year in which the emissions produced are equal to the emissions removed.
 
 After the 50 year program, the countries emission rate stabilises, and they emit the same amount of CO$_{2}$ each year after that. The CO$_{2}$ absorption rate per year follows the same trend as before. The country wishes to have not contributed to global warming at all since the start of the program. This means their net total CO$_{2}$ emissions over the entire program would have to be zero.
 
-3. Show that is takes approximately 109 years for the country to have a net-zero effect on global warming since the start of the program.
+- Show that is takes approximately 109 years for the country to have a net-zero effect on global warming since the start of the program.
+
 ::::

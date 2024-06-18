@@ -18,10 +18,10 @@ attribution:
 
 ## Overview
 
-With a GitHub repository there's a very easy way to set up CI that runs when your 
-repository changes: simply add a [.yml file](https://learnxinyminutes.com/docs/yaml/) to your repository in the directory 
+With a GitHub repository there's a very easy way to set up CI that runs when your
+repository changes: simply add a [.yml file](https://learnxinyminutes.com/docs/yaml/) to your repository in the directory
 
-~~~
+~~~text
 .github/workflows
 ~~~
 
@@ -39,7 +39,7 @@ In this section you will create several workflows by using the wizard and built-
 We will start with a minimal example to demonstrate various features of a GitHub Actions workflow.
 Createa file in your repository called:
 
-~~~
+~~~text
 .github/workflows/basic.yml
 ~~~
 
@@ -90,7 +90,7 @@ This will let us start with a preset workflow containg many of the elements we a
 
 Search for "python package" and select the following workflow by pressing *Configure*:
 
-~~~
+~~~text
 Python package
 By GitHub Actions
 
@@ -105,6 +105,7 @@ We will make the following changes to the workflow:
 1. add the `workflow_dispatch` trigger, just like in the basic file
 
 1. Change the "Install dependencies" step to run the following block:
+
     ~~~ bash
             python -m pip install --upgrade pip setuptools wheel
             python -m pip install .[dev]
@@ -136,7 +137,6 @@ This job consists of a series of steps:
 4. **Lint with flake8:** The fourth step runs the `flake8` linter to check the code for styling errors. `flake8` is a tool for enforcing Python's PEP 8 style guide, and it can find many different types of common problems with your code. You can check the `flake8` configuration for this project in the `.flake8` file in the repository.
 
 5. **Test with pytest:** The last step runs the `pytest` command to execute tests. `pytest` is a Python testing framework.
-
 
 ## Identify and fix the errors
 
@@ -216,7 +216,6 @@ jobs:
 
 :::
 ::::
-
 
 ## Next steps
 

@@ -144,8 +144,9 @@ Here is a (non-exhaustive) list of examples where reduction operations are usefu
    At the end of each time step, a reduction can be used to update the global state or combine together pieces of data (similar to a gather operation).
 3. Large statistical models: in a large statistical model, the large amounts of data can be processed by splitting it across ranks and calculating statistical values for the sub-set of data.
    The final values are then calculated by using a reduction operation and re-normalizing the values appropriately.
-4. Numerical integration: each rank will compute the area under the curve for its portion of the curve. 
+4. Numerical integration: each rank will compute the area under the curve for its portion of the curve.
    The value of the integral for the entire curve is then calculated using a reduction operation.
+
 ::::
 :::::
 
@@ -205,9 +206,10 @@ scatter_sub_arrays_to_other_ranks(image, rank_image, sub_array_t, rank_dims, my_
 ```
 
 ::::callout
+
 ## Extra: Scattering the image to other ranks
 
-As mentioned in the previous code example, distributing the 2D sub-domains across ranks doesn't play well with collective functions. 
+As mentioned in the previous code example, distributing the 2D sub-domains across ranks doesn't play well with collective functions.
 Therefore, we have to transfer the data manually using point-to-point communication. An example of how can be done is shown below.
 
 ```c
@@ -249,9 +251,10 @@ void scatter_sub_arrays_to_other_ranks(
   }
 }
 ```
+
 ::::
 
-The function [`MPI_Dims_create()`](https://www.open-mpi.org/doc/v4.1/man3/MPI_Dims_create.3.php) is a useful utility function in MPI which is used to determine the dimensions of a Cartesian grid of ranks. 
+The function [`MPI_Dims_create()`](https://www.open-mpi.org/doc/v4.1/man3/MPI_Dims_create.3.php) is a useful utility function in MPI which is used to determine the dimensions of a Cartesian grid of ranks.
 In the above example, it's used to determine the number of rows and columns in each sub-array, given the number of ranks in the row and column directions of the grid of ranks from `MPI_Dims_create()`.
 In addition to the code above, you may also want to create a [*virtual Cartesian communicator topology*](https://www.mpi-forum.org/docs/mpi-3.1/mpi31-report/node187.htm#Node187) to reflect the decomposed geometry in the communicator as well, as this give access to a number of other utility functions which makes communicating data easier.
 
@@ -278,6 +281,7 @@ The image has been decomposed into *strips*, which each rank working on a sub-im
 In the example, [`MPI_Sendrecv()`](https://www.open-mpi.org/doc/v4.1/man3/MPI_Sendrecv_replace.3.php) is used to send and receiving data between neighbouring ranks.
 
 ::::callout
+
 ## Chain communication with `MPI_Sendrecv()`
 
 `MPI_Sendrecv()` combines both sending and receiving data in a single call.
@@ -304,6 +308,7 @@ int MPI_Sendrecv(
   MPI_Status *status      /* The status for the receive operation */
 );
 ```
+
 ::::
 
 ```c
@@ -333,7 +338,7 @@ MPI_Sendrecv(&rank_image[index_into_2d(num_rows - 2, 1, num_cols)], num_rows, MP
 ```
 
 :::::challenge{id=halo-exchange-2d, title="Halo Exchange in Two Dimensions"}
-The previous code example shows one implementation of halo exchange in one dimension. 
+The previous code example shows one implementation of halo exchange in one dimension.
 Following from the code example showing domain decomposition in two dimensions, write down the steps (or some pseudocode) for the implementation of domain decomposition and halo exchange in two dimensions.
 
 ::::solution
@@ -345,7 +350,7 @@ The image below, that we've already seen, shows a depiction of halo exchange in 
 
 To communicate the halos, we need to:
 
-1. Create a derived type to send a column of data for the correct number of rows of pixels. 
+1. Create a derived type to send a column of data for the correct number of rows of pixels.
    The top and bottom rows can be communicated without using a derived type, because the elements in a row are contiguous.
 2. For each sub-domain, we need to determine the neighbouring ranks, so we know which rank to send data to and which ranks to receive data from.
 3. Using the derived types and neighbouring ranks, communicate the top row of the sub-domain to the bottom halo row of the neighbouring top domain.

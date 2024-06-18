@@ -23,10 +23,10 @@ In order to remove a specific container image, you need to find out details abou
 specifically, the "Image ID". For example, say my laptop contained the following container image:
 
 ~~~bash
-$ docker image ls
+docker image ls
 ~~~
 
-~~~
+~~~text
 REPOSITORY       TAG         IMAGE ID       CREATED          SIZE
 hello-world      latest      fce289e99eb9   15 months ago    1.84kB
 ~~~
@@ -34,18 +34,18 @@ hello-world      latest      fce289e99eb9   15 months ago    1.84kB
 You can remove the container image with a `docker image rm` command that includes the *Image ID*, such as:
 
 ~~~bash
-$ docker image rm fce289e99eb9
+docker image rm fce289e99eb9
 ~~~
 
 or use the container image name, like so:
 
 ~~~bash
-$ docker image rm hello-world
+docker image rm hello-world
 ~~~
 
 However, you may see this output:
 
-~~~
+~~~text
 Error response from daemon: conflict: unable to remove repository reference "hello-world" (must force) - container e7d3b76b00f4 is using its referenced image fce289e99eb9
 ~~~
 
@@ -59,16 +59,17 @@ to remove these.
 Working with containers, we are going to shift back to the command: `docker container`.  Similar to `docker image`, we can list running containers by typing:
 
 ~~~bash
-$ docker container ls
+docker container ls
 ~~~
 
-~~~
+~~~text
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 ~~~
 
 Notice that this command didn't return any containers because our containers all exited and thus stopped running after they completed their work.
 
 :::callout
+
 ## `docker ps`
 
 The command `docker ps` serves the same purpose as `docker container ls`, and comes
@@ -80,16 +81,17 @@ from the Unix shell command `ps` which describes running processes.
 There is also a way to list running containers, and those that have completed recently, which is to add the `--all`/`-a` flag to the `docker container ls` command as shown below.
 
 ~~~bash
-$ docker container ls --all
+docker container ls --all
 ~~~
 
-~~~
+~~~text
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
 9c698655416a        hello-world         "/hello"            2 minutes ago       Exited (0) 2 minutes ago                       zen_dubinsky
 6dd822cf6ca9        hello-world         "/hello"            3 minutes ago       Exited (0) 3 minutes ago                       eager_engelbart
 ~~~
 
 :::callout
+
 ## Keeping it clean
 
 You might be surprised at the number of containers Docker is still keeping track of.
@@ -104,10 +106,10 @@ To delete an exited container you can run the following command, inserting the `
 It will repeat the `CONTAINER ID` back to you, if successful.
 
 ~~~bash
-$ docker container rm 9c698655416a
+docker container rm 9c698655416a
 ~~~
 
-~~~
+~~~text
 9c698655416a
 ~~~
 
@@ -122,10 +124,10 @@ If successful it will print the full `CONTAINER ID` back to you for each contain
 removed.
 
 ~~~bash
-$ docker container prune
+docker container prune
 ~~~
 
-~~~
+~~~text
 WARNING! This will remove all stopped containers.
 Are you sure you want to continue? [y/N] y
 Deleted Containers:
@@ -139,10 +141,10 @@ Now that we've removed any potentially running or stopped containers, we can try
 delete the `hello-world` **container image**.
 
 ~~~bash
-$ docker image rm hello-world
+docker image rm hello-world
 ~~~
 
-~~~
+~~~text
 Untagged: hello-world:latest
 Untagged: hello-world@sha256:5f179596a7335398b805f036f7e8561b6f0e32cd30a32f5e19d17a3cda6cc33d
 Deleted: sha256:fce289e99eb9bca977dae136fbe2a82b6b7d4c372474c9235adc1741675f587e
@@ -155,7 +157,8 @@ used by multiple Docker container images will only be stored once.  Now the
 result of `docker image ls` should no longer include the `hello-world` container
 image.
 
-## Key Points:
+## Key Points
+
 - `docker container` has subcommands used to interact and manage containers.
 - `docker image` has subcommands used to interact and manage container images.
 - `docker container ls` or `docker ps` can provide information on currently running containers.

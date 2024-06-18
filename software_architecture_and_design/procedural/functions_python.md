@@ -22,6 +22,7 @@ attribution:
 
 ---
 ## Using Functions
+
 In most modern programming languages these procedures are called **functions**.
 Python has many pre-defined functions built in and we've already met some of them.
 
@@ -29,83 +30,86 @@ To use, or **call**, a function we use the name of the function, followed by bra
 All functions in Python **return** a single value as their result.
 
 :::callout
+
 ## Return Values
+
 Though all functions return a single value in Python, this value may itself be:
+
 - a collection of values
 - `None` - a special value that is interpreted as though nothing has been returned
+
 :::
 
-~~~python
+```python
 char_count = len('Python')
 print(char_count)
-~~~
+```
 
-~~~
+```text
 6
-~~~
+```
 
 Some functions are a little different in that they belong to an object, so must be accessed through the object using the dot operator.
 These are called **methods** or **member functions**.
 We've already seen some of these as well, but we'll see more when we get to the Object Oriented Paradigm later.
 
-~~~python
+```python
 nums = [1, 2, 3]
 nums.append(4)
 
 print(nums)
-~~~
+```
 
-~~~
+```text
 [1, 2, 3, 4]
-~~~
+```
 
 The append function is actually also one of these functions that return `None`.
 We can test this again by printing its output.
 
-~~~ python
+``` python
 nums = [1, 2, 3]
 result = nums.append(4)
 
 print(result)
 print(nums)
-~~~
+```
 
-~~~
+```text
 None
 [1, 2, 3, 4]
-~~~
+```
 
 It's relatively common for a function to return `None` if the purpose of the function is to modify one of its input values.
 That's the case here - the purpose of the `append` function is to append a value to an existing list.
-
 
 ## Creating Functions
 
 Although Python has many built in functions, it wouldn't be much use if we couldn't also define our own.
 Most languages use a keyword to signify a **function definition**, in Python that keyword is `def`.
 
-~~~ python
+``` python
 def add_one(value):
     return value + 1
 
 two = add_one(1)
 print(two)
-~~~
+```
 
-~~~
+```text
 2
-~~~
+```
 
-~~~ python
+``` python
 def say_hello(name):
     return 'Hello, ' + name + '!'
 
 print(say_hello('World'))
-~~~
+```
 
-~~~
+```text
 Hello, World!
-~~~
+```
 
 To define a function, we use `def`, followed by the name of the function and its **parameters** in brackets.
 Just like with other code blocks (like `for` and `if`), we use a colon to signify the body of the function and indent the body by four spaces.
@@ -114,7 +118,6 @@ Note that we used the word **argument** when we were calling a function, but **p
 The parameters of a function are the names of the variables which are created inside the function to accept its input data.
 The arguments of a function are the values that we give to a function when we call it, to put into its parameters.
 
-
 Sometimes, it's useful for a parameter to have a default value.
 When we call a function, parameters with default values can be used in one of three ways:
 
@@ -122,22 +125,23 @@ When we call a function, parameters with default values can be used in one of th
 2. We can provide our own value in the normal way
 3. We can provide a value in the form of a **named argument** - arguments which are not named are called **positional arguments**
 
-~~~ python
+``` python
 def say_hello(name='World'):
     return 'Hello, ' + name + '!'
 
 print(say_hello())
 print(say_hello('Python'))
 print(say_hello(name='Named Argument'))
-~~~
+```
 
-~~~
+```text
 Hello, World!
 Hello, Python!
 Hello, Named Argument!
-~~~
+```
 
 :::callout
+
 ## Declarations and Definitions
 
 Some languages have a distinction between **declaration** and **definition** (or **implementation**) of a function.
@@ -157,20 +161,21 @@ See [this page](https://docs.microsoft.com/en-us/cpp/cpp/declarations-and-defini
 Write a short function called `fence` that takes two parameters called original and wrapper and returns a new string that has the wrapper character at the beginning and end of the original.
 A call to your function should look like this:
 
-~~~ python
+``` python
 print(fence('name', '*'))
-~~~
+```
 
-~~~
+```text
 *name*
-~~~
+```
 
 :::solution
 
-~~~ python
+``` python
 def fence(original, wrapper):
     return wrapper + original + wrapper
-~~~
+```
+
 :::
 ::::
 
@@ -181,7 +186,7 @@ How many different ways can you call this function using combinations of named a
 
 :::solution
 
-~~~ python
+``` python
 def say_hello(greeting='Hello', name='World'):
     return greeting + ', ' + name + '!'
 
@@ -203,7 +208,7 @@ print(say_hello('Hello', name='World'))
 
 # Both named arguments
 print(say_hello(greeting='Hello', name='World'))
-~~~
+```
 
 You should have found that Python will not let you provide positional arguments after named ones.
 
@@ -219,7 +224,7 @@ Within a function, any variables that are created (such as parameters or other v
 
 For example, what would be the output from the following:
 
-~~~ python
+``` python
 f = 0
 k = 0
 
@@ -231,7 +236,7 @@ multiply_by_10(2)
 multiply_by_10(8)
 
 print(k)
-~~~
+```
 
 1. 20
 2. 80
@@ -261,7 +266,7 @@ For example, if some data processing code we're working on needs to be able to
 accept temperatures in Fahrenheit, we might need a way to convert these into
 Kelvin.  So we could write these two temperature conversion functions:
 
-~~~ python
+``` python
 def fahr_to_cels(fahr):
     # Convert temperature in Fahrenheit to Celsius
     cels = (fahr + 32) * (5 / 9)
@@ -275,7 +280,7 @@ def fahr_to_kelv(fahr):
 
 print(fahr_to_kelv(32))
 print(fahr_to_kelv(212))
-~~~
+```
 
 But if we look at these two functions, we notice that the conversion from
 Fahrenheit to Celsius is actually duplicated in both functions.  This makes
@@ -285,7 +290,7 @@ in one of the equations?
 
 So, we can remove the duplicated code, by calling one function from inside the other:
 
-~~~ python
+``` python
 def fahr_to_cels(fahr):
     # Convert temperature in Fahrenheit to Celsius
     cels = (fahr + 32) * (5 / 9)
@@ -299,12 +304,12 @@ def fahr_to_kelv(fahr):
 
 print(fahr_to_kelv(32))
 print(fahr_to_kelv(212))
-~~~
+```
 
 Now we've removed the duplicated code, but we might actually want to go one step
 further and remove some of the other unnecessary bits:
 
-~~~ python
+``` python
 def fahr_to_cels(fahr):
     # Convert temperature in Fahrenheit to Celsius
     return (fahr + 32) * (5 / 9)
@@ -315,7 +320,7 @@ def fahr_to_kelv(fahr):
 
 print(fahr_to_kelv(32))
 print(fahr_to_kelv(212))
-~~~
+```
 
 Now we have each function down to one statement, which should be easier to read and hopefully has reduced the chance of us making a mistake.
 Whether you actually prefer the second or third version is up to you, but we should at least try to reduce duplication where posssible.
@@ -327,7 +332,7 @@ As a common example to illustrate each of the paradigms, we'll write some code t
 First, let's create a data structure to keep track of the papers that a group of academics are publishing.
 Note that we could use an actual `date` type to store the publication date, but they're much more complicated to work with, so we'll just use the year.
 
-~~~ python
+``` python
 academics = [
     {
         'name': 'Alice',
@@ -352,11 +357,11 @@ academics = [
         ]
     }
 ]
-~~~
+```
 
 We want a convenient way to add new papers to the data structure.
 
-~~~ python
+``` python
 def write_paper(academics, name, title, date):
     paper = {
         'title': title,
@@ -367,7 +372,7 @@ def write_paper(academics, name, title, date):
         if academic['name'] == name:
             academic['papers'].append(paper)
             break
-~~~
+```
 
 We're introducing a new keyword here, `break`, which exits from inside a loop.
 When the `break` keyword is encountered, execution jumps to the next line
@@ -381,7 +386,9 @@ items.
 What happens if we call this function for an academic who doesn't exist?
 
 :::callout
+
 ## Exceptions
+
 In many programming languages, we use **exceptions** to indicate that exceptional behaviour has occured and the flow of execution should be diverted.
 
 Exceptions are often **raised** (or **thrown** in some other programming languages) as the result of an error condition.
@@ -391,7 +398,7 @@ For the moment we'll just raise the exception, and assume that it will get handl
 In Python, exceptions may also be used to alter the flow of execution even when an error has not occured.
 For example, when iterating over a collection, a `StopIteration` exception is the way in which Python tells a loop construct to terminate, though this is hidden from you.
 
-~~~ python
+``` python
 def write_paper(academics, name, title, date):
     paper = {
         'title': title,
@@ -405,7 +412,8 @@ def write_paper(academics, name, title, date):
 
     else:
         raise KeyError('Named academic does not exist')
-~~~
+```
+
 {: .language-python}
 
 The `for-else` structure used here is relatively unusual, but can be useful when you're using a loop to search for a value.
@@ -415,12 +423,11 @@ When you're using a loop to search for something, this means that it has not bee
 For more information see [this section](https://docs.python.org/3/tutorial/controlflow.html#break-and-continue-statements-and-else-clauses-on-loops) of the Python documentation.
 :::
 
-
 ::::challenge{id=passing-lists-to-functions title="Passing Lists to Functions"}
 
 We have seen previously that functions are not able to change the value of a variable which is used as their argument.
 
-~~~ python
+``` python
 def append_to_list(l):
     l.append('appended')
     l = [1, 2, 3]
@@ -431,17 +438,18 @@ a_list = ['this', 'is', 'a', 'list']
 
 print(append_to_list(a_list))
 print(a_list)
-~~~
+```
 
 Before running this code, think about what you expect the output to be.
 Now run the code, does it behave as you expected?
 Why does the function behave in this way?
 
 :::solution
-~~~
+
+```text
 [1, 2, 3, 'again']
 ['this', 'is', 'a', 'list', 'appended']
-~~~
+```
 
 The reason for this behaviour is that lists are **mutable** so when we pass one in to a function any modifications are made to the actual list as it exist in memory.
 Using `=` to assign a new value creates a new list in memory (it does not modify the existing list) and assigns it to the variable / name `l`.
@@ -461,7 +469,7 @@ Write a function called `count_papers`, that when called with `count_papers(acad
 
 One possible solution is:
 
-~~~ python
+``` python
 def count_papers(academics):
     count = 0
 
@@ -472,11 +480,12 @@ def count_papers(academics):
 
 total = count_papers(academics)
 print(total)
-~~~
+```
 
-~~~
+```text
 3
-~~~
+```
+
 :::
 ::::
 
@@ -488,7 +497,7 @@ Write a function called `list_papers`, that when called with `list_papers(academ
 
 One possible solution is:
 
-~~~ python
+``` python
 def list_papers(academics):
     papers = []
 
@@ -496,10 +505,12 @@ def list_papers(academics):
         papers = papers + academic['papers']
 
     return papers
-~~~
+```
+
 :::
 ::::
 
-## Key Points:
+## Key Points
+
 - Functions allow us to separate out blocks of code which perform a common task
 - Functions have their own scope and do not clash with variables defined outside

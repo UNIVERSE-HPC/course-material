@@ -85,7 +85,6 @@ In the following section we add a couple of `import` statements in
 the `__init__.py` so that all our functions (in both modules) are
 available under the single namespae `tstools`.
 
-
 ## init dot pie
 
 Whenever you import a directory, Python will look for a file `__init__.py` at the root of this
@@ -123,7 +122,6 @@ __init__.py
 
 The lesson here is that any object (variable, function, class) defined in the `__init__.py` file is available under the package's namespace.
 
-
 ::::challenge{id=single_namespace  title="Bringing all functions under a single namespace"}
 
 Our package isn't very big, and the internal strucure with 2 different modules isn't
@@ -142,7 +140,7 @@ mean, var = tstools.get_mean_and_var(timeseries)
 # instead of fig, ax = tstools.vis.plot_histogram(...)
 fig, ax = tstools.plot_histogram(timeseries, 4*np.sqrt(var)) 
 ```
-	
+
 :::callout
 By default python looks for modules in the current directory
 and some other locations (more about that later). When using `import`,
@@ -153,6 +151,7 @@ you can refer to modules in the current package using the _dot notation_:
 # in the current package (next to the __init__.py)
 from .module import something
 ```
+
 :::
 
 :::solution
@@ -162,10 +161,10 @@ from .module import something
 from .moments import get_mean_and_var
 from .vis import plot_histogram
 ```
+
 :::
 
 ::::
-
 
 ### Using the package
 
@@ -184,5 +183,5 @@ mean, var = tstools.get_mean_and_var(timeseries)
 fig, ax = tstools.plot_histogram(timeseries, nbins=100)
 ```
 
-Note that the above does the exact same amount of work job as 
+Note that the above does the exact same amount of work job as
 `initial_scripts/analysis.py`... but is much shorter and easier to read!

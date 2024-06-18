@@ -114,7 +114,7 @@ int main() {
 
 [`[< compiler explorer >]`](https://gcc.godbolt.org/z/F1MBsS)
 
-# Pass by reference
+## Pass by reference
 
 A common way of allowing a function to change the value of a variable outside the
 function is to use _references_. You can do this by adding

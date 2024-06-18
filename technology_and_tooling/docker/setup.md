@@ -14,14 +14,16 @@ attribution:
 
 ---
 ### Website accounts to create
+
 Please seek help at the start of the lesson if you have not been able to establish a website account on:
+
 - The [Docker Hub](http://hub.docker.com). We will use the Docker Hub to download pre-built container images, and for you to upload and download container images that you create, as explained in the relevant lesson episodes.
 
 ### Files to download
 
 Download the [`docker-intro.zip`](files/docker-intro.zip) file.
 
-Move the downloaded file to your Desktop and unzip it. It should unzip to a folder called `docker-intro`. 
+Move the downloaded file to your Desktop and unzip it. It should unzip to a folder called `docker-intro`.
 
 ### Software to install
 
@@ -62,35 +64,37 @@ for details of how to find out which version/build of Windows 10 you have.
 If you are unable to follow the above instructions to install Docker Desktop on
 your Windows system, the final release of the deprecated Docker Toolbox version
 of Docker for Windows can be downloaded from the [releases page of the Docker Toolbox GitHub repository](https://github.com/docker/toolbox/releases).
-(Download the `.exe` file for the Windows installer). _Please note that this
+(Download the `.exe` file for the Windows installer). *Please note that this
 final release of Docker Toolbox includes an old version of Docker and you are
 strongly advised not to attempt to use this for any production use. It will,
-however, enable you to follow along with the lesson material._
+however, enable you to follow along with the lesson material.*
 
-:::callout
-## Warning: Git Bash
+:::callout{variant="warning"}
+
+## Git Bash
+
 If you are using Git Bash as your terminal on Windows then you should be aware that you may run
 into issues running some of the commands in this lesson as Git Bash will automatically re-write
 any paths you specify at the command line into Windows versions of the paths and this will confuse
 the Docker container you are trying to use. For example, if you enter the command:
 
-```bash
+~~~bash
 docker run alpine cat /etc/os-release
-```
+~~~
 
 Git Bash will change the `/etc/os-release` path to `C:\etc\os-release\` before passing the command
 to the Docker container and the container will report an error. If you want to use Git Bash then you
 can request that this path translation does not take place by adding an extra `/` to the start of the
 path. i.e. the command would become:
 
-```bash
+~~~bash
 docker run alpine cat //etc/os-release
-```
+~~~
 
 This should suppress the path translation functionality in Git Bash.
 :::
 
-#### Apple macOS
+### Apple macOS
 
 Ideally, you will be able to install the Docker Desktop software, following the
 [Docker website's documentation](https://docs.docker.com/docker-for-mac/install/).
@@ -105,7 +109,7 @@ The MacPorts Docker port should support older, as well as the most recent, opera
 versions (see the [port details](https://ports.macports.org/port/docker/details/)), but note that
 we have not recently tested the Docker installation process via MacPorts.
 
-#### Linux
+### Linux
 
 There are too many varieties of Linux to give precise instructions here, but
 hopefully you can locate documentation for getting Docker installed on your
@@ -114,20 +118,20 @@ on your system, the [Install Docker Engine](https://docs.docker.com/engine/insta
 supported Linux distributions and pointers to relevant installation information.
 Alternatively, see:
 
- - [Docker Engine on CentOS](https://docs.docker.com/install/linux/docker-ce/centos/)
- - [Docker Engine on Debian](https://docs.docker.com/install/linux/docker-ce/debian/)
- - [Docker Engine on Fedora](https://docs.docker.com/install/linux/docker-ce/fedora/)
- - [Docker Engine on Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+- [Docker Engine on CentOS](https://docs.docker.com/install/linux/docker-ce/centos/)
+- [Docker Engine on Debian](https://docs.docker.com/install/linux/docker-ce/debian/)
+- [Docker Engine on Fedora](https://docs.docker.com/install/linux/docker-ce/fedora/)
+- [Docker Engine on Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 
 ### Verify Installation
 
 To quickly check if the Docker and client and server are working run the following command in a new terminal or ssh session:
 
 ~~~bash
-$ docker version
+docker version
 ~~~
 
-~~~
+~~~text
 Client:
  Version:           20.10.2
  API version:       1.41

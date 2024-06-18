@@ -34,7 +34,8 @@ This session aims to introduce the use of Docker containers with the goal of
 using them to effect reproducible computational environments. Such environments
 are useful for ensuring reproducible research outputs, for example.
 
-## After completing this session you should:
+## After completing this session you should
+
 - Have an understanding of what Docker containers are, why they are useful and the common terminology used
 - Have a working Docker installation on your local system to allow you to use containers
 - Understand how to use existing Docker containers for common tasks
@@ -44,6 +45,7 @@ are useful for ensuring reproducible research outputs, for example.
 - The practical work in this lesson is primarily aimed at using Docker on your own laptop. Beyond your laptop, software container technologies such as Docker can also be used in the cloud and on high performance computing (HPC) systems. Some of the material in this lesson will be applicable to those environments too.
 
 :::callout
+
 ## A note about Docker
 
 Docker is a mature, robust and very widely used application. Nonetheless, it is
@@ -54,4 +56,3 @@ While we do our best to ensure that this lesson remains up to date and the
 descriptions and outputs shown match what you will see on your own computer,
 inconsistencies can occur.
 :::
-

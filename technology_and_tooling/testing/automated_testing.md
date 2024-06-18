@@ -42,7 +42,6 @@ techniques of automated testing to improve the predictability of a software
 change, make development more productive, and help us produce code that works as
 expected and produces desired results.
 
-
 ## What Is Software Testing?
 
 For the sake of argument, if each line we write has a 99% chance of being right,
@@ -73,32 +72,32 @@ tests too.
 We will be using a simple inflammation data analysis python package to demonstrate the use of automated testing. Let's download this now. First, create a new directory inflammation and `cd` to it:
 
 ~~~bash
-$ mkdir inflammation
-$ cd inflammation
+mkdir inflammation
+cd inflammation
 ~~~
 
 If on WSL or Linux (e.g. Ubuntu or the Ubuntu VM), then do:
 
 ~~~bash
-$ wget https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation.zip
+wget https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation.zip
 ~~~
 
 Or, if on a Mac, do:
 
 ~~~bash
-$ curl -O https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation.zip
+curl -O https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation.zip
 ~~~
 
 Once done, you can unzip this file using the `unzip` command in Bash, which will unpack all the files
 in this zip archive into the current directory:
 
 ~~~bash
-$ unzip inflammation.zip
+unzip inflammation.zip
 ~~~
 
-This will unpack the zip file's contents into the new `inflammation` directory. The file structure should look like this: 
+This will unpack the zip file's contents into the new `inflammation` directory. The file structure should look like this:
 
-```text
+~~~text
 inflammation/
 ├── data
 │   ├── inflammation-*.csv
@@ -114,14 +113,16 @@ inflammation/
 ├── LICENSE 
 ├── README.md
 └── requirements.txt
-```
+~~~
 
 The only files we'll be working with in this course are the following, so you can ignore the rest for now:
+
 1. `inflammation/models.py` - contains the functions we'll be testing
 2. `tests/test_models.py` - contains the tests we'll be writing
 3. `data/inflammation-*.csv` - contains the data we'll be using to test our functions
 
 :::callout
+
 ## What Does the Patient Inflammation Data Contain?
 
 Each dataset records inflammation measurements from a separate clinical trial of the drug, and each dataset contains information for 60 patients, who had their inflammation levels recorded for 40 days whilst participating in the trial.
@@ -134,6 +135,7 @@ Each of the data files uses the popular [comma-separated (CSV) format](https://e
 - Each row holds inflammation measurements for a single patient,
 - Each column represents a successive day in the trial,
 - Each cell represents an inflammation reading on a given day for a patient (in some arbitrary units of inflammation measurement).
+
 :::
 
 The data is based on a clinical trial of inflammation in patients who have
@@ -150,10 +152,10 @@ then start the Python console by invoking the Python interpreter without any
 parameters, e.g.:
 
 ~~~bash
-$ python3 -m venv venv
-$ source venv/bin/activate
-$ pip install numpy matplotlib
-$ python
+python3 -m venv venv
+source venv/bin/activate
+pip install numpy matplotlib
+python
 ~~~
 
 The last command will start the Python console within your shell, which enables us to execute Python commands
@@ -165,7 +167,7 @@ data = np.loadtxt(fname='data/inflammation-01.csv', delimiter=',')
 data.shape
 ~~~
 
-~~~
+~~~text
 (60, 40)
 ~~~
 
@@ -201,7 +203,7 @@ So, if `data` was a NumPy array of three rows like...
 
 ...the function would return a 1D NumPy array of `[3, 4]` - each value representing the mean of each column (which are, coincidentally, the same values as the second row in the above data array).
 
-To show this working with our patient data, we can use the function like this, passing the first four patient rows to the 
+To show this working with our patient data, we can use the function like this, passing the first four patient rows to the
 function in the Python console:
 
 ~~~python
@@ -218,7 +220,7 @@ module name too (i.e. `inflammation.models.daily_mean()`).
 The above code will return the mean inflammation for each day column across the
 first four patients (as a 1D NumPy array of shape (40, 0)):
 
-~~~
+~~~text
 array([ 0.  ,  0.5 ,  1.5 ,  1.75,  2.5 ,  1.75,  3.75,  3.  ,  5.25,
         6.25,  7.  ,  7.  ,  7.  ,  8.  ,  5.75,  7.75,  8.5 , 11.  ,
         9.75, 10.25, 15.  ,  8.75,  9.75, 10.  ,  8.  , 10.25,  8.  ,
@@ -233,7 +235,6 @@ test - more easily.
 
 Let's now look into how we can test each of our application's statistical
 functions to ensure they are functioning correctly.
-
 
 ## Writing Tests to Verify Correct Behaviour
 
@@ -279,7 +280,7 @@ npt.assert_array_equal(daily_mean(test_input), test_result)
 
 However, if we were to enter these in this order, we'll find we get the following after the first test:
 
-~~~
+~~~text
 ...
 AssertionError:
 Arrays are not equal
@@ -397,6 +398,7 @@ be using Pytest to write unit tests, but what you learn can scale to more
 complex functional testing for applications or libraries.
 
 :::callout
+
 ## What About Unit Testing in Other Languages?
 
 Other unit testing frameworks exist for Python, including Nose2 and Unittest,
@@ -406,30 +408,29 @@ Catch for C++, etc.
 
 :::
 
-
 ### Installing Pytest
 
 You can install `pytest` using `pip` - exit the Python console first (either with `Ctrl-D` or by typing `exit()`), then do:
 
 ~~~bash
-$ pip install pytest
+pip install pytest
 ~~~
 
 Whether we do this via VsCode or the command line, the results are exactly the same: our virtual environment will now have the `pytest` package installed for use.
-
 
 ### Running Tests
 
 Now we can run these tests using `pytest`:
 
 ~~~python
-$ python -m pytest tests/test_models.py
+python -m pytest tests/test_models.py
 ~~~
 
 Here, we use `-m` to invoke the `pytest` installed module, and specify the `tests/test_models.py` file to run the tests in that file
-explicitly. 
+explicitly.
 
 :::callout
+
 ## Why Run Pytest Using `python -m` and Not `pytest` ?
 
 Another way to run `pytest` is via its own command, so we *could* try to use `pytest tests/test_models.py` on the
@@ -439,7 +440,7 @@ whilst using `pytest` does not - the `inflammation` subdirectory's contents are 
 `ModuleNotFoundError`. There are ways to get around this with [various methods](https://stackoverflow.com/questions/71297697/modulenotfounderror-when-running-a-simple-pytest), but we've used `python -m` for simplicity.
 :::
 
-~~~
+~~~text
 ============================================== test session starts =====================================================
 platform darwin -- Python 3.9.6, pytest-6.2.5, py-1.11.0, pluggy-1.0.0
 rootdir: /Users/alex/python-intermediate-inflammation
@@ -473,8 +474,8 @@ them to `test/test_models.py`. Here are some hints:
 
 Once added, run all the tests again with `python -m pytest tests/test_models.py`, and you should also see your new tests pass.
 
-
 :::solution
+
 ~~~python
 ...
 def test_daily_max():
@@ -501,9 +502,9 @@ def test_daily_min():
     npt.assert_array_equal(daily_min(test_input), test_result)
 ...
 ~~~
+
 :::
 ::::
-
 
 The big advantage is that as our code develops we can update our test cases and
 commit them back, ensuring that ourselves (and others) always have a set of
@@ -536,6 +537,7 @@ Note that you need to import the `pytest` library at the top of our
 Run all your tests as before.
 
 :::callout
+
 ## Why Should We Test Invalid Input Data?
 
 Testing the behaviour of inputs, both valid and invalid, is a really good idea

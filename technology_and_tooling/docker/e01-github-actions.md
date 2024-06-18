@@ -23,6 +23,7 @@ Actions. Our specific example will show a neat way to build a simple website
 that goes with any project you might have going.
 
 # Github Actions
+
 Github Actions are a means of automating repetitive task in maintaining software projects:
 
 - Testing if your software works correctly (Continuous Integration)
@@ -62,14 +63,18 @@ A fabulous tool for building web content from Markdown files is Pandoc. You coul
 army knife of document conversion: it is very, very versatile. In this instance we will only use
 its most basic operation. (If you are familiar with RMarkdown: Pandoc is what powers RMarkdown).
 
-:::callout
+:::callout{variant="discussion"}
+
 ## Why Pandoc?
+
 There are other engines that can do this for you, but here are some features that win some people
 er:
+
 - Supports citations (from BibTeX or CSL database)
 - Rendered equations (using MathJax, optionally numbered)
 - Code highlighting
 - Highly customizable
+
 :::
 
 We take you through the process of creating a project on Github from scratch and
@@ -91,6 +96,7 @@ Only a `index.html` and `.nojekyll` (that prevents Github from creating a Jekyll
 set this up?
 
 ## Create a Github Project
+
 Create a github project with a short `README.md`. To do this:
 
 - go to `github.com` and make sure you're logged in
@@ -120,7 +126,7 @@ pandoc version is.
 docker run pandoc/core --version
 ~~~
 
-~~~
+~~~text
 Unable to find image 'pandoc/core:latest' locally
 latest: Pulling from pandoc/core
 f84cab65f19f: Pull complete
@@ -145,7 +151,7 @@ the `README.md` file as part of the `docker run` command:
 docker run --mount type=bind,source=${PWD},target=/tmp pandoc/core /tmp/README.md
 ~~~
 
-~~~
+~~~html
 <h1 id="readme-pages">readme-pages</h1>
 <p>Example for generating Github.io pages from Readme with Pandoc.</p>
 ~~~
@@ -161,7 +167,7 @@ mkdir -p build
 docker run --mount type=bind,source=${PWD},target=/tmp pandoc/core /tmp/README.md --standalone --output=/tmp/build/index.html
 ~~~
 
-~~~
+~~~text
 [WARNING] This document format requires a nonempty <title> element.
   Defaulting to 'README' as the title.
   To specify a title, use 'title' in metadata or --metadata title="...".
@@ -169,7 +175,7 @@ docker run --mount type=bind,source=${PWD},target=/tmp pandoc/core /tmp/README.m
 
 To suppress the warning message we may add the following lines at the top of the `README.md` file:
 
-~~~
+~~~text
 ---
 title: Hello, Pandoc
 ---
@@ -184,7 +190,7 @@ check it, using this command:
 cat build/index.html
 ~~~
 
-~~~
+~~~text
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
@@ -263,6 +269,7 @@ Now we should enable Github Pages on this repository: go to the "Settings" tab a
 seconds the page should be up.
 
 # Reference material
+
 - [Pandoc the universal document converter](https://pandoc.org)
 - [Documentation on GitHub Actions](https://docs.github.com/en/actions)
 - [GitHub Pages deploy action](https://github.com/marketplace/actions/deploy-to-github-pages)

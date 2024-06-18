@@ -133,7 +133,7 @@ When a workflow is executed, Snakemake tries to generate given
 executing
 
 ``` console
-$ snakemake -np mapped_reads/A.bam
+snakemake -np mapped_reads/A.bam
 ```
 
 in the working directory containing the Snakefile, we tell Snakemake to
@@ -152,7 +152,7 @@ rule, and the DAG of jobs consists of a single node. Nevertheless, we
 can **execute our workflow** with
 
 ``` console
-$ snakemake --cores 1 mapped_reads/A.bam
+snakemake --cores 1 mapped_reads/A.bam
 ```
 
 Whenever executing a workflow, you need to specify the number of cores
@@ -203,7 +203,7 @@ wildcards**.
 When executing
 
 ``` console
-$ snakemake -np mapped_reads/B.bam
+snakemake -np mapped_reads/B.bam
 ```
 
 Snakemake will determine that the rule `bwa_map` can be applied to
@@ -213,7 +213,7 @@ value is propagated to the input files and all filenames in the shell
 command. You can also **specify multiple targets**, for example:
 
 ``` console
-$ snakemake -np mapped_reads/A.bam mapped_reads/B.bam
+snakemake -np mapped_reads/A.bam mapped_reads/B.bam
 ```
 
 Some [Bash](https://www.tldp.org/LDP/Bash-Beginners-Guide/html) magic
@@ -221,7 +221,7 @@ can make this particularly handy. For example, you can alternatively
 compose our multiple targets in a single pass via
 
 ``` console
-$ snakemake -np mapped_reads/{A,B}.bam
+snakemake -np mapped_reads/{A,B}.bam
 ```
 
 Note that this is not a special Snakemake syntax.
@@ -238,14 +238,14 @@ than the output file `mapped_reads/A.bam`. You can update the file
 modification date of the input file `data/samples/A.fastq` via
 
 ``` console
-$ touch data/samples/A.fastq
+touch data/samples/A.fastq
 ```
 
 and see how Snakemake wants to re-run the job to create the file
 `mapped_reads/A.bam` by executing
 
 ``` console
-$ snakemake -np mapped_reads/A.bam mapped_reads/B.bam
+snakemake -np mapped_reads/A.bam mapped_reads/B.bam
 ```
 
 ## Step 3: Sorting read alignments
@@ -286,7 +286,7 @@ object that has an attribute with the value for each wildcard.
 When issuing
 
 ``` console
-$ snakemake -np sorted_reads/B.bam
+snakemake -np sorted_reads/B.bam
 ```
 
 you will see how Snakemake wants to run first the rule `bwa_map` and
@@ -326,7 +326,7 @@ Having three steps already, it is a good time to take a closer look at
 the resulting directed acyclic graph (DAG) of jobs. By executing
 
 ``` console
-$ snakemake --dag sorted_reads/{A,B}.bam.bai | dot -Tsvg > dag.svg
+snakemake --dag sorted_reads/{A,B}.bam.bai | dot -Tsvg > dag.svg
 ```
 
 :::callout
@@ -558,7 +558,7 @@ rule all:
 to the top of our workflow. When executing Snakemake with
 
 ``` console
-$ snakemake -n
+snakemake -n
 ```
 
 :::callout
@@ -578,15 +578,15 @@ influence the DAG of jobs**.
 
 ::::challenge{id=dag_complete title="Exercise"}
 
--   Create the DAG of jobs for the complete workflow.
--   Execute the complete workflow and have a look at the resulting
+- Create the DAG of jobs for the complete workflow.
+- Execute the complete workflow and have a look at the resulting
     `plots/quals.svg`.
--   Snakemake provides handy flags for forcing re-execution of parts of
+- Snakemake provides handy flags for forcing re-execution of parts of
     the workflow. Have a look at the command line help with
     `snakemake --help` and search for the flag `--forcerun`. Then, use
     this flag to re-execute the rule `samtools_sort` and see what
     happens.
--   Snakemake displays the reason for each job (under `reason:`).
+- Snakemake displays the reason for each job (under `reason:`).
     Perform a dry-run that forces some rules to be reexecuted (using the
     `--forcerun` flag in combination with some rulename) to understand
     the decisions of Snakemake.

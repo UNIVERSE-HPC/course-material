@@ -18,16 +18,16 @@ attribution:
 
 ## Program state
 
-In programming, the term "state" refers to the current status or condition of a program 
-at a particular moment in time. It can include various pieces of information, such as 
-the values of variables, data structures, or objects, and the state of the system 
+In programming, the term "state" refers to the current status or condition of a program
+at a particular moment in time. It can include various pieces of information, such as
+the values of variables, data structures, or objects, and the state of the system
 resources, such as the memory, files, or network connections.
 
-The state of a program can be modifiable or immutable, depending on whether it can be 
-changed or not during the program's execution. Modifiable state can be a powerful tool 
-in programming, as it allows us to store and update temporary data that we can use to 
-make calculations more efficient. However, it also introduces complexity and potential 
-pitfalls, as changes in state can lead to unpredictable behavior, bugs, or security 
+The state of a program can be modifiable or immutable, depending on whether it can be
+changed or not during the program's execution. Modifiable state can be a powerful tool
+in programming, as it allows us to store and update temporary data that we can use to
+make calculations more efficient. However, it also introduces complexity and potential
+pitfalls, as changes in state can lead to unpredictable behavior, bugs, or security
 vulnerabilities.
 
 The current state of a given program is composed of many different parts, some
@@ -96,14 +96,15 @@ result = 0
 for x in data:
     result += expensive_computation(x)
 ```
+
 ## Side Effects and Pure Functions
 
-By considering how we use state in our programs, we can improve our programming by 
-making it more predictable, reliable, and testable. One way to achieve this is by 
-adopting functional programming principles, which promote the use of pure functions that 
-do not modify any external state and rely only on their input parameters to produce 
-their output. Pure functions are easier to reason about and test, and they enable 
-composability, parallelism, and other benefits that can improve the quality and 
+By considering how we use state in our programs, we can improve our programming by
+making it more predictable, reliable, and testable. One way to achieve this is by
+adopting functional programming principles, which promote the use of pure functions that
+do not modify any external state and rely only on their input parameters to produce
+their output. Pure functions are easier to reason about and test, and they enable
+composability, parallelism, and other benefits that can improve the quality and
 efficiency of our code.
 
 Functional computations only rely on the values that are provided as inputs to a
@@ -122,7 +123,7 @@ return the same data each time the same input arguments are provided are called
 Which of these functions are pure?
 If you're not sure, explain your reasoning to someone else, do they agree?
 
-~~~python
+```python
 def add_one(x):
     return x + 1
 
@@ -136,15 +137,17 @@ def append_item_1(a_list, item):
 def append_item_2(a_list, item):
     result = a_list + [item]
     return result
-~~~
+```
 
 :::solution
+
 ## Solution
 
 1. `add_one` is pure - it has no effects other than to return a value and this value will always be the same when given the same inputs
 2. `say_hello` is not pure - printing text counts as a side effect, even though it is the clear purpose of the function
 3. `append_item_1` is not pure - the argument `a_list` gets modified as a side effect - try this yourself to prove it
 4. `append_item_2` is pure - the result is a new variable, so this time `a_list` does not get modified - again, try this yourself
+
 :::
 ::::
 
@@ -254,7 +257,6 @@ assert np.array_equal(new_grid, grid), "Grid should be unchanged"
 :::
 ::::
 
-
 ## Benefits of Functional Code
 
 There are a few benefits we get when working with pure functions:
@@ -281,10 +283,10 @@ benefits when we are combining functions into a larger program. As an example
 of this, we could make a function called `add_two`, using the `add_one`
 function we already have.
 
-~~~python
+```python
 def add_two(x):
     return add_one(add_one(x))
-~~~
+```
 
 **Parallelisability** is the ability for operations to be performed at the same
 time (independently). If we know that a function is fully pure and we have got
@@ -294,7 +296,9 @@ function depends only on its input, so we will get the right result regardless
 of when or where the code runs.
 
 :::callout
+
 ## Everything in Moderation
+
 Despite the benefits that pure functions can bring, we should not be trying to
 use them everywhere. Any software we write needs to interact with the rest of
 the world somehow, which requires side effects. With pure functions you cannot
@@ -320,7 +324,7 @@ is much smaller than the data, sending the code to where data is located is
 cheaper and faster than the other way round. Let's see how we can do data
 processing using functional programming.
 
-## Key Points:
+## Key Points
 
 - Program state is composed of variables' values, including those modified by functions and interactions with the Operating System.
 - Functional computations rely only on input values, are immutable, and do not create side effects. Pure functions are testable, composable, and parallelizable.

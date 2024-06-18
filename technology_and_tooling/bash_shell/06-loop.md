@@ -18,7 +18,7 @@ Wildcards and tab completion are two ways to reduce typing as well as typing mis
 Another is to tell the shell to do something over and over again, which could save us considerable time,
 depending on how many times we need the shell to do this thing.
 
-### Couldn't we just...
+### Couldn't we just
 
 Suppose we have several hundred genome data files named `basilisk.dat`, `minotaur.dat`, `unicorn.dat`, and so on.
 In this example,
@@ -28,11 +28,11 @@ Let's first go to the `creatures` directory (using tab completion to enter the f
 typing here!):
 
 ~~~bash
-$ cd ~/shell-novice/shell/test_directory/creatures
-$ ls
+cd ~/shell-novice/shell/test_directory/creatures
+ls
 ~~~
 
-~~~
+~~~text
 basilisk.dat minotaur.dat unicorn.dat
 ~~~
 
@@ -41,24 +41,24 @@ as `original-basilisk.dat`, `original-minotaur.dat`, `original-unicorn.dat`.
 We can't use the following (don't type this, it's just for illustrative purposes):
 
 ~~~bash
-$ mv *.dat original-*.dat
+mv *.dat original-*.dat
 ~~~
 
 Because as we learnt previously, with wildcards that would expand to:
 
 ~~~bash
-$ mv basilisk.dat minotaur.dat unicorn.dat original-*.dat
+mv basilisk.dat minotaur.dat unicorn.dat original-*.dat
 ~~~
 
 This wouldn't back up our files, instead we would get an error. If on a Mac or Linux it would look like:
 
-~~~
+~~~text
 mv: target `original-*.dat' is not a directory
 ~~~
 
 Or if on Windows using Git Bash, we would see:
 
-~~~
+~~~text
 usage: mv [-f | -i | -n] [-v] source target
        mv [-f | -i | -n] [-v] source ... directory
 ~~~
@@ -78,7 +78,7 @@ Here's a simple example that displays the first three lines of each file in turn
 Let's create a new shell script using `nano` called `top.sh` that uses a loop.
 
 ~~~bash
-$ nano top.sh
+nano top.sh
 ~~~
 
 In that file enter the following:
@@ -93,10 +93,10 @@ done
 After saving it by using `Control-O` and `Control-X`, run the script:
 
 ~~~bash
-$ bash top.sh
+bash top.sh
 ~~~
 
-~~~
+~~~text
 COMMON NAME: basilisk
 CLASSIFICATION: basiliscus vulgaris
 UPDATED: 1745-05-02
@@ -118,6 +118,7 @@ the name of the thing currently being operated on is assigned to
 the **variable** called `filename`.
 
 :::callout
+
 ## What is a variable?
 
 Variables are used to store information that we want to refer to later, and are a fundamental concept in
@@ -151,6 +152,7 @@ the command that's actually being run is our old friend `head`,
 so this loop prints out the first three lines of each data file in turn.
 
 :::callout
+
 ## Why the extra spaces?
 
 Note the use of spaces for indentation before the `head` command.
@@ -162,6 +164,7 @@ such as these, code becomes much harder to read.
 :::
 
 :::callout
+
 ## Dos and don'ts of variable naming
 
 We have called the variable in this loop `filename`
@@ -233,7 +236,7 @@ mv unicorn.dat original-unicorn.dat
 Note that once you've run this command once, running it again has an interesting effect that we
 likely don't intend - the `.dat` files we end up with are:
 
-~~~
+~~~text
 original-original-basilisk.dat original-original-unicorn.dat
 original-original-minotaur.dat
 ~~~
@@ -244,6 +247,7 @@ This is because the `.dat` files picked up by `for filename in *.dat` will now m
 files before you operate on them!
 
 :::callout
+
 ## Measure Twice, Run Once
 
 A loop is a way to do many things at once --- or to make many mistakes at
@@ -272,7 +276,6 @@ isn't foolproof, but it's a handy way to see what's going to happen when
 you're still learning how loops work.
 :::
 
-
 ## Exercises
 
 ::::challenge{id=save-to-file-1 title="Saving to a File in a Loop, Part 1"}
@@ -286,26 +289,28 @@ do
 done
 ~~~
 
-1.  Prints `fructose.dat`, `glucose.dat`, and `sucrose.dat`, and the text from `sucrose.dat` will be saved to a file called 
+1. Prints `fructose.dat`, `glucose.dat`, and `sucrose.dat`, and the text from `sucrose.dat` will be saved to a file called
     `xylose.dat`.
-2.  Prints `fructose.dat`, `glucose.dat`, and `sucrose.dat`, and the text from all three files would be
+2. Prints `fructose.dat`, `glucose.dat`, and `sucrose.dat`, and the text from all three files would be
     concatenated and saved to a file called `xylose.dat`.
-3.  Prints `fructose.dat`, `glucose.dat`, `sucrose.dat`, and
+3. Prints `fructose.dat`, `glucose.dat`, `sucrose.dat`, and
     `xylose.dat`, and the text from `sucrose.dat` will be saved to a file called `xylose.dat`.
-4.  None of the above.
+4. None of the above.
 
 :::solution
+
 1. Correct.
 2. Incorrect, since we're using the `>` redirect operator, which will overwrite any previous contents of `xylose.dat`.
 3. Incorrect, since the file `xylose.dat` would not have existed when `*.dat` would have been expanded.
 4. Incorrect.
+
 :::
 ::::
 
 ::::challenge{id=save-to-file-2 title="Saving to a File in a Loop, Part 2"}
 In another directory, where `ls` returns:
 
-~~~
+~~~text
 fructose.dat    glucose.dat   sucrose.dat   maltose.txt
 ~~~
 
@@ -318,19 +323,21 @@ do
 done
 ~~~
 
-1.  All of the text from `fructose.dat`, `glucose.dat` and `sucrose.dat` would be
+1. All of the text from `fructose.dat`, `glucose.dat` and `sucrose.dat` would be
     concatenated and saved to a file called `sugar.dat`.
-2.  The text from `sucrose.dat` will be saved to a file called `sugar.dat`.
-3.  All of the text from `fructose.dat`, `glucose.dat`, `sucrose.dat` and `maltose.txt`
+2. The text from `sucrose.dat` will be saved to a file called `sugar.dat`.
+3. All of the text from `fructose.dat`, `glucose.dat`, `sucrose.dat` and `maltose.txt`
     would be concatenated and saved to a file called `sugar.dat`.
-4.  All of the text from `fructose.dat`, `glucose.dat` and `sucrose.dat` would be printed
+4. All of the text from `fructose.dat`, `glucose.dat` and `sucrose.dat` would be printed
     to the screen and saved to a file called `sugar.dat`
 
 :::solution
+
 1. Correct.
 2. Incorrect, since we're looping through each of the other `.dat` files (`fructose.dat` and `glucose.dat`) whose contents would also be included.
 3. Incorrect, since `maltose.txt` has a `.txt` extension and not a `.dat` extension, so won't match on `*.dat` and won't be included in the loop.
 4. Incorrect, since the `>>` operator redirects all output to the `sugar.dat` file, so we won't see any screen output.
+
 :::
 ::::
 

@@ -19,7 +19,7 @@ attribution:
 
 ## Linear Systems
 
---- 
+---
 
 ## YouTube lecture recording from October 2020
 
@@ -35,7 +35,6 @@ Our aim is to solve systems of equations of the form:
 > $$\displaystyle \frac{{\rm d}y_i}{{\rm d}t} = f_i(y_1,\ldots,y_n,t),$$
 
 for $\displaystyle i=1,\ldots,n$.
-
 
 Let us first consider the simplest form: a $2\times2$ **linear** system
 
@@ -76,8 +75,8 @@ $\displaystyle A = \left(\begin{matrix} 1 & 1\\2 & 0  \end{matrix}\right)$
 ```python
 A.eigenvects()
 ```
-> $\displaystyle \left[ \left( -1, \  1, \  \left[ \left[\begin{matrix}- \frac{1}{2}\\1\end{matrix}\right]\right]\right), \  \left( 2, \  1, \  \left[ \left[\begin{matrix}1\\1\end{matrix}\right]\right]\right)\right]$
 
+> $\displaystyle \left[ \left( -1, \  1, \  \left[ \left[\begin{matrix}- \frac{1}{2}\\1\end{matrix}\right]\right]\right), \  \left( 2, \  1, \  \left[ \left[\begin{matrix}1\\1\end{matrix}\right]\right]\right)\right]$
 
 ## Recap of diagonalisation
 
@@ -103,6 +102,7 @@ $$
 $$
 
 we have three methods of analysing them mathematically:
+
 - Turn them into one second order equation (if we can solve second order!)
 - Divide one by other, to get one equation independent of $t$
 - Perform matrix diagonalisation (extends to $n \times n$ problems)
@@ -127,7 +127,6 @@ y(0) &= 3.
 \end{align*}
 $$
 
-
 ## Method 1: Second order
 
 We start with:
@@ -142,15 +141,10 @@ $$
 We can convert that into a second order equation:
 
 $$
-\frac{{\rm d}^2x}{{\rm d}t^2}
-=
-\frac{{\rm d}x}{{\rm d}t} + \frac{{\rm d}y}{{\rm d}t}
-=
-\frac{{\rm d}x}{{\rm d}t} + 2x
+\frac{{\rm d}^2x}{{\rm d}t^2} = \frac{{\rm d}x}{{\rm d}t} + \frac{{\rm d}y}{{\rm d}t} = \frac{{\rm d}x}{{\rm d}t} + 2x
 \quad \quad\implies \quad\quad
-\boxed{\frac{{\rm d}^2x}{{\rm d}t^2}
-=
-\frac{{\rm d}x}{{\rm d}t} + 2x}
+
+\boxed{\frac{{\rm d}^2x}{{\rm d}t^2} = \frac{{\rm d}x}{{\rm d}t} + 2x}
 $$
 
 ## Method 2: eliminate $t$
@@ -167,19 +161,15 @@ $$
 Then, dividing:
 
 $$
-\frac{{\rm d}y}{{\rm d}x}
-=
-\frac{ \quad \frac{{\rm d}y}{{\rm d}t} \quad }{ \frac{{\rm d}x}{{\rm d}t} }
+\frac{{\rm d}y}{{\rm d}x} = \frac{ \quad \frac{{\rm d}y}{{\rm d}t} \quad }{ \frac{{\rm d}x}{{\rm d}t} }
 \quad \quad\implies \quad\quad
-\boxed{\frac{{\rm d}y}{{\rm d}x}
-=
-\frac{2x}{x+y} }
+
+\boxed{\frac{{\rm d}y}{{\rm d}x} = \frac{2x}{x+y} }
 $$
 
 ## Method 3: diagonalisation
 
 Let $\displaystyle \mathbf{v}=\left(\begin{matrix}x\\y\end{matrix}\right),$
-
 
 then
 
@@ -188,10 +178,7 @@ $$
 \frac{{\rm d}y}{{\rm d}t} = 2x, \quad \implies \quad \boxed{\frac{{\rm d}\mathbf{v}}{{\rm d}t} = A\mathbf{v},}
 $$
 
-
 where  $\displaystyle A = \left(\begin{matrix} 1 & 1\\2 & 0  \end{matrix}\right).$
-
-
 
 Substitute
 
@@ -209,13 +196,10 @@ We can now introduce a new variable $\displaystyle \;\mathbf{z} =    \left(\begi
 
 > $$\displaystyle  \frac{{\rm d}\mathbf{z}}{{\rm d}t} = \left(\begin{matrix} \lambda_1 & 0 \\ 0 & \lambda_2  \end{matrix}\right) \mathbf{z}.$$
 
-
 But now, because the matrix is diagonal, the system is no longer coupled.
 The first equation **only** involves $z_1$ and the second **only** involves $z_2$, so we can solve each one individually:
 
 > $$\displaystyle \frac{{\rm d}z_1}{{\rm d}t} = \lambda_1 z_1 \qquad\implies\qquad z_1(t) = A\,e^{\lambda_1 t}$$
-
-
 > $$\displaystyle \frac{{\rm d}z_2}{{\rm d}t} = \lambda_2 z_2 \qquad\implies\qquad z_2(t) = B\,e^{\lambda_2 t}$$
 
 Finally, we can substitute $z_1$ and $z_2$ back in terms of $x$ and $y$ to find the solution to the original coupled system:
@@ -227,16 +211,13 @@ We have
 Rearranging, we now have two equations relating $x$ and $y$:
 
 > $$\displaystyle -2x + 2y = C\,e^{\lambda_1 t}$$
-
 > $$\displaystyle 2x + y = D\,e^{\lambda_2 t}$$
-
 
 where $C=3A$ and $D=3B$.  Using our initial conditions, $\,x(0)=0\,$ and $\,y(0)=3\,$ we find $C=6$ and $D=3$.
 
 Finally, solving the simultaneous equations, we have a solution:
 
 > $$\displaystyle x(t) = -e^{\lambda_1 t} + e^{\lambda_2 t}$$
-
 > $$\displaystyle y(t) = 2e^{\lambda_1 t} + e^{\lambda_2 t}$$
 
 ## Summary
@@ -244,13 +225,6 @@ Finally, solving the simultaneous equations, we have a solution:
 - Three methods to analytically solve systems of linear first
   order ODEs
 - Best method depends on the system and what you need to ask about it
-
-
-
-
-
-
-
 
 ### Introductory problems
 
@@ -261,8 +235,6 @@ Find the general solution to the following system of ODEs:
 
 Sketch the form of the solution in the $x,\,y$ plane, using arrows to indicate where the solution moves over time.
 ::::
-
-
 
 ::::challenge{id="14_intro_02" title="Introductory problems 2"}
 Take the general decoupled linear system
@@ -278,8 +250,8 @@ Take the general decoupled linear system
 1. Sketch this solution for
    - $\quad a>0,\;\;b>0,\;\;a=b$
    - $\quad a>0,\;\;b<0,\;\;a=-b$.
-::::
 
+::::
 
 ### Main problems
 
@@ -290,7 +262,6 @@ By reformulating the following system as one first order equation (i.e eliminati
 
 Sketch the form of the solutions in the $x,\,y$ plane.
 ::::
-
 
 ::::challenge{id="14_main_02" title="Main problems 2"}
 Again by eliminating $t$ and reformulating the system as one first order equation, find the general solution to the following system of ODEs:
@@ -314,8 +285,8 @@ Find the eigenvalues and two independent eigenvectors $\mathbf{v}_{1}$ and $\mat
    - What happens as $t\rightarrow \infty$?
    - What about $t\rightarrow -\infty$?
    - What is $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{y}{x}$ at a general point on the $y$-axis?
-::::
 
+::::
 
 ### Extension problems
 
@@ -324,5 +295,5 @@ The force on a damped harmonic oscillator is $\displaystyle \def\dd#1#2{{\frac{{
 
 1. Use Newton's 2nd law of motion to write down an equation for the acceleration $\displaystyle \def\ddd#1#2{{{{\rm d}^2#1}\over{\d{#2}^2}}} \def\d#1{{\rm d}#1} \ddd{x}{t}$.
 1. Make the substitution $\displaystyle \def\ddd#1#2{{{{\rm d}^2#1}\over{\d{#2}^2}}} \def\d#1{{\rm d}#1}  \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} y=\dd{x}{t}\;\left(\text{and hence }\dd{y}{t} = \ddd{x}{t}\right)$ to obtain a system of two first-order linear ODEs.
-::::
 
+::::

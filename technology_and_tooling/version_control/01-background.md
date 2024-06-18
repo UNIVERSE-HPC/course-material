@@ -36,7 +36,6 @@ When you use  **version control**, at any point in the future, you can retrieve 
 
 Version control makes **reproducibility** simpler. Without using version control it's very hard to say that your research is truly reproducible...
 
-
 ### 3. To Aid Collaboration
 
 As well as maintaining a revison history, VC tools also help multiple authors **collaborate** on the **same file** or set of files.
@@ -49,7 +48,7 @@ As well as maintaining a revison history, VC tools also help multiple authors **
 
 We'll look at both the backup and collaboration scenarios, but first it's useful to understand what going on **under the hood**.
 
-## How do Version Control Tools Work? ##
+## How do Version Control Tools Work?
 
 ![Changes are tracked sequentially](fig/01-background/track_changes.svg)
 
@@ -62,7 +61,6 @@ Once you think of **changes as separate from the document** itself, you can then
 ![Multiple versions can be merged](fig/01-background/merge.svg)
 
 If there aren't conflicts, you can even try to combine two different sets of changes together onto the same base document, a process called **merging**.
-
 
 ## Version Control Alternatives
 
@@ -84,31 +82,38 @@ Because Git is so popular, and making a GitHub account is so easy, we're going t
 We're going to teach you how to use Git on the *command line*, as it's the same on every single platform (Mac, Linux & Windows) - and it's the only way to use it on high-performance clusters like Iridis. This isn't the only way to use it, however. There are many different graphical user interfaces for Git, like:
 
 ### [SourceTree](https://www.sourcetreeapp.com/)
+
 ![SourceTree](fig/01-background/sourcetree.png)
 
 ### [Git Kraken](https://www.gitkraken.com/)
+
 ![Git Kraken](fig/01-background/kraken.png)
 
 ### [GitHub Desktop](https://desktop.github.com/)
+
 ![GitHub Desktop](fig/01-background/desktop.png)
 
 Fundamentally, though, these are all just 'wrappers' around the command line version of Git.
 If you understand what they're doing under the hood, you can easily switch between versions. You can, for example, manage your code on Iridis using command-line git and GitHub Desktop on your desktop workstation.
 
 :::callout
+
 ## Git GUI Integrations
 
 Most code editors and Integrated Development Environments (or IDEs) integrate Git into their UI,
 so you can easily see the state of your files and work with your repository. Examples include:
 
 ### [VS Code](https://code.visualstudio.com)
+
 ![VS Code](fig/01-background/integration-vscode.png)
 
 ### [PyCharm & CLion](https://www.jetbrains.com/pycharm/)
+
 ![PyCharm](fig/01-background/integration-pycharm.png)
 
 ### [RStudio/Posit](https://posit.co)
+
 ![RStudio](fig/01-background/integration-rstudio.png)
 
-Others include MatLab, Atom, Sublime Text and Notepad++. The only common IDE with poor Git support is Spyder! 
+Others include MatLab, Atom, Sublime Text and Notepad++. The only common IDE with poor Git support is Spyder!
 :::
