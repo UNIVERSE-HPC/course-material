@@ -16,12 +16,12 @@ OpenMP is an industry-standard API specifically designed for parallel programmin
 ::::challenge{title="An OpenMP Timeline"}
 
 If you're interested, there's a [timeline of how OpenMP developed](https://www.openmp.org/uncategorized/openmp-timeline/).
-It provides an overview of OpenMP's evolution until 2014, with significant advancements 
-occurring thereafter. Notably, OpenMP 5.0 marked a significant step in 2018, followed by the latest 
+It provides an overview of OpenMP's evolution until 2014, with significant advancements
+occurring thereafter. Notably, OpenMP 5.0 marked a significant step in 2018, followed by the latest
 iteration, OpenMP 5.2, which was released in November 2021.
 ::::
 
-## How does it work? 
+## How does it work?
 
 OpenMP allows programmers to identify and parallelize sections of code, enabling multiple threads to execute them concurrently. This concurrency is achieved using a shared-memory model, where all threads can access a common memory space and communicate through shared variables.
 
@@ -87,7 +87,7 @@ When you execute the OpenMP program,
 it will display 'Hello World!' multiple times according to the value we entered in `OMP_NUM_THREADS`,
 with each thread in the parallel region executing the `printf` statement concurrently:
 
-~~~
+~~~text
 Hello World!
 Hello World!
 Hello World!
@@ -95,6 +95,7 @@ Hello World!
 ~~~
 
 ::::callout
+
 ## How to Use in Microsoft VSCode?
 
 If you're looking to develop OpenMP programs in VSCode, here are three configuration hints which can help:
@@ -107,4 +108,3 @@ You may need to adapt the `tasks.json` and `launch.json` depending on your platf
 
 Once you've compiled `hello_world_omp.c` the first time, then, by selecting VSCode's `Run and Debug` tab on the left, the `C++ OpenMP: current file` configuration should appear in the top left which will set `OMP_NUM_THREADS` before running it.
 ::::
-

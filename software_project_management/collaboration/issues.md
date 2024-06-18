@@ -45,7 +45,7 @@ you already know about!
 
 GitHub provides **Issues** - a framework for managing bug reports, feature requests, and lists of future work.
 
-Go back to the home page for your `oxrse_unit_conv` repository in GitHub, and click on 
+Go back to the home page for your `oxrse_unit_conv` repository in GitHub, and click on
 the **Issue** tab.
 You should see a page listing the open issues on your repository - currently there should be none.
 
@@ -55,7 +55,7 @@ Let's go through the process of creating a new issue. Start by clicking the `New
 
 ![Creating a new issue in GitHub](fig/github-new-issue.png)
 
-When you create an issue, you can add a range of details to them. They can be *assigned to a specific developer* for example - this can be a helpful way to know who, if anyone, is currently working to fix the issue, or a way to assign 
+When you create an issue, you can add a range of details to them. They can be *assigned to a specific developer* for example - this can be a helpful way to know who, if anyone, is currently working to fix the issue, or a way to assign
 responsibility to someone to deal with it.
 
 They can also be assigned a *label*. The labels available for issues can be customised, and given a colour, allowing you to see at a glance the state of your code's issues. The [default labels available in GitHub](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels) include:
@@ -70,17 +70,18 @@ They can also be assigned a *label*. The labels available for issues can be cust
 - `question` - indicates that an issue, pull request, or discussion needs more information
 - `wontfix` - indicates that work won't continue on an issue, pull request, or discussion
 
-You can also create your own custom labels to help with classifying issues. There are no 
-rules really about naming the labels - use whatever makes sense for your project. Some 
-conventional custom labels include: `status:in progress` (to indicate that someone 
-started working on the issue), `status:blocked` (to indicate that the progress on 
-addressing issue is blocked by another issue or activity), `bug` (to indicate that this 
-issue is a report of a bug or fault in the code), `enhancement` (to indicate that this 
+You can also create your own custom labels to help with classifying issues. There are no
+rules really about naming the labels - use whatever makes sense for your project. Some
+conventional custom labels include: `status:in progress` (to indicate that someone
+started working on the issue), `status:blocked` (to indicate that the progress on
+addressing issue is blocked by another issue or activity), `bug` (to indicate that this
+issue is a report of a bug or fault in the code), `enhancement` (to indicate that this
 issue is for a new feature for the software)
 
-
 :::callout
+
 ## Manage Issues With Your Code Openly
+
 Having open, publicly-visible lists of the the limitations and problems with
 your code is incredibly helpful. Even if some issues end up languishing unfixed
 for years, letting users know about them can save them a huge amount of work
@@ -89,20 +90,19 @@ also help you see at a glance what state your code is in, making it easier to
 prioritise future work!
 :::
 
-
 :::challenge{id=first-issue title="Our First Issue!"}
 
-The `oxrse_unit_conv` repo that you cloned previously 
-([https://github.com/OxfordRSE/oxrse_unit_conv](https://github.com/OxfordRSE/oxrse_unit_conv)). 
-is a small toy Python project that implements some classes for SI and non-SI units (you 
+The `oxrse_unit_conv` repo that you cloned previously
+([https://github.com/OxfordRSE/oxrse_unit_conv](https://github.com/OxfordRSE/oxrse_unit_conv)).
+is a small toy Python project that implements some classes for SI and non-SI units (you
 can
 read the `README.md` file for more information), and implements convertions
-between values of different units. There are some initial units defined, but many are 
-missing. 
+between values of different units. There are some initial units defined, but many are
+missing.
 
-Individually, with a critical eye, think of an aspect of the code in this repo that 
-needs improvement. This could be to add a new unit to the project, or it could be to add 
-any other functionality that you think would be useful, or to fix any bugs that you 
+Individually, with a critical eye, think of an aspect of the code in this repo that
+needs improvement. This could be to add a new unit to the project, or it could be to add
+any other functionality that you think would be useful, or to fix any bugs that you
 find.
 :::
 
@@ -119,13 +119,13 @@ own](https://docs.github.com/en/communities/using-templates-to-encourage-useful-
 
 ## Using GitHub's Notifications & Referencing System to Communicate
 
-GitHub implements a comprehensive [notifications system](https://docs.github.com/en/account-and-profile/managing-subscriptions-and-notifications-on-github/setting-up-notifications/configuring-notifications) 
-to keep the team up-to-date with activities in your code repository and notify you when something happens or changes 
+GitHub implements a comprehensive [notifications system](https://docs.github.com/en/account-and-profile/managing-subscriptions-and-notifications-on-github/setting-up-notifications/configuring-notifications)
+to keep the team up-to-date with activities in your code repository and notify you when something happens or changes
 in your software project. You can choose whether to watch or unwatch an individual repository,
-or can choose to only be notified of certain event types such as updates to issues, pull requests, direct mentions, 
-etc. GitHub also provides an additional useful notification feature for collaborative work - **Mentions**. 
-In addition to referencing team members (which will result in an appropriate notification), GitHub allows us 
-to reference issues, pull requests and comments from one another - providing a useful way of connecting things 
+or can choose to only be notified of certain event types such as updates to issues, pull requests, direct mentions,
+etc. GitHub also provides an additional useful notification feature for collaborative work - **Mentions**.
+In addition to referencing team members (which will result in an appropriate notification), GitHub allows us
+to reference issues, pull requests and comments from one another - providing a useful way of connecting things
 and conversations in your project.
 
 ### Referencing Team Members Using Mentions
@@ -142,7 +142,7 @@ bring up a list of all accounts and teams linked to the repository that can be
 "mentioned". People will then receive notifications based on their preferred
 notification methods - e.g. via email or GitHub's User Interface.
 
-### Referencing Issues, Pull Requests and Comments 
+### Referencing Issues, Pull Requests and Comments
 
 GitHub also lets you mention/reference one issue or pull request from another
 (and people "watching" these will be notified of any such updates). Whilst
@@ -167,16 +167,17 @@ and GitHub will render it nicely using the identifier's short form and link to t
 
 :::challenge{id=first-mention title="Our First Mention/Reference!"}
 
-Add a mention to one of your team members using the `@` notation 
-in a comment within an issue or a pull request in your repository - e.g. to 
-ask them a question or a clarification on something or to do some additional work. 
+Add a mention to one of your team members using the `@` notation
+in a comment within an issue or a pull request in your repository - e.g. to
+ask them a question or a clarification on something or to do some additional work.
 
-Alternatively, add another issue to your repository and reference the issue you created 
+Alternatively, add another issue to your repository and reference the issue you created
 in the previous exercise using the `#` notation.
 
 :::
 
-## Key Points:
+## Key Points
+
 - We should use GitHub's **Issues** to keep track of software problems and other requests for change - even if we are the only developer and user.
 - GitHub’s **Mentions** play an important part in communicating between collaborators and is used as a way of alerting team members of activities and referencing one issue/pull requests/comment/commit from another.
 - Without a good project and issue management framework, it can be hard to keep track of what’s done, or what needs doing, and particularly difficult to convey that to others in the team or sharing the responsibilities.

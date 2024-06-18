@@ -27,8 +27,8 @@ these are actually small programs.
 Let's start by going back to `data` and putting some commands into a new file called `middle.sh` using an editor like `nano`:
 
 ~~~bash
-$ cd ~/shell-novice/data
-$ nano middle.sh
+cd ~/shell-novice/data
+nano middle.sh
 ~~~
 
 So why the .sh extension to the filename? Adding `.sh` is the convention to show that this is a Bash shell script.
@@ -51,10 +51,10 @@ we can ask the shell to execute the commands it contains.
 Our shell is called `bash`, so we run the following command:
 
 ~~~bash
-$ bash middle.sh
+bash middle.sh
 ~~~
 
-~~~
+~~~text
 299196.8188,972890.0521,48.07,61.41,0.78
 324196.8188,972890.0521,48.20,-9999.00,0.72
 274196.8188,968890.0521,47.86,60.94,0.83
@@ -66,6 +66,7 @@ Sure enough,
 our script's output is exactly what we would get if we ran that pipeline directly.
 
 :::callout
+
 ## Text vs. Whatever
 
 We usually call programs like Microsoft Word or LibreOffice Writer "text
@@ -88,10 +89,10 @@ Instead,
 let's edit `middle.sh` and replace `sc_climate_data_1000.csv` with a special variable called `$1`:
 
 ~~~bash
-$ nano middle.sh
+nano middle.sh
 ~~~
 
-~~~
+~~~text
 head -15 "$1" | tail -5
 ~~~
 
@@ -100,10 +101,10 @@ Inside a shell script,
 We can now run our script like this:
 
 ~~~bash
-$ bash middle.sh sc_climate_data_1000.csv
+bash middle.sh sc_climate_data_1000.csv
 ~~~
 
-~~~
+~~~text
 299196.8188,972890.0521,48.07,61.41,0.78
 324196.8188,972890.0521,48.20,-9999.00,0.72
 274196.8188,968890.0521,47.86,60.94,0.83
@@ -114,10 +115,10 @@ $ bash middle.sh sc_climate_data_1000.csv
 or on a different file like this (our full data set!):
 
 ~~~bash
-$ bash middle.sh sc_climate_data.csv
+bash middle.sh sc_climate_data.csv
 ~~~
 
-~~~
+~~~text
 299196.8188,972890.0521,48.07,61.41,0.78
 324196.8188,972890.0521,48.20,-9999.00,0.72
 274196.8188,968890.0521,47.86,60.94,0.83
@@ -128,6 +129,7 @@ $ bash middle.sh sc_climate_data.csv
 Note the output is the same, since our full data set contains the same first 1000 lines as `sc_climate_data_1000.csv`.
 
 :::callout
+
 ## Double-Quotes Around Arguments
 
 We put the `$1` inside of double-quotes in case the filename happens to contain any spaces.

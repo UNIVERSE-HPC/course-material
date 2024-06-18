@@ -29,7 +29,7 @@ attribution:
 
 ---
 
-Linear algebra is the branch of mathematics concerning sets of linear equations 
+Linear algebra is the branch of mathematics concerning sets of linear equations
 of the form $a_1x_1 + a_2x_2 + \cdots + a_nx_n = b$, which can be written using matrices and vectors as $Ax = b$.
 
 The solution of these types of equations is fundamental to many areas of

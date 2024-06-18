@@ -34,25 +34,26 @@ It shows us that the shell is waiting for input;
 your shell may show something more elaborate.
 
 ### Working out who we are and where we are
+
 Type the command `whoami`,
 then press the `Enter` key (sometimes called `Return`) to send the command to the shell.
 The command's output is the identity of the current user,
 i.e., it shows us who the shell thinks we are (yours will be something different!):
 
 ~~~bash
-$ whoami
+whoami
 ~~~
 
-~~~
+~~~text
 nelle
 ~~~
 
 So what's happening? When we type `whoami` the shell:
 
-1.  Finds a program called `whoami`
-2.  Runs that program
-3.  Displays that program's output (if there is any), then
-4.  Displays a new prompt to tell us that it's ready for more commands
+1. Finds a program called `whoami`
+2. Runs that program
+3. Displays that program's output (if there is any), then
+4. Displays a new prompt to tell us that it's ready for more commands
 
 Next, let's find out where we are in our file system by running a command called `pwd`
 (which stands for "print working directory").
@@ -66,14 +67,15 @@ the computer's response is `/Users/nelle`,
 which is Nelle's **home directory**:
 
 ~~~bash
-$ pwd
+pwd
 ~~~
 
-~~~
+~~~text
 /Users/nelle
 ~~~
 
 :::callout
+
 ## Home directory
 
 The home directory path will look different on different operating systems.
@@ -85,6 +87,7 @@ Windows.
 :::
 
 :::callout
+
 ## Alphabet Soup
 
 If the command to find out who we are is `whoami`, the command to find
@@ -99,7 +102,8 @@ its jargon. The result is as inconsistent as the roolz uv Inglish
 speling, but we're stuck with it now.
 :::
 
-:::callout
+:::callout{variant="tip"}
+
 ## Real typing timesavers
 
 Save yourself some unnecessary keypresses!
@@ -147,7 +151,8 @@ which is why `nelle` is the last part of the directory's name.
 
 ![2. Home Directories](fig/home-directories.png)
 
-:::callout
+:::callout{variant="info"}
+
 ## Path
 
 Notice that there are two meanings for the `/` character.
@@ -164,10 +169,10 @@ We're currently in our home directory, and can see what's in it by running `ls`,
 which stands for "listing" (the `...` refers to other files and directories that have been left out for clarity):
 
 ~~~bash
-$ ls
+ls
 ~~~
 
-~~~
+~~~text
 shell-novice       Misc                   Solar.pdf
 Applications           Movies                 Teaching
 Desktop                Music                  ThunderbirdTemp
@@ -188,10 +193,10 @@ Before we do this,
 `pwd` shows us that we're in `/Users/nelle`.
 
 ~~~bash
-$ pwd
+pwd
 ~~~
 
-~~~
+~~~text
 /Users/nelle
 ~~~
 
@@ -199,20 +204,20 @@ Let's first get hold of some example files we can explore. First, download the e
 If on WSL or Linux (e.g. Ubuntu or the Ubuntu VM), then do:
 
 ~~~bash
-$ wget https://train.oxrse.uk/material/HPCu/technology_and_tooling/bash_shell/shell-novice.zip
+wget https://train.oxrse.uk/material/HPCu/technology_and_tooling/bash_shell/shell-novice.zip
 ~~~
 
 Or, if on a Mac, do:
 
 ~~~bash
-$ curl -O https://train.oxrse.uk/material/HPCu/technology_and_tooling/bash_shell/shell-novice.zip
+curl -O https://train.oxrse.uk/material/HPCu/technology_and_tooling/bash_shell/shell-novice.zip
 ~~~
 
 Once done, you can unzip this file using the `unzip` command in Bash, which will unpack all the files
 in this zip archive into the current directory:
 
 ~~~bash
-$ unzip shell-novice.zip
+unzip shell-novice.zip
 ~~~
 
 If you do `ls` now, you should see a new `shell-novice` directory.
@@ -224,17 +229,17 @@ the command doesn't change the directory,
 it changes the shell's idea of what directory we are in.
 
 ~~~bash
-$ cd shell-novice
+cd shell-novice
 ~~~
 
 `cd` doesn't print anything,
 but if we run `pwd` after it, we can see that we are now in `/Users/nelle/shell-novice`:
 
 ~~~bash
-$ pwd
+pwd
 ~~~
 
-~~~
+~~~text
 /Users/nelle/shell-novice
 ~~~
 
@@ -243,14 +248,14 @@ it lists the contents of `/Users/nelle/shell-novice`,
 because that's where we now are:
 
 ~~~bash
-$ ls
+ls
 ~~~
 
-~~~
-AUTHORS			Gemfile			_config.yml		_includes		bin			files			setup.md
-CITATION		LICENSE.md		_episodes		_layouts		code			index.md		shell
-CODE_OF_CONDUCT.md	Makefile		_episodes_rmd		aio.md			data			reference.md		slides
-CONTRIBUTING.md		README.md		_extras			assets			fig			requirements.txt
+~~~text
+AUTHORS   Gemfile   _config.yml  _includes  bin   files   setup.md
+CITATION  LICENSE.md  _episodes  _layouts  code   index.md  shell
+CODE_OF_CONDUCT.md Makefile  _episodes_rmd  aio.md   data   reference.md  slides
+CONTRIBUTING.md  README.md  _extras   assets   fig   requirements.txt
 ~~~
 
 `ls` prints the names of the files and directories in the current directory in alphabetical order,
@@ -259,14 +264,14 @@ We can make its output more comprehensible by using the **flag** `-F`,
 which tells `ls` to add a trailing `/` to the names of directories:
 
 ~~~bash
-$ ls -F
+ls -F
 ~~~
 
-~~~
-AUTHORS			Gemfile			_config.yml		_includes/		bin/			files/			setup.md
-CITATION		LICENSE.md		_episodes/		_layouts/		code/			index.md		shell/
-CODE_OF_CONDUCT.md	Makefile		_episodes_rmd/		aio.md			data/			reference.md		slides/
-CONTRIBUTING.md		README.md		_extras/		assets/			fig/			requirements.txt
+~~~text
+AUTHORS   Gemfile   _config.yml  _includes/  bin/   files/   setup.md
+CITATION  LICENSE.md  _episodes/  _layouts/  code/   index.md  shell/
+CODE_OF_CONDUCT.md Makefile  _episodes_rmd/  aio.md   data/   reference.md  slides/
+CONTRIBUTING.md  README.md  _extras/  assets/   fig/   requirements.txt
 ~~~
 
 Here,
@@ -280,6 +285,7 @@ the shell thinks we're trying to run a command called `ls-F`,
 which doesn't exist.
 
 :::callout
+
 ## What's In A Name?
 
 You may have noticed that all of these files' names are "something dot
@@ -304,18 +310,18 @@ when someone double-clicks it.
 For this exercise, we need to change our working directory to `shell-novice`, and then `shell` (within the `shell-novice` directory). As we have already used cd to move into `shell-novice` we can get to `shell` by using `cd` again:
 
 ~~~bash
-$ cd shell
+cd shell
 ~~~
 
 Note that we are able to add directories together by using `/`.
 Now if we view the contents of that directory:
 
 ~~~bash
-$ ls -F
+ls -F
 ~~~
 
-~~~
-shell-novice-data.zip	tools/ test_directory/
+~~~text
+shell-novice-data.zip tools/ test_directory/
 ~~~
 
 Note that under Git Bash in Windows, the `/` is appended automatically.
@@ -324,10 +330,10 @@ Now let's take a look at what's in the directory `test_directory`, by running `l
 we want a listing of something other than our current working directory:
 
 ~~~bash
-$ ls -F test_directory
+ls -F test_directory
 ~~~
 
-~~~
+~~~text
 creatures/          molecules/          notes.txt           solar.pdf
 data/               north-pacific-gyre/ pizza.cfg           writing/
 ~~~
@@ -345,6 +351,7 @@ it tells `ls` how to find something from where we are,
 rather than from the root of the file system.
 
 :::callout
+
 ## Parameters vs. Arguments
 
 According to [Wikipedia](https://en.wikipedia.org/wiki/Parameter_(computer_programming)#Parameters_and_arguments),
@@ -360,10 +367,10 @@ If we run `ls -F /test_directory` (*with* a leading slash) we get a different re
 because `/test_directory` is an **absolute path**:
 
 ~~~bash
-$ ls -F /test_directory
+ls -F /test_directory
 ~~~
 
-~~~
+~~~text
 ls: /test_directory: No such file or directory
 ~~~
 
@@ -375,13 +382,13 @@ In this case, there is no `data` directory in the root of the file system.
 Typing `ls -F test_directory` is a bit painful, so a handy shortcut is to type in the first few letters and press the *TAB* key, for example:
 
 ~~~bash
-$ ls -F tes
+ls -F tes
 ~~~
 
 Pressing *TAB*, the shell automatically completes the directory name:
 
 ~~~bash
-$ ls -F test_directory/
+ls -F test_directory/
 ~~~
 
 This is known as *tab completion* on any matches with those first few letters.
@@ -390,7 +397,7 @@ If there are more than one files or directories that match those letters, the sh
 Let's change our directory to `test_directory`:
 
 ~~~bash
-$ cd test_directory
+cd test_directory
 ~~~
 
 We know how to go down the directory tree:
@@ -400,15 +407,15 @@ We could use an absolute path, e.g. `cd /Users/nelle/shell-novice/novice/shell`.
 but it's almost always simpler to use `cd ..` to go up one level:
 
 ~~~bash
-$ pwd
+pwd
 ~~~
 
-~~~
+~~~text
 /Users/nelle/shell-novice/novice/shell/test_directory
 ~~~
 
 ~~~bash
-$ cd ..
+cd ..
 ~~~
 
 `..` is a special directory name meaning
@@ -417,29 +424,29 @@ or more succinctly,
 the **parent** of the current directory.
 
 ~~~bash
-$ pwd
+pwd
 ~~~
 
-~~~
+~~~text
 /Users/nelle/shell-novice/novice/shell/
 ~~~
 
 Let's go back into our test directory:
 
 ~~~bash
-$ cd test_directory
+cd test_directory
 ~~~
 
 The special directory `..` doesn't usually show up when we run `ls`.
 If we want to display it, we can give `ls` the `-a` flag:
 
 ~~~bash
-$ ls -F -a
+ls -F -a
 ~~~
 
-~~~
-./			creatures/		molecules/		notes.txt		solar.pdf
-../			data/			north-pacific-gyre/	pizza.cfg		writing/
+~~~text
+./   creatures/  molecules/  notes.txt  solar.pdf
+../   data/   north-pacific-gyre/ pizza.cfg  writing/
 ~~~
 
 `-a` stands for "show all";
@@ -452,6 +459,7 @@ It may seem redundant to have a name for it,
 but we'll see some uses for it soon.
 
 :::callout
+
 ## Special Names
 
 The special names `.` and `..` don't belong to `ls`;
@@ -468,14 +476,14 @@ your computer's file system, not any particular program you can run in it.
 Another handy feature is that we can reference our home directory with `~`, e.g.:
 
 ~~~bash
-$ ls ~/shell-novice
+ls ~/shell-novice
 ~~~
 
-~~~
-AUTHORS			Gemfile			_config.yml		_includes		bin			files			setup.md
-CITATION		LICENSE.md		_episodes		_layouts		code			index.md		shell
-CODE_OF_CONDUCT.md	Makefile		_episodes_rmd		aio.md			data			reference.md		slides
-CONTRIBUTING.md		README.md		_extras			assets			fig			requirements.txt
+~~~text
+AUTHORS   Gemfile   _config.yml  _includes  bin   files   setup.md
+CITATION  LICENSE.md  _episodes  _layouts  code   index.md  shell
+CODE_OF_CONDUCT.md Makefile  _episodes_rmd  aio.md   data   reference.md  slides
+CONTRIBUTING.md  README.md  _extras   assets   fig   requirements.txt
 ~~~
 
 Which again shows us our repository directory.
@@ -490,10 +498,10 @@ path: `here/there/~/elsewhere` is *not* `/Users/nelle/elsewhere`.
 ::::challenge{id=relative-path-resolution title="Relative Path Resolution"}
 If `pwd` displays `/Users/thing`, what will `ls ../backup` display?
 
-1.  `../backup: No such file or directory`
-2.  `2012-12-01 2013-01-08 2013-01-27`
-3.  `2012-12-01/ 2013-01-08/ 2013-01-27/`
-4.  `original pnas_final pnas_sub`
+1. `../backup: No such file or directory`
+2. `2012-12-01 2013-01-08 2013-01-27`
+3. `2012-12-01/ 2013-01-08/ 2013-01-27/`
+4. `original pnas_final pnas_sub`
 
 :::solution
 **4** is correct. `ls` shows the contents of the path you give it,
@@ -510,10 +518,10 @@ what command will display:
 `pnas-sub/ pnas-final/ original/`
 ~~~
 
-1.  `ls pwd`
-2.  `ls -r -F`
-3.  `ls -r -F /Users/backup`
-4.  Either \#2 or \#3 above, but not \#1.
+1. `ls pwd`
+2. `ls -r -F`
+3. `ls -r -F /Users/backup`
+4. Either \#2 or \#3 above, but not \#1.
 
 :::solution
 **4** is correct. The current directory (as shown by `pwd`) is `/Users/backup`, so `ls`

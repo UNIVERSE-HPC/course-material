@@ -36,4 +36,3 @@ to solve the system of equations, rather than the direct methods covered in
 the previous course. This course covers the basics of iterative methods for
 solving linear systems, and how to use sparse matrices to represent and solve
 these systems efficiently.
-

@@ -19,63 +19,64 @@ attribution:
 We've got a repository now containing a few pre-existing files - so let's add one more. You might remember seeing GitHub suggest we added a README.md to let people know what our code is about, so let's do that on the command line. We'll use the text editor `nano`, as:
 
 ~~~bash
-$ nano README.md
+nano README.md
 ~~~
 
-Then type an example description: 
+Then type an example description:
 
-~~~
+~~~text
 # Climate Analysis Toolkit
 
 This is a set of python scripts designed to analyse climate datafiles.
 ~~~
 
-We can save our file using `Control-O` (`Control` and `O` at the same time), then `Enter`, and quit out of nano using `Control-X`. 
+We can save our file using `Control-O` (`Control` and `O` at the same time), then `Enter`, and quit out of nano using `Control-X`.
 Our description is a bit brief, but it's enough for now!
 Let's try `git status` again:
 
 ~~~bash
-$ git status
+git status
 ~~~
 
-~~~
+~~~text
 # On branch main
 # Untracked files:
 #   (use "git add <file>..." to include in what will be committed)
 #
-#	README.md
+# README.md
 nothing added to commit but untracked files present (use "git add" to track)
 ~~~
 
 Now, whilst our current snapshot of the repository is up-to-date, we've added a new file that we're not tracking yet. We can tell Git to track the file we've just created using `git add`:
 
 ~~~bash
-$ git add README.md
+git add README.md
 ~~~
 
 and then check that the right thing happened:
 
 ~~~bash
-$ git status
+git status
 ~~~
 
-~~~
+~~~text
 # On branch main
 # Changes to be committed:
 #   (use "git reset HEAD <file>..." to unstage)
 #
-#	new file:   README.md
+# new file:   README.md
 #
 ~~~
 
 Git now knows that it's supposed to **keep track** of `README.md`, just like `climate_analysis.py` and `temp_conversion.py` but it **hasn't recorded that as a commit** yet. We dont have a snapshot of the repository with all the existing files *and* `README.md`.
 
 ### Initial Commit
+
 To get it to do that,
 we need to run one more command:
 
 ~~~bash
-$ git commit -m "Added a basic readme file."
+git commit -m "Added a basic readme file."
 ~~~
 
 We use the `-m` flag (for "**message**")
@@ -91,7 +92,7 @@ changes made in the commit, **NOT "Bug Fixes"** or **"Changes"**!
 If you want to go into more detail, add
 a blank line between the summary line and your additional notes.
 
-~~~
+~~~text
 [main fa90884] Added a basic readme file.
  1 file changed, 3 insertions(+)
  create mode 100644 README.md
@@ -107,10 +108,10 @@ and its short **identifier** is `fa90884`.
 If we run `git status` now:
 
 ~~~bash
-$ git status
+git status
 ~~~
 
-~~~
+~~~text
 # On branch main
 # Your branch is ahead of 'origin/main' by 1 commit.
 #   (use "git push" to publish your local commits)
@@ -130,12 +131,13 @@ but **not yet committed**.
 and `git commit` then copies them to long-term storage (as a commit)
 
 :::callout
+
 ## What's the Point of the Staging Area?
 
 Why do we have this two-stage process, where we **add** files to the staging area, then create a **commit** from them?
 
 Among other reasons, it allows you to easily bundle together a lot of changes in one go. If you changed the name of a variable used in multiple files (e.g. from `t` to `temperature`), you'd need to change it in all your files in one go in order for it to make sense.
-If you stored a copy of each file one-by-one you'd end up with a lot of versions of the code that didn't work - variables with different names everywhere. The **staging area** lets you bundle together all those small changes that don't work in isolation into one big change that's coherent. 
+If you stored a copy of each file one-by-one you'd end up with a lot of versions of the code that didn't work - variables with different names everywhere. The **staging area** lets you bundle together all those small changes that don't work in isolation into one big change that's coherent.
 
 Git does give you shortcuts to reduce **add -> commit** to a single step, but when you're starting out it's always better to make sure you know what's going in to each commit!
 :::
@@ -146,10 +148,10 @@ If we want to know what we've done recently,
 we can ask Git to show us the **project's history** using `git log`:
 
 ~~~bash
-$ git log
+git log
 ~~~
 
-~~~
+~~~text
 commit fa90884ca03dcefb97e415a374ac1aacaaa94c91 (HEAD -> main)
 Author: Sam Mangham <mangham@gmail.com>
 Date:   Wed Mar 16 15:22:29 2022 +0000
@@ -173,8 +175,8 @@ The listing for each revision includes
 * **when** it was created,
 * the **log message** Git was given when the revision was committed.
 
-
 :::callout
+
 ## Compatibility Notice
 
 If you don't see information on the **remote branches**, try `git log --decorate`.
@@ -183,13 +185,14 @@ Older versions of git don't show this information by default.
 :::
 
 ### Modify a file (1)
+
 Now suppose we modify an existing file, for example by adding a **Docstring** to the **top** of one of the files:
 
 ~~~bash
-$ nano climate_analysis.py
+nano climate_analysis.py
 ~~~
 
-~~~
+~~~text
 """ Climate Analysis Tools """
 ~~~
 
@@ -197,10 +200,10 @@ When we run `git status` now,
 it tells us that a file it already knows about has been modified:
 
 ~~~bash
-$ git status
+git status
 ~~~
 
-~~~
+~~~text
 # On branch main
 # Your branch is ahead of 'origin/main' by 1 commit.
 #   (use "git push" to publish your local commits)
@@ -209,7 +212,7 @@ $ git status
 #   (use "git add <file>..." to update what will be committed)
 #   (use "git checkout -- <file>..." to discard changes in working directory)
 #
-#	modified:   climate_analysis.py
+# modified:   climate_analysis.py
 #
 no changes added to commit (use "git add" and/or "git commit -a")
 ~~~
@@ -217,25 +220,27 @@ no changes added to commit (use "git add" and/or "git commit -a")
 The last line is the key phrase:
 "no changes added to **commit**".
 
-
 So, while we have changed this file,
 but we haven't told Git we will want to save those changes
 (which we do with `git add`)
 much less actually saved them (which we do with `git commit`).
 
-**It's important to remember that git only stores changes when you make a commit**
+::::callout{variant="warning"}
+It's important to remember that git only stores changes when you make a commit
+::::
 
 ### Review Changes and Commit
+
 It is good practice to always **review
 our changes** before saving them. We do this using `git diff`.
 This shows us the differences between the current state
 of the file and the most recently commited version:
 
 ~~~bash
-$ git diff
+git diff
 ~~~
 
-~~~
+~~~text
 diff --git a/climate_analysis.py b/climate_analysis.py
 index 277d6c7..d5b442d 100644
 --- a/climate_analysis.py
@@ -261,10 +266,10 @@ The key things to note are:
 After reviewing our change, it's time to commit it:
 
 ~~~bash
-$ git commit -m "Add Docstring"
+git commit -m "Add Docstring"
 ~~~
 
-~~~
+~~~text
 # On branch main
 # Your branch is ahead of 'origin/main' by 1 commit.
 #   (use "git push" to publish your local commits)
@@ -273,7 +278,7 @@ $ git commit -m "Add Docstring"
 #   (use "git add <file>..." to update what will be committed)
 #   (use "git checkout -- <file>..." to discard changes in working directory)
 #
-#	modified:   climate_analysis.py
+# modified:   climate_analysis.py
 #
 no changes added to commit (use "git add" and/or "git commit -a")
 ~~~
@@ -283,11 +288,11 @@ Git won't commit because we didn't use `git add` first.
 Let's fix that:
 
 ~~~bash
-$ git add climate_analysis.py
-$ git commit -m "Add Docstring"
+git add climate_analysis.py
+git commit -m "Add Docstring"
 ~~~
 
-~~~
+~~~text
 [main 55d3f56] Add Docstring
  1 file changed, 1 insertion(+)
 ~~~
@@ -299,27 +304,26 @@ because we may not want to commit **everything at once**.
 For example,
 suppose we might have **fixed a bug** in some existing code, but we might have added new code that's **not ready to share**.
 
-
 ### One more addition
 
 What if we've made some edits, added them, and then forgotten what they were?
 Let's add another line to the end of the file:
 
 ~~~bash
-$ nano climate_analysis.py
+nano climate_analysis.py
 ~~~
 
-~~~
+~~~text
 # TODO(smangham): Add call to process rainfall
 ~~~
 
 Check what's changed with **diff**:
 
 ~~~bash
-$ git diff
+git diff
 ~~~
 
-~~~
+~~~text
 diff --git a/climate_analysis.py b/climate_analysis.py
 index d5b442d..6f8ed8a 100644
 --- a/climate_analysis.py
@@ -339,11 +343,11 @@ we've added one line to the end of the file
 Now let's put that change in the staging area (or **add it to the change set**), then go away for the weekend. When we come back, we can't remember what we added, so we see what `git diff` reports:
 
 ~~~bash
-$ git add climate_analysis.py
-$ git diff
+git add climate_analysis.py
+git diff
 ~~~
 
-~~~
+~~~text
 ~~~
 
 **There is no output**! This is because **git diff** shows us the differences between the **working copy** and what's been added to the **change set** in staging area.
@@ -351,10 +355,10 @@ $ git diff
 However, if we add the `--staged` flag to the command:
 
 ~~~bash
-$ git diff --staged
+git diff --staged
 ~~~
 
-~~~
+~~~text
 diff --git a/climate_analysis.py b/climate_analysis.py
 index d5b442d..6f8ed8a 100644
 --- a/climate_analysis.py
@@ -372,10 +376,10 @@ it shows us the difference between the last **committed change** and what's in t
 Let's **commit** our changes:
 
 ~~~bash
-$ git commit -m "Add rainfall processing placeholder"
+git commit -m "Add rainfall processing placeholder"
 ~~~
 
-~~~
+~~~text
 [main 6f60ad6] Add rainfall processing placeholder
  1 file changed, 2 insertions(+)
 ~~~
@@ -383,10 +387,10 @@ $ git commit -m "Add rainfall processing placeholder"
 Let's now check our status:
 
 ~~~bash
-$ git status
+git status
 ~~~
 
-~~~
+~~~text
 # On branch main
 # Your branch is ahead of 'origin/main' by 3 commits.
 #   (use "git push" to publish your local commits)
@@ -397,10 +401,10 @@ nothing to commit, working directory clean
 And now look at the history of what we've done so far:
 
 ~~~bash
-$ git log
+git log
 ~~~
 
-~~~
+~~~text
 commit 6f60ad638f344fbb5fdf81f05a804f7417984eec (HEAD -> main)
 Author: Sam Mangham <mangham@gmail.com>
 Date:   Wed Mar 16 15:40:30 2022 +0000

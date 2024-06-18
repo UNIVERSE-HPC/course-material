@@ -19,10 +19,10 @@ attribution:
 We've seen that `git log` gives us some information on what commits were made when, but let's look a bit deeper at the specifics:
 
 ~~~bash
-$ git log
+git log
 ~~~
 
-~~~
+~~~text
 commit f15ad111042cee7492f40ad6ff0ec18588fce753 (HEAD -> main)
 Author: Sam Mangham <mangham@gmail.com>
 Date:   Wed Mar 30 17:15:47 2022 +0100
@@ -61,10 +61,10 @@ means "the previous commit",
 while `HEAD~123` goes back 123 commits from the latest one.
 
 ~~~bash
-$ git diff HEAD~1 climate_analysis.py
+git diff HEAD~1 climate_analysis.py
 ~~~
 
-~~~
+~~~text
 diff --git a/climate_analysis.py b/climate_analysis.py
 index d5b442d..c463f71 100644
 --- a/climate_analysis.py
@@ -80,10 +80,10 @@ index d5b442d..c463f71 100644
 So we see the difference between the file as it is now, and as it was **the commit before before the latest one**.
 
 ~~~bash
-$ git diff HEAD~2 climate_analysis.py
+git diff HEAD~2 climate_analysis.py
 ~~~
 
-~~~
+~~~text
 diff --git a/climate_analysis.py b/climate_analysis.py
 index 277d6c7..c463f71 100644
 --- a/climate_analysis.py
@@ -105,8 +105,8 @@ And here we see the state **before the last two commits**, HEAD minus 2.
 
 ### Absolute History
 
-What about if we want to compare our version of the code to the version from last month, or from the version we used to make a paper last year? 
-Calculating the number of commits is wildly impractical. 
+What about if we want to compare our version of the code to the version from last month, or from the version we used to make a paper last year?
+Calculating the number of commits is wildly impractical.
 Instead, we can refer to **specific revisions** using those long strings of digits and letters that `git log` displays.
 
 These are unique IDs for the changes,
@@ -117,10 +117,10 @@ has a unique 40-character identifier. (A SHA-1 hash of the new, post-commit stat
 If we scroll down to the bottom of the `git log` output, we can see the ID for our first commit - in the example above, it's `499b6d18b36a25d3f5ab9be1b708ea48fef1dd65` (but **yours will be different!**). Try this, substituting your first commit's ID:
 
 ~~~bash
-$ git diff 499b6d18b36a25d3f5ab9be1b708ea48fef1dd65 climate_analysis.py
+git diff 499b6d18b36a25d3f5ab9be1b708ea48fef1dd65 climate_analysis.py
 ~~~
 
-~~~
+~~~text
 diff --git a/climate_analysis.py b/climate_analysis.py
 index 277d6c7..6f8ed8a 100644
 --- a/climate_analysis.py
@@ -142,10 +142,10 @@ We can now see all the changes since a specific commit! However, typing random 4
 so Git lets us use just the first **seven**:
 
 ~~~bash
-$ git diff 499b6d1 climate_analysis.py
+git diff 499b6d1 climate_analysis.py
 ~~~
 
-~~~
+~~~text
 diff --git a/climate_analysis.py b/climate_analysis.py
 index 277d6c7..6f8ed8a 100644
 --- a/climate_analysis.py
@@ -168,6 +168,7 @@ This is particularly handy as you can **exactly identify specific versions of th
 ![Differencing](fig/05-history/diff.svg)
 
 :::callout
+
 ## Other Ways To Reference Commits
 
 Newer versions of Git have some more advanced ways of referencing past commits. In place of `HEAD~1` you can use `HEAD~` or `HEAD@{1}`,
@@ -182,11 +183,11 @@ we can **save changes** to files and **see what we've changed** &mdash; suppose 
 Let's suppose we **accidentally** overwrite or delete our file:
 
 ~~~bash
-$ rm climate_analysis.py
-$ ls
+rm climate_analysis.py
+ls
 ~~~
 
-~~~
+~~~text
 README.md
 temp_conversion.py
 ~~~
@@ -197,10 +198,10 @@ temp_conversion.py
 but those changes haven't been staged:
 
 ~~~bash
-$ git status
+git status
 ~~~
 
-~~~
+~~~text
 # On branch main
 # Your branch is ahead of 'origin/main' by 3 commits.
 #   (use "git push" to publish your local commits)
@@ -209,7 +210,7 @@ $ git status
 #   (use "git add/rm <file>..." to update what will be committed)
 #   (use "git restore <file>..." to discard changes in working directory)
 #
-#	deleted:    climate_analysis.py
+# deleted:    climate_analysis.py
 #
 no changes added to commit (use "git add" and/or "git commit -a")
 ~~~
@@ -218,11 +219,11 @@ Following the helpful hint in that output, we can put things back the way they w
 by using `git restore`:
 
 ~~~bash
-$ git restore climate_analysis.py
-$ cat climate_analysis.py
+git restore climate_analysis.py
+cat climate_analysis.py
 ~~~
 
-~~~
+~~~text
 [SNIPPED - but changes rolled back]
 ~~~
 
@@ -231,11 +232,11 @@ By default, `restore` replaces the file with the version of it in the *staging a
 We can use `git checkout`, e.g.:
 
 ~~~bash
-$ git checkout <HEAD or commit ID> climate_analysis.py
+git checkout <HEAD or commit ID> climate_analysis.py
 ~~~
 
-
 :::callout
+
 ## Compatibility Notice
 
 Older versions of Git don't include the `git restore` command - fortunately, it's just a shortcut for `git checkout --`.
@@ -244,6 +245,7 @@ If `git restore` doesn't work, try `git checkout -- temp_conversion.py`.
 :::
 
 :::callout
+
 ## Double Whoops
 
 What if you accidentally did `git rm climate_analysis.py`? That command tells Git to *delete the file and remove it from the repository* - so it will record that the file has been deleted, then stop tracking further changes.
@@ -258,8 +260,8 @@ Since you can retrieve any file that existed in *a* previous commit, even if you
 The fact that files can be reverted one by one
 tends to change the way people organize their work.
 
-Consider a situation where all your code is in one file, 
-and you fixed a bug in one section but accidentally introduced one elsewhere. 
+Consider a situation where all your code is in one file,
+and you fixed a bug in one section but accidentally introduced one elsewhere.
 
-You can't just roll back to fix one bug without un-fixing the other. 
+You can't just roll back to fix one bug without un-fixing the other.
 However, if each section is in its own file, you can just roll back the section you broke!

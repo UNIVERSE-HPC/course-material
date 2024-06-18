@@ -47,22 +47,28 @@ Snakemake is sufficient for this demo.
 Second, download and unpack the test data needed for this example from
 [here](https://github.com/snakemake/snakemake-tutorial-data), e.g., via
 
-    mkdir snakemake-demo
-    cd snakemake-demo
-    wget https://github.com/snakemake/snakemake-tutorial-data/archive/v5.4.5.tar.gz
-    tar --wildcards -xf v5.4.5.tar.gz --strip 1 "*/data"
+```bash
+mkdir snakemake-demo
+cd snakemake-demo
+wget https://github.com/snakemake/snakemake-tutorial-data/archive/v5.4.5.tar.gz
+tar --wildcards -xf v5.4.5.tar.gz --strip 1 "*/data"
+```
 
 ## Step 1
 
 First, create an empty workflow in the current directory with:
 
-    mkdir workflow
-    touch workflow/Snakefile
+```baseh
+mkdir workflow
+touch workflow/Snakefile
+```
 
 Once a Snakefile is present, you can perform a dry run of Snakemake
 with:
 
-    snakemake -n
+```bash
+snakemake -n
+```
 
 Since the Snakefile is empty, it will report that nothing has to be
 done. In the next steps, we will gradually fill the Snakefile with an
@@ -72,18 +78,20 @@ example analysis workflow.
 
 The data folder in your working directory looks as follows:
 
-    data
-    ├── genome.fa
-    ├── genome.fa.amb
-    ├── genome.fa.ann
-    ├── genome.fa.bwt
-    ├── genome.fa.fai
-    ├── genome.fa.pac
-    ├── genome.fa.sa
-    └── samples
-        ├── A.fastq
-        ├── B.fastq
-        └── C.fastq
+```text
+data
+├── genome.fa
+├── genome.fa.amb
+├── genome.fa.ann
+├── genome.fa.bwt
+├── genome.fa.fai
+├── genome.fa.pac
+├── genome.fa.sa
+└── samples
+    ├── A.fastq
+    ├── B.fastq
+    └── C.fastq
+```
 
 You will create a workflow that maps the sequencing samples in the
 `data/samples` folder to the reference genome `data/genome.fa`. Then,
@@ -92,16 +100,16 @@ example plot.
 
 First, create a rule called `map_reads`, with input files
 
--   `data/genome.fa`
--   `data/samples/A.fastq`
+- `data/genome.fa`
+- `data/samples/A.fastq`
 
 and output file
 
--   `results/mapped/A.bam`
+- `results/mapped/A.bam`
 
 To generate output from input, use the shell command
 
-``` python
+```shell
 "bwa mem {input} | samtools view -Sb - > {output}"
 ```
 
@@ -129,11 +137,15 @@ and execute the shell command within.
 Now, test your workflow by simulating the creation of the file
 `results/mapped/A.bam` via
 
-    snakemake --use-conda -n results/mapped/A.bam
+```bash
+snakemake --use-conda -n results/mapped/A.bam
+```
 
 to perform a dry-run and
 
-    snakemake --use-conda results/mapped/A.bam --cores 1
+```bash
+snakemake --use-conda results/mapped/A.bam --cores 1
+```
 
 to perform the actual execution.
 
@@ -151,22 +163,26 @@ Test this by creating the file `results/mapped/B.bam`.
 Next, create a rule `sort_alignments` that sorts the obtained `.bam`
 file by genomic coordinate. The rule should have the input file
 
--   `results/mapped/{sample}.bam`
+- `results/mapped/{sample}.bam`
 
 and the output file
 
--   `results/mapped/{sample}.sorted.bam`
+- `results/mapped/{sample}.sorted.bam`
 
 and uses the shell command
 
-    samtools sort -o {output} {input}
+```bash
+samtools sort -o {output} {input}
+```
 
 to perform the sorting. Moreover, use the same `conda:` directive as for
 the previous rule.
 
 Test your workflow with
 
-    snakemake --use-conda -n results/mapped/A.sorted.bam
+```bash
+snakemake --use-conda -n results/mapped/A.sorted.bam
+    ```
 
 and
 
@@ -192,20 +208,22 @@ For aggregation over many files, Snakemake provides the helper function
 docs](https://snakemake.readthedocs.io/en/stable/tutorial/basics.html#step-5-calling-genomic-variants)).
 Create a rule `call` with input files
 
--   `fa="data/genome.fa"`
--   `bam=expand("results/mapped/{sample}.sorted.bam", sample=samples)`
+- `fa="data/genome.fa"`
+- `bam=expand("results/mapped/{sample}.sorted.bam", sample=samples)`
 
 output file
 
--   `"results/calls/all.vcf"`
+- `"results/calls/all.vcf"`
 
 and shell command
 
-    bcftools mpileup -f {input.fa} {input.bam} | bcftools call -mv - > {output}
+```shell
+bcftools mpileup -f {input.fa} {input.bam} | bcftools call -mv - > {output}
+```
 
 Further, define a new conda environment file with the following content:
 
-``` yaml
+```yaml
 channels:
   - bioconda
   - conda-forge
@@ -222,16 +240,16 @@ notebooks.
 
 First, we create a rule `plot_quals` with input file
 
--   `"results/calls/all.vcf"`
+- `"results/calls/all.vcf"`
 
 and output file
 
--   `"results/plots/quals.svg"`.
+- `"results/plots/quals.svg"`.
 
 Instead of a shell command, we use Snakemake\'s Jupyter notebook
 integration by specifying
 
-``` python
+```yaml
 notebook:
     "notebooks/plot-quals.py"
 ```
@@ -256,7 +274,7 @@ dependencies:
 
 Then, we let Snakemake generate a skeleton notebook for us with
 
-``` console
+```shell
 snakemake --draft-notebook results/plots/quals.svg --cores 1 --use-conda
 ```
 
@@ -265,7 +283,7 @@ notebook.
 
 We open the notebook in the editor and add the following content
 
-``` python
+```python
 import pandas as pd
 import altair as alt
 from pysam import VariantFile
@@ -287,7 +305,9 @@ automatically inserts into the notebook before executing the rule.
 
 Make sure to test your workflow with
 
-    snakemake --use-conda --force results/plots/quals.svg --cores 1
+```bash
+snakemake --use-conda --force results/plots/quals.svg --cores 1
+```
 
 Here, the force ensures that the readily drafted notebook is re-executed
 even if you had already generated the output plot in the interactive
@@ -302,8 +322,8 @@ define default target files.
 
 At the top of your `Snakefile` define a rule `all`, with input files
 
--   `"results/calls/all.vcf"`
--   `"results/plots/quals.svg"`
+- `"results/calls/all.vcf"`
+- `"results/plots/quals.svg"`
 
 and neither a shell command nor output files. This rule simply serves as
 an indicator of what shall be collected as results.
@@ -317,7 +337,9 @@ information.
 
 Snakemake can automatically create HTML reports with
 
-    snakemake --report report.html
+```bash
+snakemake --report report.html
+```
 
 Such a report contains runtime statistics, a visualization of the
 workflow topology, used software and data provenance information.
@@ -341,7 +363,9 @@ make Snakemake aware of this, such that the information can be used for
 scheduling. Add a directive `threads: 8` to the rule and alter the shell
 command to
 
-    bwa mem -t {threads} {input} | samtools view -Sb - > {output}
+```bash
+bwa mem -t {threads} {input} | samtools view -Sb - > {output}
+```
 
 This passes the threads defined in the rule as a command line argument
 to the `bwa` process.
@@ -365,7 +389,7 @@ Only read this if you have a problem with one of the steps.
 
 The rule should look like this:
 
-``` python
+```python
 rule map_reads:
     input:
         "data/genome.fa",
@@ -386,7 +410,7 @@ rule map_reads:
 
 The rule should look like this:
 
-``` python
+```python
 rule map_reads:
     input:
         "data/genome.fa",
@@ -407,7 +431,7 @@ rule map_reads:
 
 The rule should look like this:
 
-``` python
+```python
 rule sort_alignments:
     input:
         "results/mapped/{sample}.bam"
@@ -427,7 +451,7 @@ rule sort_alignments:
 
 The rule should look like this:
 
-``` python
+```python
 samples = ["A", "B", "C"]
 
 rule call_variants:
@@ -450,7 +474,7 @@ rule call_variants:
 
 The rule should look like this:
 
-``` python
+```python
 rule plot_quals:
     input:
         "results/calls/all.vcf"
@@ -470,7 +494,7 @@ rule plot_quals:
 
 The rule should look like this:
 
-``` python
+```python
 rule all:
     input:
         "results/calls/all.vcf",
@@ -487,7 +511,7 @@ It has to appear as first rule in the `Snakefile`.
 
 The complete workflow should look like this:
 
-``` python
+```python
 SAMPLES = ["A", "B", "C"]
 
 rule all:

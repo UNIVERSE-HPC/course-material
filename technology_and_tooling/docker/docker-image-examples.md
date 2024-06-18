@@ -33,7 +33,6 @@ In this [GitHub Actions example](e01-github-actions), you can learn more about
 continuous integration in the cloud and how you can use container images with GitHub to
 automate repetitive tasks like testing code or deploying websites.
 
-
 ## Using Containers on an HPC Cluster
 
 It is possible to run containers on shared computing systems run by a university or national
@@ -54,5 +53,6 @@ following resources show what it can look like:
 - [Introduction to Singularity](https://carpentries-incubator.github.io/singularity-introduction/): See the episode titled "Running MPI parallel jobs using Singularity containers"
 - [Container Workflows at Pawsey](https://pawseysc.github.io/container-workflows/): See the episode titled "Run containers on HPC with Shifter (and Singularity)"
 
-## Key points:
+## Key points
+
 - There are many ways you might use Docker and existing container images in your research project.

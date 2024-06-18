@@ -49,7 +49,7 @@ change the state of the program and advance towards the result. They often use
 hand, often uses *recursion* - an ability of a function to call/repeat
 itself until a particular condition is reached.
 
-~~~cpp
+```cpp
 // factorial
 // @param n: the number to calculate the factorial of
 // @return: the factorial of n
@@ -62,7 +62,7 @@ int factorial(int n) {
   }
   return n * factorial(n - 1);
 }
-~~~
+```
 
 Note: this implementation is an example of *tail recursion*, which is typically
 optimised by the compiler back to an iterative implementation (since this is
@@ -98,10 +98,10 @@ int main() {
 ```
 
 Write:
+
 1. a function that traverses the tree and returns the total number of nodes
 2. a function that traverses the tree and returns the result of the
    expression
-
 
 :::solution
 
@@ -168,10 +168,11 @@ int evaluate2(const Node& t) {
   return std::accumulate(t.children.begin() + 1, t.children.end(), evaluate(t.children[0]), op);
 }
 ```
+
 :::
 ::::
 
-## Key Points:
+## Key Points
 
 - Recursion is a programming technique where a function calls itself, allowing solutions to problems that can be broken down into smaller subproblems
 - Recursion is a useful approach for calculation and operations on tree data structures.

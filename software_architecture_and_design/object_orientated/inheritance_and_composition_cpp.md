@@ -56,7 +56,6 @@ We often use composition where we can say 'x *has a* y' - for example in our gam
 
 In the case of our example, we're already saying that a character *has a* position, so we're already using composition here.
 
-
 :::::challenge{id=inventory title="Write an inventory"}
 
 Write a class called `Inventory` that has a capacity, and a vector of `Item` objects.
@@ -115,6 +114,7 @@ public:
     }
 };
 ~~~
+
 ::::
 :::::
 
@@ -129,7 +129,6 @@ You can see how we can build quickly build up complex behaviours.
 Now have a think: would it be simple to build this behavour without classes?
 It would probably be very messy.
 
-
 ### Inheritance
 
 The other type of relationship used in object oriented programming is **inheritance**.
@@ -143,7 +142,6 @@ We should not duplicate this code.
 We achieve this through *inheritance*.
 If class `Warrior` inherits from (*is a*)  `Character`, we say that `Character` is the **base class**, **parent class**, or **superclass** of `Warrior`.
 We say that `Warrior` is a **derived class**, **child class**, or **subclass** of `Character`.
-
 
 The base class provides a set of attributes and behaviors that the derived class can inherit.
 The derived class can then add or override these attributes and behaviors as needed.
@@ -180,12 +178,10 @@ Let's examine the syntax:
 
 4. **Methods**: `void physicalAttack()` is a public method unique to `Warrior`. This could be an example of method overriding, if there was a `physicalAttack()` method in the `Character` class that we wanted to behave differently for `Warrior`. `int getStrength() const` is a getter method for `strength`.
 
-
 Note: in this example, `Character(name, health, position, inventoryCapacity)` is the call to the base class constructor, which will be executed before the body of the `Warrior` constructor.
 After the base class constructor has been called, the `Warrior` constructor will continue with its own initialisation, setting the value of `strength` in this case.
 This sequence ensures that the base class portion of the `Warrior` object is properly constructed before the `Warrior` constructor attempts to use it or modify it.
 This is a fundamental feature of how constructors and inheritance work together in C++.
-
 
 :::::challenge{id=mage title="Write a Mage class"}
 
@@ -213,9 +209,9 @@ public:
     }
 };
 ~~~
+
 ::::
 :::::
-
 
 ## Composition vs Inheritance
 
@@ -230,7 +226,6 @@ This is a common design principle in the object oriented paradigm and is worth r
 Composition, on the other hand, tends to offer greater flexibility.
 It allows you to change behavior on the fly by changing the component at runtime and leads to a more decoupled system, which is easier to maintain and evolve.
 The downside can be that it might result in a little more boilerplate code as you delegate methods to the component classes.
-
 
 :::::challenge{id=swords-and-shields title="Swords and Shields"}
 
@@ -350,9 +345,9 @@ return 0;
 ::::
 :::::
 
-## Key Points:
-- Relationships between concepts can be described using inheritance (*is a*) and composition (*has a*).
+## Key Points
 
+- Relationships between concepts can be described using inheritance (*is a*) and composition (*has a*).
 
 ## Full code sample for lession
 

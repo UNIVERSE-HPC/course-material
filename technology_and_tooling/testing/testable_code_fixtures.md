@@ -22,8 +22,9 @@ attribution:
 ## Introduction
 
 Having completed the previous sections of the course, we now know:
+
 - how to write tests
-- how to debug problems with our code 
+- how to debug problems with our code
 - how to code in a defensive manner in order to prevent invalid inputs from causing problems.
 
 Up to this point, our examples have focused on unit testing of simple functions that formed part of larger program to analyse inflammation data from patients in a drug trial. If we were to develop this program further, a larger number of tests would need to written and organised in order to cater for the increased complexity of the codebase.  In the future, we may also want to integrate our program with other entities that are external to the application itself, such as a database, a web-based service or even analysis components that are written in another language such as C++.
@@ -41,7 +42,7 @@ Increasing the ease of writing tests can result in increased test coverage, and 
 
 ### Separation of concerns
 
-It is good practice to organise code into modular function or classes that each have a single, well-defined responsibility. By doing this, not only will it be more readable, but also it will be more straightforward to isolate and test individual components of your system. Another way to ensure separate concerns is to use *dependency injection*. This involves passing an object or function to our routines rather than creating such objects internally. 
+It is good practice to organise code into modular function or classes that each have a single, well-defined responsibility. By doing this, not only will it be more readable, but also it will be more straightforward to isolate and test individual components of your system. Another way to ensure separate concerns is to use *dependency injection*. This involves passing an object or function to our routines rather than creating such objects internally.
 
 ### Avoid duplication
 
@@ -56,6 +57,7 @@ Using pure functions that have no side effects, can result in more testable soft
 Test-driven development (TDD) is a software development approach that consists of short development cycles, where tests are written before actually writing the classes and functions. The tests are run and initially fail, then the minimum amount of code is written in order to make the tests pass. TDD ensures that the design for testability is in mind from the onset and that requirements are thought about before diving in and starting to implement algorithms.
 
 ## Refactoring our code and our tests
+
 We are going to refactor our code to incorporate some of the ideas above in order to make it more testable. Firstly, we are going to change our procedural inflammation project into an object-orientated version, let's start by creating classes to represent the different types of data in our study. This was already investigated in the [object-orientated programming](https://train.oxrse.uk/material/HPCu/software_architecture_and_design/object_orientated) part of the course, where we created different subclasses of the `Person` class and added them to a `Trial` object. We use similar concepts, but will doing things slightly differently here.
 
 We would ideally like to have models that represent individual patients and their associated data. It is going to be up to you to write them!
@@ -65,6 +67,7 @@ We would ideally like to have models that represent individual patients and thei
  Write a class `Patient`. For now, the only attributes a `Patient` has is an `id` and a list of numbers containing their inflammation scores (flare-ups per day) as recorded in a row of one of the CSV files. We would also like to add some useful methods to the `Patient` class that will return the mean, max and min of the data for that patient. Call these `data_mean`, `data_max` and `data_min`.
 
 :::solution
+
 ~~~python
 import numpy as np
 
@@ -97,6 +100,7 @@ Now we have a class that represents a patient in the study, we can also create a
  Write a class `Trial` that represents a trial. For now, the only attributes a `Trial` has are an `id` and `data`, which is a 2D numpy array with the data from one CSV file. The data from the CSV should be read in by calling a method `load_csv` which can be called from the class constructor (`__init__`). You can also add all the functions from our `models.py` file to this class: `daily_mean` and `daily_max`, `daily_min` and `patient_normalise`, they will need to be modified slightly to work as methods of the `Trial` class.
 
 :::solution
+
 ~~~python
 class Trial:
     def __init__(self, filename, id):
@@ -172,6 +176,7 @@ patient_0 = trail_group_01.get_patient(0) # Create a Patient with id 0
  Add a method `get_patient` to the `Trial` class that returns an instance of a `Patient`.
 
 :::solution
+
 ~~~python
 class Trial:
     def __init__(self, filename, id):
@@ -189,13 +194,14 @@ class Trial:
 :::
 ::::
 
-We should now adjust and extend our existing tests from the previous lesson in order to fit with these changes. 
+We should now adjust and extend our existing tests from the previous lesson in order to fit with these changes.
 
 ::::challenge{id=test-patient title="Testing the `Patient` class."}
 
  Write some tests for the `Patient` class that cover the functions `data_mean`, `data_max` and `data_min` as well as a test that checks that the attributes of the class are created correctly. You do not need to write extensive parametrised tests at this stage, this is more an exercise to practice testing class methods as opposed to standard procedural functions.
 
 :::solution
+
 ~~~python
 import pytest
 from inflammation.models import Patient
@@ -223,12 +229,12 @@ def test_patient_attributes():
 
 In the exercise above, we found ourselves having to create the same or similar `Patient` objects multiple times. To prevent this repetition, we could encapsulate these tests in their own class, `TestPatient`. Writing tests in this manner helps to organise similar tests into groups and also allows sharing of data between tests. The `pytest` library defines methods that you can add to your class, such as `setup_class` which will be run before running all of the tests in that class or `setup_method` that will be run before each test within the class. This method can be used for creating data or opening files, for example. An additional method called `teardown_class` could be also be added, if needed, and `pytest` will run this method after the tests in the class have completed. Alternatively `teardown_method` will run after each test. These methods can be useful for cleaning up in cases where files were created on your system or an connections were opened. For more information you can [view the documentation here](https://docs.pytest.org/en/latest/how-to/xunit_setup.html).
 
-
 ::::challenge{id=test-patient-class title="Grouping tests in a class."}
 
  Encapsulate the tests for the `Patient` class inside a class named `TestPatient`. Include a method `setup_class` where the two `Patient` objects (with `id` of 1 and 2) will be created rather than creating an object within each test.
 
 :::solution
+
 ~~~python
 import pytest
 from inflammation.models import Patient
@@ -258,7 +264,7 @@ class TestPatient:
 
 ## Fixtures
 
-As an alternative to encapsulating test methods in a class and using `setup` and `teardown` methods, we can use *fixtures*. Fixtures are defined by using the `@pytest.fixture` decorator on a function. This function will then become available to be passed as an argument to your tests and used within them. 
+As an alternative to encapsulating test methods in a class and using `setup` and `teardown` methods, we can use *fixtures*. Fixtures are defined by using the `@pytest.fixture` decorator on a function. This function will then become available to be passed as an argument to your tests and used within them.
 
 Here is how we can write our tests for the `Person` class using fixtures instead of a `setup_class` method:
 
@@ -292,11 +298,11 @@ class TestPatient:
 
 By default, fixtures will be created when first requested by a test and will be destroyed at the end of the test. We can change this behaviour by defining the *scope* of the fixture. If we want to use the decorator `@pytest.fixture(scope="session")` for example, the fixture will only be destroyed at the end of the entire test session. Modifying this behaviour is especially useful if the fixture is expensive to create (such as a large file) and we do not need to recreate it for each test.
 
-Next we can adapt our tests from the previous lesson that test the analysis functions that are now methods in the `Trial` class. 
+Next we can adapt our tests from the previous lesson that test the analysis functions that are now methods in the `Trial` class.
 
 ::::challenge{id=test-trial title="Testing the `Trial` class."}
 
- Write some tests for the `Trial` class and the associated methods. You can adapt the tests that you wrote in your `test_models.py` file from the previous lesson. You can use fixtures to help with creating instances of the class for testing. 
+ Write some tests for the `Trial` class and the associated methods. You can adapt the tests that you wrote in your `test_models.py` file from the previous lesson. You can use fixtures to help with creating instances of the class for testing.
 
 :::solution
 
@@ -350,8 +356,7 @@ class TestTrial:
 :::
 ::::
 
-In our tests for the `Trial` class, we have to initialise the class using a CSV file in order to create an instance, even if we do not use that particular data in our tests.  How can we simplify this? One thing that can be changed is the `__init__` method, if we just needed the data as an argument, rather than the path to a CSV file, that would make testing easier. After this change, a separate method is going to be needed to allow creating a `Trial` from a CSV filepath, this can be achieved using a class method. 
-
+In our tests for the `Trial` class, we have to initialise the class using a CSV file in order to create an instance, even if we do not use that particular data in our tests.  How can we simplify this? One thing that can be changed is the `__init__` method, if we just needed the data as an argument, rather than the path to a CSV file, that would make testing easier. After this change, a separate method is going to be needed to allow creating a `Trial` from a CSV filepath, this can be achieved using a class method.
 
 ::::challenge{id=load-from-csv title="Refactor the `Trial` class."}
 
@@ -359,6 +364,7 @@ As described above, refactor the `__init__` method of the `Trial` class to take 
 
 :::solution
 Here is the first section of our adjusted object code:
+
 ~~~python
 class Trial:
     def __init__(self, data, id):
@@ -457,12 +463,12 @@ def query_database(sql):
 
 If we refactor the function to inject the database connection dependency, we can then easily replace that connection during testing with one that is connected to a test database. This also means we can test the two distinct tasks, connecting to the database and querying the database, separately. Additionally, we have the option to replace the connection with a fake (*mocked*) object, meaning that we do not have to connect to an actual database at all in order to test the function.
 
-
 ::::challenge{id=dependency-inject title="Using dependency injection."}
 
 Create a separate function `connect_to_database` that returns the database connection. Refactor `query_database` to accept the database connection as a named argument. Programming defensively, raise an error if no connection is given.
 
 :::solution
+
 ~~~python
 # Rewritten code: Performs a database query with dependency injection
 import sqlite3
@@ -484,7 +490,7 @@ def query_database(sql, connection=None):
 :::
 ::::
 
-Now let write some tests for these functions, these can be created in a new file named `test_sqlite.py` within the `/tests` directory. Here are some initial tests that check `connect_to_database` returns a connection of the correct type that refers to correct database file as well as checking that `query_database` returns the correct data. If you would like to learn more about the Structured Query Language (SQL) expressions in this example that are used to interact with the database see the [SQL Zoo](https://sqlzoo.net/wiki/SQL_Tutorial) site. 
+Now let write some tests for these functions, these can be created in a new file named `test_sqlite.py` within the `/tests` directory. Here are some initial tests that check `connect_to_database` returns a connection of the correct type that refers to correct database file as well as checking that `query_database` returns the correct data. If you would like to learn more about the Structured Query Language (SQL) expressions in this example that are used to interact with the database see the [SQL Zoo](https://sqlzoo.net/wiki/SQL_Tutorial) site.
 
 ~~~python
 import pytest
@@ -552,11 +558,12 @@ As you can see, the tests are becoming complex, especially the one for `query_da
 
 ### More about Fixtures
 
-Our `test_query_database` function can be simplified by separating the processes of creating the database and populating it with data from the test itself. We can create a fixture to do this which can then be passed to the `test_query_database` function. The fixture can also be responsible for removing the database after the tests have run. 
+Our `test_query_database` function can be simplified by separating the processes of creating the database and populating it with data from the test itself. We can create a fixture to do this which can then be passed to the `test_query_database` function. The fixture can also be responsible for removing the database after the tests have run.
 
-in order to In the example below, we can use a fixture named `setup_database` to create our test database, add data and also remove the database file once the tests have finished running. As a result, our `test_query_database` function can be simplified and if we want to use the test database in other tests, we simply need to add `setup_database` as an argument to those tests. 
+in order to In the example below, we can use a fixture named `setup_database` to create our test database, add data and also remove the database file once the tests have finished running. As a result, our `test_query_database` function can be simplified and if we want to use the test database in other tests, we simply need to add `setup_database` as an argument to those tests.
 
 #### Using `yield` instead of `return`
+
 If there is a cleanup part to the fixture code, then the fixture function should use a `yield` statement rather than a `return` statement. Anything up to the `yield` statement is setup code, and anything after the statement will be run post-testing in order to clean up (teardown code).
 
 ::::challenge{id=database-fixture title="Adding a fixture to setup the database."}
@@ -564,6 +571,7 @@ If there is a cleanup part to the fixture code, then the fixture function should
 Add a fixture named `setup_database` to create our test database, add data and also remove the database file once the tests have finished running. Pass the fixture as an argument to `test_query_database`.
 
 :::solution
+
 ~~~python
 import pytest
 import sqlite3
@@ -606,6 +614,7 @@ def test_query_database(setup_database):
 ::::
 
 :::callout{variant="discussion"}
+
 ### Should We Use Multiple `assert` statements in one test Function?
 
 According to the book, The Art of Unit Testing by Roy Osherove, a unit test, by definition, should test a *unit of work*. What this means exactly is itself a point for discussion, but generally it refers to actions that take place between an entry point (e.g. a declaration fo a function) and an exit point (e.g. the output of a function). It is also often said that each test should fail for only one reason alone.
@@ -622,6 +631,7 @@ Are there any disadvantages to enforcing a rule of one `assert` per test?
 The `setup_database` fixture does several things including initiating the connection as well as creating and populating the database table. In order to separate out these functionalities, split this fixture into two, with one fixture `database_connection` for providing the database connection and another`setup_database` that uses the first fixture and then populates the database. You can view the [pytest fixtures documentation](https://docs.pytest.org/en/7.1.x/how-to/fixtures.html) as a guide.
 
 :::solution
+
 ~~~python
 import pytest
 import sqlite3
@@ -672,11 +682,11 @@ def test_query_database(setup_database):
 
 #### Using Built-in Fixtures
 
-As well as writing our own fixtures, we can use those that are [predefined/(built-in)](https://docs.pytest.org/en/latest/reference/fixtures.html). For example we may want to use a temporary directory for our files during testing, rather than creating files in the directory that we are working from (this is what currently happens when we run our database tests). The built-in fixture `temp_path_factory` allows us to to do this. We can refactor our code to add an extra fixture that uses feature and then it can be used by all the tests that we have written as well as by the `setup_database` fixture. 
+As well as writing our own fixtures, we can use those that are [predefined/(built-in)](https://docs.pytest.org/en/latest/reference/fixtures.html). For example we may want to use a temporary directory for our files during testing, rather than creating files in the directory that we are working from (this is what currently happens when we run our database tests). The built-in fixture `temp_path_factory` allows us to to do this. We can refactor our code to add an extra fixture that uses feature and then it can be used by all the tests that we have written as well as by the `setup_database` fixture.
 
 ::::challenge{id=builtin-fixtures title="Using built-in fixtures."}
 
-Add another fixture `database_filename` that uses the built-in `temp_path_factory` fixture to create a temporary directory for storing our `test.db` database file. This fixture can then be passed into the `database_connection` fixture. 
+Add another fixture `database_filename` that uses the built-in `temp_path_factory` fixture to create a temporary directory for storing our `test.db` database file. This fixture can then be passed into the `database_connection` fixture.
 
 :::solution
 The contents of our `test_sqlite.py` is now:
@@ -768,17 +778,18 @@ def test_query_database_without_connection():
 :::
 ::::
 
-
 For more details on what you can do with fixtures, please refer to the [pytest fixtures documentation](https://docs.pytest.org/en/7.1.x/how-to/fixtures.html).
 
 #### Next steps
 
-Now we know about testable code and fixtures. Before we add the functionality to create a `Trial` object using data stored in a database, we will look at how to mock objects for testing. This is covered in the [next lesson](mocking). 
+Now we know about testable code and fixtures. Before we add the functionality to create a `Trial` object using data stored in a database, we will look at how to mock objects for testing. This is covered in the [next lesson](mocking).
 
 :::callout{variant="keypoints"}
+
 - **Separation of concerns** using methods such as **dependency injection** can make it easier to isolate and test components of your code
 - Refactoring code to make it **more testable** can make it **less complex** and **more extensible**
 - Tests can be grouped into classes in order to organise them
 - **Fixtures** allow **setup** and **teardown** of objects and data that are going to be reused in tests
 - There are a set of **built-in fixtures** available in `pytest` that can help you create temporary directories or access logging or other outputs during testing
+
 :::

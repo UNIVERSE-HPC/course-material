@@ -6,7 +6,7 @@ tags: [python]
 ---
 
 :::callout
-This material was edited from the original in "Intermediate Research Software 
+This material was edited from the original in "Intermediate Research Software
 Development Skills" hosted by the Software Carpentries
 :::
 
@@ -21,6 +21,7 @@ coding style conventions to make sure that your code is consistently formatted a
 > *"Any fool can write code that a computer can understand. Good programmers write code that humans can understand."* - [Martin Fowler](https://en.wikiquote.org/wiki/Martin_Fowler), British software engineer, author and international speaker on software development
 
 ## Python Coding Style Guide
+
 One of the most important things we can do to make sure our code is readable by others
 (and ourselves a
 few months down the line) is to make sure that it is descriptive, cleanly and consistently formatted and uses sensible,
@@ -35,7 +36,9 @@ PEP here stands for Python Enhancement Proposals; PEPs are design documents for 
 specifications or conventions for how to do something in Python, a description of a new feature in Python, etc.
 
 :::callout
+
 ## Style consistency
+
 One of the
 [key insights from Guido van Rossum](https://www.python.org/dev/peps/pep-0008/#a-foolish-consistency-is-the-hobgoblin-of-little-minds),
 one of the PEP8 authors, is that code is read much more often than it is
@@ -50,10 +53,11 @@ As we have already covered in the [episode on PyCharm IDE](../13-ides/index.html
 (reserved words) and syntax errors to help us with coding. PyCharm also gives us recommendations for formatting the code - these recommendations
 are mostly taken from the PEP8 style guide.
 
-A full list of style guidelines for this style 
+A full list of style guidelines for this style
 is available from the [PEP8 website](https://www.python.org/dev/peps/pep-0008/); here we highlight a few.
 
 ### Indentation
+
 Python is a kind of language that uses indentation as a way of grouping statements that belong to a particular
 block of code. Spaces are the recommended indentation method in Python code. The guideline is to use 4 spaces per indentation level -
 so 4 spaces on level one, 8 spaces on level two and so on.
@@ -62,7 +66,9 @@ introduce an error by missing a single space character, etc.) and do not follow 
 follow this guideline or not, be consistent and follow the style already used in the project.
 
 :::callout
+
 # Indentation in Python 2 vs Python 3
+
 Python 2 allowed code
 indented with a mixture of tabs and spaces. Python 3 disallows mixing the use of tabs and spaces for indentation.
 Whichever you choose, be consistent throughout the project.
@@ -122,7 +128,8 @@ a_long_list2 = [
 More details on good and bad practices for continuation lines can be found in
 [PEP8 guideline on indentation](https://www.python.org/dev/peps/pep-0008/#indentation).
 
-### Maximum Line Length
+## Maximum Line Length
+
 All lines should be up to 80 characters long; for lines containing comments or docstrings (to be covered later) the
 line length limit should be 73 - see [this discussion](https://stackoverflow.com/questions/15438326/python-pep-8-docstring-line-length) for reasoning behind these numbers. Some teams strongly prefer a longer line length, and seemed to have settled on the
 length of 100. Long lines of code can be broken over multiple lines by wrapping expressions in delimiters, as
@@ -140,6 +147,7 @@ if a == True and \
 ~~~
 
 ### Should a Line Break Before or After a Binary Operator?
+
 Lines should break before binary operators so that the operators do not get scattered across different columns
 on the screen. In the example below, the eye does not have to do the extra work to tell which items are added
 and which are subtracted:
@@ -154,44 +162,54 @@ income = (gross_wages
 ~~~
 
 ### Blank Lines
+
 Top-level function and class definitions should be surrounded with two blank lines. Method definitions inside a class
 should be surrounded by a single blank line. You can use blank lines in functions, sparingly, to indicate logical sections.
 
 ### Whitespace in Expressions and Statements
+
 Avoid extraneous whitespace in the following situations:
+
 - immediately inside parentheses, brackets or braces
-    ~~~
+
+    ~~~python
     # PEP 8 compliant:
     my_function(colour[1], {id: 2})
 
     # Not PEP 8 compliant:
     my_function( colour[ 1 ], { id: 2 } )
     ~~~
+
     {: .language-python}
 
 - Immediately before a comma, semicolon, or colon (unless doing slicing where the colon acts like a binary operator
 in which case it should should have equal amounts of whitespace on either side)
-    ~~~
+
+    ~~~python
     # PEP 8 compliant:
     if x == 4: print(x, y); x, y = y, x
 
     # Not PEP 8 compliant:
     if x == 4 : print(x , y); x , y = y, x
     ~~~
+
     {: .language-python}
 
 - Immediately before the open parenthesis that starts the argument list of a function call
-    ~~~
+
+    ~~~python
     # PEP 8 compliant:
     my_function(1)
 
     # Not PEP 8 compliant:
     my_function (1)
     ~~~
+
     {: .language-python}
 
 - Immediately before the open parenthesis that starts an indexing or slicing
-     ~~~
+
+    ~~~python
     # PEP 8 compliant:
     my_dct['key'] = my_lst[id]
     first_char = my_str[:, 1]
@@ -199,11 +217,13 @@ in which case it should should have equal amounts of whitespace on either side)
     # Not PEP 8 compliant:
     my_dct ['key'] = my_lst [id]
     first_char = my_str [:, 1]
-     ~~~
+    ~~~
+
      {: .language-python}
 
 - More than one space around an assignment (or other) operator to align it with another
-     ~~~
+
+    ~~~python
     # PEP 8 compliant:
     x = 1
     y = 2
@@ -214,6 +234,7 @@ in which case it should should have equal amounts of whitespace on either side)
     y                     = 2
     student_loan_interest = 3
      ~~~
+
      {: .language-python}
 
 - Avoid trailing whitespace anywhere - it is not necessary and can cause errors. For example, if you use
@@ -243,12 +264,15 @@ default value for an unannotated function parameter
     ~~~
 
 ### String Quotes
+
 In Python, single-quoted strings and double-quoted strings are the same. PEP8 does not make a recommendation for this
 apart from picking one rule and consistently sticking to it. When a string contains single or double quote characters,
 use the other one to avoid backslashes in the string as it improves readability.
 
 ### Naming Conventions
+
 There are a lot of different naming styles in use, including:
+
 - b (single lowercase letter)
 - B (single uppercase letter)
 - lowercase
@@ -262,15 +286,17 @@ e.g HTTPServerError)
 
 As with other style guide recommendations - consistency is key. Pick one and stick to it, or follow the one already
 established if joining a project mid-way. Some things to be wary of when naming things in the code:
+
 - Avoid using the characters 'l' (lowercase letter L), 'O' (uppercase letter o), or 'I' (uppercase letter i)
 as single character variable names. In some fonts, these characters are indistinguishable from the numerals
 one and zero. When tempted to use 'l', use 'L' instead.
 - Avoid using non-ASCII (e.g. UNICODE) characters for identifiers
-- If your audience is international and English is the common language, try to use English words for identifiers and 
+- If your audience is international and English is the common language, try to use English words for identifiers and
 comments whenever possible but try to avoid abbreviations/local slang as they may not be understood by everyone. Also consider
 sticking with either ‘American’ or 'British' English spellings and try not to mix the two.
 
 :::callout
+
 ## Function, Variable, Class, Module, Package Naming
 
 - Function and variable names should be lowercase, with words separated by underscores as necessary to improve readability.
@@ -284,6 +310,7 @@ is available from PEP8.
 :::
 
 ### Comments
+
 Comments allow us to provide the reader with additional information on what the code does - reading and understanding
 source code is slow, laborious and can lead to misinterpretation, plus it is always a good idea to keep others in mind
 when writing code. A good rule of thumb is to assume that someone will *always* read your code at a later date,
@@ -292,7 +319,9 @@ months' time. Write comments as complete sentences and in English unless you are
 by people who don't speak your language.
 
 :::callout
+
 ## The Good, the Bad, and the Ugly Comments
+
 As a side reading, check out the ['Putting comments in code: the good, the bad, and the ugly' blogpost](https://www.freecodecamp.org/news/code-comments-the-good-the-bad-and-the-ugly-be9cc65fbf83/).
 Remember - a comment should answer the ‘why’ question”. Occasionally the “what” question.
 The “how” question should be answered by the code itself.
@@ -300,6 +329,7 @@ The “how” question should be answered by the code itself.
 
 Block comments generally apply to some (or all) code that follows them, and are indented to the same level as that
 code. Each line of a block comment starts with a `#` and a single space (unless it is indented text inside the comment).
+
 ~~~python
 def fahr_to_cels(fahr):
     # Block comment example: convert temperature in Fahrenheit to Celsius
@@ -309,6 +339,7 @@ def fahr_to_cels(fahr):
 
 An inline comment is a comment on the same line as a statement. Inline comments should be separated by at least two
 spaces from the statement. They should start with a `#` and a single space and should be used sparingly.
+
 ~~~python
 def fahr_to_cels(fahr):
     cels = (fahr + 32) * (5 / 9)  # Inline comment example: convert temperature in Fahrenheit to Celsius
@@ -333,22 +364,22 @@ Let's look at improving the coding style of our project.
 First create a new feature branch called `style-fixes` off our `develop` branch and switch to it (from the project root):
 
 ~~~bash
-$ git checkout develop
-$ git checkout -b style-fixes
+git checkout develop
+git checkout -b style-fixes
 ~~~
 
 Next look at the `inflammation-analysis.py` file in PyCharm and identify where the above guidelines have not been followed. Fix
 the discovered inconsistencies and commit them to the feature branch.
 
 :::solution
-Modify `inflammation-analysis.py` from PyCharm, which is helpfully marking 
+Modify `inflammation-analysis.py` from PyCharm, which is helpfully marking
 inconsistencies with
 coding guidelines by underlying them. There are a few things to fix in `inflammation-analysis.py`, for example:
 
-1. Line 24 in `inflammation-analysis.py` is too long and not very readable. A better 
-   style would be to use multiple lines and hanging indent, with the closing brace `}' 
-   aligned either with the first non-whitespace character of the last line of list or 
-   the first character of the line that starts the multiline construct or simply moved 
+1. Line 24 in `inflammation-analysis.py` is too long and not very readable. A better
+   style would be to use multiple lines and hanging indent, with the closing brace `}'
+   aligned either with the first non-whitespace character of the last line of list or
+   the first character of the line that starts the multiline construct or simply moved
    to the end of the previous line. All three acceptable modifications are shown below.
 
     ~~~python
@@ -377,27 +408,27 @@ coding guidelines by underlying them. There are a few things to fix in `inflamma
         'min': models.daily_min(inflammation_data)}
     ~~~
 
-2. Variable 'InFiles' in `inflammation-analysis.py` uses CapitalisedWords naming 
-   convention which is recommended for class names but not variable names. By 
-   convention, variable names should be in lowercase with optional underscores so you 
+2. Variable 'InFiles' in `inflammation-analysis.py` uses CapitalisedWords naming
+   convention which is recommended for class names but not variable names. By
+   convention, variable names should be in lowercase with optional underscores so you
    should rename the variable 'InFiles' to, e.g., 'infiles' or 'in_files'.
 
-3. There is an extra blank line on line 20 in `inflammation-analysis.py`. Normally, you 
-   should not use blank lines in the middle of the code unless you want to separate 
-   logical units - in which case only one blank line is used. Note how PyCharm is 
+3. There is an extra blank line on line 20 in `inflammation-analysis.py`. Normally, you
+   should not use blank lines in the middle of the code unless you want to separate
+   logical units - in which case only one blank line is used. Note how PyCharm is
    warning us by underlying the whole line.
 
-4. Only one blank line after the end of definition of function `main` and the rest of 
-   the code on line 30 in `inflammation-analysis.py` - should be two blank lines. Note 
+4. Only one blank line after the end of definition of function `main` and the rest of
+   the code on line 30 in `inflammation-analysis.py` - should be two blank lines. Note
    how PyCharm is warning us by underlying the whole line.
 
 Finally, let's add and commit our changes to the feature branch. We will check the status of our working directory first.
 
 ~~~bash
-$ git status
+git status
 ~~~
 
-~~~
+~~~text
 On branch style-fixes
 Changes not staged for commit:
 (use "git add <file>..." to update what will be committed)
@@ -409,24 +440,27 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
 Git tells us we are on branch `style-fixes` and that we have unstaged and uncommited
 changes to `inflammation-analysis.py`. Let's commit them to the local repository.
+
 ~~~bash
-$ git add inflammation-analysis.py
-$ git commit -m "Code style fixes."
+git add inflammation-analysis.py
+git commit -m "Code style fixes."
 ~~~
+
 :::
 ::::
 
-
-:::challenge{id=improve-code-style-of-others title="(Optional) Improve Code Style of 
+:::challenge{id=improve-code-style-of-others title="(Optional) Improve Code Style of
 Your Other Python Projects"}
-If you have another Python project, check to which extent it conforms to PEP8 coding 
+If you have another Python project, check to which extent it conforms to PEP8 coding
 style.
 :::
 
 ### Documentation Strings aka Docstrings
+
 If the first thing in a function is a string that is not assigned to a variable, that string is attached to the
 function as its documentation. Consider the following code implementing function for calculating the nth
 Fibonacci number:
+
 ~~~python
 def fibonacci(n):
     """Calculate the nth Fibonacci number.
@@ -465,19 +499,18 @@ the [Sphynx/ReadTheDocs docstring style](https://sphinx-rtd-tutorial.readthedocs
 for the `param`, `raises` and `returns` - other docstring formats exist as well.
 
 ## Python PEP 257 - Recommendations for Docstrings
-PEP 257 is another one of Python Enhancement Proposals and this one deals with docstring 
+
+PEP 257 is another one of Python Enhancement Proposals and this one deals with docstring
 conventions to
 standardise how they are used. For example, on the subject of module-level docstrings, PEP 257 says:
 
-~~~
 The docstring for a module should generally list the classes, exceptions and functions (and any other objects) that
 are exported by the module, with a one-line summary of each. (These summaries generally give less detail than the
 summary line in the object's docstring.) The docstring for a package
 (i.e., the docstring of the package's `__init__.py` module) should also list the modules and subpackages exported by
 the package.
-~~~
 
-Note that `__init__.py` file used to be a required part of a package (pre Python 3.3) 
+Note that `__init__.py` file used to be a required part of a package (pre Python 3.3)
 where a package was typically
 implemented as a directory containing an `__init__.py` file which got implicitly executed when a package was imported.
 
@@ -497,23 +530,24 @@ Functions:
 
 The docstring for a function or a module is returned when
 calling the `help` function and passing its name - for example from the interactive Python console/terminal available
-from the command line or when rendering code documentation online 
+from the command line or when rendering code documentation online
 (e.g. see [Python documentation](https://docs.python.org/3.8/library/index.html)).
 PyCharm also displays the docstring for a function/module in a little help popup window when using tab-completion.
 
 ~~~python
 help(fibonacci)
- ~~~
+~~~
 
 ::::challenge{id=fix-docstrings title="Fix the Docstrings"}
 
-Look into `models.py` in PyCharm and improve docstrings for functions 
-`daily_mean`, `daily_min`, `daily_max`. Commit those changes to feature branch 
+Look into `models.py` in PyCharm and improve docstrings for functions
+`daily_mean`, `daily_min`, `daily_max`. Commit those changes to feature branch
 `style-fixes`.
 
 :::solution
 For example, the improved docstrings for the above functions would contain explanations for parameters and
 return values.
+
 ~~~python
 def daily_mean(data):
    """Calculate the daily mean of a 2D inflammation data array for each day.
@@ -523,6 +557,7 @@ def daily_mean(data):
    """
    return np.mean(data, axis=0)
 ~~~
+
 ~~~python
 def daily_max(data):
    """Calculate the daily maximum of a 2D inflammation data array for each day.
@@ -549,7 +584,7 @@ we check the status of our working directory:
 $ git status
 ~~~
 
-~~~
+~~~text
 On branch style-fixes
 Changes not staged for commit:
 (use "git add <file>..." to update what will be committed)
@@ -561,16 +596,19 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
 As expected, Git tells us we are on branch `style-fixes` and that we have unstaged and uncommited
 changes to `inflammation/models.py`. Let's commit them to the local repository.
+
 ~~~bash
-$ git add inflammation/models.py
-$ git commit -m "Docstring improvements."
+git add inflammation/models.py
+git commit -m "Docstring improvements."
 ~~~
+
 :::
 ::::
 
 In the previous exercises, we made some code improvements on feature branch `style-fixes`. We have committed our
 changes locally but have not pushed this branch remotely for others to have a look at our code before we merge it
 onto the `develop` branch. Let's do that now, namely:
+
 - push `style-fixes` to GitHub
 - merge `style-fixes` into `develop` (once we are happy with the changes)
 - push updates to `develop` branch to GitHub (to keep it up to date with the latest developments)
@@ -578,18 +616,21 @@ onto the `develop` branch. Let's do that now, namely:
 
 Here is a set commands that will achieve the above set of actions (remember to use `git status` often in between other
 Git commands to double check which branch you are on and its status):
+
 ~~~bash
-$ git push -u origin style-fixes
-$ git checkout develop
-$ git merge style-fixes
-$ git push origin develop
-$ git checkout main
-$ git merge develop
-$ git push origin main
+git push -u origin style-fixes
+git checkout develop
+git merge style-fixes
+git push origin develop
+git checkout main
+git merge develop
+git push origin main
 ~~~
 
 :::callout
+
 ## Typical Code Development Cycle
+
 What you've done in the exercises in this episode mimics a typical software development workflow -
 you work locally on code on a feature branch,
 test it to make sure it works correctly and as expected, then record your changes using version

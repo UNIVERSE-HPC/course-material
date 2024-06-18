@@ -23,11 +23,11 @@ attribution:
 The code blocks in this lesson will assume that some boilerplate C++ code is present.
 In particular, we will assume that the following headers are included:
 
-~~~ cpp
+``` cpp
 #include <iostream>
 #include <memory>
 #include <vector>
-~~~
+```
 
 We will also assume that you are using the C++17 language standard, or later.
 This will be the default with most modern compilers.
@@ -52,20 +52,19 @@ In C++ we archive this with **method overriding**:
 
 For this lesson we'll simplify the overall example, but feel free to modify your more extensive classes:
 
-~~~ cpp
+``` cpp
 class Character {
 public:
     virtual void performAttack() const {
         // Default implementation
     }
 };
-~~~
+```
 
 Here, the **virtual** keyword indicates that this function can be overridden in derived classes.
 We can then add the `performAttack()` method to the derived classes:
 
-
-~~~ cpp
+``` cpp
 class Warrior : public Character {
 public:
     void performAttack() const override {
@@ -79,7 +78,7 @@ public:
         std::cout << "Mage casts a spell!" << std::endl;
     }
 };
-~~~
+```
 
 Notice that the **virtual** keyword is onpy present in the base class.
 
@@ -90,11 +89,10 @@ It is not mandatory to add the **override** keyword, but it is considered best p
 
 - **Detecting Errors at Compilation**: When you use the `override` keyword, the compiler performs a check to ensure that the function being declared in the derived class is indeed overriding a virtual function from the base class. It helps detect errors, such as misspelled function names or accidental deviations from the base class function signature. If the function in the derived class does not match any base class virtual function, a compilation error is generated, alerting you to the mistake.
 
-
 We can use this new code in many ways, but in general we will need a pointer or reference to the base class.
 Here's an example which we will then break down:
 
-~~~ cpp
+``` cpp
 std::vector<std::unique_ptr<Character>> characters;
 characters.push_back(std::make_unique<Warrior>());
 characters.push_back(std::make_unique<Mage>());
@@ -102,13 +100,12 @@ characters.push_back(std::make_unique<Mage>());
 for (const auto& character : characters) {
     character->performAttack();
 }
-~~~
+```
 
-~~~
+```text
 Warrior attacks!
 Mage casts a spell!
-~~~
-
+```
 
 - `std::vector<std::unique_ptr<Character>> characters;`: This declares a vector named `characters` that holds [`std::unique_ptr` smart pointers](https://en.cppreference.com/w/cpp/memory/unique_ptr) to `Character` objects. The use of `std::unique_ptr` ensures that the ownership and memory management of the objects in the vector are handled automatically.
 
@@ -122,7 +119,6 @@ Mage casts a spell!
 
 During each iteration of the loop, the `performAttack()` function is called on each `Character` object, including both `Warrior` and `Mage` objects.
 Polymorphism comes into play here, as the virtual `performAttack()` function is called on each object, and the appropriate overridden implementation in the derived class is executed based on the actual object type.
-
 
 ## Abstract classes
 
@@ -200,7 +196,8 @@ This can lead to a problem known as *slicing*, where only the base class portion
 - In the given example, although the `Character` class does not contain any member variables that need explicit cleanup, adding a virtual destructor is a good practice for future-proofing the code. If derived classes add their own resources or dynamically allocated memory, the virtual destructor will ensure proper destruction of those resources when deleting derived class objects through base class pointers.
 - Therefore, when making a class abstract and intended to be used as a base class, it is generally advisable to include a virtual destructor in the base class, even if it has no explicit cleanup to perform.
 
-## Key Points:
+## Key Points
+
 - Class-based Polymorphism in programming languages allows objects of different classes to be treated as if they were the same type.
 - Classes can be made abstract by providing at least one pure virtual function, but you should remember the virual destructor, too.
 
@@ -209,7 +206,7 @@ This can lead to a problem known as *slicing*, where only the base class portion
 Here is working code for this lession that defines the classes and then gives an example of how to use them.
 You can also see this code in action, and play with it and run it, on [Compiler Explorer](https://gcc.godbolt.org/z/KoaoET9v9):
 
-~~~ cpp
+``` cpp
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -246,4 +243,4 @@ int main() {
 
     return 0;
 }
-~~~
+```

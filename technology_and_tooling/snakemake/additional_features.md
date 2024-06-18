@@ -208,7 +208,7 @@ scripts via commands like `qsub`. Snakemake provides a **generic mode**
 to execute on such clusters. By invoking Snakemake with
 
 ``` console
-$ snakemake --cluster qsub --jobs 100
+snakemake --cluster qsub --jobs 100
 ```
 
 each job will be compiled into a shell script that is submitted with the
@@ -220,7 +220,7 @@ such that it waits until the job has been executed. In such cases, we
 can invoke e.g.
 
 ``` console
-$ snakemake --cluster-sync "qsub -sync yes" --jobs 100
+snakemake --cluster-sync "qsub -sync yes" --jobs 100
 ```
 
 The specified submission command can also be **decorated with additional
@@ -229,7 +229,7 @@ used threads can be accessed in braces similarly to the formatting of
 shell commands, e.g.
 
 ``` console
-$ snakemake --cluster "qsub -pe threaded {threads}" --jobs 100
+snakemake --cluster "qsub -pe threaded {threads}" --jobs 100
 ```
 
 Alternatively, Snakemake can use the Distributed Resource Management
@@ -238,7 +238,7 @@ common interface to control various resource management systems. The
 **DRMAA support** can be activated by invoking Snakemake as follows:
 
 ``` console
-$ snakemake --drmaa --jobs 100
+snakemake --drmaa --jobs 100
 ```
 
 If available, **DRMAA is preferable over the generic cluster modes**
@@ -293,7 +293,7 @@ To use this script call snakemake similar to below, where `status.py` is
 the script above.
 
 ``` console
-$ snakemake all --jobs 100 --cluster "sbatch --cpus-per-task=1 --parsable" --cluster-status ./status.py
+snakemake all --jobs 100 --cluster "sbatch --cpus-per-task=1 --parsable" --cluster-status ./status.py
 ```
 
 ## Using \--cluster-cancel
@@ -339,11 +339,11 @@ Constraints may be defined per rule or globally using the
 `snakefiles-wildcards`{.interpreted-text role="ref"}. This mechanism
 helps to solve two kinds of ambiguity.
 
--   It can help to avoid ambiguous rules, i.e. two or more rules that
+- It can help to avoid ambiguous rules, i.e. two or more rules that
     can be applied to generate the same output file. Other ways of
     handling ambiguous rules are described in the Section
     `snakefiles-ambiguous-rules`{.interpreted-text role="ref"}.
--   It can help to guide the regular expression based matching so that
+- It can help to guide the regular expression based matching so that
     wildcards are assigned to the right parts of a file name. Consider
     the output file `{sample}.{group}.txt` and assume that the target
     file is `A.1.normal.txt`. It is not clear whether `dataset="A.1"`

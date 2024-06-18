@@ -19,9 +19,9 @@ attribution:
 
 
 
-Many matrices in scientific computing contain mostly zeros, particularly those arising 
-from the discretisation of partial differential equations (PDEs). Here we will construct 
-a sparse matrix using `scipy.sparse` that is derived from the finite difference 
+Many matrices in scientific computing contain mostly zeros, particularly those arising
+from the discretisation of partial differential equations (PDEs). Here we will construct
+a sparse matrix using `scipy.sparse` that is derived from the finite difference
 discretistaion of the Poisson equation. In 1D, Poisson equation is
 
 $$
@@ -34,13 +34,13 @@ $$
 u_{xx} \approx \frac{u(x + h) - 2u(x) + u(x-h)}{h^2}
 $$
 
-We will discretise $u_{xx} = 0$ at $N$ regular points along $x$ from 0 to 1, given by 
+We will discretise $u_{xx} = 0$ at $N$ regular points along $x$ from 0 to 1, given by
 $x_1$, $x_2$:
 
               +----+----+----------+----+> x
               0   x_1  x_2    ... x_N   1
 
-Using this set of point and the discretised equation, this gives a set of $N$ equations 
+Using this set of point and the discretised equation, this gives a set of $N$ equations
 at each interior point on the domain:
 
 $$
@@ -49,9 +49,9 @@ $$
 
 where $v_i \approx u(x_i)$.
 
-To solve these equations we will need additional equations at $x=0$ and $x=1$, known as 
-the *boundary conditions*. For this example we will use $u(x) = g(x)$ at $x=0$ and $x=1$ 
-(also known as a non-homogenous Dirichlet bc), so that $v_0 = g(0)$, and $v\_{N+1} = 
+To solve these equations we will need additional equations at $x=0$ and $x=1$, known as
+the *boundary conditions*. For this example we will use $u(x) = g(x)$ at $x=0$ and $x=1$
+(also known as a non-homogenous Dirichlet bc), so that $v_0 = g(0)$, and $v\_{N+1} =
 g(1)$, and the equation at $x_1$ becomes:
 
 $$
@@ -94,7 +94,6 @@ $$
 
 The relevant sparse matrix here is $A$, given by
 
-
 $$
 A = \begin{bmatrix} -2      & 1      &         &   &     \\
  1      & -2     & 1       &       & \\
@@ -103,9 +102,8 @@ A = \begin{bmatrix} -2      & 1      &         &   &     \\
 &        &        &   1     & -2     \end{bmatrix}
 $$
 
-As you can see, the number of non-zero elements grows linearly with the size $N$, so a 
+As you can see, the number of non-zero elements grows linearly with the size $N$, so a
 sparse matrix format is much preferred over a dense matrix holding all $N^2$ elements!
-
 
 ## Additional Reading
 

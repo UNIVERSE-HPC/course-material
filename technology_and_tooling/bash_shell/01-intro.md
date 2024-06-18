@@ -23,6 +23,7 @@ And then the shell allows you to type in another command…
 And so on.
 
 :::callout
+
 ## Analogies
 
 Imagine the shell a little like working with a voice assistant like Siri or Alexa.

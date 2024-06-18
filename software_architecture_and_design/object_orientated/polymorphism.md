@@ -34,7 +34,7 @@ want to be able to:
 
 We can implement this in our classes like so:
 
-~~~ python
+``` python
 ...
 class Person:
     """A person."""
@@ -74,7 +74,7 @@ class Doctor(Person):
     def set_id(self, id):
         self.id = 'D' + str(id).zfill(4)
 ...
-~~~
+```
 
 Here we have defined the **interface** for our `Person` class, which is that
 there should be a `set_id` method. We have also defined the `__str__` method,
@@ -104,11 +104,10 @@ print(alice)
 print(bob)
 ```
 
-```
+```text
 Doctor: Alice
 Patient: Bob
 ```
-
 
 We can also store collections of different types of people in a single list:
 
@@ -118,7 +117,7 @@ for person in people:
     print(person)
 ```
 
-```
+```text
 Doctor: Alice
 Patient: Bob
 ```
@@ -130,7 +129,6 @@ langauges. Duck typing is a concept that is often used in Python, which is that
 if an object has the right methods, it can be treated as if it is of a
 particular type. Using our example above, if an object has a `set_id` and
 `__str__` method, it can be treated as if it is a `Person` object. For example,
-
 
 ```python
 class Administrator:
@@ -213,7 +211,7 @@ class Trial:
 :::
 ::::
 
-## Key Points:
+## Key Points
+
 - Class-based Polymorphism in programming languages allows objects of different classes to be treated as if they were the same type
 - Python uses duck typing to allow polymorphism in a flexible way, "if it looks like a duck and quacks like a duck, it must be a duck"
-

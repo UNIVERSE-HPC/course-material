@@ -56,7 +56,7 @@ given with the `--cores` command line argument, which is mandatory for
 `snakemake` calls that actually run the workflow. For example
 
 ``` console
-$ snakemake --cores 10
+snakemake --cores 10
 ```
 
 :::callout
@@ -140,12 +140,12 @@ different to the rule `bcftools_call` we modified above. To understand
 this, it is important to know that Snakemake workflows are executed in
 three phases.
 
-1.  In the **initialization** phase, the files defining the workflow are
+1. In the **initialization** phase, the files defining the workflow are
     parsed and all rules are instantiated.
-2.  In the **DAG** phase, the directed acyclic dependency graph of all
+2. In the **DAG** phase, the directed acyclic dependency graph of all
     jobs is built by filling wildcards and matching input files to
     output files.
-3.  In the **scheduling** phase, the DAG of jobs is executed, with jobs
+3. In the **scheduling** phase, the DAG of jobs is executed, with jobs
     started according to the available resources.
 
 The expand functions in the list of input files of the rule
@@ -295,11 +295,11 @@ avoid file name clashes between different jobs of the same rule.
 
 ::::challenge{id=add_logging title="Exercise"}
 
--   Add a log directive to the `bcftools_call` rule as well.
--   Time to re-run the whole workflow (remember the command line flags
+- Add a log directive to the `bcftools_call` rule as well.
+- Time to re-run the whole workflow (remember the command line flags
     to force re-execution). See how log files are created for variant
     calling and read mapping.
--   The ability to track the provenance of each generated result is an
+- The ability to track the provenance of each generated result is an
     important step towards reproducible analyses. Apart from the
     `report` functionality discussed before, Snakemake can summarize
     various provenance information for all output files of the workflow.
@@ -364,12 +364,12 @@ deleted by accident.
 
 ::::challenge{id=add_temporaries title="Exercise"}
 
--   Re-execute the whole workflow and observe how Snakemake handles the
+- Re-execute the whole workflow and observe how Snakemake handles the
     temporary and protected files.
--   Run Snakemake with the target `mapped_reads/A.bam`. Although the
+- Run Snakemake with the target `mapped_reads/A.bam`. Although the
     file is marked as temporary, you will see that Snakemake does not
     delete it because it is specified as a target file.
--   Try to re-execute the whole workflow again with the dry-run option.
+- Try to re-execute the whole workflow again with the dry-run option.
     You will see that it fails (as intended) because Snakemake cannot
     overwrite the protected output files.
 

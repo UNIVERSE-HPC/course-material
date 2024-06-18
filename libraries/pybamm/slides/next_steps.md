@@ -10,20 +10,20 @@ title: Next steps with PyBaMM
   - [PyBaMM API documentation](https://docs.pybamm.org/en/latest/source/api/index.html)
 - Community
   - [PyBaMM github](https://github.com/pybamm-team/PyBaMM/)
-    - For questions, use the 
+    - For questions, use the
       [discussions](https://github.com/pybamm-team/PyBaMM/discussions)
-    - For Bugs, Feature Requests, etc. look at the 
+    - For Bugs, Feature Requests, etc. look at the
       [issues](https://github.com/pybamm-team/PyBaMM/issues)
   - [PyBaMM Slack](https://pybamm.slack.com/)
-  - Monthly public development meetings (see #general on Slack for invite + agenda 
+  - Monthly public development meetings (see #general on Slack for invite + agenda
     links)
   
 ## Contributing to PyBaMM
 
 - PyBaMM is an open-source project, and we welcome contributions from the community
-- Many ways to contribute: reporting bugs, improving the documentation, submitting 
+- Many ways to contribute: reporting bugs, improving the documentation, submitting
   feature requests, or writing code.
-- If you are interested in contributing code, please see the [contributing 
+- If you are interested in contributing code, please see the [contributing
   guide](https://github.com/pybamm-team/PyBaMM/blob/develop/CONTRIBUTING.md)
   
 ## PyBaMM development
@@ -47,9 +47,9 @@ How code is added to PyBaMM:
   - Performance improvements and solver enhancements
   - Supporting standard formats like BPX data
   - Integration of PyBaMM with:
-    - inference software (e.g. 
-      [pybamm-param](https://github.com/paramm-team/pybamm-param) and 
+    - inference software (e.g.
+      [pybamm-param](https://github.com/paramm-team/pybamm-param) and
       [PyBOP](https://github.com/pybop-team/PyBOP))
     - data sources (e.g. [galv](https://github.com/Battery-Intelligence-Lab/galv))
-    
+
 ## Questions?

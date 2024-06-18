@@ -48,7 +48,7 @@ python
 
 And then you are presented with something like:
 
-```
+```text
 Python 3.10.4 (main, Jun 29 2022, 12:14:53) [GCC 11.2.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>> 
@@ -87,9 +87,9 @@ six = 2 * 3
 print(six)
 ```
 
-~~~
+```text
 6
-~~~
+```
 
 Note that in terms of naming variables, Python's variables must begin with a letter.
 
@@ -98,41 +98,40 @@ the command "Run Selection/Line in Python Terminal").
 
 If we look for a variable that hasn't ever been defined, we get an error telling us so:
 
-~~~python
+```python
 print(seven)
-~~~
+```
 
-~~~
+```text
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 NameError: name 'seven' is not defined
-~~~
+```
 
 You can also assign an arbitrary number of variables on the same line:
 
-~~~python
+```python
 one, two = 1, 2
-~~~
+```
 
 ::::challenge{title="Sorting out references" id=sorting_reference}
 
 What does the following program print out?
 
-~~~python
+```python
 first, second = 1, 2
 third, fourth = second, first
 print(third, fourth)
-~~~
+```
 
 :::solution
 
- ~~~
- 2 1
- ~~~
+```text
+2 1
+```
 
 :::
 ::::
-
 
 Although we commonly refer to `variables` even in Python (because it is the
 common terminology), we really mean `names` or `identifiers`. In Python,
@@ -156,10 +155,10 @@ more easily run out.
 
 So in Python, when I write:
 
-~~~python
+```python
 number = 1
 number = 2
-~~~
+```
 
 The following things happen:
 
@@ -170,36 +169,35 @@ The following things happen:
 1. The old address, containing '1', now has no labels.
 1. The garbage collector frees the memory at the old address.
 
-
 ## Objects and Types
 
 An object, like `number`, has a type. We can use `type()` to tell us the type of the variable. For our variable above:
 
-~~~python
+```python
 type(number)
-~~~
+```
 
 Note we don't need to use `print` - the Python interpreter will just output the result:
 
-~~~
+```python
 <class 'int'>
-~~~
+```
 
 Depending on its type, an object can have different properties: data fields *inside* the object.
 
 Consider a Python complex number for example, which Python supports natively:
 
-~~~python
+```python
 z = 3+1j
-~~~
+```
 
 We can see what properties and methods an object has available using the dir function:
 
-~~~python
+```python
 dir(z)
-~~~
+```
 
-~~~
+```text
 ['__abs__'
  '__add__'
  '__bool__'
@@ -249,7 +247,7 @@ dir(z)
  'conjugate'
  'imag'
  'real']
- ~~~
+ ```
 
 You can see that there are several methods whose name starts and ends with `__`
 (e.g. `__init__`): these are special methods that Python uses internally, and
@@ -258,29 +256,29 @@ some of them later on in this course as they become useful. The others (in this
 case, `conjugate`, `img` and `real`) are the methods and fields through which we
 can interact with this object.
 
-~~~python
+```python
 type(z)
-~~~
+```
 
-~~~
+```text
 <class 'complex'>
-~~~
+```
 
-~~~python
+```python
 z.real
-~~~
+```
 
-~~~
+```text
 3.0
-~~~
+```
 
-~~~python
+```python
 z.imag
-~~~
+```
 
-~~~
+```text
 1.0
-~~~
+```
 
 A property of an object is accessed with a dot. The jargon is that the "dot operator" is used to obtain a property of an object.
 
@@ -295,19 +293,19 @@ is inferred:
 
 ### Floats
 
-~~~python
+```python
 weight_kg = 55
 weight_lb = 2.2 * weight_kg
 print('Weight in lb', weight_lb)
-~~~
+```
 
 Note we can add as many things that we want to `print` by separating them with a comma.
 
 For a float, a number after a point is optional. But the *dot* makes it a float.
 
-~~~
+```text
 Weight in lb 121.00000000000001
-~~~
+```
 
 So the thing with floats is that they are *representation* of a real number.
 Representing a third or the root of 2 would be impossible for a computer, so
@@ -324,12 +322,12 @@ An important thing to remember, particularly in numerical analyses, is that a `f
 Draw diagrams showing what variables refer to what values after each statement
 in the following program:
 
-~~~
+```text
 weight = 70.5
 age = 35
 weight = weight * 1.14
 age = age + 20
-~~~
+```
 
 :::
 
@@ -337,19 +335,19 @@ age = age + 20
 
 Note that before, we also used a `string` in our use of `print`. In Python, we can use either single quotes or double quotes, or even both if we need to include quotes within a string, e.g.:
 
-~~~python
+```python
 given = 'Joe'
 middle = "Frederick"
 family = "'Bloggs'"
 full = given + " " + middle + " " + family
 print(full)
-~~~
+```
 
 Here we use the `+` operator to concatenate strings together.
 
-~~~
+```text
 Joe Frederick 'Bloggs'
-~~~
+```
 
 With quotes, the main thing is to be consistent in how you use them (i.e. not like we've used them above!).
 
@@ -357,27 +355,27 @@ We've looked at properties on objects. But many objects can also have *methods* 
 
 For strings, we also can do things like:
 
-~~~python
+```python
 given.upper()
-~~~
+```
 
 Which returns the upper case version of the string.
 
-~~~
+```text
 'JOE'
-~~~
+```
 
 Note it isn't changing `given`'s string itself, it's returning a new string in uppercase.
 
 There are other methods we can use on strings, such as:
 
-~~~python
+```python
 '    Hello'.strip()
-~~~
+```
 
-~~~
+```text
 'Hello'
-~~~
+```
 
 We'll be looking at classes and objects in more detail later today.
 
@@ -385,57 +383,56 @@ We'll be looking at classes and objects in more detail later today.
 
 We can use boolean variables to capture `True` or `False`, useful in conditionals and loops, e.g.:
 
-~~~python
+```python
 is_joe = (given == 'Joe')
 flag = False
 print(is_joe, flag)
-~~~
+```
 
-~~~
+```text
 True False
-~~~
+```
 
 ### No Value?
 
 We can also assign variable with no value:
 
-~~~python
+```python
 nothing = None
 print(nothing)
-~~~
+```
 
-~~~
+```text
 None
-~~~
+```
 
 `None` is the special Python value for a no-value variable.
 
 If that's the output, what's the type of `nothing`?
 
-~~~python
+```python
 type(nothing)
-~~~
+```
 
-~~~
+```text
 <class 'NoneType'>
-~~~
-
+```
 
 ### Converting Between Types
 
 With floats, ints and strings, we can use in-built functions to convert between types:
 
-~~~python
+```python
 age, house_number = 30, '76'
 print(str(age), float(age), int(house_number), float(house_number))
-~~~
+```
 
-~~~
+```text
 30 30.0 76 76.0
-~~~
+```
 
+## Key Points
 
-## Key Points:
 - Python is an interpreted, dynamically typed language.
 - Run the interpreter from the command line by typing `python`.
 - Use `variable = value` to assign a value to a variable in order to record it in memory.

@@ -20,26 +20,26 @@ or **intermediate** files created during data analysis.
 Let's switch to our dev branch, and create a few dummy files:
 
 ~~~bash
-$ git checkout dev
-$ mkdir results
-$ touch a.dat b.dat c.dat results/a.out results/b.out
+git checkout dev
+mkdir results
+touch a.dat b.dat c.dat results/a.out results/b.out
 ~~~
 
 and see what Git says:
 
 ~~~bash
-$ git status
+git status
 ~~~
 
-~~~
+~~~text
 # On branch dev
 # Untracked files:
 #   (use "git add <file>..." to include in what will be committed)
 #
-#	a.dat
-#	b.dat
-#	c.dat
-#	results/
+# a.dat
+# b.dat
+# c.dat
+# results/
 nothing added to commit but untracked files present (use "git add" to track)
 ~~~
 
@@ -51,11 +51,11 @@ so let's tell Git to **ignore** them.
 We do this by creating a file in the root directory of our project called `.gitignore`.
 
 ~~~bash
-$ nano .gitignore
-$ cat .gitignore
+nano .gitignore
+cat .gitignore
 ~~~
 
-~~~
+~~~text
 *.dat
 results/
 ~~~
@@ -69,15 +69,15 @@ Once we have created this file,
 the output of `git status` is much cleaner:
 
 ~~~bash
-$ git status
+git status
 ~~~
 
-~~~
+~~~text
 # On branch dev
 # Untracked files:
 #   (use "git add <file>..." to include in what will be committed)
 #
-#	.gitignore
+# .gitignore
 nothing added to commit but untracked files present (use "git add" to track)
 ~~~
 
@@ -88,12 +88,12 @@ the same** things that we're ignoring.
 Let's add and commit `.gitignore`:
 
 ~~~bash
-$ git add .gitignore
-$ git commit -m "Add the ignore file"
-$ git status
+git add .gitignore
+git commit -m "Add the ignore file"
+git status
 ~~~
 
-~~~
+~~~text
 # On branch dev
 nothing to commit, working directory clean
 ~~~
@@ -102,10 +102,10 @@ As a bonus,
 using `.gitignore` helps us **avoid accidentally adding files** to the repository that we don't want.
 
 ~~~bash
-$ git add a.dat
+git add a.dat
 ~~~
 
-~~~
+~~~text
 The following paths are ignored by one of your .gitignore files:
 a.dat
 Use -f if you really want to add them.
@@ -117,10 +117,10 @@ we can use `git add -f` to force Git to add something.
 We can also always see the status of ignored files if we want:
 
 ~~~bash
-$ git status --ignored
+git status --ignored
 ~~~
 
-~~~
+~~~text
 # On branch dev
 # Ignored files:
 #  (use "git add -f <file>..." to include in what will be committed)

@@ -18,7 +18,6 @@ Now that we know a few basic commands,
 we can finally look at the shell's most powerful feature:
 the ease with which it lets us combine existing programs in new ways.
 
-
 ## Joining commands together using files
 
 One way we can use programs together is to have the output of one command captured
@@ -28,13 +27,13 @@ We'll start with a directory called `data`, which is in the `shell-novice/data`
 directory, one directory up from `test_directory`. i.e. from `test_directory`:
 
 ~~~bash
-$ cd ../..
-$ cd data
+cd ../..
+cd data
 ~~~
 
 Doing `ls` shows us three files in this directory:
 
-~~~
+~~~text
 sc_climate_data.csv      sc_climate_data_10.csv   sc_climate_data_1000.csv
 ~~~
 
@@ -50,6 +49,7 @@ easily reason about the data in the file and the operations we're performing on
 it.
 
 :::callout
+
 ## Why not just use the entire 20MB data set?
 
 Running various commands over a 20MB data set could take some time.
@@ -72,10 +72,10 @@ Let's run the command `wc *.csv`:
 * The `*` in `*.csv` matches zero or more characters, so the shell turns `*.csv` into a complete list of `.csv` files:
 
 ~~~bash
-$ wc *.csv
+wc *.csv
 ~~~
 
-~~~
+~~~text
  1048576 1048577 21005037 sc_climate_data.csv
       11      12     487 sc_climate_data_10.csv
     1001    1002   42301 sc_climate_data_1000.csv
@@ -116,10 +116,10 @@ Going back to `wc`, if we run `wc -l` instead of just `wc`,
 the output shows only the number of lines per file:
 
 ~~~bash
-$ wc -l *.csv
+wc -l *.csv
 ~~~
 
-~~~
+~~~text
  1048576 sc_climate_data.csv
       11 sc_climate_data_10.csv
     1001 sc_climate_data_1000.csv
@@ -135,7 +135,7 @@ but what if there were 6000?
 Our first step toward a solution is to run the command:
 
 ~~~bash
-$ wc -l *.csv > lengths.txt
+wc -l *.csv > lengths.txt
 ~~~
 
 The greater than symbol, `>`, tells the shell to **redirect** the command's output
@@ -148,10 +148,10 @@ everything that `wc` would have printed has gone into the file `lengths.txt` ins
 `ls lengths.txt` confirms that the file exists:
 
 ~~~bash
-$ ls lengths.txt
+ls lengths.txt
 ~~~
 
-~~~
+~~~text
 lengths.txt
 ~~~
 
@@ -161,10 +161,10 @@ There's only one file in this case,
 so `cat` just shows us what it contains:
 
 ~~~bash
-$ cat lengths.txt
+cat lengths.txt
 ~~~
 
-~~~
+~~~text
  1048576 sc_climate_data.csv
       11 sc_climate_data_10.csv
     1001 sc_climate_data_1000.csv
@@ -178,10 +178,10 @@ This does *not* change the file;
 instead, it sends the sorted result to the screen:
 
 ~~~bash
-$ sort -n lengths.txt
+sort -n lengths.txt
 ~~~
 
-~~~
+~~~text
       11 sc_climate_data_10.csv
     1001 sc_climate_data_1000.csv
  1048576 sc_climate_data.csv
@@ -195,11 +195,11 @@ Once we've done that,
 we can run another command called `head` to get the first few lines in `sorted-lengths.txt`:
 
 ~~~bash
-$ sort -n lengths.txt > sorted-lengths.txt
-$ head -1 sorted-lengths.txt
+sort -n lengths.txt > sorted-lengths.txt
+head -1 sorted-lengths.txt
 ~~~
 
-~~~
+~~~text
       11 sc_climate_data_10.csv
 ~~~
 
@@ -216,17 +216,16 @@ even once you understand what `wc`, `sort`, and `head` do,
 all those intermediate files make it hard to follow what's going on.
 Fortunately, there's a way to make this much simpler.
 
-
 ## Using pipes to join commands together
 
 We can make it easier to understand by running `sort` and `head` together:
 
 ~~~bash
-$ sort -n lengths.txt | head -1
+sort -n lengths.txt | head -1
 ~~~
 
-~~~
-      11 sc_climate_data_10.csv
+~~~text
+            11 sc_climate_data_10.csv
 ~~~
 
 The vertical bar between the two commands is called a **pipe**.
@@ -242,10 +241,10 @@ We can even use another pipe to send the output of `wc` directly to `sort`,
 which then sends its output to `head`:
 
 ~~~bash
-$ wc -l *.csv | sort -n | head -1
+wc -l *.csv | sort -n | head -1
 ~~~
 
-~~~
+~~~text
       11 sc_climate_data_10.csv
 ~~~
 
@@ -275,6 +274,7 @@ You can *and should* write your programs this way
 so that you and other people can put those programs into pipes to multiply their power.
 
 :::callout
+
 ## Redirecting Input
 
 As well as using `>` to redirect a program's output, we can use `<` to
@@ -292,6 +292,7 @@ If you're interested in how pipes work in more technical detail, see the descrip
 ## Exercises
 
 ::::challenge{id=double-chevron-meaning title="What does Double Chevron Mean?"}
+
 ## What does `>>` mean?
 
 What is the difference between:
@@ -318,6 +319,7 @@ However, if there *is* a file, then `>` will *overwrite* the contents of the fil
 For those interested in the technical details of how pipes work:
 
 :::callout
+
 ## What's happening 'under the hood' - pipes in more detail
 
 Here's what actually happens behind the scenes when we create a pipe.

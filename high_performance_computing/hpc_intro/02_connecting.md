@@ -34,6 +34,7 @@ SSH keys are an alternative method for authentication to obtain access to remote
 * a public key which can be placed on any remote system you will access.
 
 :::callout
+
 ## Private keys are your secure digital passport
 
 A private key that is visible to anyone but you should be considered compromised, and must be destroyed. This includes having improper permissions on the directory it (or a copy) is stored in, traversing any network that is not secure (encrypted), attachment on unencrypted email, and even displaying the key on your terminal window.
@@ -44,16 +45,19 @@ Protect this key as if it unlocks your front door. In many ways, it does.
 Regardless of the software or operating system you use, _please_ choose a strong password or passphrase to act as another layer of protection for your private SSH key.
 
 :::callout
+
 ## Considerations for SSH Key Passwords
+
 When prompted, enter a strong password that you will remember. There are two
 common approaches to this:
 
 1. Create a memorable passphrase with some punctuation and number-for-letter substitutions, 32 characters or longer. Street addresses work well; just be careful of social engineering or public records attacks.
 2. Use a password manager and its built-in password generator with all character classes, 25 characters or longer. [KeePass][keepass] and [BitWarden][bitwarden] are two good options.
 3. Nothing is _less_ secure than a private key with no password. If you skipped password entry by accident, go back and generate a new key pair _with_ a strong password.
+
 :::
 
-#### SSH Keys on Linux, Mac, MobaXterm, and Windows Subsystem for Linux
+### SSH Keys on Linux, Mac, MobaXterm, and Windows Subsystem for Linux
 
 Once you have opened a terminal, check for existing SSH keys and filenames since existing SSH keys are overwritten.
 
@@ -80,8 +84,10 @@ Take a look in `~/.ssh` (use `ls ~/.ssh`). You should see two new files:
 * your private key (`~/.ssh/id_ed25519`): _do not share with anyone!_
 * the shareable public key (`~/.ssh/id_ed25519.pub`): if a system administrator asks for a key, this is the one to send. It is also safe to upload to websites such as GitHub: it is meant to be seen.
 
-:::callout
+:::callout{variant="tip"}
+
 ## Use RSA for Older Systems
+
 If key generation failed because ed25519 is not available, try using the older (but still strong and trustworthy) [RSA][wiki-rsa] cryptosystem. Again, first check for an existing key:
 
 ```bash
@@ -103,9 +109,10 @@ Take a look in `~/.ssh` (use `ls ~/.ssh`). You should see two new files:
 
 * your private key (`~/.ssh/id_rsa`): _do not share with anyone!_
 * the shareable public key (`~/.ssh/id_rsa.pub`): if a system administrator asks for a key, this is the one to send. It is also safe to upload to websites such as GitHub: it is meant to be seen.
+
 :::
 
-#### SSH Keys on PuTTY
+### SSH Keys on PuTTY
 
 If you are using PuTTY on Windows, download and use `puttygen` to generate the key pair. See the [PuTTY documentation][putty-gen] for details.
 
@@ -139,29 +146,36 @@ ssh-add -l
 ```
 
 If you get a list, or a message like:
-```
+
+```text
 The agent has no identities
 ```
 
 Then everything is fine! If you get an error like the ones below one:
-```
+
+```text
 Error connecting to agent: No such file or directory
 # or
 Could not open a connection to your authentication agent.
 ```
+
 ... then your SSH agent isn't running and you need to start it as:
+
 ```bash
 eval $(ssh-agent)
 ```
   
 :::callout
+
 ## What's In A `$(...)`?
+
 The syntax of this SSH Agent command is unusual, based on what we've seen in the UNIX Shell lesson. This is because the `ssh-agent` command creates a connection that only you have access to, and prints a series of shell commands that can be used to reach it -- but _does not execute them!_
   
 ```bash
 ssh-agent
 ```
-```
+
+```text
 SSH_AUTH_SOCK=/tmp/ssh-Zvvga2Y8kQZN/agent.131521;
 export SSH_AUTH_SOCK;
 SSH_AGENT_PID=131522;
@@ -174,14 +188,13 @@ The `eval` command interprets this text output as commands and allows you to acc
 You could run each line of the `ssh-agent` output yourself, and achieve the same result. Using `eval` just makes this easier.
 :::
 
-
 Add your key to the agent, with session expiration after 8 hours:
 
 ```bash
 ssh-add -t 8h ~/.ssh/id_ed25519
 ```
 
-```
+```text
 Enter passphrase for .ssh/id_ed25519: 
 Identity added: .ssh/id_ed25519
 Lifetime set to 86400 seconds
@@ -189,7 +202,7 @@ Lifetime set to 86400 seconds
 
 For the duration (8 hours), whenever you use that key, the SSH Agent will provide the key on your behalf without you having to type a single keystroke.
 
-#### SSH Agent on PuTTY
+### SSH Agent on PuTTY
 
 If you are using PuTTY on Windows, download and use `pageant` as the SSH agent. See the [PuTTY documentation][putty-agent].
 
@@ -227,7 +240,7 @@ Very often, many users are tempted to think of a high-performance computing inst
 remote$ hostname
 ```
 
-```
+```text
 cluster.name
 ```
 
@@ -237,7 +250,7 @@ So, we're definitely on the remote machine. Next, let's find out where we are by
 remote$ pwd
 ```
 
-```
+```text
 /home/user
 ```
 
@@ -247,7 +260,7 @@ Great, we know where we are! Let's see what's in our current directory:
 remote$ ls
 ```
 
-```
+```text
 id_ed25519.pub
 ```
 
@@ -257,7 +270,7 @@ The system administrators may have configured your home directory with some help
 remote$ ls -a
 ```
 
-```
+```text
   .            .bashrc           id_ed25519.pub
   ..           .ssh
 ```
@@ -267,6 +280,7 @@ In the first column, `.` is a reference to the current directory and `..` a refe
 ### Install Your SSH Key
 
 :::callout
+
 ## There May Be a Better Way
 
 Policies and practices for handling SSH keys vary between HPC clusters: follow any guidance provided by the cluster administrators or documentation. In particular, if there is an online portal for managing SSH keys, use that instead of the directions outlined here.
@@ -297,12 +311,10 @@ local$ ssh user@cluster.name
 ```
 
 [bitwarden]: https://bitwarden.com
-[fshs]: https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
 [gh-ssh]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh
 [keepass]: https://keepass.info
 [putty-gen]: https://tartarus.org/~simon/putty-prerel-snapshots/htmldoc/Chapter8.html#pubkey-puttygen
 [putty-agent]: https://tartarus.org/~simon/putty-prerel-snapshots/htmldoc/Chapter9.html#pageant
 [ssh-agent]: https://www.ssh.com/academy/ssh/agent
-[ssh-flags]: https://stribika.github.io/2015/01/04/secure-secure-shell.html
 [wiki-rsa]: https://en.wikipedia.org/wiki/RSA_(cryptosystem)
 [wiki-dsa]: https://en.wikipedia.org/wiki/EdDSA

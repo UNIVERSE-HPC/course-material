@@ -40,6 +40,7 @@ run on the head node is a quick and reliable way to discover and fix these
 issues.
 
 ::::callout
+
 ## Login Nodes Are a Shared Resource
 
 Remember, the login node is shared with all other users and your actions
@@ -55,6 +56,7 @@ You can always use the commands `top` and `ps ux` to list the processes that
 are running on the login node along with the amount of CPU and memory they are
 using. If this check reveals that the login node is somewhat idle, you can
 safely use it for your non-routine processing task. If something goes wrong
+
 - the process takes too long, or doesn't respond - you can use the
 `kill` command along with the _PID_ to terminate the process.
 
@@ -103,6 +105,7 @@ Most systems provide dedicated resources for testing that have short wait times
 to help you avoid this issue.
 
 ::::callout
+
 ## Test Job Submission Scripts That Use Large Amounts of Resources
 
 Before submitting a large run of jobs, submit one as a test first to make
@@ -149,6 +152,7 @@ provide useful guidance on your options for data transfer for the volumes of
 data you will be using.
 
 ::::callout
+
 ## Your Data Is Your Responsibility
 
 Make sure you understand what the backup policy is on the file systems on the
@@ -182,12 +186,12 @@ files, rather than the converse.
 
 Some of the key components and their associated issues are:
 
-* __Disk speed__: File systems on HPC systems are often highly parallel,
+- __Disk speed__: File systems on HPC systems are often highly parallel,
   consisting of a very large number of high performance disk drives. This
   allows them to support a very high data bandwidth. Unless the remote system
   has a similar parallel file system you may find your transfer speed limited
   by disk performance at that end.
-* __Meta-data performance__: _Meta-data operations_ such as opening and closing
+- __Meta-data performance__: _Meta-data operations_ such as opening and closing
   files or listing the owner or size of a file are much less parallel than
   read/write operations. If your data consists of a very large number of small
   files you may find your transfer speed is limited by meta-data operations.
@@ -195,11 +199,11 @@ Some of the key components and their associated issues are:
   strongly with those you perform so reducing the number of such operations you
   use (by combining multiple files into a single file) may reduce variability
   in your transfer rates and increase transfer speeds.
-* __Network speed__: Data transfer performance can be limited by network speed.
+- __Network speed__: Data transfer performance can be limited by network speed.
   More importantly it is limited by the slowest section of the network between
   source and destination. If you are transferring to your laptop/workstation,
   this is likely to be its connection (either via LAN or WiFi).
-* __Firewall speed__: Most modern networks are protected by some form of
+- __Firewall speed__: Most modern networks are protected by some form of
   firewall that filters out malicious traffic. This filtering has some overhead
   and can result in a reduction in data transfer performance. The needs of a
   general purpose network that hosts email/web-servers and desktop machines are
@@ -217,11 +221,11 @@ be created using tools like `tar` and `zip`. We have already met `tar` when we
 talked about data transfer earlier.
 
 ![Schematic of network bandwidth](fig/responsibility-bandwidth.svg)
-*Schematic diagram of bandwidth and latency for disk and network
+_Schematic diagram of bandwidth and latency for disk and network
 I/O. Each of the components on the figure is connected by a blue line of
 width proportional to the interface bandwidth. The small mazes at the
 link points illustrate the latency of the link, with more tortuous
-mazes indicating higher latency.*
+mazes indicating higher latency._
 
 :::::challenge{id=transfer-method, title="Consider the Best Way to Transfer Data"}
 
@@ -237,22 +241,27 @@ best way to transfer them to `cluster.name`?
 1. ```bash
    local$ scp -r data user@cluster.name:~/
    ```
+
 2. ```bash
    local$ rsync -ra data user@cluster.name:~/
    ```
+
 3. ```bash
    local$ rsync -raz data user@cluster.name:~/
    ```
+
 4. ```bash
    local$ tar -cvf data.tar data
    local$ rsync -raz data.tar user@cluster.name:~/
    ```
+
 5. ```bash
    local$ tar -cvzf data.tar.gz data
    local$ rsync -ra data.tar.gz user@cluster.name:~/
    ```
 
 ::::solution
+
 1. `scp` will recursively copy the directory. This works, but without
    compression.
 2. `rsync -ra` works like `scp -r`, but preserves file information like
@@ -268,5 +277,6 @@ best way to transfer them to `cluster.name`?
    transfer it. This may perform similarly to #4, but in most cases (for
    large datasets), it's the best combination of high throughput and low
    latency (making the most of your time and network connection).
+
 ::::
 :::::

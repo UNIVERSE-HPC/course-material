@@ -19,43 +19,42 @@ attribution:
 
 ## Iterative Methods
 
-Previously we have discussed *direct* linear algebra solvers based on decompositions of 
-the original matrix $A$. The amount of computational effort required to achieve these 
-decomposisions is $\mathcal{O}(n^3)$, where $n$ is the number of rows of a square 
-matrix. They are therefore unsuitable for the large, sparse systems of equations that 
-are typically encountered in scientific applications. An alternate class of linear 
-algebra solvers are the *iterative* methods, which produce a series of *approximate* 
-solutions $x_k$ to the $A x = b$ problem. The performance of each algorithm is then 
-based on how quickly, or how many iterations $k$ are required, for the solution $x_k$ to 
+Previously we have discussed *direct* linear algebra solvers based on decompositions of
+the original matrix $A$. The amount of computational effort required to achieve these
+decomposisions is $\mathcal{O}(n^3)$, where $n$ is the number of rows of a square
+matrix. They are therefore unsuitable for the large, sparse systems of equations that
+are typically encountered in scientific applications. An alternate class of linear
+algebra solvers are the *iterative* methods, which produce a series of *approximate*
+solutions $x_k$ to the $A x = b$ problem. The performance of each algorithm is then
+based on how quickly, or how many iterations $k$ are required, for the solution $x_k$ to
 converge to within a set tolerance of the true solution $x$.
-
 
 ## Jacobi Method
 
-The Jacobi method is the simplest of the iterative methods, and relies on the fact that 
+The Jacobi method is the simplest of the iterative methods, and relies on the fact that
 the matrix is *diagonally dominant*. Starting from the problem definition:
 
 $$
 A\mathbf{x} = \mathbf{b}
 $$
 
-we decompose $A$ in to $A = L + D + U$, where $L$ is lower triangular, $D$ is diagonal, 
-$U$ is upper triangular. 
+we decompose $A$ in to $A = L + D + U$, where $L$ is lower triangular, $D$ is diagonal,
+$U$ is upper triangular.
 
 $$
 A\mathbf{x} = L\mathbf{x} + D\mathbf{x} + U\mathbf{x} =  \mathbf{b}
 $$
 
-We then assume that we have an initial guess at the solution $\mathbf{x}^0$, and try to 
-find a new estimate $\mathbf{x}^1$. Assuming that the diagonal $D$ dominates over $L$ 
-and $U$, a sensible choice would be to insert $x^0$ and the unknown $x^1$ into the 
+We then assume that we have an initial guess at the solution $\mathbf{x}^0$, and try to
+find a new estimate $\mathbf{x}^1$. Assuming that the diagonal $D$ dominates over $L$
+and $U$, a sensible choice would be to insert $x^0$ and the unknown $x^1$ into the
 equation like so:
 
 $$
 L\mathbf{x}^0 + D\mathbf{x}^1 + U\mathbf{x}^0 =  \mathbf{b}
 $$
 
-we can rearrange to get an equation for $x^1$. This is easily solved as we can take the 
+we can rearrange to get an equation for $x^1$. This is easily solved as we can take the
 inverse of the diagonal matrix by simply inverting each diagonal element individually:
 
 $$
@@ -70,8 +69,8 @@ $$
 
 ## Relaxation methods
 
-The Jacobi method is an example of a relaxation method, where the matrix $A$ is split 
-into a dominant part $M$ (which is easy to solve), and the remainder $N$. That is, $A = 
+The Jacobi method is an example of a relaxation method, where the matrix $A$ is split
+into a dominant part $M$ (which is easy to solve), and the remainder $N$. That is, $A =
 M - N$
 
 $$
@@ -82,51 +81,51 @@ $$
 \mathbf{x}_{k+1} = M^{-1}N\mathbf{x}_k + M^{-1}\mathbf{b}
 $$
 
-This can be rearranged in terms of the *residual* $\mathbf{r}_k = \mathbf{b} - A 
+This can be rearranged in terms of the *residual* $\mathbf{r}_k = \mathbf{b} - A
 \mathbf{x}_k$ to the update equation
 
 $$
 \mathbf{x}_{k+1} = \mathbf{x}_{k} + M^{-1}\mathbf{r}_k
 $$
 
-For the Jacobi method $M = D$ and $N = -(L + U)$. Other relaxation methods include 
-Gauss-Seidel, where $M = (D + L)$ and $N = -U$, and successive over-relaxation (SOR), 
-where $M = \frac{1}{\omega} D + L$ and $N = -(\frac{\omega - 1}{\omega} D + U)$, where 
+For the Jacobi method $M = D$ and $N = -(L + U)$. Other relaxation methods include
+Gauss-Seidel, where $M = (D + L)$ and $N = -U$, and successive over-relaxation (SOR),
+where $M = \frac{1}{\omega} D + L$ and $N = -(\frac{\omega - 1}{\omega} D + U)$, where
 $\omega$ is the *relaxation* parameter that is within the range $0 \le \omega \le 2$.
 
-For any relaxation method to converge we need $\rho(M^{-1}N) < 1$, where $\rho()$ is the 
-*spectral radius* of $M^{-1} N$, which is defined as the largest eigenvalue $\lambda$ of 
+For any relaxation method to converge we need $\rho(M^{-1}N) < 1$, where $\rho()$ is the
+*spectral radius* of $M^{-1} N$, which is defined as the largest eigenvalue $\lambda$ of
 a a given matrix $G$:
 
 $$
 \rho(G) = \max{|\lambda|: \lambda \in \lambda(G)}
 $$
 
-For the SOR method, the relaxation parameter $\omega$ is generally chosen to minimise 
-$\rho(M^{-1}N)$, so that the speed of convergence is maximised. In some cases this 
-optimal $\omega$ is known, for example for finite difference discretisation of the 
+For the SOR method, the relaxation parameter $\omega$ is generally chosen to minimise
+$\rho(M^{-1}N)$, so that the speed of convergence is maximised. In some cases this
+optimal $\omega$ is known, for example for finite difference discretisation of the
 [Poisson equation](https://www.sciencedirect.com/science/article/pii/S0893965908001523).
-However, in many cases sophisticated eigenvalue analysis is required to determine the 
-optimal $\omega$. 
+However, in many cases sophisticated eigenvalue analysis is required to determine the
+optimal $\omega$.
 
 ### Other Reading
 
-- Golub, G. H. & Van Loan, C. F. Matrix Computations, 3rd Ed. (Johns Hopkins University 
-  Press, 1996). Chapter 10 
-- Barrett, R., Berry, M., Chan, T. F., Demmel, J., Donato, J., Dongarra, J., ... & Van 
-  der Vorst, H. (1994). Templates for the solution of linear systems: building blocks 
+- Golub, G. H. & Van Loan, C. F. Matrix Computations, 3rd Ed. (Johns Hopkins University
+  Press, 1996). Chapter 10
+- Barrett, R., Berry, M., Chan, T. F., Demmel, J., Donato, J., Dongarra, J., ... & Van
+  der Vorst, H. (1994). Templates for the solution of linear systems: building blocks
   for iterative methods. Society for Industrial and Applied Mathematics.
 
 ### Problems
 
-
 ::::challenge{id=2d-poisson-jacobi-relaxation title="2D Poisson Jacobi Relaxation"}
 
-This exercise involves the manipulation and solution of the linear system resulting from 
-the finite difference solution to Poisson's equation in *two* dimensions. Let $A$ be a 
-sparse symmetric positive definite matrix of dimension $(N-1)^2 \times (N-1)^2$ created 
+This exercise involves the manipulation and solution of the linear system resulting from
+the finite difference solution to Poisson's equation in *two* dimensions. Let $A$ be a
+sparse symmetric positive definite matrix of dimension $(N-1)^2 \times (N-1)^2$ created
 using `scipy.sparse` (for a given $N$) by the function
 `buildA` as follows:
+
 ```python
 import numpy as np
 import scipy.sparse as sp
@@ -170,12 +169,12 @@ We will consider manipulation of the matrix $A$ and solution of the linear
 systems $A\mathbf{U}_i=\mathbf{f}_i$. The solution to this linear system
 corresponds to a finite difference solution to Poisson's equation $-\nabla^2 u
 = f$ on the unit square with zero Dirichlet boundary conditions where $f$ is
-either $\sin(\pi x) \sin (\pi y)$ or $\max(x,1-x) \max(y,1-y)$. PDEs of this type occur 
+either $\sin(\pi x) \sin (\pi y)$ or $\max(x,1-x) \max(y,1-y)$. PDEs of this type occur
 (usually with some additional reaction and or convection terms) very frequently
 in mathematical modelling of physiological processes, and even in image
-analysis. 
+analysis.
 
-1. Write a function to solve a linear system using the Jacobi method. In
+- Write a function to solve a linear system using the Jacobi method. In
   terms of $N$, how many iterations does it take to converge? (Try
   $N=4,8,16,32,64$.)
 
@@ -225,18 +224,19 @@ plt.xlabel('N')
 plt.ylabel('iterations')
 plt.show()
 ```
+
 :::
 ::::
 
 ::::challenge{id=2d-poisson-sor-relaxation title="2D Poisson SOR Relaxation"}
 
-2. Write a function to solve a linear system using the SOR method. For
-  $N=64$ and right-hand-side $\mathbf{f}_2$ determine numerically the best
-  choice of the relaxation parameter to 2 decimal places  and compare this
-  with theory. Hint, use 
-  [`scipy.optimize.minimize_scalar`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize_scalar.html#scipy.optimize.minimize_scalar).
+- Write a function to solve a linear system using the SOR method.
+  For $N=64$ and right-hand-side $\mathbf{f}_2$ determine numerically the best choice of the relaxation parameter t2 decimal places and compare this with theory.
+  Hint, use
+    [`scipy.optimize.minimize_scalar`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize_scalar.html#scipy.optimize.minimize_scalar)
 
 :::solution
+
 ```python
 def SOR(A, b, omega, x0=None, tol=1e-5, max_iter=300):
     if x0 is None:
@@ -270,5 +270,6 @@ def SOR_iterations(omega):
 res = scipy.optimize.minimize_scalar(SOR_iterations, bracket=[0.1, 1.0, 1.99], tol=1e-2)
 print('ideal omega is', res.x, 'versus analytic value of', 2 / (1 + np.sin(np.pi/N)))
 ```
+
 :::
 ::::
