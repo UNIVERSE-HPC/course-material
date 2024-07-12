@@ -4,6 +4,11 @@ dependsOn: [
     technology_and_tooling.bash_shell.01-intro
 ]
 tags: [bash]
+learningOutcomes:
+  - Translate an absolute path into a relative path and vice versa.
+  - Construct absolute and relative paths that identify specific files and directories.
+  - Use options and arguments to change the behaviour of a shell command.
+  - Demonstrate the use of tab completion and explain its advantages.
 attribution:
 - citation: >
       This material was originally taken from training materials developed by the

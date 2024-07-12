@@ -4,6 +4,12 @@ dependsOn: [
   software_project_management.continuous_integration.github_actions
 ]
 tags: [codecov, github]
+learningOutcomes:
+  - Describe the types of code coverage.
+  - List the benefits of code coverage.
+  - Add and configure use of code coverage tool to our software project.
+  - Run a code coverage tool to understand how much of our code is being tested using unit tests.
+  - Configure GitHub Actions to automate the process of code coverage analysis over a code repository.
 attribution: 
     - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
       url: https://www.sabsr3.ox.ac.uk

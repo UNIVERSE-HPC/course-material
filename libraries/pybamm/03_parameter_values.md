@@ -80,8 +80,8 @@ If you use suitable parameter values, the simulation will run, but the results w
 ```python
 parameter_values.update({
     "Outer SEI solvent diffusivity [m2.s-1]": 1.25e-20,
-    "Lithium plating kinetic rate constant [m.s-1]: 1e-8,
-    "Dead lithium decay constant [s-1]: 4e-6,
+    "Lithium plating kinetic rate constant [m.s-1]": 1e-8,
+    "Dead lithium decay constant [s-1]": 4e-6,
     "Negative electrode cracking rate": 1.95e-18,
     "Negative electrode LAM constant proportional term [s-1]": 5.5556e-6,
     "Positive electrode LAM constant proportional term [s-1]": 5.5556e-6,

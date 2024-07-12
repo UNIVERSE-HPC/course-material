@@ -4,6 +4,9 @@ dependsOn: [
     technology_and_tooling.version_control.06-remote
 ]
 tags: [git]
+learningOutcomes:
+  - Describe the use of branching in version control.
+  - Use git branch and git merge commands effectively.
 attribution:
 - citation: >
       This material was originally taken from training materials developed by the

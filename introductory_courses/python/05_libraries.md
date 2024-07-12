@@ -222,7 +222,7 @@ Importing the math module (`import math`)
 2. Rewrite the program so that it uses `import` *without* `as`.
 3. Which form do you find easier to read?
 
-``` python
+``` python nolint
 import math as m
 angle = ____.degrees(____.pi / 2)
 print(____)
@@ -294,7 +294,7 @@ convey this information.
 2. Do you find this version easier to read than preceding ones?
 3. Why *wouldn't* programmers always use this form of `import`?
 
-``` python
+``` python nolint
 ____ math import ____, ____
 angle = degrees(pi / 2)
 print(angle)
@@ -302,7 +302,7 @@ print(angle)
 
 :::solution
 
-```python
+``` python
 from math import degrees, pi
 angle = degrees(pi / 2)
 print(angle)

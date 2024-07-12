@@ -4,6 +4,9 @@ dependsOn: [
     technology_and_tooling.version_control.07-branches
 ]
 tags: [git]
+learningOutcomes:
+  - Use a .gitignore file to exclude specific files from version control.
+  - Explain the importance and benefits of using .gitignore files.
 attribution:
 - citation: >
       This material was originally taken from training materials developed by the

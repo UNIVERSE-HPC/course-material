@@ -4,6 +4,9 @@ dependsOn: [
   high_performance_computing.hpc_intro.04_scheduler
 ]
 tags: [ARC]
+learningOutcomes:
+  - Load and use a software package.
+  - Explain how the shell environment changes when the module mechanism loads or unloads packages.
 attribution: 
     - citation: >
         "Introduction to High-Performance Computing" course by the HPC-carpentries

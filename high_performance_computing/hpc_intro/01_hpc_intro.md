@@ -2,6 +2,9 @@
 name: Why Use a Cluster?
 dependsOn: []
 tags: []
+learningOutcomes:
+  - Describe what an HPC system is.
+  - Identify how an HPC system could benefit you.
 attribution: 
     - citation: >
         "Introduction to High-Performance Computing" course by the HPC-carpentries

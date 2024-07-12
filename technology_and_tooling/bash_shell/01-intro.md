@@ -3,6 +3,8 @@ name: Introducing the Shell
 dependsOn: [
 ]
 tags: [bash]
+learningOutcomes:
+  - Describe the benefits of using the shell over other styles of interface.
 attribution:
 - citation: >
       This material was originally taken from training materials developed by the

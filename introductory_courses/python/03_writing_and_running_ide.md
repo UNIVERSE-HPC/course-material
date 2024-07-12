@@ -51,7 +51,7 @@ print("Variable 'varstr' is a", type(varstr))
 
 Press the triangular `Play` button in the top right, and you should see the following output:
 
-~~~ python
+~~~ text
 hello world
 Variable 'varint' is a <class 'int'>
 Variable 'varstr' is a <class 'str'>

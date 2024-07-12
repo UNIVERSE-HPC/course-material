@@ -4,6 +4,11 @@ dependsOn: [
     technology_and_tooling.bash_shell.05-script
 ]
 tags: [bash]
+learningOutcomes:
+  - Write a loop that applies one or more commands separately to each file in a set of files.
+  - Trace the values taken on by a loop variable during execution of the loop.
+  - Explain the difference between the name and the value of a variable.
+  - Re-run recently executed commands without retyping them.
 attribution:
 - citation: >
       This material was originally taken from training materials developed by the

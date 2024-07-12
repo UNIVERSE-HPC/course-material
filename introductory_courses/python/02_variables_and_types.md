@@ -175,7 +175,7 @@ However, code is supposed to be read by other humans:
 ::::challenge{id="swapping_values" title="Swapping Values"}
 Fill the table showing the values of the variables in this program *after* each statement is executed.
 
-``` python
+``` text
 # Command  # Value of x   # Value of y   # Value of swap #
 x = 1.0    #              #              #               #
 y = 3.0    #              #              #               #
@@ -258,7 +258,7 @@ We can use the built-in function `type` to find out what type a value has, this 
 print(type(52))
 ```
 
-``` python
+``` text
 <class 'int'>
 ```
 
@@ -267,7 +267,7 @@ fitness = 'average'
 print(type(fitness))
 ```
 
-``` python
+``` text
 <class 'str'>
 ```
 
@@ -287,7 +287,7 @@ print(5 - 3)
 print('hello' - 'h')
 ```
 
-``` python
+``` text
 ---------------------------------------------------------------------------
 TypeError                                 Traceback (most recent call last)
 <ipython-input-2-67f5626a1e07> in <module>()
@@ -305,7 +305,7 @@ full_name = 'Ahmed' + ' ' + 'Walsh'
 print(full_name)
 ```
 
-``` python
+``` text
 Ahmed Walsh
 ```
 
@@ -316,7 +316,7 @@ separator = '=' * 10
 print(separator)
 ```
 
-``` python
+``` text
 ==========
 ```
 
@@ -338,7 +338,7 @@ But numbers don't have a length (not even zero).
 print(len(52))
 ```
 
-``` python
+``` text
 ---------------------------------------------------------------------------
 TypeError                                 Traceback (most recent call last)
 <ipython-input-3-f769e8e8097d> in <module>()
@@ -355,7 +355,7 @@ Cannot add numbers and strings.
 print(1 + '2')
 ```
 
-``` python
+``` text
 ---------------------------------------------------------------------------
 TypeError                                 Traceback (most recent call last)
 <ipython-input-4-fe4f54a023c6> in <module>()
@@ -371,7 +371,7 @@ print(1 + int('2'))
 print(str(1) + '2')
 ```
 
-```python
+``` text
 3
 12
 ```
@@ -385,7 +385,7 @@ print('half is', 1 / 2.0)
 print('three squared is', 3.0 ** 2)
 ```
 
-``` python
+``` text
 half is 0.5
 three squared is 9.0
 ```
@@ -418,7 +418,7 @@ result = 3.25 + 4
 print(result, 'is', type(result))
 ```
 
-``` python
+``` text
 7.25 is <class 'float'>
 ```
 
@@ -459,7 +459,7 @@ print('5 / 3:', 5 / 3)
 print('5 % 3:', 5 % 3)
 ```
 
-``` python
+``` text
 5 // 3: 1
 5 / 3: 1.6666666666666667
 5 % 3: 2

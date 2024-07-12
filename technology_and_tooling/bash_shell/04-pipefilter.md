@@ -4,6 +4,12 @@ dependsOn: [
     technology_and_tooling.bash_shell.03-create
 ]
 tags: [bash]
+learningOutcomes:
+  - Explain the advantage of linking commands with pipes and filters.
+  - Combine sequences of commands to get new output.
+  - Redirect a command’s output to a file.
+  - Briefly describe how pipes channel input and output between piped commands.
+  - Explain what usually happens if a program or pipeline isn’t given any input to process.
 attribution:
 - citation: >
       This material was originally taken from training materials developed by the

@@ -4,6 +4,10 @@ dependsOn: [
     technology_and_tooling.bash_shell.02-filedir
 ]
 tags: [bash]
+learningOutcomes:
+  - Create a directory hierarchy that matches a given diagram.
+  - Create files in that hierarchy using an editor or by copying and renaming existing files.
+  - Delete, copy and move specified files and/or directories.
 attribution:
 - citation: >
       This material was originally taken from training materials developed by the

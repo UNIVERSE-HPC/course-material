@@ -4,6 +4,10 @@ dependsOn: [
     technology_and_tooling.version_control.04-changes
 ]
 tags: [git]
+learningOutcomes:
+  - Identify and use Git revision numbers.
+  - Analyse files by comparing them with previous versions.
+  - Describe the process of restoring previous versions of files.
 attribution:
 - citation: >
       This material was originally taken from training materials developed by the

@@ -193,24 +193,24 @@ Here, syntax refers to the structure of a program and the rules about that struc
 
 * Python won't even try to run the program if it can't be parsed.
 
-``` python
+``` python nolint
 # Forgot to close the quote marks around the string.
 name = 'Feng
 ```
 
-```text
+``` text
   File "<ipython-input-56-f42768451d55>", line 2
     name = 'Feng
                 ^
 SyntaxError: EOL while scanning string literal
 ```
 
-``` python
+``` python nolint
 # An extra '=' in the assignment.
 age = = 52
 ```
 
-```text
+``` text
   File "<ipython-input-57-ccc3df3cf902>", line 2
     age = = 52
           ^
@@ -219,7 +219,7 @@ SyntaxError: invalid syntax
 
 * Look more closely at the error message:
 
-``` python
+``` python nolint
 print("hello world"
 ```
 
@@ -243,7 +243,7 @@ We can make use of "linting" tools (such as those built in to our IDEs) which ar
 Python reports a `runtime error` when something goes wrong while a program is executing.
 A runtime error is also called an `exception` because it usually indicates that something exceptional (and bad), outside the bounds of the programs normal operations has happened.
 
-``` python
+``` python nolint
 age = 53
 remaining = 100 - aege # mis-spelled 'age'
 ```

@@ -4,6 +4,10 @@ dependsOn: [
     technology_and_tooling.version_control.02-setup
 ]
 tags: [git]
+learningOutcomes:
+  - Create a repository from a template.
+  - Clone and use a Git repository.
+  - Demonstrate the process of cloning and using a Git repository.
 attribution:
 - citation: >
       This material was originally taken from training materials developed by the

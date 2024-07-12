@@ -5,6 +5,11 @@ dependsOn: [
   technology_and_tooling.testing.scaling_up
 ]
 tags: [pytest]
+learningOutcomes:
+  - Use a debugger to explore behaviour of a running program.
+  - Describe and identify edge and corner test cases and explain why they are important.
+  - Apply error handling and defensive programming techniques to improve robustness of a program.
+  - Integrate linting tool style checking into a continuous integration job.
 attribution: 
     - citation: >
         "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"

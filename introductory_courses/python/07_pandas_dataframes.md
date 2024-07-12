@@ -34,7 +34,7 @@ data = pd.read_csv('data/gapminder_gdp_oceania.csv')
 print(data)
 ```
 
-```text
+``` text
        country  gdpPercap_1952  gdpPercap_1957  gdpPercap_1962  \
 0    Australia     10039.59564     10949.64959     12217.22686
 1  New Zealand     10556.57566     12247.39532     13175.67800
@@ -66,7 +66,7 @@ or if you include it but your copy of the file is somewhere else,
 you will get a runtime error
 that ends with a line like this:
 
-```text
+``` text
 FileNotFoundError: [Errno 2] No such file or directory: 'data/gapminder_gdp_oceania.csv'
 ```
 
@@ -83,7 +83,7 @@ data = pd.read_csv('data/gapminder_gdp_oceania.csv', index_col='country')
 print(data)
 ```
 
-```text
+``` text
              gdpPercap_1952  gdpPercap_1957  gdpPercap_1962  gdpPercap_1967  \
 country
 Australia       10039.59564     10949.64959     12217.22686     14526.12465
@@ -106,7 +106,7 @@ New Zealand     18363.32494     21050.41377     23189.80135     25185.00911
 data.info()
 ```
 
-```text
+``` text
 <class 'pandas.core.frame.DataFrame'>
 Index: 2 entries, Australia to New Zealand
 Data columns (total 12 columns):
@@ -143,7 +143,7 @@ memory usage: 208.0+ bytes
 print(data.columns)
 ```
 
-```text
+``` text
 Index(['gdpPercap_1952', 'gdpPercap_1957', 'gdpPercap_1962', 'gdpPercap_1967',
        'gdpPercap_1972', 'gdpPercap_1977', 'gdpPercap_1982', 'gdpPercap_1987',
        'gdpPercap_1992', 'gdpPercap_1997', 'gdpPercap_2002', 'gdpPercap_2007'],
@@ -160,7 +160,7 @@ Index(['gdpPercap_1952', 'gdpPercap_1957', 'gdpPercap_1962', 'gdpPercap_1967',
 print(data.T)
 ```
 
-```text
+``` text
 country           Australia  New Zealand
 gdpPercap_1952  10039.59564  10556.57566
 gdpPercap_1957  10949.64959  12247.39532
@@ -185,7 +185,7 @@ All other columns are ignored, unless you use the argument `include='all'`.
 print(data.describe())
 ```
 
-```text
+``` text
        gdpPercap_1952  gdpPercap_1957  gdpPercap_1962  gdpPercap_1967  \
 count        2.000000        2.000000        2.000000        2.000000
 mean     10298.085650    11598.522455    12696.452430    14495.021790
@@ -261,7 +261,7 @@ to find out what `DataFrame.head` and `DataFrame.tail` do.
    americas.head(n=3)
    ```
 
-   ```text
+   ``` text
              continent  gdpPercap_1952  gdpPercap_1957  gdpPercap_1962  \
    country
    Argentina  Americas     5911.315053     6856.856212     7133.166023
@@ -303,7 +303,7 @@ to find out what `DataFrame.head` and `DataFrame.tail` do.
    americas_flipped.tail(n=3)
    ```
 
-   ```text
+   ``` text
    country        Argentina  Bolivia   Brazil   Canada    Chile Colombia  \
    gdpPercap_1997   10967.3  3326.14  7957.98  28954.9  10118.1  6117.36
    gdpPercap_2002   8797.64  3413.26  8131.21    33329  10778.8  5755.26
@@ -348,7 +348,7 @@ which is located in a folder called `field_data`.
 You are doing analysis in a notebook called `analysis.ipynb`
 in a sibling folder called `thesis`:
 
-```text
+``` text
 your_home_directory
 +-- field_data/
 |   +-- microbes.csv
@@ -426,7 +426,7 @@ data = pd.read_csv('data/gapminder_gdp_europe.csv', index_col='country')
 print(data.iloc[0, 0])
 ```
 
-```text
+``` text
 1601.056136
 ```
 
@@ -438,7 +438,7 @@ print(data.iloc[0, 0])
 print(data.loc["Albania", "gdpPercap_1952"])
 ```
 
-```text
+``` text
 1601.056136
 ```
 
@@ -450,7 +450,7 @@ print(data.loc["Albania", "gdpPercap_1952"])
 print(data.loc["Albania", :])
 ```
 
-```text
+``` text
 gdpPercap_1952    1601.056136
 gdpPercap_1957    1942.284244
 gdpPercap_1962    2312.888958
@@ -472,7 +472,7 @@ Name: Albania, dtype: float64
 print(data.loc[:, "gdpPercap_1952"])
 ```
 
-```text
+``` text
 country
 Albania                    1601.056136
 Austria                    6137.076492
@@ -493,7 +493,7 @@ Name: gdpPercap_1952, dtype: float64
 print(data.loc['Italy':'Poland', 'gdpPercap_1962':'gdpPercap_1972'])
 ```
 
-```text
+``` text
              gdpPercap_1962  gdpPercap_1967  gdpPercap_1972
 country
 Italy           8243.582340    10022.401310    12269.273780
@@ -518,7 +518,7 @@ everything up to but not including the final index.
 print(data.loc['Italy':'Poland', 'gdpPercap_1962':'gdpPercap_1972'].max())
 ```
 
-```text
+``` text
 gdpPercap_1962    13450.40151
 gdpPercap_1967    16361.87647
 gdpPercap_1972    18965.05551
@@ -529,7 +529,7 @@ dtype: float64
 print(data.loc['Italy':'Poland', 'gdpPercap_1962':'gdpPercap_1972'].min())
 ```
 
-```text
+``` text
 gdpPercap_1962    4649.593785
 gdpPercap_1967    5907.850937
 gdpPercap_1972    7778.414017
@@ -550,7 +550,7 @@ print('Subset of data:\n', subset)
 print('\nWhere are values large?\n', subset > 10000)
 ```
 
-```text
+``` text
 Subset of data:
              gdpPercap_1962  gdpPercap_1967  gdpPercap_1972
 country
@@ -579,7 +579,7 @@ mask = subset > 10000
 print(subset[mask])
 ```
 
-```text
+``` text
              gdpPercap_1962  gdpPercap_1967  gdpPercap_1972
 country
 Italy                   NaN     10022.40131     12269.27378
@@ -596,7 +596,7 @@ Poland                  NaN             NaN             NaN
 print(subset[subset > 10000].describe())
 ```
 
-```text
+``` text
        gdpPercap_1962  gdpPercap_1967  gdpPercap_1972
 count        2.000000        3.000000        3.000000
 mean     13120.625535    13915.843047    16676.358320
@@ -622,12 +622,12 @@ split themselves according to their GDP.
     where we account how many times a country has participated in the groups of *lower* or *higher* GDP
 
 ``` python
-mask_higher = data data.mean()
+mask_higher = data > data.mean()
 wealth_score = mask_higher.aggregate('sum', axis=1) / len(data.columns)
 wealth_score
 ```
 
-```text
+``` text
 country
 Albania                   0.000000
 Austria                   1.000000
@@ -669,7 +669,7 @@ across the years surveyed using chained methods:
 data.groupby(wealth_score).sum()
 ```
 
-```text
+``` text
           gdpPercap_1952  gdpPercap_1957  gdpPercap_1962  gdpPercap_1967  \
 0.000000    36916.854200    46110.918793    56850.065437    71324.848786   
 0.333333    16790.046878    20942.456800    25744.935321    33567.667670   
@@ -710,11 +710,10 @@ print(df.loc['Serbia', 'gdpPercap_2007'])
 
 The output is
 
-```text
+``` text
 9786.534714
 ```
 
->{: .output}
 :::
 ::::
 
@@ -732,17 +731,16 @@ print(df.loc['Albania':'Belgium', 'gdpPercap_1952':'gdpPercap_1962'])
 :::solution
 No, they do not produce the same output! The output of the first statement is:
 
-```text
+``` text
         gdpPercap_1952  gdpPercap_1957
 country                                
 Albania     1601.056136     1942.284244
 Austria     6137.076492     8842.598030
 ```
 
->{: .output}
 The second statement gives:
 
-```text
+``` text
         gdpPercap_1952  gdpPercap_1957  gdpPercap_1962
 country                                                
 Albania     1601.056136     1942.284244     2312.888958
@@ -750,7 +748,6 @@ Austria     6137.076492     8842.598030    10750.721110
 Belgium     8343.105127     9714.960623    10991.206760
 ```
 
->{: .output}
 Clearly, the second statement produces an additional column and an additional row compared to the first statement.  
 What conclusion can we draw? We see that a numerical slice, 0:2, *omits* the final index (i.e. index 2)
 in the range provided,
@@ -888,7 +885,7 @@ dir(myString)
 
 This command returns:
 
-``` python
+``` text
 ['__add__',
 ...
 '__subclasshook__',
