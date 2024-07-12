@@ -4,6 +4,10 @@ dependsOn: [
     software_architecture_and_design.object_orientated.classes,
 ]
 tags: [python]
+learningOutcomes:
+  - Define composition in relation to a class.
+  - Define inhertitance in relation to a class.
+  - Explain the different between composition and inheritance.
 attribution: 
     - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
       url: https://www.sabsr3.ox.ac.uk
