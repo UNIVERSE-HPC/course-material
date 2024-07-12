@@ -46,7 +46,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run Python Markdown
-        uses: alasdairwilson/run-py-markdown@main
+      - name: Lint Python Code Blocks in Markdown
+        uses: ./.github/actions/run-py-markdown
         with:
-          directory: . # Set the directory you want to scan for Markdown files
+          directory: .
