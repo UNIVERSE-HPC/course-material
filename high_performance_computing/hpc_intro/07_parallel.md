@@ -4,6 +4,12 @@ dependsOn: [
   high_performance_computing.hpc_intro.06_transferring_files
 ]
 tags: [slurm]
+learningOutcomes:
+  - Install a Python package using pip.
+  - Prepare a job submission script for the parallel executable.
+  - Launch jobs with parallel execution.
+  - Record and summarize the timing and accuracy of jobs.
+  - Describe the relationship between job parallelism and performance.
 attribution: 
     - citation: >
         "Introduction to High-Performance Computing" course by the HPC-carpentries

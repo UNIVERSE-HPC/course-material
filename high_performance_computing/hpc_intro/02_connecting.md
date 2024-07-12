@@ -4,6 +4,9 @@ dependsOn: [
   high_performance_computing.hpc_intro.01_hpc_intro
 ]
 tags: [ssh]
+learningOutcomes:
+  - Configure secure access to a remote HPC system.
+  - Connect to a remote HPC system.
 attribution: 
     - citation: >
         "Introduction to High-Performance Computing" course by the HPC-carpentries
