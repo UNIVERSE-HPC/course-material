@@ -143,7 +143,7 @@ result of call is: None
 3. Fix the error.
 4. Repeat steps 2 and 3 until you have fixed all the errors.
 
-``` python
+``` python nolint
 def another_function
   print("Syntax errors are annoying.")
    print("But at least python tells us about them!")

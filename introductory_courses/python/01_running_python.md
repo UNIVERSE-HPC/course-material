@@ -76,13 +76,13 @@ Type the lines preceded by `>>>` or `...` and hit ENTER between each one.
 
 Try to guess what these little snippets of Python do, but don't try to understand the details of them yet - it will be clear to you by the end of this course.
 
-``` python
+``` python nolint
 >>> 1 + 6
 
 7
 ```
 
-``` python
+``` python nolint
 >>> a = 2
 >>> b = 3
 >>> a + b
@@ -90,20 +90,20 @@ Try to guess what these little snippets of Python do, but don't try to understan
 5
 ```
 
-``` python
+``` python nolint
 >>> print("Just printing this on the screen")
 
 Just printing this on the screen
 ```
 
-``` python
+``` python nolint
 >>> word = "Hello"
 >>> len(word)
 
 5
 ```
 
-``` python
+``` python nolint
 >>> for word in ["Leeds", "Munich", "Marseille"]:
 ...   print("City name has", len(word), "letters in it.")
 ...
@@ -113,7 +113,7 @@ City name has 6 letters in it.
 City name has 9 letters in it.
 ```
 
-``` python
+``` python nolint
 >>> for word in ["London", 3, "Marseille"]:
 ...   print("City name has", len(word), "letters in it.")
 ... 
@@ -127,7 +127,7 @@ TypeError: object of type 'int' has no len()
 
 You can quit Python by typing:
 
-``` python
+``` python nolint
 >>> quit()
 ```
 

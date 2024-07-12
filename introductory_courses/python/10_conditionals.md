@@ -22,11 +22,11 @@ attribution:
 
 ``` python
 mass = 3.54
-if mass 3.0:
+if mass > 3.0:
     print(mass, 'is large')
 
 mass = 2.07
-if mass 3.0:
+if mass > 3.0:
     print(mass, 'is large')
 ```
 
@@ -42,7 +42,7 @@ if mass 3.0:
 ``` python
 masses = [3.54, 2.07, 9.22, 1.86, 1.71]
 for m in masses:
-    if m 3.0:
+    if m > 3.0:
         print(m, 'is large')
 ```
 
@@ -59,7 +59,7 @@ for m in masses:
 ``` python
 masses = [3.54, 2.07, 9.22, 1.86, 1.71]
 for m in masses:
-    if m 3.0:
+    if m > 3.0:
         print(m, 'is large')
     else:
         print(m, 'is small')
@@ -83,9 +83,9 @@ for m in masses:
 ``` python
 masses = [3.54, 2.07, 9.22, 1.86, 1.71]
 for m in masses:
-    if m 9.0:
+    if m > 9.0:
         print(m, 'is HUGE')
-    elif m 3.0:
+    elif m > 3.0:
         print(m, 'is large')
     else:
         print(m, 'is small')
@@ -122,7 +122,7 @@ grade is C
 
 ``` python
 velocity = 10.0
-if velocity 20.0:
+if velocity > 20.0:
     print('moving too fast')
 else:
     print('adjusting velocity')
@@ -139,7 +139,7 @@ adjusting velocity
 velocity = 10.0
 for i in range(5): # execute the loop 5 times
     print(i, ':', velocity)
-    if velocity 20.0:
+    if velocity > 20.0:
         print('moving too fast')
         velocity = velocity - 5.0
     else:
@@ -174,9 +174,9 @@ velocity = [10.00, 20.00, 30.00, 25.00, 20.00]
 
 i = 0
 for i in range(5):
-    if mass[i] 5 and velocity[i] 20:
+    if mass[i] > 5 and velocity[i] > 20:
         print("Fast heavy object.  Duck!")
-    elif mass[i] 2 and mass[i] <= 5 and velocity[i] <= 20:
+    elif mass[i] > 2 and mass[i] <= 5 and velocity[i] <= 20:
         print("Normal traffic")
     elif mass[i] <= 2 and velocity[i] <= 20:
         print("Slow light object.  Ignore it")
@@ -188,19 +188,21 @@ Just like with arithmetic, you can and should use parentheses whenever there
 is possible ambiguity.  A good general rule is to *always* use parentheses
 when mixing `and` and `or` in the same condition.  That is, instead of:
 
-``` python
-if mass[i] <= 2 or mass[i] >= 5 and velocity[i] 20:
+``` python nolint
+if mass[i] <= 2 or mass[i] >= 5 and velocity[i] > 20:
 ```
 
 write one of these:
 
-``` python
-if (mass[i] <= 2 or mass[i] >= 5) and velocity[i] 20:
-if mass[i] <= 2 or (mass[i] >= 5 and velocity[i] 20):
+``` python nolint
+if (mass[i] <= 2 or mass[i] >= 5) and velocity[i] > 20:
+```
+
+``` python nolint
+if mass[i] <= 2 or (mass[i] >= 5 and velocity[i] > 20):
 ```
 
 so it is perfectly clear to a reader (and to Python) what you really mean.
-{: .callout}
 
 ::::challenge{id="tracing_execution" title="Tracing Execution"}
 
@@ -208,7 +210,7 @@ What does this program print?
 
 ``` python
 pressure = 71.9
-if pressure 50.0:
+if pressure > 50.0:
     pressure = 25.0
 elif pressure <= 50.0:
     pressure = 0.0
@@ -265,7 +267,7 @@ print(result)
 
 Modify this program so that it only processes files with fewer than 50 records.
 
-``` python
+``` python nolint
 import glob
 import pandas as pd
 for filename in glob.glob('data/*.csv'):
@@ -293,7 +295,7 @@ for filename in glob.glob('data/*.csv'):
 Modify this program so that it finds the largest and smallest values in the list
 no matter what the range of values originally is.
 
-``` python
+``` python nolint
 values = [...some test data...]
 smallest, largest = None, None
 for v in values:
@@ -330,7 +332,7 @@ smallest, largest = None, None
 for v in values:
     if smallest == None or v < smallest:
         smallest = v
-    if largest == None or v largest:
+    if largest == None or v > largest:
         largest = v
 print(smallest, largest)
 ```
