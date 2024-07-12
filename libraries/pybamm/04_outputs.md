@@ -187,7 +187,7 @@ path = "/mnt/c/Users/sokane/pybamm_data/"
 sol.save_data(
     path + "tIVQ.csv",
     ["Time [s]", "Current [A]", "Voltage [V]", "Discharge capacity [A.h]"],
-    to_format="csv
+    to_format="csv"
 )
 ```
 
