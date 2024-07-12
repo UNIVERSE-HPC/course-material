@@ -4,6 +4,12 @@ dependsOn: [
   high_performance_computing.hpc_intro.02_connecting
 ]
 tags: [ARC]
+learningOutcomes:
+  - Survey system resources using nproc, free, and the queuing system.
+  - Compare & contrast resources on the local machine, login node, and worker nodes.
+  - Learn about the various filesystems on the cluster using df.
+  - Find out who else is logged in.
+  - Assess the number of idle and occupied nodes.
 attribution: 
     - citation: >
         "Introduction to High-Performance Computing" course by the HPC-carpentries

@@ -5,6 +5,9 @@ dependsOn: [
   technology_and_tooling.testing.automated_testing
 ]
 tags: [pytest]
+learningOutcomes:
+  - Use parameterisation to automatically run tests over a set of inputs.
+  - Use code coverage to understand how much of our code is being tested using unit tests.
 attribution: 
     - citation: >
         "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"

@@ -3,6 +3,12 @@ name: GitHub Actions
 dependsOn: [
 ]
 tags: [github]
+learningOutcomes:
+  - Describe the structure and steps of a basic GitHub Actions workflow.
+  - Build a basic workflow and run it on GitHub.
+  - Create a workflow for a Python program to run a static code analysis tool and unit tests over the codebase.
+  - Diagnose and fix a workflow fault.
+  - Parameterise the running of a workflow over multiple operating systems.
 attribution: 
     - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
       url: https://www.sabsr3.ox.ac.uk

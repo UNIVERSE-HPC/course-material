@@ -4,6 +4,12 @@ dependsOn: [
   software_project_management.collaboration.issues
 ]
 tags: [github]
+learningOutcomes:
+  - Describe commonly used code review techniques.
+  - Describe how code reviews and pull requests can be used within teams to increase communication and improve code.
+  - Raise a pull request via GitHub to be reviewed by others.
+  - Conduct and submit a code review of a pull request.
+  - List the characteristics of what makes a good code review process.
 attribution: 
     - citation: >
         "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"

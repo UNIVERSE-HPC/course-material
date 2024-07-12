@@ -4,6 +4,9 @@ dependsOn: [
     technology_and_tooling.version_control.05-history
 ]
 tags: [git]
+learningOutcomes:
+  - Apply git push and git pull.
+  - Resolve conflicts encountered during remote repository operations.
 attribution:
 - citation: >
       This material was originally taken from training materials developed by the

@@ -4,6 +4,11 @@ dependsOn: [
   software_project_management.collaboration.refresher
 ]
 tags: [github]
+learningOutcomes:
+  - Understand what issues are and why they are useful.
+  - Create an issue on GitHub.
+  - Classify an issue depending on its purpose.
+  - Refer to colleagues or yourself in aspects related to issues.
 attribution: 
     - citation: >
         "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"

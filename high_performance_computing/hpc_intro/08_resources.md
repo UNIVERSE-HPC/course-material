@@ -4,6 +4,9 @@ dependsOn: [
   high_performance_computing.hpc_intro.07_parallel
 ]
 tags: [slurm]
+learningOutcomes:
+  - Look up job statistics.
+  - Make more accurate resource requests in job scripts based on data describing past performance.
 attribution: 
     - citation: >
         "Introduction to High-Performance Computing" course by the HPC-carpentries

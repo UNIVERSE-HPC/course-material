@@ -3,6 +3,11 @@ name: Understanding Code Scalability
 dependsOn: [
 ]
 tags: [optimisation]
+learningOutcomes:
+  - Describe why code scalability is important when using HPC resources.
+  - Explain the difference between wall time and CPU time.
+  - Describe the differences between strong and weak scaling.
+  - Summarise the dangers of premature optimisation.
 ---
 
 When we submit a job to a cluster that runs our code, we have the option of specifying the number of CPUs (and in some cases GPUs) that will be allocated to the job. We need to consider to what extent that code is *scalable* with regards to how it uses these resources, to avoid the risk of consuming more resources than can be effectively used. As part of the application process for having new code installed on DiRAC, its scalability characteristics need to be measured. This helps inform how best to assign CPU resources when configuring jobs to run with that code.

@@ -4,6 +4,11 @@ dependsOn: [
   high_performance_computing.hpc_intro.03_cluster
 ]
 tags: [slurm, ARC]
+learningOutcomes:
+  - Submit a simple script to the cluster.
+  - Monitor the execution of jobs using command line tools.
+  - Inspect the output and error files of your jobs.
+  - Find the right place to put large datasets on the cluster.
 attribution: 
     - citation: >
         "Introduction to High-Performance Computing" course by the HPC-carpentries

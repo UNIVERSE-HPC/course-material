@@ -4,6 +4,11 @@ dependsOn: [
   high_performance_computing.hpc_scalability_profiling.01_understanding_scalability
 ]
 tags: [profiling]
+learningOutcomes:
+  - Explain how Amdahl’s Law can help us understand the scalability of code.
+  - Use Amdahl’s Law to predict the theoretical maximum speedup on some example code when using multiple processors.
+  - Understand strong and weak scaling graphs for some example code.
+  - Describe the graphing characteristics of good and bad scalability.
 ---
 
 Let's now look at how we can determine the scalability characteristics for our example π code.

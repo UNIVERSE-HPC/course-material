@@ -4,6 +4,10 @@ dependsOn: [
     technology_and_tooling.version_control.01-background
 ]
 tags: [git]
+learningOutcomes:
+  - Demonstrate the process of configuring Git for the first time on a computer.
+  - Describe the -global configuration flag.
+  - Apply adding an SSH key to a GitHub account.
 attribution:
 - citation: >
       This material was originally taken from training materials developed by the

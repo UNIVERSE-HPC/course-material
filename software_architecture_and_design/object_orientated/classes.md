@@ -3,6 +3,9 @@ name: Classes
 dependsOn: [
 ]
 tags: [python]
+learningOutcomes:
+  - Explain the object orientated programming paradigm.
+  - Define a class to encapsulate data.
 attribution: 
     - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
       url: https://www.sabsr3.ox.ac.uk

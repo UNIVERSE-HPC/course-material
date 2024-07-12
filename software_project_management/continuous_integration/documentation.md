@@ -3,8 +3,11 @@ name: Documentation
 dependsOn: [
   software_project_management.continuous_integration.code_coverage
 ]
-
 tags: [sphinx, readthedocs]
+learningOutcomes:
+  - List benefits of having good documentation for software.
+  - Describe the key features of the Sphinx and Read the Docs documentation and hosting tools.
+  - Use Sphinx to generate documentation for a software project.
 attribution: 
     - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
       url: https://www.sabsr3.ox.ac.uk

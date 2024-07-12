@@ -4,6 +4,9 @@ dependsOn: [
     technology_and_tooling.version_control.03-create
 ]
 tags: [git]
+learningOutcomes:
+  - Perform the modify-add-commit cycle for one or more files.
+  - Explain the storage of changes at each stage in the modify-add-commit cycle.
 attribution:
 - citation: >
       This material was originally taken from training materials developed by the

@@ -4,6 +4,8 @@ dependsOn: [
   high_performance_computing.hpc_intro.05_modules
 ]
 tags: []
+learningOutcomes:
+  - Transfer files to and from a computing cluster.
 attribution: 
     - citation: >
         "Introduction to High-Performance Computing" course by the HPC-carpentries

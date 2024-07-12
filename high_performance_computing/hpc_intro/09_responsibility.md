@@ -4,6 +4,12 @@ dependsOn: [
   high_performance_computing.hpc_intro.08_resources
 ]
 tags: [slurm]
+learningOutcomes:
+  - Describe how the actions of a single user can affect the experience of others on a shared system.
+  - Discuss the behaviour of a considerate shared system citizen.
+  - Explain the importance of backing up critical data.
+  - Describe the challenges with transferring large amounts of data off HPC systems.
+  - Convert many files to a single archive file using tar.
 attribution: 
     - citation: >
         "Introduction to High-Performance Computing" course by the HPC-carpentries

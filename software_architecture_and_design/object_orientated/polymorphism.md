@@ -4,6 +4,9 @@ dependsOn: [
     software_architecture_and_design.object_orientated.inheritance_and_composition,
 ]
 tags: [python]
+learningOutcomes:
+  - Define polymorphism.
+  - Apply polymorphism principles to class design.
 attribution: 
     - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
       url: https://www.sabsr3.ox.ac.uk

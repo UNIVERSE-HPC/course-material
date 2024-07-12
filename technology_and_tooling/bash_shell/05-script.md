@@ -4,6 +4,10 @@ dependsOn: [
     technology_and_tooling.bash_shell.04-pipefilter
 ]
 tags: [bash]
+learningOutcomes:
+  - Write a shell script that runs a command or series of commands for a fixed set of files.
+  - Run a shell script from the command line.
+  - Write a shell script that operates on a set of files defined by the user on the command line.
 attribution:
 - citation: >
       This material was originally taken from training materials developed by the

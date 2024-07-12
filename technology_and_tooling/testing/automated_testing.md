@@ -4,6 +4,10 @@ id: automated_testing
 dependsOn: [
 ]
 tags: [pytest]
+learningOutcomes:
+  - Explain the reasons why testing is important.
+  - Describe the three main types of tests and what each are used for.
+  - Implement and run unit tests to verify the correct behaviour of program functions.
 attribution: 
     - citation: >
         "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
