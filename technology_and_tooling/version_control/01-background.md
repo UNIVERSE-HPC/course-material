@@ -4,6 +4,10 @@ dependsOn: [
 technology_and_tooling.bash_shell.bash
 ]
 tags: [git]
+learningOutcomes:
+  - Describe the benefits of an automated version control system.
+  - Explain the basics of how automated version control systems work.
+
 attribution:
 - citation: >
       This material was originally taken from training materials developed by the
