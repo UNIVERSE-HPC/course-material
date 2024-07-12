@@ -42,7 +42,7 @@ Once we've imported the library, we can ask the library to read our data file fo
 numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
 ```
 
-``` python
+``` text
 array([[ 0.,  0.,  1., ...,  3.,  0.,  0.],
        [ 0.,  1.,  2., ...,  1.,  0.,  1.],
        [ 0.,  1.,  1., ...,  2.,  1.,  1.],
@@ -86,7 +86,7 @@ we can print the variable's value:
 print(data)
 ```
 
-``` python
+``` text
 [[ 0.  0.  1. ...,  3.  0.  0.]
  [ 0.  1.  2. ...,  1.  0.  1.]
  [ 0.  1.  1. ...,  2.  1.  1.]
@@ -103,7 +103,7 @@ First, let's ask what type of thing `data` refers to:
 print(type(data))
 ```
 
-``` python
+``` text
 <class 'numpy.ndarray'>
 ```
 
@@ -212,7 +212,7 @@ for the first four patients (rows) like this:
 print(data[0:4, 0:10])
 ```
 
-``` python
+``` text
 [[ 0.  0.  1.  3.  1.  2.  4.  7.  8.  3.]
  [ 0.  1.  2.  1.  2.  1.  3.  2.  2.  6.]
  [ 0.  1.  1.  3.  3.  2.  6.  2.  5.  9.]
@@ -229,7 +229,7 @@ We can start slices at any index we need,
 print(data[5:10, 0:10])
 ```
 
-``` python
+``` text
 [[ 0.  0.  1.  2.  2.  4.  2.  1.  6.  4.]
  [ 0.  0.  2.  2.  4.  2.  2.  5.  5.  8.]
  [ 0.  0.  1.  2.  3.  1.  2.  3.  5.  3.]
@@ -390,7 +390,7 @@ If we ask for the average across axis 0 (rows in our 2D example), we get:
 print(numpy.mean(data, axis=0))
 ```
 
-``` python
+``` text
 [  0.           0.45         1.11666667   1.75         2.43333333   3.15
    3.8          3.88333333   5.23333333   5.51666667   5.95         5.9
    8.35         7.73333333   8.36666667   9.5          9.58333333
@@ -526,21 +526,21 @@ We can use NumPy's `vstack` and `hstack` functions for vertical and horizontal s
 
 ``` python
 import numpy
->
+
 A = numpy.array([[1,2,3], [4,5,6], [7, 8, 9]])
 print('A = ')
 print(A)
->
+
 B = numpy.hstack([A, A])
 print('B = ')
 print(B)
->
+
 C = numpy.vstack([A, A])
 print('C = ')
 print(C)
 ```
 
-``` python
+``` text
 A =
 [[1 2 3]
  [4 5 6]
@@ -574,7 +574,7 @@ print('D = ')
 print(D)
 ```
 
-``` python
+``` text
 D =
 [[1 3]
  [4 6]
@@ -593,7 +593,7 @@ print('D = ')
 print(D)
 ```
 
-``` python
+``` text
 D =
 [[1 3]
  [4 6]
@@ -617,7 +617,7 @@ patient3_week1 = data[3, :7]
 print(patient3_week1)
 ```
 
-``` python
+``` text
  [0. 0. 2. 0. 4. 2. 2.]
 ```
 

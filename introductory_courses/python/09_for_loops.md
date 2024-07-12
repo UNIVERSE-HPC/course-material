@@ -60,7 +60,7 @@ for number in [2, 3, 5]:
 * Python uses indentation rather than `{}` or `begin`/`end` to show *nesting*.
   * Any consistent indentation is legal, but almost everyone uses four spaces.
 
-```python
+```python nolint
 for number in [2, 3, 5]:
 print(number)
 ```
@@ -71,7 +71,7 @@ IndentationError: expected an indented block
 
 * Indentation is always meaningful in Python.
 
-```python
+```python nolint
 firstName = "Jon"
   lastName = "Smith"
 ```
@@ -306,7 +306,7 @@ Reorder and properly indent the lines of code below
 so that they print a list with the cumulative sum of data.
 The result should be `[1, 3, 5, 10]`.
 
-``` python
+``` python nolint
 cumulative.append(total)
 for number in data:
 cumulative = []

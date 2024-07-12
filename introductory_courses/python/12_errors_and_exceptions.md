@@ -133,7 +133,7 @@ If Python doesn't know how to read the program,
 it will give up and inform you with an error.
 For example:
 
-``` python
+``` python nolint
 def some_function()
     msg = 'hello, world!'
     print(msg)
@@ -156,7 +156,7 @@ If we fix the problem with the colon,
 we see that there is *also* an `IndentationError`,
 which means that the lines in the function definition do not all have the same indentation:
 
-``` python
+``` python nolint
 def some_function():
     msg = 'hello, world!'
     print(msg)
@@ -187,7 +187,7 @@ If you're working in a Jupyter notebook, be sure to copy and paste this example
 rather than trying to type it in manually because Jupyter automatically replaces
 tabs with spaces.
 
-``` python
+``` python nolint
 def some_function():
  msg = 'hello, world!'
  print(msg)
@@ -475,7 +475,7 @@ to infer that `Friday` is not a key in `messages`.
 3. Fix the error.
 4. Repeat steps 2 and 3, until you have fixed all the errors.
 
-``` python
+``` python nolint
 def another_function
   print('Syntax errors are annoying.')
    print('But at least Python tells us about them!')
