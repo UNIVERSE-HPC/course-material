@@ -3,6 +3,10 @@ name: Git Refresher
 dependsOn: [
 ]
 tags: [git]
+learningOutcomes:
+  - Commit changes in a software project to a local repository and publish them in a remote repository on GitHub.
+  - Create and use branches for managing different threads of code development.
+  - Learn to use feature branch workflow to effectively collaborate with a team on a software project.
 attribution: 
     - citation: >
         "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
