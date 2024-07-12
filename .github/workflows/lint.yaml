@@ -47,6 +47,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Lint Python Code Blocks in Markdown
-        uses: ./.github/actions/run-py-markdown
+        uses: alasdairwilson/run-py-markdown@main
         with:
           directory: .

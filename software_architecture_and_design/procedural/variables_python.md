@@ -27,7 +27,7 @@ Create a new folder and open it in VSCode, e.g. on the command-line (bash or oth
 
 ```bash
 mkdir procedural
-cd procedual
+cd procedural
 code .
 ```
 
@@ -60,7 +60,7 @@ But note that shell commands won't work again until we exit the interpreter. Whi
 
 You can exit the interpreter and get back to the shell by typing:
 
-```python
+```text
 >>> exit()
 ```
 
@@ -179,7 +179,7 @@ type(number)
 
 Note we don't need to use `print` - the Python interpreter will just output the result:
 
-```python
+```text
 <class 'int'>
 ```
 
@@ -322,7 +322,7 @@ An important thing to remember, particularly in numerical analyses, is that a `f
 Draw diagrams showing what variables refer to what values after each statement
 in the following program:
 
-```text
+```python
 weight = 70.5
 age = 35
 weight = weight * 1.14
