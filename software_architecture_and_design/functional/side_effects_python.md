@@ -63,7 +63,7 @@ even be declared in a separate file and brought in via an `import`
 z = 3 
 def my_cool_function(x, y):
     x = y
-    z = z + 1;
+    z = z + 1
 
 
 y = [3, 2]
@@ -76,6 +76,7 @@ opaque, part of the current state. This includes memory allocations, and file
 IO.
 
 ```python
+import numpy as np
 x = np.zeros(1000) # do we have enough RAM available for this?
 
 myfile = open("example.txt", "w") # does this file exist? Do I have write permissions?
