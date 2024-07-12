@@ -5,8 +5,8 @@ dependsOn: [
 ]
 tags: [profiling]
 learningOutcomes:
-  - Explain how Amdahl\’s Law can help us understand the scalability of code.
-  - Use Amdahl\’s Law to predict the theoretical maximum speedup on some example code when using multiple processors.
+  - Explain how Amdahl’s Law can help us understand the scalability of code.
+  - Use Amdahl’s Law to predict the theoretical maximum speedup on some example code when using multiple processors.
   - Understand strong and weak scaling graphs for some example code.
   - Describe the graphing characteristics of good and bad scalability.
 ---
