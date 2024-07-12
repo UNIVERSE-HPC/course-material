@@ -21,6 +21,7 @@ One of the main difficulties we encounter when building more complex software is
 So far, we've been processing data from a single source and with a simple tabular structure, but it would be useful to be able to combine data from a range of different sources and with more data than just an array of numbers.
 
 ~~~ python
+import numpy as np
 data = np.array([[1., 2., 3.],
                  [4., 5., 6.]])
 ~~~

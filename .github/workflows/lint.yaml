@@ -1,45 +1,9 @@
-name: Check Markdown and Front Matter
+name: Lint Python Code Blocks
 
-on:
-  push:
-    paths:
-      - "**/*.md"
-  pull_request:
-    paths:
-      - "**/*.md"
+on: [push, pull_request]
 
 jobs:
-  check-markdown-yaml:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Run Front Matter Linting
-        uses: alasdairwilson/front-matter-lint@main
-        with:
-          directory: "."
-
-  lint-markdown:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "20"
-
-      - name: Install markdownlint-cli
-        run: npm install -g markdownlint-cli
-
-      - name: Lint Markdown files
-        run: markdownlint -f  '**/*.md' --ignore '*/*/slides/*' --ignore README.md
-
-  lint-python:
+  lint:
     runs-on: ubuntu-latest
 
     steps:

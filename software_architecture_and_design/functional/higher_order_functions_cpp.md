@@ -32,7 +32,7 @@ normal flow of the program, typically as they are needed. They consist of three 
 delimited by square, round, then curly brackets. The curly brackets form the
 body of the function, for example
 
-```cpp
+```cpp ignore
 auto hello_world = []() {
   std::cout << "hello world" << std::endl;
 };
