@@ -99,7 +99,7 @@ Again, let's use SymPy to demonstrate this:
 ```python
 x, a = sp.symbols('x a')  # declare the variables x and a
 f = sp.Function('f')      # declare a function dependent on another variable
-sp.diff(sp.log(f(x),1.,x) # write the expression we wish to evaluate
+sp.diff(sp.log(f(x),a),x) # write the expression we wish to evaluate
 ```
 
 > $$\displaystyle \frac{\frac{d}{d x} f{\left(x \right)}}{f{\left(x \right)} \log{\left(a \right)}}$$

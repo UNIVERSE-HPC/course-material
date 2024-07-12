@@ -24,7 +24,7 @@ The goal of this lesson will be to convert the SPM model we wrote in the previou
 
 Let's first explain the first few lines of the template. After the header and importing PyBaMM we see the declaration of the class:
 
-```python
+```python nolint
 class WorkshopSPM(pybamm.BaseModel)
 ```
 
