@@ -36,7 +36,7 @@ experiment3 = pybamm.Experiment(
         "Hold at 4.2 V until C/100",
         "Rest for 4 hours",
     ]
-    # Capacity checks
+    # Capacity check
     + [(
         "Discharge at C/10 until 2.5 V",
         "Charge at C/10 until 4.2 V",
