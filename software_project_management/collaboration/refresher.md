@@ -1,29 +1,26 @@
 ---
 name: Git Refresher
-dependsOn: [
-]
+dependsOn: []
 tags: [git]
 learningOutcomes:
   - Commit changes in a software project to a local repository and publish them in a remote repository on GitHub.
   - Create and use branches for managing different threads of code development.
   - Learn to use feature branch workflow to effectively collaborate with a team on a software project.
-attribution: 
-    - citation: >
-        "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
-      url: https://doi.org/10.5281/zenodo.6532057
-      image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
-      license: CC-BY-4.0
-    - citation: >
-        Matt Jaquiery, Abhishek Dasgupta (2022) "Intermediate Git Collaboration"
-      url: https://github.com/OxfordRSE/intermediate-git-collaboration
-      image: https://avatars.githubusercontent.com/u/38728121?s=200&v=4
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
-
+attribution:
+  - citation: >
+      "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
+    url: https://doi.org/10.5281/zenodo.6532057
+    image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
+    license: CC-BY-4.0
+  - citation: >
+      Matt Jaquiery, Abhishek Dasgupta (2022) "Intermediate Git Collaboration"
+    url: https://github.com/OxfordRSE/intermediate-git-collaboration
+    image: https://avatars.githubusercontent.com/u/38728121?s=200&v=4
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Git
@@ -38,7 +35,7 @@ Git has several important characteristics:
 - support for non-linear development allowing you and your colleagues to work on different parts of a project concurrently,
 - support for distributed development allowing for multiple people to be working on the same project (even the same file) at the same time,
 - every change recorded by Git remains part of the project history and can be retrieved at a later date, so even
-if you make a mistake you can revert to a point before it.
+  if you make a mistake you can revert to a point before it.
 
 The diagram below shows a typical software development lifecycle with Git and the commonly used commands to interact
 with different parts of Git infrastructure, such as:
@@ -71,7 +68,7 @@ with different parts of Git infrastructure, such as:
   in order to collaborate with others and to backup your work on a different machine.
 
 ![Development lifecycle with Git](fig/git-lifecycle.png)
-*Software development lifecycle with Git from [PNGWing](https://www.pngwing.com/en/free-png-sazxf) (licenced for non-commercial reuse)*
+_Software development lifecycle with Git from [PNGWing](https://www.pngwing.com/en/free-png-sazxf) (licenced for non-commercial reuse)_
 
 ### Forking the project
 
@@ -178,7 +175,7 @@ venv/
 You may notice that we are already not tracking certain files and directories
 with useful comments about what exactly we are ignoring. You may also notice
 that each line in `.ignore` is actually a pattern, so you can ignore multiple
-files that match a pattern (e.g. "*.png" will ignore all PNG files in the
+files that match a pattern (e.g. "\*.png" will ignore all PNG files in the
 current directory).
 
 If you run the `git status` command now, you will notice that Git has cleverly
@@ -231,8 +228,7 @@ particular if there are any conflicts between their changes and ours.
 git pull
 ```
 
-Now we've ensured our repository is synchronised with the remote one, we can now push our changes. GitHub has recently [strengthened authentication requirements for Git operations](https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/
-) accessing GitHub from the command line over HTTPS. This means you cannot use passwords for authentication
+Now we've ensured our repository is synchronised with the remote one, we can now push our changes. GitHub has recently [strengthened authentication requirements for Git operations](https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/) accessing GitHub from the command line over HTTPS. This means you cannot use passwords for authentication
 over HTTPS any more - you either need to [set up and use a personal access token](https://catalyst.zoho.com/help/tutorials/githubbot/generate-access-token.html) for additional security if you want to continue
 to use HTTPS, or switch to use private and public key pair over SSH before you can push remotely the changes you made locally. So, when you run the command below:
 
@@ -274,7 +270,7 @@ with others involves managing these remote repositories and pushing and pulling 
 them when you need to share work.
 
 ![git-distributed](fig/git-distributed.png)
-*Git - distributed version control system, from (<https://www.w3docs.com/learn-git/git-repository.html>) (freely available)*
+_Git - distributed version control system, from (<https://www.w3docs.com/learn-git/git-repository.html>) (freely available)_
 
 :::
 
@@ -303,26 +299,26 @@ While it is technically OK to commit your changes directly to `main` branch, and
 you may often find yourself doing so for some minor changes, the best practice
 is to use a new branch for each separate and self-contained unit/piece of work
 you want to add to the project. This unit of work is also often called a
-*feature* and the branch where you develop it is called a
-*feature branch*. Each feature branch should have its own meaningful name -
-*indicating its purpose (e.g. "issue23-fix"). If we keep making changes
+_feature_ and the branch where you develop it is called a
+_feature branch_. Each feature branch should have its own meaningful name -
+\*indicating its purpose (e.g. "issue23-fix"). If we keep making changes
 and pushing them directly to `main` branch on GitHub, then anyone who downloads
 our software from there will get all of our work in progress - whether or not
 it's ready to use! So, working on a separate branch for each feature you are
 adding is good for several reasons:
 
 - it enables the main branch to remain stable while you and the team explore and test the new code on a feature
-branch,
+  branch,
 - it enables you to keep the untested and not-yet-functional feature branch code under version control and
-backed up,
+  backed up,
 - you and other team members may work on several features at the same time independently from one another,
 - if you decide that the feature is not working or is no longer needed - you can easily and safely discard that
-branch without affecting the rest of the code.
+  branch without affecting the rest of the code.
 
 Branches are commonly used as part of a feature-branch workflow, shown in the diagram below.
 
 ![Git feature branch workflow diagram](fig/git-feature-branch.svg)
-*Git feature branches>, adapted from [Git Tutorial by sillevl](https://sillevl.gitbooks.io/git/content/collaboration/workflows/gitflow/) (Creative Commons Attribution 4.0 International License)*
+_Git feature branches>, adapted from [Git Tutorial by sillevl](https://sillevl.gitbooks.io/git/content/collaboration/workflows/gitflow/) (Creative Commons Attribution 4.0 International License)_
 
 In the software development workflow, we typically have a main branch which is
 the version of the code that is tested, stable and reliable. Then, we normally
@@ -330,7 +326,7 @@ have a development branch (called `develop` or `dev` by convention) that we use
 for work-in-progress code. As we work on adding new features to the code, we
 create new feature branches that first get merged into `develop` after a
 thorough testing process. After even more testing - `develop` branch will get
-merged into `main`.  The points when feature branches are merged to `develop`,
+merged into `main`. The points when feature branches are merged to `develop`,
 and `develop` to `main` depend entirely on the practice/strategy established in
 the team. For example, for smaller projects (e.g. if you are working alone on a
 project or in a very small team), feature branches sometimes get directly merged
@@ -444,7 +440,7 @@ git push -u origin develop
 Using the `-u` switch with the `git push` command is a handy shortcut for: (1) creating the new remote branch and
 (2) setting your local branch to automatically track the remote one at the same time.
 You need to use the `-u` switch only once to set up that association between your branch and the remote one explicitly.
- After that you could simply use `git push` without specifying the remote repository, if you wished so. We still prefer
+After that you could simply use `git push` without specifying the remote repository, if you wished so. We still prefer
 to explicitly state this information in commands.
 :::
 

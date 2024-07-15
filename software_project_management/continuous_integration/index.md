@@ -1,27 +1,19 @@
 ---
 name: Continuous Integration
 id: continuous_integration
-dependsOn: [
-    software_project_management.collaboration
-]
-files: [
-    github_actions.md,
-    code_coverage.md,
-    documentation.md
-]
+dependsOn: [software_project_management.collaboration]
+files: [github_actions.md, code_coverage.md, documentation.md]
 summary: |
-    This course introduces the concept of continuous integration and how to set it up for a Python project using GitHub Actions.
-attribution: 
-    - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
-      url: https://www.sabsr3.ox.ac.uk
-      image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
-
+  This course introduces the concept of continuous integration and how to set it up for a Python project using GitHub Actions.
+attribution:
+  - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## What is Continuous Integration?
