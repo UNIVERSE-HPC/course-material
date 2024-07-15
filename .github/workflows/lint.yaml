@@ -31,9 +31,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Lint Python Code Blocks in Markdown
-        uses: alasdairwilson/run-py-markdown@main
+        uses: OxfordRSE/lint-md-codeblocks@main
         with:
           directory: "."
+          language: "python"
 
   lint-markdown:
     runs-on: ubuntu-latest
