@@ -184,15 +184,15 @@ Avoid extraneous whitespace in the following situations:
 - Immediately before a comma, semicolon, or colon (unless doing slicing where the colon acts like a binary operator
   in which case it should should have equal amounts of whitespace on either side)
 
-      ~~~python
-      # PEP 8 compliant:
-      if x == 4: print(x, y); x, y = y, x
+  ```python
+  # PEP 8 compliant:
+  if x == 4: print(x, y); x, y = y, x
 
-      # Not PEP 8 compliant:
-      if x == 4 : print(x , y); x , y = y, x
-      ~~~
+  # Not PEP 8 compliant:
+  if x == 4 : print(x , y); x , y = y, x
+  ```
 
-      {: .language-python}
+  {: .language-python}
 
 - Immediately before the open parenthesis that starts the argument list of a function call
 
@@ -245,22 +245,22 @@ Avoid extraneous whitespace in the following situations:
 - Don't use spaces around the = sign when used to indicate a keyword argument assignment or to indicate a
   default value for an unannotated function parameter
 
-      ~~~python
-      # PEP 8 compliant use of spaces around = for variable assignment
-      axis = 'x'
-      angle = 90
-      size = 450
-      name = 'my_graph'
+  ```python
+  # PEP 8 compliant use of spaces around = for variable assignment
+  axis = 'x'
+  angle = 90
+  size = 450
+  name = 'my_graph'
 
-      # PEP 8 compliant use of no spaces around = for keyword argument assignment in a function call
-      my_function(
-          1,
-          2,
-          axis=axis,
-          angle=angle,
-          size=size,
-          name=name)
-      ~~~
+  # PEP 8 compliant use of no spaces around = for keyword argument assignment in a function call
+  my_function(
+      1,
+      2,
+      axis=axis,
+      angle=angle,
+      size=size,
+      name=name)
+  ```
 
 ### String Quotes
 

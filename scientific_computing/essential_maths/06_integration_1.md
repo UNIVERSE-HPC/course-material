@@ -238,20 +238,20 @@ Let $f(t)$ denote the grams of NaCl produced after $t$ minutes. Then $f'(t)= 3\s
 
    > $$\displaystyle f(4)-f(1) = \int_1^4\,f'(t)\,{\rm d}t = \int_1^4\,3\sqrt{t}\,{\rm d}t = \left[2t^{3/2}\right]_1^4 = 2\times(8-1) = 14$$
 
-```python
-t = sp.Symbol('t')
-sp.integrate(3*sp.sqrt(t),(t,1,4))
-```
+   ```python
+   t = sp.Symbol('t')
+   sp.integrate(3*sp.sqrt(t),(t,1,4))
+   ```
 
-> $\displaystyle 14$
+   > $\displaystyle 14$
 
 3. The mean rate is the constant rate which would give the same overall effect:
 
    > $$\displaystyle {1\over b-a}\int_a^b\,f'(t)\,{\rm d}t = {1\over 4-1}\int_1^4\,3\sqrt{t}\,{\rm d}t = {14\over 3}$$
 
-```python
-sp.integrate(3*sp.sqrt(t),(t,1,4))/(4-1)
-```
+   ```python
+   sp.integrate(3*sp.sqrt(t),(t,1,4))/(4-1)
+   ```
 
 $\displaystyle \frac{14}{3}$
 

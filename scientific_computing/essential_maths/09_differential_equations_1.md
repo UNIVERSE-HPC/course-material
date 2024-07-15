@@ -447,8 +447,8 @@ Assuming that the charcoal was formed during the building of the site, use this 
 
 ### Extension problems
 
-::::challenge{id="09*ext_01" title="Extension problems 1"}
-The *absorbance* $A$ of a solution is given by the equation:
+::::challenge{id="09*ext*01" title="Extension problems 1"}
+The **absorbance** $A$ of a solution is given by the equation:
 $$A=\log*{10}\left(\frac{I_o}{I}\right)$$
 where $I_o$ is the intensity of the light impinging on the solution (incident light) and $I$ is the intensity of the light emerging from it (transmitted light).
 The Beer-Lambert law states that
