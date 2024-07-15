@@ -1,20 +1,17 @@
 ---
 name: "Setup"
-dependsOn: [
-]
+dependsOn: []
 tags: [snakemake]
-attribution: 
-    - citation: >
-        Mölder, F., Jablonski, K.P., Letcher, B., Hall, M.B., Tomkins-Tinch,
-        C.H., Sochat, V., Forster, J., Lee, S., Twardziok, S.O., Kanitz, A.,
-        Wilm, A., Holtgrewe, M., Rahmann, S., Nahnsen, S., Köster, J., 2021.
-        Sustainable data analysis with Snakemake. F1000Res 10, 33.
-        Revision c7ae161c.
-      url: https://snakemake.readthedocs.io/en/stable/tutorial/setup.html
-      image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
-      license: MIT license
-
-
+attribution:
+  - citation: >
+      Mölder, F., Jablonski, K.P., Letcher, B., Hall, M.B., Tomkins-Tinch,
+      C.H., Sochat, V., Forster, J., Lee, S., Twardziok, S.O., Kanitz, A.,
+      Wilm, A., Holtgrewe, M., Rahmann, S., Nahnsen, S., Köster, J., 2021.
+      Sustainable data analysis with Snakemake. F1000Res 10, 33.
+      Revision c7ae161c.
+    url: https://snakemake.readthedocs.io/en/stable/tutorial/setup.html
+    image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
+    license: MIT license
 ---
 
 # Setup

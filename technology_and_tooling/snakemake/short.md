@@ -2,21 +2,18 @@
 name: "Short tutorial"
 teaching: 30
 exercises: 30
-dependsOn: [
-]
+dependsOn: []
 tags: [snakemake]
-attribution: 
-    - citation: >
-        Mölder, F., Jablonski, K.P., Letcher, B., Hall, M.B., Tomkins-Tinch,
-        C.H., Sochat, V., Forster, J., Lee, S., Twardziok, S.O., Kanitz, A.,
-        Wilm, A., Holtgrewe, M., Rahmann, S., Nahnsen, S., Köster, J., 2021.
-        Sustainable data analysis with Snakemake. F1000Res 10, 33.
-        Revision c7ae161c.
-      url: https://snakemake.readthedocs.io/en/stable/tutorial/short.html
-      image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
-      license: MIT license
-
-
+attribution:
+  - citation: >
+      Mölder, F., Jablonski, K.P., Letcher, B., Hall, M.B., Tomkins-Tinch,
+      C.H., Sochat, V., Forster, J., Lee, S., Twardziok, S.O., Kanitz, A.,
+      Wilm, A., Holtgrewe, M., Rahmann, S., Nahnsen, S., Köster, J., 2021.
+      Sustainable data analysis with Snakemake. F1000Res 10, 33.
+      Revision c7ae161c.
+    url: https://snakemake.readthedocs.io/en/stable/tutorial/short.html
+    image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
+    license: MIT license
 ---
 
 # Short tutorial
@@ -58,7 +55,7 @@ tar --wildcards -xf v5.4.5.tar.gz --strip 1 "*/data"
 
 First, create an empty workflow in the current directory with:
 
-```baseh
+```bash
 mkdir workflow
 touch workflow/Snakefile
 ```
@@ -122,7 +119,7 @@ that points to a [Conda environment
 definition](https://conda.io/docs/user-guide/tasks/manage-environments.html?highlight=environment#creating-an-environment-file-manually),
 with the following content
 
-``` yaml
+```yaml
 channels:
   - bioconda
   - conda-forge
@@ -182,18 +179,20 @@ Test your workflow with
 
 ```bash
 snakemake --use-conda -n results/mapped/A.sorted.bam
-    ```
+```
 
 and
 
-    snakemake --use-conda results/mapped/A.sorted.bam --cores 1
+```bash
+snakemake --use-conda results/mapped/A.sorted.bam --cores 1
+```
 
 ## Step 5
 
 Now, we aggregate over all samples to perform a joint calling of genomic
 variants. First, we define a variable
 
-``` python
+```python
 samples = ["A", "B", "C"]
 ```
 
@@ -250,8 +249,7 @@ Instead of a shell command, we use Snakemake\'s Jupyter notebook
 integration by specifying
 
 ```yaml
-notebook:
-    "notebooks/plot-quals.py"
+notebook: "notebooks/plot-quals.py"
 ```
 
 instead of using the `shell` directive as before.
@@ -260,7 +258,7 @@ Next, we have to define a conda environment for the rule, say
 `workflow/envs/stats.yaml`, that provides the required Python packages
 to execute the script:
 
-``` yaml
+```yaml
 channels:
   - bioconda
   - conda-forge
@@ -287,6 +285,7 @@ We open the notebook in the editor and add the following content
 import pandas as pd
 import altair as alt
 from pysam import VariantFile
+import snakemake
 
 quals = pd.DataFrame({"qual": [record.qual for record in VariantFile(snakemake.input[0])]})
 
@@ -389,7 +388,7 @@ Only read this if you have a problem with one of the steps.
 
 The rule should look like this:
 
-```python
+```snakemake
 rule map_reads:
     input:
         "data/genome.fa",
@@ -410,7 +409,7 @@ rule map_reads:
 
 The rule should look like this:
 
-```python
+```snakemake
 rule map_reads:
     input:
         "data/genome.fa",
@@ -431,7 +430,7 @@ rule map_reads:
 
 The rule should look like this:
 
-```python
+```snakemake
 rule sort_alignments:
     input:
         "results/mapped/{sample}.bam"
@@ -451,7 +450,7 @@ rule sort_alignments:
 
 The rule should look like this:
 
-```python
+```snakemake
 samples = ["A", "B", "C"]
 
 rule call_variants:
@@ -474,7 +473,7 @@ rule call_variants:
 
 The rule should look like this:
 
-```python
+```snakemake
 rule plot_quals:
     input:
         "results/calls/all.vcf"
@@ -494,7 +493,7 @@ rule plot_quals:
 
 The rule should look like this:
 
-```python
+```snakemake
 rule all:
     input:
         "results/calls/all.vcf",
@@ -511,7 +510,7 @@ It has to appear as first rule in the `Snakefile`.
 
 The complete workflow should look like this:
 
-```python
+```snakemake
 SAMPLES = ["A", "B", "C"]
 
 rule all:

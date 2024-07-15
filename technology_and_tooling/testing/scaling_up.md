@@ -1,25 +1,21 @@
 ---
 name: Scaling Up Unit Testing
 id: scaling_up
-dependsOn: [
-  technology_and_tooling.testing.automated_testing
-]
+dependsOn: [technology_and_tooling.testing.automated_testing]
 tags: [pytest]
 learningOutcomes:
   - Use parameterisation to automatically run tests over a set of inputs.
   - Use code coverage to understand how much of our code is being tested using unit tests.
-attribution: 
-    - citation: >
-        "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
-      url: https://doi.org/10.5281/zenodo.6532057
-      image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
-
+attribution:
+  - citation: >
+      "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
+    url: https://doi.org/10.5281/zenodo.6532057
+    image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Introduction
@@ -43,7 +39,9 @@ So instead of writing a separate function for each different test, we can
 `tests/test_models.py` let us rewrite the `test_daily_mean_zeros()` and
 `test_daily_mean_integers()` into a single test function:
 
-~~~python
+```python
+import pytest
+import numpy as np
 @pytest.mark.parametrize(
     "test, expected",
     [
@@ -53,8 +51,8 @@ So instead of writing a separate function for each different test, we can
 def test_daily_mean(test, expected):
     """Test mean function works for array of zeroes and positive integers."""
     from inflammation.models import daily_mean
-    npt.assert_array_equal(daily_mean(np.array(test)), np.array(expected))
-~~~
+    np.assert_array_equal(daily_mean(np.array(test)), np.array(expected))
+```
 
 Here, we use Pytest's **mark** capability to add metadata to this specific test - in this case, marking that it's a parameterised test. `parameterize()`
 function is actually a [Python **decorator**](https://www.programiz.com/python-programming/decorator). A
@@ -79,13 +77,13 @@ The big plus here is that we don't need to write separate functions for each of
 the tests - our test code can remain compact and readable as we write more tests
 and adding more tests scales better as our code becomes more complex.
 
-::::challenge{id="write-parameterised-unit-tests"  title="Write Parameterised Unit Tests"}
+::::challenge{id="write-parameterised-unit-tests" title="Write Parameterised Unit Tests"}
 
 Rewrite your test functions for `daily_max()` and `daily_min()` to be parameterised, adding in new test cases for each of them.
 
 :::solution
 
-~~~python
+```python
 ...
 @pytest.mark.parametrize(
     "test, expected",
@@ -97,7 +95,7 @@ Rewrite your test functions for `daily_max()` and `daily_min()` to be parameteri
 def test_daily_max(test, expected):
     """Test max function works for zeroes, positive integers, mix of positive/negative integers."""
     from inflammation.models import daily_max
-    npt.assert_array_equal(daily_max(np.array(test)), np.array(expected))
+    np.assert_array_equal(daily_max(np.array(test)), np.array(expected))
 
 
 @pytest.mark.parametrize(
@@ -110,9 +108,9 @@ def test_daily_max(test, expected):
 def test_daily_min(test, expected):
     """Test min function works for zeroes, positive integers, mix of positive/negative integers."""
     from inflammation.models import daily_min
-    npt.assert_array_equal(daily_min(np.array(test)), np.array(expected))
+    np.assert_array_equal(daily_min(np.array(test)), np.array(expected))
 ...
-~~~
+```
 
 :::
 ::::
@@ -136,19 +134,19 @@ tell us how many statements in our code are being tested. By installing a Python
 package to our virtual environment called `pytest-cov` that is used by Pytest
 and using that, we can find this out:
 
-~~~bash
+```bash
 pip install pytest-cov
 python -m pytest --cov=inflammation.models tests/test_models.py
-~~~
+```
 
 So here, we specify the additional named argument `--cov` to `pytest` specifying the code to analyse for test coverage.
 
-~~~text
+```text
 ============================= test session starts ==============================
 platform darwin -- Python 3.9.6, pytest-6.2.5, py-1.11.0, pluggy-1.0.0
 rootdir: /Users/alex/python-intermediate-inflammation
 plugins: anyio-3.3.4, cov-3.0.0
-collected 9 items                                                               
+collected 9 items
 
 tests/test_models.py .........                                            [100%]
 
@@ -160,17 +158,17 @@ inflammation/models.py       9      1    89%
 TOTAL                        9      1    89%
 
 ============================== 9 passed in 0.26s ===============================
-~~~
+```
 
 Here we can see that our tests are doing very well - 89% of statements in
 `inflammation/models.py` have been executed. But which statements are not being
 tested? The additional argument `--cov-report term-missing` can tell us:
 
-~~~bash
+```bash
 python -m pytest --cov=inflammation.models --cov-report term-missing tests/test_models.py
-~~~
+```
 
-~~~text
+```text
 ...
 Name                     Stmts   Miss  Cover   Missing
 ------------------------------------------------------
@@ -178,7 +176,7 @@ inflammation/models.py       9      1    89%   18
 ------------------------------------------------------
 TOTAL                        9      1    89%
 ...
-~~~
+```
 
 So there's still one statement not being tested at line 18, and it turns out
 it's in the function `load_csv()`. Here we should consider whether or not to
@@ -199,7 +197,7 @@ example, molecular simulations) or other stochastic behavioural models of
 complex systems. So how can you test against such systems if the outputs are
 different when given the same inputs?
 
-One way is to *remove the randomness* during testing. For those portions of your
+One way is to _remove the randomness_ during testing. For those portions of your
 code that use a language feature or library to generate a random number, you can
 instead produce a known sequence of numbers instead when testing, to make the
 results deterministic and hence easier to test against. You could encapsulate
@@ -208,7 +206,7 @@ appropriate one depending on whether you are testing or not. This is essentially
 a type of **mocking**, where you are creating a "mock" version that mimics some
 behaviour for the purposes of testing.
 
-Another way is to *control the randomness* during testing to provide results
+Another way is to _control the randomness_ during testing to provide results
 that are deterministic - the same each time. Implementations of randomness in
 computing languages, including Python, are actually never truly random - they
 are **pseudorandom**: the sequence of 'random' numbers are typically generated
@@ -219,33 +217,33 @@ as the default seed, but you can set your own. By doing so, the generated
 sequence of numbers is the same, e.g. using Python's `random` library to
 randomly select a sample of ten numbers from a sequence between 0-99:
 
-~~~python
+```python
 import random
 
 random.seed(1)
 print(random.sample(range(0, 100), 10))
 random.seed(1)
 print(random.sample(range(0, 100), 10))
-~~~
+```
 
 Will produce:
 
-~~~text
+```text
 [17, 72, 97, 8, 32, 15, 63, 57, 60, 83]
 [17, 72, 97, 8, 32, 15, 63, 57, 60, 83]
-~~~
+```
 
 So since your program's randomness is essentially eliminated, your tests can be
 written to test against the known output. The trick of course, is to ensure that
 the output being testing against is definitively correct!
 
-The other thing you can do while keeping the random behaviour, is to *test the
-output data against expected constraints* of that output. For example, if you
+The other thing you can do while keeping the random behaviour, is to _test the
+output data against expected constraints_ of that output. For example, if you
 know that all data should be within particular ranges, or within a particular
 statistical distribution type (e.g. normal distribution over time), you can test
 against that, conducting multiple test runs that take advantage of the
 randomness to fill the known "space" of expected results. Note that this isn't
-as precise or complete, and bear in mind this could mean you need to run *a lot*
+as precise or complete, and bear in mind this could mean you need to run _a lot_
 of tests which may take considerable time.
 
 :::

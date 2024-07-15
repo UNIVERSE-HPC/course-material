@@ -1,8 +1,6 @@
 ---
 name: Linters
-dependsOn: [
-  technology_and_tooling.best_practices.code_style_python
-]
+dependsOn: [technology_and_tooling.best_practices.code_style_python]
 tags: [python]
 ---
 
@@ -22,29 +20,29 @@ used one of these called `pylint`.
 
 First, let's ensure we are on the `style-fixes` branch once again.
 
-~~~bash
+```bash
 git checkout style-fixes
-~~~
+```
 
 Pylint is just a Python package so we can install it in our virtual environment using:
 
-~~~bash
+```bash
 pip3 install pylint
 pylint --version
-~~~
+```
 
 We should see the version of Pylint, something like:
 
-~~~text
+```text
 pylint 2.13.3
 ...
-~~~
+```
 
 We should also update our `requirements.txt` with this new addition:
 
-~~~bash
+```bash
 pip3 freeze > requirements.txt
-~~~
+```
 
 Pylint is a command-line tool that can help our code in many ways:
 
@@ -59,7 +57,7 @@ Pylint can also identify **code smells**.
 
 ## How Does Code Smell?
 
-There are many ways that code can exhibit bad design whilst not breaking any rules and working correctly. A *code smell* is a characteristic that indicates that there is an underlying problem with source code, e.g. large classes or methods, methods with too many parameters, duplicated statements in both if and else blocks of conditionals, etc. They aren't functional errors in the code, but rather are certain structures that violate principles of good design and impact design quality. They can also indicate that code is in need of maintenance and refactoring.
+There are many ways that code can exhibit bad design whilst not breaking any rules and working correctly. A _code smell_ is a characteristic that indicates that there is an underlying problem with source code, e.g. large classes or methods, methods with too many parameters, duplicated statements in both if and else blocks of conditionals, etc. They aren't functional errors in the code, but rather are certain structures that violate principles of good design and impact design quality. They can also indicate that code is in need of maintenance and refactoring.
 
 The phrase has its origins in Chapter 3 "Bad smells in code" by Kent Beck and Martin Fowler in [Fowler, Martin (1999). Refactoring. Improving the Design of Existing Code. Addison-Wesley. ISBN 0-201-48567-2](https://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672/).
 :::
@@ -69,13 +67,13 @@ We can look at a specific file (e.g. `inflammation-analysis.py`), or a module
 (e.g. `inflammation`). Let's look at our `inflammation` module and code inside it (namely `models.py` and `views.py`).
 From the project root do:
 
-~~~bash
+```bash
 pylint inflammation
-~~~
+```
 
 You should see an output similar to the following:
 
-~~~text
+```text
 ************* Module inflammation.models
 inflammation/models.py:5:82: C0303: Trailing whitespace (trailing-whitespace)
 inflammation/models.py:6:66: C0303: Trailing whitespace (trailing-whitespace)
@@ -85,7 +83,7 @@ inflammation/views.py:4:0: W0611: Unused numpy imported as np (unused-import)
 
 ------------------------------------------------------------------
 Your code has been rated at 8.00/10 (previous run: 8.00/10, +0.00)
-~~~
+```
 
 Your own outputs of the above commands may vary depending on how you have implemented and fixed the code in
 previous exercises and the coding style you have used.
@@ -94,13 +92,13 @@ The five digit codes, such as `C0303`, are unique identifiers for warnings, with
 the type of warning. There are five different types of warnings that Pylint looks for, and you can get a summary of
 them by doing:
 
-~~~bash
+```bash
 pylint --long-help
-~~~
+```
 
 Near the end you'll see:
 
-~~~text
+```text
   Output:
     Using the default text output, the message format is :
     MESSAGE_TYPE: LINE_NUM:[OBJECT:] MESSAGE
@@ -111,7 +109,7 @@ Near the end you'll see:
     * (E) error, for probable bugs in the code
     * (F) fatal, if an error occurred which prevented pylint from doing
     further processing.
-~~~
+```
 
 So for an example of a Pylint Python-specific `warning`, see the "W0611: Unused numpy imported
 as np (unused-import)" warning.
@@ -125,9 +123,9 @@ improve your code, they won't find everything that may be wrong with it.
 
 The Python formula used is (with the variables representing numbers of each type of infraction and `statement` indicating the total number of statements):
 
-~~~python
+```python nolint
 10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10)
-~~~
+```
 
 :::
 
@@ -143,7 +141,7 @@ resolved these issues.
 Make sure you commit and push `requirements.txt` and any file with further code style improvements you did and
 merge onto your development and main branches.
 
-~~~bash
+```bash
 git add requirements.txt
 git commit -m "Added Pylint library"
 git push origin style-fixes
@@ -153,7 +151,7 @@ git push origin develop
 git checkout main
 git merge develop
 git push origin main
-~~~
+```
 
 ::::
 

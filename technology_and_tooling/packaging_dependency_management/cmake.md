@@ -1,8 +1,6 @@
 ---
 name: Introduction to CMake
-dependsOn: [
-  technology_and_tooling.ide.cpp
-]
+dependsOn: [technology_and_tooling.ide.cpp]
 tags: [cpp]
 ---
 
@@ -290,7 +288,7 @@ Picture another dependency scenario:
 
 - `another_target`{.cmake} uses `my_lib`{.cmake} in its internal implementation.
 - **and** `another_target`{.cmake} defines some function that take parameters of a type defined
-    in `my_lib`{.cmake}.
+  in `my_lib`{.cmake}.
 
 Programs using `another_target`{.cmake} also must link against `my_lib`{.cmake}:
 

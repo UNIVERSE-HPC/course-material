@@ -36,7 +36,7 @@ Using **version control** means **we don't keep dozens of different versions** o
 
 ### 2. Reproducibility
 
-When you use  **version control**, at any point in the future, you can retrieve the **correct versions** of your documents, scripts or code.  So, for example, a year after **publication**, you can get hold of the **precise combination** of scripts and data that you used to assemble a paper.
+When you use **version control**, at any point in the future, you can retrieve the **correct versions** of your documents, scripts or code. So, for example, a year after **publication**, you can get hold of the **precise combination** of scripts and data that you used to assemble a paper.
 
 Version control makes **reproducibility** simpler. Without using version control it's very hard to say that your research is truly reproducible...
 
@@ -44,11 +44,11 @@ Version control makes **reproducibility** simpler. Without using version control
 
 As well as maintaining a revison history, VC tools also help multiple authors **collaborate** on the **same file** or set of files.
 
- **Professional software developers** use VC to work in large **teams** and to keep track of what they've done. If you know what changes have been made to each file, you can easily combine multiple people's changes to a single file. You can also track down where and when (and by who!) bugs in the code were introduced.
+**Professional software developers** use VC to work in large **teams** and to keep track of what they've done. If you know what changes have been made to each file, you can easily combine multiple people's changes to a single file. You can also track down where and when (and by who!) bugs in the code were introduced.
 
 **Every** large software development project relies on VC, and most programmers use it for their small jobs as well.
 
-**VC is not just for software**: papers, small data sets -  anything that changes over time, or needs to be shared **can**, and **probably should** be stored in a version control system.
+**VC is not just for software**: papers, small data sets - anything that changes over time, or needs to be shared **can**, and **probably should** be stored in a version control system.
 
 We'll look at both the backup and collaboration scenarios, but first it's useful to understand what going on **under the hood**.
 
@@ -83,7 +83,7 @@ Because Git is so popular, and making a GitHub account is so easy, we're going t
 
 ## Graphical User Interfaces
 
-We're going to teach you how to use Git on the *command line*, as it's the same on every single platform (Mac, Linux & Windows) - and it's the only way to use it on high-performance clusters like Iridis. This isn't the only way to use it, however. There are many different graphical user interfaces for Git, like:
+We're going to teach you how to use Git on the _command line_, as it's the same on every single platform (Mac, Linux & Windows) - and it's the only way to use it on high-performance clusters like Iridis. This isn't the only way to use it, however. There are many different graphical user interfaces for Git, like:
 
 ### [SourceTree](https://www.sourcetreeapp.com/)
 

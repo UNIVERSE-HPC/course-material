@@ -135,7 +135,7 @@ length of 100. Long lines of code can be broken over multiple lines by wrapping 
 mentioned above (preferred method), or using a backslash (`\`) at the end of the line to indicate
 line continuation (slightly less preferred method).
 
-```python
+```python nolint
 # Using delimiters ( ) to wrap a multi-line expression
 if (a == True and
     b == False):
@@ -143,6 +143,7 @@ if (a == True and
 # Using a backslash (\) for line continuation
 if a == True and \
     b == False:
+    pass
 ```
 
 ### Should a Line Break Before or After a Binary Operator?
@@ -151,7 +152,7 @@ Lines should break before binary operators so that the operators do not get scat
 on the screen. In the example below, the eye does not have to do the extra work to tell which items are added
 and which are subtracted:
 
-```python
+```python nolint
 # PEP 8 compliant - easy to match operators with operands
 income = (gross_wages
           + taxable_interest
@@ -171,7 +172,7 @@ Avoid extraneous whitespace in the following situations:
 
 - immediately inside parentheses, brackets or braces
 
-  ```python
+  ```python nolint
   # PEP 8 compliant:
   my_function(colour[1], {id: 2})
 
@@ -184,7 +185,7 @@ Avoid extraneous whitespace in the following situations:
 - Immediately before a comma, semicolon, or colon (unless doing slicing where the colon acts like a binary operator
   in which case it should should have equal amounts of whitespace on either side)
 
-  ```python
+  ```python nolint
   # PEP 8 compliant:
   if x == 4: print(x, y); x, y = y, x
 
@@ -196,7 +197,7 @@ Avoid extraneous whitespace in the following situations:
 
 - Immediately before the open parenthesis that starts the argument list of a function call
 
-  ```python
+  ```python nolint
   # PEP 8 compliant:
   my_function(1)
 
@@ -208,7 +209,7 @@ Avoid extraneous whitespace in the following situations:
 
 - Immediately before the open parenthesis that starts an indexing or slicing
 
-  ```python
+  ```python nolint
   # PEP 8 compliant:
   my_dct['key'] = my_lst[id]
   first_char = my_str[:, 1]
@@ -222,7 +223,7 @@ Avoid extraneous whitespace in the following situations:
 
 - More than one space around an assignment (or other) operator to align it with another
 
-  ```python
+  ```python nolint
   # PEP 8 compliant:
   x = 1
   y = 2
@@ -245,7 +246,7 @@ Avoid extraneous whitespace in the following situations:
 - Don't use spaces around the = sign when used to indicate a keyword argument assignment or to indicate a
   default value for an unannotated function parameter
 
-  ```python
+  ```python nolint
   # PEP 8 compliant use of spaces around = for variable assignment
   axis = 'x'
   angle = 90
@@ -548,39 +549,41 @@ For example, the improved docstrings for the above functions would contain expla
 return values.
 
 ```python
+import numpy as np
 def daily_mean(data):
-   """Calculate the daily mean of a 2D inflammation data array for each day.
+    """Calculate the daily mean of a 2D inflammation data array for each day.
 
-   :param data: A 2D data array with inflammation data (each row contains measurements for a single patient across all days).
-   :returns: An array of mean values of measurements for each day.
-   """
-   return np.mean(data, axis=0)
+    :param data: A 2D data array with inflammation data (each row contains measurements for a single patient across all days).
+    :returns: An array of mean values of measurements for each day.
+    """
+    return np.mean(data, axis=0)
 ```
 
 ```python
 def daily_max(data):
-   """Calculate the daily maximum of a 2D inflammation data array for each day.
+    """Calculate the daily maximum of a 2D inflammation data array for each day.
 
-   :param data: A 2D data array with inflammation data (each row contains measurements for a single patient across all days).
-   :returns: An array of max values of measurements for each day.
-   """
-   return np.max(data, axis=0)
+    :param data: A 2D data array with inflammation data (each row contains measurements for a single patient across all days).
+    :returns: An array of max values of measurements for each day.
+    """
+    return np.max(data, axis=0)
 ```
 
 ```python
 def daily_min(data):
-   """Calculate the daily minimum of a 2D inflammation data array for each day.
+    """Calculate the daily minimum of a 2D inflammation data array for each day.
 
-   :param data: A 2D data array with inflammation data (each row contains measurements for a single patient across all days).
-   :returns: An array of minimum values of measurements for each day.
-   """
-   return np.min(data, axis=0)
-~~
+    :param data: A 2D data array with inflammation data (each row contains measurements for a single patient across all days).
+    :returns: An array of minimum values of measurements for each day.
+    """
+    return np.min(data, axis=0)
+```
 
 Once we are happy with modifications, as usual before staging and commit our changes,
 we check the status of our working directory:
-~~~bash
-$ git status
+
+```bash
+git status
 ```
 
 ```text

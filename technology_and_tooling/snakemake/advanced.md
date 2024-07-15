@@ -2,22 +2,18 @@
 name: "Advanced: Decorating"
 teaching: 30
 exercises: 30
-dependsOn: [
-  technology_and_tooling.snakemake.basics
-]
+dependsOn: [technology_and_tooling.snakemake.basics]
 tags: [snakemake]
-attribution: 
-    - citation: >
-        Mölder, F., Jablonski, K.P., Letcher, B., Hall, M.B., Tomkins-Tinch,
-        C.H., Sochat, V., Forster, J., Lee, S., Twardziok, S.O., Kanitz, A.,
-        Wilm, A., Holtgrewe, M., Rahmann, S., Nahnsen, S., Köster, J., 2021.
-        Sustainable data analysis with Snakemake. F1000Res 10, 33.
-        Revision c7ae161c.
-      url: https://snakemake.readthedocs.io/en/stable/tutorial/advanced.html
-      image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
-      license: MIT license
-
-
+attribution:
+  - citation: >
+      Mölder, F., Jablonski, K.P., Letcher, B., Hall, M.B., Tomkins-Tinch,
+      C.H., Sochat, V., Forster, J., Lee, S., Twardziok, S.O., Kanitz, A.,
+      Wilm, A., Holtgrewe, M., Rahmann, S., Nahnsen, S., Köster, J., 2021.
+      Sustainable data analysis with Snakemake. F1000Res 10, 33.
+      Revision c7ae161c.
+    url: https://snakemake.readthedocs.io/en/stable/tutorial/advanced.html
+    image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
+    license: MIT license
 ---
 
 # Advanced: Decorating the example workflow
@@ -32,7 +28,7 @@ speed up the computation. **Snakemake can be made aware of the threads a
 rule needs** with the `threads` directive. In our example workflow, it
 makes sense to use multiple threads for the rule `bwa_map`:
 
-``` python
+```yaml
 rule bwa_map:
     input:
         "data/genome.fa",
@@ -55,7 +51,7 @@ does not exceed a given number of available CPU cores. This number is
 given with the `--cores` command line argument, which is mandatory for
 `snakemake` calls that actually run the workflow. For example
 
-``` console
+```console
 snakemake --cores 10
 ```
 
@@ -100,7 +96,7 @@ Config files can be written in [JSON](https://json.org) or
 [YAML](https://yaml.org), and are used with the `configfile` directive.
 In our example workflow, we add the line
 
-``` python
+```yaml
 configfile: "config.yaml"
 ```
 
@@ -110,16 +106,16 @@ store its contents into a globally available
 named `config`. In our case, it makes sense to specify the samples in
 `config.yaml` as
 
-``` yaml
+```yaml
 samples:
-    A: data/samples/A.fastq
-    B: data/samples/B.fastq
+  A: data/samples/A.fastq
+  B: data/samples/B.fastq
 ```
 
 Now, we can remove the statement defining `SAMPLES` from the Snakefile
 and change the rule `bcftools_call` to
 
-``` python
+```yaml
 rule bcftools_call:
     input:
         fa="data/genome.fa",
@@ -141,12 +137,12 @@ this, it is important to know that Snakemake workflows are executed in
 three phases.
 
 1. In the **initialization** phase, the files defining the workflow are
-    parsed and all rules are instantiated.
+   parsed and all rules are instantiated.
 2. In the **DAG** phase, the directed acyclic dependency graph of all
-    jobs is built by filling wildcards and matching input files to
-    output files.
+   jobs is built by filling wildcards and matching input files to
+   output files.
 3. In the **scheduling** phase, the DAG of jobs is executed, with jobs
-    started according to the available resources.
+   started according to the available resources.
 
 The expand functions in the list of input files of the rule
 `bcftools_call` are executed during the initialization phase. In this
@@ -158,7 +154,7 @@ of input files to the DAG phase. This can be achieved by specifying an
 **input function** instead of a string as inside of the input directive.
 For the rule `bwa_map` this works as follows:
 
-``` python
+```snakemake
 def get_bwa_map_input_fastqs(wildcards):
     return config["samples"][wildcards.sample]
 
@@ -181,7 +177,7 @@ files that are affected by such changes with
 `snakemake --list-input-changes`. To trigger a rerun, this bit of bash
 magic helps:
 
-``` console
+```console
 snakemake -n --forcerun $(snakemake --list-input-changes)
 ```
 
@@ -214,7 +210,7 @@ for rules with the `params` directive. In our workflow, it is reasonable
 to annotate aligned reads with so-called read groups, that contain
 metadata like the sample name. We modify the rule `bwa_map` accordingly:
 
-``` python
+```snakemake
 rule bwa_map:
     input:
         "data/genome.fa",
@@ -263,7 +259,7 @@ defined via the `log` directive and handled similarly to output files,
 but they are not subject of rule matching and are not cleaned up when a
 job fails. We modify our rule `bwa_map` as follows:
 
-``` python
+```snakemake
 rule bwa_map:
     input:
         "data/genome.fa",
@@ -297,18 +293,18 @@ avoid file name clashes between different jobs of the same rule.
 
 - Add a log directive to the `bcftools_call` rule as well.
 - Time to re-run the whole workflow (remember the command line flags
-    to force re-execution). See how log files are created for variant
-    calling and read mapping.
+  to force re-execution). See how log files are created for variant
+  calling and read mapping.
 - The ability to track the provenance of each generated result is an
-    important step towards reproducible analyses. Apart from the
-    `report` functionality discussed before, Snakemake can summarize
-    various provenance information for all output files of the workflow.
-    The flag `--summary` prints a table associating each output file
-    with the rule used to generate it, the creation date and optionally
-    the version of the tool used for creation is provided. Further, the
-    table informs about updated input files and changes to the source
-    code of the rule after creation of the output file. Invoke Snakemake
-    with `--summary` to examine the information for our example.
+  important step towards reproducible analyses. Apart from the
+  `report` functionality discussed before, Snakemake can summarize
+  various provenance information for all output files of the workflow.
+  The flag `--summary` prints a table associating each output file
+  with the rule used to generate it, the creation date and optionally
+  the version of the tool used for creation is provided. Further, the
+  table informs about updated input files and changes to the source
+  code of the rule after creation of the output file. Invoke Snakemake
+  with `--summary` to examine the information for our example.
 
 ::::
 
@@ -323,7 +319,7 @@ will delete the marked files for you, once all the consuming jobs (that
 need it as input) have been executed. We use this mechanism for the
 output file of the rule `bwa_map`:
 
-``` python
+```snakemake
 rule bwa_map:
     input:
         "data/genome.fa",
@@ -347,7 +343,7 @@ reasonable to **protect** the final BAM file **from accidental deletion
 or modification**. We modify the rule `samtools_sort` to mark its output
 file as `protected`:
 
-``` python
+```snakemake
 rule samtools_sort:
     input:
         "mapped_reads/{sample}.bam"
@@ -365,13 +361,13 @@ deleted by accident.
 ::::challenge{id=add_temporaries title="Exercise"}
 
 - Re-execute the whole workflow and observe how Snakemake handles the
-    temporary and protected files.
+  temporary and protected files.
 - Run Snakemake with the target `mapped_reads/A.bam`. Although the
-    file is marked as temporary, you will see that Snakemake does not
-    delete it because it is specified as a target file.
+  file is marked as temporary, you will see that Snakemake does not
+  delete it because it is specified as a target file.
 - Try to re-execute the whole workflow again with the dry-run option.
-    You will see that it fails (as intended) because Snakemake cannot
-    overwrite the protected output files.
+  You will see that it fails (as intended) because Snakemake cannot
+  overwrite the protected output files.
 
 ::::
 
@@ -380,10 +376,10 @@ deleted by accident.
 For this advanced part of the tutorial, we have now created a
 `config.yaml` configuration file:
 
-``` yaml
+```yaml
 samples:
-    A: data/samples/A.fastq
-    B: data/samples/B.fastq
+  A: data/samples/A.fastq
+  B: data/samples/B.fastq
 
 prior_mutation_rate: 0.001
 ```
@@ -391,7 +387,7 @@ prior_mutation_rate: 0.001
 With this, the final version of our workflow in the `Snakefile` looks
 like this:
 
-``` python
+```snakemake
 configfile: "config.yaml"
 
 

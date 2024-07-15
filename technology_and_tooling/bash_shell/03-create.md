@@ -1,21 +1,19 @@
 ---
 name: Creating Things
-dependsOn: [
-    technology_and_tooling.bash_shell.02-filedir
-]
+dependsOn: [technology_and_tooling.bash_shell.02-filedir]
 tags: [bash]
 learningOutcomes:
   - Create a directory hierarchy that matches a given diagram.
   - Create files in that hierarchy using an editor or by copying and renaming existing files.
   - Delete, copy and move specified files and/or directories.
 attribution:
-- citation: >
+  - citation: >
       This material was originally taken from training materials developed by the
       University of Southampton Research Software Group, which are based on
       the Software Carpentries course "Version Control with Git".
-  url: https://github.com/Southampton-RSG-Training/shell-novice/
-  image: https://southampton-rsg-training.github.io/shell-novice/assets/img/home-logo.png
-  license: CC-BY-4.0
+    url: https://github.com/Southampton-RSG-Training/shell-novice/
+    image: https://southampton-rsg-training.github.io/shell-novice/assets/img/home-logo.png
+    license: CC-BY-4.0
 ---
 
 We now know how to explore files and directories,
@@ -23,39 +21,39 @@ but how do we create them in the first place?
 
 First, let's check where we are:
 
-~~~bash
+```bash
 pwd
-~~~
+```
 
-~~~text
+```text
 /Users/nelle/shell-novice/shell/test_directory
-~~~
+```
 
 If you're not in this directory, use the `cd` command to navigate to it as covered in the last lesson, for example:
 
-~~~bash
+```bash
 cd ~/shell-novice/shell/test_directory
-~~~
+```
 
 ### Creating a new directory
 
 Now let's use `ls -F` to see what our test directory contains:
 
-~~~bash
+```bash
 ls -F
-~~~
+```
 
-~~~text
+```text
 creatures/          molecules/          notes.txt           solar.pdf
 data/               north-pacific-gyre/ pizza.cfg           writing/
-~~~
+```
 
 Let's create a new directory called `thesis` using the command `mkdir thesis`
 (which has no output):
 
-~~~bash
+```bash
 mkdir thesis
-~~~
+```
 
 As you might (or might not) guess from its name,
 `mkdir` means "make directory".
@@ -63,22 +61,22 @@ Since `thesis` is a relative path
 (i.e., doesn't have a leading slash),
 the new directory is created in the current working directory:
 
-~~~bash
+```bash
 ls -F
-~~~
+```
 
-~~~text
+```text
 creatures/  north-pacific-gyre/  thesis/
 data/       notes.txt            writing/
 Desktop/    pizza.cfg
 molecules/  solar.pdf
-~~~
+```
 
 However, there's nothing in it yet - this will show no output:
 
-~~~bash
+```bash
 ls -F thesis
-~~~
+```
 
 ### Creating a new text file
 
@@ -109,10 +107,10 @@ and how comfortable you are with the terminal.
 Let's first change our working directory to `thesis` using `cd`,
 and then we'll use the `Nano` editor to create a text file called `draft.txt`, and then save it in that directory.
 
-~~~bash
+```bash
 cd thesis
 nano draft.txt
-~~~
+```
 
 We add a filename after the `nano` command to tell it that we want to edit (or in this case create) a file.
 
@@ -130,48 +128,48 @@ but `ls` now shows that we have created a file called `draft.txt`:
 
 Now we've saved the file, we can use `ls` to see that there is a new file in the directory called `draft.txt`:
 
-~~~bash
+```bash
 ls
-~~~
+```
 
-~~~text
+```text
 draft.txt
-~~~
+```
 
 We can use the shell on its own to take a look at its contents using the `cat` command (which we can use to print the contents of files):
 
-~~~bash
+```bash
 cat draft.txt
-~~~
+```
 
-~~~text
+```text
 It's not "publish or perish" any more,
 it's "share and thrive".
-~~~
+```
 
 ### Deleting files and directories
 
 Now, let's assume we didn't actually need to create this file. We can delete it by running `rm draft.txt`:
 
-~~~bash
+```bash
 rm draft.txt
-~~~
+```
 
 This command removes files (`rm` is short for "remove").
 If we run `ls` again,
 its output is empty once more,
 which tells us that our file is gone:
 
-~~~bash
+```bash
 ls
-~~~
+```
 
 :::callout
 
 ## Deleting Is Forever
 
 The Bash shell doesn't have a trash bin that we can recover deleted
-files from.  Instead,
+files from. Instead,
 when we delete files, they are unhooked from the file system so that
 their storage space on disk can be recycled. Tools for finding and
 recovering deleted files do exist, but there's no guarantee they'll
@@ -182,42 +180,42 @@ file's disk space right away.
 But what if we want to delete a directory, perhaps one that already contains a file? Let's re-create that file
 and then move up one directory using `cd ..`:
 
-~~~bash
+```bash
 pwd
-~~~
+```
 
-~~~text
+```text
 /Users/nelle/shell-novice/test_directory/thesis
-~~~
+```
 
-~~~bash
+```bash
 nano draft.txt
 ls
-~~~
+```
 
-~~~text
+```text
 draft.txt
-~~~
+```
 
-~~~bash
+```bash
 cd ..
 pwd
-~~~
+```
 
-~~~text
+```text
 /Users/nelle/shell-novice/shell/test_directory
-~~~
+```
 
 If we try to remove the entire `thesis` directory using `rm thesis`,
 we get an error message:
 
-~~~bash
+```bash
 rm thesis
-~~~
+```
 
-~~~text
+```text
 rm: cannot remove `thesis': Is a directory
-~~~
+```
 
 On a Mac, it may look a bit different (`rm: thesis: is a directory`), but means the same thing.
 
@@ -227,27 +225,27 @@ which is short for "remove directory".
 It doesn't work yet either, though,
 because the directory we're trying to remove isn't empty (again, it may look a bit different on a Mac):
 
-~~~bash
+```bash
 rmdir thesis
-~~~
+```
 
-~~~text
+```text
 rmdir: failed to remove `thesis': Directory not empty
-~~~
+```
 
 This little safety feature can save you a lot of grief,
 particularly if you are a bad typist.
 To really get rid of `thesis` we must first delete the file `draft.txt`:
 
-~~~bash
+```bash
 rm thesis/draft.txt
-~~~
+```
 
 The directory is now empty, so `rmdir` can delete it:
 
-~~~bash
+```bash
 rmdir thesis
-~~~
+```
 
 :::callout
 
@@ -257,9 +255,9 @@ Removing the files in a directory just so that we can remove the
 directory quickly becomes tedious. Instead, we can use `rm` with the
 `-r` flag (which stands for "recursive"):
 
-~~~bash
+```bash
 rm -r thesis
-~~~
+```
 
 This removes everything in the directory, then the directory itself. If
 the directory contains sub-directories, `rm -r` does the same thing to
@@ -271,36 +269,36 @@ without care.
 
 Let's create that directory and file one more time.
 
-~~~bash
+```bash
 pwd
-~~~
+```
 
-~~~text
+```text
 /Users/user/shell-novice/shell/test_directory
-~~~
+```
 
-~~~bash
+```bash
 mkdir thesis
-~~~
+```
 
 Again, put anything you like in this file (note we're giving the `thesis` path to `nano` as well as the `draft.txt` filename, so we create it in that directory):
 
-~~~bash
+```bash
 nano thesis/draft.txt
 ls thesis
-~~~
+```
 
-~~~text
+```text
 draft.txt
-~~~
+```
 
 `draft.txt` isn't a particularly informative name,
 so let's change the file's name using `mv`,
 which is short for "move":
 
-~~~bash
+```bash
 mv thesis/draft.txt thesis/quotes.txt
-~~~
+```
 
 The first parameter tells `mv` what we're "moving",
 while the second is where it's to go.
@@ -310,13 +308,13 @@ which has the same effect as renaming the file.
 Sure enough,
 `ls` shows us that `thesis` now contains one file called `quotes.txt`:
 
-~~~bash
+```bash
 ls thesis
-~~~
+```
 
-~~~text
+```text
 quotes.txt
-~~~
+```
 
 Just for the sake of inconsistency,
 `mv` also works on directories --- there is no separate `mvdir` command.
@@ -330,28 +328,28 @@ but put the file somewhere new.
 In this case,
 the directory name we use is the special directory name `.` that we mentioned earlier.
 
-~~~bash
+```bash
 mv thesis/quotes.txt .
-~~~
+```
 
 The effect is to move the file from the directory it was in to the current working directory.
 `ls` now shows us that `thesis` is empty:
 
-~~~bash
+```bash
 ls thesis
-~~~
+```
 
 Further,
 `ls` with a filename or directory name as a parameter only lists that file or directory.
 We can use this to see that `quotes.txt` is still in our current directory:
 
-~~~bash
+```bash
 ls quotes.txt
-~~~
+```
 
-~~~text
+```text
 quotes.txt
-~~~
+```
 
 ### Copying files
 
@@ -361,28 +359,28 @@ We can check that it did the right thing using `ls`
 with two paths as parameters --- like most Unix commands,
 `ls` can be given thousands of paths at once:
 
-~~~bash
+```bash
 cp quotes.txt thesis/quotations.txt
 ls quotes.txt thesis/quotations.txt
-~~~
+```
 
-~~~text
+```text
 quotes.txt   thesis/quotations.txt
-~~~
+```
 
 To prove that we made a copy,
 let's delete the `quotes.txt` file in the current directory
 and then run that same `ls` again (we can get to this command by pressing the up arrow twice).
 
-~~~bash
+```bash
 rm quotes.txt
 ls quotes.txt thesis/quotations.txt
-~~~
+```
 
-~~~text
+```text
 ls: cannot access quotes.txt: No such file or directory
 thesis/quotations.txt
-~~~
+```
 
 This time it tells us that it can't find `quotes.txt` in the current directory,
 but it does find the copy in `thesis` that we didn't delete.
@@ -412,28 +410,28 @@ Both **1** and **2** will leave you with a file called `statistics.txt` at the e
 ::::challenge{id=moving-copying title="Moving and Copying"}
 What is the output of the closing `ls` command in the sequence shown below?
 
-~~~bash
+```bash
 pwd
-~~~
+```
 
-~~~text
+```text
 /Users/jamie/data
-~~~
+```
 
-~~~bash
+```bash
 ls
-~~~
+```
 
-~~~bash
+```bash
 proteins.dat
-~~~
+```
 
-~~~bash
+```bash
 mkdir recombine
 mv proteins.dat recombine
 cp recombine/proteins.dat ../proteins-saved.dat
 ls
-~~~
+```
 
 1. `proteins-saved.dat recombine`
 2. `recombine`
@@ -453,44 +451,44 @@ So as it's in the directory above the current one (`..`), it won't show up when 
 ::::challenge{id=organising-directories-files title="Organising Directories and Files"}
 Jamie is working on a project and she sees that her files aren't very well organized:
 
-~~~bash
+```bash
 ls -F
-~~~
+```
 
-~~~bash
+```bash
 analyzed/  fructose.dat    raw/   sucrose.dat
-~~~
+```
 
 The `fructose.dat` and `sucrose.dat` files contain output from her data
 analysis. What command(s) covered in this lesson does she need to run so that the commands below will produce the output shown?
 
-~~~bash
+```bash
 ls -F
-~~~
+```
 
-~~~text
+```text
 analyzed/   raw/
-~~~
+```
 
-~~~bash
+```bash
 ls analyzed
-~~~
+```
 
-~~~text
+```text
 fructose.dat    sucrose.dat
-~~~
+```
 
 :::solution
 `ls` lists the contents of the current directory, whilst `ls analyzed` lists the contents of the `analyzed` directory.
 
 So we need to move the files `fructose.dat` and `sucrose.dat` out of the current directory, and into the `analyzed` directory, which we do with `mv`.
 
-~~~bash
+```bash
 ls -F
 mv fructose.dat analyzed/
 mv sucrose.dat analyzed/
 ls analyzed
-~~~
+```
 
 :::
 ::::
@@ -498,37 +496,37 @@ ls analyzed
 ::::challenge{id=copy-multiple-filenames title="Copy with Multiple Filenames"}
 What does `cp` do when given several filenames and a directory name, as in:
 
-~~~bash
+```bash
 mkdir backup
 cp thesis/citations.txt thesis/quotations.txt backup
-~~~
+```
 
 :::solution
 It copies the files to the directory with the same name.
 
-~~~bash
+```bash
 ls backup
-~~~
+```
 
-~~~text
+```text
 citations.txt    quotations.txt
-~~~
+```
 
 :::
 
 What does `cp` do when given three or more filenames, as in:
 
-~~~bash
+```bash
 ls -F
-~~~
+```
 
-~~~text
+```text
 intro.txt    methods.txt    survey.txt
-~~~
+```
 
-~~~bash
+```bash
 cp intro.txt methods.txt survey.txt
-~~~
+```
 
 :::solution
 You should get an error and the command does nothing.
@@ -536,11 +534,11 @@ When passing 3 or more arguments, the last one needs to be a directory.
 
 However,
 
-~~~bash
+```bash
 cp intro.txt methods.txt
-~~~
+```
 
 Will not fail even though both of the arguments are existing files - it will copy the contents
-of `intro.txt` *over* the contents of `methods.txt`. So be careful!
+of `intro.txt` _over_ the contents of `methods.txt`. So be careful!
 :::
 ::::

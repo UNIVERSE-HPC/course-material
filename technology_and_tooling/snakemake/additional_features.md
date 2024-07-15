@@ -2,22 +2,18 @@
 name: "Additional features"
 teaching: 30
 exercises: 30
-dependsOn: [
-  technology_and_tooling.snakemake.advanced
-]
+dependsOn: [technology_and_tooling.snakemake.advanced]
 tags: [snakemake]
-attribution: 
-    - citation: >
-        Mölder, F., Jablonski, K.P., Letcher, B., Hall, M.B., Tomkins-Tinch,
-        C.H., Sochat, V., Forster, J., Lee, S., Twardziok, S.O., Kanitz, A.,
-        Wilm, A., Holtgrewe, M., Rahmann, S., Nahnsen, S., Köster, J., 2021.
-        Sustainable data analysis with Snakemake. F1000Res 10, 33.
-        Revision c7ae161c.
-      url: https://snakemake.readthedocs.io/en/stable/tutorial/additional_features.html
-      image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
-      license: MIT license
-
-
+attribution:
+  - citation: >
+      Mölder, F., Jablonski, K.P., Letcher, B., Hall, M.B., Tomkins-Tinch,
+      C.H., Sochat, V., Forster, J., Lee, S., Twardziok, S.O., Kanitz, A.,
+      Wilm, A., Holtgrewe, M., Rahmann, S., Nahnsen, S., Köster, J., 2021.
+      Sustainable data analysis with Snakemake. F1000Res 10, 33.
+      Revision c7ae161c.
+    url: https://snakemake.readthedocs.io/en/stable/tutorial/additional_features.html
+    image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
+    license: MIT license
 ---
 
 # Additional features
@@ -33,7 +29,7 @@ With the `benchmark` directive, Snakemake can be instructed to **measure
 the wall clock time of a job**. We activate benchmarking for the rule
 `bwa_map`:
 
-``` python
+```snakemake
 rule bwa_map:
     input:
         "data/genome.fa",
@@ -71,7 +67,7 @@ workflows, it is sometimes reasonable to **split a workflow into
 modules**. For this, Snakemake provides the `include` directive to
 include another Snakefile into the current one, e.g.:
 
-``` python
+```yaml
 include: "path/to/other.snakefile"
 ```
 
@@ -107,7 +103,7 @@ software versions (e.g. combine Python 2 with Python 3).
 In our example, instead of using an external environment we can specify
 environments per rule, e.g.:
 
-``` python
+```snakemake
 rule samtools_index:
   input:
       "sorted_reads/{sample}.bam"
@@ -121,7 +117,7 @@ rule samtools_index:
 
 with `envs/samtools.yaml` defined as
 
-``` yaml
+```yaml
 channels:
   - bioconda
   - conda-forge
@@ -139,7 +135,7 @@ snakefile.
 
 When Snakemake is executed with
 
-``` console
+```console
 snakemake --use-conda --cores 1
 ```
 
@@ -163,7 +159,7 @@ provides the `wrapper` directive that can be used instead of `shell`,
 `script`, or `run`. For example, the rule `bwa_map` could alternatively
 look like this:
 
-``` python
+```snakemake
 rule bwa_mem:
   input:
       ref="data/genome.fa",
@@ -207,7 +203,7 @@ In cluster environments, compute jobs are usually submitted as shell
 scripts via commands like `qsub`. Snakemake provides a **generic mode**
 to execute on such clusters. By invoking Snakemake with
 
-``` console
+```console
 snakemake --cluster qsub --jobs 100
 ```
 
@@ -219,7 +215,7 @@ clusters allow to run the submission command in **synchronous mode**,
 such that it waits until the job has been executed. In such cases, we
 can invoke e.g.
 
-``` console
+```console
 snakemake --cluster-sync "qsub -sync yes" --jobs 100
 ```
 
@@ -228,7 +224,7 @@ parameters taken from the submitted job**. For example, the number of
 used threads can be accessed in braces similarly to the formatting of
 shell commands, e.g.
 
-``` console
+```console
 snakemake --cluster "qsub -pe threaded {threads}" --jobs 100
 ```
 
@@ -237,7 +233,7 @@ Application API ([DRMAA](https://www.drmaa.org)). This API provides a
 common interface to control various resource management systems. The
 **DRMAA support** can be activated by invoking Snakemake as follows:
 
-``` console
+```console
 snakemake --drmaa --jobs 100
 ```
 
@@ -271,8 +267,7 @@ use that option. For sge this would look like
 The following (simplified) script detects the job status on a given
 SLURM cluster (\>= 14.03.0rc1 is required for `--parsable`).
 
-``` python
-#!/usr/bin/env python
+```python
 import subprocess
 import sys
 
@@ -282,17 +277,17 @@ output = str(subprocess.check_output("sacct -j %s --format State --noheader | he
 
 running_status=["PENDING", "CONFIGURING", "COMPLETING", "RUNNING", "SUSPENDED"]
 if "COMPLETED" in output:
-  print("success")
+    print("success")
 elif any(r in output for r in running_status):
-  print("running")
+    print("running")
 else:
-  print("failed")
+    print("failed")
 ```
 
 To use this script call snakemake similar to below, where `status.py` is
 the script above.
 
-``` console
+```console
 snakemake all --jobs 100 --cluster "sbatch --cpus-per-task=1 --parsable" --cluster-status ./status.py
 ```
 
@@ -340,16 +335,16 @@ Constraints may be defined per rule or globally using the
 helps to solve two kinds of ambiguity.
 
 - It can help to avoid ambiguous rules, i.e. two or more rules that
-    can be applied to generate the same output file. Other ways of
-    handling ambiguous rules are described in the Section
-    `snakefiles-ambiguous-rules`{.interpreted-text role="ref"}.
+  can be applied to generate the same output file. Other ways of
+  handling ambiguous rules are described in the Section
+  `snakefiles-ambiguous-rules`{.interpreted-text role="ref"}.
 - It can help to guide the regular expression based matching so that
-    wildcards are assigned to the right parts of a file name. Consider
-    the output file `{sample}.{group}.txt` and assume that the target
-    file is `A.1.normal.txt`. It is not clear whether `dataset="A.1"`
-    and `group="normal"` or `dataset="A"` and `group="1.normal"` is the
-    right assignment. Here, constraining the dataset wildcard by
-    `{sample,[A-Z]+}.{group}` solves the problem.
+  wildcards are assigned to the right parts of a file name. Consider
+  the output file `{sample}.{group}.txt` and assume that the target
+  file is `A.1.normal.txt`. It is not clear whether `dataset="A.1"`
+  and `group="normal"` or `dataset="A"` and `group="1.normal"` is the
+  right assignment. Here, constraining the dataset wildcard by
+  `{sample,[A-Z]+}.{group}` solves the problem.
 
 When dealing with ambiguous rules, it is best practice to first try to
 solve the ambiguity by using a proper file structure, for example, by

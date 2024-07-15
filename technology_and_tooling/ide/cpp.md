@@ -1,15 +1,12 @@
 ---
 name: VSCode
-dependsOn: [
-]
+dependsOn: []
 tags: [cpp]
 attribution:
-  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk
     image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
     license: CC-BY-4.0
-
-
 ---
 
 ## Introduction to VSCode
@@ -62,44 +59,44 @@ try out any that you might find useful.
 
 ## Ensuring you have a compiler installed
 
-C++ source code is converted into executables that you can run using a *compiler*. There
+C++ source code is converted into executables that you can run using a _compiler_. There
 are a number of different C++ compilers available, and two of the most common are
-[*Clang*](https://clang.llvm.org/), based on the [LLVM](https://llvm.org/) framework or
-[*GCC*](https://gcc.gnu.org/), the GNU Compiler Collection.
+[_Clang_](https://clang.llvm.org/), based on the [LLVM](https://llvm.org/) framework or
+[_GCC_](https://gcc.gnu.org/), the GNU Compiler Collection.
 
 Ensure that you have either `clang` or `g++` (part of GCC) compiler installed using:
 
-~~~bash
+```bash
 clang++ --version
-~~~
+```
 
 or
 
-~~~bash
+```bash
 g++ --version
-~~~
+```
 
 You should see something like:
 
-~~~text
+```text
 Homebrew clang version 15.0.3
 Target: x86_64-apple-darwin22.1.0
 Thread model: posix
 InstalledDir: /usr/local/opt/llvm/bin
-~~~
+```
 
 Check where the compiler executable is located on your machine
 
-~~~bash
+```bash
 which clang++
 which g++
-~~~
+```
 
 You should see something like:
 
-~~~text
+```text
 /usr/local/opt/llvm/bin/clang++
-~~~
+```
 
 Make a note of the location of the compiler that you wish to use.
 
@@ -109,13 +106,13 @@ Let's create our first C++ program in VSCode. Select `File` -> `New Text File` f
 menu. A new file will appear. Copy or type in the following contents and save the file
 as `hello.cpp`.
 
-~~~cpp
+```cpp
 #include <iostream>
 
 int main(void) {
   std::cout << "Hello, world!" << std::endl;
 }
-~~~
+```
 
 Open the command palette (F1) and choose "C/C++ Run C/C++ File", or click on the play
 button in the top right hand corner of the screen. Choose one of the compilers
@@ -127,26 +124,18 @@ debug console.
 
 Open the `vscode/tasks.json` file created earlier, it should look something like this:
 
-~~~json
+```json
 {
   "tasks": [
     {
       "type": "cppbuild",
       "label": "C/C++: g++ build active file",
       "command": "/usr/bin/g++",
-      "args": [
-        "-fdiagnostics-color=always",
-        "-g",
-        "${file}",
-        "-o",
-        "${fileDirname}/${fileBasenameNoExtension}"
-      ],
+      "args": ["-fdiagnostics-color=always", "-g", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}"],
       "options": {
         "cwd": "${fileDirname}"
       },
-      "problemMatcher": [
-        "$gcc"
-      ],
+      "problemMatcher": ["$gcc"],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -156,7 +145,7 @@ Open the `vscode/tasks.json` file created earlier, it should look something like
   ],
   "version": "2.0.0"
 }
-~~~
+```
 
 In "command" and "args, this file describes the command that VSCode runs to compile your
 code. In this case `${file}` is the name of our source file `hello.cpp`,
@@ -164,9 +153,9 @@ code. In this case `${file}` is the name of our source file `hello.cpp`,
 the root directory of our project), and `${fileBasenameNoextension}` is simply `hello`.
 So the command that is run for the `tasks.json` above would be:
 
-~~~bash
+```bash
 /usr/bin/g++ -fdiagnostics-color=always -g hello.cpp -o hello
-~~~
+```
 
 This command uses the `g++` compiler to compile `hello.cpp` and writes the output
 exectable program to the file `hello`. You can now run this executable via the
@@ -185,13 +174,13 @@ and its version, your compiler will by default use one of these. Lets make sure 
 using a certain standard (in this case we will choose C++20). We can tell either `g++`
 or `clang++` to use the C++20 standard using the `-std` flag:
 
-~~~bash
+```bash
 /usr/bin/g++ -std=c++20 -g hello.cpp -o hello
-~~~
+```
 
 And we can add this to the VSCode `tasks.json` file like so:
 
-~~~json
+```json
 {
   "tasks": [
     {
@@ -209,9 +198,7 @@ And we can add this to the VSCode `tasks.json` file like so:
       "options": {
         "cwd": "${fileDirname}"
       },
-      "problemMatcher": [
-        "$gcc"
-      ],
+      "problemMatcher": ["$gcc"],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -221,4 +208,4 @@ And we can add this to the VSCode `tasks.json` file like so:
   ],
   "version": "2.0.0"
 }
-~~~
+```
