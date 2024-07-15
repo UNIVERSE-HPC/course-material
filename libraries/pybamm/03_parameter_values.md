@@ -17,6 +17,7 @@ PyBaMM comes with 12 ready-made parameter sets for lithium-ion batteries. To sel
 ```python
 import pybamm
 parameter_values = pybamm.ParameterValues("Marquis2019")
+model = pybamm.lithium_ion.DFN()
 ```
 
 There are over 100 parameter values! Fortunately, `ParameterValues` objects are dictionaries so you can look up the parameters you're interested in:
@@ -34,21 +35,22 @@ experiment3 = pybamm.Experiment(
     [
         "Hold at 4.2 V until C/100",
         "Rest for 4 hours",
-    ] +
+    ]
     # Capacity check
-    [(
+    + [(
         "Discharge at C/10 until 2.5 V",
         "Charge at C/10 until 4.2 V",
         "Hold at 4.2 V until C/100"
-    )] +
+    )]
     # Ageing cycles
-    [(
+
+    + [(
         "Discharge at 1C until 2.5 V",
         "Charge at 0.3C until 4.2 V",
         "Hold at 4.2 V until C/100",
     )] * 10 +
     # Capacity check
-    [(
+    + [(
         "Discharge at C/10 until 2.5 V",
         "Charge at C/10 until 4.2 V",
         "Hold at 4.2 V until C/100"

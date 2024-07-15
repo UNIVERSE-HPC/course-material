@@ -40,6 +40,7 @@ More information on the thermal models can be found in [the documentation](https
 Thermal models add extra physics on top of the electrochemical models, so we need to choose a base electrochemical model to start with. Then, the extra physics can be specified via the model options. For example, if we want to use the DFN model with a lumped thermal model we do
 
 ```python
+import pybamm
 model = pybamm.lithium_ion.DFN(options={"thermal": "lumped"})
 ```
 
