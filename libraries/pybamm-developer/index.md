@@ -1,26 +1,17 @@
 ---
 id: pybamm_developer
 name: PyBaMM Model Development
-dependsOn: [
-    libraries.pybamm
-]
-files: [
-    01_ode.md,
-    02_pde.md,
-    03_spm.md,
-    04_spm_class.md,
-    05_spm_acid.md,
-    06_submodels.md,
-]
-attribution: 
-    - citation: >
-        PyBaMM documentation by the PyBaMM Team
-      url: https://docs.pybamm.org
-      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
-      license: BSD-3
+dependsOn: [libraries.pybamm]
+files: [01_ode.md, 02_pde.md, 03_spm.md, 04_spm_class.md, 05_spm_acid.md, 06_submodels.md]
+attribution:
+  - citation: >
+      PyBaMM documentation by the PyBaMM Team
+    url: https://docs.pybamm.org
+    image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
+    license: BSD-3
 summary: |
-    This course covers battery model development in PyBaMM (Python Battery Mathematical Modelling).
-    We will learn how to develop new models, submodels & parameter sets, and how to use them in PyBaMM.
+  This course covers battery model development in PyBaMM (Python Battery Mathematical Modelling).
+  We will learn how to develop new models, submodels & parameter sets, and how to use them in PyBaMM.
 ---
 
 ## PyBaMM: A High-Level Overview

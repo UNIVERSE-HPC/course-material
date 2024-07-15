@@ -1,15 +1,13 @@
 ---
 name: Single Particle Model
-dependsOn: [
-    libraries.pybamm-developer.02_pde
-]
+dependsOn: [libraries.pybamm-developer.02_pde]
 tags: [pybamm]
-attribution: 
-    - citation: >
-        PyBaMM documentation by the PyBaMM Team
-      url: https://docs.pybamm.org
-      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
-      license: BSD-3
+attribution:
+  - citation: >
+      PyBaMM documentation by the PyBaMM Team
+    url: https://docs.pybamm.org
+    image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
+    license: BSD-3
 ---
 
 # The Single Particle Model
@@ -62,6 +60,7 @@ other parameters we have seen so far, it is a function of time. We can define
 this using `pybamm.FunctionParameter`:
 
 ```python
+import pybamm
 I = pybamm.FunctionParameter("Current function [A]", {"Time [s]": pybamm.t})
 ```
 
@@ -204,10 +203,10 @@ c_n_surf = pybamm.boundary_value(c_n, "right")
 The OCPs $U_i$ are functions of the surface stoichiometries $x_i^s$, and we can
 define them using `pybamm.FunctionParameter` in a similar way to the applied
 current $I$. For example, to define the OCP of the positive electrode as a
-function of the surface stoichiometry $x_p^s$:  
+function of the surface stoichiometry $x_p^s$:
 
 ```python
-U_p = pybamm.FunctionParameter("Positive electrode OCP [V]", {"stoichiometry": x_p_s})
+U_p = pybamm.FunctionParameter("Positive electrode OCP [V]", {"stoichiometry": "x_p_s"})
 ```
 
 ### PyBaMM's built-in functions
@@ -266,8 +265,8 @@ U_i = [pybamm.FunctionParameter(f"{e.capitalize()} electrode OCP [V]", {"stoichi
 [U_n_plus_eta, U_p_plus_eta] = [U_i[i] + eta_i[i] for i in [0, 1]]
 V = U_p_plus_eta - U_n_plus_eta
 model.variables = {
-  "Voltage [V]": V,
-  "Negative particle surface concentration [mol.m-3]": c_i_s[0],
+    "Voltage [V]": V,
+    "Negative particle surface concentration [mol.m-3]": c_i_s[0],
 }
 ```
 

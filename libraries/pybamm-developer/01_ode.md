@@ -1,15 +1,13 @@
 ---
 name: ODE models in PyBaMM
-dependsOn: [
-    libraries.pybamm
-]
+dependsOn: [libraries.pybamm]
 tags: [pybamm]
-attribution: 
-    - citation: >
-        PyBaMM documentation by the PyBaMM Team
-      url: https://docs.pybamm.org
-      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
-      license: BSD-3
+attribution:
+  - citation: >
+      PyBaMM documentation by the PyBaMM Team
+    url: https://docs.pybamm.org
+    image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
+    license: BSD-3
 ---
 
 # A simple ODE battery model
@@ -40,6 +38,7 @@ class. For example, if you wanted to define a state variable with name "x", you
 would write
 
 ```python
+import pybamm
 x = pybamm.Variable("x")
 ```
 
@@ -150,7 +149,7 @@ model.initial_conditions[x_n] = x_n_0
 model.rhs[x_p] = i / Q_p
 model.initial_conditions[x_p] = x_p_0
 
-model.variables["Voltage [V]"] = U_p - U_n -  i * R
+model.variables["Voltage [V]"] = U_p - U_n - i * R
 model.variables["Negative electrode stochiometry"] = x_n
 model.variables["Positive electrode stochiometry"] = x_p
 ```
@@ -306,27 +305,28 @@ following values:
 - The OCV functions are the LGM50 OCP from the Chen2020 model, which are given by the functions:
 
 ```python
+import numpy as np
 def graphite_LGM50_ocp_Chen2020(sto):
-  u_eq = (
-      1.9793 * np.exp(-39.3631 * sto)
-      + 0.2482
-      - 0.0909 * np.tanh(29.8538 * (sto - 0.1234))
-      - 0.04478 * np.tanh(14.9159 * (sto - 0.2769))
-      - 0.0205 * np.tanh(30.4444 * (sto - 0.6103))
-  )
+    u_eq = (
+        1.9793 * np.exp(-39.3631 * sto)
+        + 0.2482
+        - 0.0909 * np.tanh(29.8538 * (sto - 0.1234))
+        - 0.04478 * np.tanh(14.9159 * (sto - 0.2769))
+        - 0.0205 * np.tanh(30.4444 * (sto - 0.6103))
+    )
 
-  return u_eq
+    return u_eq
 
 def nmc_LGM50_ocp_Chen2020(sto):
-  u_eq = (
-      -0.8090 * sto
-      + 4.4875
-      - 0.0428 * np.tanh(18.5138 * (sto - 0.5542))
-      - 17.7326 * np.tanh(15.7890 * (sto - 0.3117))
-      + 17.5842 * np.tanh(15.9308 * (sto - 0.3120))
-  )
-  
-  return u_eq
+    u_eq = (
+        -0.8090 * sto
+        + 4.4875
+        - 0.0428 * np.tanh(18.5138 * (sto - 0.5542))
+        - 17.7326 * np.tanh(15.7890 * (sto - 0.3117))
+        + 17.5842 * np.tanh(15.9308 * (sto - 0.3120))
+    )
+
+    return u_eq
 ```
 
 :::solution

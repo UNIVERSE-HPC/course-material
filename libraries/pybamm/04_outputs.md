@@ -1,15 +1,13 @@
 ---
 name: Making the most of PyBaMM outputs
-dependsOn: [
-    libraries.pybamm.03_parameter_values,
-]
+dependsOn: [libraries.pybamm.03_parameter_values]
 tags: [pybamm]
-attribution: 
-    - citation: >
-        PyBaMM documentation by the PyBaMM Team
-      url: https://docs.pybamm.org
-      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
-      license: BSD-3
+attribution:
+  - citation: >
+      PyBaMM documentation by the PyBaMM Team
+    url: https://docs.pybamm.org
+    image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
+    license: BSD-3
 ---
 
 There is a large overlap between this exercise and [PyBaMM Tutorial notebook 6](https://docs.pybamm.org/en/latest/source/examples/notebooks/getting_started/tutorial-6-managing-simulation-outputs.html), so we recommended you read both.
@@ -19,6 +17,8 @@ There is a large overlap between this exercise and [PyBaMM Tutorial notebook 6](
 After solving a simulation, there are two says of accessing the solution:
 
 ```python
+import pybamm
+sim = pybamm.Simulation()
 sol = sim.solve()
 ```
 
@@ -95,7 +95,7 @@ experiment = pybamm.Experiment([
     "Hold at 4.0 V until C/100",
 ])
 simulation = pybamm.Simulation(
-    model, 
+    model,
     parameter_values=parameter_values,
     experiment=experiment,
 )
@@ -131,8 +131,8 @@ sol2 = pybamm.load(path + "my_pybamm_solution.pkl")
 
 PyBaMM has a lot of variables, so these `.pkl` files are huge! So why bother?
 
-* You can run another PyBaMM model, with the final results of the saved solution as the initial conditions for the next, by using `model.set_initial_conditions_from(sol2)`, as shown in [this example](https://docs.pybamm.org/en/latest/source/examples/notebooks/initialize-model-with-solution.html)
-* You can do the same post-processing on a solution loaded from disk as you can on a "fresh" solution.
+- You can run another PyBaMM model, with the final results of the saved solution as the initial conditions for the next, by using `model.set_initial_conditions_from(sol2)`, as shown in [this example](https://docs.pybamm.org/en/latest/source/examples/notebooks/initialize-model-with-solution.html)
+- You can do the same post-processing on a solution loaded from disk as you can on a "fresh" solution.
 
 If saving the entire solution would take up too much space, you can use `save_data` to only save the variables you need:
 
@@ -155,15 +155,15 @@ There is no right answer to this question, but some examples are the following.
 
 When to save entire solution?
 
-* If you might want to do additional post-processing later.
-* If you're likely to need the solution as an initial condition for anoher simulation.
-* If you're submitting the data to an archive.
+- If you might want to do additional post-processing later.
+- If you're likely to need the solution as an initial condition for anoher simulation.
+- If you're submitting the data to an archive.
 
 When to save selected data?
 
-* If the full `.pkl` file would take up too much space or take too long to upload.
-* To feed the data to another software package.
-* To share the data with non-PyBaMM users.
+- If the full `.pkl` file would take up too much space or take too long to upload.
+- To feed the data to another software package.
+- To share the data with non-PyBaMM users.
 
 :::
 

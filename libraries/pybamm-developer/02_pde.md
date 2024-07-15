@@ -1,15 +1,13 @@
 ---
 name: PDE models in PyBaMM
-dependsOn: [
-    libraries.pybamm-developer.01_ode
-]
+dependsOn: [libraries.pybamm-developer.01_ode]
 tags: [pybamm]
-attribution: 
-    - citation: >
-        PyBaMM documentation by the PyBaMM Team
-      url: https://docs.pybamm.org
-      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
-      license: BSD-3
+attribution:
+  - citation: >
+      PyBaMM documentation by the PyBaMM Team
+    url: https://docs.pybamm.org
+    image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
+    license: BSD-3
 ---
 
 # Creating a simple PDE model
@@ -40,6 +38,7 @@ This argument is a string and we will later on define the geometry of
 the domain.
 
 ```python
+import pybamm
 model = pybamm.BaseModel()
 
 c = pybamm.Variable("Concentration", domain="negative particle")
@@ -130,7 +129,7 @@ mesh = pybamm.Mesh(geometry, submesh_types, var_pts)
 Here we have used the [`pybamm.Uniform1DSubMesh`](https://docs.pybamm.org/en/stable/source/api/meshes/one_dimensional_submeshes.html#pybamm.Uniform1DSubMesh) class to create a uniform mesh.
 This class does not require any parameters, and so we can pass it directly to
 the `submesh_types` dictionary. However, many other submesh types can take
-additional parameters.  Example of meshes that do require parameters include the
+additional parameters. Example of meshes that do require parameters include the
 [`pybamm.Exponential1DSubMesh`](https://docs.pybamm.org/en/stable/source/api/meshes/one_dimensional_submeshes.html#pybamm.Exponential1DSubMesh) which clusters points close to one or both
 boundaries using an exponential rule. It takes a parameter which sets how
 closely the points are clustered together, and also lets the users select the
@@ -158,7 +157,7 @@ into matrix-vector multiplications.
 ```python
 spatial_methods = {"negative particle": pybamm.FiniteVolume()}
 disc = pybamm.Discretisation(mesh, spatial_methods)
-disc.process_model(model);
+disc.process_model(model)
 ```
 
 Now that the model has been discretised we are ready to solve.
@@ -168,6 +167,9 @@ Now that the model has been discretised we are ready to solve.
 As before, we choose a solver and times at which we want the solution returned. We then solve, extract the variables we are interested in, and plot the result.
 
 ```python
+import matplotlib.pyplot as plt
+import numpy as np
+import pybamm
 # solve
 solver = pybamm.ScipySolver()
 t = np.linspace(0, 1, 100)
@@ -211,13 +213,13 @@ density, $F$ Faraday's constant, and $c_0$ the initial concentration.
 
 We use the following parameters:
 
-| Symbol | Units              | Value                                          |
-|:-------|:-------------------|:-----------------------------------------------|
-| $R$      | m                | $10 \times 10^{-6}$                            |
-| $D$      | m${^2}$ s$^{-1}$ | $3.9 \times 10^{-14}$                          |
-| $j$      | A m$^{-2}$       | $1.4$                                          |
-| $F$      | C mol$^{-1}$     | $96485$                                        |
-| $c_0$    | mol m$^{-3}$     | $2.5 \times 10^{4}$                            |
+| Symbol | Units            | Value                 |
+| :----- | :--------------- | :-------------------- |
+| $R$    | m                | $10 \times 10^{-6}$   |
+| $D$    | m${^2}$ s$^{-1}$ | $3.9 \times 10^{-14}$ |
+| $j$    | A m$^{-2}$       | $1.4$                 |
+| $F$    | C mol$^{-1}$     | $96485$               |
+| $c_0$  | mol m$^{-3}$     | $2.5 \times 10^{4}$   |
 
 Create a model for this problem, discretise it and solve it. Use a uniform mesh
 with 20 points, and discretise the domain using the Finite Volume Method. Solve
@@ -246,14 +248,14 @@ c = pybamm.Variable("Concentration [mol.m-3]", domain="negative particle")
 # governing equations
 N = -D * pybamm.grad(c)  # flux
 dcdt = -pybamm.div(N)
-model.rhs = {c: dcdt}  
+model.rhs = {c: dcdt}
 
-# boundary conditions 
+# boundary conditions
 lbc = pybamm.Scalar(0)
 rbc = -j / F / D
 model.boundary_conditions = {c: {"left": (lbc, "Neumann"), "right": (rbc, "Neumann")}}
 
-# initial conditions 
+# initial conditions
 model.initial_conditions = {c: c0}
 
 model.variables = {
