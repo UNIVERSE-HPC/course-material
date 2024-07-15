@@ -123,7 +123,7 @@ We now have several examples of composition:
 - Inventory _has many_ items
 
 You can see how we can build quickly build up complex behaviours.
-Now have a think: would it be simple to build this behavour without classes?
+Now have a think: would it be simple to build this behaviour without classes?
 It would probably be very messy.
 
 ### Inheritance
@@ -348,7 +348,7 @@ return 0;
 
 ## Full code sample for lession
 
-Here is working code for this lession that defines the classes and then gives an example of how to use them.
+Here is working code for this lesson that defines the classes and then gives an example of how to use them.
 You can also see this code in action, and play with it and run it, on [Compiler Explorer](https://gcc.godbolt.org/z/K51dPz1os):
 
 ```cpp

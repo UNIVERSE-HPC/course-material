@@ -409,7 +409,7 @@ int six = 6;
 int& r_six = six;
 ```
 
-An rvalue refernce is more general in that it can also be bound to temporaries,
+An rvalue reference is more general in that it can also be bound to temporaries,
 or rvalues. An rvalue could be a literal like `6` or the result of an expression
 like `a + b` (i.e. something that you might see on the right hand side of an
 assignment `=` statement). An rvalue reference is declared using two ampersands `&&`.
@@ -433,13 +433,13 @@ the `std::move` function to do this more efficiently by changing the lvalue
 references to rvalue references.
 
 ```cpp
-T tmp(std::move(war_and_peace);
+T tmp(std::move(war_and_peace));
 war_and_peace = std::move(moby_dick);
 moby_dick = std::move(tmp);
 ```
 
 The `std::move` function allows us to transfer the value of variable `a` to
-variable `b`, without the requiriment of maintaining the value of `a`. Note that
+variable `b`, without the requirement of maintaining the value of `a`. Note that
 after we have moved `a` its value is now unspecified, so after the last
 statement in the snippet above, the value of `tmp` will be unspecified.
 

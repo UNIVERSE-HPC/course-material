@@ -77,7 +77,7 @@ public:
 };
 ```
 
-Notice that the **virtual** keyword is onpy present in the base class.
+Notice that the **virtual** keyword is only present in the base class.
 
 The **override** keyword indicates that the function is intended to override a virtual function from the base class.
 It is not mandatory to add the **override** keyword, but it is considered best practice for the following reasons:
@@ -124,7 +124,7 @@ In our example, it may be that we can never have a character that is not either 
 In this case, we would like `Character` to become an abstract class.
 
 An abstract class cannot be instantiated directly, and it is meant to serve as a base for derived classes by providing an interface that derived classes must implement.
-A class becomes abstract if it has at least one _pure virtual function_, that is, a virtual function that does not have an implementaiton.
+A class becomes abstract if it has at least one _pure virtual function_, that is, a virtual function that does not have an implementation.
 
 1. **Pure Virtual Function**: The `Character` class would have at least one pure virtual function, declared as follows:
 
@@ -196,11 +196,11 @@ virtual ~Character() = default;
 ## Key Points
 
 - Class-based Polymorphism in programming languages allows objects of different classes to be treated as if they were the same type.
-- Classes can be made abstract by providing at least one pure virtual function, but you should remember the virual destructor, too.
+- Classes can be made abstract by providing at least one pure virtual function, but you should remember the virtual destructor, too.
 
 ## Full code sample for lession
 
-Here is working code for this lession that defines the classes and then gives an example of how to use them.
+Here is working code for this lesson that defines the classes and then gives an example of how to use them.
 You can also see this code in action, and play with it and run it, on [Compiler Explorer](https://gcc.godbolt.org/z/KoaoET9v9):
 
 ```cpp

@@ -52,7 +52,7 @@ std::vector<float> item_positions_y;
 
 Structuring our data in this way does have some advantages: it may be possible to update every character's position at once, and having those positions contiguous in memory may make this an efficient operation.
 
-However, as we build out the functioanlity of characters and items, this will quickly become unwealdy.
+However, as we build out the functionality of characters and items, this will quickly become unwieldy.
 
 1. There will be lots of vectors!
 2. A function that operates on a character might need to take many arguments.

@@ -44,8 +44,8 @@ a form of _generic programming_, and allow us to write classes (and functions) t
 accept many different types. All the container in C++ need to be able to hold any type
 of value, and therefore all of the container types in C++ are templated on the value
 type. The `std::array` class represents an array with a pre-defined size, and so this
-size is another template arguement. Note that unlike arguements to functions, all
-template arguements must be know _at compile time_.
+size is another template argument. Note that unlike arguments to functions, all
+template arguments must be know _at compile time_.
 
 Since `std::array` has more limited use compared with `std::vector`, we will focus the
 remainder of this section on `std::vector`. The interface to `std::array` is very
@@ -82,7 +82,7 @@ odds = {1, 3, 5, 7, 9, 11, 15};
 Note that every value in a vector must be of the same type, and this must match the type
 that the `std::vector` is templated on.
 
-We can select individual elements from vecotrs by indexing them. Looking at our `odds`
+We can select individual elements from vectors by indexing them. Looking at our `odds`
 list:
 
 ![index-list](../fig/05-index-list-odd.png)
@@ -90,7 +90,7 @@ list:
 For example:
 
 ```cpp
-std::cout << odds[0] << ' ' << odds[-1] << std::endl;
+std::cout << odds[0] << ' ' << odds[-1] << std::end;
 ```
 
 This will print the first and last elements of a list:
