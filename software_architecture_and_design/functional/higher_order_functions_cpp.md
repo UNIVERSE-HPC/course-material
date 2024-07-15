@@ -19,7 +19,7 @@ attribution:
 
 Languages that treat functions as first-class citizens allow functions to be
 passed as arguments to other functions, returned from functions, or assigned to
-variables. In C++ this is typically done via lamda functions or function objects.
+variables. In C++ this is typically done via lambda functions or function objects.
 
 ### Lambda Functions
 
@@ -74,9 +74,9 @@ std::cout << i << std::endl; // prints 4
 
 ### Function objects
 
-A lambda function in C++ is syntactical suger for a function object, which is
+A lambda function in C++ is syntactical sugar for a function object, which is
 simply a class with a round bracket operator defined. For example you could
-define the last `add_i_to_arg` lamda manually as a function object
+define the last `add_i_to_arg` lambda manually as a function object
 
 ```cpp
 class AddIToArg {
@@ -98,7 +98,7 @@ int main() {
 ```
 
 Under the hood, when you write you lambda the compiler simply creates and
-compiles the equivilant function object for you. If you want more control of the
+compiles the equivalent function object for you. If you want more control of the
 process, you can write the function object manually.
 
 ### Polymorphic function
@@ -115,13 +115,13 @@ add = [](int i) { return i + 2; };
 The two lambdas have different types, even though they are both functions that take a single `int` as an argument and return another `int`.
 
 ```text
-/home/mrobins/git/cpp_tmp/prodecural.cpp:14:35: error: no match for 'operator=' (operand types are 'main()::<lambda(int)>' and 'main()::<lambda(int)>')
+/home/mrobins/git/cpp_tmp/procedural.cpp:14:35: error: no match for 'operator=' (operand types are 'main()::<lambda(int)>' and 'main()::<lambda(int)>')
    14 |   add = [](int i) { return i + 2; };
       |                                   ^
-/home/mrobins/git/cpp_tmp/prodecural.cpp:13:15: note: candidate: 'main()::<lambda(int)>& main()::<lambda(int)>::operator=(const main()::<lambda(int)>&)' (deleted)
+/home/mrobins/git/cpp_tmp/procedural.cpp:13:15: note: candidate: 'main()::<lambda(int)>& main()::<lambda(int)>::operator=(const main()::<lambda(int)>&)' (deleted)
    13 |   auto add = [](int i) { return i + 1; };
       |               ^
-/home/mrobins/git/cpp_tmp/prodecural.cpp:13:15: note:   no known conversion for argument 1 from 'main()::<lambda(int)>' to 'const main()::<lambda(int)>&'
+/home/mrobins/git/cpp_tmp/procedural.cpp:13:15: note:   no known conversion for argument 1 from 'main()::<lambda(int)>' to 'const main()::<lambda(int)>&'
 ```
 
 This causes problems if for example, you want to store a collection of function
@@ -151,7 +151,7 @@ One of the main uses of lambda functions is to create temporary functions to
 pass into higher order functions. A higher order function is simply a function
 that has other functions as one of its arguments.
 
-To illustrate the benifits of higher order functions, let us define two
+To illustrate the benefits of higher order functions, let us define two
 functions, one that calculates the sum of a `std::vector<int>`, the other
 which calculates the maximum value the same vector type.
 
@@ -208,8 +208,8 @@ recognising their conceptual similarities. Using the algorithms library means:
 
 (a) you reduce the amount of (algorithmic) code you need to write, reducing bugs and increasing maintainability
 (b) you make clear to the reader what your code is doing, since these are commonly used algorithms
-(b) you benifit from bullet proof, efficient implementations written by the same teams that write the compiler you are using
-(c) you can benifit from _executors_ to instantly parallise or vectorise your code for high performance.
+(b) you benefit from bullet proof, efficient implementations written by the same teams that write the compiler you are using
+(c) you can benefit from _executors_ to instantly parallelise or vectorise your code for high performance.
 
 Lets go through a few examples inspired by the common functional algorithms
 "map", "filter" and "reduce" (also the inspiration for the MapReduce

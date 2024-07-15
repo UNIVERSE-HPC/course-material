@@ -30,7 +30,7 @@ iteration and recursion, respectively. Recall that the factorial of a number `n`
 // factorial
 // @param n: the number to calculate the factorial of
 // @return: the factorial of n
-int factorial(int n):
+int factorial(int n) {
   int product = 1;
   for (int i = 2; i <= n; ++i) {
       product *= i;
