@@ -1,30 +1,26 @@
 ---
 name: Jacobi and Relaxation Methods
-dependsOn: [
-  'scientific_computing.sparse_linear_algebra.04-scipy-sparse',
-]
+dependsOn: ["scientific_computing.sparse_linear_algebra.04-scipy-sparse"]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
-
+attribution:
+  - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Iterative Methods
 
-Previously we have discussed *direct* linear algebra solvers based on decompositions of
+Previously we have discussed _direct_ linear algebra solvers based on decompositions of
 the original matrix $A$. The amount of computational effort required to achieve these
 decomposisions is $\mathcal{O}(n^3)$, where $n$ is the number of rows of a square
 matrix. They are therefore unsuitable for the large, sparse systems of equations that
 are typically encountered in scientific applications. An alternate class of linear
-algebra solvers are the *iterative* methods, which produce a series of *approximate*
+algebra solvers are the _iterative_ methods, which produce a series of _approximate_
 solutions $x_k$ to the $A x = b$ problem. The performance of each algorithm is then
 based on how quickly, or how many iterations $k$ are required, for the solution $x_k$ to
 converge to within a set tolerance of the true solution $x$.
@@ -32,7 +28,7 @@ converge to within a set tolerance of the true solution $x$.
 ## Jacobi Method
 
 The Jacobi method is the simplest of the iterative methods, and relies on the fact that
-the matrix is *diagonally dominant*. Starting from the problem definition:
+the matrix is _diagonally dominant_. Starting from the problem definition:
 
 $$
 A\mathbf{x} = \mathbf{b}
@@ -81,7 +77,7 @@ $$
 \mathbf{x}_{k+1} = M^{-1}N\mathbf{x}_k + M^{-1}\mathbf{b}
 $$
 
-This can be rearranged in terms of the *residual* $\mathbf{r}_k = \mathbf{b} - A
+This can be rearranged in terms of the _residual_ $\mathbf{r}_k = \mathbf{b} - A
 \mathbf{x}_k$ to the update equation
 
 $$
@@ -91,10 +87,10 @@ $$
 For the Jacobi method $M = D$ and $N = -(L + U)$. Other relaxation methods include
 Gauss-Seidel, where $M = (D + L)$ and $N = -U$, and successive over-relaxation (SOR),
 where $M = \frac{1}{\omega} D + L$ and $N = -(\frac{\omega - 1}{\omega} D + U)$, where
-$\omega$ is the *relaxation* parameter that is within the range $0 \le \omega \le 2$.
+$\omega$ is the _relaxation_ parameter that is within the range $0 \le \omega \le 2$.
 
 For any relaxation method to converge we need $\rho(M^{-1}N) < 1$, where $\rho()$ is the
-*spectral radius* of $M^{-1} N$, which is defined as the largest eigenvalue $\lambda$ of
+_spectral radius_ of $M^{-1} N$, which is defined as the largest eigenvalue $\lambda$ of
 a a given matrix $G$:
 
 $$
@@ -121,7 +117,7 @@ optimal $\omega$.
 ::::challenge{id=2d-poisson-jacobi-relaxation title="2D Poisson Jacobi Relaxation"}
 
 This exercise involves the manipulation and solution of the linear system resulting from
-the finite difference solution to Poisson's equation in *two* dimensions. Let $A$ be a
+the finite difference solution to Poisson's equation in _two_ dimensions. Let $A$ be a
 sparse symmetric positive definite matrix of dimension $(N-1)^2 \times (N-1)^2$ created
 using `scipy.sparse` (for a given $N$) by the function
 `buildA` as follows:
@@ -132,8 +128,8 @@ import scipy.sparse as sp
 
 def buildA(N):
     dx = 1 / N
-    nvar = (N - 1)**2;
-    e1 = np.ones((nvar), dtype=float);
+    nvar = (N - 1)**2
+    e1 = np.ones((nvar), dtype=float)
     e2 = np.copy(e1)
     e2[::N-1] = 0
     e3 = np.copy(e1)
@@ -142,7 +138,7 @@ def buildA(N):
         (-e1, -e3, 4*e1, -e2, -e1),
         (-(N-1), -1, 0, 1, N-1), nvar, nvar
     )
-    A = A / dx**2;
+    A = A / dx**2
     return A
 ```
 
@@ -233,7 +229,7 @@ plt.show()
 - Write a function to solve a linear system using the SOR method.
   For $N=64$ and right-hand-side $\mathbf{f}_2$ determine numerically the best choice of the relaxation parameter t2 decimal places and compare this with theory.
   Hint, use
-    [`scipy.optimize.minimize_scalar`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize_scalar.html#scipy.optimize.minimize_scalar)
+  [`scipy.optimize.minimize_scalar`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize_scalar.html#scipy.optimize.minimize_scalar)
 
 :::solution
 

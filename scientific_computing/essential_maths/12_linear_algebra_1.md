@@ -1,18 +1,16 @@
 ---
 name: Linear algebra 1
-dependsOn: [
-  scientific_computing.essential_maths.08_complex_numbers
-]
+dependsOn: [scientific_computing.essential_maths.08_complex_numbers]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Introduction to Matrices
@@ -145,8 +143,7 @@ $$
 This means that $A \times B$ is not the same as $B \times A$.
 This can be easily seen from the fact that multiplying different sized matrices doesn't always work:
 
-> $(3 x 2 \rm{matrix}) \times (2 x 2 \rm{matrix}) = (3 x 2 \rm{matrix})$
-> $(2 x 2 \rm{matrix}) \times (3 x 2 \rm{matrix}) = ???$
+> $(3 x 2 \rm{matrix}) \times (2 x 2 \rm{matrix}) = (3 x 2 \rm{matrix})$ > $(2 x 2 \rm{matrix}) \times (3 x 2 \rm{matrix}) = ???$
 
 However, even when sizes match, the product is usually not the same.
 
@@ -225,8 +222,7 @@ $A^T$ is the transpose of $A$.
 
 Swap elements across the leading diagonal so that $A^T_{ij}= A_{ji}$.
 
-> $$\displaystyle A=\left(\begin{matrix}2&1&2\\ 1&4&6\\ 1&-1&2\end{matrix}\right)$$
-> $$\displaystyle A^T=\left(\begin{matrix}2&1&1\\ 1&4&-1\\ 2&6&2\end{matrix}\right)$$
+> $$\displaystyle A=\left(\begin{matrix}2&1&2\\ 1&4&6\\ 1&-1&2\end{matrix}\right)$$ > $$\displaystyle A^T=\left(\begin{matrix}2&1&1\\ 1&4&-1\\ 2&6&2\end{matrix}\right)$$
 
 ## Solving a linear system using matrices
 
@@ -234,7 +230,7 @@ To solve a matrix system $\displaystyle A {\bf x} = {\bf b}$ for an unknown left
 
 - If it's of order 2 then use the formula to write $A^{-1}$ and hence ${\bf x} = A^{-1}{\bf b}$.
 
-- If it's larger $(3\times3)$ then there's still a formula for  $A^{-1}$ (not in this course).
+- If it's larger $(3\times3)$ then there's still a formula for $A^{-1}$ (not in this course).
 
 - Use an analytical method (Gaussian elimination) to find the inverse (not in this course).
 
@@ -269,8 +265,7 @@ We have:
 
 Thus:
 
-> $$\displaystyle \left(\begin{matrix}x\\ y\end{matrix}\right) = \frac{1}{10}\left(\begin{matrix}5 &-5\\ 1&1\end{matrix}\right)\left(\begin{matrix}11\\ 9\end{matrix}\right) =\frac{1}{10} \left(\begin{matrix}10\\ 20\end{matrix}\right)$$
-> $$\displaystyle =\left(\begin{matrix}1\\ 2\end{matrix}\right)$$
+> $$\displaystyle \left(\begin{matrix}x\\ y\end{matrix}\right) = \frac{1}{10}\left(\begin{matrix}5 &-5\\ 1&1\end{matrix}\right)\left(\begin{matrix}11\\ 9\end{matrix}\right) =\frac{1}{10} \left(\begin{matrix}10\\ 20\end{matrix}\right)$$ > $$\displaystyle =\left(\begin{matrix}1\\ 2\end{matrix}\right)$$
 
 And $x=1, y=2$
 
@@ -297,10 +292,11 @@ In matrix form, this gives:
 #### Numerically, using NumPy
 
 ```python
-## In python, we use numpy arrays to store the needed matrices
-## the procedure linalg.solve, solves the system Ax = b
-## We could also calculate the inverse of A (linalg.inv), and then multiply. 
-## But this is faster
+# In python, we use numpy arrays to store the needed matrices
+# the procedure linalg.solve, solves the system Ax = b
+# We could also calculate the inverse of A (linalg.inv), and then multiply.
+# But this is faster
+import numpy as np
 A = np.array([[1,5,3,-1],[1,-2,1,4],[-3,1,-1,2],[1,1,1,0]])
 
 b = np.array([5, 2, -5, 0])
@@ -312,14 +308,15 @@ print(x)
 print(np.matmul(A,x))
 ```
 
-> ```text
-> [-5.94444444 -5.11111111 11.05555556 -3.33333333]
-> [ 5.0000000e+00  2.0000000e+00 -5.0000000e+00 -8.8817842e-16]
-> ```
+```text
+[-5.94444444 -5.11111111 11.05555556 -3.33333333]
+[ 5.0000000e+00  2.0000000e+00 -5.0000000e+00 -8.8817842e-16]
+```
 
 #### Symbolically, using SymPy
 
 ```python
+import sympy as sp
 A = sp.Matrix([[1,5,3,-1],[1,-2,1,4],[-3,1,-1,2],[1,1,1,0]])
 
 A.inv() * sp.Matrix([5, 2, -5, 0])
@@ -463,8 +460,7 @@ Comment on your results.
 ::::challenge{id="12_ext_01" title="Extension problems 1"}
 Show that
 
-> $$\begin{pmatrix} 3 & 1  \\ 1 & 3 \end{pmatrix} \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{1}{\sqrt 2} \end{pmatrix}  = \lambda_1 \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{1}{\sqrt 2} \end{pmatrix}$$
-> $$\begin{pmatrix} 3 & 1  \\ 1 & 3 \end{pmatrix} \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{-1}{\sqrt 2} \end{pmatrix} = \lambda_2 \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{-1}{\sqrt 2} \end{pmatrix}$$
+> $$\begin{pmatrix} 3 & 1  \\ 1 & 3 \end{pmatrix} \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{1}{\sqrt 2} \end{pmatrix}  = \lambda_1 \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{1}{\sqrt 2} \end{pmatrix}$$ > $$\begin{pmatrix} 3 & 1  \\ 1 & 3 \end{pmatrix} \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{-1}{\sqrt 2} \end{pmatrix} = \lambda_2 \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{-1}{\sqrt 2} \end{pmatrix}$$
 
 where $\lambda_1$ and $\lambda_2$ are constants to be determined.
 ::::

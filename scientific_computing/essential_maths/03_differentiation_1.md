@@ -1,19 +1,16 @@
 ---
 name: Differentiation 1
-dependsOn: [
-  scientific_computing.essential_maths.02_indices_and_logs
-]
+dependsOn: [scientific_computing.essential_maths.02_indices_and_logs]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ---
@@ -29,7 +26,7 @@ The material is still very similar:
 
 ## Gradients
 
-We often want to know about the *rate* at which one quantity changes over time.
+We often want to know about the _rate_ at which one quantity changes over time.
 Examples:
 
 1. The rate of disappearance of substrate with time in an enzyme reaction.
@@ -39,10 +36,10 @@ Examples:
 
 ### Defining the gradient
 
-* The **gradient of a curve** at a point $P$ is the slope of the tangent of the curve at that point.
-* The **tangent** is the line that "just touches" (but doesn't cross) the curve.
-* The gradient is also known as the **rate of change** or **derivative**, and the process of finding the gradient is called **differentiation**.
-* The gradient of the curve $\;y = f(x)\;$ is denoted in a few different ways, the three most common are:
+- The **gradient of a curve** at a point $P$ is the slope of the tangent of the curve at that point.
+- The **tangent** is the line that "just touches" (but doesn't cross) the curve.
+- The gradient is also known as the **rate of change** or **derivative**, and the process of finding the gradient is called **differentiation**.
+- The gradient of the curve $\;y = f(x)\;$ is denoted in a few different ways, the three most common are:
 
 $$ y', \quad f'(x), \quad \frac{dy}{dx}. $$
 
@@ -77,16 +74,22 @@ $x_2 = 2.5,\;2.1,\;2.01,\;\ldots$
 We can use Python as a calculator to evaluate these differences:
 
 ```python
-x_1 = 1.5; x_2 = 2.5
-y_1 = x_1**3 + 2; y_2 = x_2**3 + 2
+x_1 = 1.5
+x_2 = 2.5
+y_1 = x_1**3 + 2
+y_2 = x_2**3 + 2
 print((y_2-y_1)/(x_2-x_1))
 
-x_1 = 1.9; x_2 = 2.1
-y_1 = x_1**3 + 2; y_2 = x_2**3 + 2
+x_1 = 1.9
+x_2 = 2.1
+y_1 = x_1**3 + 2
+y_2 = x_2**3 + 2
 print((y_2-y_1)/(x_2-x_1))
 
-x_1 = 1.99; x_2 = 2.01
-y_1 = x_1**3 + 2; y_2 = x_2**3 + 2
+x_1 = 1.99
+x_2 = 2.01
+y_1 = x_1**3 + 2
+y_2 = x_2**3 + 2
 print((y_2-y_1)/(x_2-x_1))
 ```
 
@@ -121,11 +124,7 @@ Notice how, as the finite difference gets smaller and smaller, the approximation
 
 Find the gradient of $y = f(x) = x^3 + 2$.
 
-> $\frac{dy}{dx} = \frac{f(x+h) - f(x)}{h}$
-> $\frac{dy}{dx} = \frac{(x+h)^3 + 2 - (x^3 + 2)}{h}$
-> $\frac{dy}{dx} = \frac{x^3 + 3x^2 h + 3xh^2 + h^3 + 2 - x^3 - 2}{h}$
-> $\frac{dy}{dx} = \frac{3x^2h + 3xh^2 + h^3}{h}$
-> $\frac{dy}{dx} = 3x^2 + 3xh + h^3$
+> $\frac{dy}{dx} = \frac{f(x+h) - f(x)}{h}$ > $\frac{dy}{dx} = \frac{(x+h)^3 + 2 - (x^3 + 2)}{h}$ > $\frac{dy}{dx} = \frac{x^3 + 3x^2 h + 3xh^2 + h^3 + 2 - x^3 - 2}{h}$ > $\frac{dy}{dx} = \frac{3x^2h + 3xh^2 + h^3}{h}$ > $\frac{dy}{dx} = 3x^2 + 3xh + h^3$
 
 Now this is only exactly right when $h \rightarrow 0$. So letting that happen, we have
 $\frac{dy}{dx} = 3x^2$
@@ -155,7 +154,7 @@ e.g.
 > $y = x^2 + x^3, \quad y' = 2x + 3x^2$
 
 ### Multiplying (by a scalar)
->
+
 > $ (a f(x))' = a f'(x)$
 
 e.g.
@@ -176,17 +175,15 @@ You can take a derivative of a function multiple times in a row. This is usually
 
 e.g.
 
-> $y = x^3$
-> $y' = 3x^2$
-> $y'' = \frac{d^2 y}{dx^2} = 6 x$
+> $y = x^3$ > $y' = 3x^2$ > $y'' = \frac{d^2 y}{dx^2} = 6 x$
 
 ## Interpreting derivatives
 
 The sign of the first derivative $\;f'(x)\;$ tells us how $\;f(x)\;$ is growing
 
-* Positive gradient: If $\;y' > 0\;$ then $\;y\;$ is **increasing** at $\;x\;$
-* Negative gradient: If $\;y' < 0\;$ then $\;y\;$ is **decreasing** at $\;x\;$
-* Zero gradient: If $\;y' = 0\;$ then $\;y\;$ is not changing (flat) at $\;x\;$
+- Positive gradient: If $\;y' > 0\;$ then $\;y\;$ is **increasing** at $\;x\;$
+- Negative gradient: If $\;y' < 0\;$ then $\;y\;$ is **decreasing** at $\;x\;$
+- Zero gradient: If $\;y' = 0\;$ then $\;y\;$ is not changing (flat) at $\;x\;$
 
 ### Extreme values (turning points and points of inflection)
 
@@ -200,14 +197,11 @@ The sign of the first derivative $\;f'(x)\;$ tells us how $\;f(x)\;$ is growing
 
 To do this, we need to know both $\;y'(x)\;$ and $\;y''(x)\;$.
 
-> $y'(x) = 6x^2 - 10x - 4$
-> $y''(x) = 12x - 10$
+> $y'(x) = 6x^2 - 10x - 4$ > $y''(x) = 12x - 10$
 
 Stationary points occur when $\;y'(x) = 0\;$
 
-> $6x^2 - 10x - 4 = 0$
-> $(3x + 1)(2x - 4) = 0$
-> $x = -1/3,\;2$
+> $6x^2 - 10x - 4 = 0$ > $(3x + 1)(2x - 4) = 0$ > $x = -1/3,\;2$
 
 At $x = -1/3$:
 
@@ -223,8 +217,7 @@ So this point is a **mimimum**.
 
 Inflection points occur whenever $y''(x) = 0$
 
-> $y''(x) = 12x - 10 = 0$
-> $x = \frac{10}{12} = \frac{5}{6}$
+> $y''(x) = 12x - 10 = 0$ > $x = \frac{10}{12} = \frac{5}{6}$
 
 This is an **inflection point**.
 
@@ -236,11 +229,11 @@ Points of inflection are important in biology as they define conditions where a 
 
 ## Reminder on curve sketching
 
-* Aim to evaluate and identify key values of the function (i.e. turning points, points of inflection)
+- Aim to evaluate and identify key values of the function (i.e. turning points, points of inflection)
 
-* Look at the limit behaviour as $\;x \to \pm \infty\;$ and as $\;x\;$ approaches any points where the function is undefined (e.g. $\;x \to 0\;$ for $\;y = 1/x\;$).
+- Look at the limit behaviour as $\;x \to \pm \infty\;$ and as $\;x\;$ approaches any points where the function is undefined (e.g. $\;x \to 0\;$ for $\;y = 1/x\;$).
 
-* Determine the first and second order derivatives to find turning points and points of inflection.
+- Determine the first and second order derivatives to find turning points and points of inflection.
 
 ## Real life example
 
@@ -257,21 +250,21 @@ To do this we must find the turning points of the function.
 
 1. Find the time at which the greatest number of bacteria are present on the plate
 
-   * $n(t) = 15.42 + 6t - t^2$
-   * $n'(t) = 6 - 2t$
-   * $n'(t) = 0 \quad\implies\quad6-2t=0\quad\implies t=3$
+   - $n(t) = 15.42 + 6t - t^2$
+   - $n'(t) = 6 - 2t$
+   - $n'(t) = 0 \quad\implies\quad6-2t=0\quad\implies t=3$
 
-    To show this is a maximum, we need to check $n''(t)$
+   To show this is a maximum, we need to check $n''(t)$
 
-    $n''(t) = -2$
+   $n''(t) = -2$
 
-    Therefore, $n''(t)<0$, for $t = 3$. This means that a maximum occurs at $t = 3$ days.
+   Therefore, $n''(t)<0$, for $t = 3$. This means that a maximum occurs at $t = 3$ days.
 
 1. Find the number of bacteria on the plate at this time
 
-    $n(3) = 15.42 + 6 \times 3 - 3^2 = 24.42$
+   $n(3) = 15.42 + 6 \times 3 - 3^2 = 24.42$
 
-    The greatest number of bacteria on the plate is **24,420**.
+   The greatest number of bacteria on the plate is **24,420**.
 
 ## Real life example 2
 
@@ -289,32 +282,32 @@ For this example take the constants $k$ and $b$ as $k = 3.8$/hr, and $b = 0.01$/
 
 1. The equilibrium will occur when the population stops changing, i.e. when $R = 0$. Meaning:
 
-    $R = 3.8 N - 0.01 N^2 = 0$
+   $R = 3.8 N - 0.01 N^2 = 0$
 
-    $N (3.8 - 0.01 N) = 0$
+   $N (3.8 - 0.01 N) = 0$
 
-    We can disregard the $N = 0$ solution, as it represents population extinction. This means that
+   We can disregard the $N = 0$ solution, as it represents population extinction. This means that
 
-    $N = \frac{3.8}{0.01} = 380$.
+   $N = \frac{3.8}{0.01} = 380$.
 
 1. To find the largest growth rate, we want the maximal value of $R(N)$. This means we need to find $R'(N) = 0$.
 
-    $R(N) = 3.8 N - 0.01 N^2$
+   $R(N) = 3.8 N - 0.01 N^2$
 
-    $R'(N) = 3.8 - 0.02 N$
+   $R'(N) = 3.8 - 0.02 N$
 
-    If $R'(N) = 0$
+   If $R'(N) = 0$
 
-    $3.8 - 0.02N = 0$
+   $3.8 - 0.02N = 0$
 
-    $N = 190$
+   $N = 190$
 
-    Since $R''(N) = -0.02 < 0$, we can be sure that this is a maximum.
+   Since $R''(N) = -0.02 < 0$, we can be sure that this is a maximum.
 
 ### Introductory problems
 
-::::challenge{id="03_intro_01" title="Introductory problems 1"}
-Use the formula $\displaystyle \frac{{\rm d}y}{{\rm d}x}=\lim_{h\rightarrow 0}\left({f(x+h)-f(x)\over h}\right)$ to calculate the derivatives of the functions below.
+::::challenge{id="03*intro_01" title="Introductory problems 1"}
+Use the formula $\displaystyle \frac{{\rm d}y}{{\rm d}x}=\lim*{h\rightarrow 0}\left({f(x+h)-f(x)\over h}\right)$ to calculate the derivatives of the functions below.
 Check your answers by using the standard rules for differentiation:
 
 1. $\displaystyle y = 3x + 3$
@@ -359,7 +352,7 @@ The formula for the Lennard Jones potential between two non polar atoms is given
 $$V(R)={A\over R^{12}} - {B \over R^6}$$
 
 1. Use this formula to calculate $\displaystyle \frac{{\rm d}V}{{\rm d}R}$ as a function of $R$.
-1. Show that the potential where the gradient is zero is  $\displaystyle V(R)=\frac{-B^2}{4A}$.
+1. Show that the potential where the gradient is zero is $\displaystyle V(R)=\frac{-B^2}{4A}$.
 1. Find mathematically whether this point is a maximum, minimum or point of inflexion.
 
 ::::
@@ -368,7 +361,7 @@ $$V(R)={A\over R^{12}} - {B \over R^6}$$
 The number $n$ (in thousands) of bacteria on an agar plate at time $t$ days is given by the expression:
 $$n = 21.35 + 1.34t - t^2$$
 
-1. Draw a graph of the function $n(t)$ between $t=0$ and $t=7$ days. Give one reason why this function might be a reasonable model for the number of bacteria on the plate at time $t$. Are there any values of $t$ for which this is probably *not* a good model?
+1. Draw a graph of the function $n(t)$ between $t=0$ and $t=7$ days. Give one reason why this function might be a reasonable model for the number of bacteria on the plate at time $t$. Are there any values of $t$ for which this is probably _not_ a good model?
 1. Calculate the time at which the greatest number of bacteria are present on the plate and show that this must be a maximum number.
 1. By finding the roots of the equation for $n$, find the two times at which the value of $n$ is zero and say why only one of these times is physically reasonable. Mark and label the maximum point on your graph together with the point at which the number of bacteria is zero.
 1. Find the rates at which the bacteria are growing when $t=0.8$ and $t=3.5$ days.
@@ -385,12 +378,12 @@ where for rainbow trout $k=300\,{\rm cm}\,{\rm s}^{-1.6}$, $b=1.60$, and for gre
 
 ::::
 
-::::challenge{id="03_main_05" title="Main problems 5"}
-A researcher measured the concentration $c$ of a protein *in vitro* and obtained the readings below:
+::::challenge{id="03*main_05" title="Main problems 5"}
+A researcher measured the concentration $c$ of a protein \_in vitro* and obtained the readings below:
 
-| time (min) |  0    |   1  |   2  |  3   |   4  |  5   |   6  |
-|-----------:|:-----:|:----:|:----:|:----:|:----:|:----:|:----:|
-|   c (mM)   | 11.91 | 7.06 | 4.40 | 2.57 | 1.81 | 1.03 | 0.72 |
+| time (min) |   0   |  1   |  2   |  3   |  4   |  5   |  6   |
+| ---------: | :---: | :--: | :--: | :--: | :--: | :--: | :--: |
+|     c (mM) | 11.91 | 7.06 | 4.40 | 2.57 | 1.81 | 1.03 | 0.72 |
 
 She surmised that the protein was being degraded according to the reaction scheme
 
@@ -415,8 +408,8 @@ Find the values of $x$ for which the following functions have stationary values 
 Use Python to check your results.
 ::::
 
-::::challenge{id="03_ext_02" title="Extension problems 2"}
-The graph shows the rate of CO$_{2}$ emissions per year since 1800, with three fitted lines in red.
+::::challenge{id="03*ext_02" title="Extension problems 2"}
+The graph shows the rate of CO$*{2}$ emissions per year since 1800, with three fitted lines in red.
 
 ![CO2 graph](fig/03_07_c02problem.png)
 

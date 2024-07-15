@@ -1,18 +1,16 @@
 ---
 name: Systems of differential equations 2
-dependsOn: [
-  scientific_computing.essential_maths.14_system_1
-]
+dependsOn: [scientific_computing.essential_maths.14_system_1]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## System Simplification
@@ -41,6 +39,7 @@ Plan
 - Aim to look at systems of **first order**, **nonlinear** ODEs in **more dimensions**
 - How we go about modelling a problem
 - Simplifying systems of ODEs
+
   - Reducing number of parameters
   - Reducing number of equations
 
@@ -93,7 +92,7 @@ $$
 \end{align*}
 $$
 
-Note that $\theta$, $\phi$ and $\tau$  are arbitrary values for scaling $N$, $P$, and $T$.
+Note that $\theta$, $\phi$ and $\tau$ are arbitrary values for scaling $N$, $P$, and $T$.
 
 $$
 \begin{align*}
@@ -150,7 +149,7 @@ $$
 \end{align*}
 $$
 
-However, the enzyme is recycled: it is used in the complex and then released.  This means that $e + c = e_{tot}$ where $e_{tot}$ is constant.
+However, the enzyme is recycled: it is used in the complex and then released. This means that $e + c = e_{tot}$ where $e_{tot}$ is constant.
 
 Making the substitution $e =  e_{tot} - c$ to eliminate $e$ we arrive at the 3 ODE system:
 
@@ -195,7 +194,7 @@ Two dimensions are good because we can plot their behaviour on a phase plane dia
 
 ## Phase planes and nullclines
 
-A system of **nonlinear** ODEs may have more than one  fixed point (or may have none).
+A system of **nonlinear** ODEs may have more than one fixed point (or may have none).
 Finding fixed points in two-dimensional systems is aided by **nullclines**.
 
 An $x$-nullcline is a line where $\dot{x}=0$ and a $y$-nullcline is a line where $\dot{y}=0$.
@@ -229,41 +228,44 @@ The arrows can only cross the $x$-nullclines vertically, and the $y$-nullclines 
 ### Python code to plot the phase plane
 
 ```python
+import numpy as np
+from matplotlib import pyplot as plt
+import scipy
 def dX_dt(X, t):
     return np.array([ X[0]*(1. - X[0]) - X[0]*X[1],
                      2.*X[1]*(1.-X[1]/2.) -3*X[0]*X[1]])
 
 def plot_phase_plane():
-    
+
     plt.figure(figsize=(10,10))
-    
+
     init_x = [1.05, 0.9, 0.7, 0.5, 0.5, 0.32, 0.1]
     init_y = [1.0, 1.3, 1.6, 1.8, 0.2, 0.2, 0.2]
-    
+
     plt.plot(init_x, init_y, 'g*', markersize=20)
-    
+
     for v in zip(init_x,init_y):
         X0 = v                              # starting point
         X = scipy.integrate.odeint( dX_dt, X0, np.linspace(0,10,100))
         plt.plot( X[:,0], X[:,1], lw=3, color='green')
-    
-    
-    
+
+
+
     # plot nullclines
     x = np.linspace(-0.1,1.1,24)
     y = np.linspace(-0.1,2.1,24)
-    
+
     plt.hlines(0,-1,15, color='#F39200', lw=4, label='y-nullcline 1')
     plt.plot(x,1 - x, color='#0072bd', lw=4, label='x-nullcline 2')
     plt.vlines(0,-1,15, color='#0072bd', lw=4, label='x-nullcline 1')
     plt.plot(x,2 - 3*x, color='#F39200', lw=4, label='y-nullcline 2')
 
     # quiverplot - define a grid and compute direction at each point
-    X , Y  = np.meshgrid(x, y)                  # create a grid
+    X, Y = np.meshgrid(x, y)                  # create a grid
     DX = X*(1-X) - X*Y                          # evaluate dx/dt
-    DY = 2*Y*(1 - Y/2.0) - 3*X*Y                # evaluate dy/dt               
-    M = (np.hypot(DX, DY))                      # norm growth rate 
-    M[ M == 0] = 1.                             # avoid zero division errors 
+    DY = 2*Y*(1 - Y/2.0) - 3*X*Y                # evaluate dy/dt
+    M = (np.hypot(DX, DY))                      # norm growth rate
+    M[ M == 0] = 1.                             # avoid zero division errors
 
     plt.quiver(X, Y, DX/M, DY/M, M)
     plt.xlim(-0.05,1.1)
@@ -275,6 +277,7 @@ def plot_phase_plane():
 ## Summary
 
 - Simplification
+
   - Rescaling to dimensionless quantities
   - Conservation
   - Quasi-steady state approximation

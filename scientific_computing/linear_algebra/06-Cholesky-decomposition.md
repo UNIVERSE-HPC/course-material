@@ -1,29 +1,26 @@
 ---
 name: Cholesky decomposition
-dependsOn: [
-    'scientific_computing.linear_algebra.04-LU-decomposition',
-]
+dependsOn: ["scientific_computing.linear_algebra.04-LU-decomposition"]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Cholesky decomposition
 
-*Symmetric positive definite* matrices are a very special type of matrix that often
+_Symmetric positive definite_ matrices are a very special type of matrix that often
 arise in practice. From a computational point of view, this class of matrix is very
 attractive because it is possible to decompose a symmetic positive definite matrix $A$
 very efficiently into a single lower triangular matrix $G$ so that $A = GG^T$.
 
-A matrix $A$ is positive definite if $x^T A x > 0$  for any nonzero $x \in \mathbb{R}$.
+A matrix $A$ is positive definite if $x^T A x > 0$ for any nonzero $x \in \mathbb{R}$.
 This statement by itself is not terribly intuitive, so lets look at also look at an
 example of a $2 \times 2$ matrix
 
@@ -47,7 +44,7 @@ $$
 
 The first two equations show that the diagonal entries of $A$ must be positive, and
 combining the last two equations imply $|a_{12}| \le (a_{11} + a_{22}) / 2$, that is
-that the matrix has much of its "mass" on the diagonal (note: this is *not* the same as
+that the matrix has much of its "mass" on the diagonal (note: this is _not_ the same as
 the matrix being diagonally dominant, where $|a_{ii}| > \sum_{i=1...n,j \ne i}
 |a_{ij}|$). These two observations for our $2 \times 2$ matrix also apply for a general
 $n \times n$ SPD matrix. One of the very nice consequences of this "weighty" diagonal
@@ -117,7 +114,7 @@ $$
 
 We can achive this in practice by using the Cholesky decomposition. A covariance
 matrix is a symmetic positive semidefinite matrix (i.e. $x^T \Sigma x \ge 0$}, and
-therefore can be decomposed into  $\Sigma = LL^T$. We can then draw a sample from
+therefore can be decomposed into $\Sigma = LL^T$. We can then draw a sample from
 $\mathcal{N}(\mathbf{0}, \Sigma)$ by scaling an independently generated random vector
 by $L$
 
@@ -194,7 +191,7 @@ $$
 \Sigma_{ij} = \sigma_1^2 \exp{(-(i- j)^2/ \sigma_2^2)}
 $$
 
-We can write down the *likelihood* of the covariance parameters $\mathbf{\theta}$, given
+We can write down the _likelihood_ of the covariance parameters $\mathbf{\theta}$, given
 a given dataset $\mathbf{x}$, by using the probability distribution function (PDF) for a
 zero-mean multivariate normal distribution
 
@@ -217,7 +214,7 @@ the log-likelihood using the Cholesky decomposition to efficiently calculate the
 log determinant and the inverse of the covariance matrix. Vary $\mathbf{\theta}$
 and satisfy yourself that the maximum of the likelihood occurs at your "true"
 parameters. In practice, when you don't know the true parameters, you could use an
-optimisation algorithm to automatically determine the *most likely* model
+optimisation algorithm to automatically determine the _most likely_ model
 parameters that give rise to your data.
 
 :::solution
@@ -247,7 +244,7 @@ plt.clabel(contours, inline=True, fontsize=8)
 
 plt.imshow(L, extent=[0.5, 1.5, 5.0, 15.0], origin='lower',
            cmap='RdGy', alpha=0.5, vmin=levels[0], aspect='auto')
-c = plt.colorbar();
+c = plt.colorbar()
 c.set_label(r'$\mathcal{L}$')
 plt.xlabel(r'$\sigma_1$')
 plt.ylabel(r'$\sigma_2$')

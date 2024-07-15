@@ -1,23 +1,17 @@
 ---
 name: COOrdinate format
-dependsOn: [
-  'scientific_computing.sparse_linear_algebra.01-sparse-matrices',
-]
+dependsOn: ["scientific_computing.sparse_linear_algebra.01-sparse-matrices"]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
-
+attribution:
+  - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
-
-
 
 As an example of a sparse matrix format, this section describes one of the sparse
 formats implemented in Scipy, the The COOrdinate format (COO). This is also known as the
@@ -42,6 +36,8 @@ implemented in Scipy.
 ### create empty COO matrix
 
 ```python
+from scipy import sparse
+import numpy as np
 mtx = sparse.coo_matrix((3, 4), dtype=np.int8)
 mtx.todense()
 ```

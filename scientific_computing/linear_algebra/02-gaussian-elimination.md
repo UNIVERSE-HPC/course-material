@@ -1,26 +1,24 @@
 ---
 name: Gaussian Elimination
-dependsOn: [
-    'scientific_computing.linear_algebra.01-matrix-form-of-equations',
-]
+dependsOn: ["scientific_computing.linear_algebra.01-matrix-form-of-equations"]
 tags: []
 questions:
-- "What is the relationship between matrices and systems of linear equations?"
-- "What is a singular matrix and when does it occur?"
-- "What is Gaussian Elimination and why is it useful?"
+  - "What is the relationship between matrices and systems of linear equations?"
+  - "What is a singular matrix and when does it occur?"
+  - "What is Gaussian Elimination and why is it useful?"
 learningOutcomes:
-- "Understand the main useful concepts for the solution of systems of linear equations"
-- "Understand singular matrices and the rank of a matrix"
-- "Understand and be able to implement Gaussian Elimination"
-attribution: 
-- citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
+  - "Understand the main useful concepts for the solution of systems of linear equations"
+  - "Understand singular matrices and the rank of a matrix"
+  - "Understand and be able to implement Gaussian Elimination"
+attribution:
+  - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Gaussian Elimination
@@ -46,7 +44,7 @@ eq3~ \rightarrow ~ eq1 + 2 \times eq3: & & &  7y &- &5z& = & 9
 \end{aligned}
 $$
 
-In this case the 2 coefficient for x in the first row is the *pivot*, and we are using
+In this case the 2 coefficient for x in the first row is the _pivot_, and we are using
 this pivot value to convert the other two x coefficients in the rows below to zeros.
 
 **Gaussian elimination -- step 2** remove the unknown $y$ from the last equation:
@@ -68,8 +66,8 @@ eq2: & ``` y - 11 z & = -9 \\
 eq3:  &  ``` -72  z & = -72 \end{aligned}
 $$
 
-This system is said to be *upper triangular*. It is also known as *row echelon* form,
-and the leading coefficients ([2, 1, -72] in this case) are known as the *pivots*.
+This system is said to be _upper triangular_. It is also known as _row echelon_ form,
+and the leading coefficients ([2, 1, -72] in this case) are known as the _pivots_.
 
 **Gaussian elimination -- step 3** We can now use back substitution to obtain $x,y,z$.  
 In this case
@@ -136,8 +134,8 @@ singular and has no inverse
 1. Replace row with a sum/combination of rows
 1. Work on one column at a time, choosing a pivot (leading non-zero entry in a chosen
    row), and eliminating all other non-zero values below that
-1. Switch rows to avoid zeros on the diagonal (*pivoting*)
-1. If (3) does not work, zeros on the diagonal (*pivots*) indicate a singular matrix
+1. Switch rows to avoid zeros on the diagonal (_pivoting_)
+1. If (3) does not work, zeros on the diagonal (_pivots_) indicate a singular matrix
 
 **Computational cost**: If the number of equations $n$ is large, then a number of
 operations for gaussian elimination is $\mathcal{O}(n^3)$.
@@ -279,9 +277,9 @@ change to its values causes it to be singular. In this case simple round-off err
 the floating point calculations can lead to zeros in the pivot positions.
 
 Even if the pivot value is not exactly zero, a pivot value close to zero can lead to
-large differences in the final result. In this case the matrix would be *nearly
-singular*, or *ill-conditioned*. Most linear algebra packages will include a method of
-calculating the *condition number* of a matrix, which evaluates how sensitive the
+large differences in the final result. In this case the matrix would be _nearly
+singular_, or _ill-conditioned_. Most linear algebra packages will include a method of
+calculating the _condition number_ of a matrix, which evaluates how sensitive the
 solution is to the input values of the matrix or rhs vector. An identity matrix has a
 condition number of 1, while an exactly singular matrix has a condition number of
 infinity.
@@ -300,12 +298,12 @@ $$
 1. Solve system (1), and then solve system (2), below, in which the data on the right
    have been rounded to two decimal places. In each case, find the exact solution.
 
-    $$
-    \begin{aligned}
-    4.5 x_1 + 3.1 x_2 &= 19.25, (2)\\
-    1.6 x_1 + 1.1 x_2 &= 6.84.
-    \end{aligned}
-    $$
+   $$
+   \begin{aligned}
+   4.5 x_1 + 3.1 x_2 &= 19.25, (2)\\
+   1.6 x_1 + 1.1 x_2 &= 6.84.
+   \end{aligned}
+   $$
 
 1. The entries in (2) differ from those in (1) by less than .05%. Find the percentage
    error when using the solution of (2) as an approximation for the solution of (1).

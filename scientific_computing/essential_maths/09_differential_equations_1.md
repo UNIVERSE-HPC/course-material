@@ -1,19 +1,16 @@
 ---
 name: Differential equations 1
-dependsOn: [
-  scientific_computing.essential_maths.07_integration_2
-]
+dependsOn: [scientific_computing.essential_maths.07_integration_2]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ---
@@ -89,12 +86,13 @@ We have that
 
 so:
 
-> $$\displaystyle c = 1^2 + c\cdot 1 + A$$
-> $$\displaystyle A = -1$$
+> $$\displaystyle c = 1^2 + c\cdot 1 + A$$ > $$\displaystyle A = -1$$
 
 Is this right? Here's an example of how we can use SciPy's `odeint` method to numerically solve differential equations:
 
 ```python
+import scipy
+import numpy as np
 c = 1.0
 A = -1.0
 x0 = 1.0
@@ -216,9 +214,7 @@ When $s\ll K$, $\;s\;$ in the differential equation's denominator can be neglect
 
 The rate of change in concentration depends on the concentration, so this is a **first order process**.
 
-> $$\displaystyle \int {1\over s}\,{\rm d}s = -\int {V\over K}\,{\rm d}t$$
-> $$\displaystyle \Rightarrow\quad\ln s = -{V\over K}t + D\qquad{\rm D~is~a~constant}$$
-> $$\displaystyle \Rightarrow\quad s = Be^{-V t\over K}\qquad{\rm B~is~a~constant}$$
+> $$\displaystyle \int {1\over s}\,{\rm d}s = -\int {V\over K}\,{\rm d}t$$ > $$\displaystyle \Rightarrow\quad\ln s = -{V\over K}t + D\qquad{\rm D~is~a~constant}$$ > $$\displaystyle \Rightarrow\quad s = Be^{-V t\over K}\qquad{\rm B~is~a~constant}$$
 
 On a graph $\;s\;$ crosses the vertical axis at $\;s=B\;$ and decreases with time exponentially.
 
@@ -267,7 +263,7 @@ The rate at which a sample decays is proportional to the amount left, i.e.
 
 > $$\displaystyle \frac{{\rm d}N}{{\rm d}t} = -\lambda N$$
 
-where $\;N\;$ is the mass of radioactive atoms at time $\;t\;$ and $\;\lambda\;$ is called the *decay constant*.
+where $\;N\;$ is the mass of radioactive atoms at time $\;t\;$ and $\;\lambda\;$ is called the _decay constant_.
 
 The element radium (atomic mass=226) has a decay constant of $\;13.6 \times 10^{-12}\;$s$^{-1}$.
 
@@ -287,8 +283,7 @@ The **half-life**, $\;t_{1\over 2},\;$ is the time taken for $\;N\;$ to reduce b
 
 Putting $\;N=N_0/2\;$ and $\;t=t_0+t_{1\over 2}\;$ in (2) we get
 
-> $$\displaystyle \ln {N_0\over2N_0} = -\lambda t_{1\over 2}$$
-> $$\displaystyle t_{1\over 2} = {\ln 2\over\lambda} \approx {0.693\over\lambda}$$
+> $$\displaystyle \ln {N_0\over2N_0} = -\lambda t_{1\over 2}$$ > $$\displaystyle t_{1\over 2} = {\ln 2\over\lambda} \approx {0.693\over\lambda}$$
 
 Note that this time is **independent** of the initial value $N_0$,
 
@@ -309,20 +304,18 @@ components. This rate law is thus second-order overall.
 
 Note that this is **different** from the order of an ODE, which is given by the
 highest derivative.
-Both zeroth and first order *processes* are modelled below by *first order
-differential equations*.
+Both zeroth and first order _processes_ are modelled below by _first order
+differential equations_.
 
 #### (A) Zeroth order processes
 
 - rate of change is **independent** of concentration, i.e. the rate of change is proportional to concentration raised to power zero
 
-> $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = k \quad \text{(growth)}$$
-> $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = -k\quad \text{(decay)}$$
+> $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = k \quad \text{(growth)}$$ > $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = -k\quad \text{(decay)}$$
 
 General solutions:
 
-> $$\displaystyle A = A_0 + k(t-t_0)$$
-> $$\displaystyle A = A_0 - k(t-t_0)$$
+> $$\displaystyle A = A_0 + k(t-t_0)$$ > $$\displaystyle A = A_0 - k(t-t_0)$$
 
 #### (B) First order processes
 
@@ -330,13 +323,11 @@ The rate of change depends on the concentration of one species, i.e. the rate of
 
 Half-life is a constant, i.e. it is independent of the amount there at the beginning.
 
-> $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = kA\quad\text{growth}$$
-> $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = -kA\quad\text{decay}$$
+> $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = kA\quad\text{growth}$$ > $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = -kA\quad\text{decay}$$
 
 General solutions:
 
-> $$\displaystyle A = A_0 e^{k(t-t_0)}$$
-> $$\displaystyle A = A_0 e^{-k(t-t_0)}$$
+> $$\displaystyle A = A_0 e^{k(t-t_0)}$$ > $$\displaystyle A = A_0 e^{-k(t-t_0)}$$
 
 When $k=2.0$ the two different solutions look like this:
 
@@ -456,22 +447,22 @@ Assuming that the charcoal was formed during the building of the site, use this 
 
 ### Extension problems
 
-::::challenge{id="09_ext_01" title="Extension problems 1"}
+::::challenge{id="09*ext_01" title="Extension problems 1"}
 The *absorbance* $A$ of a solution is given by the equation:
-$$A=\log_{10}\left(\frac{I_o}{I}\right)$$
+$$A=\log*{10}\left(\frac{I_o}{I}\right)$$
 where $I_o$ is the intensity of the light impinging on the solution (incident light) and $I$ is the intensity of the light emerging from it (transmitted light).
 The Beer-Lambert law states that
 $$A=\epsilon\cdot c\cdot l$$
 where $\epsilon$ is the absorbance of the solute, $c$ is the concentration of the solute and $l$ is the distance that the light has travelled through the solution.
 
-1. The *transmittance* $\displaystyle T$ is defined as the fraction of incident light transmitted through the solution ($\displaystyle T={I\over I_o}$).
-Derive an expression relating the transmittance, $T$, of the solution to $\epsilon$, $c$ and $l$.
-1. The *attenuation* $Q$ of the light beam is defined as the difference between the intensities of the incident and the transmitted light ($Q=I_o-I$).
-Derive an expression for the attenuation of the light beam  when a beam of light intensity $I_o$ traverses a distance $l$ through a solution of fixed concentration $c$.
-Sketch a graph showing the dependence of $Q$ on $l$ in a solution of fixed concentration.
+1. The _transmittance_ $\displaystyle T$ is defined as the fraction of incident light transmitted through the solution ($\displaystyle T={I\over I_o}$).
+   Derive an expression relating the transmittance, $T$, of the solution to $\epsilon$, $c$ and $l$.
+1. The _attenuation_ $Q$ of the light beam is defined as the difference between the intensities of the incident and the transmitted light ($Q=I_o-I$).
+   Derive an expression for the attenuation of the light beam when a beam of light intensity $I_o$ traverses a distance $l$ through a solution of fixed concentration $c$.
+   Sketch a graph showing the dependence of $Q$ on $l$ in a solution of fixed concentration.
 1. ATP has a molar absorbtion of $\displaystyle 15.7\times 10^3\,{\rm M}^{-1}{\rm cm}^{-1}$.
-Calculate the initial rate (in watts/cm) at which light intensity is attenuated when a light beam of intensity 200 watts enters a $\displaystyle 10\mu\,{\rm M}$ solution of ATP.
-What would happen to this rate if
+   Calculate the initial rate (in watts/cm) at which light intensity is attenuated when a light beam of intensity 200 watts enters a $\displaystyle 10\mu\,{\rm M}$ solution of ATP.
+   What would happen to this rate if
    i. the concentration of ATP is doubled;
    i. the intensity of the incident light is doubled;
    i. the length of the cell holding the solution is doubled?

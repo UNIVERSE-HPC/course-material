@@ -1,19 +1,16 @@
 ---
 name: Linear algebra 2
-dependsOn: [
-  scientific_computing.essential_maths.12_linear_algebra_1
-]
+dependsOn: [scientific_computing.essential_maths.12_linear_algebra_1]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Eigenvalues and Eigenvectors
@@ -40,6 +37,7 @@ $$
 ### NumPy
 
 ```python
+import numpy as np
 A = np.array([[3, 0, 2], [3, 0, -3], [0, 1, 1]])
 np.linalg.inv(A)
 ```
@@ -53,6 +51,7 @@ np.linalg.inv(A)
 ### SymPy
 
 ```python
+import sympy as sp
 A = sp.Matrix([[3, 0, 2], [3, 0, -3], [0, 1, 1]])
 A.inv()
 ```
@@ -71,7 +70,7 @@ eq3: & 7x & +&  10y  & + & 7z &  = &  c
 \end{array}
 $$
 
-```python
+```python nolint
 A = np.array([[1, 1, 1], [2, 5, 2], [7, 10, 7]])
 np.linalg.inv(A)
 
@@ -108,7 +107,7 @@ The **rank** of an $\;n\,\times\,n\;$ matrix $\;A\;$ is the number of linearly i
 
 When $\;\text{rank}(A) < n\;$ then
 
-- The system $\;A\textbf{x} = \textbf{b}\;$ has *fewer* equations than unknowns
+- The system $\;A\textbf{x} = \textbf{b}\;$ has _fewer_ equations than unknowns
 - The matrix is said to be singular
 - $A\;$ has no inverse
 - The determinant of $\;A\;$ is 0
@@ -118,7 +117,7 @@ When $\;\text{rank}(A) < n\;$ then
 
 An under-determined system (fewer equations than unknowns) may mean that there are **many solutions** or that there are **no solutions**.
 
-An example  with many solutions is
+An example with many solutions is
 
 $$
 \begin{align*}
@@ -210,8 +209,7 @@ np.matmul(A,np.array([-1000,0,1000]))
 
 The **eigenvalues** and **eigenvectors** give an indication of how much effect the matrix has, and in what direction.
 
-> $$\displaystyle A=\left(\begin{matrix} \cos(45)&-\sin(45)\\ \sin(45)&\cos(45)\\\end{matrix}\right)\qquad\text{has no scaling effect.}$$
-> $$\displaystyle B=\left(\begin{matrix} 2& 0 \\ 0&\frac{1}{2}\\\end{matrix}\right)\qquad\qquad\text{doubles in }x\text{, but halves in }y\text{.}$$
+> $$\displaystyle A=\left(\begin{matrix} \cos(45)&-\sin(45)\\ \sin(45)&\cos(45)\\\end{matrix}\right)\qquad\text{has no scaling effect.}$$ > $$\displaystyle B=\left(\begin{matrix} 2& 0 \\ 0&\frac{1}{2}\\\end{matrix}\right)\qquad\qquad\text{doubles in }x\text{, but halves in }y\text{.}$$
 
 Repeated applications of $\;A\;$ stay the same distance from the origin, but repeated applications of $\;B\;$ move towards $\;(\infty, 0).$
 
@@ -279,9 +277,7 @@ so $\displaystyle (A-\lambda I)$ must be singular:
 
 What are the eigenvalues for this matrix?
 
-> $$\displaystyle A=\left(\begin{matrix}-2&-2\\ 1&-5\\\end{matrix}\right)$$
-> $$\displaystyle |A-\lambda I|=\left\vert\begin{matrix}-2-\lambda&-2\\ 1&-5-\lambda\end{matrix}\right\vert=(-2-\lambda)(-5-\lambda)-(-2)$$
-> $$\displaystyle =10+5\lambda+\lambda^2+2\lambda+2=\lambda^2+7\lambda+12=(\lambda+3)(\lambda+4)=0$$
+> $$\displaystyle A=\left(\begin{matrix}-2&-2\\ 1&-5\\\end{matrix}\right)$$ > $$\displaystyle |A-\lambda I|=\left\vert\begin{matrix}-2-\lambda&-2\\ 1&-5-\lambda\end{matrix}\right\vert=(-2-\lambda)(-5-\lambda)-(-2)$$ > $$\displaystyle =10+5\lambda+\lambda^2+2\lambda+2=\lambda^2+7\lambda+12=(\lambda+3)(\lambda+4)=0$$
 
 So the eigenvalues are $\lambda_1=-3$ and $\lambda_2=-4$.
 
@@ -320,9 +316,7 @@ What are the eigenvectors for
 The eigenvalues are $\;\lambda_1=-3\;$ and $\;\lambda_2=-4.\;$
 The eigenvectors are $\;\textbf{v}_1\;$ and $\;\textbf{v}_2\;$ where:
 
-> $$\displaystyle A\textbf{v}_1=\lambda_1 \textbf{v}_1.$$
-> $$\displaystyle \left(\begin{matrix}-2&-2\\ 1&-5\\\end{matrix}\right) \left(\begin{matrix}u_1\\ v_1\\\end{matrix}\right) = \left(\begin{matrix}-3u_1\\ -3v_1\\\end{matrix}\right)$$
-> $$\displaystyle u_1 = 2v_1.  \text{  (from the top or bottom equation)}$$
+> $$\displaystyle A\textbf{v}_1=\lambda_1 \textbf{v}_1.$$ > $$\displaystyle \left(\begin{matrix}-2&-2\\ 1&-5\\\end{matrix}\right) \left(\begin{matrix}u_1\\ v_1\\\end{matrix}\right) = \left(\begin{matrix}-3u_1\\ -3v_1\\\end{matrix}\right)$$ > $$\displaystyle u_1 = 2v_1.  \text{  (from the top or bottom equation)}$$
 > $$\displaystyle \left(\begin{matrix}u_1\\ v_1\\\end{matrix}\right) = \left(\begin{matrix}2 \\ 1\\\end{matrix}\right), \left(\begin{matrix}1 \\ 0.5\\\end{matrix}\right), \left(\begin{matrix}-4.4 \\ -2.2\\\end{matrix}\right), \left(\begin{matrix}2\alpha \\ \alpha\\\end{matrix}\right)\ldots $$
 
 ## Eigenvectors in Python
@@ -353,7 +347,7 @@ A2.eigenvects()
 
 Any nonsingular matrix $A$ can be rewritten as a product of eigenvectors and eigenvalues.
 
-If $\;A\;$ has eigenvalues $\;\lambda_1\;$ and $\;\lambda_2\;$ with corresponding eigenvectors  $\;\left(\begin{matrix}u_1\\ v_1\\\end{matrix}\right)\;$ and
+If $\;A\;$ has eigenvalues $\;\lambda_1\;$ and $\;\lambda_2\;$ with corresponding eigenvectors $\;\left(\begin{matrix}u_1\\ v_1\\\end{matrix}\right)\;$ and
 
 > $\displaystyle \left(\begin{matrix}u_2\\ v_2\\\end{matrix}\right)$
 
@@ -479,9 +473,7 @@ $$
 ::::challenge{id="13_intro_01" title="Introductory problems 1"}
 Given
 
-> $$\displaystyle A = \left(\begin{array}{cc}  1 & 0 \\ 0 & i \end{array}\right);$$
-> $$\displaystyle B = \left(\begin{array}{cc}  0 & i \\ i & 0 \end{array}\right);$$
-> $$\displaystyle C = \left(\begin{array}{cc}  \frac{1}{\sqrt{2}} & \frac{1}{2}\left(1-i\right) \\\frac{1}{2}\left(1+i\right) & -\frac{1}{\sqrt{2}} \end{array}\right);$$
+> $$\displaystyle A = \left(\begin{array}{cc}  1 & 0 \\ 0 & i \end{array}\right);$$ > $$\displaystyle B = \left(\begin{array}{cc}  0 & i \\ i & 0 \end{array}\right);$$ > $$\displaystyle C = \left(\begin{array}{cc}  \frac{1}{\sqrt{2}} & \frac{1}{2}\left(1-i\right) \\\frac{1}{2}\left(1+i\right) & -\frac{1}{\sqrt{2}} \end{array}\right);$$
 
 verify by hand, and using the `numpy.linalg` module, that
 
@@ -529,25 +521,22 @@ Calculate and simplify $A^{2017} \mathbf{x}$.
 ::::challenge{id="13_main_02" title="Main problems 2"}
 For each of the following matrices
 
-> $$\displaystyle A = \left(\begin{array}{cc}  2 & 3 \\ 1 & 4 \end{array}\right);$$
-> $$\displaystyle B = \left(\begin{array}{cc}  4 & 2 \\ 6 & 8 \end{array}\right);$$
-> $$\displaystyle C = \left(\begin{array}{cc}  1 & 4 \\ 1 & 1 \end{array}\right);$$
-> $$\displaystyle D = \left(\begin{array}{cc}  x & 0 \\ 0 & y \end{array}\right),$$
+> $$\displaystyle A = \left(\begin{array}{cc}  2 & 3 \\ 1 & 4 \end{array}\right);$$ > $$\displaystyle B = \left(\begin{array}{cc}  4 & 2 \\ 6 & 8 \end{array}\right);$$ > $$\displaystyle C = \left(\begin{array}{cc}  1 & 4 \\ 1 & 1 \end{array}\right);$$ > $$\displaystyle D = \left(\begin{array}{cc}  x & 0 \\ 0 & y \end{array}\right),$$
 
 compute the determinant, eigenvalues and eigenvectors by hand.
 
 Check your results by verifying that $Q\mathbf{x} = \lambda_i \mathbf{x}$, where $Q=A$, $B$, $C$ or $D$, and by using the `numpy.linalg` module.
 
 ```python
- # hint
- import numpy as np
+# hint
+import numpy as np
 
- A = np.array([[2, 3], [1, 4]])
+A = np.array([[2, 3], [1, 4]])
 
- e_vals, e_vecs = np.linalg.eig(A)
+e_vals, e_vecs = np.linalg.eig(A)
 
- print(e_vals)
- print(e_vecs)
+print(e_vals)
+print(e_vecs)
 ```
 
 ::::
@@ -555,7 +544,7 @@ Check your results by verifying that $Q\mathbf{x} = \lambda_i \mathbf{x}$, where
 ::::challenge{id="13_main_03" title="Main problems 3"}
 Orthogonal vectors.
 
-Two vectors ${\bf x_1}$ and ${\bf x_2}$ are said to be perpendicular or *orthogonal* if their dot/scalar product is zero:
+Two vectors ${\bf x_1}$ and ${\bf x_2}$ are said to be perpendicular or _orthogonal_ if their dot/scalar product is zero:
 
 > $$\mathbf{x_1}.\mathbf{x_2}=\left(\begin{array}{c} 2  \\ -1 \\ 3 \\ \end{array} \right).\left(\begin{array}{c} 2 \\ 7 \\ 1 \\ \end{array} \right)=(2{\times}2)+(-1{\times}7)+(3{\times}1)=4-7+3=0,$$
 
