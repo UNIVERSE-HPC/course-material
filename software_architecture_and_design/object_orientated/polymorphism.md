@@ -1,22 +1,19 @@
 ---
 name: Polymorphism
-dependsOn: [
-    software_architecture_and_design.object_orientated.inheritance_and_composition,
-]
+dependsOn: [software_architecture_and_design.object_orientated.inheritance_and_composition]
 tags: [python]
 learningOutcomes:
   - Define polymorphism.
   - Apply polymorphism principles to class design.
-attribution: 
-    - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
-      url: https://www.sabsr3.ox.ac.uk
-      image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Class-based polymorphism
@@ -37,7 +34,7 @@ want to be able to:
 
 We can implement this in our classes like so:
 
-``` python
+```python
 ...
 class Person:
     """A person."""
@@ -49,7 +46,7 @@ class Person:
         return self.name
 
     def set_id(self, id):
-      raise NotImplementedError('set_id not implemented')
+        raise NotImplementedError('set_id not implemented')
 
     def get_id(self):
         return self.id

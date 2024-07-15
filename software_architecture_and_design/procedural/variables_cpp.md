@@ -107,7 +107,7 @@ If we try to use a variable that hasn't been defined, we get a compiler error:
 int seven = sixe + 1;
 ```
 
-```text
+````text
 /Users/martinjrobins/git/thing/procedural.cpp:7:17: error: use of undeclared identifier 'sixe'; did you mean 'six'?
     int seven = sixe + 1;
                 ^```
@@ -116,7 +116,7 @@ int seven = sixe + 1;
     int six = 2 * 3;
         ^
 1 error generated.
-```
+````
 
 Note here we accidentally wrote `sixe` instead of `six`, so the compiler
 recognised this as an _undeclared identifier_ and gave an error. It even
@@ -138,11 +138,11 @@ const int six = 2 * 3;
 six = 7;
 ```
 
-```text
+````text
 /Users/martinjrobins/git/thing/procedural.cpp:8:9: error: cannot assign to variable 'six' with const-qualified type 'const int'
     six = 7;
     ``` ^
-```
+````
 
 The compiler has saved us again! You can assist the compiler (and perhaps more
 importantly, other readers of your code!) by always marking variables that you

@@ -1,26 +1,23 @@
 ---
 name: Containers
-dependsOn: [
-    software_architecture_and_design.procedural.variables_python,
-]
+dependsOn: [software_architecture_and_design.procedural.variables_python]
 tags: [python]
 learningOutcomes:
   - Use container-type variables to hold multiple sets of data.
   - Use indexing and other access methods to access data within containers.
   - Differentiate between mutable and immutable variable types.
-attribution: 
-    - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
-      url: https://www.sabsr3.ox.ac.uk
-      image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
-*Container* types are those that can hold other objects, and Python supports a
+_Container_ types are those that can hold other objects, and Python supports a
 number of different containers we can use to hold data of differing types in a
 multitude of ways.
 
@@ -77,11 +74,11 @@ We can replace elements within a specific part of the list (note that in Python,
 odds[6] = 13
 ```
 
-We can also *slice* lists to either extract or set an arbitrary subset of the list.
+We can also _slice_ lists to either extract or set an arbitrary subset of the list.
 
 ![slice-list](fig/05-slice-list-odd.png)
 
-Note that here, we are selecting the *boundaries* between elements, and not the indexes.
+Note that here, we are selecting the _boundaries_ between elements, and not the indexes.
 
 For example, to show us elements 3 to 5 (inclusive) in our list:
 
@@ -189,10 +186,10 @@ Which demonstrates a key design principle behind Python: "there should be one - 
 
 ## Mutability
 
-An important thing to remember is that Python variables are simply *references* to values, and also that they fall into two distinct types:
+An important thing to remember is that Python variables are simply _references_ to values, and also that they fall into two distinct types:
 
-* Immutable types: value changes by referencing a newly created value (e.g. when adding a letter in a string). Note you cannot change individual elements of an immutable container (e.g. you can't change a single character in a string directly 'in place')
-* Mutable types: values can be changed 'in place', e.g. changing or adding an item in a list
+- Immutable types: value changes by referencing a newly created value (e.g. when adding a letter in a string). Note you cannot change individual elements of an immutable container (e.g. you can't change a single character in a string directly 'in place')
+- Mutable types: values can be changed 'in place', e.g. changing or adding an item in a list
 
 :::
 
@@ -320,7 +317,7 @@ names[1]
 In a dictionary, we look up an element using another object of our choice:
 
 ```python
-me = { 'name': 'Joe', 'age': 39, 
+me = { 'name': 'Joe', 'age': 39,
        'Jobs': ['Programmer', 'Teacher'] }
 me
 ```
@@ -411,18 +408,18 @@ One consequence of this implementation is that you can only use immutable things
 
 ```python
 good_match = {
-    ("Lamb", "Mint"): True, 
+    ("Lamb", "Mint"): True,
     ("Bacon", "Chocolate"): False
-   }
+}
 ```
 
 But:
 
-```python
+```python nolint
 illegal = {
-    ["Lamb", "Mint"]: True, 
+    ["Lamb", "Mint"]: True,
     ["Bacon", "Chocolate"]: False
-   }
+}
 ```
 
 ```text
@@ -435,7 +432,7 @@ Remember -- square brackets denote lists, round brackets denote tuples.
 
 ## Beware 'Copying' of Containers
 
-Here, note that `y` is not equal to the contents of `x`, it is a second label on the *same object*. So when we change `y`, we are also changing `x`. This is generally true for mutable types in Python.
+Here, note that `y` is not equal to the contents of `x`, it is a second label on the _same object_. So when we change `y`, we are also changing `x`. This is generally true for mutable types in Python.
 
 ```python
 x = [1, 2, 3]
@@ -487,7 +484,7 @@ The copies that we make through slicing are called shallow copies: we don't copy
 all the objects they contain, only the references to them. This is why the
 nested list in `x[0]` is not copied, so `z[0]` still refers to it. It is
 possible to actually create copies of all the contents, however deeply nested
-they are - this is called a *deep copy*. Python provides methods for that in its
+they are - this is called a _deep copy_. Python provides methods for that in its
 standard library in the `copy` module.
 
 ## General Rule
@@ -499,13 +496,13 @@ for anything which feels like a mapping from keys to values.
 
 ## Key Points
 
-* Python containers can contain values of any type.
-* Lists, sets, and dictionaries are mutable types whose values can be changed after creation.
-* Lists store elements as an ordered sequence of potentially non-unique values.
-* Dictionaries store elements as unordered key-value pairs.
-* Dictionary keys are required to be of an immutable type.
-* Sets are an unordered collection of unique elements.
-* Containers can contain other containers as elements.
-* Use `x[a:b]` to extract a subset of data from `x`, with `a` and `b` representing element *boundaries*, not indexes.
-* Tuples are an immutable type whose values cannot be changed after creation and must be re-created.
-* Doing `x = y`, where `y` is a container, doesn't copy its elements, it just creates a new reference to it.
+- Python containers can contain values of any type.
+- Lists, sets, and dictionaries are mutable types whose values can be changed after creation.
+- Lists store elements as an ordered sequence of potentially non-unique values.
+- Dictionaries store elements as unordered key-value pairs.
+- Dictionary keys are required to be of an immutable type.
+- Sets are an unordered collection of unique elements.
+- Containers can contain other containers as elements.
+- Use `x[a:b]` to extract a subset of data from `x`, with `a` and `b` representing element _boundaries_, not indexes.
+- Tuples are an immutable type whose values cannot be changed after creation and must be re-created.
+- Doing `x = y`, where `y` is a container, doesn't copy its elements, it just creates a new reference to it.
