@@ -1,20 +1,18 @@
 ---
 name: "Project: Snake Game"
-dependsOn: [
-    introductory_courses.python.14_variable_scope
-]
+dependsOn: [introductory_courses.python.14_variable_scope]
 tags: [python]
-attribution: 
-    - citation: >
-        "Programming with Python" course by the Carpentries
-      url: https://swcarpentry.github.io/python-novice-inflammation/
-      image: https://carpentries.org/assets/img/TheCarpentries.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Programming with Python" course by the Carpentries
+    url: https://swcarpentry.github.io/python-novice-inflammation/
+    image: https://carpentries.org/assets/img/TheCarpentries.svg
+    license: CC-BY-4.0
 ---
 
 ## Snake
 
-[Snake](https://en.wikipedia.org/wiki/Snake_(video_game_genre)) is a common name for a game in which a player maneuvers a line which grows in length, where the main obstacle is the line itself.
+[Snake](<https://en.wikipedia.org/wiki/Snake_(video_game_genre)>) is a common name for a game in which a player maneuvers a line which grows in length, where the main obstacle is the line itself.
 Although variants existed before, it became popular in the late 1990s when it was preloaded onto Nokia phones.
 
 ## The project

@@ -1,15 +1,13 @@
 ---
 name: Errors and Exceptions
-dependsOn: [
-    introductory_courses.python.11_looping_over_data_sets
-]
+dependsOn: [introductory_courses.python.11_looping_over_data_sets]
 tags: [python]
-attribution: 
-    - citation: >
-        "Programming with Python" course by the Carpentries
-      url: https://swcarpentry.github.io/python-novice-inflammation/
-      image: https://carpentries.org/assets/img/TheCarpentries.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Programming with Python" course by the Carpentries
+    url: https://swcarpentry.github.io/python-novice-inflammation/
+    image: https://carpentries.org/assets/img/TheCarpentries.svg
+    license: CC-BY-4.0
 ---
 
 Every programmer encounters errors,
@@ -20,11 +18,11 @@ and can make coding feel like a hopeless endeavour.
 However,
 understanding what the different types of errors are
 and when you are likely to encounter them can help a lot.
-Once you know *why* you get certain types of errors,
+Once you know _why_ you get certain types of errors,
 they become much easier to fix.
 
 Errors in Python have a very specific form,
-called a *traceback*.
+called a _traceback_.
 Let's examine one:
 
 ```python
@@ -64,15 +62,15 @@ You can determine the number of levels by looking for the number of arrows on th
 In this case:
 
 1. The first shows code from the cell above,
-    with an arrow pointing to Line 11 (which is `favorite_ice_cream()`).
+   with an arrow pointing to Line 11 (which is `favorite_ice_cream()`).
 
 2. The second shows some code in the function `favorite_ice_cream`,
-    with an arrow pointing to Line 9 (which is `print(ice_creams[3])`).
+   with an arrow pointing to Line 9 (which is `print(ice_creams[3])`).
 
 The last level is the actual place where the error occurred.
 The other level(s) show what function the program executed to get to the next level down.
 So, in this case, the program first performed a
-*function call* to the function `favorite_ice_cream`.
+_function call_ to the function `favorite_ice_cream`.
 Inside this function,
 the program encountered an error on Line 6, when it tried to run the code `print(ice_creams[3])`.
 
@@ -101,7 +99,7 @@ if you fix the error,
 but encounter a new one,
 you can tell that the error changed.
 Additionally,
-sometimes knowing *where* the error occurred is enough to fix it,
+sometimes knowing _where_ the error occurred is enough to fix it,
 even if you don't entirely understand the message.
 
 If you do encounter an error you don't recognize,
@@ -118,7 +116,7 @@ hopefully the custom error message is informative enough to help you figure out 
 When you forget a colon at the end of a line,
 accidentally add one space too many when indenting under an `if` statement,
 or forget a parenthesis,
-you will encounter a *syntax error*.
+you will encounter a _syntax error_.
 This means that Python couldn't figure out how to read your program.
 This is similar to forgetting punctuation in English:
 for example,
@@ -133,7 +131,7 @@ If Python doesn't know how to read the program,
 it will give up and inform you with an error.
 For example:
 
-``` python nolint
+```python nolint
 def some_function()
     msg = 'hello, world!'
     print(msg)
@@ -151,12 +149,12 @@ Here, Python tells us that there is a `SyntaxError` on line 1,
 and even puts a little arrow in the place where there is an issue.
 In this case the problem is that the function definition is missing a colon at the end.
 
-Actually, the function above has *two* issues with syntax.
+Actually, the function above has _two_ issues with syntax.
 If we fix the problem with the colon,
-we see that there is *also* an `IndentationError`,
+we see that there is _also_ an `IndentationError`,
 which means that the lines in the function definition do not all have the same indentation:
 
-``` python nolint
+```python nolint
 def some_function():
     msg = 'hello, world!'
     print(msg)
@@ -172,7 +170,7 @@ IndentationError: unexpected indent
 
 Both `SyntaxError` and `IndentationError` indicate a problem with the syntax of your program,
 but an `IndentationError` is more specific:
-it *always* means that there is a problem with how your code is indented.
+it _always_ means that there is a problem with how your code is indented.
 
 :::callout
 
@@ -187,7 +185,7 @@ If you're working in a Jupyter notebook, be sure to copy and paste this example
 rather than trying to type it in manually because Jupyter automatically replaces
 tabs with spaces.
 
-``` python nolint
+```python nolint
 def some_function():
  msg = 'hello, world!'
  print(msg)
@@ -212,7 +210,7 @@ Another very common type of error is called a `NameError`,
 and occurs when you try to use a variable that does not exist.
 For example:
 
-``` python
+```python nolint
 print(a)
 ```
 
@@ -236,7 +234,7 @@ there are a few very common reasons why you might have an undefined variable.
 The first is that you meant to use a
 string, but forgot to put quotes around it:
 
-``` python
+```python nolint
 print(hello)
 ```
 
@@ -253,7 +251,7 @@ The second reason is that you might be trying to use a variable that does not ye
 In the following example,
 `count` should have been defined (e.g., with `count = 0`) before the for loop:
 
-``` python
+```python nolint
 for number in range(10):
     count = count + number
 print('The count is:', count)
@@ -277,7 +275,7 @@ Remember that variables are case-sensitive,
 so the variable `count` is different from `Count`. We still get the same error,
 because we still have not defined `count`:
 
-``` python
+```python nolint
 Count = 0
 for number in range(10):
     count = count + number
@@ -307,7 +305,7 @@ and they answered "caturday",
 you might be a bit annoyed.
 Python gets similarly annoyed if you try to ask it for an item that doesn't exist:
 
-``` python
+```python
 letters = ['a', 'b', 'c']
 print('Letter #1 is', letters[0])
 print('Letter #2 is', letters[1])
@@ -347,7 +345,7 @@ returns an `UnsupportedOperationError`.
 More generally, problems with input and output manifest as
 `IOError`s or `OSError`s, depending on the version of Python you use.
 
-``` python
+```python
 file_handle = open('myfile.txt', 'r')
 ```
 
@@ -379,7 +377,7 @@ and then try to read from it,
 you will get an `UnsupportedOperation` error
 telling you that the file was not opened for reading:
 
-``` python
+```python
 file_handle = open('myfile.txt', 'w')
 file_handle.read()
 ```
@@ -410,7 +408,7 @@ Read the Python code and the resulting traceback below, and answer the following
 4. What is the type of error?
 5. What is the error message?
 
-``` python
+```python
 # This code has an intentional error. Do not type it directly;
 # use it for reference to understand the error message below.
 def print_message(day):
@@ -463,7 +461,7 @@ KeyError: 'Friday'
 3. 11
 4. `KeyError`
 5. There isn't really a message; you're supposed
-to infer that `Friday` is not a key in `messages`.
+   to infer that `Friday` is not a key in `messages`.
 
 :::
 ::::
@@ -475,7 +473,7 @@ to infer that `Friday` is not a key in `messages`.
 3. Fix the error.
 4. Repeat steps 2 and 3, until you have fixed all the errors.
 
-``` python nolint
+```python nolint
 def another_function
   print('Syntax errors are annoying.')
    print('But at least Python tells us about them!')
@@ -487,7 +485,7 @@ def another_function
 `IndentationError` for mismatch between second and third lines.
 A fixed version is:
 
-``` python
+```python
 def another_function():
     print('Syntax errors are annoying.')
     print('But at least Python tells us about them!')
@@ -508,7 +506,7 @@ def another_function():
 3. Fix the error.
 4. Repeat steps 2 and 3, until you have fixed all the errors.
 
-``` python
+```python nolint
 for number in range(10):
     # use a if the number is a multiple of 3, otherwise use b
     if (Number % 3) == 0:
@@ -524,7 +522,7 @@ and for `a` not being in quotes.
 
 Fixed version:
 
-``` python
+```python
 message = ''
 for number in range(10):
     # use a if the number is a multiple of 3, otherwise use b
@@ -544,7 +542,7 @@ print(message)
 2. Run the code, and read the error message. What type of error is it?
 3. Fix the error.
 
-``` python
+```python
 seasons = ['Spring', 'Summer', 'Fall', 'Winter']
 print('My favorite season is ', seasons[4])
 ```
@@ -553,7 +551,7 @@ print('My favorite season is ', seasons[4])
 `IndexError`; the last entry is `seasons[3]`, so `seasons[4]` doesn't make sense.
 A fixed version is:
 
-``` python
+```python
 seasons = ['Spring', 'Summer', 'Fall', 'Winter']
 print('My favorite season is ', seasons[-1])
 ```

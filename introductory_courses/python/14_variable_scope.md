@@ -1,27 +1,25 @@
 ---
 name: Variable Scope
-dependsOn: [
-    introductory_courses.python.13_writing_functions
-]
+dependsOn: [introductory_courses.python.13_writing_functions]
 tags: [python]
-attribution: 
-    - citation: >
-        "Programming with Python" course by the Carpentries
-      url: https://swcarpentry.github.io/python-novice-inflammation/
-      image: https://carpentries.org/assets/img/TheCarpentries.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Programming with Python" course by the Carpentries
+    url: https://swcarpentry.github.io/python-novice-inflammation/
+    image: https://carpentries.org/assets/img/TheCarpentries.svg
+    license: CC-BY-4.0
 ---
 
 ## The scope of a variable is the part of a program that can 'see' that variable
 
-* There are only so many sensible names for variables.
-* People using functions shouldn't have to worry about
-    what variable names the author of the function used.
-* People writing functions shouldn't have to worry about
-    what variable names the function's caller uses.
-* The part of a program in which a variable is visible is called its *scope*.
+- There are only so many sensible names for variables.
+- People using functions shouldn't have to worry about
+  what variable names the author of the function used.
+- People writing functions shouldn't have to worry about
+  what variable names the function's caller uses.
+- The part of a program in which a variable is visible is called its _scope_.
 
-``` python
+```python
 pressure = 103.9
 
 def adjust(t):
@@ -29,16 +27,16 @@ def adjust(t):
     return temperature
 ```
 
-* `pressure` is a *global variable*.
-  * Defined outside any particular function.
-  * Visible everywhere.
-* `t` and `temperature` are *local variables* in `adjust`.
-  * Defined in the function.
-  * Not visible in the main program.
-  * Remember: a function parameter is a variable
-        that is automatically assigned a value when the function is called.
+- `pressure` is a _global variable_.
+  - Defined outside any particular function.
+  - Visible everywhere.
+- `t` and `temperature` are _local variables_ in `adjust`.
+  - Defined in the function.
+  - Not visible in the main program.
+  - Remember: a function parameter is a variable
+    that is automatically assigned a value when the function is called.
 
-``` python
+```python nolint
 print('adjusted:', adjust(0.9))
 print('temperature after call:', temperature)
 ```
@@ -59,7 +57,7 @@ NameError: name 'temperature' is not defined
 Trace the values of all variables in this program as it is executed.
 (Use '---' as the value of variables before and after they exist.)
 
-``` python
+```python
 limit = 100
 
 def clip(value):
@@ -111,8 +109,8 @@ KeyError: 'Friday'
 1. `print_message`
 1. Line 11
 1. `KeyError`. These errors occur when we are trying to look up a key that does not exist (usually in a data
-structure such as a dictionary). We can find more information about the `KeyError` and other built-in exceptions
-in the [Python docs](https://docs.python.org/3/library/exceptions.html#KeyError).
+   structure such as a dictionary). We can find more information about the `KeyError` and other built-in exceptions
+   in the [Python docs](https://docs.python.org/3/library/exceptions.html#KeyError).
 1. `KeyError: 'Friday'`
 
 :::
