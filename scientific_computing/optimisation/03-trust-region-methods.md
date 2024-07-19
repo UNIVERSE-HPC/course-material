@@ -1,19 +1,16 @@
 ---
 name: Trust Region Methods
-dependsOn: [
-    scientific_computing.optimisation.02-line-search-methods,
-]
+dependsOn: [scientific_computing.optimisation.02-line-search-methods]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ### Saddle points
@@ -36,26 +33,26 @@ f(\mathbf{\theta}^\star + \delta \mathbf{\theta}) = f(\mathbf{\theta}^\star)  + 
 $$
 
 where $\lambda_i$ is the $i$th eigenvalue of the Hessian, and $\nabla \mathbf{v}_i$ is the motion of $\delta \mathbf{\theta}$ along the $i$th eigenvector of
-the Hessian.  If the $i$th eigenvalue is negative/positive then along the $i$th
+the Hessian. If the $i$th eigenvalue is negative/positive then along the $i$th
 eigenvector the function $f$ will achieve a maximum/minimum at $\mathbf{\theta}^\star$.
 
-*Gradient descent* algorithms will move away or towards $\mathbf{\theta}^\star$ with a
+_Gradient descent_ algorithms will move away or towards $\mathbf{\theta}^\star$ with a
 step given by $-\lambda_i \delta \mathbf{v}_i$. So for negative eigenvalues the
-motion will be towards lower values of $f$ *away* from $\mathbf{\theta}^\star$. For
-positive eigenvalues the motion will be towards lower values of $f$ *towards*
+motion will be towards lower values of $f$ _away_ from $\mathbf{\theta}^\star$. For
+positive eigenvalues the motion will be towards lower values of $f$ _towards_
 $\mathbf{\theta}^\star$. The problem here is the size of the step, which
 is very small for small values of $\lambda_i$.
 
-*Newton methods* rescale the step size by $\lambda_i$ so that it becomes
+_Newton methods_ rescale the step size by $\lambda_i$ so that it becomes
 $-\delta \mathbf{v}_i$. For negative eigenvalues, this has the undesirable
-characteristic that these methods move towards *increasing* values of $f$ (i.e.
+characteristic that these methods move towards _increasing_ values of $f$ (i.e.
 towards the critical point) along corresponding eigenvectors. Since for
-positive eigenvalues it is *also* moving towards the critical point, this means
-that saddle points act as *attractors* for these types of methods.
+positive eigenvalues it is _also_ moving towards the critical point, this means
+that saddle points act as _attractors_ for these types of methods.
 
-*Trust region methods* restate the optimisation problem as a sequence of
+_Trust region methods_ restate the optimisation problem as a sequence of
 optimisations of a second order approximation to
-$f$ in a local *trust-region* surrounding the current point $a_k$. The exact
+$f$ in a local _trust-region_ surrounding the current point $a_k$. The exact
 solution to each of these subproblems can be shown to be
 $(\nabla^2 f(a_k) + \lambda_t I)^{-1} \nabla f(a_k)$, where the value of $\lambda_t$ is related to
 the size of the trust region. In comparison with the previous methods above,
@@ -64,7 +61,7 @@ $-\frac{\lambda_i}{\lambda_i + \lambda_t}\delta \mathbf{v}_i$. As long as $\lamb
 than the most negative eigenvalue then the direction of each step is now always
 towards more negative values of $f$. As long as $\lambda_t$ is small
 compared with $\lambda_i$ then we avoid the small step sizes associated with
-gradient descent.  
+gradient descent.
 
 ### Trust region methods
 
@@ -77,7 +74,7 @@ $$
 
 where $g_k = \nabla f(a_k)$, $B_k$ is an approximation to the hessian matrix $B_k
 \approx \nabla^2 f(a_k)$ or the hessian itself $B_k = \nabla^2 f(a_k)$. Trust region
-methods aim to find the $p$ that minimises $m_k$ in a local trust region  $||p|| <
+methods aim to find the $p$ that minimises $m_k$ in a local trust region $||p|| <
 \Delta_k$ around the current point $a_k$, where $\Delta_k$ is the trust region radius.
 
 Solving the minimisation given above is normally done approximately, with different
@@ -103,26 +100,20 @@ Given $a_0$, $\hat{\Delta} > 0$, $\Delta_0 \in (0, \hat{\Delta})$, and $\nu \in 
 \frac{1}{4})$:
 
 **for** $k = 0, 1, 2, ...$
-> Obtain $p_k$ by (approximately) minimising $m_k(p)$ where $||p|| < \Delta_k$
-> $\rho_k := \frac{f(a_k) - f(a_k + p_k)}{m_k(0) - m_k(p_k)}$
-> **if** $\rho_k < \frac{1}{4}$
->> $\Delta\_{k+1} := \frac{1}{4} \Delta_k$
-> **else**
->> **if** $\rho_k > \frac{3}{4}$ and $||p_k|| = \Delta_k$
->>> $\Delta\_{k+1} := \min(2 \Delta_k, \hat{\Delta})$
->> **else**
->>> $\Delta\_{k+1} := \Delta_k$
-> **if** $\rho\_k > \nu$
->> $a\_{k+1} := a_k + p_k$  
-> **else**
->> $a\_{k+1} := a_k$  
+
+> Obtain $p_k$ by (approximately) minimising $m_k(p)$ where $||p|| < \Delta_k$ > $\rho_k := \frac{f(a_k) - f(a_k + p_k)}{m_k(0) - m_k(p_k)}$ > **if** $\rho_k < \frac{1}{4}$
+>
+> > $\Delta\_{k+1} := \frac{1}{4} \Delta_k$ > **else** >> **if** $\rho_k > \frac{3}{4}$ and $||p_k|| = \Delta_k$
+> >
+> > > $\Delta\_{k+1} := \min(2 \Delta_k, \hat{\Delta})$ >> **else** >>> $\Delta\_{k+1} := \Delta_k$ > **if** $\rho\_k > \nu$ >> $a\_{k+1} := a_k + p_k$  
+> > > **else** >> $a\_{k+1} := a_k$
 
 **end for**.
 
 ### Solving the trust region subproblem
 
-We will describe two algorithms for minimising $m_k(p)$, the *Cauchy point* and the
-*dogleg* methods. The Cauchy point first solves a linear version of $m_k$ defined as
+We will describe two algorithms for minimising $m_k(p)$, the _Cauchy point_ and the
+_dogleg_ methods. The Cauchy point first solves a linear version of $m_k$ defined as
 
 $$
 p^s_k = \min_{p \in \mathcal{R}^n} f(a_k) + g_k^T p \text{ for }||p|| \le \Delta_k
@@ -151,7 +142,7 @@ $$
 \end{cases}
 $$
 
-The second method we describe is the *dogleg* method, which is applicable when $B_k$ is
+The second method we describe is the _dogleg_ method, which is applicable when $B_k$ is
 a positive definite matrix. If the original hessian is positive definite then this
 method is directly applicable, or one of the quasi-Newton positive definite
 approximation to the hessian could also be used. The dogleg method is derived by
@@ -165,7 +156,7 @@ p_k^U = -\frac{g_k^T g_k}{g_k^T B_k g_k} g_k
 $$
 
 The second step is along the path between $p_k^U$ and $p^B_k = -B_k^{-1} g_k$. In the
-case where $p_k^B$ is *inside* the trust region $||p_k^B|| \le \Delta_k$ then $p_k^B$
+case where $p_k^B$ is _inside_ the trust region $||p_k^B|| \le \Delta_k$ then $p_k^B$
 can be used without modification. Otherwise the point of intersection with the
 trust-region radius must be calculated, which can be done by solving the following
 quadratic equation
@@ -194,7 +185,7 @@ m_k(p) = f(a_k) + g_k^T p + \frac{1}{2} p^T B_k p,
 $$
 
 assuming that $B\_k$ is the Hessian of $f$.
-Draw the family of solutions of $\min_{p\in \mathcal{R}^n}m_k(p)$ sothat $||p|| \le \Delta_k$  as the trust region radius varies from $\Delta_k = 0$ to $\Delta_k = 2$.
+Draw the family of solutions of $\min_{p\in \mathcal{R}^n}m_k(p)$ sothat $||p|| \le \Delta_k$ as the trust region radius varies from $\Delta_k = 0$ to $\Delta_k = 2$.
 Repeat this at $x = (0, 0.5)$.
 
 :::solution

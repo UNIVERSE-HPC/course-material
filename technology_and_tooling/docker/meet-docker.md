@@ -2,18 +2,17 @@
 name: "Docker Command Line"
 teaching: 10
 exercises: 0
-dependsOn: [
-  technology_and_tooling.docker.introduction
-]
+dependsOn: [technology_and_tooling.docker.introduction]
 tags: [docker]
-attribution: 
-    - citation: >
-        D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
-        Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator. 
-      url: https://github.com/carpentries-incubator/docker-introduction
-      image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
+      Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator.
+    url: https://github.com/carpentries-incubator/docker-introduction
+    image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
+    license: CC-BY-4.0
 ---
+
 ## Docker command line
 
 Start the Docker application that you installed in working through the setup instructions for this session. Note that this might not be necessary if your laptop is running Linux or if the installation added the Docker application to your startup process.
@@ -43,13 +42,13 @@ you can find out what it is through the steps:
 
 Once your Docker application is running, open a shell (terminal) window, and run the following command to check that Docker is installed and the command line tools are working correctly. Below is the output for a Mac version, but the specific version is unlikely to matter much: it does not have to precisely match the one listed below.
 
-~~~bash
+```bash
 docker --version
-~~~
+```
 
-~~~text
+```text
 Docker version 20.10.5, build 55c4c88
-~~~
+```
 
 The above command has not actually relied on the part of Docker that runs containers, just that Docker
 is installed and you can access it correctly from the command line.
@@ -58,21 +57,21 @@ A command that checks that Docker is working correctly is the `docker container 
 
 Without explaining the details, output on a newly installed system would likely be:
 
-~~~bash
+```bash
 docker container ls
-~~~
+```
 
-~~~text
+```text
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-~~~
+```
 
 (The command `docker system info` could also be used to verify that Docker is correctly installed and operational but it produces a larger amount of output.)
 
 However, if you instead get a message similar to the following
 
-~~~text
+```text
 Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
-~~~
+```
 
 then you need to check that you have started the Docker Desktop, Docker Engine, or however else you worked through the setup instructions.
 
@@ -82,7 +81,7 @@ Often when working with a new command line tool, we need to get help. These tool
 sort of subcommand or flag (usually `help`, `-h`, or `--help`) that displays a prompt describing how to use the
 tool. For Docker, it's no different. If we run `docker --help`, we see the following output (running `docker` also produces the help message):
 
-~~~text
+```text
 Usage:  docker [OPTIONS] COMMAND
 
 A self-sufficient runtime for containers
@@ -164,17 +163,17 @@ Commands:
   wait        Block until one or more containers stop, then print their exit codes
 
 Run 'docker COMMAND --help' for more information on a command.
-~~~
+```
 
 There is a list of commands and the end of the help message says: `Run 'docker COMMAND --help' for more information on
 a command.` For example, take the `docker container ls` command that we ran previously. We can see from the Docker help prompt
 that `container` is a Docker command, so to get help for that command, we run:
 
-~~~bash
+```bash
 docker container --help  # or instead 'docker container'
-~~~
+```
 
-~~~text
+```text
 Usage:  docker container COMMAND
 
 Manage containers
@@ -207,15 +206,15 @@ Commands:
   wait        Block until one or more containers stop, then print their exit codes
 
 Run 'docker container COMMAND --help' for more information on a command.
-~~~
+```
 
 There's also help for the `container ls` command:
 
-~~~bash
+```bash
 docker container ls --help  # this one actually requires the '--help' flag
-~~~
+```
 
-~~~text
+```text
 Usage:  docker container ls [OPTIONS]
 
 List containers
@@ -232,7 +231,7 @@ Options:
       --no-trunc        Don't truncate output
   -q, --quiet           Only display container IDs
   -s, --size            Display total file sizes
-~~~
+```
 
 You may notice that there are many commands that stem from the `docker` command. Instead of trying to remember
 all possible commands and options, it's better to learn how to effectively get help from the command line. Although
@@ -268,11 +267,11 @@ section of the prompt.
 :::solution
 Suppose we pick the `docker image build` command:
 
-~~~bash
+```bash
 docker image build --help
-~~~
+```
 
-~~~text
+```text
 Usage:  docker image build [OPTIONS] PATH | URL | -
 
 Build an image from a Dockerfile
@@ -306,19 +305,19 @@ Options:
  -t, --tag list                Name and optionally a tag in the 'name:tag' format
      --target string           Set the target build stage to build.
      --ulimit ulimit           Ulimit options (default [])
-~~~
+```
 
 We could try to guess that the command could be run like this:
 
-~~~bash
+```bash
 docker image build .
-~~~
+```
 
 or
 
-~~~bash
+```bash
 docker image build https://github.com/docker/rootfs.git
-~~~
+```
 
 Where `https://github.com/docker/rootfs.git` could be any relevant URL that supports a Docker image.
 :::

@@ -1,25 +1,19 @@
 ---
 name: Sharing Packages
-dependsOn: [
-  technology_and_tooling.packaging_dependency_management.pack_python_03reusing 
-]
+dependsOn: [technology_and_tooling.packaging_dependency_management.pack_python_03reusing]
 tags: [python, setuptools]
-attribution: 
-    - citation: >
-        "Python Packaging" course developed by Thibault Lestang and the Oxford Research 
-        Software Engineering group
-      url: https://github.com/OxfordRSE/python-packaging-course
-      image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
-
-
+attribution:
+  - citation: >
+      "Python Packaging" course developed by Thibault Lestang and the Oxford Research 
+      Software Engineering group
+    url: https://github.com/OxfordRSE/python-packaging-course
+    image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
-
 
 # Sharing a package
 
@@ -32,7 +26,7 @@ the package - but also sometimes compile and test it.
 A distribution usually takes the from of an archive (`.tar`, `.zip` or similar).
 There are several possible distribution formats, but for `pip`, only two are
 really important: the _source distribution_ (sdist) and the _wheel_
-(bdist\_wheel).
+(bdist_wheel).
 
 ### Source distributions
 
@@ -153,39 +147,39 @@ rendering the latter format obsolete. For more information, refer to [Wheel vs E
 ::::challenge{id=python-wheel title="Building a Python wheel"}
 
 1. If you don't have one, create a new developement virtual environment in the
-    `tstools-dist` directory:
+   `tstools-dist` directory:
 
-    ```shell
-    python -m venv tstools-venv
-    source tstools-venv/bin/activate # (GNU/Linux and MacOS)
-    tstools-venv\Scripts\activate.bat # (Windows command prompt)
-    tstools-venv\Scripts\Activate.ps1 # (Windows PowerShell)
-    ```
+   ```shell
+   python -m venv tstools-venv
+   source tstools-venv/bin/activate # (GNU/Linux and MacOS)
+   tstools-venv\Scripts\activate.bat # (Windows command prompt)
+   tstools-venv\Scripts\Activate.ps1 # (Windows PowerShell)
+   ```
 
 2. Update `pip`
 
-    ```shell
-    pip install --upgrade pip
-    ```
+   ```shell
+   pip install --upgrade pip
+   ```
 
 3. Install `build` tool and the `wheel` extension:
 
-    ```shell
-    pip install wheel build
-    ```
+   ```shell
+   pip install wheel build
+   ```
 
 4. Build a wheel
 
-    ```shell
-    python -m build --wheel
-    ```
+   ```shell
+   python -m build --wheel
+   ```
 
 5. Install the wheel using `pip`. Wheels are written in the `dist/` directory, just
-    like source distributions.
+   like source distributions.
 
-    ```shell
-    python -m pip install ./dist/tstools*.whl
-    ```
+   ```shell
+   python -m pip install ./dist/tstools*.whl
+   ```
 
 6. `.whl` files are basically zip files. Unzip the wheel and explore its contents.
 
@@ -205,7 +199,7 @@ python -m build
 ## Uploading distributions to PyPI
 
 In the previous section you learned how to create distributions for your
-packages.  In this section, we look at how to share them with others, so that
+packages. In this section, we look at how to share them with others, so that
 other people can easily install and use your packages.
 
 ### Package repositories
@@ -219,7 +213,7 @@ Although effective on a short term basis, these solutions present serious shortc
 
 - You would have to share the distribution again each time you make a change to the package.
 - If your colleague wants a specific version (that's not the latest), you would have to check out the old version of your package and build the distribution again - unless your manually
-    keep track of all your distributions.
+  keep track of all your distributions.
 - Users of your package must contact you to get the distribution, and wait for you to get back to them.
 
 These issues can be overcome by using _package repositories_. A package repository is just an index of packages hosted on distant servers, available to download from installation.
@@ -258,50 +252,51 @@ without entering your username and password every time. Note that you might want
 ::::challenge{id=publishing-distributions title="Publishing distributions to TestPyPI"}
 
 1. On PyPI (or TestPyPI), there cannot be two package with the same name. Therefore, before you upload your `tstools` package,
-    you must give the project a unique name. To do so, open the `tstools-dist/setup.py` or `tstools-dist/pyproject.toml` file and change the `name` entry
-    to something unique to you, for instance:
+   you must give the project a unique name. To do so, open the `tstools-dist/setup.py` or `tstools-dist/pyproject.toml` file and change the `name` entry
+   to something unique to you, for instance:
 
-    ```python
-    name='tstools-<yourname>'
-    ```
+   ```python
+   name='tstools-<yourname>'
+   ```
 
 2. Install `twine` in your `python-packaging-venv` environment
 
-    ```shell
-    pip install twine
-    ```
+   ```shell
+   pip install twine
+   ```
 
 3. If you created some distributions in the previous sections, remove everything inside your `dist/` directory
 
-    ```shell
-    rm dist/*
-    ```
+   ```shell
+   rm dist/*
+   ```
 
 4. Create a source distribution and a wheel for your `tstools` package
 
-    ```shell
-    python -m build
-    ```
+   ```shell
+   python -m build
+   ```
 
 5. If you don't have one, create an account on the Test PyPI index by visiting <https://test.pypi.org/account/register/>.
 6. Lastly, publish your distributions to the test PyPI index:
 
-    ```shell
-    twine upload --repository testpypi dist/*
-    ```
+   ```shell
+   twine upload --repository testpypi dist/*
+   ```
 
-    Can you find your package on [test.pypi.org](https://test.pypi.org) ?
+   Can you find your package on [test.pypi.org](https://test.pypi.org) ?
+
 7. Create a new virtual environment and install your `tstools` package from the test PyPI index
 
-    ```shell
-    pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple your-package
-    ```
+   ```shell
+   pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple your-package
+   ```
 
-    The above command is a bit lengthy, but it's just because we are installing from the test
-    index instead of the regular one. `--index-url https://test.pypi.org/simple/` tells `pip`
-    to look for the package at `test.pypi.org` instead of `pypi.org` (which is the default).
-    In addition, `--extra-index-url https://pypi.org/simple` tells `pip` to looks for dependencies
-    in the regular index, instead of the test one. In our case dependencies are `numpy` and `matplotlib`.
+   The above command is a bit lengthy, but it's just because we are installing from the test
+   index instead of the regular one. `--index-url https://test.pypi.org/simple/` tells `pip`
+   to look for the package at `test.pypi.org` instead of `pypi.org` (which is the default).
+   In addition, `--extra-index-url https://pypi.org/simple` tells `pip` to looks for dependencies
+   in the regular index, instead of the test one. In our case dependencies are `numpy` and `matplotlib`.
 
 ::::
 
@@ -310,35 +305,35 @@ Congratulations! You just published your first Python package.
 Remarks:
 
 - It's always a good idea to first publish your package on the test index, before
-    you publish it to the real index.
+  you publish it to the real index.
 - `twine` and `pip` defaut to the real index <https://pypi.org>, so commands are really simple:
 
-    ```shell
-    twine upload <distributions> # Publish package
-    pip install <package name> # Install package from pypi.org
-    ```
+  ```shell
+  twine upload <distributions> # Publish package
+  pip install <package name> # Install package from pypi.org
+  ```
 
 - You can, and _should_ publish your package each time you make a new version of it.
-    All versions are stored on PyPI, and are accessible from pip.
-    See the [release history for numpy](https://pypi.org/project/numpy/#history) for example.
-    You could just install a specific version of numpy with:
+  All versions are stored on PyPI, and are accessible from pip.
+  See the [release history for numpy](https://pypi.org/project/numpy/#history) for example.
+  You could just install a specific version of numpy with:
 
-    ```shell
-    pip install numpy==1.17.5
-    ```
+  ```shell
+  pip install numpy==1.17.5
+  ```
 
 - Note that _you cannot_ erase a published version of your package.
-    If you discover a bug in a version of your package that already has been published and want to fix it without changing the version number,
-    what is known as a _post-release_, _i.e_ adding `.postX` add the end of the faulty version number.
-    For instance:
+  If you discover a bug in a version of your package that already has been published and want to fix it without changing the version number,
+  what is known as a _post-release_, _i.e_ adding `.postX` add the end of the faulty version number.
+  For instance:
 
-    ```python
-    setup(name='tstools',
-          version='0.1.post1',
-          ...)
-    ```
+  ```python
+  from setuptools import setup
+  setup(name='tstools',
+        version='0.1.post1')
+  ```
 
-    and upload your fixed package.
-    This will still be considered version `0.1`, but `pip install tstools==0.1` will download
-    the `0.1.post1` version.
-    Note that you could publish subsequent post-releases, _i.e_ `.post2`, `.post3`...
+  and upload your fixed package.
+  This will still be considered version `0.1`, but `pip install tstools==0.1` will download
+  the `0.1.post1` version.
+  Note that you could publish subsequent post-releases, _i.e_ `.post2`, `.post3`...

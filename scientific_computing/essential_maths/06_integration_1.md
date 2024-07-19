@@ -1,19 +1,16 @@
 ---
 name: Integration 1
-dependsOn: [
-  scientific_computing.essential_maths.05_differentiation_3
-]
+dependsOn: [scientific_computing.essential_maths.05_differentiation_3]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ---
@@ -75,8 +72,7 @@ With this (imagined) function, we can find the area of one of our tiny steps **e
 
 Remember we approximated this as $\displaystyle y\,\delta x = f(x)\,\delta x$, so:
 
-> $$\displaystyle  F(x + \delta x) - F(x) \approx f(x)\delta x$$
-> $$\displaystyle  f(x) \approx {F(x+\delta x)-F(x)\over\delta x}$$
+> $$\displaystyle  F(x + \delta x) - F(x) \approx f(x)\delta x$$ > $$\displaystyle  f(x) \approx {F(x+\delta x)-F(x)\over\delta x}$$
 
 The error in this approximation tends to $0$ as $\displaystyle \delta x\to 0$, so
 
@@ -93,6 +89,7 @@ In other words, for our example,
 ## Calculating integrals
 
 We know that:
+
 > $$\displaystyle {{\rm d} \left(x^2\right)\over {\rm d}x}=~2 x~~~~~\Rightarrow~~~~~\biggr[x^2\biggl]_{x_1}^{x_2} = \int_{x_1}^{x_2} 2 x~{\rm d}x $$
 
 Likewise:
@@ -108,6 +105,7 @@ Likewise:
 $$\displaystyle \int_{x_1}^{x_2} x^6~{\rm d}x =$$
 
 ```python
+import sympy as sp
 x, x1, x2 = sp.symbols('x x_1 x_2')
 sp.integrate(x**6,(x,x1,x2))
 ```
@@ -138,13 +136,14 @@ sp.integrate(x**(-sp.sympify(1)/2),(x,x1,x2))
 
 Consider now the functions:
 
-> $$\displaystyle y=x^2+7 ~~~~~~~~~~{\rm (3)}$$
-> $$\displaystyle y=x^2-100 ~~~~~~~~~{\rm (4)}$$
+> $$\displaystyle y=x^2+7 ~~~~~~~~~~{\rm (3)}$$ > $$\displaystyle y=x^2-100 ~~~~~~~~~{\rm (4)}$$
 
 Differentiating (3):
+
 > $$\displaystyle {{\rm d}y\over {\rm d}x}=2x$$
 
 Differentiating (4):
+
 > $$\displaystyle {{\rm d}y\over {\rm d}x}=2x$$
 
 This implies that the integral:
@@ -187,9 +186,11 @@ Recall that:
 > $$\displaystyle {{\rm d}\over {\rm d}x}\biggr(\sin x\biggl)= \cos x~~~~~~~~~~~~~{\rm and}~~~~~~~~~~~ {{\rm d}\over {\rm d}x}\biggr(\cos x\biggl)= -\sin x$$
 
 Example (i):
+
 > $$\displaystyle \int_{0}^{\pi/2} \cos x \thinspace {\rm d}x = \biggr[\sin x \biggl]_0^{\pi/2}=1-0=1$$
 
 Example (ii):
+
 > $$\displaystyle \int_{0}^{\pi/2} \sin x \thinspace {\rm d}x =\biggr[-\cos x \biggl]_0^{\pi/2}=0-(-1)=1$$
 
 ## Summary of integration formulae
@@ -229,7 +230,7 @@ We ask three questions:
 
 ## Solution
 
-Let $f(t)$ denote the grams of NaCl produced after $t$ minutes.  Then $f'(t)= 3\sqrt{t}$.
+Let $f(t)$ denote the grams of NaCl produced after $t$ minutes. Then $f'(t)= 3\sqrt{t}$.
 
 1. The rate of production one minute into the process is $f'(1) = 3\sqrt{1} = 3$ grams per minute.
 
@@ -252,7 +253,7 @@ Let $f(t)$ denote the grams of NaCl produced after $t$ minutes.  Then $f'(t)= 3\
    sp.integrate(3*sp.sqrt(t),(t,1,4))/(4-1)
    ```
 
-   $\displaystyle \frac{14}{3}$
+$\displaystyle \frac{14}{3}$
 
 ## Substitution Method
 
@@ -300,8 +301,7 @@ Let:
 
 Substitute into Equation (8) above:
 
-> $$\displaystyle \int_{u(1.}^{u(b)} u^{-5} \times {-1\over 4}~{\rm d}u = -{1\over 4}\int_{u(1.}^{u(b)} u^{-5}~{\rm d}u = -{1\over 4}\biggr[{1\over-4}u^{-4}\biggl]_{u(1.}^{u(b)}$$
-> $$\displaystyle \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad ~~~ = {1\over 16}\biggr[(3-4x)^{-4}\biggl]_a^b$$
+> $$\displaystyle \int_{u(1.}^{u(b)} u^{-5} \times {-1\over 4}~{\rm d}u = -{1\over 4}\int_{u(1.}^{u(b)} u^{-5}~{\rm d}u = -{1\over 4}\biggr[{1\over-4}u^{-4}\biggl]_{u(1.}^{u(b)}$$ > $$\displaystyle \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad ~~~ = {1\over 16}\biggr[(3-4x)^{-4}\biggl]_a^b$$
 
 ```python
 sp.integrate((3 - 4*x)**(-5),(x,a,b))
@@ -369,6 +369,7 @@ Because the charges repel, work must be done on the system to bring $q_2$ from i
 The force $F$ must be applied to overcome the repulsion.
 
 1. Explain why the total work done is given by
+
    > $\displaystyle W=-\int_\infty^x F(x')~{\rm d}{x'} = -{q_1 q_2\over 4\pi \epsilon_0} \int_\infty^x {{\rm d}{x'}\over {x'}^2}$.
 
 1. Calculate the work, $W$, in Joules when
@@ -437,12 +438,12 @@ Let $u$ and $v$ be functions of $x$.
 
 1. Given that $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \quad\dd{}{x}(uv) = u\dd{v}{x} + v\dd{u}{x},\quad$ show that $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \quad\int v~\dd{u}{x}~{\rm d}x = uv-\int u~\dd{v}{x}~{\rm d}x.$
 1. By using this 'integration by parts' formula, and substituting $z=x^2$ or otherwise, show that
-$$\int_0^{\infty} x^n~e^{-x^2}~{\rm d}x={1\over 2}(n-1)\int_0^{\infty} x^{n-2}e ^{-x^2}~dx\qquad \rm{for}\;n>1.$$
+   $$\int_0^{\infty} x^n~e^{-x^2}~{\rm d}x={1\over 2}(n-1)\int_0^{\infty} x^{n-2}e ^{-x^2}~dx\qquad \rm{for}\;n>1.$$
 1. Hence evaluate $\displaystyle \int_0^{\infty} x^5~e^{-x^2}~{\rm d}x.$
-:::
+   :::
 
-::::challenge{id="06_ext_03" title="Extension problems 3"}
-A country wishes to achieve net-zero CO$_{2}$ emissions in 50 years. At the start of the program, their emissions ($E$) are 800MtCO$_{2}$year$^{-1}$. They decide that they will be able to reduce their emissions at a stable rate, so that each year they emit 12MtCO$_{2}$year$^{-1}$ less than the previous year.
+::::challenge{id="06*ext_03" title="Extension problems 3"}
+A country wishes to achieve net-zero CO$*{2}$ emissions in 50 years. At the start of the program, their emissions ($E$) are 800MtCO$_{2}$year$^{-1}$. They decide that they will be able to reduce their emissions at a stable rate, so that each year they emit 12MtCO$_{2}$year$^{-1}$ less than the previous year.
 
 - Write down the rate of change of the countries emissions ($E$), each year ($t$), $\def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{E}{t}$. Use this to calculate the total emissions that the country had produced over the 50 years.
 

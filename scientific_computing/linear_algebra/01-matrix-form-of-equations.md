@@ -1,19 +1,16 @@
 ---
 name: Matrix form of equations
-dependsOn: [
-]
+dependsOn: []
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
-
+attribution:
+  - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Systems of linear equations
@@ -123,17 +120,17 @@ solutions at all.
 
 The matrix $A$ in this case is singular, and therefore does not have an inverse. Looking
 at the equations again, you can see that the two rows of the matrix $A$ are multiples of
-the other, and thus there is only *one* independent row. That is, the *rank* of the
+the other, and thus there is only _one_ independent row. That is, the _rank_ of the
 matrix is one.
 
 ## Singular matrices
 
-The *rank* of an $\;n\,\times\,n\;$ matrix $\;A\;$ is the number of linearly independent rows in $\;A\;$ (rows not combinations of other rows).
+The _rank_ of an $\;n\,\times\,n\;$ matrix $\;A\;$ is the number of linearly independent rows in $\;A\;$ (rows not combinations of other rows).
 
 When $\;\text{rank}(A) < n\;$ then
 
 - The matrix is said to be 'rank deficient'
-- The system $\;A\textbf{x} = \textbf{b}\;$ has *fewer* equations than unknowns
+- The system $\;A\textbf{x} = \textbf{b}\;$ has _fewer_ equations than unknowns
 - The matrix is said to be singular
 - The matrix is said to be underdetermined
 - $A\;$ has no inverse
@@ -143,8 +140,8 @@ When $\;\text{rank}(A) < n\;$ then
 ### The determinant
 
 One way of solving a system of equations represented by $A x = b$ is to calculate the
-*inverse* of A, giving the solution as $x = A^{-1} b$. This can be done by calculating
-what is known as the *determinant* of $A$.
+_inverse_ of A, giving the solution as $x = A^{-1} b$. This can be done by calculating
+what is known as the _determinant_ of $A$.
 
 If
 
@@ -173,7 +170,7 @@ represented by the parallel or non-intersecting lines in the figure above.
 
 ### Using Python to calculate the inverse
 
-To find $A^{-1}$  for
+To find $A^{-1}$ for
 
 $$
 A = \left(\begin{matrix}3&0&2\\ 3&0&-3\\ 0&1&-1\end{matrix}\right)
@@ -182,6 +179,7 @@ $$
 you can using numpy like so:
 
 ```python
+import numpy as np
 A = np.array([[3, 0, 2], [3, 0, -3], [0, 1, 1]])
 np.linalg.inv(A)
 ```
@@ -225,7 +223,7 @@ numpy.linalg.LinAlgError: Singular matrix
 - Strang, G. (2016). Introduction to linear algebra (Fifth ed.). Wellesley.
 - Linear algebra and its applications by Gilbert Strang
   - lots of supplimentary material via MIT course page here:
-<https://github.com/mitmath/1806/blob/master/summaries.md>
+    <https://github.com/mitmath/1806/blob/master/summaries.md>
 - LA from an ODE perspective: Kapitula, T. (2015). Ordinary Differential Equations and
   Linear Algebra. Society for Industrial and Applied Mathematics.
 
@@ -295,11 +293,12 @@ A_{33} x_3 &= b_3
 \end{aligned}
 $$
 
-  Generalise this function to a $n \times n$ triangular matrix input.
+Generalise this function to a $n \times n$ triangular matrix input.
 
 :::solution
 
 ```python
+import scipy
 def solve_triangular(A, b):
     n = len(b)
     x = np.empty_like(b)

@@ -1,19 +1,16 @@
 ---
 name: Differential equations 3
-dependsOn: [
-  scientific_computing.essential_maths.10_differential_equations_2
-]
+dependsOn: [scientific_computing.essential_maths.10_differential_equations_2]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Steady State Solutions and Mass Action
@@ -90,7 +87,7 @@ We can see that it is stable by examining the graph:
 We can solve the differential equation by separation of variables.
 
 > $$\displaystyle  \int {1\over k_1 - k_2 s}~{\rm d}s = \int~{\rm d}t $$
-> $$\displaystyle  s(t) = Be^{-k_2 t} + {k_1\over k_2} $$
+> $$\displaystyle s(t) = Be^{-k_2 t} + {k_1\over k_2} $$
 
 Thus, the concentration of $S$ relaxes exponentially to the steady state, no matter the initial condition.
 
@@ -146,7 +143,7 @@ It is, since $\varepsilon\gg\varepsilon^2$, negative, pushing $s$ back towards t
 
 ## Example: the logistic equation
 
-The growth of a cell colony can be modelled by the *logistic* equation
+The growth of a cell colony can be modelled by the _logistic_ equation
 
 > $$\displaystyle \frac{{\rm d}N}{{\rm d}t} = rN\left(1 - {N\over K}\right) $$
 
@@ -182,8 +179,8 @@ This can be solved using partial fractions on the left hand side:
 To solve a differential equation:
 
 1. Calculate the general solution
-    1. Try to write it as a separable equation first
-    2. Other methods (e.g. integrating factors) not covered in this course
+   1. Try to write it as a separable equation first
+   2. Other methods (e.g. integrating factors) not covered in this course
 2. This general solution will include an arbitrary constant this may be eliminated using initial conditions (if these are given)
 3. Can check your solution numerically using Python
 
@@ -216,9 +213,7 @@ Let us look at some examples:
 
    Then we get the following differential equations:
 
-   > $$\displaystyle \frac{{\rm d}[A]}{{\rm d}t} = -k[A] [B]$$
-   > $$\displaystyle \frac{{\rm d}[B]}{{\rm d}t} = -k[A] [B]$$
-   > $$\displaystyle \frac{{\rm d}[C]}{{\rm d}t} = k[A] [B]$$
+   > $$\displaystyle \frac{{\rm d}[A]}{{\rm d}t} = -k[A] [B]$$ > $$\displaystyle \frac{{\rm d}[B]}{{\rm d}t} = -k[A] [B]$$ > $$\displaystyle \frac{{\rm d}[C]}{{\rm d}t} = k[A] [B]$$
 
 2. Predation of R by W
 
@@ -256,7 +251,7 @@ Given a differential equation
 
 > $$\displaystyle  \frac{{\rm d}y}{{\rm d}t} = f(y, t)$$
 
-with initial state $\;y(t = t_0) = y_0,\;$ we can *approximate* the state at $t = t_0 + \delta{t}$ as:
+with initial state $\;y(t = t_0) = y_0,\;$ we can _approximate_ the state at $t = t_0 + \delta{t}$ as:
 
 > $$\displaystyle  y_1 = y(t + \delta{t}) \approx y_0 + f(y, t) \cdot \delta{t}$$
 
@@ -266,7 +261,7 @@ and the next state as
 
 and so on!
 
-This mean's we can estimate the *entire time course of $y(t)$*, provided:
+This mean's we can estimate the _entire time course of $y(t)$_, provided:
 
 1. We can calculate $f(y, t)$ (or approximate it with a computer)
 2. We're patient enough to take really tiny steps $\delta{t}$
@@ -306,12 +301,12 @@ In the model, individuals are 'susceptible' until they are 'infected', and then 
 Infection requires the interaction of susceptible individuals with infected individuals and therefore follows the law of mass action, whereas the rate at which an individual becomes susceptible again after infection is constant.
 
 1. Let $S$ and $I$ be the proportions of the population that are susceptible and infected.
-If infection happens at rate $\beta$ and recovery happens at rate $\gamma$, write down differential equations for $S$ and $I$.
+   If infection happens at rate $\beta$ and recovery happens at rate $\gamma$, write down differential equations for $S$ and $I$.
 1. Noting that $S$ and $I$ are proportions of the population, which is assumed constant, reduce the system to a single differential equation in terms of $I$.
-In other words, write down a single equation, involving just $I$ and its derivative.
+   In other words, write down a single equation, involving just $I$ and its derivative.
 1. Find both steady states of $I$. Under what conditions on $\beta$ and $\gamma$ are each attainable?
 1. Without solving the differential equation, sketch the behaviour of $S$ and $I$ over time, starting with a small quantity of infected individuals.
-Illustrate how both steady states may be achieved.
+   Illustrate how both steady states may be achieved.
 
 ::::
 
@@ -326,10 +321,10 @@ where $k_f$ and $k_b$ are mass action coefficients.
 
 1. Formulate a pair of coupled differential equations for the change in concentration of $A$ and $B$.
 1. Noting that the total concentration $T$ of reactants is constant ($T = [A] + [B]$), reduce the system of equations to a single differential equation.
-In other words, write down a single equation, involving either just $A$ and its derivative, or just $B$ and its derivative.
+   In other words, write down a single equation, involving either just $A$ and its derivative, or just $B$ and its derivative.
 1. Find the steady-state concentrations of $A$ and $B$.
 1. Solve the single differential equation to reveal the transient behaviour.
-Sketch the behaviour for different illustrative initial conditions.
+   Sketch the behaviour for different illustrative initial conditions.
 
 ::::
 
@@ -339,6 +334,7 @@ Consider the simple model
 $$
 \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{s}{t} = k - {V_{\rm max}s\over K_M + s}
 $$
+
 in which species $s$ is produced at a fixed rate and consumed via Michaelis-Menten kinetics.
 Find the steady state of $s$, and verify that it is stable for any non-negative parameter values, provided $\displaystyle V_{\rm max} > k$.
 ::::
@@ -349,6 +345,7 @@ Recall the simple model of the production and degradation of a protein from the 
 $$
 \overset{v_1}{\longrightarrow} S \overset{v_2}{\longrightarrow}
 $$
+
 where $v_1$ and $v_2$ are reaction rates rather than mass action coefficients.
 
 1. Suppose $v_1 = k_1$ and $v_2 = k_2$.
@@ -366,7 +363,7 @@ where $v_1$ and $v_2$ are reaction rates rather than mass action coefficients.
 ### Extension problems
 
 ::::challenge{id="11_ext_01" title="Extension problems 1"}
-Various mathematical models have been proposed for the initial growth of solid tumours, and some are summarised in [*The Model Muddle: In Search of Tumor Growth Laws*](https://doi.org/10.1158/0008-5472.can-12-4355).
+Various mathematical models have been proposed for the initial growth of solid tumours, and some are summarised in [_The Model Muddle: In Search of Tumor Growth Laws_](https://doi.org/10.1158/0008-5472.can-12-4355).
 They are differential equations describing the rate of change of tumour volume $V$ as a function of time $t$, for example:
 
 1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{V(t)}{t} = rV(t)$

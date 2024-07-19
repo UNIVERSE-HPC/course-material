@@ -1,19 +1,16 @@
 ---
 name: Systems of differential equations 3
-dependsOn: [
-  scientific_computing.essential_maths.15_system_2
-]
+dependsOn: [scientific_computing.essential_maths.15_system_2]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Phase Planes and Stability
@@ -64,10 +61,10 @@ Solutions look like $\;x=Ae^{\lambda_1 t}\;$ and $\;y=Be^{\lambda_2 t}\;$ and th
 or shrink exponentially depending on the values of $\;\lambda_1\;$ and $\;\lambda_2.$
 
 If $\;\lambda_1 < 0\;$ and $\;\lambda_2 < 0\;$ then all the flow is towards the
-fixed point.  If $\;\lambda_1\;$ or $\;\lambda_2\;$ is positive then some flow will be driven away (towards infinity).
+fixed point. If $\;\lambda_1\;$ or $\;\lambda_2\;$ is positive then some flow will be driven away (towards infinity).
 
 Adding in a constant (inhomogeneous) component shifts the fixed point
-away from the origin.  Where is the fixed point of
+away from the origin. Where is the fixed point of
 
 $$
 \begin{align*}
@@ -88,7 +85,7 @@ $$
 \end{align*}
 $$
 
-has a fixed point at the origin.  The long-term growth or shrinkage of solutions over time is determined by the eigenvalues of the matrix
+has a fixed point at the origin. The long-term growth or shrinkage of solutions over time is determined by the eigenvalues of the matrix
 
 > $$\displaystyle A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$$
 
@@ -179,7 +176,7 @@ $$
 $$
 
 This means that (really close to the fixed point) we can approximate
-with a linear system.   The eigenvalues $\;\lambda_1,\;\lambda_2\;$ of the matrix
+with a linear system. The eigenvalues $\;\lambda_1,\;\lambda_2\;$ of the matrix
 
 $$
 J = \left(
@@ -187,7 +184,7 @@ J = \left(
 \right)
 $$
 
-will determine if a small perturbation away from  $\;(x^*,\;y^*)\;$ will decay or grow.
+will determine if a small perturbation away from $\;(x^*,\;y^*)\;$ will decay or grow.
 
 ## Steady state classification
 
@@ -201,7 +198,7 @@ $$
 - $\lambda_1=\lambda_2<0$ Stable star
 - $\lambda_1>\lambda_2>0$ Unstable node
 - $\lambda_1=\lambda_2>0$ Unstable star
-- $\lambda_1<0<\lambda_2$ Saddle (or hyperbolic) point:  unstable
+- $\lambda_1<0<\lambda_2$ Saddle (or hyperbolic) point: unstable
 - Complex $\lambda$: Spiral (with real part determining stability)
 - Imaginary $\lambda$: Neutral (solution cycles round fixed point)
 
@@ -296,7 +293,7 @@ If we now look again at the phase plane, after having calculated the stability o
 
 ## Summary
 
-- Eigenvalues tell us about the behaviour of  linear systems
+- Eigenvalues tell us about the behaviour of linear systems
 - Eigenvalues tell us about the stability of nonlinear systems
 
 ### Main problems

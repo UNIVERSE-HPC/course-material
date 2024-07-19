@@ -1,19 +1,16 @@
 ---
 name: Integration 2
-dependsOn: [
-  scientific_computing.essential_maths.06_integration_1
-]
+dependsOn: [scientific_computing.essential_maths.06_integration_1]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ---
@@ -40,8 +37,7 @@ The material is still very similar:
 This method can be thought of as an integral version of the chain rule.
 Suppose we wish to integrate:
 
-> $$\displaystyle I=\int f(g(x))~dx= \int f(u)~dx$$
-> $$\displaystyle I =\int f(u){dx\over du}~du$$
+> $$\displaystyle I=\int f(g(x))~dx= \int f(u)~dx$$ > $$\displaystyle I =\int f(u){dx\over du}~du$$
 
 ## Integration Method 2: Integration by Parts
 
@@ -85,8 +81,7 @@ so that:
 
 Then:
 
-> $$\displaystyle \int\limits_a^b x~\sqrt{(x+1)}~dx =\biggr[x~{2\over 3}(x+1)^{3/2}\biggl]_a^b - \int\limits_a^b 1 \times {2\over 3}(x+1)^{3/2}~dx$$
-> $$\displaystyle =\biggr[{2\over 3}~x~(x+1)^{3/2}\biggl]_a^b- \biggr[{2\over 3}\cdot {2\over 5}(x+1)^{5/2}\biggl]_a^b$$
+> $$\displaystyle \int\limits_a^b x~\sqrt{(x+1)}~dx =\biggr[x~{2\over 3}(x+1)^{3/2}\biggl]_a^b - \int\limits_a^b 1 \times {2\over 3}(x+1)^{3/2}~dx$$ > $$\displaystyle =\biggr[{2\over 3}~x~(x+1)^{3/2}\biggl]_a^b- \biggr[{2\over 3}\cdot {2\over 5}(x+1)^{5/2}\biggl]_a^b$$
 
 If we had chosen the other option for $u$ and $v'$ we would have got:
 
@@ -102,18 +97,18 @@ Let us calculate the indefinite integral,
 
 > $$\displaystyle \int \ln x~dx$$
 
-We can do a bit of a trick.  Let:
+We can do a bit of a trick. Let:
 
 > $$\displaystyle u=\ln x \quad\Longrightarrow\quad u'={1\over x}\qquad{\rm and}\qquad v'=1\Longrightarrow v=x$$
 
 Putting these into our equation:
 
-> $$\displaystyle \int \ln x~dx\quad=\quad\ln x~\cdot x - \int x~\frac{1}{x}dx$$
-> $$\displaystyle = \quad x \ln x - \int 1 dx\quad=\quad x \ln x - x + C$$
+> $$\displaystyle \int \ln x~dx\quad=\quad\ln x~\cdot x - \int x~\frac{1}{x}dx$$ > $$\displaystyle = \quad x \ln x - \int 1 dx\quad=\quad x \ln x - x + C$$
 
 We can also check this calculation using SymPy:
 
 ```python
+import sympy as sp
 x = sp.symbols('x')
 sp.integrate(sp.log(x),x)
 ```
@@ -166,15 +161,13 @@ so that:
 
 Then:
 
-> $$\displaystyle \int\limits^{\infty}_0 6x~e^{-x}~dx =-\biggr[6x~e^{-x}\biggl]^{\infty}_0 +\int\limits^{\infty}_0 6~e^{-x}~dx$$
-> $$\displaystyle \Longrightarrow \int\limits^{\infty}_0 6~e^{-x}~dx=-\biggr[6~e^{-x}\biggl]^{\infty}_0=-6e^{-\infty}+6e^0=6$$
+> $$\displaystyle \int\limits^{\infty}_0 6x~e^{-x}~dx =-\biggr[6x~e^{-x}\biggl]^{\infty}_0 +\int\limits^{\infty}_0 6~e^{-x}~dx$$ > $$\displaystyle \Longrightarrow \int\limits^{\infty}_0 6~e^{-x}~dx=-\biggr[6~e^{-x}\biggl]^{\infty}_0=-6e^{-\infty}+6e^0=6$$
 
 (Since $e^{-\infty}=0$ and $e^0=1$)
 
 The other terms all go to zero:
 
-> $$\displaystyle -\bigr[x^3~e^{-x}\bigl]^{\infty}_0 =-{\infty}^3~e^{-\infty} + 0 =0$$
-> $$\displaystyle -\bigr[3x^2~e^{-x}\bigl]^{\infty}_0 =-3{\infty}^2~e^{-\infty} + 0 =0$$
+> $$\displaystyle -\bigr[x^3~e^{-x}\bigl]^{\infty}_0 =-{\infty}^3~e^{-\infty} + 0 =0$$ > $$\displaystyle -\bigr[3x^2~e^{-x}\bigl]^{\infty}_0 =-3{\infty}^2~e^{-\infty} + 0 =0$$
 
 So, to answer our original question:
 
@@ -196,8 +189,7 @@ This result actually generalises:
 
 Recall that:
 
-> $$\displaystyle {d\over dx}(\sin x)=\cos x$$
-> $$\displaystyle {d\over dx}(\cos x)=-\sin x$$
+> $$\displaystyle {d\over dx}(\sin x)=\cos x$$ > $$\displaystyle {d\over dx}(\cos x)=-\sin x$$
 
 Let's try and calculate the following integral:
 
@@ -213,8 +205,7 @@ so that:
 
 Then:
 
-> $$\displaystyle I =\biggr[-\cos x~\; e^{-x}\biggl]^b_a -\int\limits^b_a ~(-)\sin x~(-)e^{-x}~dx$$
-> $$\displaystyle I =\biggr[-\cos x~\; e^{-x}\biggl]^b_a~~-~~\int\limits^b_a ~(-)\sin x~(-)e^{-x}~dx$$
+> $$\displaystyle I =\biggr[-\cos x~\; e^{-x}\biggl]^b_a -\int\limits^b_a ~(-)\sin x~(-)e^{-x}~dx$$ > $$\displaystyle I =\biggr[-\cos x~\; e^{-x}\biggl]^b_a~~-~~\int\limits^b_a ~(-)\sin x~(-)e^{-x}~dx$$
 
 Next, choose
 
@@ -270,8 +261,7 @@ And on the second fraction:
 
 so $\displaystyle \frac{dw}{dx}=1$ and $\displaystyle \frac{dx}{dw}=1$
 
-> $$\displaystyle \int {2 du \over 2 \times 11 \times u} + \int {dw\over 11w}= -{\ln u\over 11} + {\ln w \over 11}$$
-> $$\displaystyle =-{\ln |2x+1|\over 11} + {\ln |x-5| \over 11}$$
+> $$\displaystyle \int {2 du \over 2 \times 11 \times u} + \int {dw\over 11w}= -{\ln u\over 11} + {\ln w \over 11}$$ > $$\displaystyle =-{\ln |2x+1|\over 11} + {\ln |x-5| \over 11}$$
 
 SymPy can also solve integrals requiring partial fractions:
 
@@ -338,7 +328,7 @@ If it burns fuel at a constant rate $\rho\,{\rm kg/s}$, and if the exhaust veloc
 The rocket starts burning fuel at $t=0\,{\rm s}$ with total mass of $m_0\,{\rm kg}$, and runs out of fuel at a later time $t=t_f\,{\rm s}$, with a final mass of $m_f\,{\rm kg}$.
 
 1. Newton's second law tells us that the instantaneous acceleration $a$ of the rocket at time $t$ is equal to the force propelling it at that time, divided by its mass at that time.
-Write down an expression for $a$ as a function of $t$.
+   Write down an expression for $a$ as a function of $t$.
 1. By integrating this expression, show that the rocket's total change in velocity is given by $\displaystyle v_e \ln\left({m_0\over m_f}\right).$
 
 ::::
@@ -382,19 +372,19 @@ Baranov developed expressions for commercial yields of fish in terms of lengths,
 His formula gave the total number of fish of length $L$ as $\displaystyle k\,e^{-cL}$, where $c$ and $k$ are constants ($k$ is positive).
 
 1. Give a sketch of the graph $\displaystyle f(L)=k\,e^{-cL}$.
-(Something decreasing, concave upward and asymptotic to horizontal axis will do.)
-On your sketch, introduce marks on the horizontal axis that represent lengths $L=1, L=2, L=3, L=4 {\rm  and } L=5$.
-Now draw a rectangle on your sketch that represents the number of fish whose lengths are between $L=3$ and $L=4$.
+   (Something decreasing, concave upward and asymptotic to horizontal axis will do.)
+   On your sketch, introduce marks on the horizontal axis that represent lengths $L=1, L=2, L=3, L=4 {\rm  and } L=5$.
+   Now draw a rectangle on your sketch that represents the number of fish whose lengths are between $L=3$ and $L=4$.
 1. Explain how we can represent the total number of fish $N$ as an area.
-Show that this number equals $k/c$.
+   Show that this number equals $k/c$.
 1. Only fish longer than $L_0$ count as commercial. Hence, assuming that the fish are all similar in shape (i.e. their width and breadth scales with their length) and of equal density $\rho$, show that the weight, $W$, of the commercial fish population is
 
-    > $$\displaystyle \def\d#1{{\rm d}#1} W= \int_{L_0}^{+\infty} a\, k \rho\,L^3 e^{-cL}\,\d{L},$$
+   > $$\displaystyle \def\d#1{{\rm d}#1} W= \int_{L_0}^{+\infty} a\, k \rho\,L^3 e^{-cL}\,\d{L},$$
 
-    and hence that
+   and hence that
 
-    > $$\displaystyle W={N\, a\, \rho\, e^{-cL_0}\over c^3} \left((cL_0)^3 +3(cL_0)^2+ 6cL_0 +6\right),$$
+   > $$\displaystyle W={N\, a\, \rho\, e^{-cL_0}\over c^3} \left((cL_0)^3 +3(cL_0)^2+ 6cL_0 +6\right),$$
 
-    where $a$ is a constant.
+   where $a$ is a constant.
 
 ::::

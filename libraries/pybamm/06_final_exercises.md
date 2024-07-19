@@ -1,18 +1,16 @@
 ---
 name: Final exercises
-dependsOn: [
-    libraries.pybamm.05_using_submodels,
-]
+dependsOn: [libraries.pybamm.05_using_submodels]
 tags: [pybamm]
-attribution: 
-    - citation: >
-        PyBaMM documentation by the PyBaMM Team
-      url: https://docs.pybamm.org
-      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
-      license: BSD-3
+attribution:
+  - citation: >
+      PyBaMM documentation by the PyBaMM Team
+    url: https://docs.pybamm.org
+    image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
+    license: BSD-3
 ---
 
-To complete the course, here is a list of open-ended exercises to review the content of the course and go into detail into various features. By open-ended we mean that the exercises will often deliberately not specify every single aspect of the model. Some of this additional detail has not been covered in the course, so more information can be found in the [PyBaMM documentation](https://docs.pybamm.org). The exercises are independent from each other so they can be tackled in any order.
+To complete the course, here is a list of open-ended exercises to review the content of the course and go into detail into various features. By open-ended we mean that the exercises will often deliberately not specify every single aspect of the model. Some of this additional detail has nsot been covered in the course, so more information can be found in the [PyBaMM documentation](https://docs.pybamm.org). The exercises are independent from each other so they can be tackled in any order.
 
 ## Exercise 1: Coupled degradation mechanisms
 

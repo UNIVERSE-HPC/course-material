@@ -1,18 +1,16 @@
 ---
 name: Graphs
-dependsOn: [
-]
+dependsOn: []
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ---
@@ -30,11 +28,11 @@ The material is still very similar:
 
 Terminology:
 
-- $Y$ or $y$ is the *dependent* variable, sometimes called the *ordinate*
+- $Y$ or $y$ is the _dependent_ variable, sometimes called the _ordinate_
   marked on the vertical axis
-- $X$ or $x$ is the *independent* variable, sometimes called the *abscissa*
+- $X$ or $x$ is the _independent_ variable, sometimes called the _abscissa_
   marked on the horizontal axis
-- The dependent variable is said to be graphed *against* the independent
+- The dependent variable is said to be graphed _against_ the independent
   variable
 
 Essential Features:
@@ -64,7 +62,7 @@ Interpretation:
 
 ## Graphs of Polynomials
 
-An expression involving higher powers of $x$ is called a *polynomial* in $x$.
+An expression involving higher powers of $x$ is called a _polynomial_ in $x$.
 
 ### Example
 
@@ -82,7 +80,7 @@ The graph of a polynomial of degree $n$ has at most $n-1$ bends in it.
 
 If we wish to test visually whether some data fit a particular relationship, we can transform the data to plot something which should be linear if the relationship holds.
 
-### e.g. Test for *parabolic* shape for data in $(x,y)$: i.e. $y = x^2$
+### e.g. Test for _parabolic_ shape for data in $(x,y)$: i.e. $y = x^2$
 
 - We can plot $Y$ against $X$ where we let $Y=y$ and $X=x^2$.
 
@@ -213,14 +211,14 @@ Write down expressions for the gradient, $X$-intercept and $Y$-intercept of each
 ::::
 
 ::::challenge{id="01_main_03" title="Main problems 3"}
-The *osmotic pressure* of a solution of a protein is related to the concentration of that protein by the equation:
+The _osmotic pressure_ of a solution of a protein is related to the concentration of that protein by the equation:
 $$Z = R\;T\;b$$
 where $Z$ is the osmotic pressure in kPa, $T$ is the temperature in Kelvin, $R$ is the gas constant ($R=8.314\;{\rm kPa}\cdot{\rm dm}^3\cdot{\rm mol}^{-1}\cdot{\rm K}^{-1}$) and $b$ is the molarity of the protein (mol. solute per dm$^3$ solution).
 Plot a suitable graph to determine, as accurately as possible, the molecular mass (take care with units!) of the protein given the following data taken at room temperature (usually taken as 21$^{\circ}$C):
 
 |                                        |       |       |       |       |       |
-| ---------------------------------------|:-----:|:-----:|:-----:|:-----:|:-----:|
-| Protein Concentration (in g dm$^{-3})$ |   7.3 |  18.4 |  27.6 |  42.1 |  57.4 |
+| -------------------------------------- | :---: | :---: | :---: | :---: | :---: |
+| Protein Concentration (in g dm$^{-3})$ |  7.3  | 18.4  | 27.6  | 42.1  | 57.4  |
 | Osmotic Pressure (in kPa)              | 0.211 | 0.533 | 0.804 | 1.236 | 1.701 |
 
 Hint: compare the function with the equation of a straight line, $y=mx+c$, and think about the relationship between concentration, molar concentration and molecular weight).
@@ -233,7 +231,7 @@ Use Python to plot the graph and confirm your pen & paper solution.
 ::::challenge{id="01_ext_01" title="Extension problems 1"}
 The rate at which a given enzyme catalyses a reaction is dependent upon the substrate concentration:
 $$V = \frac{S}{m+cS}$$
-where $V$ is the rate of the reaction, $S$ is the substrate concentration and $m$ and $c$ are *unknown* constants.
+where $V$ is the rate of the reaction, $S$ is the substrate concentration and $m$ and $c$ are _unknown_ constants.
 How can we transform $V$ and $S$ to derive a straight line graph relating them?
 What will be the gradient and the ordinate intercepts?
 ::::

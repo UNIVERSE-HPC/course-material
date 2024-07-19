@@ -1,15 +1,13 @@
 ---
 name: Single Particle Model (now as a class)
-dependsOn: [
-    libraries.pybamm-developer.03_spm
-]
+dependsOn: [libraries.pybamm-developer.03_spm]
 tags: [pybamm]
-attribution: 
-    - citation: >
-        PyBaMM documentation by the PyBaMM Team
-      url: https://docs.pybamm.org
-      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
-      license: BSD-3
+attribution:
+  - citation: >
+      PyBaMM documentation by the PyBaMM Team
+    url: https://docs.pybamm.org
+    image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
+    license: BSD-3
 ---
 
 # The Single Particle Model (now as a class)
@@ -34,7 +32,7 @@ Next, we see that the class has an `__init__` method. All classes have an `__ini
 
 The next line
 
-```python
+```python nolint
 super().__init__(name=name)
 ```
 
@@ -73,6 +71,7 @@ If you want to integrate your model into PyBaMM you should stick to the PyBaMM n
 In this case we only need to define two variables: the concentrations in the positive and negative particle, respectively.
 
 ```python
+import pybamm
 electrodes = ["negative", "positive"]
 c_i = [pybamm.Variable(f"{e.capitalize()} particle concentration [mol.m-3]", domain=f"{e} particle") for e in electrodes]
 ```
@@ -87,7 +86,7 @@ Next we need to define the parameters used in our model. Similarly to the variab
 
 ```python
 # define parameters
-I = pybamm.FunctionParameter("Current function [A]", {"Time [s]": pybamm.t})
+I = pybamm.FunctionParameter("Current function [A]",    {"Time [s]": pybamm.t})
 D_i = [pybamm.Parameter(f"{e.capitalize()} electrode diffusivity [m2.s-1]") for e in electrodes]
 R_i = [pybamm.Parameter(f"{e.capitalize()} particle radius [m]") for e in electrodes]
 c0_i = [pybamm.Parameter(f"Initial concentration in {e} electrode [mol.m-3]") for e in electrodes]
@@ -117,7 +116,7 @@ Once we have defined the variables and the parameters we can write the governing
 
 :::solution
 
-```python
+```python nolint
 # governing equations
 dcdt_i = [pybamm.div(D_i[i] * pybamm.grad(c_i[i])) for i in [0, 1]]
 self.rhs = {c_i[i]: dcdt_i[i] for i in [0, 1]}
@@ -139,7 +138,7 @@ Finally, we can define the output variables. Here we want to define all the vari
 
 :::solution
 
-```python
+```python nolint
 # define intermediate variables and OCP function parameters
 c_i_s = [pybamm.surf(c_i[i]) for i in [0, 1]]
 x_i_s = [c_i_s[i] / c_i_max[i] for i in [0, 1]]
@@ -151,13 +150,13 @@ eta_i = [2 * R * T / F * pybamm.arcsinh(j_i[i] * F / (2 * i_0_i[i])) for i in [0
 [U_n_plus_eta, U_p_plus_eta] = [pybamm.surf(U_i[i]) + eta_i[i] for i in [0, 1]]
 V = U_p_plus_eta - U_n_plus_eta
 self.variables = {
-  "Time [s]": pybamm.t,
-  "Voltage [V]": V,
-  "Current [A]": I,
-  "Negative particle concentration [mol.m-3]": c_i[0],
-  "Positive particle concentration [mol.m-3]": c_i[1],
-  "Negative particle surface concentration [mol.m-3]": c_i_s[0],
-  "Positive particle surface concentration [mol.m-3]": c_i_s[1],
+    "Time [s]": pybamm.t,
+    "Voltage [V]": V,
+    "Current [A]": I,
+    "Negative particle concentration [mol.m-3]": c_i[0],
+    "Positive particle concentration [mol.m-3]": c_i[1],
+    "Negative particle surface concentration [mol.m-3]": c_i_s[0],
+    "Positive particle surface concentration [mol.m-3]": c_i_s[1],
 }
 ```
 
@@ -187,7 +186,7 @@ def default_submesh_types(self):
 @property
 def default_var_pts(self):
     domains = ["negative particle", "positive particle"]
-    r_i = [pybamm.SpatialVariable("r", domain=[d], coord_sys="spherical polar") for d in domains]    
+    r_i = [pybamm.SpatialVariable("r", domain=[d], coord_sys="spherical polar") for d in domains]
     return {r: 20 for r in r_i}
 
 @property
@@ -261,7 +260,8 @@ pybamm.expression_tree.exceptions.DomainError: children must have same or empty 
 This means that at some point in your expression tree an operator takes two nodes (i.e. children) that have incompatible domains. The error message will tell you which line in your model triggered the error, so a good way is to set a debug breakpoint there and analyse the domains of the various symbols in the expression by running
 
 ```python
-symbol.domains
+from pybamm import Symbol
+Symbol.domains
 ```
 
 Sometimes the issue is further down the expression tree, remember you can visualise the expression tree (see [ODE models in PyBaMM](./01_ode.md)). To access the list of children of a node, you can call the `children` command. You can then access the relevant element in the list and call the `children` command again to navigate down the tree.

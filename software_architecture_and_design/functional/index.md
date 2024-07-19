@@ -1,37 +1,35 @@
 ---
 id: functional
 name: Functional Programming
-dependsOn: [
-    software_architecture_and_design.procedural,
-]
-files: [
+dependsOn: [software_architecture_and_design.procedural]
+files:
+  [
     side_effects_cpp.md,
     side_effects_python.md,
     recursion_cpp.md,
     recursion_python.md,
     higher_order_functions_cpp.md,
     higher_order_functions_python.md,
-]
+  ]
 summary: |
-    Functional Programming is based around the idea that programs are constructed
-    by applying and composing/chaining **functions**. This course will introduce
-    you to the basics of functional programming in either Python or C++.
-attribution: 
-    - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
-      url: https://www.sabsr3.ox.ac.uk
-      image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
+  Functional Programming is based around the idea that programs are constructed
+  by applying and composing/chaining **functions**. This course will introduce
+  you to the basics of functional programming in either Python or C++.
+attribution:
+  - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 Functional programming is a programming paradigm where programs are constructed
 by applying and composing/chaining **functions**. Functional programming is
 based on the [mathematical definition of a
-function](https://en.wikipedia.org/wiki/Function_(mathematics)) `f()`, which
+function](<https://en.wikipedia.org/wiki/Function_(mathematics)>) `f()`, which
 applies a transformation to some input data giving us some other data as a
 result (i.e. a mapping from input `x` to output `f(x)`). Thus, a program written
 in a functional style becomes a series of transformations on data which are
@@ -56,4 +54,4 @@ In his introduction to functional programming in Advanced R, Hadley Wickham give
 > Each function taken by itself is simple and straightforward to understand; complexity is handled by composing functions in various ways.
 >
 > -- Hadley Wickham - [Functional Style](https://adv-r.hadley.nz/fp.html)
-:::
+> :::

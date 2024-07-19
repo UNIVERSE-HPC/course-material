@@ -1,23 +1,20 @@
 ---
 name: Inheritance and Composition
-dependsOn: [
-    software_architecture_and_design.object_orientated.classes,
-]
+dependsOn: [software_architecture_and_design.object_orientated.classes]
 tags: [python]
 learningOutcomes:
   - Define composition in relation to a class.
   - Define inhertitance in relation to a class.
   - Explain the different between composition and inheritance.
-attribution: 
-    - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
-      url: https://www.sabsr3.ox.ac.uk
-      image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Relationships Between Classes
@@ -37,12 +34,12 @@ That time, we used a function which converted temperatures in Celsius to Kelvin 
 
 In the same way, in object oriented programming, we can make things components of other things.
 
-We often use composition where we can say 'x *has a* y' - for example in our inflammation project, we might want to say that a doctor *has* patients or that a patient *has* observations.
+We often use composition where we can say 'x _has a_ y' - for example in our inflammation project, we might want to say that a doctor _has_ patients or that a patient _has_ observations.
 
 In the case of our example, we're already saying that patients have observations, so we're already using composition here.
 We're currently implementing an observation as a dictionary with a known set of keys though, so maybe we should make an `Observation` class as well.
 
-~~~ python
+```python
 # file: inflammation/models.py
 
 class Observation:
@@ -80,19 +77,19 @@ alice = Patient('Alice')
 obs = alice.add_observation(3)
 
 print(obs)
-~~~
+```
 
-~~~text
+```text
 3
-~~~
+```
 
 Now we're using a composition of two custom classes to describe the relationship between two types of entity in the system that we're modelling.
 
 ### Inheritance
 
 The other type of relationship used in object oriented programming is **inheritance**.
-Inheritance is about data and behaviour shared by classes, because they have some shared identity - 'x *is a* y'.
-If class `X` inherits from (*is a*) class `Y`, we say that `Y` is the **superclass** or **parent class** of `X`, or `X` is a **subclass** of `Y`.
+Inheritance is about data and behaviour shared by classes, because they have some shared identity - 'x _is a_ y'.
+If class `X` inherits from (_is a_) class `Y`, we say that `Y` is the **superclass** or **parent class** of `X`, or `X` is a **subclass** of `Y`.
 
 If we want to extend the previous example to also manage people who aren't patients we can add another class `Person`.
 But `Person` will share some data and behaviour with `Patient` - in this case both have a name and show that name when you print them.
@@ -101,7 +98,7 @@ Since we expect all patients to be people (hopefully!), it makes sense to implem
 To write our class in Python, we used the `class` keyword, the name of the class, and then a block of the functions that belong to it.
 If the class **inherits** from another class, we include the parent class name in brackets.
 
-~~~ python
+```python
 # file: inflammation/models.py
 
 class Observation:
@@ -149,14 +146,14 @@ print(bob)
 
 obs = bob.add_observation(4)
 print(obs)
-~~~
+```
 
-~~~text
+```text
 Alice
 3
 Bob
 AttributeError: 'Person' object has no attribute 'add_observation'
-~~~
+```
 
 As expected, an error is thrown because we cannot add an observation to `bob`, who is a Person but not a Patient.
 
@@ -174,9 +171,9 @@ This is quite a common pattern, particularly for `__init__` methods, where we ne
 ## Composition vs Inheritance
 
 When deciding how to implement a model of a particular system, you often have a choice of either composition or inheritance, where there is no obviously correct choice.
-For example, it's not obvious whether a photocopier *is a* printer and *is a* scanner, or *has a* printer and *has a* scanner.
+For example, it's not obvious whether a photocopier _is a_ printer and _is a_ scanner, or _has a_ printer and _has a_ scanner.
 
-~~~ python
+```python
 class Machine:
     pass
 
@@ -189,9 +186,9 @@ class Scanner(Machine):
 class Copier(Printer, Scanner):
     # Copier `is a` Printer and `is a` Scanner
     pass
-~~~
+```
 
-~~~ python
+```python
 class Machine:
     pass
 
@@ -206,7 +203,7 @@ class Copier(Machine):
         # Copier `has a` Printer and `has a` Scanner
         self.printer = Printer()
         self.scanner = Scanner()
-~~~
+```
 
 Both of these would be perfectly valid models and would work for most purposes.
 However, unless there's something about how you need to use the model which would benefit from using a model based on inheritance, it's usually recommended to opt for **composition over inheritance**.
@@ -230,24 +227,24 @@ Above we gave an example of a `Patient` class which inherits from `Person`. Let'
 
 In addition to these, try to think of an extra feature you could add to the
 models which would be useful for managing a dataset like this - imagine we're
-running a clinical trial, what else might we want to know?  Try using Test
+running a clinical trial, what else might we want to know? Try using Test
 Driven Development for any features you add: write the tests first, then add the
 feature.
 
 Once you've finished the initial implementation, do you have much duplicated
-code?  Is there anywhere you could make better use of composition or inheritance
+code? Is there anywhere you could make better use of composition or inheritance
 to improve your implementation?
 
 For any extra features you've added, explain them and how you implemented them
-to your neighbour.  Would they have implemented that feature in the same way?
+to your neighbour. Would they have implemented that feature in the same way?
 
 :::solution
 One example solution is shown below. You may start by writing some tests (that will initially fail), and then
 develop the code to satisfy the new requirements and pass the tests.
 
-~~~ python
-# file: tests/test_patient.py   
-"""Tests for the Patient model."""    
+```python
+# file: tests/test_patient.py
+"""Tests for the Patient model."""
 
 def test_create_patient():
     """Check a patient is created correctly given a name."""
@@ -291,11 +288,11 @@ def test_no_duplicate_patients():
     alice = Patient("Alice")
     doc.add_patient(alice)
     doc.add_patient(alice)
-    assert len(doc.patients) == 1   
+    assert len(doc.patients) == 1
 ...
-~~~
+```
 
-~~~ python
+```python
 # file: inflammation/models.py
 ...
 class Person:
@@ -320,7 +317,7 @@ class Patient(Person):
                 day = 0
         new_observation = Observation(day, value)
         self.observations.append(new_observation)
-      return new_observation
+        return new_observation
 
 class Doctor(Person):
     """A doctor in an inflammation study."""
@@ -336,11 +333,11 @@ class Doctor(Person):
                 return
         self.patients.append(new_patient)
 ...
-~~~
+```
 
 :::
 ::::
 
 ## Key Points
 
-- Relationships between concepts can be described using inheritance (*is a*) and composition (*has a*).
+- Relationships between concepts can be described using inheritance (_is a_) and composition (_has a_).

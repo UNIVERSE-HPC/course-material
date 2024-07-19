@@ -1,31 +1,27 @@
 ---
 name: Issue Management
-dependsOn: [
-  software_project_management.collaboration.refresher
-]
+dependsOn: [software_project_management.collaboration.refresher]
 tags: [github]
 learningOutcomes:
   - Understand what issues are and why they are useful.
   - Create an issue on GitHub.
   - Classify an issue depending on its purpose.
   - Refer to colleagues or yourself in aspects related to issues.
-attribution: 
-    - citation: >
-        "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
-      url: https://doi.org/10.5281/zenodo.6532057
-      image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
-      license: CC-BY-4.0
-    - citation: >
-        Matt Jaquiery, Abhishek Dasgupta (2022) "Intermediate Git Collaboration"
-      url: https://github.com/OxfordRSE/intermediate-git-collaboration
-      image: https://avatars.githubusercontent.com/u/38728121?s=200&v=4
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
-
+attribution:
+  - citation: >
+      "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
+    url: https://doi.org/10.5281/zenodo.6532057
+    image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
+    license: CC-BY-4.0
+  - citation: >
+      Matt Jaquiery, Abhishek Dasgupta (2022) "Intermediate Git Collaboration"
+    url: https://github.com/OxfordRSE/intermediate-git-collaboration
+    image: https://avatars.githubusercontent.com/u/38728121?s=200&v=4
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Introduction
@@ -34,7 +30,7 @@ Developing software is a project and, like most projects, it consists of
 multiple tasks. Keeping track of identified issues with the software, the list
 of tasks the team has to do, progress on each, prioritising tasks for future
 development, planning sprints and releases, etc., can quickly become a
-non-trivial task in itself.  Without a good team project management process and
+non-trivial task in itself. Without a good team project management process and
 framework, it can be hard to keep track of what’s done, or what needs doing, and
 particularly difficult to convey that to others in the team or share the
 responsibilities.
@@ -42,7 +38,7 @@ responsibilities.
 ## Using GitHub to Manage Issues With Software
 
 As a piece of software is used, bugs and other issues will inevitably come to
-light - nothing is perfect!  If you work on your code with collaborators, or
+light - nothing is perfect! If you work on your code with collaborators, or
 have non-developer users, it can be helpful to have a single shared record of
 all the problems people have found with the code, not only to keep track of them
 for you to work on later, but to avoid people emailing you to report a bug that
@@ -60,10 +56,10 @@ Let's go through the process of creating a new issue. Start by clicking the `New
 
 ![Creating a new issue in GitHub](fig/github-new-issue.png)
 
-When you create an issue, you can add a range of details to them. They can be *assigned to a specific developer* for example - this can be a helpful way to know who, if anyone, is currently working to fix the issue, or a way to assign
+When you create an issue, you can add a range of details to them. They can be _assigned to a specific developer_ for example - this can be a helpful way to know who, if anyone, is currently working to fix the issue, or a way to assign
 responsibility to someone to deal with it.
 
-They can also be assigned a *label*. The labels available for issues can be customised, and given a colour, allowing you to see at a glance the state of your code's issues. The [default labels available in GitHub](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels) include:
+They can also be assigned a _label_. The labels available for issues can be customised, and given a colour, allowing you to see at a glance the state of your code's issues. The [default labels available in GitHub](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels) include:
 
 - `bug` - indicates an unexpected problem or unintended behavior
 - `documentation` - indicates a need for improvements or additions to documentation
@@ -114,7 +110,7 @@ find.
 ### Issue (and Pull Request) Templates
 
 GitHub also allows you to set up issue and pull request templates for your
-software project.  Such templates provide a structure for the issue/pull request
+software project. Such templates provide a structure for the issue/pull request
 descriptions, and/or prompt issue reporters and collaborators to fill in answers
 to pre-set questions. They can help contributors raise issues or submit pull
 requests in a way that is clear, helpful and provides enough information for
@@ -139,7 +135,7 @@ The mention system notifies team members when somebody else references them in
 an issue, comment or pull request - you can use this to notify people when you
 want to check a detail with them, or let them know something has been fixed or
 changed (much easier than writing out all the same information again in an
-email).  
+email).
 
 You can use the mention system to link to/notify an individual GitHub account or
 a whole team for notifying multiple people. Typing `@` in GitHub will
@@ -153,9 +149,9 @@ GitHub also lets you mention/reference one issue or pull request from another
 (and people "watching" these will be notified of any such updates). Whilst
 writing the description of an issue, or commenting on one, if you type
 `#` you should see a list of the issues and pull requests on the
-repository.  They are coloured green if they're open, or white if they're
+repository. They are coloured green if they're open, or white if they're
 closed. Continue typing the issue number, and the list will narrow down, then
-you can hit `Return` to select the entry and link the two.  For
+you can hit `Return` to select the entry and link the two. For
 example, if you realise that several of your bugs have common roots, or that one
 enhancement can't be implemented before you've finished another, you can use the
 mention system to indicate the depending issue(s). This is a simple way to add

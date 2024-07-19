@@ -1,19 +1,16 @@
 ---
 name: Higher Order Functions
-dependsOn: [
-    software_architecture_and_design.functional.side_effects_python,
-]
+dependsOn: [software_architecture_and_design.functional.side_effects_python]
 tags: [python]
-attribution: 
-    - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
-      url: https://www.sabsr3.ox.ac.uk
-      image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## First Class Functions
@@ -24,7 +21,7 @@ variables. This is a powerful feature of functional programming languages, and i
 
 In Python, functions are first-class citizens, which means that they can be passed to other functions as arguments, for example:
 
-``` python
+```python
 def add_one(x):
     return x + 1
 
@@ -40,15 +37,15 @@ print(apply_function(add_one, 1))
 
 ## Lambda Functions
 
-*Lambda functions* are small, nameless functions which are defined in the
+_Lambda functions_ are small, nameless functions which are defined in the
 normal flow of the program, typically as they are needed. The structure of these
 functions is not dissimilar to a normal python function definition - we have a
-keyword `lambda`, a list of parameters, a colon, then the function body.  In
+keyword `lambda`, a list of parameters, a colon, then the function body. In
 Python, the function body is limited to a single expression, which becomes the
 return value.
 
-``` python
-add_one = lambda x: x + 1
+```python
+add_one = lambda x: x + 1 # NOQA E731
 
 print(add_one(1))
 ```
@@ -127,14 +124,14 @@ number of possible bugs and making the code easier to maintain in the future.
 
 Python has a number of higher order functions built in, including `map`,
 `filter` and `reduce`. Note that the `map` and `filter` functions in Python use
-**lazy evaluation**.  This means that values in an iterable collection are not
-actually calculated until you need them.  We'll explain some of the implications
+**lazy evaluation**. This means that values in an iterable collection are not
+actually calculated until you need them. We'll explain some of the implications
 of this a little later, but for now, we'll just use `list()` to convert the
-results to a normal list.  In these examples we also see the more typical usage
+results to a normal list. In these examples we also see the more typical usage
 of lambda functions.
 
 The `map` function, takes a function and applies it to each value in an
-**iterable**.  Here, 'iterable' means any object that can be iterated over - for
+**iterable**. Here, 'iterable' means any object that can be iterated over - for
 more details see the [Iterable Abstract Base Class
 documentation](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable).
 The results of each of those applications become the values in the **iterable**
@@ -158,7 +155,7 @@ print(list(map(lambda x: x + 1, l)))
 
 Like `map`, `filter` takes a function and applies it to each value in an iterable, keeping the value if the result of the function application is `True`.
 
-``` python
+```python
 l = [1, 2, 3]
 
 def is_gt_one(x):
@@ -178,7 +175,7 @@ The `reduce` function is different.
 This function uses a function which accepts two values to accumulate the values in the iterable.
 The simplest uses here are to calculate the sum or product of a sequence.
 
-``` python
+```python
 from functools import reduce
 
 l = [1, 2, 3]
@@ -202,9 +199,10 @@ These are the fundamental components of the MapReduce style, and can be combined
 Using `map` and `reduce`, write a function that calculates the sum of the squares of the values in a list.
 Your function should behave as below:
 
-``` python
+```python
 def sum_of_squares(l):
     # Your code here
+    return
 
 print(sum_of_squares([0]))
 print(sum_of_squares([1]))
@@ -223,7 +221,7 @@ print(sum_of_squares([-1, -2, -3]))
 
 :::solution
 
-``` python
+```python
 from functools import reduce
 
 def sum_of_squares(l):
@@ -236,7 +234,7 @@ def sum_of_squares(l):
 Now let's assume we're reading in these numbers from an input file, so they arrive as a list of strings.
 Modify your function so that it passes the following tests:
 
-``` python
+```python
 print(sum_of_squares(['1', '2', '3']))
 print(sum_of_squares(['-1', '-2', '-3']))
 ```
@@ -248,7 +246,7 @@ print(sum_of_squares(['-1', '-2', '-3']))
 
 :::solution
 
-``` python
+```python
 from functools import reduce
 
 def sum_of_squares(l):
@@ -262,7 +260,7 @@ def sum_of_squares(l):
 Finally, like comments in Python, we'd like it to be possible for users to comment out numbers in the input file they give to our program.
 Extend your function so that the following tests pass (don't worry about passing the first set of tests with lists of integers):
 
-``` python
+```python
 print(sum_of_squares(['1', '2', '3']))
 print(sum_of_squares(['-1', '-2', '-3']))
 print(sum_of_squares(['1', '2', '#100', '3']))
@@ -276,7 +274,7 @@ print(sum_of_squares(['1', '2', '#100', '3']))
 
 :::solution
 
-``` python
+```python
 from functools import reduce
 
 def sum_of_squares(l):
@@ -324,14 +322,14 @@ with, rather than always getting back a `map` or `filter` iterable.
 ### List Comprehensions
 
 The **list comprehension** is probably the most commonly used comprehension
-type.  As you might expect from the name, list comprehensions produce a list
-from some other iterable type.  In effect they are the same as using `map`
+type. As you might expect from the name, list comprehensions produce a list
+from some other iterable type. In effect they are the same as using `map`
 and/or `filter` and using `list()` to cast the result to a list, as we did
 previously.
 
 All comprehension types are structured in a similar way, using the syntax for a
 literal of that type (in the case below, a list literal) containing what looks
-like the top of a for loop.  To the left of the `for` we put the equivalent of
+like the top of a for loop. To the left of the `for` we put the equivalent of
 the map operation we want to use:
 
 ```python
@@ -550,10 +548,10 @@ Took 0.124199753 seconds
 
 ## Key Points
 
-- *First-Class Functions*: functions that can be passed as arguments to other functions, returned from functions, or assigned to variables.
-- *Lambda Functions*: small, nameless functions defined in the normal flow of the program with a keyword lambda.
-- *Higher-Order Functions*: a function that has other functions as one of its arguments.
-- *Map, Filter and Reduce*: built-in higher order functions in Python that use lazy evaluation.
-- *Comprehensions*: a more Pythonic way to structure map and filter operations.
-- *Generators*: similar to list comprehensions, but behave differently and not evaluated until you iterate over them.
-- *Decorators*: higher-order functions that take a function as an argument, modify it, and return it.
+- _First-Class Functions_: functions that can be passed as arguments to other functions, returned from functions, or assigned to variables.
+- _Lambda Functions_: small, nameless functions defined in the normal flow of the program with a keyword lambda.
+- _Higher-Order Functions_: a function that has other functions as one of its arguments.
+- _Map, Filter and Reduce_: built-in higher order functions in Python that use lazy evaluation.
+- _Comprehensions_: a more Pythonic way to structure map and filter operations.
+- _Generators_: similar to list comprehensions, but behave differently and not evaluated until you iterate over them.
+- _Decorators_: higher-order functions that take a function as an argument, modify it, and return it.

@@ -1,19 +1,16 @@
 ---
 name: Derivative-free methods
-dependsOn: [
-    scientific_computing.optimisation.03-trust-region-methods,
-]
+dependsOn: [scientific_computing.optimisation.03-trust-region-methods]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 The line search and trust region methods introduced in the previous lesson all required
@@ -28,17 +25,17 @@ Here we describe two of the most common methods for derivative-free optimisation
 a finite difference approximation to approximate the derivative, and the [Nelder-Mead
 algorithm](https://doi.org/10.1093/comjnl/7.4.308), which is a Simplex search method.
 However, there are a large number of derivative-free methods, ranging from the classical  
-[*Direct Search
-methods*](https://www.sciencedirect.com/science/article/pii/S0377042700004234) like
-*Pattern search*, *Simplex search*, *Rosenbrock'* or *Powell's* methods. Then there are
+[_Direct Search
+methods_](https://www.sciencedirect.com/science/article/pii/S0377042700004234) like
+_Pattern search_, _Simplex search_, _Rosenbrock'_ or _Powell's_ methods. Then there are
 emulator or model -based methods that build up a model of the function $f$ and minimise
 that using a gradient-based method, a powerful example of this class of methods is
 [Bayesian
 Optimisation](http://papers.nips.cc/paper/4522-practical-bayesian-optimization). Many
-global optimsiation algorithms are derivative-free, including *randomised algorithms*
+global optimsiation algorithms are derivative-free, including _randomised algorithms_
 such as [Simulated Annealing](https://science.sciencemag.org/content/220/4598/671), and
-*evolution-based* strategies such as the popular [Covariance matrix adaptation evolution
-strategy (CMA-ES)](https://arxiv.org/abs/1604.00772), or *swarm algorithms* inspired
+_evolution-based_ strategies such as the popular [Covariance matrix adaptation evolution
+strategy (CMA-ES)](https://arxiv.org/abs/1604.00772), or _swarm algorithms_ inspired
 from bees/ants like [Particle Swarm
 Optimisation](https://doi.org/10.1109/ICNN.1995.488968).
 
@@ -59,19 +56,22 @@ $$
 f(x-h) = f(x) - h f'(x) + \frac{h^2}{2} f''(x) - \frac{h^3}{6} f'''(x) + \frac{h^4}{24} f'''''(x) - \ldots
 $$
 
-From this, we can compute three different *schemes* (approximations) to $u'(x)$:
+From this, we can compute three different _schemes_ (approximations) to $u'(x)$:
 
 **Forward difference**:
+
 $$
 u'(x) = \frac{u(x+h)-u(x)}{h} + O(h)
 $$
 
 **Backward difference**:
+
 $$
 u'(x) = \frac{u(x)-u(x-h)}{h} + O(h)
 $$
 
 **Centered difference**:
+
 $$
 u'(x) = \frac{u(x+h)-u(x-h)}{2h} + O(h^2)
 $$
@@ -92,7 +92,7 @@ methods in [`scipy.optimize`](https://docs.scipy.org/doc/scipy/reference/optimiz
 
 More dedicated libraries can give superior approximations to the gradient, like the
 [`numdifftools`](https://numdifftools.readthedocs.io/en/latest/index.html) package. This
-library provides higher order FD approximations and *Richardson extrapolation* to
+library provides higher order FD approximations and _Richardson extrapolation_ to
 evaluate the limit of $h \rightarrow 0$, and can calculate Jacobians and Hessians of
 user-supplied functions.
 
@@ -126,7 +126,7 @@ import matplotlib.pyplot as plt
 from scipy.optimize import minimize, shgo
 from autograd import grad
 
-def convex_function(x):
+def convex(x):
     return np.sum(np.array(x)**2, axis=0)
 
 def rosenbrock(x):
@@ -179,11 +179,10 @@ def optimize(function, method, autodiff):
     if method == 'shgo':
         bounds = [(-10, 10), (-10.0, 10.0)]
         res = shgo(function, bounds, callback=fill_eval_points,
-                    options={'disp': True})
+                   options={'disp': True})
     else:
         res = minimize(function, x0, method=method, callback=fill_eval_points,
-                        jac = jac,
-                    options={'disp': True})
+                        jac=jac, options={'disp': True})
 
     nx, ny = (100, 100)
     x = np.linspace(-5, 5, nx)
@@ -217,12 +216,12 @@ def optimize(function, method, autodiff):
 
 
 if __name__ == '__main__':
-    for f in [convex_function, rosenbrock, rastrigin]:
+    for f in [convex, rosenbrock, rastrigin]:
         for m in ['shgo','nelder-mead', 'cg', 'bfgs', 'newton-cg']:
             for a in [False, True]:
-                if m == 'newton-cg' and a == False:
+                if m == 'newton-cg' and a is False:
                     continue
-                if m == 'shgo' and a == True:
+                if m == 'shgo' and a is True:
                     continue
                 optimize(f, m, a)
 ```

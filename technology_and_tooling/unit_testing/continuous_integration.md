@@ -1,8 +1,6 @@
 ---
 name: Continuous Integration with GitHub Actions
-dependsOn: [
-   technology_and_tooling.unit_testing.unit_testing_python
-]
+dependsOn: [technology_and_tooling.unit_testing.unit_testing_python]
 tags: [python, unit-testing, ci, github]
 ---
 
@@ -11,7 +9,7 @@ tags: [python, unit-testing, ci, github]
 Continuous Integration (CI) is the process where when code changes are merged
 into the `main` branch, automated builds and tests are run by the CI platform,
 and developers notified of any errors. This process encourages developers to
-have a  standardised tooling for running tests and can help prevent code with
+have a standardised tooling for running tests and can help prevent code with
 errors from getting merged into the codebase.
 
 In this episode we will look at how GitHub works as a CI platform, and how to
@@ -37,16 +35,14 @@ on:
       - main
   pull_request:
     branches:
-      - '**'
+      - "**"
 
 jobs:
-
   build-and-test:
     name: Unit tests
     runs-on: ubuntu-20.04
 
     steps:
-
       - name: checkout repository
         uses: actions/checkout@v3
 
@@ -68,9 +64,9 @@ jobs:
 
 The three sections of a workflow file are:
 
-* **Metadata**: This is the first block and specifies global action metadata.
+- **Metadata**: This is the first block and specifies global action metadata.
   Only the `name` key is generally specified.
-* **Triggers**: This is specified using the `on` block. Usual triggers are
+- **Triggers**: This is specified using the `on` block. Usual triggers are
   pushes to the `main` branch and all pull requests. There are a variety of
   triggers available, including [triggering on
   tags](https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#example-including-branches-and-tags),
@@ -79,7 +75,7 @@ The three sections of a workflow file are:
   (useful in a large codebase, when you don't want to run all tests), and
   [scheduled
   triggers](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule).
-* **Jobs**: Multiple jobs can be run in parallel within a workflow. Each job has
+- **Jobs**: Multiple jobs can be run in parallel within a workflow. Each job has
   at least a `runs-on` key which specifies the [operating system image it runs
   on](https://github.com/actions/runner-images#available-images), a readable
   `name` key and a list of `steps`.
@@ -139,7 +135,7 @@ Status badges are a quick way to see whether tests in your repository are
 passing or not. These are usually added to the top of your README.md and
 automatically update. You can find the status badge corresponding to a
 particular workflow by going to Actions > Your Workflow, clicking the [...] icon
-next to *Filter workflow runs* and clicking *Create status badge*.
+next to _Filter workflow runs_ and clicking _Create status badge_.
 
 ::: exercise
 Add the unit tests status badge to README
@@ -147,10 +143,10 @@ Add the unit tests status badge to README
 
 ## Next steps
 
-* Write some unit tests!
-* Once you have set up the infrastructure it’s very easy, especially for the
+- Write some unit tests!
+- Once you have set up the infrastructure it’s very easy, especially for the
   majority of testing.
-* There is complexity: how to test random functions, for instance.
-* Don’t fall into the trap of thinking “I could be using this time to write more
+- There is complexity: how to test random functions, for instance.
+- Don’t fall into the trap of thinking “I could be using this time to write more
   features”. Code worthless if you aren’t certain it’s correct!
-* Encourage others in your research group to start testing their code.
+- Encourage others in your research group to start testing their code.

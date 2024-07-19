@@ -1,38 +1,34 @@
 ---
 name: Higher Order Functions
-dependsOn: [
-    software_architecture_and_design.functional.side_effects_cpp,
-]
+dependsOn: [software_architecture_and_design.functional.side_effects_cpp]
 tags: [cpp]
-attribution: 
-    - citation: >
-        This material was adapted from an "Introduction to C++" course developed by the
-        Oxford RSE group.
-      url: https://www.rse.ox.ac.uk
-      image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
+attribution:
+  - citation: >
+      This material was adapted from an "Introduction to C++" course developed by the
+      Oxford RSE group.
+    url: https://www.rse.ox.ac.uk
+    image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
-
 
 ## First Class Functions
 
 Languages that treat functions as first-class citizens allow functions to be
 passed as arguments to other functions, returned from functions, or assigned to
-variables. In C++ this is typically done via lamda functions or function objects.
+variables. In C++ this is typically done via lambda functions or function objects.
 
 ### Lambda Functions
 
-*Lambda functions* are small, nameless functions which are defined in the
+_Lambda functions_ are small, nameless functions which are defined in the
 normal flow of the program, typically as they are needed. They consist of three part,
 delimited by square, round, then curly brackets. The curly brackets form the
 body of the function, for example
 
-```cpp
+```cpp ignore
 auto hello_world = []() {
   std::cout << "hello world" << std::endl;
 };
@@ -78,9 +74,9 @@ std::cout << i << std::endl; // prints 4
 
 ### Function objects
 
-A lambda function in C++ is syntactical suger for a function object, which is
+A lambda function in C++ is syntactical sugar for a function object, which is
 simply a class with a round bracket operator defined. For example you could
-define the last `add_i_to_arg` lamda manually as a function object
+define the last `add_i_to_arg` lambda manually as a function object
 
 ```cpp
 class AddIToArg {
@@ -102,7 +98,7 @@ int main() {
 ```
 
 Under the hood, when you write you lambda the compiler simply creates and
-compiles the equivilant function object for you. If you want more control of the
+compiles the equivalent function object for you. If you want more control of the
 process, you can write the function object manually.
 
 ### Polymorphic function
@@ -119,13 +115,13 @@ add = [](int i) { return i + 2; };
 The two lambdas have different types, even though they are both functions that take a single `int` as an argument and return another `int`.
 
 ```text
-/home/mrobins/git/cpp_tmp/prodecural.cpp:14:35: error: no match for 'operator=' (operand types are 'main()::<lambda(int)>' and 'main()::<lambda(int)>')
+/home/mrobins/git/cpp_tmp/procedural.cpp:14:35: error: no match for 'operator=' (operand types are 'main()::<lambda(int)>' and 'main()::<lambda(int)>')
    14 |   add = [](int i) { return i + 2; };
       |                                   ^
-/home/mrobins/git/cpp_tmp/prodecural.cpp:13:15: note: candidate: 'main()::<lambda(int)>& main()::<lambda(int)>::operator=(const main()::<lambda(int)>&)' (deleted)
+/home/mrobins/git/cpp_tmp/procedural.cpp:13:15: note: candidate: 'main()::<lambda(int)>& main()::<lambda(int)>::operator=(const main()::<lambda(int)>&)' (deleted)
    13 |   auto add = [](int i) { return i + 1; };
       |               ^
-/home/mrobins/git/cpp_tmp/prodecural.cpp:13:15: note:   no known conversion for argument 1 from 'main()::<lambda(int)>' to 'const main()::<lambda(int)>&'
+/home/mrobins/git/cpp_tmp/procedural.cpp:13:15: note:   no known conversion for argument 1 from 'main()::<lambda(int)>' to 'const main()::<lambda(int)>&'
 ```
 
 This causes problems if for example, you want to store a collection of function
@@ -147,7 +143,7 @@ for (const auto& op: ops) {
 std::cout << result << std::end; // prints 6
 ```
 
-`std::function` is an example of *type erasure*.
+`std::function` is an example of _type erasure_.
 
 ## Higher Order Functions
 
@@ -155,7 +151,7 @@ One of the main uses of lambda functions is to create temporary functions to
 pass into higher order functions. A higher order function is simply a function
 that has other functions as one of its arguments.
 
-To illustrate the benifits of higher order functions, let us define two
+To illustrate the benefits of higher order functions, let us define two
 functions, one that calculates the sum of a `std::vector<int>`, the other
 which calculates the maximum value the same vector type.
 
@@ -191,17 +187,17 @@ int reduce(const std::vector<int>& data, std::function<int(int, int)> bin_op) {
 
 int main() {
   std::vector<int> data = {1, 2, 3, 4, -1};
-  std::cout << reduce(data, std::plus<int>()) << std::endl; 
-  std::cout << reduce(data, std::multiplies<int>()) << std::endl; 
-  std::cout << reduce(data, [](int a, int b) { return std::max(a, b); }) << std::endl; 
-  std::cout << reduce(data, [](int a, int b) { return std::min(a, b); }) << std::endl; 
+  std::cout << reduce(data, std::plus<int>()) << std::endl;
+  std::cout << reduce(data, std::multiplies<int>()) << std::endl;
+  std::cout << reduce(data, [](int a, int b) { return std::max(a, b); }) << std::endl;
+  std::cout << reduce(data, [](int a, int b) { return std::min(a, b); }) << std::endl;
 }
 ```
 
 Excellent! We have reduced the amount of code we need to write, reducing the
 number of possible bugs and making the code easier to maintain in the future.
 
-C++ actually has a `std::reduce`, which is part of the *algorithms* standard library.
+C++ actually has a `std::reduce`, which is part of the _algorithms_ standard library.
 
 ### The Algorithms Library
 
@@ -212,8 +208,8 @@ recognising their conceptual similarities. Using the algorithms library means:
 
 (a) you reduce the amount of (algorithmic) code you need to write, reducing bugs and increasing maintainability
 (b) you make clear to the reader what your code is doing, since these are commonly used algorithms
-(b) you benifit from bullet proof, efficient implementations written by the same teams that write the compiler you are using
-(c) you can benifit from *executors* to instantly parallise or vectorise your code for high performance.
+(b) you benefit from bullet proof, efficient implementations written by the same teams that write the compiler you are using
+(c) you can benefit from _executors_ to instantly parallelise or vectorise your code for high performance.
 
 Lets go through a few examples inspired by the common functional algorithms
 "map", "filter" and "reduce" (also the inspiration for the MapReduce
@@ -225,13 +221,13 @@ First the map, or `std::transform`:
 std::vector<double> data = {1.0, 2.0, -1.1, 5.0};
 
 // transform in-place
-std::transform(std::begin(data), std::end(data), std::begin(data), 
+std::transform(std::begin(data), std::end(data), std::begin(data),
                [](const double& x) { return 2.0 * x; } );
 
 std::vector<double> new_data(data.size());
 
 // transform to a new collection
-std::transform(std::begin(data), std::end(data), std::begin(new_data), 
+std::transform(std::begin(data), std::end(data), std::begin(new_data),
                [](const double& x) { return 3.14 * std::pow(x, 2); } );
 
 ```
@@ -259,7 +255,7 @@ bool is_prime(int n) {
 }
 
 int main() {
-  std::vector<int> data(1000); 
+  std::vector<int> data(1000);
   std::iota(data.begin(), data.end(), 1); // fill with numbers 1 -> 1000
   std::copy_if(data.begin(), data.end(),
                std::ostream_iterator<int>(std::cout, " "),
@@ -278,7 +274,7 @@ maximum elements of an vector. At the same time we introduce another algorithm
 `std::generate`, which assigns values to a range based on a generator function, and some
 of the random number generation options in the standard library.
 
-``` cpp
+```cpp
 #include <algorithm>
 #include <iostream>
 #include <functional>
@@ -295,7 +291,7 @@ int main() {
   std::normal_distribution<double> dist(5, 2);
   auto gen_random = [&]() { return dist(gen);};
 
-  std::vector<double> data(1000); 
+  std::vector<double> data(1000);
   std::generate(data.begin(), data.end(), gen_random);
 
   auto calc_min_max = [](std::tuple<double, double> acc, double x) {
@@ -314,7 +310,7 @@ int main() {
 Use `std::accumulate` to write a function that calculates the sum of the squares of the values in a vector.
 Your function should behave as below:
 
-``` cpp
+```cpp
 std::cout << sum_of_squares({0}) << std::endl;
 std::cout << sum_of_squares({1, 3, -2}) << std::endl;
 ```
@@ -343,7 +339,7 @@ int sum_of_squares(const std::vector<int>& data) {
 Now let's assume we're reading in these numbers from an input file, so they arrive as a list of strings.
 Write a new function `map_str_to_int` using `std::transform` that passes the following tests:
 
-``` cpp
+```cpp
 std::cout << sum_of_squares(map_str_to_int({"1", "2", "3"})) << std::endl;
 std::cout << sum_of_squares(map_str_to_int({"-1", "-2", "-3"})) << std::endl;
 ```
@@ -369,7 +365,7 @@ const std::vector<int> map_str_to_int(const std::vector<std::string>& data) {
 Finally, we'd like it to be possible for users to comment out numbers in the input file they give to our program.
 Extend your `map_str_to_int` function so that the following tests pass:
 
-``` cpp
+```cpp
 std::cout << sum_of_squares(map_str_to_int({"1", "2", "3"})) << std::endl;
 std::cout << sum_of_squares(map_str_to_int({"1", "2", "#100", "3"})) << std::endl;
 ```
@@ -408,13 +404,13 @@ std::vector<int> map_str_to_int(const std::vector<std::string>& data) {
     }
     new_data.push_back(std::atoi(x.c_str()));
   }
-  return new_data; 
+  return new_data;
 }
 ```
 
 Here you can start to see a limitation of the algorithms in the standard
 library, in that it is difficult to efficiently compose together multiple
-elemental algorithms into more complex algorithm. The *ranges* library is an
+elemental algorithms into more complex algorithm. The _ranges_ library is an
 C++20 addition to the standard library aims to solve this problem, you can read
 more about the ranges library [here](https://en.cppreference.com/w/cpp/ranges).
 

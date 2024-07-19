@@ -1,20 +1,16 @@
 ---
 name: Scipy.sparse and problems
-dependsOn: [
-  'scientific_computing.sparse_linear_algebra.03-finite-difference',
-]
+dependsOn: ["scientific_computing.sparse_linear_algebra.03-finite-difference"]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
-
+attribution:
+  - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 There are seven available sparse matrix types in `scipy.sparse`:
@@ -96,9 +92,9 @@ plt.show()
 Solve the Poisson problem using:
 
 - $f(x) = 2 \cos(x) / e^x$, with boundary conditions $g(0) = 0$ and $g(2 \pi)=0$. The
-    analytical solution is  $u_{a}(x) = -\sin(x) / e^x$.
+  analytical solution is $u_{a}(x) = -\sin(x) / e^x$.
 - $f(x) = 2 \sin(x) / e^x$, with boundary conditions $g(0) = 1$ and $g(2 \pi)=1 / e^{2
-    \pi}$. The analytical solution is  $u_{a}(x) = \cos(x) / e^x$
+    \pi}$. The analytical solution is $u_{a}(x) = \cos(x) / e^x$
 
 :::solution
 

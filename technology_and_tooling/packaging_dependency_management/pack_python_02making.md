@@ -1,22 +1,18 @@
 ---
 name: Making Packages
-dependsOn: [
-  technology_and_tooling.packaging_dependency_management.pack_python_01intro
-]
+dependsOn: [technology_and_tooling.packaging_dependency_management.pack_python_01intro]
 tags: [python, setuptools]
-attribution: 
-    - citation: >
-        "Python Packaging" course developed by Thibault Lestang and the Oxford Research 
-        Software Engineering group
-      url: https://github.com/OxfordRSE/python-packaging-course
-      image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
-
+attribution:
+  - citation: >
+      "Python Packaging" course developed by Thibault Lestang and the Oxford Research 
+      Software Engineering group
+    url: https://github.com/OxfordRSE/python-packaging-course
+    image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## The `tstools` package
@@ -93,7 +89,7 @@ It is the presence of this initialization file that truly makes the `tstools` di
 package.
 
 :::callout
-Since Python 3.3, this isn't technically true. Directories without a __init__.py
+Since Python 3.3, this isn't technically true. Directories without a **init**.py
 file are called namespace packages, see Packaging namespace packages on the
 Python Packaging User Guide). However, their discussion is beyond the scope of
 this course.
@@ -122,7 +118,7 @@ __init__.py
 
 The lesson here is that any object (variable, function, class) defined in the `__init__.py` file is available under the package's namespace.
 
-::::challenge{id=single_namespace  title="Bringing all functions under a single namespace"}
+::::challenge{id=single_namespace title="Bringing all functions under a single namespace"}
 
 Our package isn't very big, and the internal strucure with 2 different modules isn't
 very relevant for a user.
@@ -135,10 +131,10 @@ under the `tstools` namespace, that is
 import tstools
 
 # instead of mean, var = tstools.moments.get_mean_and_var(...)
-mean, var = tstools.get_mean_and_var(timeseries) 
+mean, var = tstools.get_mean_and_var(timeseries)
 
 # instead of fig, ax = tstools.vis.plot_histogram(...)
-fig, ax = tstools.plot_histogram(timeseries, 4*np.sqrt(var)) 
+fig, ax = tstools.plot_histogram(timeseries, 4*np.sqrt(var))
 ```
 
 :::callout

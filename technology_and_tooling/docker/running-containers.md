@@ -2,24 +2,22 @@
 title: "Exploring and Running Containers"
 teaching: 20
 exercises: 10
-dependsOn: [
-  technology_and_tooling.docker.meet-docker
-]
+dependsOn: [technology_and_tooling.docker.meet-docker]
 tags: [docker]
-attribution: 
-    - citation: >
-        D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
-        Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator. 
-      url: https://github.com/carpentries-incubator/docker-introduction
-      image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
+      Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator.
+    url: https://github.com/carpentries-incubator/docker-introduction
+    image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
+    license: CC-BY-4.0
 ---
 
 :::callout
 
 ## Reminder of terminology: container images and containers
 
-Recall that a *container image* is the template from which particular instances of *containers* will be created.
+Recall that a _container image_ is the template from which particular instances of _containers_ will be created.
 :::
 
 Let's explore our first Docker container. The Docker team provides a simple container
@@ -30,29 +28,29 @@ image online called `hello-world`. We'll start with that one.
 The `docker image` command is used to interact with Docker container images.
 You can find out what container images you have on your computer by using the following command ("ls" is short for "list"):
 
-~~~bash
+```bash
 docker image ls
-~~~
+```
 
 If you've just
 installed Docker, you won't see any container images listed.
 
 To get a copy of the `hello-world` Docker container image from the internet, run this command:
 
-~~~bash
+```bash
 docker image pull hello-world
-~~~
+```
 
 You should see output like this:
 
-~~~text
+```text
 Using default tag: latest
 latest: Pulling from library/hello-world
 1b930d010525: Pull complete
 Digest: sha256:f9dfddf63636d84ef479d645ab5885156ae030f611a56f3a7ac7f2fdd86d7e4e
 Status: Downloaded newer image for hello-world:latest
 docker.io/library/hello-world:latest
-~~~
+```
 
 :::callout
 
@@ -73,9 +71,9 @@ Give it a try before checking the solution.
 
 To see if the `hello-world` container image is now on your computer, run:
 
-~~~bash
+```bash
 docker image ls
-~~~
+```
 
 :::
 ::::
@@ -90,11 +88,11 @@ computer.
 
 To create and run containers from named Docker container images you use the `docker container run` command. Try the following `docker container run` invocation. Note that it does not matter what your current working directory is.
 
-~~~bash
+```bash
 docker container run hello-world
-~~~
+```
 
-~~~text
+```text
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
 
@@ -115,12 +113,12 @@ Share images, automate workflows, and more with a free Docker ID:
 
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
-~~~
+```
 
 What just happened? When we use the `docker container run` command, Docker does three things:
 
-| 1. Starts a Running Container | 2. Performs Default Action | 3. Shuts Down the Container |
-| --------------------|-----------------|----------------|
+| 1. Starts a Running Container                                                                                                                                   | 2. Performs Default Action                                                                                                                                                     | 3. Shuts Down the Container                                                                                                                       |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Starts a running container, based on the container image. Think of this as the "alive" or "inflated" version of the container -- it's actually doing something. | If the container has a default action set, it will perform that default action. This could be as simple as printing a message (as above) or running a whole analysis pipeline! | Once the default action is complete, the container stops running (or exits). The container image is still there, but nothing is actively running. |
 
 The `hello-world` container is set up to run an action by default --
@@ -151,9 +149,9 @@ two steps, or one. What are they?
 
 What happened when you ran the Alpine Docker container?
 
-~~~bash
+```bash
 docker container run alpine
-~~~
+```
 
 If you have never used the `alpine` Docker container image on your computer, Docker probably printed a
 message that it couldn't find the container image and had to download it.
@@ -161,9 +159,9 @@ If you used the `alpine` container image before, the command will probably show 
 because this particular container is designed for you to provide commands yourself. Try running
 this instead:
 
-~~~bash
+```bash
 docker container run alpine cat /etc/os-release
-~~~
+```
 
 You should see the output of the `cat /etc/os-release` command, which prints out
 the version of Alpine Linux that this container is using and a few additional bits of information.
@@ -178,9 +176,9 @@ Give it a try before checking the solution.
 
 Use the same command as above, but with the `echo` command to print a message.
 
-~~~bash
+```bash
 docker container run alpine echo 'Hello World'
-~~~
+```
 
 :::
 ::::
@@ -198,9 +196,9 @@ to the `docker container run` command and provide a shell (`bash`,`sh`, etc.)
 as our command. The `alpine` Docker container image doesn't include `bash` so we need
 to use `sh`.
 
-~~~bash
+```bash
 docker container run -it alpine sh
-~~~
+```
 
 :::callout
 
@@ -214,25 +212,25 @@ want to have a command line when running interactively, it makes sense to use th
 
 Your prompt should change significantly to look like this:
 
-~~~bash
+```bash
 / #
-~~~
+```
 
 That's because you're now inside the running container! Try these commands:
 
-* `pwd`
-* `ls`
-* `whoami`
-* `echo $PATH`
-* `cat /etc/os-release`
+- `pwd`
+- `ls`
+- `whoami`
+- `echo $PATH`
+- `cat /etc/os-release`
 
 All of these are being run from inside the running container, so you'll get information
 about the container itself, instead of your computer. To finish using the container,
 type `exit`.
 
-~~~bash
+```bash
 / # exit
-~~~
+```
 
 ::::challenge{id=practice-makes-perfect title="Practice Makes Perfect"}
 
@@ -249,42 +247,42 @@ to almost any command will give you more information.)
 Run an interactive busybox container -- you can use `docker image pull` first, or just
 run it with this command:
 
-~~~bash
+```bash
 docker container run -it ubuntu sh
-~~~
+```
 
 OR you can get the bash shell instead
 
-~~~bash
+```bash
 docker container run -it ubuntu bash
-~~~
+```
 
 Then try, running these commands
 
-~~~bash
+```bash
 /# cat /etc/os-release
 /# apt-get --help
-~~~
+```
 
 Exit when you're done.
 
-~~~bash
+```bash
 /# exit
-~~~
+```
 
 ## Solution 2 -- Run commands
 
 Run a ubuntu container, first with a command to read out the Linux version:
 
-~~~bash
+```bash
 docker container run ubuntu cat /etc/os-release
-~~~
+```
 
 Then run a container with a command to print out the apt-get help:
 
-~~~bash
+```bash
 docker container run ubuntu apt-get --help
-~~~
+```
 
 :::
 ::::
@@ -294,18 +292,18 @@ docker container run ubuntu apt-get --help
 ## Even More Options
 
 There are many more options, besides `-it` that can be used with the `docker container run`
-command!  A few of them will be covered in [later episodes](advanced-containers)
+command! A few of them will be covered in [later episodes](advanced-containers)
 and we'll share two more common ones here:
 
-* `--rm`: this option guarantees that any running container is completely
-removed from your computer after the container is stopped. Without this option,
-Docker actually keeps the "stopped" container around, which you'll see in a later
-episode. Note that this option doesn't impact the *container images* that you've pulled,
-just running instances of containers.
+- `--rm`: this option guarantees that any running container is completely
+  removed from your computer after the container is stopped. Without this option,
+  Docker actually keeps the "stopped" container around, which you'll see in a later
+  episode. Note that this option doesn't impact the _container images_ that you've pulled,
+  just running instances of containers.
 
-* `--name=`: By default, Docker assigns a random name and ID number to each container
-instance that you run on your computer. If you want to be able to more easily refer
-to a specific running container, you can assign it a name using this option.
+- `--name=`: By default, Docker assigns a random name and ID number to each container
+  instance that you run on your computer. If you want to be able to more easily refer
+  to a specific running container, you can assign it a name using this option.
 
 :::
 
@@ -317,7 +315,7 @@ Next, we'll take a closer look at all the different kinds of Docker container im
 
 ## Key Points
 
-* The `docker image pull` command downloads Docker container images from the internet.
-* The `docker image ls` command lists Docker container images that are (now) on your computer.
-* The `docker container run` command creates running containers from container images and can run commands inside them.
-* When using the docker container run command, a container can run a default action (if it has one), a user specified action, or a shell to be used interactively.
+- The `docker image pull` command downloads Docker container images from the internet.
+- The `docker image ls` command lists Docker container images that are (now) on your computer.
+- The `docker container run` command creates running containers from container images and can run commands inside them.
+- When using the docker container run command, a container can run a default action (if it has one), a user specified action, or a shell to be used interactively.

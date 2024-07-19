@@ -1,26 +1,24 @@
 ---
 name: Functions
-dependsOn: [
-    software_architecture_and_design.procedural.containers_python,
-]
+dependsOn: [software_architecture_and_design.procedural.containers_python]
 tags: [python]
 learningOutcomes:
-    - Define a function that takes parameters.
-    - Return a value from a function.
-    - Test and debug a function.
-    - Set default values for function parameters.
-    - Explain why we should divide programs into small, single-purpose functions.
-attribution: 
-    - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
-      url: https://www.sabsr3.ox.ac.uk
-      image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
+  - Define a function that takes parameters.
+  - Return a value from a function.
+  - Test and debug a function.
+  - Set default values for function parameters.
+  - Explain why we should divide programs into small, single-purpose functions.
+attribution:
+  - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
+
 ## Using Functions
 
 In most modern programming languages these procedures are called **functions**.
@@ -67,7 +65,7 @@ print(nums)
 The append function is actually also one of these functions that return `None`.
 We can test this again by printing its output.
 
-``` python
+```python
 nums = [1, 2, 3]
 result = nums.append(4)
 
@@ -88,7 +86,7 @@ That's the case here - the purpose of the `append` function is to append a value
 Although Python has many built in functions, it wouldn't be much use if we couldn't also define our own.
 Most languages use a keyword to signify a **function definition**, in Python that keyword is `def`.
 
-``` python
+```python
 def add_one(value):
     return value + 1
 
@@ -100,7 +98,7 @@ print(two)
 2
 ```
 
-``` python
+```python
 def say_hello(name):
     return 'Hello, ' + name + '!'
 
@@ -125,7 +123,7 @@ When we call a function, parameters with default values can be used in one of th
 2. We can provide our own value in the normal way
 3. We can provide a value in the form of a **named argument** - arguments which are not named are called **positional arguments**
 
-``` python
+```python
 def say_hello(name='World'):
     return 'Hello, ' + name + '!'
 
@@ -161,7 +159,7 @@ See [this page](https://docs.microsoft.com/en-us/cpp/cpp/declarations-and-defini
 Write a short function called `fence` that takes two parameters called original and wrapper and returns a new string that has the wrapper character at the beginning and end of the original.
 A call to your function should look like this:
 
-``` python
+```python nolint
 print(fence('name', '*'))
 ```
 
@@ -171,7 +169,7 @@ print(fence('name', '*'))
 
 :::solution
 
-``` python
+```python
 def fence(original, wrapper):
     return wrapper + original + wrapper
 ```
@@ -186,7 +184,7 @@ How many different ways can you call this function using combinations of named a
 
 :::solution
 
-``` python
+```python
 def say_hello(greeting='Hello', name='World'):
     return greeting + ', ' + name + '!'
 
@@ -224,7 +222,7 @@ Within a function, any variables that are created (such as parameters or other v
 
 For example, what would be the output from the following:
 
-``` python
+```python
 f = 0
 k = 0
 
@@ -249,7 +247,7 @@ with those defined outside of the function.
 
 This is really useful, since it means we don’t have to worry about conflicts
 with variable names that are defined outside of our function that may cause it
-to behave incorrectly.  This is known as variable scoping.
+to behave incorrectly. This is known as variable scoping.
 
 :::
 ::::
@@ -258,15 +256,15 @@ to behave incorrectly.  This is known as variable scoping.
 
 One of the main reasons for defining a function is to encapsulate our code, so
 that it can be used without having to worry about exactly how the computation is
-performed.  This means we're free to implement the function however we want,
+performed. This means we're free to implement the function however we want,
 including deferring some part of the task to another function that already
 exists.
 
 For example, if some data processing code we're working on needs to be able to
 accept temperatures in Fahrenheit, we might need a way to convert these into
-Kelvin.  So we could write these two temperature conversion functions:
+Kelvin. So we could write these two temperature conversion functions:
 
-``` python
+```python
 def fahr_to_cels(fahr):
     # Convert temperature in Fahrenheit to Celsius
     cels = (fahr + 32) * (5 / 9)
@@ -283,14 +281,14 @@ print(fahr_to_kelv(212))
 ```
 
 But if we look at these two functions, we notice that the conversion from
-Fahrenheit to Celsius is actually duplicated in both functions.  This makes
+Fahrenheit to Celsius is actually duplicated in both functions. This makes
 sense, since this is a necessary step in both functions, but duplicated code is
 wasteful and increases the chance of us making an error - what if we made a typo
 in one of the equations?
 
 So, we can remove the duplicated code, by calling one function from inside the other:
 
-``` python
+```python
 def fahr_to_cels(fahr):
     # Convert temperature in Fahrenheit to Celsius
     cels = (fahr + 32) * (5 / 9)
@@ -309,7 +307,7 @@ print(fahr_to_kelv(212))
 Now we've removed the duplicated code, but we might actually want to go one step
 further and remove some of the other unnecessary bits:
 
-``` python
+```python
 def fahr_to_cels(fahr):
     # Convert temperature in Fahrenheit to Celsius
     return (fahr + 32) * (5 / 9)
@@ -332,7 +330,7 @@ As a common example to illustrate each of the paradigms, we'll write some code t
 First, let's create a data structure to keep track of the papers that a group of academics are publishing.
 Note that we could use an actual `date` type to store the publication date, but they're much more complicated to work with, so we'll just use the year.
 
-``` python
+```python
 academics = [
     {
         'name': 'Alice',
@@ -361,7 +359,7 @@ academics = [
 
 We want a convenient way to add new papers to the data structure.
 
-``` python
+```python
 def write_paper(academics, name, title, date):
     paper = {
         'title': title,
@@ -376,7 +374,7 @@ def write_paper(academics, name, title, date):
 
 We're introducing a new keyword here, `break`, which exits from inside a loop.
 When the `break` keyword is encountered, execution jumps to the next line
-outside of the loop.  If there isn't a next line, as in our example here, then
+outside of the loop. If there isn't a next line, as in our example here, then
 it's the end of the current block of code.
 
 This is useful when we have to search for something in a list - once we've found
@@ -398,7 +396,7 @@ For the moment we'll just raise the exception, and assume that it will get handl
 In Python, exceptions may also be used to alter the flow of execution even when an error has not occured.
 For example, when iterating over a collection, a `StopIteration` exception is the way in which Python tells a loop construct to terminate, though this is hidden from you.
 
-``` python
+```python
 def write_paper(academics, name, title, date):
     paper = {
         'title': title,
@@ -427,7 +425,7 @@ For more information see [this section](https://docs.python.org/3/tutorial/contr
 
 We have seen previously that functions are not able to change the value of a variable which is used as their argument.
 
-``` python
+```python
 def append_to_list(l):
     l.append('appended')
     l = [1, 2, 3]
@@ -469,7 +467,7 @@ Write a function called `count_papers`, that when called with `count_papers(acad
 
 One possible solution is:
 
-``` python
+```python
 def count_papers(academics):
     count = 0
 
@@ -497,7 +495,7 @@ Write a function called `list_papers`, that when called with `list_papers(academ
 
 One possible solution is:
 
-``` python
+```python
 def list_papers(academics):
     papers = []
 

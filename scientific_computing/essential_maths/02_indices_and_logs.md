@@ -1,19 +1,16 @@
 ---
 name: Indices, logs and exponentials
-dependsOn: [
-  scientific_computing.essential_maths.01_graphs
-]
+dependsOn: [scientific_computing.essential_maths.01_graphs]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ---
@@ -113,6 +110,7 @@ where $n$ is a positive integer.
 ### (5) Zero index
 
 Similarly,
+
 > $$\frac{a^3}{a^3} = \frac{a \times a \times a}{a \times a \times a} = 1$$,
 
 and by using the division rule, the power should be $3-3=0$.
@@ -135,7 +133,7 @@ which is undefined:
 
 ### (8) Two Cautionary remarks
 
-1. Powers of sums are **not** pretty:  $(a+b)^x \ne a^x + b^x$
+1. Powers of sums are **not** pretty: $(a+b)^x \ne a^x + b^x$
 2. Powers of differences are **not** pretty: $(a-b)^x \ne a^x - b^x$
 
 A useful formula for products of sums:
@@ -177,11 +175,11 @@ Some physical phenomena use log metrics due to their huge dynamic range:
 
 ### (1) Using the same base $a$ for both operations
 
-- *Taking the logarithm* undoes *raising to a power*:
+- _Taking the logarithm_ undoes _raising to a power_:
 
 > $$\log_a\,a^r=r$$
 
-- *Raising to a power* undoes *taking the logarithm*:
+- _Raising to a power_ undoes _taking the logarithm_:
 
 > $$a^{\log_a\,b}=b$$
 
@@ -197,7 +195,7 @@ Some physical phenomena use log metrics due to their huge dynamic range:
 
 > $$\log_a b^n = n \log_a b  ~~~~~~ (Multiply)$$
 
-### (5) Changing the base of  a logarithm
+### (5) Changing the base of a logarithm
 
 > $$\log_a c = {\log_b c\over \log_b a}$$
 
@@ -222,10 +220,10 @@ Some physical phenomena use log metrics due to their huge dynamic range:
 > $$a^{\log_a x}=x$$
 
 ### (11) Negative logs
->
+
 > $$\log_a {1\over x} = \log_a1-\log_ax= 0 - \log_a x =-\log_ax$$
 
-### (12)  Two cautionary remarks
+### (12) Two cautionary remarks
 
 1. $\;\log_a (x + y)\;$ and $\;\log_a (x-y)\;$ cannot be simplified any further, and should be left as they are.
 
@@ -235,12 +233,12 @@ Some physical phenomena use log metrics due to their huge dynamic range:
 
 Can the data below be fitted to the form: $y=Ax^n$?
 
-| x   | y   |
-|-----|-----|
-| 4.0 | 6.0 |
-| 16.0| 12.0|
-| 25.0| 15.0|
-| 64.0| 24.0|
+| x    | y    |
+| ---- | ---- |
+| 4.0  | 6.0  |
+| 16.0 | 12.0 |
+| 25.0 | 15.0 |
+| 64.0 | 24.0 |
 
 ![Graph of data table](fig/02_02_data.svg)
 
@@ -262,32 +260,31 @@ Data fit curve of the form:
 
 1. What is the pH of a 0.011M solution of HCl?
 
-    > $$pH = -\log_{10}[H^+]$$
+   > $$pH = -\log_{10}[H^+]$$
 
-    ```python
-    pH = -np.log10(0.011)
-    print('pH =',pH)
-    ```
+   ```python
+   import numpy as np
+   pH = -np.log10(0.011)
+   print('pH =',pH)
+   ```
 
-    ```text
-    pH = 1.958607314841775
-    ```
+   ```text
+   pH = 1.958607314841775
+   ```
 
 2. What is the H$^+$ concentration of a solution of HCl with a pH of 3?
 
-    $$pH = -\log [H^+] = 3~~~~{\rm~so~~~}$$
+   $$pH = -\log [H^+] = 3~~~~{\rm~so~~~}$$
 
-    ```text
-    [H+] = 0.001 M
-    ```
+   ```text
+   [H+] = 0.001 M
+   ```
 
 ## Example 3: Simplifying logs
 
 Write an expression for $x$ without using logarithms:
 
-> $$\log(x) = \log(p) + 2 \log(q) - \log(k) -3$$
-> $$\log(x) =~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$$
-> $$x=~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$$
+> $$\log(x) = \log(p) + 2 \log(q) - \log(k) -3$$ > $$\log(x) =~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$$ > $$x=~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$$
 
 1. Use the laws of logarithms (above) to put all terms on the right hand side
    **within** the logarithm. This means we have to rewrite $\;3\;$ as $\;3\log(10)\;$.
@@ -318,7 +315,7 @@ Logs to base $e$ are called **natural logarithms**.
 ## Definition of the natural logarithm
 
 The **natural logarithm** of a number is the logarithm of that number taken using the base $\;e\;$.
-We usually write $\;\ln(x)\;$ for $\log_e(x)$.  Here are some examples:
+We usually write $\;\ln(x)\;$ for $\log_e(x)$. Here are some examples:
 
 - $\ln(e)=\log_e(e)=1$
 - $\ln(10)=\log_e(10)$ = "The power I need to raise $e$ to in order to get 10"
@@ -327,8 +324,8 @@ We usually write $\;\ln(x)\;$ for $\log_e(x)$.  Here are some examples:
 - $\exp(\ln(b))=e^{\ln(b)}=e^{\log_e b}=b$
 
 Note that examples (d) and (e) confirm the property that
-the functions  "$\exp$"  and "$\ln$"  are *functional
-inverses* of one another.
+the functions "$\exp$" and "$\ln$" are _functional
+inverses_ of one another.
 
 ### Introductory problems
 
@@ -397,8 +394,8 @@ In an experiment, the mass, $m$ grams, of a reaction product is measured at vari
 $$m=At^n$$
 The results are shown in the table below:
 
-| time (min) |  1  |   2  |   3  |  4  |   5  |  6  |   7  |   8  |  12 |
-|-----------:|:---:|:----:|:----:|:---:|:----:|:---:|:----:|:----:|:---:|
+| time (min) |  1  |  2   |  3   |  4  |  5   |  6  |  7   |  8   | 12  |
+| ---------: | :-: | :--: | :--: | :-: | :--: | :-: | :--: | :--: | :-: |
 |   mass (g) | 0.5 | 0.63 | 0.72 | 0.8 | 0.85 | 0.9 | 0.95 | 0.99 | 1.0 |
 
 1. Confirm this postulate graphically. There is one result that does not conform to this law. Which?

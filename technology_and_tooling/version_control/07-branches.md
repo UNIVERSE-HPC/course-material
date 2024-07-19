@@ -1,23 +1,21 @@
 ---
 name: Branches
-dependsOn: [
-    technology_and_tooling.version_control.06-remote
-]
+dependsOn: [technology_and_tooling.version_control.06-remote]
 tags: [git]
 learningOutcomes:
   - Describe the use of branching in version control.
   - Use git branch and git merge commands effectively.
 attribution:
-- citation: >
+  - citation: >
       This material was originally taken from training materials developed by the
       University of Southampton Research Software Group, which are based on
       the Software Carpentries course "Version Control with Git".
-  url: https://github.com/Southampton-RSG-Training/git-novice/
-  image: https://southampton-rsg-training.github.io/git-novice/assets/img/home-logo.png
-  license: CC-BY-4.0
+    url: https://github.com/Southampton-RSG-Training/git-novice/
+    image: https://southampton-rsg-training.github.io/git-novice/assets/img/home-logo.png
+    license: CC-BY-4.0
 ---
 
-We've seen branches mentioned a *lot* so far - mostly `main`. So what are they?
+We've seen branches mentioned a _lot_ so far - mostly `main`. So what are they?
 
 A branch is a **parallel version of a repository**. It can **branch off** from a commit, contain its own set of extra commits and edits to files, then easily **merge back** into the branch it came off (or even another!). We can visualise this flow of splitting and merging branches like this:
 
@@ -37,7 +35,7 @@ The traditional way to do this is to create a **development branch (`dev` or `de
 
 ### Making Changes to an Existing Code: Feature branches
 
-Once you have a working code, particularly one that's being shared, you'll inevitably want to add new features. You could add them directly to your development branch - however, what happens if, mid-way through, you need to pause the feature and switch to something else as you wait for simulations to finish, new data to arrive, or similar? Instead of ending up with a mess of multiple half-finished modifications, which are impossible to evaluate independently of the other, you can instead create a new **feature branch coming off of your development branch** for each new feature. You work on each new feature or bugfix in their own  **feature branch**, and merge them back into your **development branch** once they're tested and complete. Then, as before, once you're ready to publish a paper using your new functionality you merge it all back into the **main branch**.
+Once you have a working code, particularly one that's being shared, you'll inevitably want to add new features. You could add them directly to your development branch - however, what happens if, mid-way through, you need to pause the feature and switch to something else as you wait for simulations to finish, new data to arrive, or similar? Instead of ending up with a mess of multiple half-finished modifications, which are impossible to evaluate independently of the other, you can instead create a new **feature branch coming off of your development branch** for each new feature. You work on each new feature or bugfix in their own **feature branch**, and merge them back into your **development branch** once they're tested and complete. Then, as before, once you're ready to publish a paper using your new functionality you merge it all back into the **main branch**.
 
 ### Collaborating With Others: Feature branches
 
@@ -45,7 +43,7 @@ Feature branches also make collaborating with others far easier! Instead of step
 
 ## Merging
 
-We've mentioned **merges** repeatedly; as Git tracks the *changes* made to each file in each commit, it can easily determine whether or not the changes made in two branches **conflict** with each other. It can intelligently merge together two modified versions of a file where their changes don't overlap, and highlight sections where they do for you to resolve, showing both versions of the code.
+We've mentioned **merges** repeatedly; as Git tracks the _changes_ made to each file in each commit, it can easily determine whether or not the changes made in two branches **conflict** with each other. It can intelligently merge together two modified versions of a file where their changes don't overlap, and highlight sections where they do for you to resolve, showing both versions of the code.
 
 These use the same conflict resolution we saw earlier - new files are added seamlessly, whilst modified files use smart conflict resolution and might need your intervention if there's a clash!
 
@@ -53,25 +51,25 @@ These use the same conflict resolution we saw earlier - new files are added seam
 
 We can use the `git branch` command to list the branches in our local repository, and let us know which we're on:
 
-~~~bash
+```bash
 git branch
-~~~
+```
 
-~~~text
+```text
 * main
-~~~
+```
 
 At the moment, we only have one - `main` - and the asterisk tells us it's the one we're currently on. We can check this by creating a new branch using `git branch new_branch_name`, and listing them again:
 
-~~~bash
+```bash
 git branch dev
 git branch
-~~~
+```
 
-~~~text
+```text
   dev
 * main
-~~~
+```
 
 Now we've got a `dev` branch set up!
 
@@ -81,80 +79,80 @@ We'll try a quick example of using the `main` and `dev` branches to have a work-
 
 We can switch to our new branch with:
 
-~~~bash
+```bash
 git switch dev
-~~~
+```
 
-~~~text
+```text
 Switched to branch 'dev'
-~~~
+```
 
 :::callout
 
 ## Compatibility Notice
 
-Older versions of Git don't have `git switch` - instead, you have to use `git checkout dev`.  As we've already seen, `checkout` has a *lot* of functions, and newer versions of Git simplify things by giving them new names.
+Older versions of Git don't have `git switch` - instead, you have to use `git checkout dev`. As we've already seen, `checkout` has a _lot_ of functions, and newer versions of Git simplify things by giving them new names.
 :::
 
-Any commits we make on this branch will exist *only* on this branch - when you use `git switch main` to switch back to your **main branch**, they won't show up in your `git log` results!
+Any commits we make on this branch will exist _only_ on this branch - when you use `git switch main` to switch back to your **main branch**, they won't show up in your `git log` results!
 
 We'll give it a try. In one of our earlier edits to `climate_analysis.py`, we mentioned we wanted to process rainfall measurements in our climate data. Let's imagine these are historic values, in imperial measurements, that we'll need to convert. We'll make a new file, and write a simple function to handle it:
 
-~~~bash
+```bash
 nano rainfall_conversion.py
 cat rainfall_conversion.py
-~~~
+```
 
-~~~text
+```text
 def inches_to_mm(inches):
     mm = inches * 25.4
     return mm
 
-~~~
+```
 
 Now we've made the file, we want to **commit it** to our `dev` branch.
 Make sure you're on the `dev` branch with `git switch dev` if you haven't already, and then add it like we added our changes before:
 
-~~~bash
+```bash
 git add rainfall_conversion.py
 git commit -m "Add rainfall module"
-~~~
+```
 
-~~~text
+```text
 [dev b402781] Add rainfall module
  1 file changed, 4 insertions(+)
  create mode 100644 rainfall_conversion.py
-~~~
+```
 
 So we've successfully made a new file, and committed it to our repository,
 on the `dev` branch. Let's take a look at the directory now using `ls`:
 
-~~~bash
+```bash
 ls
-~~~
+```
 
-~~~text
+```text
 README.md              climate_analysis.py    rainfall_conversion.py temp_conversion.py
-~~~
+```
 
 We can see that the `rainfall_conversion.py` file is all present and correct. But we told git that we made it on the `dev` branch - what happens if we switch back to `main` with `git switch` again?:
 
-~~~bash
+```bash
 git switch main
-~~~
+```
 
-~~~text
+```text
 Switched to branch 'main'
 Your branch is up to date with 'origin/main'.
-~~~
+```
 
-~~~bash
+```bash
 ls
-~~~
+```
 
-~~~text
+```text
 README.md           climate_analysis.py temp_conversion.py
-~~~
+```
 
 The `rainfall_conversion.py` file isn't present, as the **commit** that created it was made on the `dev` branch. It still exists, and if we use `git switch dev` it'll re-appear. However, whilst we're on `main`, it's tidied away into our hidden `.git` directory.
 
@@ -164,21 +162,21 @@ This doesn't just work on new files. If you edit an existing file on `dev`, then
 
 Now we've made changes to our `dev` branch, we want to send them up to GitHub, to make sure that we don't lose any of our development work! Let's switch back to `dev` with `git switch`:
 
-~~~bash
+```bash
 git switch dev
-~~~
+```
 
-~~~text
+```text
 Switched to branch 'dev'
-~~~
+```
 
 And use `git push` to synchonise our branch with GitHub, just like we did earlier. However, this time we'll get an error:
 
-~~~bash
+```bash
 git push
-~~~
+```
 
-~~~text
+```text
 fatal: The current branch dev has no upstream branch.
 To push the current branch and set the remote as upstream, use
 
@@ -186,7 +184,7 @@ To push the current branch and set the remote as upstream, use
 
 To have this happen automatically for branches without a tracking
 upstream, see 'push.autoSetupRemote' in 'git help config'.
-~~~
+```
 
 When we used `git clone` it linked up our `main` branch with the `main` branch on our GitHub repository automatically. Our `dev` branch is new, though, and git doesn't yet know where it should be pushing it to. Fortunately, git has told us what we need to do to tell it (git is good about this!).
 
@@ -194,25 +192,25 @@ The `origin` argument to `git push` tells it which remote repository we're pushi
 
 We'll use a shortcut for `--set-upstream` - `-u`:
 
-~~~bash
+```bash
 git push -u origin dev
-~~~
+```
 
-~~~text
+```text
 Enumerating objects: 4, done.
 Counting objects: 100% (4/4), done.
 Delta compression using up to 4 threads
 Compressing objects: 100% (3/3), done.
 Writing objects: 100% (3/3), 415 bytes | 415.00 KiB/s, done.
 Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
-remote: 
+remote:
 remote: Create a pull request for 'dev' on GitHub by visiting:
 remote:      https://github.com/smangham/climate-analysis/pull/new/dev
-remote: 
+remote:
 To github.com:smangham/climate-analysis.git
  * [new branch]      dev -> dev
 branch 'dev' set up to track 'origin/dev'.
-~~~
+```
 
 Now we've got it up on GitHub successfully! Let's go check on the site:
 
@@ -232,16 +230,16 @@ It's always worth double-checking before you run `git push origin dev` for the f
 
 To avoid this, we can set the 'upstream' for a branch when we make it, using:
 
-~~~bash
+```bash
 git branch --track branchname origin/branchname
-~~~
+```
 
 But this functionality isn't available on older versions of git.
 Alternatively, if your git is new enough to suggest it, you can make it automatically link branches to their remote equivalents with:
 
-~~~bash
+```bash
 git config --global push.autoSetupRemote true
-~~~
+```
 
 :::
 
@@ -251,13 +249,13 @@ git config --global push.autoSetupRemote true
 
 It's easy to share a branch with a collaborator so they can test out a different version of the code. If they `clone` the repository, like we did back at the start, it defaults to `main` but they can download the other branches and try them out too, using:
 
-~~~bash
+```bash
 git clone git@github.com:yourname/climate-analysis.git
 git fetch
 git switch dev
-~~~
+```
 
-Where `git fetch` downloads *all* the branches on the remote repository, not just the `main` one.
+Where `git fetch` downloads _all_ the branches on the remote repository, not just the `main` one.
 :::
 
 ## Merging Branches
@@ -266,40 +264,40 @@ If we're happy with the way our work on the `dev` branch has gone, and we've tes
 
 Let's switch back to our `main` branch:
 
-~~~bash
+```bash
 git switch main
-~~~
+```
 
-~~~text
+```text
 Switched to branch 'main'
 Your branch is up to date with 'origin/main'.
-~~~
+```
 
 Now, to merge the changes from our `dev` branch into the current (`main`) branch, we just need to do:
 
-~~~bash
+```bash
 git merge dev
-~~~
+```
 
-~~~text
+```text
 Updating fd30d36..b402781
 Fast-forward
  rainfall_conversion.py | 4 ++++
  1 file changed, 4 insertions(+)
  create mode 100644 rainfall_conversion.py
-~~~
+```
 
 Now, let's push our updated `main` branch to GitHub:
 
-~~~bash
+```bash
 git push
-~~~
+```
 
-~~~text
+```text
 Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
 To github.com:smangham/climate-analysis.git
    fd30d36..b402781  main -> main
-~~~
+```
 
 And we can see on GitHub that the two branches are up-to-date:
 

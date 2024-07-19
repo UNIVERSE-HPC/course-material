@@ -1,19 +1,16 @@
 ---
 name: Complex numbers
-dependsOn: [
-  scientific_computing.essential_maths.07_integration_2
-]
+dependsOn: [scientific_computing.essential_maths.07_integration_2]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ---
@@ -33,7 +30,7 @@ The material is still very similar:
 
 **The Imaginary Number $i$:**
 
-- The polynomial $~~x^2-1=0~~$ has two real roots:  $~~1~~$ and $~~-1~~$
+- The polynomial $~~x^2-1=0~~$ has two real roots: $~~1~~$ and $~~-1~~$
 - The polynomial $~~x^2+1=0~~$ has **no** real roots.
 
 Consider solving:
@@ -44,18 +41,18 @@ That is, $~~i~~$ is a number with the property that $~~i^2=-1$.
 
 ## Complex numbers
 
-The complex numbers are  the set of all expressions of the form $a + bi$ where $i^2=-1$ and $a$ and $b$ are real numbers:
+The complex numbers are the set of all expressions of the form $a + bi$ where $i^2=-1$ and $a$ and $b$ are real numbers:
 
 > $$\mathbb{C}=\left\{a + bi~~\vert~~a,~b~\in\mathbb{R}\right\}$$
 
-For $z=a+bi\in\mathbb{C}$ we define the *real* and *imaginary*
+For $z=a+bi\in\mathbb{C}$ we define the _real_ and _imaginary_
 parts of $z$ to be ${\Re}(z) = a$ and $\Im(z)=b$.
 
 The imaginary number $i$ has no home on the real number line.
 Instead, we locate it on the **complex plane** at the point $(0,1)$.
 
-- we can represent any complex number $z=a+bi$  as the point $(a,b)$ in the complex plane.
-- The coordinates $(a,b)$ are usually called the *cartesian* coordinates for $z$.
+- we can represent any complex number $z=a+bi$ as the point $(a,b)$ in the complex plane.
+- The coordinates $(a,b)$ are usually called the _cartesian_ coordinates for $z$.
   (Named after the mathematician and philosopher Rene Descartes).
 - In this plane, the real numbers lie on the horizontal axis.
   We usually refer to the horizontal axis of $\mathbb{C}$ as the **real axis**.
@@ -82,7 +79,7 @@ which we can solve using the quadratic formula:
 > $$={{8\pm\sqrt{64-100}}\over2}={{8\pm\sqrt{-36}}\over2}={{8\pm6i}\over2}=4\pm3i$$
 
 - Note that these two roots are reflections of one another through the
-  real axis. They are *conjugates* of one another.
+  real axis. They are _conjugates_ of one another.
 
 - In general, let $z=a + bi$. The **conjugate** of $z$ is the complex number
   $\bar{z}=a-bi$.
@@ -90,6 +87,7 @@ which we can solve using the quadratic formula:
 We can also use Sympy's `solve` method to solve polynomials:
 
 ```python
+import sympy as sp
 x = sp.symbols('x')
 sp.solve(x**2 - 8*x + 25)
 ```
@@ -98,7 +96,7 @@ sp.solve(x**2 - 8*x + 25)
 
 ## Modulus (size) of a complex number
 
-The distance to a point on the complex plane from 0 is called its **modulus**, and we find this by calculating the hypotenuse of the triangle with base  ${\Re}(z)$ and height $\Im(z)$:
+The distance to a point on the complex plane from 0 is called its **modulus**, and we find this by calculating the hypotenuse of the triangle with base ${\Re}(z)$ and height $\Im(z)$:
 
 E.g. The modulus of $4\pm3i$ is $\sqrt{3^2+4^2}=\sqrt{9+16}=\sqrt{25}=5$
 
@@ -106,7 +104,7 @@ E.g. The modulus of $4\pm3i$ is $\sqrt{3^2+4^2}=\sqrt{9+16}=\sqrt{25}=5$
   $|z|=\sqrt{a^2+b^2}$.
 
 - The **modulus** is connected to the **conjugate** by means of the formula
-  $z\cdot \bar{z}=|z|^2$.  Indeed:
+  $z\cdot \bar{z}=|z|^2$. Indeed:
 
 $$
 \begin{align}
@@ -214,9 +212,9 @@ print((-4 + 7*sp.I) / (2 + 3*sp.I))
 
 ## Polar Coordinates
 
-It is often convenient to represent  the complex number $z = a + bi$ in terms of its polar coordinates $\langle r,\theta\rangle$.
+It is often convenient to represent the complex number $z = a + bi$ in terms of its polar coordinates $\langle r,\theta\rangle$.
 
-- The angle $\theta$ is called the *argument* of $z$.
+- The angle $\theta$ is called the _argument_ of $z$.
 
 - The real number $r=|z|$ is sometimes denoted mod$(z)$.
 
@@ -227,9 +225,7 @@ It is often convenient to represent  the complex number $z = a + bi$ in terms of
 Let $z=x+iy$.
 If we are given the polar coordinates of $z$ and want to express the cartesian coordinates use
 
-> $$x=r\cos\theta$$
-> $$y=r\sin\theta$$
-> $$z=r\cos\theta + ri\sin\theta=r(\cos\theta + i\sin\theta)$$
+> $$x=r\cos\theta$$ > $$y=r\sin\theta$$ > $$z=r\cos\theta + ri\sin\theta=r(\cos\theta + i\sin\theta)$$
 
 If we are given the cartesian coordinates and want to find the polar coordinates, use:
 
@@ -260,12 +256,13 @@ The positive $x$ axis is defined as having $\theta=0$ and positive $\theta$ goes
 
 Find the cartesian coordinates for the complex number $z$ with polar coordinates $r=2$ and $\theta=\pi/6$.
 
-> $$\Re(z)=x=r\cos\theta=2\cos(\pi/6)=2\left({{\sqrt{3}\over2}}\right)=\sqrt{3}$$
-> $$\Im(z)=y=r\sin\theta=2\sin(\pi/6)=2\left({{1\over2}}\right)=1$$
+> $$\Re(z)=x=r\cos\theta=2\cos(\pi/6)=2\left({{\sqrt{3}\over2}}\right)=\sqrt{3}$$ > $$\Im(z)=y=r\sin\theta=2\sin(\pi/6)=2\left({{1\over2}}\right)=1$$
 
 Therefore, $z = \sqrt{3} + i$.
 
 ```python
+import cmath
+import numpy as np
 print(cmath.rect(2, np.pi/6))
 ```
 
@@ -294,8 +291,7 @@ print(cmath.polar(-3 + 4j))
 
 Find the polar coordinates for the complex number $z= -2i$.
 
-> $${\rm mod}(z)=r = |z|=2$$
-> $${\rm arg}(z)=\theta=-{{\pi}\over2}$$
+> $${\rm mod}(z)=r = |z|=2$$ > $${\rm arg}(z)=\theta=-{{\pi}\over2}$$
 
 ```python
 print(cmath.polar(-2j))
@@ -309,9 +305,7 @@ print(cmath.polar(-2j))
 
 First a reminder of three useful and important identities:
 
-> $$\cos^2\theta + \sin^2\theta = 1$$
-> $$\cos(\theta_1+\theta_2)=\cos\theta_1\cos \theta_2 - \sin\theta_1\sin\theta_2$$
-> $$\sin(\theta_1+\theta_2)=\sin\theta_1\cos \theta_2 + \sin\theta_2\cos\theta_1$$
+> $$\cos^2\theta + \sin^2\theta = 1$$ > $$\cos(\theta_1+\theta_2)=\cos\theta_1\cos \theta_2 - \sin\theta_1\sin\theta_2$$ > $$\sin(\theta_1+\theta_2)=\sin\theta_1\cos \theta_2 + \sin\theta_2\cos\theta_1$$
 
 Now, let $z_1=r_1\cos\theta_1+ir_1\sin\theta_1$ and $z_2=r_2\cos\theta_2+ir_2\sin\theta_2$.
 
@@ -347,10 +341,9 @@ This gives a relatively compact and highly geometric result for the product:
 
 It is **multiplicative** in the modulus and **additive** in the argument:
 
-> $$|z_1z_2|= |z_1\cdot |z_2|$$
-> $$\arg(z_1z_2)=\arg (z_1)+ \arg( z_2)$$
+> $$|z_1z_2|= |z_1\cdot |z_2|$$ > $$\arg(z_1z_2)=\arg (z_1)+ \arg( z_2)$$
 
-This means that when we multiply by $z$, we are **rotating** through the angle $\arg(z)$ and  **radially stretching** by a factor of $|z|$.
+This means that when we multiply by $z$, we are **rotating** through the angle $\arg(z)$ and **radially stretching** by a factor of $|z|$.
 
 ## A Remarkable Connection with $e^{i\theta}$
 
@@ -380,7 +373,7 @@ Similarly, we can show that:
 
 > $$z=\cos\theta - i \sin\theta=e^{-i\theta}~~~~~~~~~~~~\rm (4)$$
 
-Adding  (3) and (4), and subtracting (3) and (4) gives:
+Adding (3) and (4), and subtracting (3) and (4) gives:
 
 > $$\cos\theta ={e^{i\theta}+ e^{-i\theta}\over 2}~~~~~~~~~~~~~~~~~~~~~~~~~\sin\theta ={ e^{i\theta}-e^{-i\theta}\over 2i}$$
 
@@ -398,14 +391,13 @@ This demonstrates that **any complex number** can be written:
 3. Multiplication on the unit circle $r=1$ can be carried out by adding the
    angles:
 
-   > $$e^{i\theta_1}\cdot e^{i\theta_2} = e^{i(\theta_1+\theta_2)}$$
-   > $$z=x+iy=r(\cos\theta + i\sin\theta)=r~e^{i\theta}$$
+   > $$e^{i\theta_1}\cdot e^{i\theta_2} = e^{i(\theta_1+\theta_2)}$$ > $$z=x+iy=r(\cos\theta + i\sin\theta)=r~e^{i\theta}$$
 
 4. Exponentiation on the unit circle $r=1$ can be done by multiplying the angle by the index:
 
    > $$\left(e^{i\theta}\right)^n = e^{i\theta n}=e^{i(n\theta)}$$
 
-5. This result is known as **DeMoivre's Theorem**.  It is usually stated in its cartesian form:
+5. This result is known as **DeMoivre's Theorem**. It is usually stated in its cartesian form:
 
    > $$(\cos\theta + i\sin\theta)^n=\cos(n\theta) + i\sin(n\theta)$$
 

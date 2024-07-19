@@ -107,7 +107,7 @@ If we try to use a variable that hasn't been defined, we get a compiler error:
 int seven = sixe + 1;
 ```
 
-```text
+````text
 /Users/martinjrobins/git/thing/procedural.cpp:7:17: error: use of undeclared identifier 'sixe'; did you mean 'six'?
     int seven = sixe + 1;
                 ^```
@@ -116,7 +116,7 @@ int seven = sixe + 1;
     int six = 2 * 3;
         ^
 1 error generated.
-```
+````
 
 Note here we accidentally wrote `sixe` instead of `six`, so the compiler
 recognised this as an _undeclared identifier_ and gave an error. It even
@@ -138,11 +138,11 @@ const int six = 2 * 3;
 six = 7;
 ```
 
-```text
+````text
 /Users/martinjrobins/git/thing/procedural.cpp:8:9: error: cannot assign to variable 'six' with const-qualified type 'const int'
     six = 7;
     ``` ^
-```
+````
 
 The compiler has saved us again! You can assist the compiler (and perhaps more
 importantly, other readers of your code!) by always marking variables that you
@@ -409,7 +409,7 @@ int six = 6;
 int& r_six = six;
 ```
 
-An rvalue refernce is more general in that it can also be bound to temporaries,
+An rvalue reference is more general in that it can also be bound to temporaries,
 or rvalues. An rvalue could be a literal like `6` or the result of an expression
 like `a + b` (i.e. something that you might see on the right hand side of an
 assignment `=` statement). An rvalue reference is declared using two ampersands `&&`.
@@ -433,13 +433,13 @@ the `std::move` function to do this more efficiently by changing the lvalue
 references to rvalue references.
 
 ```cpp
-T tmp(std::move(war_and_peace);
+T tmp(std::move(war_and_peace));
 war_and_peace = std::move(moby_dick);
 moby_dick = std::move(tmp);
 ```
 
 The `std::move` function allows us to transfer the value of variable `a` to
-variable `b`, without the requiriment of maintaining the value of `a`. Note that
+variable `b`, without the requirement of maintaining the value of `a`. Note that
 after we have moved `a` its value is now unspecified, so after the last
 statement in the snippet above, the value of `tmp` will be unspecified.
 

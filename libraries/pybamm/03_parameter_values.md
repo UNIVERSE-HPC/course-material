@@ -1,15 +1,13 @@
 ---
 name: Parameter sets
-dependsOn: [
-    libraries.pybamm.02_experiments,
-]
+dependsOn: [libraries.pybamm.02_experiments]
 tags: [pybamm]
-attribution: 
-    - citation: >
-        PyBaMM documentation by the PyBaMM Team
-      url: https://docs.pybamm.org
-      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
-      license: BSD-3
+attribution:
+  - citation: >
+      PyBaMM documentation by the PyBaMM Team
+    url: https://docs.pybamm.org
+    image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
+    license: BSD-3
 ---
 
 ## Parameter Sets
@@ -19,6 +17,7 @@ PyBaMM comes with 12 ready-made parameter sets for lithium-ion batteries. To sel
 ```python
 import pybamm
 parameter_values = pybamm.ParameterValues("Marquis2019")
+model = pybamm.lithium_ion.DFN()
 ```
 
 There are over 100 parameter values! Fortunately, `ParameterValues` objects are dictionaries so you can look up the parameters you're interested in:
@@ -36,41 +35,42 @@ experiment3 = pybamm.Experiment(
     [
         "Hold at 4.2 V until C/100",
         "Rest for 4 hours",
-    ] +
+    ]
     # Capacity check
-    [(
+    + [(
         "Discharge at C/10 until 2.5 V",
         "Charge at C/10 until 4.2 V",
         "Hold at 4.2 V until C/100"
-    )] +  
+    )]
     # Ageing cycles
-    [(
+
+    + [(
         "Discharge at 1C until 2.5 V",
         "Charge at 0.3C until 4.2 V",
         "Hold at 4.2 V until C/100",
     )] * 10 +
     # Capacity check
-    [(
+    + [(
         "Discharge at C/10 until 2.5 V",
         "Charge at C/10 until 4.2 V",
         "Hold at 4.2 V until C/100"
-    )]  
+    )]
 )
 ```
 
 The above `experiment3` will not work with the default parameters, because it was designed for a different cell with different voltage limits. Marquis et al. studied the Kokam SLPB78205130H 16 Ah prismatic cell, whereas `experiment3` is designed for the LG M50 5 Ah cylindrical cell. Four of PyBaMM's built-in parameter sets correspond to the LG M50:
 
-* `Chen2020` comes from the first study, published in 2020.
-* `Chen2020_composite` is an upgrade of `Chen2020` designed to work with PyBaMM's composite electrode model
-* `OKane2022` is a superset of `Chen2020` designed to work with PyBaMM's various degradation models
-* `ORegan2022` comes from a follow-up paper to `Chen2020` that addressed some questions the first paper didn't answer
+- `Chen2020` comes from the first study, published in 2020.
+- `Chen2020_composite` is an upgrade of `Chen2020` designed to work with PyBaMM's composite electrode model
+- `OKane2022` is a superset of `Chen2020` designed to work with PyBaMM's various degradation models
+- `ORegan2022` comes from a follow-up paper to `Chen2020` that addressed some questions the first paper didn't answer
 
 Like `Experiment` objects, `ParameterValues` objects are an optional argument to the `Simulation` class:
 
 ```python
 simulation3 = pybamm.Simulation(
-    model, 
-    experiment=experiment3, 
+    model,
+    experiment=experiment3,
     parameter_values=parameter_values
 )
 ```
@@ -121,7 +121,7 @@ You would then need to create a new `Simulation` object with the updated paramet
 
 ```python
 simulation = pybamm.Simulation(
-    model, 
+    model,
     parameter_values=parameter_values
 )
 ```
@@ -144,7 +144,7 @@ When the model is solved, you can provide a value for the input parameter
 
 ```python
 simulation = pybamm.Simulation(
-    model, 
+    model,
     parameter_values=parameter_values
 )
 solution = simulation.solve([0, 3600], inputs={"Current function [A]": 2})
@@ -171,7 +171,7 @@ parameter_values.update({
     "Current function [A]": "[input]",
 })
 simulation = pybamm.Simulation(
-    model, 
+    model,
     parameter_values=parameter_values
 )
 

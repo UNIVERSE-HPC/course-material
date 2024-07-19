@@ -1,21 +1,17 @@
 ---
 name: QR decomposition
-dependsOn: [
-    'scientific_computing.linear_algebra.06-Cholesky-decomposition',
-]
+dependsOn: ["scientific_computing.linear_algebra.06-Cholesky-decomposition"]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
-
 
 ## QR decomposition
 
@@ -27,12 +23,12 @@ with $n$ unknowns, with $m \ge n$. The least squares problem to be solved is the
 mimimisation of $||A x - b ||_2$, where $|| x ||_2 = \sqrt{x_1^2 + x_2^2 + ... + x_m^2}$
 is the standard 2-norm, and where $A \in \mathbb{R}^{m \times n}$ with $m \ge n$ and $b
 \in \mathbb{R}^m$. In this case, the problem $Ax = b$ will often have no solution, and
-thus it is nessessary to consider $Ax$ and $b$ as *approximatelly* equal, and to
+thus it is nessessary to consider $Ax$ and $b$ as _approximatelly_ equal, and to
 minimise the distance between them by minimising the loss function $||A x - b||_2$.
 
 To solve this least squares problem, we need to consider the subspace of all vectors in
 $\mathbb{R}^{m}$ that are formed from linear combinations of the columns of $A$. This is
-known as the column space of the $A$, and is denoted as $\text{Col }A$. Given that *any*
+known as the column space of the $A$, and is denoted as $\text{Col }A$. Given that _any_
 linear combination of the columns of $A$ will lie in this space, we can say that $Ax$
 will also lie in $\text{Col }A$ for any $x$.
 
@@ -106,11 +102,11 @@ Q = \left(\begin{matrix}
 \end{matrix}\right)
 $$
 
-is a *rotation* matrix that when applied to a vector $x$ will result in $y = Qx$, where
-$y$ is rotated counterclockwise through the angle $\theta$. $Q$ is also *orthogonal*
+is a _rotation_ matrix that when applied to a vector $x$ will result in $y = Qx$, where
+$y$ is rotated counterclockwise through the angle $\theta$. $Q$ is also _orthogonal_
 since $QQ^T = I$.
 
-Similarly, a $2 \times 2$ *reflection* matrix can be constructed as
+Similarly, a $2 \times 2$ _reflection_ matrix can be constructed as
 
 $$
 Q = \left(\begin{matrix}
@@ -124,7 +120,7 @@ across the line defined by $\text{span}((\cos(\theta), \sin(\theta))^T)$.
 
 Rotations and reflections are often useful because they can be selected in order to
 introduce zeros to the vector they are applied to. Given an $m \times n$ matrix $A$, a
-series of $n$ *Householder reflections* can be applied to reduce $A$ to an upper
+series of $n$ _Householder reflections_ can be applied to reduce $A$ to an upper
 triangular matrix $R$
 
 $$
@@ -134,7 +130,7 @@ $$
 By setting $Q = H_1 H_2 ... H_n$, we can show that $A = QR$, and that $Q$ is an
 orthogonal matrix which is also an orthonormal basis for the column space of $A$.
 
-Similarly, a *Givens rotation* can be used to zero a single component of $A$, so that a
+Similarly, a _Givens rotation_ can be used to zero a single component of $A$, so that a
 a series of rotations can be used to contruct the upper triangular matrix $R$
 
 $$
@@ -178,24 +174,24 @@ investigating these topics further in:
 
 Additional reading on the $QR$ decomposition can be found at:
 
-- Linear algebra and its applications by David C. Lay. Chaper 6.4  
+- Linear algebra and its applications by David C. Lay. Chaper 6.4
 - Golub, G. H. & Van Loan, C. F. Matrix Computations, 3rd Ed. (Johns Hopkins University
   Press, 1996). Chapter 5.2
 - <https://en.wikipedia.org/wiki/QR_decomposition>
 
 ### Software
 
-  [`scipy.linalg.qr`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.qr.html)
+[`scipy.linalg.qr`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.qr.html)
 
-  [`scipy.linalg.qr_multiply`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.qr_multiply.html)
+[`scipy.linalg.qr_multiply`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.qr_multiply.html)
 
-  [`scipy.linalg.qr_update`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.qr_update.html)
+[`scipy.linalg.qr_update`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.qr_update.html)
 
-  [`scipy.linalg.qr_delete`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.qr_delete.html)
+[`scipy.linalg.qr_delete`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.qr_delete.html)
 
-  [`scipy.linalg.qr_insert`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.qr_insert.html)
+[`scipy.linalg.qr_insert`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.qr_insert.html)
 
-  [`numpy.linalg.lstsq`](https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html)
+[`numpy.linalg.lstsq`](https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html)
 
 ## Problems
 
@@ -229,8 +225,8 @@ import numpy as np
 import scipy.linalg
 
 names = ['year', 'month', 'maxTemp', 'minTemp', 'hoursFrost', 'rain', 'hoursSun']
-df    = pd.read_csv('OxfordWeather.txt',
-                     delim_whitespace=True, header=None, names=names)
+df = pd.read_csv('OxfordWeather.txt',
+                 delim_whitespace=True, header=None, names=names)
 
 x = df.month.values.reshape(-1,1)
 y = df.hoursSun.values.reshape(-1,1)

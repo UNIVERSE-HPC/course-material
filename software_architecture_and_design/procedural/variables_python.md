@@ -1,24 +1,20 @@
 ---
 name: Variables
-dependsOn: [
-    technology_and_tooling.bash_shell.bash,
-    technology_and_tooling.ide.cpp,
-]
+dependsOn: [technology_and_tooling.bash_shell.bash, technology_and_tooling.ide.cpp]
 tags: [python]
 learningOutcomes:
   - Describe the fundamental types of variables.
   - Assign values to basic variables and make use of them.
   - Print the content of variables.
-attribution: 
-    - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
-      url: https://www.sabsr3.ox.ac.uk
-      image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Getting started
@@ -27,7 +23,7 @@ Create a new folder and open it in VSCode, e.g. on the command-line (bash or oth
 
 ```bash
 mkdir procedural
-cd procedual
+cd procedural
 code .
 ```
 
@@ -51,7 +47,7 @@ And then you are presented with something like:
 ```text
 Python 3.10.4 (main, Jun 29 2022, 12:14:53) [GCC 11.2.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
->>> 
+>>>
 ```
 
 And lo and behold! You are presented with yet another prompt.
@@ -60,7 +56,7 @@ But note that shell commands won't work again until we exit the interpreter. Whi
 
 You can exit the interpreter and get back to the shell by typing:
 
-```python
+```text
 >>> exit()
 ```
 
@@ -98,7 +94,7 @@ the command "Run Selection/Line in Python Terminal").
 
 If we look for a variable that hasn't ever been defined, we get an error telling us so:
 
-```python
+```python nolint
 print(seven)
 ```
 
@@ -179,11 +175,11 @@ type(number)
 
 Note we don't need to use `print` - the Python interpreter will just output the result:
 
-```python
+```text
 <class 'int'>
 ```
 
-Depending on its type, an object can have different properties: data fields *inside* the object.
+Depending on its type, an object can have different properties: data fields _inside_ the object.
 
 Consider a Python complex number for example, which Python supports natively:
 
@@ -247,7 +243,7 @@ dir(z)
  'conjugate'
  'imag'
  'real']
- ```
+```
 
 You can see that there are several methods whose name starts and ends with `__`
 (e.g. `__init__`): these are special methods that Python uses internally, and
@@ -286,8 +282,8 @@ A property of an object is accessed with a dot. The jargon is that the "dot oper
 
 Since we're not declaring the type of a variable, how does it work it out?
 
-Python is an interpreted language that is *dynamically typed*, which means the
-type of a variable is determined and *bound* to the variable at runtime from its
+Python is an interpreted language that is _dynamically typed_, which means the
+type of a variable is determined and _bound_ to the variable at runtime from its
 given value. So when we assign a floating point number, for example, it's type
 is inferred:
 
@@ -301,13 +297,13 @@ print('Weight in lb', weight_lb)
 
 Note we can add as many things that we want to `print` by separating them with a comma.
 
-For a float, a number after a point is optional. But the *dot* makes it a float.
+For a float, a number after a point is optional. But the _dot_ makes it a float.
 
 ```text
 Weight in lb 121.00000000000001
 ```
 
-So the thing with floats is that they are *representation* of a real number.
+So the thing with floats is that they are _representation_ of a real number.
 Representing a third or the root of 2 would be impossible for a computer, so
 these are really approximations of real numbers using an ubiquitous standard
 ([IEEE-754](https://docs.python.org/3/tutorial/floatingpoint.html#representation-error)).
@@ -322,7 +318,7 @@ An important thing to remember, particularly in numerical analyses, is that a `f
 Draw diagrams showing what variables refer to what values after each statement
 in the following program:
 
-```text
+```python
 weight = 70.5
 age = 35
 weight = weight * 1.14
@@ -351,7 +347,7 @@ Joe Frederick 'Bloggs'
 
 With quotes, the main thing is to be consistent in how you use them (i.e. not like we've used them above!).
 
-We've looked at properties on objects. But many objects can also have *methods* (types of functions) associated with them, which we can use to perform operations on the object.
+We've looked at properties on objects. But many objects can also have _methods_ (types of functions) associated with them, which we can use to perform operations on the object.
 
 For strings, we also can do things like:
 

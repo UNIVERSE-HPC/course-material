@@ -1,8 +1,6 @@
 ---
 name: Collaborative Worklow
-dependsOn: [
-  software_project_management.collaboration.issues
-]
+dependsOn: [software_project_management.collaboration.issues]
 tags: [github]
 learningOutcomes:
   - Describe commonly used code review techniques.
@@ -10,26 +8,23 @@ learningOutcomes:
   - Raise a pull request via GitHub to be reviewed by others.
   - Conduct and submit a code review of a pull request.
   - List the characteristics of what makes a good code review process.
-attribution: 
-    - citation: >
-        "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
-      url: https://doi.org/10.5281/zenodo.6532057
-      image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
-      license: CC-BY-4.0
-    - citation: >
-        Matt Jaquiery, Abhishek Dasgupta (2022) "Intermediate Git Collaboration"
-      url: https://github.com/OxfordRSE/intermediate-git-collaboration
-      image: https://avatars.githubusercontent.com/u/38728121?s=200&v=4
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
-
+attribution:
+  - citation: >
+      "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
+    url: https://doi.org/10.5281/zenodo.6532057
+    image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
+    license: CC-BY-4.0
+  - citation: >
+      Matt Jaquiery, Abhishek Dasgupta (2022) "Intermediate Git Collaboration"
+    url: https://github.com/OxfordRSE/intermediate-git-collaboration
+    image: https://avatars.githubusercontent.com/u/38728121?s=200&v=4
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
- 
 ## Introduction
 
 Software is often designed and built as part of a team, so in this episode we'll
@@ -45,9 +40,9 @@ Two commonly used models are:
 
 - **fork and pull model** - where anyone can **fork** an existing repository (to
   create their copy of the project linked to the source) and push changes to their
-  personal fork.  A contributor can work independently on their own fork as they
+  personal fork. A contributor can work independently on their own fork as they
   do not need permissions on the source repository to push modifications to a fork
-  they own.  The changes from contributors can then be **pulled** into the source
+  they own. The changes from contributors can then be **pulled** into the source
   repository by the project maintainer on request and after a code review process.
   This model is popular with open source projects as it reduces the start up costs
   for new contributors and allows them to work independently without upfront
@@ -183,7 +178,7 @@ another team member, in which case the roles will be reversed. The following dia
 depicts the branches that you should have in the repository.
 
 ![Branches for a feature and its tests](fig/exercise-feature-branch.svg)
-*Adapted from [Git Tutorial by sillevl](https://sillevl.gitbooks.io/git/content/collaboration/workflows/gitflow/) (Creative Commons Attribution 4.0 International License)*
+_Adapted from [Git Tutorial by sillevl](https://sillevl.gitbooks.io/git/content/collaboration/workflows/gitflow/) (Creative Commons Attribution 4.0 International License)_
 
 To achieve this, the following steps are needed.
 
@@ -218,19 +213,19 @@ You might already have an issue from the previous section, but if not, head over
    locally if you havn't already. This will create a copy of the repository locally on
    your machine along with all of its (remote) branches.
 
-   ~~~bash
+   ```bash
    git clone <remote-repo-url>
    cd <remote-repo-name>
-   ~~~
+   ```
 
 2. Organise within you team what naming convention you will use for new branches. A
    common choice it to use the issue number and one or more keywords, for example
    `i23-feature-name`.
 3. Create and checkout the new branch in your local repository
 
-   ~~~bash
+   ```bash
    git checkout -b i23-feature-name
-   ~~~
+   ```
 
    You are now located in the new (local) `i23-feature-name` branch and are ready to
    start adding your code.
@@ -245,10 +240,10 @@ can go back to, and others in your team with information of development progress
 elsewhere in the collaboration. You can "tag" a commit with an issue by including an
 issue number reference (e.g. "#23") in the commit message.
 
-~~~bash
+```bash
 git add -A
 git commit -m "#23 add test for unit nmol/sec"
-~~~
+```
 
 Make sure you write tests to ensure that the bug has been fixed or the feature works as
 expected. For a bug fix, you effectivly start with a test which is simply the code that
@@ -277,9 +272,9 @@ have to do the following:
 
 1. Push your local feature branch `i23-feature-name` remotely to the shared repository.
 
-    ~~~bash
-    git push -u origin i23-feature-name
-    ~~~
+   ```bash
+   git push -u origin i23-feature-name
+   ```
 
 1. Normally step one will provide a handy url for you to create the PR. However, if not,
    or you wish to do it manualy, Head over to the remote repository in GitHub and locate
@@ -338,8 +333,7 @@ that the team decides on this process and sticks to it. Here are some examples o
    - comments and documentation - are there clear and useful comments that explain
      complex designs well and focus on the "why/because" rather than the "what/how"?
 1. Do not review code too quickly and do not review for too long in one sitting. According to
-   [“Best Kept Secrets of Peer Code Review” (Cohen,
-   2006)](https://www.amazon.co.uk/Best-Kept-Secrets-Peer-Review/dp/1599160676) - the
+   [“Best Kept Secrets of Peer Code Review” (Cohen, 2006)](https://www.amazon.co.uk/Best-Kept-Secrets-Peer-Review/dp/1599160676) - the
    first hour of review matters the most as detection of defects significantly drops
    after this period.
    [Studies into code

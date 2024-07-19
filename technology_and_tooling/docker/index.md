@@ -1,33 +1,32 @@
 ---
 name: Containerisation with Docker
 id: docker
-dependsOn: [
-  technology_and_tooling.bash_shell
-]
-files: [
-  introduction.md,
-  meet-docker.md,
-  managing-containers.md,
-  running-containers.md,
-  docker-hub.md,
-  creating-container-images.md,
-  advanced-containers.md,
-  docker-image-examples.md,
-  e01-github-actions.md,
-  e02-jekyll-lesson-example.md,
-  reproducibility.md,
-  setup.md,
-]
-attribution: 
-    - citation: >
-        D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
-        Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator. 
-      url: https://github.com/carpentries-incubator/docker-introduction
-      image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
-      license: CC-BY-4.0
+dependsOn: [technology_and_tooling.bash_shell]
+files:
+  [
+    introduction.md,
+    meet-docker.md,
+    managing-containers.md,
+    running-containers.md,
+    docker-hub.md,
+    creating-container-images.md,
+    advanced-containers.md,
+    docker-image-examples.md,
+    e01-github-actions.md,
+    e02-jekyll-lesson-example.md,
+    reproducibility.md,
+    setup.md,
+  ]
+attribution:
+  - citation: >
+      D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
+      Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator.
+    url: https://github.com/carpentries-incubator/docker-introduction
+    image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
+    license: CC-BY-4.0
 summary: |
-    This course aims to introduce the use of Docker containers with the goal of
-    using them to effect reproducible computational environments.
+  This course aims to introduce the use of Docker containers with the goal of
+  using them to effect reproducible computational environments.
 ---
 
 This session aims to introduce the use of Docker containers with the goal of

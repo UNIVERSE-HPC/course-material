@@ -1,40 +1,38 @@
 ---
 name: For Loops
-dependsOn: [
-    introductory_courses.python.08_lists
-]
+dependsOn: [introductory_courses.python.08_lists]
 tags: [python]
-attribution: 
-    - citation: >
-        "Programming with Python" course by the Carpentries
-      url: https://swcarpentry.github.io/python-novice-inflammation/
-      image: https://carpentries.org/assets/img/TheCarpentries.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Programming with Python" course by the Carpentries
+    url: https://swcarpentry.github.io/python-novice-inflammation/
+    image: https://carpentries.org/assets/img/TheCarpentries.svg
+    license: CC-BY-4.0
 ---
 
-## A *for loop* executes commands once for each value in a collection
+## A _for loop_ executes commands once for each value in a collection
 
-* Doing calculations on the values in a list one by one
-    is as painful as working with `pressure_001`, `pressure_002`, etc.
-* A *for loop* tells Python to execute some statements once for each value in a list,
-    a character string,
-    or some other collection.
-* "for each thing in this group, do these operations"
+- Doing calculations on the values in a list one by one
+  is as painful as working with `pressure_001`, `pressure_002`, etc.
+- A _for loop_ tells Python to execute some statements once for each value in a list,
+  a character string,
+  or some other collection.
+- "for each thing in this group, do these operations"
 
-``` python
+```python
 for number in [2, 3, 5]:
     print(number)
 ```
 
-* This `for` loop is equivalent to:
+- This `for` loop is equivalent to:
 
-``` python
+```python
 print(2)
 print(3)
 print(5)
 ```
 
-* And the `for` loop's output is:
+- And the `for` loop's output is:
 
 ```text
 2
@@ -44,21 +42,21 @@ print(5)
 
 ## A `for` loop is made up of a collection, a loop variable, and a body
 
-``` python
+```python
 for number in [2, 3, 5]:
     print(number)
 ```
 
-* The collection, `[2, 3, 5]`, is what the loop is being run on.
-* The body, `print(number)`, specifies what to do for each value in the collection.
-* The loop variable, `number`, is what changes for each *iteration* of the loop.
-  * The "current thing".
+- The collection, `[2, 3, 5]`, is what the loop is being run on.
+- The body, `print(number)`, specifies what to do for each value in the collection.
+- The loop variable, `number`, is what changes for each _iteration_ of the loop.
+  - The "current thing".
 
 ## The first line of the `for` loop must end with a colon, and the body must be indented
 
-* The colon at the end of the first line signals the start of a *block* of statements.
-* Python uses indentation rather than `{}` or `begin`/`end` to show *nesting*.
-  * Any consistent indentation is legal, but almost everyone uses four spaces.
+- The colon at the end of the first line signals the start of a _block_ of statements.
+- Python uses indentation rather than `{}` or `begin`/`end` to show _nesting_.
+  - Any consistent indentation is legal, but almost everyone uses four spaces.
 
 ```python nolint
 for number in [2, 3, 5]:
@@ -69,7 +67,7 @@ print(number)
 IndentationError: expected an indented block
 ```
 
-* Indentation is always meaningful in Python.
+- Indentation is always meaningful in Python.
 
 ```python nolint
 firstName = "Jon"
@@ -83,26 +81,26 @@ firstName = "Jon"
 IndentationError: unexpected indent
 ```
 
-* This error can be fixed by removing the extra spaces
-    at the beginning of the second line.
+- This error can be fixed by removing the extra spaces
+  at the beginning of the second line.
 
 ## Loop variables can be called anything
 
-* As with all variables, loop variables are:
-  * Created on demand.
-  * Meaningless: their names can be anything at all.
+- As with all variables, loop variables are:
+  - Created on demand.
+  - Meaningless: their names can be anything at all.
 
-``` python
+```python
 for kitten in [2, 3, 5]:
     print(kitten)
 ```
 
 ## The body of a loop can contain many statements
 
-* But no loop should be more than a few lines long.
-* Hard for human beings to keep larger chunks of code in mind.
+- But no loop should be more than a few lines long.
+- Hard for human beings to keep larger chunks of code in mind.
 
-``` python
+```python
 primes = [2, 3, 5]
 for p in primes:
     squared = p ** 2
@@ -118,11 +116,11 @@ for p in primes:
 
 ## Use `range` to iterate over a sequence of numbers
 
-* The built-in function [`range`](https://docs.python.org/3/library/stdtypes.html#range) produces a sequence of numbers.
-  * *Not* a list: the numbers are produced on demand
-        to make looping over large ranges more efficient.
-* `range(N)` is the numbers 0..N-1
-  * Exactly the legal indices of a list or character string of length N
+- The built-in function [`range`](https://docs.python.org/3/library/stdtypes.html#range) produces a sequence of numbers.
+  - _Not_ a list: the numbers are produced on demand
+    to make looping over large ranges more efficient.
+- `range(N)` is the numbers 0..N-1
+  - Exactly the legal indices of a list or character string of length N
 
 ```python
 print('a range is not a list: range(0, 3)')
@@ -139,15 +137,15 @@ a range is not a list: range(0, 3)
 
 ## The Accumulator pattern turns many values into one
 
-* A common pattern in programs is to:
-    1. Initialize an *accumulator* variable to zero, the empty string, or the empty list.
-    2. Update the variable with values from a collection.
+- A common pattern in programs is to:
+  1. Initialize an _accumulator_ variable to zero, the empty string, or the empty list.
+  2. Update the variable with values from a collection.
 
-``` python
+```python
 # Sum the first 10 integers.
 total = 0
 for number in range(10):
-   total = total + (number + 1)
+    total = total + (number + 1)
 print(total)
 ```
 
@@ -155,11 +153,11 @@ print(total)
 55
 ```
 
-* Read `total = total + (number + 1)` as:
-  * Add 1 to the current value of the loop variable `number`.
-  * Add that to the current value of the accumulator variable `total`.
-  * Assign that to `total`, replacing the current value.
-* We have to add `number + 1` because `range` produces 0..9, not 1..10.
+- Read `total = total + (number + 1)` as:
+  - Add 1 to the current value of the loop variable `number`.
+  - Add that to the current value of the accumulator variable `total`.
+  - Assign that to `total`, replacing the current value.
+- We have to add `number + 1` because `range` produces 0..9, not 1..10.
 
 ::::challenge{id="classifying_errors" title="Classifying Errors"}
 
@@ -175,7 +173,7 @@ A program with a runtime error will start but an error will be thrown under cert
 Create a table showing the numbers of the lines that are executed when this program runs,
 and the values of the variables after each line is executed.
 
-``` python
+```python
 total = 0
 for char in "tin":
     total = total + 1
@@ -184,7 +182,7 @@ for char in "tin":
 :::solution
 
 | Line no | Variables            |
-|---------|----------------------|
+| ------- | -------------------- |
 | 1       | total = 0            |
 | 2       | total = 0 char = 't' |
 | 3       | total = 1 char = 't' |
@@ -192,6 +190,7 @@ for char in "tin":
 | 3       | total = 2 char = 'i' |
 | 2       | total = 2 char = 'n' |
 | 3       | total = 3 char = 'n' |
+
 :::
 ::::
 
@@ -199,7 +198,7 @@ for char in "tin":
 
 Fill in the blanks in the program below so that it prints "nit" (the reverse of the original character string "tin").
 
-``` python
+```python nolint
 original = "tin"
 result = ____
 for char in original:
@@ -209,7 +208,7 @@ print(result)
 
 :::solution
 
-``` python
+```python
 original = "tin"
 result = ""
 for char in original:
@@ -224,7 +223,7 @@ print(result)
 
 Fill in the blanks in each of the programs below to produce the indicated result.
 
-``` python
+```python nolint
 # Total length of the strings in the list: ["red", "green", "blue"] =12
 total = 0
 for word in ["red", "green", "blue"]:
@@ -234,7 +233,7 @@ print(total)
 
 :::solution
 
-``` python
+```python
 total = 0
 for word in ["red", "green", "blue"]:
     total = total + len(word)
@@ -243,7 +242,7 @@ print(total)
 
 :::
 
-``` python
+```python nolint
 # List of word lengths: ["red", "green", "blue"] =[3, 5, 4]
 lengths = ____
 for word in ["red", "green", "blue"]:
@@ -253,7 +252,7 @@ print(lengths)
 
 :::solution
 
-``` python
+```python
 lengths = []
 for word in ["red", "green", "blue"]:
     lengths.append(len(word))
@@ -262,7 +261,7 @@ print(lengths)
 
 :::
 
-``` python
+```python nolint
 # Concatenate all words: ["red", "green", "blue"] ="redgreenblue"
 words = ["red", "green", "blue"]
 result = ____
@@ -273,7 +272,7 @@ print(result)
 
 :::solution
 
-``` python
+```python
 words = ["red", "green", "blue"]
 result = ""
 for word in words:
@@ -283,12 +282,12 @@ print(result)
 
 :::
 
-__Create an acronym:__ Starting from the list `["red", "green", "blue"]`, create the acronym `"RGB"` using a for loop.
+**Create an acronym:** Starting from the list `["red", "green", "blue"]`, create the acronym `"RGB"` using a for loop.
 
-__Hint:__ You may need to use a string method to properly format the acronym.
+**Hint:** You may need to use a string method to properly format the acronym.
 :::solution
 
-``` python
+```python
 acronym = ""
 for word in ["red", "green", "blue"]:
     acronym = acronym + word[0].upper()
@@ -306,7 +305,7 @@ Reorder and properly indent the lines of code below
 so that they print a list with the cumulative sum of data.
 The result should be `[1, 3, 5, 10]`.
 
-``` python nolint
+```python nolint
 cumulative.append(total)
 for number in data:
 cumulative = []
@@ -318,7 +317,7 @@ data = [1,2,2,5]
 
 :::solution
 
-``` python
+```python
 total = 0
 data = [1,2,2,5]
 cumulative = []
@@ -334,7 +333,7 @@ print(cumulative)
 ::::challenge{id="identifying_variable_name_errors" title="Identifying Variable Name Errors"}
 
 1. Read the code below and try to identify what the errors are
-   *without* running it.
+   _without_ running it.
 2. Run the code and read the error message.
    What type of `NameError` do you think this is?
    Is it a string with no quotes, a misspelled variable, or a
@@ -342,7 +341,7 @@ print(cumulative)
 3. Fix the error.
 4. Repeat steps 2 and 3, until you have fixed all the errors.
 
-``` python
+```python nolint
 for number in range(10):
     # use a if the number is a multiple of 3, otherwise use b
     if (Number % 3) == 0:
@@ -354,11 +353,11 @@ print(message)
 
 :::solution
 
-* Python variable names are case sensitive: `number` and `Number` refer to different variables.
-* The variable `message` needs to be initialized as an empty string.
-* We want to add the string `"a"` to `message`, not the undefined variable `a`.
+- Python variable names are case sensitive: `number` and `Number` refer to different variables.
+- The variable `message` needs to be initialized as an empty string.
+- We want to add the string `"a"` to `message`, not the undefined variable `a`.
 
-``` python
+```python
 message = ""
 for number in range(10):
     # use a if the number is a multiple of 3, otherwise use b
@@ -375,11 +374,11 @@ print(message)
 ::::challenge{id="identifying_item_errors" title="Identifying Item Errors"}
 
 1. Read the code below and try to identify what the errors are
-   *without* running it.
+   _without_ running it.
 2. Run the code, and read the error message. What type of error is it?
 3. Fix the error.
 
-``` python
+```python
 seasons = ['Spring', 'Summer', 'Fall', 'Winter']
 print('My favorite season is ', seasons[4])
 ```
@@ -387,7 +386,7 @@ print('My favorite season is ', seasons[4])
 :::solution
 This list has 4 elements and the index to access the last element in the list is `3`.
 
-``` python
+```python
 seasons = ['Spring', 'Summer', 'Fall', 'Winter']
 print('My favorite season is ', seasons[3])
 ```

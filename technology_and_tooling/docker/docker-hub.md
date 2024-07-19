@@ -2,22 +2,20 @@
 name: "Finding Containers on Docker Hub"
 teaching: 10
 exercises: 10
-dependsOn: [
-  technology_and_tooling.docker.managing-containers
-]
+dependsOn: [technology_and_tooling.docker.managing-containers]
 tags: [docker]
-attribution: 
-    - citation: >
-        D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
-        Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator. 
-      url: https://github.com/carpentries-incubator/docker-introduction
-      image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
+      Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator.
+    url: https://github.com/carpentries-incubator/docker-introduction
+    image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
+    license: CC-BY-4.0
 ---
 
 In the previous episode, we ran a few different containers derived from different
 container images: `hello-world`, `alpine`,
-and maybe `busybox`. Where did these container images come from?  The Docker Hub!
+and maybe `busybox`. Where did these container images come from? The Docker Hub!
 
 ## Introducing the Docker Hub
 
@@ -54,7 +52,7 @@ The "How to use the image" section of most container images' pages will provide 
 ## Exploring Container Image Versions
 
 A single Docker Hub page can have many different versions of container images,
-based on the version of the software inside.  These
+based on the version of the software inside. These
 versions are indicated by "tags". When referring to the specific version of a container image
 by its tag, you use a colon, `:`, like this:
 

@@ -1,19 +1,16 @@
 ---
 name: Differential equations 2
-dependsOn: [
-  scientific_computing.essential_maths.09_differential_equations_1
-]
+dependsOn: [scientific_computing.essential_maths.09_differential_equations_1]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ---
@@ -76,13 +73,11 @@ Assuming that the growth rate of the tumour depends only on the availability of 
 
 This gives us the equation:
 
-> $$\displaystyle\frac{{\rm d}V}{{\rm d}t} = kV^{2/3}$$
-> $$\displaystyle\frac{{\rm d}V}{{\rm d}t} = kV^{2/3}$$
+> $$\displaystyle\frac{{\rm d}V}{{\rm d}t} = kV^{2/3}$$ > $$\displaystyle\frac{{\rm d}V}{{\rm d}t} = kV^{2/3}$$
 
 Solve by separation of variables:
 
-> $$\displaystyle\int V^{-2/3}~{\rm d}V = \int k~{\rm d}t$$
-> $$\displaystyle V = \left({kt+c\over 3}\right)^3$$
+> $$\displaystyle\int V^{-2/3}~{\rm d}V = \int k~{\rm d}t$$ > $$\displaystyle V = \left({kt+c\over 3}\right)^3$$
 
 where $c$ is a constant of integration, the value of which will depend upon the initial conditions.
 
@@ -125,10 +120,10 @@ For example, if we know the following:
 
 - At $\;x=0,\;$ $\;\displaystyle \frac{{\rm d}y}{{\rm d}x} = -1\;$ and $\;y=0\;$.
 
-    We substitute the first condition into $\displaystyle \frac{{\rm d}y}{{\rm d}x} = -{1\over x+A}$ to obtain $\;A=1\;$.
+  We substitute the first condition into $\displaystyle \frac{{\rm d}y}{{\rm d}x} = -{1\over x+A}$ to obtain $\;A=1\;$.
 
-    Then substitute $A$ and the second condition into the eventual solution
-    to find $\;B=0$.
+  Then substitute $A$ and the second condition into the eventual solution
+  to find $\;B=0$.
 
 ---
 
@@ -136,10 +131,9 @@ Alternatively, if we instead know that:
 
 - $\;y(0)=0\;$ and $\;y(e-1)=-1$.
 
-    This time both conditions can be substituted into the solution:
+  This time both conditions can be substituted into the solution:
 
-    > $$\displaystyle y(0)=0 \Rightarrow 0=B-\ln(A) \Rightarrow B=\ln(A)$$
-    > $$\displaystyle y(e-1)=-1 \Rightarrow -1=\ln(A)-\ln{e-1+A} \Rightarrow A=1$$
+  > $$\displaystyle y(0)=0 \Rightarrow 0=B-\ln(A) \Rightarrow B=\ln(A)$$ > $$\displaystyle y(e-1)=-1 \Rightarrow -1=\ln(A)-\ln{e-1+A} \Rightarrow A=1$$
 
 ## More integration tricks
 
@@ -156,6 +150,7 @@ We can split apart the integral on the RHS using **partial fractions** in SymPy 
 We want $\displaystyle \qquad{1\over y(k_1-k_2y)}={A\over y}+{B\over (k_1-k_2y)}$:
 
 ```python
+import sympy as sp
 y, k1, k2 = sp.symbols('y k_1 k_2')
 sp.apart(1 / (y*(k1 - k2*y)),y)
 ```
@@ -195,12 +190,12 @@ A circular patch of oil on the surface of some water has a radius $r$ metres at 
 When $t=0$ minutes, $r=1\,$m and when $t=10$ minutes, $r=2\,$m.
 
 1. Predict the value $T$ of $t$ when $r=4\,$m, using a simple model in which the rate of increase of $r$ is taken to be constant.
-Find $T$ for this model.
+   Find $T$ for this model.
 1. In a more refined model, the rate of increase of $r$ is taken to be proportional to $1/r$.
-Express this statement as a differential equation, and find the general solution.
-Find $T$ for this model.
+   Express this statement as a differential equation, and find the general solution.
+   Find $T$ for this model.
 1. Compare the two models used in 1. and 2., by sketching $r(t)$ on the same figure or plotting using Python.
-Comment on the differences seen during different time intervals.
+   Comment on the differences seen during different time intervals.
 
 ::::
 
@@ -229,10 +224,10 @@ By Fick's law, if $\displaystyle c(t)$ and $k$ are unequal, solute moves across 
 
 1. Write down a differential equation which is satisfied by $\displaystyle c(t)$.
 1. Solve this differential equation with the initial condition $\displaystyle c(0)=c_0$.
-1. Sketch the solutions for  $\displaystyle c_0 > k$  and  $\displaystyle k > c_0$.
+1. Sketch the solutions for $\displaystyle c_0 > k$ and $\displaystyle k > c_0$.
 1. Blood glucose concentration is 5.1 mM and the concentration inside the cell is at 0.1 mM.
-If glucose utilisation within the cell is totally inhibited, it takes 1 min for the intracellular concentration to reach 2.6 mM.
-How long would it take for the concentration to reach 5.0 mM?
+   If glucose utilisation within the cell is totally inhibited, it takes 1 min for the intracellular concentration to reach 2.6 mM.
+   How long would it take for the concentration to reach 5.0 mM?
 1. Calculate the amount of glucose (moles) entering the cell to bring the concentration from 0.1 mM to 5 mM assuming the cell is spherical with a diameter of $10\,\mu$m.
 
 ::::

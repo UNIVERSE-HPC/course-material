@@ -1,16 +1,13 @@
 ---
 name: VSCode
-dependsOn: [
-]
+dependsOn: []
 tags: [python]
 
 attribution:
-  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk
     image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
     license: CC-BY-4.0
-
-
 ---
 
 ## Introduction to VSCode
@@ -74,15 +71,15 @@ Let's create our first Python script in VSCode and save it:
 
 - Select `File` -> `New Text File` from the menu. A new file will appear.
 - On line 1, you'll see a message about selecting a language. Click on `Select a
-  language`, and type in `python`, and select `Python (python) Built-In`
+language`, and type in `python`, and select `Python (python) Built-In`
 - Select `File` > `Save As...`. You'll find yourself in your root project directory.
   Enter the filename `hello_world.py` at the top and select `Save`.
 
 Let's start with a classic 'Hello world' script. Enter this into the editor:
 
-~~~python
+```python
 print('Hello world!')
-~~~
+```
 
 VSCode comes with Python support built-in. You'll notice that as you type, the editor is
 suggesting possible statements, functions (and also variables and other Python
@@ -104,10 +101,10 @@ select `Run and Debug`. It will ask you to `Select a debug configuration`, so se
 `Python File`. It will now run our script, and you should see a terminal window pop-up
 at the bottom, with something like the following text in it:
 
-~~~bash
+```bash
 user@mycomputer:~/my/project/dir$  /usr/bin/env /usr/bin/python3 /home/user/.vscode/extensions/ms-python.python-2022.14.0/pythonFiles/lib/python/debugpy/launcher 38613 -- /home/user/my/project/dir/hello_world.py
 Hello world!
-~~~
+```
 
 Here, we can see that the interpreter `/usr/bin/python3` has been used to run the VSCode
 debugger on our `hello_world.py` script, which produces the shown 'Hello world!' output.
@@ -115,8 +112,8 @@ debugger on our `hello_world.py` script, which produces the shown 'Hello world!'
 ## Setting up a Virtual Environment
 
 Before we start using VSCode beyond a 'Hello world' example, we should set up a new
-*virtual environment* for running our Python scripts. We are currently using the
-*global* installation of Python 3, and this is not considered good development practice.
+_virtual environment_ for running our Python scripts. We are currently using the
+_global_ installation of Python 3, and this is not considered good development practice.
 
 :::callout
 
@@ -141,9 +138,9 @@ Go back to the terminal window, and exit the Python interpreter (either by typin
 
 In the Bash shell, type the following (whilst in the root project directory):
 
-~~~bash
+```bash
 python3 -m venv venv
-~~~
+```
 
 This instructs Python to construct a new Python virtual environment for us. Within our
 `code` directory now, you should see a new `venv` directory. This will contain a
@@ -158,29 +155,29 @@ environment.
 
 We can activate this virtual environment, and see what it contains, by doing:
 
-~~~bash
+```bash
 source venv/bin/activate
 pip3 list
-~~~
+```
 
 `source` runs a script that activates our virtual environment. `pip` is the de-facto
 Python package installer; in this case we're using the version for Python 3 specifically
 and asking it to list the packages that are currently resident in the virtual
 environment:
 
-~~~text
+```text
 Package       Version
 ------------- -------
 pip        22.0.2
 setuptools 59.6.0
-~~~
+```
 
 In addition to Python which is also installed, as we can see, we don't have any other
 packages installed yet, aside from `pip` itself, and `setuptools` (which contains
 functionality for building and distributing Python packages).
 
 Note that this virtual environment is only active within our current terminal. If we
-start another terminal and want to use this virtual environment, we'd  have to activate
+start another terminal and want to use this virtual environment, we'd have to activate
 it there as well. Also, if we were to close the terminal, the activation of this
 environment (not the environment itself) will be forgotten. When we want to use this
 virtual environment we have to remember to start it using the `source venv/bin/activate`
@@ -201,27 +198,27 @@ dependencie belong with which project.
 You'll remember that we were originally running the Python interpreter directly from the
 command line earlier. From within the same terminal, type:
 
-~~~bash
+```bash
 which python3
-~~~
+```
 
 And you should see something like:
 
-~~~text
+```text
 /home/user/my/project/dir/venv/bin/python3
-~~~
+```
 
 Which confirms that we are using the Python 3 interpreter from within our virtual environment at `/home/user/my/project/dir/venv`.
 
 Now let's run our new script using our virtual environment from the command line:
 
-~~~bash
+```bash
 python3 hello_world.py
-~~~
+```
 
-~~~text
+```text
 Hello world!
-~~~
+```
 
 So here, we're doing a very similar thing to what VSCode was doing when running our
 script: we give the command line the Python interpreter to run (which will use the one

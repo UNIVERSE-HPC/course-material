@@ -1,25 +1,19 @@
 ---
 name: Virtual Environments
-dependsOn: [
-  technology_and_tooling.ide.python
-]
+dependsOn: [technology_and_tooling.ide.python]
 tags: [python, venv]
-attribution: 
-    - citation: >
-        "Python Packaging" course developed by Thibault Lestang and the Oxford Research 
-        Software Engineering group
-      url: https://github.com/OxfordRSE/python-packaging-course
-      image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
-
+attribution:
+  - citation: >
+      "Python Packaging" course developed by Thibault Lestang and the Oxford Research 
+      Software Engineering group
+    url: https://github.com/OxfordRSE/python-packaging-course
+    image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
-
-
 
 :::callout
 This material was edited from the original in "Intermediate Research Software
@@ -31,23 +25,23 @@ Development Skills" hosted by the Software Carpentries"
 Consider the following lines of Python that you might find at the top of a file that
 does some plotting and data analysis:
 
-~~~python
+```python
 from matplotlib import pyplot as plt
 import numpy as np
-~~~
+```
 
-This means that our code requires two *external libraries* (also called third-party packages or dependencies) -
+This means that our code requires two _external libraries_ (also called third-party packages or dependencies) -
 `numpy` and `matplotlib`.
 
 Python applications often use external libraries that don’t come as part of the standard Python distribution. This means
-that you will have to use a *package manager* tool to install them on your system.
+that you will have to use a _package manager_ tool to install them on your system.
 Applications will also sometimes need a
 specific version of an external library (e.g. because they require that a particular
 bug has been fixed in a newer version of the library), or a specific version of Python interpreter.
 This means that each Python application you work with may require a different setup and a set of dependencies so it
 is important to be able to keep these configurations separate to avoid confusion between projects.
-The solution for this problem is to create a self-contained *virtual
-environment* per project, which contains a particular version of Python installation plus a number of
+The solution for this problem is to create a self-contained _virtual
+environment_ per project, which contains a particular version of Python installation plus a number of
 additional external libraries.
 
 Virtual environments are not just a feature of Python - most modern programming languages use them to isolate libraries
@@ -61,8 +55,8 @@ So what exactly are virtual environments, and why use them?
 
 A Python virtual environment is an **isolated working copy** of a specific version of
 Python interpreter together with specific versions of a number of external libraries installed into that
-virtual environment. A virtual environment is simply a *directory with a particular
-structure* which includes links to and enables multiple side-by-side installations of
+virtual environment. A virtual environment is simply a _directory with a particular
+structure_ which includes links to and enables multiple side-by-side installations of
 different Python interpreters or different versions of the same external library to coexist on your machine and only one to be selected for each of our projects. This allows you to work on a particular
 project without worrying about affecting other projects on your machine.
 
@@ -73,14 +67,14 @@ for using virtual environments is that they make sharing your code with others m
 Here are some typical scenarios where the usage of virtual environments is highly recommended (almost unavoidable):
 
 - You have an older project that only works under Python 2. You do not have the time to migrate the project to Python 3
-or it may not even be possible as some of the third party dependencies are not available under Python 3. You have to
-start another project under Python 3. The best way to do this on a single machine is to set up two separate Python virtual
-environments.
+  or it may not even be possible as some of the third party dependencies are not available under Python 3. You have to
+  start another project under Python 3. The best way to do this on a single machine is to set up two separate Python virtual
+  environments.
 - One of your Python 3 projects is locked to use a particular older version of a third party dependency. You cannot use the
-latest version of the
-dependency as it breaks things in your project. In a separate branch of your project, you want to try and fix problems
-introduced by the new version of the dependency without affecting the working version of your project. You need to set up
-a separate virtual environment for your branch to 'isolate' your code while testing the new feature.
+  latest version of the
+  dependency as it breaks things in your project. In a separate branch of your project, you want to try and fix problems
+  introduced by the new version of the dependency without affecting the working version of your project. You need to set up
+  a separate virtual environment for your branch to 'isolate' your code while testing the new feature.
 
 You do not have to worry too much about specific versions of external libraries that your project depends on most of the time.
 Virtual environments enable you to always use the latest available version without specifying it explicitly.
@@ -116,7 +110,7 @@ also recognised and picked up automatically by PyCharm IDE, as we will see in th
 
 Part of managing your (virtual) working environment involves installing, updating and removing external packages
 on your system. The Python package manager tool `pip` is most commonly used for this - it interacts
- and obtains the packages from the central repository called [Python Package Index (PyPI)](https://pypi.org/).
+and obtains the packages from the central repository called [Python Package Index (PyPI)](https://pypi.org/).
 `pip` can now be used with all Python distributions (including Anaconda).
 
 :::callout
@@ -139,7 +133,7 @@ Note that each Python distribution comes with its own version of
 `pip` - and if you have several Python versions installed you have to be extra careful to use the correct `pip` to
 manage external packages for that Python version.
 
-`venv` and `pip` are considered the *de facto* standards for virtual environment and package management for Python 3.
+`venv` and `pip` are considered the _de facto_ standards for virtual environment and package management for Python 3.
 However, the advantages of using Anaconda and `conda` are that you get (most of the) packages needed for
 scientific code development included with the distribution. If you are only collaborating with others who are also using
 Anaconda, you may find that `conda` satisfies all your needs. It is good, however, to be aware of all these tools,
@@ -155,9 +149,9 @@ Let us have a look at how we can create and manage virtual environments from the
 
 Creating a virtual environment with `venv` is done by executing the following command:
 
-~~~bash
+```bash
 python3 -m venv /path/to/new/virtual/environment
-~~~
+```
 
 where `/path/to/new/virtual/environment` is a path to a directory where you want to place it - conventionally within
 your software project so they are co-located.
@@ -165,31 +159,31 @@ This will create the target directory for the virtual environment (and any paren
 
 For our project let's create a virtual environment called "venv". First, ensure you are within the project root directory, then:
 
-~~~bash
+```bash
 python3 -m venv venv
-~~~
+```
 
 If you list the contents of the newly created directory "venv", on a Mac or Linux system
 (slightly different on Windows as explained below) you should see something like:
 
-~~~bash
+```bash
 ls -l venv
-~~~
+```
 
-~~~text
+```text
 total 8
 drwxr-xr-x  12 alex  staff  384  5 Oct 11:47 bin
 drwxr-xr-x   2 alex  staff   64  5 Oct 11:47 include
 drwxr-xr-x   3 alex  staff   96  5 Oct 11:47 lib
 -rw-r--r--   1 alex  staff   90  5 Oct 11:47 pyvenv.cfg
-~~~
+```
 
 So, running the `python3 -m venv venv` command created the target directory called "venv"
 containing:
 
 - `pyvenv.cfg` configuration file with a home key pointing to the Python installation from which the command was run,
 - `bin` subdirectory (called `Scripts` on Windows) containing a symlink of the Python interpreter binary used to create the
-environment and the standard Python library,
+  environment and the standard Python library,
 - `lib/pythonX.Y/site-packages` subdirectory (called `Lib\site-packages` on Windows) to contain its own independent set of installed Python packages isolated from other projects,
 - various other configuration and supporting files and subdirectories.
 
@@ -218,9 +212,9 @@ you will decide what naming convention works best for you. Here are some referen
 
 Once you’ve created a virtual environment, you will need to activate it:
 
-~~~bash
+```bash
 source venv/bin/activate
-~~~
+```
 
 Activating the virtual environment will change your command line’s prompt to show what virtual environment
 you are currently using (indicated by its name in round brackets at the start of the prompt),
@@ -229,25 +223,25 @@ version of Python configured in your virtual environment.
 
 You can verify you are using your virtual environment's version of Python by checking the path using the command `which`:
 
-~~~bash
+```bash
 which python3
-~~~
+```
 
-~~~text
+```text
 /<your-current-directory>/venv/bin/python3
-~~~
+```
 
 When you’re done working on your project, you can exit the environment with:
 
-~~~bash
+```bash
 deactivate
-~~~
+```
 
 If you've just done the `deactivate`, ensure you reactivate the environment ready for the next part:
 
-~~~bash
+```bash
 source venv/bin/activate
-~~~
+```
 
 :::callout
 
@@ -263,22 +257,22 @@ in version control - we will see how to handle it using Git in one of the subseq
 
 ### Installing External Packages Using `pip`
 
-We noticed earlier that our code depends on two *external packages/libraries* - `numpy` and `matplotlib`. In order
+We noticed earlier that our code depends on two _external packages/libraries_ - `numpy` and `matplotlib`. In order
 for the code to run on your machine, you need to
 install these two dependencies into your virtual environment.
 
 To install the latest version of a package with `pip` you use pip's `install` command and specify the package’s name, e.g.:
 
-~~~bash
+```bash
 pip3 install numpy
 pip3 install matplotlib
-~~~
+```
 
 or like this to install multiple packages at once for short:
 
-~~~bash
+```bash
 pip3 install numpy matplotlib
-~~~
+```
 
 :::callout
 
@@ -305,11 +299,11 @@ To upgrade a package to the latest version, e.g. `pip3 install --upgrade numpy`.
 
 To display information about a particular installed package do:
 
-~~~bash
+```bash
 pip3 show numpy
-~~~
+```
 
-~~~text
+```text
 Name: numpy
 Version: 1.21.2
 Summary: NumPy is the fundamental package for array computing with Python.
@@ -320,15 +314,15 @@ License: BSD
 Location: /Users/alex/work/SSI/Carpentries/python-intermediate-inflammation/inflammation/lib/python3.9/site-packages
 Requires:
 Required-by: matplotlib
-~~~
+```
 
 To list all packages installed with `pip` (in your current virtual environment):
 
-~~~bash
+```bash
 pip3 list
-~~~
+```
 
-~~~text
+```text
 Package         Version
 --------------- -------
 cycler          0.11.0
@@ -345,7 +339,7 @@ setuptools      57.0.0
 setuptools-scm  6.3.2
 six             1.16.0
 tomli           1.2.2
-~~~
+```
 
 To uninstall a package installed in the virtual environment do: `pip3 uninstall package-name`.
 You can also supply a list of packages to uninstall at the same time.
@@ -361,12 +355,12 @@ To export your active environment - use `pip3 freeze` command to
 produce a list of packages installed in the virtual environment.
 A common convention is to put this list in a `requirements.txt` file:
 
-~~~bash
+```bash
 pip3 freeze > requirements.txt
 cat requirements.txt
-~~~
+```
 
-~~~text
+```text
 cycler==0.11.0
 fonttools==4.28.1
 kiwisolver==1.3.2
@@ -379,7 +373,7 @@ python-dateutil==2.8.2
 setuptools-scm==6.3.2
 six==1.16.0
 tomli==1.2.2
-~~~
+```
 
 The first of the above commands will create a `requirements.txt` file in your current directory. Yours may look a little different, depending on the version of the packages you have installed, as well as any differences in the packages that they themselves use.
 
@@ -388,9 +382,9 @@ one of the following episodes) and
 get shipped as part of your software and shared with collaborators and/or users. They can then replicate your environment and
 install all the necessary packages from the project root as follows:
 
-~~~bash
+```bash
 pip3 install -r requirements.txt
-~~~
+```
 
 As your project grows - you may need to update your environment for a variety of reasons. For example, one of your project's dependencies has
 just released a new version (dependency version number update), you need an additional package for data analysis

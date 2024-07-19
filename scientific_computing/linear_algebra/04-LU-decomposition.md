@@ -1,18 +1,16 @@
 ---
 name: LU decomposition
-dependsOn: [
-    'scientific_computing.linear_algebra.02-gaussian-elimination',
-]
+dependsOn: ["scientific_computing.linear_algebra.02-gaussian-elimination"]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
+attribution:
+  - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ---
@@ -51,7 +49,7 @@ U x &= y
 \end{aligned}
 $$
 
-where $A = LU$. The $L$ matrix is a *unit* lower triangular matrix and thus has ones on
+where $A = LU$. The $L$ matrix is a _unit_ lower triangular matrix and thus has ones on
 the diagonal, whereas $U$ is in row echelon form with pivot values in the leading
 coefficients of each row.
 
@@ -258,7 +256,7 @@ about a half that required for the $LU$ decomposition.
 
 ## Other Reading
 
-- Linear algebra and its applications by David C. Lay. Chaper 2.5  
+- Linear algebra and its applications by David C. Lay. Chaper 2.5
 - Golub, G. H. & Van Loan, C. F. Matrix Computations, 3rd Ed. (Johns Hopkins University
   Press, 1996). Chapter 3.2 & 4.1
 - <https://en.wikipedia.org/wiki/LU_decomposition>

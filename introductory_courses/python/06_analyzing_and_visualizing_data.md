@@ -1,15 +1,13 @@
 ---
 name: Analyzing and Visualizing Data
-dependsOn: [
-    introductory_courses.python.05_libraries
-]
+dependsOn: [introductory_courses.python.05_libraries]
 tags: [python]
-attribution: 
-    - citation: >
-        "Programming with Python" course by the Carpentries
-      url: https://swcarpentry.github.io/python-novice-inflammation/
-      image: https://carpentries.org/assets/img/TheCarpentries.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Programming with Python" course by the Carpentries
+    url: https://swcarpentry.github.io/python-novice-inflammation/
+    image: https://carpentries.org/assets/img/TheCarpentries.svg
+    license: CC-BY-4.0
 ---
 
 :::callout
@@ -26,7 +24,7 @@ One way we can accomplish this is using a library called [NumPy](http://docs.sci
 In general, you should be using this library whenever you want to do fancy things with lots of numbers, especially if you have matrices or arrays.
 To tell Python that we'd like to start using NumPy, we need to [import it](05_libraries):
 
-``` python
+```python
 import numpy
 ```
 
@@ -38,12 +36,12 @@ need for each program.
 
 Once we've imported the library, we can ask the library to read our data file for us:
 
-``` python
+```python
 numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
 ```
 
-``` text
-array([[ 0.,  0.,  1., ...,  3.,  0.,  0.],
+```text
+numpy.array([[ 0.,  0.,  1., ...,  3.,  0.,  0.],
        [ 0.,  1.,  2., ...,  1.,  0.,  1.],
        [ 0.,  1.,  1., ...,  2.,  1.,  1.],
        ...,
@@ -74,7 +72,7 @@ In a similar manner to how we assign a single value to a variable,
 we can also assign an array of values to a variable using the same syntax.
 Let's re-run `numpy.loadtxt` and save the returned data:
 
-``` python
+```python
 data = numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
 ```
 
@@ -82,11 +80,11 @@ This statement doesn't produce any output because we've assigned the output to t
 If we want to check that the data have been loaded,
 we can print the variable's value:
 
-``` python
+```python
 print(data)
 ```
 
-``` text
+```text
 [[ 0.  0.  1. ...,  3.  0.  0.]
  [ 0.  1.  2. ...,  1.  0.  1.]
  [ 0.  1.  1. ...,  2.  1.  1.]
@@ -99,11 +97,11 @@ print(data)
 Now that the data are in memory, we can manipulate them.
 First, let's ask what type of thing `data` refers to:
 
-``` python
+```python
 print(type(data))
 ```
 
-``` text
+```text
 <class 'numpy.ndarray'>
 ```
 
@@ -121,17 +119,17 @@ A Numpy array contains one or more elements of the same type.
 The `type` function will only tell you that a variable is a NumPy array but won't tell you the type of thing inside the array.
 We can find out the type of the data contained in the NumPy array.
 
-``` python
+```python
 print(data.dtype)
 ```
 
-``` text
+```text
 float64
 ```
 
 Likewise, we can use type to find out the type of a single value, this can be useful when dealing with other data structures.
 
-``` python
+```python
 type(data[0,0])
 ```
 
@@ -140,17 +138,17 @@ This tells us that the NumPy array's elements are floating point numbers.
 
 With the following command, we can see the array's shape:
 
-``` python
+```python
 print(data.shape)
 ```
 
-``` python
+```python
 (60, 40)
 ```
 
 The output tells us that the `data` array variable contains 60 rows and 40 columns. When we
 created the variable `data` to store our arthritis data, we did not only create the array; we also
-created information about the array, called *members* or
+created information about the array, called _members_ or
 attributes. This extra information describes `data` in the same way an adjective describes a noun.
 `data.shape` is an attribute of `data` which describes the dimensions of `data`. We use the same
 dotted notation for the attributes of variables that we use for the functions in libraries because
@@ -160,19 +158,19 @@ If we want to get a single number from the array, we must provide an index in sq
 just as we do in math when referring to an element of a matrix.
 Our inflammation data has two dimensions, so we will need to use two indices to refer to one specific value:
 
-``` python
+```python
 print('first value in data:', data[0, 0])
 ```
 
-``` text
+```text
 first value in data: 0.0
 ```
 
-``` python
+```python
 print('middle value in data:', data[30, 20])
 ```
 
-``` text
+```text
 middle value in data: 13.0
 ```
 
@@ -208,11 +206,11 @@ An index like `[30, 20]` selects a single element of an array, but we can select
 For example, we can select the first ten days (columns) of values
 for the first four patients (rows) like this:
 
-``` python
+```python
 print(data[0:4, 0:10])
 ```
 
-``` text
+```text
 [[ 0.  0.  1.  3.  1.  2.  4.  7.  8.  3.]
  [ 0.  1.  2.  1.  2.  1.  3.  2.  2.  6.]
  [ 0.  1.  1.  3.  3.  2.  6.  2.  5.  9.]
@@ -225,11 +223,11 @@ but the rule is that the difference between the upper and lower bounds is the nu
 
 We can start slices at any index we need,
 
-``` python
+```python
 print(data[5:10, 0:10])
 ```
 
-``` text
+```text
 [[ 0.  0.  1.  2.  2.  4.  2.  1.  6.  4.]
  [ 0.  0.  2.  2.  4.  2.  2.  5.  5.  8.]
  [ 0.  0.  1.  2.  3.  1.  2.  3.  5.  3.]
@@ -237,12 +235,12 @@ print(data[5:10, 0:10])
  [ 0.  1.  1.  2.  1.  3.  5.  3.  5.  8.]]
 ```
 
-We also don't have to include the upper and lower bound on the slice.  If we don't include the lower
+We also don't have to include the upper and lower bound on the slice. If we don't include the lower
 bound, Python uses 0 by default; if we don't include the upper, the slice runs to the end of the
 axis, and if we don't include either (i.e., if we use ':' on its own), the slice includes
 everything:
 
-``` python
+```python
 small = data[:3, 36:]
 print('small is:')
 print(small)
@@ -250,7 +248,7 @@ print(small)
 
 The above example selects rows 0 through 2 and columns 36 through to the end of the array.
 
-``` text
+```text
 small is:
 [[ 2.  3.  0.  0.]
  [ 1.  1.  0.  1.]
@@ -261,14 +259,14 @@ small is:
 
 We can also select only every nth element in an array by using double colons in our slices,
 
-``` python
+```python
 print(data[::3, ::2])
 ```
 
 selects every 3rd row and every 2nd column.
 We can also combine this with a start and stop index, with the form `[start:stop:step]`,
 
-``` python
+```python
 print(data[0:10:3, 0:10:2])
 ```
 
@@ -279,11 +277,11 @@ will again select every 3rd row and every 2nd column, but only up to the 10th ro
 NumPy has several useful functions that take an array as input to perform operations on its values.
 If we want to find the average inflammation for all patients on all days, for example, we can ask NumPy to compute `data`'s mean value:
 
-``` python
+```python
 print(numpy.mean(data))
 ```
 
-``` python
+```python
 6.14875
 ```
 
@@ -298,12 +296,12 @@ However, some functions produce outputs without
 needing any input. For example, checking the current time
 doesn't require any input.
 
-``` python
+```python
 import time
 print(time.ctime())
 ```
 
-``` text
+```text
 Sat Mar 26 13:07:33 2016
 ```
 
@@ -313,7 +311,7 @@ For functions that don't take in any arguments, we still need parentheses (`()`)
 Let's use three other NumPy functions to get some informative values about the dataset.
 We'll also use multiple assignment, a convenient Python feature that will enable us to do this all in one line.
 
-``` python
+```python
 maxval, minval, stdval = numpy.max(data), numpy.min(data), numpy.std(data)
 
 print('maximum inflammation:', maxval)
@@ -324,7 +322,7 @@ print('standard deviation:', stdval)
 Here we've assigned the return value from `numpy.max(data)` to the variable `maxval`, the value
 from `numpy.min(data)` to `minval`, and so on.
 
-``` text
+```text
 maximum inflammation: 20.0
 minimum inflammation: 0.0
 standard deviation: 4.61383319712
@@ -337,14 +335,14 @@ standard deviation: 4.61383319712
 How did we know what functions NumPy has and how to use them?
 If you are working in IPython or in a Jupyter Notebook, there is an easy way to find out.
 If you type the name of something followed by a dot, then you can use tab completion
-(e.g. type `numpy.` and then press *Tab*)
+(e.g. type `numpy.` and then press _Tab_)
 to see a list of all functions and attributes that you can use.
 After selecting one, you can also add a question mark (e.g. `numpy.cumprod?`),
 and IPython will return an explanation of the method!
 This is the same as doing `help(numpy.cumprod)`.
 
 Similarly, if you are using the "plain vanilla" Python interpreter, you can type `numpy.`
-and press the *Tab* twice for a listing of what is available. You can then use the
+and press the _Tab_ twice for a listing of what is available. You can then use the
 `help()` function to see an explanation of the function you're interested in,
 for example: `help(numpy.cumprod)`.
 :::
@@ -354,12 +352,12 @@ such as the maximum inflammation per patient or the average inflammation per day
 One way to do this is to create a new temporary array of the data we want,
 then ask it to do the calculation:
 
-``` python
+```python
 patient_0 = data[0, :] # 0 on the first axis (rows), everything on the second (columns)
 print('maximum inflammation for patient 0:', numpy.max(patient_0))
 ```
 
-``` text
+```text
 maximum inflammation for patient 0: 18.0
 ```
 
@@ -369,11 +367,11 @@ Comments allow programmers to leave explanatory notes for other programmers or t
 We don't actually need to store the row in a variable of its own.
 Instead, we can combine the selection and the function call:
 
-``` python
+```python
 print('maximum inflammation for patient 2:', numpy.max(data[2, :]))
 ```
 
-``` text
+```text
 maximum inflammation for patient 2: 19.0
 ```
 
@@ -386,11 +384,11 @@ As the diagram below shows, we want to perform the operation across an axis:
 To support this functionality, most array functions allow us to specify the axis we want to work on.
 If we ask for the average across axis 0 (rows in our 2D example), we get:
 
-``` python
+```python
 print(numpy.mean(data, axis=0))
 ```
 
-``` text
+```text
 [  0.           0.45         1.11666667   1.75         2.43333333   3.15
    3.8          3.88333333   5.23333333   5.51666667   5.95         5.9
    8.35         7.73333333   8.36666667   9.5          9.58333333
@@ -403,18 +401,18 @@ print(numpy.mean(data, axis=0))
 
 As a quick check, we can ask this array what its shape is:
 
-``` python
+```python
 print(numpy.mean(data, axis=0).shape)
 ```
 
-``` text
+```text
 (40,)
 ```
 
 The expression `(40,)` tells us we have an N×1 vector, so this is the average inflammation per day for all patients.
 If we average across axis 1 (columns in our 2D example), we get:
 
-``` python
+```python
 print(numpy.mean(data, axis=1))
 ```
 
@@ -433,13 +431,13 @@ which is the average inflammation per patient across all days.
 A section of an array is called a slice.
 We can take slices of character strings as well:
 
-``` python
+```python
 element = 'oxygen'
 print('first three characters:', element[0:3])
 print('last three characters:', element[3:6])
 ```
 
-``` text
+```text
 first three characters: oxy
 last three characters: gen
 ```
@@ -450,7 +448,7 @@ Or `element[:]`?
 
 :::solution
 
-``` text
+```text
 oxyg
 en
 oxygen
@@ -463,7 +461,7 @@ What is `element[-2]`?
 
 :::solution
 
-``` text
+```text
 n
 e
 ```
@@ -483,7 +481,7 @@ Test your solution with the following strings: `carpentry`, `clone`, `hi`.
 
 :::solution
 
-``` python
+```python
 element = 'oxygen'
 print('last three characters:', element[-3:])
 element = 'carpentry'
@@ -494,7 +492,7 @@ element = 'hi'
 print('last three characters:', element[-3:])
 ```
 
-``` text
+```text
 last three characters: gen
 last three characters: try
 last three characters: one
@@ -511,9 +509,9 @@ If `data` holds our array of patient data, what does `data[3:3, 4:4]` produce? W
 
 :::solution
 
-``` python
-array([], shape=(0, 0), dtype=float64)
-array([], shape=(0, 40), dtype=float64)
+```python
+numpy.array([], shape=(0, 0), dtype=numpy.float64)
+numpy.array([], shape=(0, 40), dtype=numpy.float64)
 ```
 
 :::
@@ -524,7 +522,7 @@ array([], shape=(0, 40), dtype=float64)
 Arrays can be concatenated and stacked on top of one another.
 We can use NumPy's `vstack` and `hstack` functions for vertical and horizontal stacking respectively.
 
-``` python
+```python
 import numpy
 
 A = numpy.array([[1,2,3], [4,5,6], [7, 8, 9]])
@@ -540,7 +538,7 @@ print('C = ')
 print(C)
 ```
 
-``` text
+```text
 A =
 [[1 2 3]
  [4 5 6]
@@ -568,13 +566,13 @@ That means `A[:, 0]` is a one dimensional array, which won't stack as desired.
 To preserve singleton dimensions, the index itself can be a slice or array.
 For example, `A[:, :1]` returns a two dimensional array with one singleton dimension (i.e. a column vector).
 
-``` python
+```python
 D = numpy.hstack((A[:, :1], A[:, -1:]))
 print('D = ')
 print(D)
 ```
 
-``` text
+```text
 D =
 [[1 3]
  [4 6]
@@ -587,13 +585,13 @@ D =
 
 An alternative way to achieve the same result is to use Numpy's delete function to remove the second column of A.
 
-``` python
+```python
 D = numpy.delete(A, 1, 1)
 print('D = ')
 print(D)
 ```
 
-``` text
+```text
 D =
 [[1 3]
  [4 6]
@@ -605,36 +603,36 @@ D =
 
 ::::challenge{id="change_in_inflammation" title="Change In Inflammation"}
 
-The patient data is *longitudinal* in the sense that each row represents a series of observations relating to one individual.
+The patient data is _longitudinal_ in the sense that each row represents a series of observations relating to one individual.
 This means that the change in inflammation over time is a meaningful concept.
 Let's find out how to calculate changes in the data contained in an array with NumPy.
 
 The `numpy.diff()` function takes an array and returns the differences between two successive values.
 Let's use it to examine the changes each day across the first week of patient 3 from our inflammation dataset.
 
-``` python
+```python
 patient3_week1 = data[3, :7]
 print(patient3_week1)
 ```
 
-``` text
+```text
  [0. 0. 2. 0. 4. 2. 2.]
 ```
 
 Calling `numpy.diff(patient3_week1)` would do the following calculations:
 
-``` python
+```python
 [ 0 - 0, 2 - 0, 0 - 2, 4 - 0, 2 - 4, 2 - 2 ]
 ```
 
 and return the 6 difference values in a new array.
 
-``` python
+```python
 numpy.diff(patient3_week1)
 ```
 
-``` python
-array([ 0.,  2., -2.,  4., -2.,  0.])
+```python
+numpy.array([ 0.,  2., -2.,  4., -2.,  0.])
 ```
 
 Note that the array of differences is shorter by one element (length 6).
@@ -647,7 +645,7 @@ When applying `numpy.diff` to our 2D inflammation array `data`, which axis would
 Since the row axis (0) is patients, it does not make sense to get the difference between two arbitrary patients.
 The column axis (1) is in days, so the difference is the change in inflammation -- a meaningful concept.
 
-``` python
+```python
 numpy.diff(data, axis=1)
 ```
 
@@ -670,12 +668,12 @@ Does it matter if the change in inflammation is an increase or a decrease?
 By using the `numpy.max()` function after you apply the `numpy.diff()`
 function, you will get the largest difference between days.
 
-``` python
+```python
 numpy.max(numpy.diff(data, axis=1), axis=1)
 ```
 
-``` python
-array([  7.,  12.,  11.,  10.,  11.,  13.,  10.,   8.,  10.,  10.,   7.,
+```python
+numpy.array([  7.,  12.,  11.,  10.,  11.,  13.,  10.,   8.,  10.,  10.,   7.,
          7.,  13.,   7.,  10.,  10.,   8.,  10.,   9.,  10.,  13.,   7.,
         12.,   9.,  12.,  11.,  10.,  10.,   7.,  10.,  11.,  10.,   8.,
         11.,  12.,  10.,   9.,  10.,  13.,  10.,   7.,   7.,  10.,  13.,
@@ -683,17 +681,17 @@ array([  7.,  12.,  11.,  10.,  11.,  13.,  10.,   8.,  10.,  10.,   7.,
          8.,  12.,  10.,   7.,  12.])
 ```
 
-If inflammation values *decrease* along an axis, then the difference from one element to the next will be negative.
+If inflammation values _decrease_ along an axis, then the difference from one element to the next will be negative.
 If you are interested in the **magnitude** of the change and not the direction, the `numpy.absolute()` function will provide that.
 
-Notice the difference if you get the largest *absolute* difference between readings.
+Notice the difference if you get the largest _absolute_ difference between readings.
 
-``` python
+```python
 numpy.max(numpy.absolute(numpy.diff(data, axis=1)), axis=1)
 ```
 
-``` python
-array([ 12.,  14.,  11.,  13.,  11.,  13.,  10.,  12.,  10.,  10.,  10.,
+```python
+numpy.array([ 12.,  14.,  11.,  13.,  11.,  13.,  10.,  12.,  10.,  10.,  10.,
         12.,  13.,  10.,  11.,  10.,  12.,  13.,   9.,  10.,  13.,   9.,
         12.,   9.,  12.,  11.,  10.,  13.,   9.,  13.,  11.,  11.,   8.,
         11.,  12.,  13.,   9.,  10.,  13.,  11.,  11.,  13.,  11.,  13.,
@@ -708,10 +706,10 @@ array([ 12.,  14.,  11.,  13.,  11.,  13.,  10.,  12.,  10.,  10.,  10.,
 
 The mathematician Richard Hamming once said, "The purpose of computing is insight, not numbers," and the best way to develop insight is often to visualize data.
 Visualization deserves an entire lecture of its own, but we can explore a few features of Python's `matplotlib` library here.
-While there is no official plotting library, `matplotlib` is the *de facto* standard.
+While there is no official plotting library, `matplotlib` is the _de facto_ standard.
 First, we will import the `pyplot` module from `matplotlib` and use two of its functions to create and display a heat map of our data:
 
-``` python
+```python
 import matplotlib.pyplot
 image = matplotlib.pyplot.imshow(data)
 matplotlib.pyplot.show()
@@ -723,7 +721,7 @@ Blue pixels in this heat map represent low values, while yellow pixels represent
 As we can see, inflammation rises and falls over a 40-day period.
 Let's take a look at the average inflammation over time:
 
-``` python
+```python
 ave_inflammation = numpy.mean(data, axis=0)
 ave_plot = matplotlib.pyplot.plot(ave_inflammation)
 matplotlib.pyplot.show()
@@ -738,14 +736,14 @@ we might instead expect a sharper rise and slower fall.
 
 Let's have a look at two other statistics:
 
-``` python
+```python
 max_plot = matplotlib.pyplot.plot(numpy.max(data, axis=0))
 matplotlib.pyplot.show()
 ```
 
 ![A line graph showing the maximum inflammation across all patients over a 40-day period.](fig/inflammation-01-maximum.png)
 
-``` python
+```python
 min_plot = matplotlib.pyplot.plot(numpy.min(data, axis=0))
 matplotlib.pyplot.show()
 ```
@@ -761,22 +759,22 @@ This insight would have been difficult to reach by examining the numbers themsel
 You can group similar plots in a single figure using subplots.
 This script below uses a number of new commands.
 
-* The function `matplotlib.pyplot.figure()` creates a space into which we will place all of our plots.
-  * This function returns a `Figure` object.
-  * This is sometimes refered to as a "handle" to the figure, which can be used to change the figure's properties.
-* The parameter `figsize` tells Python how big to make this space.
-* Each subplot is placed into the figure using its `add_subplot` method.
-  * Like "figure", this method returns an `Axes` object, allowing us to interact with axes.
-* The `add_subplot` method takes 3 parameters.
-  * The first denotes how many total rows of subplots there are
-  * The second parameter refers to the total number of subplot columns,
-  * The final parameter denotes which subplot your variable is referencing (left-to-right, top-to-bottom).
-* The "handle" for each subplot is stored in a different variable (`axes1`, `axes2`, `axes3`).
-* Once a subplot is created, the axes can be titled using the `set_xlabel()` command (or `set_ylabel()`).
+- The function `matplotlib.pyplot.figure()` creates a space into which we will place all of our plots.
+  - This function returns a `Figure` object.
+  - This is sometimes refered to as a "handle" to the figure, which can be used to change the figure's properties.
+- The parameter `figsize` tells Python how big to make this space.
+- Each subplot is placed into the figure using its `add_subplot` method.
+  - Like "figure", this method returns an `Axes` object, allowing us to interact with axes.
+- The `add_subplot` method takes 3 parameters.
+  - The first denotes how many total rows of subplots there are
+  - The second parameter refers to the total number of subplot columns,
+  - The final parameter denotes which subplot your variable is referencing (left-to-right, top-to-bottom).
+- The "handle" for each subplot is stored in a different variable (`axes1`, `axes2`, `axes3`).
+- Once a subplot is created, the axes can be titled using the `set_xlabel()` command (or `set_ylabel()`).
 
 Here are our three plots side by side:
 
-``` python
+```python
 import numpy
 import matplotlib.pyplot
 
@@ -849,7 +847,7 @@ Because matplotlib normally sets x and y axes limits to the min and max of our d
 If we want to change this, we can use the `set_ylim(min, max)` method of each 'axes',
 for example:
 
-``` python
+```python
 axes3.set_ylim(0,6)
 ```
 
@@ -858,7 +856,7 @@ Update your plotting code to automatically set a more appropriate scale.
 
 :::solution
 
-``` python
+```python
 # One method
 axes3.set_ylabel('min')
 axes3.plot(numpy.min(data, axis=0))
@@ -869,7 +867,7 @@ axes3.set_ylim(0,6)
 
 :::solution
 
-``` python
+```python
 # A more automated approach
 min_data = numpy.min(data, axis=0)
 axes3.set_ylabel('min')
@@ -890,7 +888,7 @@ Why is this?
 Because matplotlib interpolates (draws a straight line) between the points.
 One way to do avoid this is to use the Matplotlib `drawstyle` option:
 
-``` python
+```python
 import numpy
 import matplotlib.pyplot
 
@@ -926,7 +924,7 @@ Create a plot showing the standard deviation (`numpy.std`) of the inflammation d
 
 :::solution
 
-``` python
+```python
 std_plot = matplotlib.pyplot.plot(numpy.std(data, axis=0))
 matplotlib.pyplot.show()
 ```
@@ -941,7 +939,7 @@ instead of side by side.
 
 :::solution
 
-``` python
+```python
 import numpy
 import matplotlib.pyplot
 

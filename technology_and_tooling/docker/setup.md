@@ -1,18 +1,16 @@
 ---
 name: Setup
-dependsOn: [
-]
+dependsOn: []
 tags: [docker]
-attribution: 
-    - citation: >
-        D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
-        Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator. 
-      url: https://github.com/carpentries-incubator/docker-introduction
-      image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
-      license: CC-BY-4.0
-
-
+attribution:
+  - citation: >
+      D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
+      Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator.
+    url: https://github.com/carpentries-incubator/docker-introduction
+    image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
+    license: CC-BY-4.0
 ---
+
 ### Website accounts to create
 
 Please seek help at the start of the lesson if you have not been able to establish a website account on:
@@ -29,15 +27,15 @@ Move the downloaded file to your Desktop and unzip it. It should unzip to a fold
 
 Docker's installation experience has steadily improved, however situations will
 arise in which installing Docker on your computer may not be straightforward
-unless you have a large amount of technical experience.  Workshops try to have
+unless you have a large amount of technical experience. Workshops try to have
 helpers on hand that have worked their way through the install process, but do
 be prepared for some troubleshooting.
 
 In most cases, you will need to have administrator rights on the computer in
 order to install the Docker software. If you are using a computer managed by
-your organisation and do not have administrator rights, you *may* be able to get
+your organisation and do not have administrator rights, you _may_ be able to get
 your organisation's IT staff to install Docker for you. Alternatively your IT
-support staff *may* be able to give you remote access to a server that can run
+support staff _may_ be able to give you remote access to a server that can run
 Docker commands.
 
 Please try to install the appropriate software from the list below depending on
@@ -64,10 +62,10 @@ for details of how to find out which version/build of Windows 10 you have.
 If you are unable to follow the above instructions to install Docker Desktop on
 your Windows system, the final release of the deprecated Docker Toolbox version
 of Docker for Windows can be downloaded from the [releases page of the Docker Toolbox GitHub repository](https://github.com/docker/toolbox/releases).
-(Download the `.exe` file for the Windows installer). *Please note that this
+(Download the `.exe` file for the Windows installer). _Please note that this
 final release of Docker Toolbox includes an old version of Docker and you are
 strongly advised not to attempt to use this for any production use. It will,
-however, enable you to follow along with the lesson material.*
+however, enable you to follow along with the lesson material._
 
 :::callout{variant="warning"}
 
@@ -78,18 +76,18 @@ into issues running some of the commands in this lesson as Git Bash will automat
 any paths you specify at the command line into Windows versions of the paths and this will confuse
 the Docker container you are trying to use. For example, if you enter the command:
 
-~~~bash
+```bash
 docker run alpine cat /etc/os-release
-~~~
+```
 
 Git Bash will change the `/etc/os-release` path to `C:\etc\os-release\` before passing the command
 to the Docker container and the container will report an error. If you want to use Git Bash then you
 can request that this path translation does not take place by adding an extra `/` to the start of the
 path. i.e. the command would become:
 
-~~~bash
+```bash
 docker run alpine cat //etc/os-release
-~~~
+```
 
 This should suppress the path translation functionality in Git Bash.
 :::
@@ -127,11 +125,11 @@ Alternatively, see:
 
 To quickly check if the Docker and client and server are working run the following command in a new terminal or ssh session:
 
-~~~bash
+```bash
 docker version
-~~~
+```
 
-~~~text
+```text
 Client:
  Version:           20.10.2
  API version:       1.41
@@ -153,17 +151,17 @@ Server:
   Experimental:     false
  containerd:
   Version:          1.4.4-0ubuntu1
-  GitCommit:        
+  GitCommit:
  runc:
   Version:          1.0.0~rc95-0ubuntu1~21.04.1
-  GitCommit:        
+  GitCommit:
  docker-init:
   Version:          0.19.0
-  GitCommit:        
-~~~
+  GitCommit:
+```
 
 The above output shows a successful installation and will vary based on your
-system.  The important part is that the "Client" and the "Server" parts are both
+system. The important part is that the "Client" and the "Server" parts are both
 working and returns information. It is beyond the scope of this document to
 debug installation problems but common errors include the user not belonging to
 the `docker` group and forgetting to start a new terminal or ssh session.

@@ -1,19 +1,16 @@
 ---
 name: Differentiation 2
-dependsOn: [
-  scientific_computing.essential_maths.03_differentiation_1
-]
+dependsOn: [scientific_computing.essential_maths.03_differentiation_1]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ---
@@ -49,25 +46,19 @@ To do this, we first need an $f(x)$ that is easy to calculate, and close to 5218
 
 To calculate the approximation, we need $\;f'(x)\;$, where $\;f(x) = \sqrt{x}\;$.
 
-> $$f'(x) = \frac{1}{2 \sqrt{x}}$$
-> $$f'(x) = \frac{1}{2 \sqrt{x}}$$
+> $$f'(x) = \frac{1}{2 \sqrt{x}}$$ > $$f'(x) = \frac{1}{2 \sqrt{x}}$$
 
 Since 5218 = 4900 + 318, we can set $x = 4900$ and $h = 318$.
 
 Using the approximation, we have:
 
-> $f(5218) \approx f(4900) + 318 \times f'(4900)$
-> $f(5218) \approx 70 + 318 \times \frac{1}{140} \approx 72.27$
-> $\sqrt{5218} = 72.2357252$ - not a bad appriximation!
+> $f(5218) \approx f(4900) + 318 \times f'(4900)$ > $f(5218) \approx 70 + 318 \times \frac{1}{140} \approx 72.27$ > $\sqrt{5218} = 72.2357252$ - not a bad appriximation!
 
 ## Standard derivatives
 
 It's useful to know the derivatives of all the standard functions, and some basic rules.
 
-> $\frac{d}{dx} (x^n) = n x^{n-1}$
-> $\frac{d}{dx} (\sin x) = \cos x$
-> $\frac{d}{dx} (\cos x) = -\sin x$
-> $\frac{d}{dx} (e^x) = e^x$
+> $\frac{d}{dx} (x^n) = n x^{n-1}$ > $\frac{d}{dx} (\sin x) = \cos x$ > $\frac{d}{dx} (\cos x) = -\sin x$ > $\frac{d}{dx} (e^x) = e^x$
 
 To understand the derivative of sin and cos, consider their graphs, and when they are changing positively (increasing), negatively (decreasing) or not at all (no rate of change).
 
@@ -84,8 +75,7 @@ To understand the derivative of sin and cos, consider their graphs, and when the
 
 While differentiating sums, and scalar multiples is straightforward, differentiating products is more complex
 
-> $(f(x) g(x) )' \neq f'(x) g'(x)$
-> $(f(x) g(x) )' = f'(x) g(x) + g'(x) f(x)$
+> $(f(x) g(x) )' \neq f'(x) g'(x)$ > $(f(x) g(x) )' = f'(x) g(x) + g'(x) f(x)$
 
 ### Example
 
@@ -97,10 +87,7 @@ From this, clearly, $y' = 36 x^5 + 16x^3 - 9 x^2 - 2$
 
 To use the product rule, instead we say $y = f \times g$, where $f = 2x^3 - 1$, and $g = 3x^3 + 2x$. Therefore
 
-> $f'(x) = 6x^2$
-> $g'(x) = 9x^2 + 2$
-> $y' = f'g + g'f = 6x^2 (3x^3 + 2x) + (9x^2 + 2)(2x^3 - 1)$
-> $y' = 18x^5 + 12x^3 + 18x^5 + 4x^3 - 9x^2 - 2 = 36x^5 + 16x^3 - 9x^2 - 2$
+> $f'(x) = 6x^2$ > $g'(x) = 9x^2 + 2$ > $y' = f'g + g'f = 6x^2 (3x^3 + 2x) + (9x^2 + 2)(2x^3 - 1)$ > $y' = 18x^5 + 12x^3 + 18x^5 + 4x^3 - 9x^2 - 2 = 36x^5 + 16x^3 - 9x^2 - 2$
 
 So both rules produce the same result. While for simple examples the product rule requires more work, as functions get more complex it saves a lot of time.
 
@@ -108,15 +95,13 @@ So both rules produce the same result. While for simple examples the product rul
 
 One of the most useful rules is differentiating a function that has another function inside it $y = f(g(x))$. For this we use the chain rule:
 
-> $y = f(g(x))$
-> $y'(x) = f'(g(x))\; g'(x) = \frac{df}{dg} \frac{dg}{dx}$
+> $y = f(g(x))$ > $y'(x) = f'(g(x))\; g'(x) = \frac{df}{dg} \frac{dg}{dx}$
 
 ### Example 1: $y = (5x^2 + 2)^4$
 
 We can write this as $y = g^4$, where $g = 5x^2 + 2$. Given this, we have that
 
-> $\frac{dy}{dg} = 4g^3 = 4(5x^2 + 2)^3$
-> $\frac{dg}{dx} = 10x$
+> $\frac{dy}{dg} = 4g^3 = 4(5x^2 + 2)^3$ > $\frac{dg}{dx} = 10x$
 
 This means that
 
@@ -135,10 +120,7 @@ If $y(x) = \frac{f(x)}{g(x)}$, then by using the product rule, and setting $h(x)
 
 $y = \frac{3x-1}{4x + 2}$
 
-> $f = 3x - 1, \rightarrow f' = 3$
-> $g = 4x + 2, \rightarrow g' = 4$
-> $y' = \frac{f'g - g'f}{g^2} = \frac{3(4x+2) - 4(3x-1)}{(4x+2)^2}$
-> $y' = \frac{12x + 6 - 12 x + 4}{(4x+2)^2} = \frac{10}{(4x+2)^2}$
+> $f = 3x - 1, \rightarrow f' = 3$ > $g = 4x + 2, \rightarrow g' = 4$ > $y' = \frac{f'g - g'f}{g^2} = \frac{3(4x+2) - 4(3x-1)}{(4x+2)^2}$ > $y' = \frac{12x + 6 - 12 x + 4}{(4x+2)^2} = \frac{10}{(4x+2)^2}$
 
 ## Differentiating inverses - implicit differentiation
 
@@ -154,7 +136,7 @@ But since $\frac{d}{dx}(x) = 1$
 
 > $\frac{d}{dy}(f^{-1}(y)) = \frac{1}{\frac{dy}{dx}}$
 
-### Example:  $y = ln(x)$
+### Example: $y = ln(x)$
 
 If $y = ln(x)$, this means that $f^{-1}(y) = e^y = x$
 
@@ -174,8 +156,8 @@ This can quickly and easily calculate derivatives (as well as do all sorts of ot
 
 ```python
 import sympy as sp
-  
-x = sp.symbols('x') #This creates a variable x, which is symbolically represented as the string x.
+
+x = sp.symbols('x') # This creates a variable x, which is symbolically represented as the string x.
 
 # Calculate the derivative of x^2
 sp.diff(x**2, x)
@@ -191,7 +173,7 @@ $\displaystyle - \sin{\left(x \right)}$
 
 ```python
 f = (x+1)**3 * sp.cos(x**2 - 5)
-sp.diff(f,x) 
+sp.diff(f,x)
 ```
 
 $\displaystyle - 2 x \left(x + 1\right)^{3} \sin{\left(x^{2} - 5 \right)} + 3 \left(x + 1\right)^{2} \cos{\left(x^{2} - 5 \right)}$
@@ -250,8 +232,8 @@ Let $y=x^2$.
 
 1. Find the **exact** value of $y$ when $x=2.1$.
 1. Now **estimate** the value of $y$ when $x=2.1$ by using the linear approximation formula
-$$f(x_1+h)=f(x_1)+hf'(x_1)$$
-and letting $x_1=2.0$ and $h=0.1$.
+   $$f(x_1+h)=f(x_1)+hf'(x_1)$$
+   and letting $x_1=2.0$ and $h=0.1$.
 1. Compare your estimate to the true value. Which is bigger? What is there about the shape of the graph of $y=x^2$ that accounts for this?
 1. Repeat parts 1. and b) for $x=2.01$.
 1. Calculate the absolute error in each estimate. How does this error change with the value of $h$?
@@ -311,8 +293,7 @@ Prove that the rate of increase of salinity with distance from the inlet is give
 
 The sine and cosine functions can be written in the form of the following infinite series:
 
-> $$\sin x = x - {x^3\over3!} + {x^5\over5!} - {x^7\over7!} + \ldots$$
-> $$\cos x = 1 - {x^2\over2!} + {x^4\over4!} - {x^6\over6!} + \ldots$$
+> $$\sin x = x - {x^3\over3!} + {x^5\over5!} - {x^7\over7!} + \ldots$$ > $$\cos x = 1 - {x^2\over2!} + {x^4\over4!} - {x^6\over6!} + \ldots$$
 
 Differentiate these series term by term to verify the standard expressions for $\displaystyle\frac{{\rm d}}{{\rm d}x}(\sin x)$ and $\displaystyle\frac{{\rm d}}{{\rm d}x}(\cos x)$.
 ::::

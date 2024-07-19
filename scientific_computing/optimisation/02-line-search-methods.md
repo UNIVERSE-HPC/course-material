@@ -1,35 +1,30 @@
 ---
 name: Line Search Methods
-dependsOn: [
-    scientific_computing.optimisation.01-nonlinear-optimisation,
-]
+dependsOn: [scientific_computing.optimisation.01-nonlinear-optimisation]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
-
-
 
 ### Gradient descent
 
-One of the simplest local optimisation algoriths is *gradient descent*. It is
+One of the simplest local optimisation algoriths is _gradient descent_. It is
 initialised at some point in parameter space $a_0$, and at each iteration the function
-$f(x)$ is reduced by following the direction of *steepest descent* $-\nabla f(a)$
+$f(x)$ is reduced by following the direction of _steepest descent_ $-\nabla f(a)$
 
 $$
 a_{n+1} = a_n - \gamma \nabla f(a_n)
 $$
 
-This is an example of an important class of algorithms called the *line search* methods.
-These algorithms choose a *search direction*  $p_k$ at each iteration $k$, and search
+This is an example of an important class of algorithms called the _line search_ methods.
+These algorithms choose a _search direction_ $p_k$ at each iteration $k$, and search
 along the 1D line from the initial point $a_k$ to a new point
 
 $$
@@ -48,7 +43,7 @@ optimal $\alpha$.
 An obvious downside to simple gradient descent can be seen for functions which have
 regions of zero or small gradients, or plateaus. Here a gradient descent algorithm with a
 constant $\gamma$ will proceed very slowly, if at all. This motivates another important
-line search algorithm, *Newtons method*.
+line search algorithm, _Newtons method_.
 
 The Newtons direction $p^N_k$ can be derived by considering the second-order Taylor
 expansion of the function $f(x)$
@@ -67,7 +62,7 @@ $$
 
 Unlike the steepest descent, Newtons method has a natural step length $\alpha \approx
 1$, which is suitable for a wide variety of problems and can quickly cross areas of low
-gradient. Naturally, since the algorithm is based on a *second-order* approximation of
+gradient. Naturally, since the algorithm is based on a _second-order_ approximation of
 the function $f$, it works better if this approximation is reasonably accurate.
 
 Newtons method can be used as long as the inverse of the second derivative of the
@@ -75,15 +70,15 @@ function $(\nabla^2 f(a_k))^{-1}$, exists (e.g. it will always exist for a posit
 definite $\nabla^2 f$). However, even when this inverse does exist it is possible that
 the direction $p^N_k$ does not satisfy the descent condition $f(a_k + \alpha p^N_k) <
 f(a_k)$ (or equivilently $\nabla f(a_k)^T p^N < 0$), so many modifications to Newtons
-methods, falling under a class of methods called *Quasi-Newton* methods, have been
+methods, falling under a class of methods called _Quasi-Newton_ methods, have been
 proposed to satisfy this descent condition.
 
 Quasi-Newton methods do not require the (often onerous) calculation of the hession
 $\nabla^2 f(x)$ like Newtons, instead they form an approximation to the hessian $B_k
 \approx \nabla^2 f(a_k)$ that is updated at each step using the information given by the
 gradient evaluations $\nabla f(a_k)$. Two popular methods of performing this update are
-the *symmetric-rank-one* (SR1), and the *Broyden, Fletcher, Goldfarb, and Shanno,
-(BFGS)* formula. Once the approximation $B_k$ is formed then the search direction is
+the _symmetric-rank-one_ (SR1), and the _Broyden, Fletcher, Goldfarb, and Shanno,
+(BFGS)_ formula. Once the approximation $B_k$ is formed then the search direction is
 calculated via
 
 $$
@@ -92,7 +87,7 @@ $$
 
 For more details of other line search methods, please see Chapter 3 of the Nocedal and
 Wright textbook, or in the other textbooks listed at the end of this lesson. Finally, it
-should be noted that the *conjugate gradient* method can also be used for non-linear
+should be noted that the _conjugate gradient_ method can also be used for non-linear
 optimisation, where the search direction is given by
 
 $$
@@ -111,10 +106,10 @@ $$
 
 In general it is too expensive to do this minimisation exactly, so approximate methods
 are used so that multiple trial $\alpha_k$ values are trialled, stopping when a candidate
-is found that satisfies a set of *conditions*. There are two main conditions used, the
-*Wolfe conditions* and the *Goldstein* conditions.
+is found that satisfies a set of _conditions_. There are two main conditions used, the
+_Wolfe conditions_ and the _Goldstein_ conditions.
 
-The two Wolfe conditions are the *sufficient decrease* condition, which ensures that the
+The two Wolfe conditions are the _sufficient decrease_ condition, which ensures that the
 reduction in the function value is proportional to the step length $\alpha_k$ and the
 gradient in the direction of the step
 
@@ -122,7 +117,7 @@ $$
 f(a_k + \alpha_k p_k) \le f(a_k) + c_1 \alpha_k \nabla f(a_k)^T p_k.
 $$
 
-The second Wolfe condition is the *curvature* condition, which prevents unacceptibly
+The second Wolfe condition is the _curvature_ condition, which prevents unacceptibly
 short steps by ensuring that the slope of $\phi$ is greater than some constant $c_2$
 times the initial slope $\phi'(0)$
 
@@ -131,7 +126,7 @@ $$
 $$
 
 where $c_2 \in (c_1, 1)$. Typical values are $c_1 = 10^{-4}$ and $c_2 = 0.9$. The
-*strong Wolfe* conditions restrict the gradient $\phi'$ to be small, so as to exclude
+_strong Wolfe_ conditions restrict the gradient $\phi'$ to be small, so as to exclude
 points that are too far from stationary points of $\phi$
 
 $$
@@ -159,7 +154,7 @@ illustrate the two conditions
 ![Wolf versus Goldstein conditions](images/conditions.jpg)
 
 Algorithms for choosing candidate step size values $\alpha_k$ can be complicated, so we
-will only mention here one of the simplest, which is the *backtracking* method. This
+will only mention here one of the simplest, which is the _backtracking_ method. This
 approach implicitly satisfies the condition on too small $\alpha_k$, and only repeatedly
 test for the common sufficient decrease condition that appears in both the Wolfe and
 Goldstein condtitions.
@@ -214,10 +209,10 @@ $\alpha_k := \bar{\alpha}$
 :::solution
 
 ```python
-import matplotlib.pylab as plt
 import numpy as np
 from matplotlib import cm
 import scipy.optimize
+from matplotlib import pyplot as plt
 
 def steepest_descent(x, f, grad_f, hessian_f):
     return -grad_f(x)

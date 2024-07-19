@@ -1,19 +1,16 @@
 ---
 name: Nelder-Mead method
-dependsOn: [
-    scientific_computing.optimisation.05-finite-difference-method,
-]
+dependsOn: [scientific_computing.optimisation.05-finite-difference-method]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 The [Nelder-Mead method](https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method) is
@@ -40,8 +37,8 @@ $$
 \bar{x}(t) = \bar{x} + t(x_{n+1} - \bar{x})
 $$
 
-The four points are the *reflection*, *expanding*, the *inside contraction* and *outside
-contraction* points, given by $\bar{x}(-1)$, $\bar{x}(-2)$, $\bar{x}(1/2)$, and
+The four points are the _reflection_, _expanding_, the _inside contraction_ and _outside
+contraction_ points, given by $\bar{x}(-1)$, $\bar{x}(-2)$, $\bar{x}(1/2)$, and
 $\bar{x}(-1/2)$ respectively.
 
 The Nelder-Mead algorithm tries to replace $x_{n+1}$ by reflecting, expanding, or

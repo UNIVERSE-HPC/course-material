@@ -1,11 +1,8 @@
 ---
 name: Introduction to Unit Testing
-dependsOn: [
-  technology_and_tooling.unit_testing.setup
-]
+dependsOn: [technology_and_tooling.unit_testing.setup]
 tags: [python, unit-testing]
 ---
-
 
 ## Introduction
 

@@ -2,17 +2,15 @@
 name: "Reproducibility and Granularity"
 teaching: 20
 exercises: 0
-dependsOn: [
-  technology_and_tooling.docker.docker-image-examples
-]
+dependsOn: [technology_and_tooling.docker.docker-image-examples]
 tags: [docker]
-attribution: 
-    - citation: >
-        D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
-        Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator. 
-      url: https://github.com/carpentries-incubator/docker-introduction
-      image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
+      Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator.
+    url: https://github.com/carpentries-incubator/docker-introduction
+    image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
+    license: CC-BY-4.0
 ---
 
 Although this workshop is titled "Reproducible computational environments using containers",
@@ -28,7 +26,7 @@ Note that reproducibility aspects of software and containers are an active area 
 
 ## Reproducibility
 
-By *reproducibility* here we mean the ability of someone else (or your future self) being able to reproduce
+By _reproducibility_ here we mean the ability of someone else (or your future self) being able to reproduce
 what you did computationally at a particular time (be this in research, analysis or something else)
 as closely as possible even if they do not have access to exactly the same hardware resources
 that you had when you did the original work.
@@ -56,22 +54,22 @@ This is fine for working collaboratively with container images on a day-to-day b
 
 When you publish your work or make it publicly available in some way it is good practice to make container images that you used for computational work available in an immutable, persistent way and to have an identifier that allows people to cite and give you credit for the work you have done. [Zenodo](https://zenodo.org/) is one service that provides this functionality.
 
-Zenodo supports the upload of *tar* archives and we can capture our Docker container images as tar archives using the `docker image save` command. For example, to export the container image we created earlier in this lesson:
+Zenodo supports the upload of _tar_ archives and we can capture our Docker container images as tar archives using the `docker image save` command. For example, to export the container image we created earlier in this lesson:
 
-~~~bash
+```bash
 docker image save alice/alpine-python:v1 -o alpine-python.tar
-~~~
+```
 
 These tar container images can become quite large and Zenodo supports uploads up to 50GB so you may need to compress your archive to make it fit on Zenodo using a tool such as gzip (or zip):
 
-~~~bash
+```bash
 gzip alpine-python.tar
-~~~
+```
 
 Once you have your archive, you can [deposit it on Zenodo](https://zenodo.org/deposit/) and this will:
 
 - Create a long-term archive snapshot of your Docker container image which people (including your future self) can download and reuse or reproduce your work.
-- Create a persistent DOI (*Digital Object Identifier*) that you can cite in any publications or outputs to enable reproducibility and recognition of your work.
+- Create a persistent DOI (_Digital Object Identifier_) that you can cite in any publications or outputs to enable reproducibility and recognition of your work.
 
 In addition to the archive file itself, the deposit process will ask you to provide some basic metadata to classify the container image and the associated work.
 
@@ -87,7 +85,7 @@ Note that Zenodo is not the only option for archiving and generating persistent 
 ## Container Granularity
 
 As mentioned above, one of the decisions you may need to make when containerising your research workflows
-is what level of *granularity* you wish to employ. The two extremes of this decision could be characterized
+is what level of _granularity_ you wish to employ. The two extremes of this decision could be characterized
 as:
 
 - Create a single container image with all the tools you require for your research or analysis workflow

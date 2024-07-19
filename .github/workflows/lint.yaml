@@ -1,14 +1,14 @@
-name: Check Markdown and Front Matter
+name: Lint markdown files
 
 on:
   push:
     branches:
       - main
     paths:
-      - '**/*.md'
+      - "**/*.md"
   pull_request:
     paths:
-      - '**/*.md'
+      - "**/*.md"
 
 jobs:
   check-markdown-yaml:
@@ -21,7 +21,20 @@ jobs:
       - name: Run Front Matter Linting
         uses: alasdairwilson/front-matter-lint@main
         with:
-          directory: '.'
+          directory: "."
+
+  lint-python-codeblocks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Lint Python Code Blocks in Markdown
+        uses: OxfordRSE/lint-md-codeblocks@main
+        with:
+          directory: "."
+          language: "python"
 
   lint-markdown:
     runs-on: ubuntu-latest
@@ -33,7 +46,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install markdownlint-cli
         run: npm install -g markdownlint-cli
