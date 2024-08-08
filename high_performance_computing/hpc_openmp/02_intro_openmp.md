@@ -34,7 +34,7 @@ In simpler terms, when your program finds a special "parallel" section, it's lik
 OpenMP consists of three key components that enable parallel programming using threads:
 
 - **Compiler Directives:** OpenMP makes use of special code markers known as *compiler directives* to indicate to the compiler when and how to parallelise various sections of code. These directives are prefixed with `#pragma omp`, and mark sections of code to be executed concurrently by multiple threads.
-- **Runtime Library Routines:** These are predefined functions provided by the OpenMP runtime library. They allow you to control the behavior of threads, manage synchronization, and handle parallel execution. For example, we can use the function `omp_get_thread_num()` to obtain the unique identifier of the calling thread.
+- **Runtime Library Routines:** These are predefined functions provided by the OpenMP runtime library. They allow you to control the behavior of threads, manage synchronisation, and handle parallel execution. For example, we can use the function `omp_get_thread_num()` to obtain the unique identifier of the calling thread.
 - **Environment Variables:** These are settings that can be adjusted to influence the behavior of the OpenMP runtime. They provide a way to fine-tune the parallel execution of your program. Setting OpenMP environment variables is typically done similarly to other environment variables for your system. For instance, you can adjust the number of threads to use for a program you are about to execute by specifying the value in the `OMP_NUM_THREADS` environment variable.
 
 Since parallelisation using OpenMP is accomplished by adding compiler directives to existing code structures, it's relatively easy to get started using it.
@@ -44,7 +44,7 @@ However, it's worth noting that other options exist in different languages (e.g.
 
 ## Running a Code with OpenMP
 
-Before we delve into specifics of writing code that uses OpenMP, let's first look at how we compile and run an example "Hello World!" OpenMP program that prints this to the console.
+Before we get into into specifics of writing code that uses OpenMP, let's first look at how we compile and run an example "Hello World!" OpenMP program that prints this to the console.
 
 Wherever you may eventually run your OpenMP code - locally, on another machine, or on an HPC infrastructure - it's a good practice to develop OpenMP programs on your local machine first.
 This has the advantage of allowing you to more easily configure your development environment to suit your needs, particularly for making use of tools like Integrated Development Environments (IDEs), such as Microsoft VSCode.

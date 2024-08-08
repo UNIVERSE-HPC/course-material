@@ -6,7 +6,7 @@ learningOutcomes:
   - Describe the functionality of OpenMP pragma directives.
   - Explain the concept of a parallel region and its significance in OpenMP.
   - Understand the scope of variables in OpenMP parallel regions.
-  - Implement parallelization in a program using OpenMP directives.
+  - Implement parallelisation in a program using OpenMP directives.
   - Use OpenMP library functions to manage threads and thread-specific information.
   - Evaluate different schedulers available in OpenMP for loop iterations.
   - Assess the impact of scheduling behaviors on program execution.
@@ -36,7 +36,7 @@ OpenMP offers a number of directives for parallelisation, although the two we'll
 - The `#pragma omp parallel` directive specifies a block of code for concurrent execution.
 - The `#pragma omp for` directive parallelizes loops by distributing loop iterations among threads.
 
-### Our First Parallelisation
+## Our First Parallelisation
 
 For example, amending our previous example,
 in the following we specify a specific block of code to run parallel threads,
@@ -68,7 +68,7 @@ since the order and manner in which these threads (and their `printf` statements
 
 So in summary, simply by adding this directive we have accomplished a basic form of parallelisation.
 
-### What about Variables?
+## What about Variables?
 
 So how do we make use of variables across, and within, our parallel threads?
 Of particular importance in parallel programs is how memory is managed and how and where variables can be manipulated,
@@ -191,7 +191,7 @@ and whether they're private or shared:
 So here, we ensure that each thread has its own private copy of these variables,
 which is now thread safe.
 
-### Parallel `for` Loops
+## Parallel `for` Loops
 
 A typical program uses `for` loops to perform many iterations of the same task,
 and fortunately OpenMP gives us a straightforward way to parallelise them,
@@ -210,8 +210,6 @@ which builds on the use of directives we've learned so far.
         thread_id = omp_get_thread_num();
         printf("Hello from iteration %i from thread %d out of %d\n", i, thread_id, num_threads);
     }
-    
-    printf("%d",i);
 }
 ```
 
@@ -249,7 +247,7 @@ for (int 1 = 1; 1 <=10; i++)
 ```
 
 In the first case, `#pragma omp parallel` spawns a group of threads, whilst `#pragma omp for` divides the loop iterations between them.
-But if you only need to do parallelisation within a single loop, the second case has you covered for convenience.
+But if you only need to do parallelisation within a single loop, the second case is more convenient.
 :::
 
 Note we also explicitly set the number of desired threads to 4, using the OpenMP `omp_set_num_threads()` function,
@@ -289,9 +287,9 @@ and prints the values received. What happens?
 :::
 ::::
 
-### Using Schedulers
+## Using Schedulers
 
-Whenever we use a parallel for, the iterations have to be split into smaller chunks so each thread has something to do.
+Whenever we use a `parallel for`, the iterations have to be split into smaller chunks so each thread has something to do.
 In most OpenMP implementations, the default behaviour is to split the iterations into equal sized chunks,
 
 ```c
@@ -325,6 +323,27 @@ for (int i = 0; i < NUM_ITERATIONS; ++i) {
 | **guided** |  The chunk sizes start large and decreases in size gradually. | The smallest chunk size to use (default: 1). | Most useful when the workload is unpredictable, as the scheduler can adapt the chunk size to adjust for any imbalance. |
 | **auto** | The best choice of scheduling is chosen at run time. | - | Useful in all cases, but can introduce additional overheads whilst it decides which scheduler to use. |
 | **runtime** | Determined at runtime by the `OMP_SCHEDULE` environment variable or `omp_schedule` pragma. | - | - |
+
+:::callout
+
+## How the `auto` Scheduler Works
+
+The `auto` scheduler lets the compiler or runtime system automatically decide the best way to distribute work among threads. This is really convenient because 
+you don’t have to manually pick a scheduling method—the system handles it for you. It’s especially handy if your workload distribution is uncertain or changes a 
+lot. But keep in mind that how well `auto` works can depend a lot on the compiler. Not all compilers optimize equally well, and there might be a bit of overhead 
+as the runtime figures out the best scheduling method, which could affect performance in highly optimized code. 
+ 
+The [OpenMP documentation](https://www.openmp.org/wp-content/uploads/OpenMP4.0.0.pdf) states that with `schedule(auto)`, the scheduling decision is left to the compiler or runtime system. So, how does the compiler make this decision? When using GCC, which is common in many environments including HPC, the `auto` scheduler often maps to `static` scheduling. This means it splits the work into equal chunks ahead of time for simplicity and performance. `static` scheduling is straightforward and has low overhead, which often leads to efficient execution for many applications.
+
+However, specialised HPC compilers, like those from Intel or IBM, might handle `auto` differently. These advanced compilers can dynamically adjust the scheduling 
+method during runtime, considering things like workload variability and specific hardware characteristics to optimize performance.
+
+So, when should you use `auto`? It’s great during development for quick performance testing without having to manually adjust scheduling methods. It’s also 
+useful in environments where the workload changes a lot, letting the runtime adapt the scheduling as needed. While `auto` can make your code simpler, it’s 
+important to test different schedulers to see which one works best for your specific application. 
+
+
+::: 
 
 ::::challenge{title="Try Out Different Schedulers"}
 

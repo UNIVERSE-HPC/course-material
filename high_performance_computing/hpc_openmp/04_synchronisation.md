@@ -1,11 +1,11 @@
 ---
 name: Synchronisation and Race Conditions
 dependsOn: [high_performance_computing.hpc_openmp.03_parallel_api]
-tags: [parallelisation,synchronisation]
+tags: [parallelisation, synchronisation]
 learningOutcomes:
-  - Define thread synchronization and its importance in parallel programming.
+  - Define thread synchronisation and its importance in parallel programming.
   - Explain what race conditions are and how they occur in parallel programs.
-  - Implement thread synchronization mechanisms to prevent race conditions.
+  - Implement thread synchronisation mechanisms to prevent race conditions.
   - Modify code to avoid race condition errors.
 ---
 
@@ -153,7 +153,9 @@ other threads to catch up. There is no way around this synchronisation overhead,
 barriers or have an uneven amount of work between threads. This overhead increases with the number of threads in use,
 and becomes even worse when the workload is uneven killing the parallel scalability.
 
-:::callout{title="Blocking thread execution and `nowait`"}
+::::callout
+
+### Blocking thread execution and `nowait`
 
 Most parallel constructs in OpenMP will synchronise threads before they exit the parallel region. For example,
 consider a parallel for loop. If one thread finishes its work before the others, it doesn't leave the parallel region
@@ -179,7 +181,7 @@ a `nowait` clause is used with a parallel for.
  }
 ```
 
-:::
+::::
 
 ### Synchronisation regions
 
@@ -241,6 +243,12 @@ clause](https://www.intel.com/content/www/us/en/docs/advisor/user-guide/2023-0/o
 Create a program that updates a shared counter to track the progress of a parallel loop. Think about which type of
 synchronisation region you can use. Can you think of any potential problems with your implementation, what happens
 when you use different loop schedulers? You can use the code example below as your starting point.
+
+NB: To compile this you’ll need to add `-lm` to inform the linker to link to the math C library, e.g.
+
+```bash
+gcc counter.c -o counter -fopenmp -lm
+```
 
 ```c
 #include <math.h>

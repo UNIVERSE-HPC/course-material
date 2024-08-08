@@ -9,29 +9,29 @@ learningOutcomes:
   - Describe hybrid parallelism and its relevance in modern computing.
   - Identify the advantages and disadvantages of combining OpenMP and MPI for parallel computing tasks.
   - Assess the suitability of hybrid parallelism for specific software applications.
-  - Compare and contrast the performance of hybrid parallelism with other parallelization approaches.
+  - Compare and contrast the performance of hybrid parallelism with other parallelisation approaches.
 ---
 
 
 At this point in the lesson, we've introduced the basics you need to get out there and start writing parallel code using
-OpenMP. There is one thing still worth being brought to your attention, and that is *hybrid parallelism*.
+OpenMP. There is one thing still worth being brought to your attention, and that is **hybrid parallelism**.
 
 :::callout
 
 ## The Message Passing Interface (MPI)
 
 In this episode, we will assume you have some knowledge about the Message Passing Interface (MPI) and that you have a
-basic understand of how to paralleise code using MPI. If you're not sure, you can think of MPI as being like an OpenMP
+basic understanding of how to parallelise code using MPI. If you're not sure, you can think of MPI as being like an OpenMP
 program where everything is in a `pragma omp parallel` directive.
 :::
 
 ## What is hybrid parallelism?
 
-When we talk about hybrid paralleism, what we're really talking about is writing parallel code using more than one
+When we talk about hybrid parallelism, what we're really talking about is writing parallel code using more than one
 parallelisation paradigm. The reason we want to do this is to take advantage of the strengths of each paradigm to
 improve the performance, scaling and efficiency of our parallel core. The most common form of hybrid parallelism in
 research is *MPI+X*. What this means is that an application is *mostly* parallelised using the Message Passing Interface
-(MPI), which has been extended using some +X other paradigm. A common +X is OpenMP, creating MPI+OpenMP.
+(MPI), which has been extended using some +X other paradigm. A common example of +X is OpenMP, creating MPI+OpenMP.
 
 :::callout
 
@@ -113,7 +113,7 @@ Most of this can, however, be mitigated with good documentation and a robust bui
 ## When do I need to use hybrid parallelism?
 
 So, when should we use a hybrid scheme? A hybrid scheme is particularly beneficial in scenarios where you need to
-leverage the strength of both the shared- and distributed-memory parallelism paradigms. MPI is used to exploit lots of
+leverage the strength of both the shared and distributed-memory parallelism paradigms. MPI is used to exploit lots of
 resources across nodes on a HPC cluster, whilst OpenMP is used to efficiently (and somewhat easily) parallelise the work
 each MPI task is required to do.
 
@@ -129,13 +129,13 @@ requirements, or to take a different approach to improve the work balance.
 To demonstrate how to use MPI+OpenMP, we are going to write a program which computes an approximation for $\pi$ using a
 [Riemann sum](https://en.wikipedia.org/wiki/Riemann_sum). This is not a great example to extol the virtues of hybrid
 parallelism, as it is only a small problem. However, it is a simple problem which can be easily extended and
-parallelised. Specifically, we will write a program to solve to integral to compute the value of $\pi$,
+parallelised. Specifically, we will write a program to solve the integral to compute the value of $\pi$,
 
 $$ \int_{0}^{1} \frac{4}{1 + x^{2}} ~ \mathrm{d}x = 4 \tan^{-1}(x) = \pi $$
 
 There are a plethora of methods available to numerically evaluate this integral. To keep the problem simple, we will
 re-cast the integral into a easier-to-code summation. How we got here isn't that important for our purposes, but what we
-will be implementing in code is the follow summation,
+will be implementing in code is the following summation,
 
 $$ \pi = \lim_{n \to \infty} \sum_{i = 0}^{n} \frac{1}{n} ~ \frac{4}{1 + x_{i}^{2}} $$
 
@@ -185,7 +185,7 @@ int main(void)
 }
 ```
 
-In the above, we are using $N = 10^{10}$ rectangles (using this number of rectangles is overkill, but is used to
+In the above, we are using $N = 10^{10}$ rectangles. Although this number of rectangles is overkill, it is used to
 demonstrate the performance increases from parallelisation. If we save this (as `pi.c`), compile and run we should get
 output as below,
 
@@ -198,10 +198,10 @@ Total time = 34.826832 seconds
 
 You should see that we've compute an accurate approximation of $\pi$, but it also took a very long time at 35 seconds!
 To speed this up, let's first parallelise this using OpenMP. All we need to do, for this simple application, is to use a
-parallel for to split the loop between OpenMP threads as shown below.
+`parallel for` to split the loop between OpenMP threads as shown below.
 
 ```c
-/* Parallelise the loop using a parallel for directive. We will set the sum
+/* Parallelise the loop using a `parallel for` directive. We will set the sum
    variable to be a reduction variable. As it is marked explicitly as a reduction
    variable, we don't need to worry about any race conditions corrupting the
    final value of sum */
@@ -235,13 +235,12 @@ implementing MPI. In this example, we can porting an OpenMP code to a hybrid MPI
 also done this the other way around by porting an MPI code into a hybrid application. Neither *"evolution"* is more
 common or better than the other, the route each code takes toward becoming hybrid is different.
 
-So, how do we split work using a hybrid approach? One approach for an embarrassingly parallel problem, such as the one
-we're working on is to can split the problem size into smaller chunks *across* MPI ranks, and to use OpenMP to
-parallelise the work. For example, consider a problem where we have to do a calculation for 1,000,000 input parameters.
-If we have four MPI ranks each of which will spawn 10 threads, we could split the work evenly between MPI ranks so each
-rank will deal with 250,000 input parameters. We will then use OpenMP threads to do the calculations in parallel. If we
-use a sequential scheduler, then each thread will do 25,000 calculations. Or we could use OpenMP's dynamic scheduler to
-automatically balance the workload. We have implemented this situation in the code example below.
+So, how do we split work using a hybrid approach? For an embarrassingly parallel problem, such as the one we're working on, 
+we can split the problem size into smaller chunks across MPI ranks and use OpenMP to parallelise the work. For example, consider 
+a problem where we have to do a calculation for 1,000,000 input parameters. If we have four MPI ranks each of which will spawn 10 threads, 
+we could split the work evenly between MPI ranks so each rank will deal with 250,000 input parameters. We will then use OpenMP 
+threads to do the calculations in parallel. If we use a sequential scheduler, then each thread will do 25,000 calculations. Or we 
+could use OpenMP's dynamic scheduler to automatically balance the workload. We have implemented this situation in the code example below.
 
 ```c
 /* We have an array of input parameters. The calculation which uses these parameters
@@ -264,9 +263,9 @@ for (int i = rank_lower_limit; i < rank_upper_limit; ++i) {
 }
 ```
 
-:::callout
+::::callout
 
-## Still not sure about MPI?
+### Still not sure about MPI?
 
 If you're still a bit unsure of how MPI is working, you can basically think of it as wrapping large parts of  your
 code in a `pragma omp parallel` region as we saw in an earlier episode. We can re-write the code example above in the
@@ -290,7 +289,7 @@ struct input_par_t input_parameters[total_work];
 }
 ```
 
-:::
+::::
 
 In the above example, we have only included the parallel region of code. It is unfortunately not as simple as this,
 because we have to deal with the additional complexity from using MPI. We need to initialise MPI, as well as communicate
@@ -366,7 +365,7 @@ int main(void)
 
 So you can see that it's much longer and more complicated; although not much more than a [pure MPI
 implementation](code/examples/05-pi-mpi.c). To compile our hybrid program, we use the MPI compiler command `mpicc` with
-the argument `-fopenmp`. We can then either run our compiled program using `mpirun`.
+the argument `-fopenmp`. We can then run our compiled program using `mpirun`.
 
 ```bash
 mpicc -fopenmp 05-pi-omp-mpi.c -o pi.exe

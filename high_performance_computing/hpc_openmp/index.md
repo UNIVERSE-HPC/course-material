@@ -11,5 +11,5 @@ files: [
     05_hybrid_parallelism.md
 ]
 summary: |
-    TBA.
+    This session covers the fundamentals of OpenMP, including its API, compilation, and execution. Participants will learn to parallelise their programs using OpenMP's pragma directives, manage threads, and control variable scoping and loop scheduling. The session also addresses thread synchronization, race conditions, and the use of hybrid parallelism with OpenMP and MPI.
 ---

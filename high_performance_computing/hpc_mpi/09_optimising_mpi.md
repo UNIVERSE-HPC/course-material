@@ -1,10 +1,7 @@
 ---
 name: Optimising MPI Applications
-dependsOn: [
-  high_performance_computing.hpc_mpi.09_porting_serial_to_mpi,
-  high_performance_computing.hpc_intro
-]
-tags: []
+dependsOn: [high_performance_computing.hpc_intro, high_performance_computing.hpc_mpi.08_porting_serial_to_mpi]
+tags: [mpi]
 attribution: 
     - citation: >
         "Introduction to the Message Passing Interface" course by the Southampton RSG
@@ -15,8 +12,8 @@ learningOutcomes:
   - Describe and differentiate between strong and weak scaling.
   - Test the strong and weak scaling performance of our MPI code.
   - Use a profiler to identify performance characteristics of our MPI application.
-
 ---
+
 Now we have parallelised our code, we should determine how well it performs.
 Given the various ways code can be parallellised, the underlying scientific implementation,and the type and amount of data the code is expected to process,
 the performance of different parallelised code can vary hugely under different circumstances,
@@ -57,14 +54,14 @@ as the program will always take at least the length of the serial portion.
 
 ### Amdahl's Law and Strong Scaling
 
-There is a theoretical limit in what parallelization can achieve, and it is encapsulated in "Amdahl's Law":
+There is a theoretical limit in what parallelisation can achieve, and it is encapsulated in "Amdahl's Law":
 
 $$ \mathrm{speedup} = 1 / (s + p / N) $$
 
 Where:
 
 - $$s$$ is the proportion of execution time spent on the serial part
-- $$p$$ is the proportion of execution time spent on the part that can be parallelized
+- $$p$$ is the proportion of execution time spent on the part that can be parallelised
 - $$N$$ is the number of processors
 
 Amdahl’s law states that, for a fixed problem, the upper limit of speedup is determined by the serial fraction of the code - most real world applications have some serial portion or unintended delays (such as communication overheads) which will limit the code’s scalability.
@@ -77,7 +74,7 @@ Amdahl’s law states that, for a fixed problem, the upper limit of speedup is d
 ## Amdahl's Law in Practice
 
 Consider a program that takes 20 hours to run using one core.
-If a particular part of the rogram, which takes one hour to execute, cannot be parallelized (s = 1/20 = 0.05), and if the code that takes up the remaining 19 hours of execution time can be parallelized (p = 1 − s = 0.95), then regardless of how many processors are devoted to a parallelized execution of this program, the minimum execution time cannot be less than that critical one hour.
+If a particular part of the rogram, which takes one hour to execute, cannot be parallelised (s = 1/20 = 0.05), and if the code that takes up the remaining 19 hours of execution time can be parallelised (p = 1 − s = 0.95), then regardless of how many processors are devoted to a parallelised execution of this program, the minimum execution time cannot be less than that critical one hour.
 Hence, the theoretical speedup is limited to at most 20 times (when N = ∞, speedup = 1/s = 20).
 ::::
 
@@ -187,12 +184,9 @@ The increase in runtime is probably due to the memory bandwidth of the node bein
 
 The other significant factors in the speed of a parallel program are communication speed and latency.
 
-Communication speed is determined by the amount of data one needs to  send/receive, and the bandwidth of the underlying hardware for the communication.
-Latency consists of the software latency (how long the operating system needs in order to prepare for a communication), and the hardware latency (how long the hardware takes to
-send/receive even a small bit of data).
+Communication speed is determined by the amount of data one needs to  send/receive, and the bandwidth of the underlying hardware for the communication. Latency consists of the software latency (how long the operating system needs in order to prepare for a communication), and the hardware latency (how long the hardware takes to send/receive even a small bit of data). 
 
-For a fixed-size problem, the time spent in communication is not significant when the number of ranks is small and the execution of parallel regions gets faster with the number of ranks.  
-But if we keep increasing the number of ranks, the time spent in communication grows when multiple cores are involved with communication.
+For a fixed-size problem, the time spent in communication is not significant when the number of ranks is small and the execution of parallel regions gets faster with the number of ranks. But if we keep increasing the number of ranks, the time spent in communication grows when multiple cores are involved with communication.
 
 ### Surface-to-Volume Ratio
 
@@ -202,7 +196,7 @@ The whole data which a CPU or a core computes is the sum of the two. The data un
 The surface data requires communications.
 he more surface there is, the more communications among CPUs/cores is needed, and the longer the program will take to finish.
 
-Due to Amdahl's law, you want to minimize the number of communications for the same surface since each communication takes finite amount of time to prepare (latency).
+Due to Amdahl's law, you want to minimise the number of communications for the same surface since each communication takes finite amount of time to prepare (latency).
 This suggests that the surface data be exchanged in one communication if possible, not small parts of the surface data exchanged in multiple communications.
 Of course, sequential consistency should be obeyed when the surface data is exchanged.
 
@@ -212,10 +206,10 @@ Now we have a better understanding of how our code scales with resources and pro
 But we should be careful!
 
 > "We should forget about small efficiencies, say about 97% of the time:
-> premature optimization is the root of all evil." -- Donald Knuth
+> premature optimisation is the root of all evil." -- Donald Knuth
 
-Essentially, before attempting to optimize your own code, you should profile it.
-Typically, most of the runtime is spent in a few functions/subroutines, so you should focus your optimization efforts on those parts of the code.
+Essentially, before attempting to optimise your own code, you should profile it.
+Typically, most of the runtime is spent in a few functions/subroutines, so you should focus your optimisation efforts on those parts of the code.
 The good news is that there are helpful tools known as *profilers* that can help us.
 
 Profilers help you find out where a program is spending its time and pinpoint places where optimising it makes sense.
@@ -258,18 +252,14 @@ Ordinarily when profiling our code using such a tool, it is advisable to create 
 Fortunately that's something we can readily configure with our `poisson_mpi.c` code.
 For now, set `MAX_ITERATIONS` to `25000` and `GRIDSIZE` to `512`.
 
-We first load the module for Performance Reports.
-How you do this will vary site-to-site, but for COSMA on DiRAC we can do:
+We first load the module for Performance Reports. Remember that how you do this will vary site-to-site.
 
 ```bash
 module load armforge/23.1.0
 module load allinea/ddt/18.1.2
 ```
 
-Next, we run the executable using Performance Reports
-to analyse the program execution.
-Create a new version of our SLURM submission script we used before,
-which includes the following at the bottom of the script instead:
+Next, we run the executable using Performance Reports to analyse the program execution. Create a new version of our SLURM submission script we used before, which includes the following at the bottom of the script instead:
 
 ```bash
 module load armforge/23.1.0
@@ -327,16 +317,15 @@ spent in the actual compute sections of the code.
 :::::challenge{id=profile-poisson, title="Profile Your Poisson Code"}
 Compile, run and analyse your own MPI version of the poisson code.
 
-How closely does it match the performance above? What are the main differences?
-Try reducing the number of processes used, rerun and investigate the profile.
-Is it still MPI-bound?
+How closely does it match the performance above? What are the main differences? 
+Try reducing the number of processes used, rerun and investigate the profile. Is it still MPI-bound? 
 
 Increase the problem size, recompile, rerun and investigate the profile.
 What has changed now?
 :::::
 
 :::::challenge{id=iterative-improvement, title="Iterative Improvement"}
-In the Poisson code, try changing the location of the calls to `MPI_Send`. How does this affect performance?
+In the Poisson code, try changing the location of the calls to `MPI_Send()`. How does this affect performance?
 :::::
 
 ::::callout{variant="tip"}
