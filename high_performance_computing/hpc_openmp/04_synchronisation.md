@@ -64,7 +64,7 @@ condition in OpenMP. Different threads accessing and modifying the same part of 
 inconsistent memory operations and probably an incorrect result.
 :::
 
-::::challenge{title="Identifying race conditions"}
+::::challenge{id=identifyraceconditions, title="Identifying race conditions"}
 Take a look at the following code example. What's the output when you compile
 and run this program? Where do you think the race condition is?
 
@@ -238,7 +238,7 @@ other threads have finished with it. However in reality we shouldn't write a red
 clause](https://www.intel.com/content/www/us/en/docs/advisor/user-guide/2023-0/openmp-reduction-operations.html) in the
 `parallel for` directive, e.g. `#pragma omp parallel for reduction(+:value)`
 
-::::challenge{title="Reporting progress"}
+::::challenge{id=reportingprogress, title="Reporting progress"}
 
 Create a program that updates a shared counter to track the progress of a parallel loop. Think about which type of
 synchronisation region you can use. Can you think of any potential problems with your implementation, what happens
@@ -447,7 +447,7 @@ When comparing critical regions and locks, it is often better to use a critical 
 simplicity of using a critical region.
 :::
 
-::::challenge{title="Remove the race condition"}
+::::challenge{id=removeracecondition, title="Remove the race condition"}
 
 In the following program, an array of values is created and then summed together using a parallel for loop.
 

@@ -98,7 +98,7 @@ Hello from thread 3 out of 4
 Hello from thread 2 out of 4
 ```
 
-::::challenge{title='OpenMP and C Scoping'}
+::::challenge{id=scoping, title='OpenMP and C Scoping'}
 Try printing out `num_threads` at the end of the program, after the `#pragma` code block, and recompile.
 What happens? Is this what you expect?
 :::solution
@@ -274,7 +274,7 @@ using OpenMP to parallelise an existing loop is often quite straightforward.
 However, particularly with more complex programs, there are some aspects and potential pitfalls with OpenMP parallelisation
 we need to be aware of - such as race conditions - which we'll explore in the next episode.
 
-::::challenge{title="Calling Thread Numbering Functions Elsewhere?"}
+::::challenge{id=callingelsewhere, title="Calling Thread Numbering Functions Elsewhere?"}
 
 Write, compile and run a simple OpenMP program that calls both `omp_get_num_threads()` and `omp_get_thread_num()` outside of a parallel region,
 and prints the values received. What happens?
@@ -345,7 +345,7 @@ important to test different schedulers to see which one works best for your spec
 
 ::: 
 
-::::challenge{title="Try Out Different Schedulers"}
+::::challenge{id=differentschedulers, title="Try Out Different Schedulers"}
 
 Try each of the static and dynamic schedulers on the code below,
 which uses `sleep` to mimic processing iterations that take increasing amounts of time to complete as the loop increases.
@@ -395,7 +395,7 @@ threads that complete need to stop and await a new value to process from a next 
 :::
 ::::
 
-::::challenge
+::::challenge{id=differentchunksizes, title="Different Chunk Sizes"}
 
 With a dynamic scheduler, the default chunk size is 1. What happens if specify a chunk size of 2,
 i.e. `scheduler(dynamic, 2)`?

@@ -13,7 +13,7 @@ learningOutcomes:
 
 OpenMP is an industry-standard API specifically designed for parallel programming in shared memory environments. It supports programming in languages such as C, C++, and Fortran. OpenMP is an open source, industry-wide initiative that benefits from collaboration among hardware and software vendors, governed by the OpenMP Architecture Review Board ([OpenMP ARB](https://www.openmp.org/)).
 
-::::challenge{title="An OpenMP Timeline"}
+::::challenge{id=timeline, title="An OpenMP Timeline"}
 
 If you're interested, there's a [timeline of how OpenMP developed](https://www.openmp.org/uncategorized/openmp-timeline/).
 It provides an overview of OpenMP's evolution until 2014, with significant advancements
