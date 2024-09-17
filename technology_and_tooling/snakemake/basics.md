@@ -590,6 +590,8 @@ influence the DAG of jobs**.
   `--forcerun` flag in combination with some rulename) to understand
   the decisions of Snakemake.
 
+After having a look at the summary, please go on with the [advanced part of the tutorial](advanced).
+
 ::::
 
 ## Summary
@@ -654,3 +656,5 @@ rule plot_quals:
     script:
         "scripts/plot-quals.py"
 ```
+
+Now, please go on with the [advanced part of the tutorial](advanced).

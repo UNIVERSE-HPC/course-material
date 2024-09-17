@@ -169,20 +169,6 @@ rule bwa_map:
         "bwa mem -t {threads} {input} | samtools view -Sb - > {output}"
 ```
 
-:::callout
-
-Snakemake does not automatically rerun jobs when new input files are
-added as in the excercise below. However, you can get a list of output
-files that are affected by such changes with
-`snakemake --list-input-changes`. To trigger a rerun, this bit of bash
-magic helps:
-
-```console
-snakemake -n --forcerun $(snakemake --list-input-changes)
-```
-
-:::
-
 Any normal function would work as well. Input functions take as **single
 argument** a `wildcards` object, that allows to access the wildcards
 values via attributes (here `wildcards.sample`). They have to **return a
@@ -369,6 +355,8 @@ deleted by accident.
   You will see that it fails (as intended) because Snakemake cannot
   overwrite the protected output files.
 
+After having a look at the summary, please go on with the [“additional features” part of the tutorial](additional_features).
+
 ::::
 
 ## Summary
@@ -459,3 +447,5 @@ rule plot_quals:
     script:
         "scripts/plot-quals.py"
 ```
+
+Now, please go on with the [“additional features” part of the tutorial](additional_features).

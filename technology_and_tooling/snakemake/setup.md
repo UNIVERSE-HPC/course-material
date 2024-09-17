@@ -18,7 +18,8 @@ attribution:
 
 ## Requirements
 
-To go through this tutorial, you need a number of software packages including
+To go through this tutorial, you need the following software installed (however, don't install any of these manually now as we guide you
+through better ways below):
 [Python](https://www.python.org),
 [Snakemake](https://snakemake.readthedocs.io),
 [BWA](http://bio-bwa.sourceforge.net),
@@ -29,8 +30,6 @@ To go through this tutorial, you need a number of software packages including
 [Jinja2](https://jinja.palletsprojects.com),
 [NetworkX](https://networkx.github.io),
 [Matplotlib](https://matplotlib.org).
-However, don\'t install any of these manually now as we guide you
-through better ways below.
 
 ## Run tutorial for free in the cloud via Gitpod
 
@@ -61,16 +60,16 @@ If you prefer to run the tutorial on your local machine, please follow
 the steps below.
 
 The easiest way to set these prerequisites up, is to use the
-[Mambaforge](https://github.com/conda-forge/miniforge#mambaforge) Python
+[Miniforge](https://github.com/conda-forge/miniforge) Python
 3 distribution
-([Mambaforge](https://github.com/conda-forge/miniforge#mambaforge) is a
+([Miniforge](https://github.com/conda-forge/miniforge) is a
 Conda based distribution like
 [Miniconda](https://conda.pydata.org/miniconda.html), which however uses
 [Mamba](https://github.com/mamba-org/mamba) a fast and more robust
 replacement for the [Conda](https://conda.pydata.org) package manager).
 The tutorial assumes that you are using either Linux or MacOS X. Both
 Snakemake and
-[Mambaforge](https://github.com/conda-forge/miniforge#mambaforge) work
+[Miniforge](https://github.com/conda-forge/miniforge) work
 also under Windows, but the Windows shell is too different to be able to
 provide generic examples.
 
@@ -120,29 +119,29 @@ instructions in this
 [Blogpost](https://blog.osteel.me/posts/2015/01/25/how-to-use-vagrant-on-windows.html).
 Now, you can follow the steps of our tutorial from within your Linux VM.
 
-## Step 1: Installing Mambaforge
+## Step 1: Installing Miniforge
 
 First, please **open a terminal** or make sure you are logged into your
 Vagrant Linux VM. Assuming that you have a 64-bit system, on Linux,
 download and install Miniconda 3 with
 
 ```shell
-curl -L https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh -o Mambaforge-Linux-x86_64.sh
-bash Mambaforge-Linux-x86_64.sh
+curl -L https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -o Miniforge3-Linux-x86_64.sh
+bash Miniforge3-Linux-x86_64.sh
 ```
 
 On MacOS with x86_64 architecture, download and install with
 
 ```shell
-curl -L https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-MacOSX-x86_64.sh -o Mambaforge-MacOSX-x86_64.sh
-bash Mambaforge-MacOSX-x86_64.sh
+curl -L https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-x86_64.sh -o Miniforge3-MacOSX-x86_64.sh
+bash Miniforge3-MacOSX-x86_64.sh
 ```
 
 On MacOS with ARM/M1 architecture, download and install with
 
 ```shell
-curl -L https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-MacOSX-arm64.sh -o Mambaforge-MacOSX-arm64.sh
-bash Mambaforge-MacOSX-arm64.sh
+curl -L https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh -o Miniforge3-MacOSX-arm64.sh
+bash Miniforge3-MacOSX-arm64.sh
 ```
 
 When you are asked the question
@@ -194,6 +193,8 @@ working directory.
 
 ## Step 3: Creating an environment with the required software
 
+All interactions with Conda package management below can be conducted with either conda, mamba or micromamba. For the steps in the [advanced](advanced.md) part of the tutorial, you have to install mamba though in case you don’t have it.
+
 First, make sure to activate the conda base environment with
 
 ```shell
@@ -224,7 +225,7 @@ CONDA_SUBDIR=osx-64 mamba env create --name snakemake-tutorial --file environmen
 
 If you don\'t have the [Mamba](https://github.com/mamba-org/mamba)
 command because you used a different conda distribution than
-[Mambaforge](https://github.com/conda-forge/miniforge#mambaforge), you
+[Miniforge](https://github.com/conda-forge/miniforge), you
 can also first install [Mamba](https://github.com/mamba-org/mamba)
 (which is a faster and more robust replacement for
 [Conda](https://conda.pydata.org)) in your base environment with
