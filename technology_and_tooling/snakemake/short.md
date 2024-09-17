@@ -22,7 +22,7 @@ Here we provide a short tutorial that guides you through the main
 features of Snakemake. Note that this is not suited to learn Snakemake
 from scratch, rather to give a first impression. To really learn
 Snakemake (starting from something simple, and extending towards
-[label](../index.md)advanced features), use the main `tutorial`.
+[label](../index.md)advanced features), use the main [tutorial](index).
 
 This document shows all steps performed in the official [Snakemake live
 demo](https://youtu.be/hPrXcUUp70Y), such that it becomes possible to
@@ -32,13 +32,13 @@ bottom of this document.
 The examples presented in this tutorial come from Bioinformatics.
 However, Snakemake is a general-purpose workflow management system for
 any discipline. For an explanation of the steps you will perform here,
-have a look at `tutorial-background`. More
-thorough explanations are provided in the full `tutorial`.
+have a look at [tutorial-background](background). More
+thorough explanations are provided in the full [tutorial](index).
 
 ## Prerequisites
 
 First, install Snakemake via Conda, as outlined in
-`conda-install`. The minimal version of
+[`Installation via Conda/Mamba`](install). The minimal version of
 Snakemake is sufficient for this demo.
 
 Second, download and unpack the test data needed for this example from
@@ -135,16 +135,22 @@ Now, test your workflow by simulating the creation of the file
 `results/mapped/A.bam` via
 
 ```bash
-snakemake --use-conda -n results/mapped/A.bam
+snakemake --software-deployment-method conda -n results/mapped/A.bam
 ```
 
 to perform a dry-run and
 
 ```bash
-snakemake --use-conda results/mapped/A.bam --cores 1
+snakemake --software-deployment-method conda results/mapped/A.bam --cores 1
 ```
 
 to perform the actual execution.
+
+:::callout
+
+The `--software-deployment-method` option has a shorthand alias `--sdm`, which we will use for brevity in the rest of this tutorial. There are two other long-form aliases `--deployment-method` and `--deployment`.
+
+:::
 
 ## Step 3
 
@@ -248,8 +254,9 @@ and output file
 Instead of a shell command, we use Snakemake\'s Jupyter notebook
 integration by specifying
 
-```yaml
-notebook: "notebooks/plot-quals.py"
+```snakemake
+notebook:
+    "notebooks/plot-quals.py/ipynb"
 ```
 
 instead of using the `shell` directive as before.
@@ -273,7 +280,7 @@ dependencies:
 Then, we let Snakemake generate a skeleton notebook for us with
 
 ```shell
-snakemake --draft-notebook results/plots/quals.svg --cores 1 --use-conda
+snakemake --draft-notebook results/plots/quals.svg --cores 1 --sdm conda
 ```
 
 Snakemake will print instructions on how to open, edit and execute the
@@ -285,7 +292,6 @@ We open the notebook in the editor and add the following content
 import pandas as pd
 import altair as alt
 from pysam import VariantFile
-import snakemake
 
 quals = pd.DataFrame({"qual": [record.qual for record in VariantFile(snakemake.input[0])]})
 
@@ -305,7 +311,7 @@ automatically inserts into the notebook before executing the rule.
 Make sure to test your workflow with
 
 ```bash
-snakemake --use-conda --force results/plots/quals.svg --cores 1
+snakemake --sdm conda --force results/plots/quals.svg --cores 1
 ```
 
 Here, the force ensures that the readily drafted notebook is re-executed
