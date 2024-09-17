@@ -288,7 +288,7 @@ notebook.
 
 We open the notebook in the editor and add the following content
 
-```python
+```snakemake
 import pandas as pd
 import altair as alt
 from pysam import VariantFile
