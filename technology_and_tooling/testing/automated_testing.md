@@ -134,7 +134,7 @@ Each of the data files uses the popular [comma-separated (CSV) format](https://e
 
 - Each row holds inflammation measurements for a single patient,
 - Each column represents a successive day in the trial,
-- Each cell represents an inflammation reading on a given day for a patient (in some arbitrary units of inflammation measurement).
+- Each cell represents an inflammation reading on a given day for a patient (the number of bouts of inflammation on that day).
 
 :::
 
