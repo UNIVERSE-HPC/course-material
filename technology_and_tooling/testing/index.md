@@ -25,3 +25,4 @@ In this section we will:
 - Make use of a **test framework** called Pytest, a free and open source Python library to help us structure and run automated tests.
 - Design, write and run **unit tests** using Pytest to verify the correct behaviour of code and identify faults, making use of test **parameterisation** to increase the number of different test cases we can run.
 - Use VsCodes's integrated **debugger** to help us locate a fault in our code while it is running, and then fix it.
+- Explore more advanced testing topics such as writing **testable code**, using **fixtures** and implementing **mocking**.
