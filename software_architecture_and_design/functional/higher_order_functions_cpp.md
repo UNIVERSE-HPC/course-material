@@ -307,7 +307,7 @@ int main() {
 
 ::::challenge{id=sum_squares title="Sum of Squares"}
 
-Use `std::accumulate` to write a function that calculates the sum of the squares of the values in a vector.
+Use `std::reduce` to write a function that calculates the sum of the squares of the values in a vector.
 Your function should behave as below:
 
 ```cpp
@@ -330,7 +330,7 @@ std::cout << sum_of_squares({1, 3, -2}) << std::endl;
 
 int sum_of_squares(const std::vector<int>& data) {
   auto sum_squares = [](int sum, int x) { return sum + std::pow(x, 2); };
-  return std::accumulate(data.begin(), data.end(), 0, sum_squares);
+  return std::reduce(data.begin(), data.end(), 0, sum_squares);
 }
 ```
 
