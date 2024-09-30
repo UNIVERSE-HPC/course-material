@@ -300,7 +300,7 @@ int main() {
     max = std::max(max, x);
     return std::make_tuple(min, max);
   };
-  auto [min, max] = std::accumulate(data.begin(), data.end(), std::make_tuple(0., 0.), calc_min_max);
+  auto [min, max] = std::reduce(std::next(data.begin()), data.end(), std::make_tuple(data[0], data[0]), calc_min_max);
   std::cout << "min is "<< min << " max is "<< max << std::endl;
 }
 ```
