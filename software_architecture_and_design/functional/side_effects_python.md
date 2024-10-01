@@ -54,7 +54,7 @@ my_cool_function(x, y)
 Now imagine we have a global variable defined elsewhere that is updated by
 `my_cool_function`, this is not even passed into the function so it is even
 more unclear that this is being updated. The global variable and function might
-even be declared in a separate file and brought in via an `import`
+even be declared in a separate file and brought in via an `import`.
 
 ```python
 z = 3
@@ -85,10 +85,9 @@ line = myfile.readline() # Same call to readline, but result is different!
 
 The main downside of having a state that is constantly updated is that it makes
 it harder for us to _reason_ about our code, to work out what it is doing.
-However, the upside is that we can use state to store temporary data to make
-calculations more efficient and store temporary data. For example an iteration
-loop that keeps track of a running total is a common pattern in procedural
-programming:
+However, the upside is that we can use state to store temporary data and make
+calculations more efficient. For example an iteration loop that keeps track of 
+a running total is a common pattern in procedural programming:
 
 ```python nolint
 result = 0
@@ -98,8 +97,8 @@ for x in data:
 
 ## Side Effects and Pure Functions
 
-By considering how we use state in our programs, we can improve our programming by
-making it more predictable, reliable, and testable. One way to achieve this is by
+By considering how we use state in our programs, we can make our programming
+more predictable, reliable, and testable. One way to achieve this is by
 adopting functional programming principles, which promote the use of pure functions that
 do not modify any external state and rely only on their input parameters to produce
 their output. Pure functions are easier to reason about and test, and they enable
