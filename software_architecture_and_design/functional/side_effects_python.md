@@ -160,7 +160,7 @@ refactor a Python program that implements Conway's Game of Life. The basic rules
 2. Any live cell with two or three live neighbors lives on to the next generation.
 3. Any live cell with more than three live neighbors dies, as if by overpopulation.
 
-The code has two bugs, one related to the improper management of the program
+The code has a bug related to the improper management of the program
 state, which you will fix. Refactor the code so that the `step`
 function is a pure function.
 
@@ -187,7 +187,6 @@ def get_neighbors(grid, i, j):
                         (i+1, j-1), (i+1, j), (i+1, j+1)])
     valid_indices = (indices[:, 0] >= 0) & (indices[:, 0] < rows) & \
                     (indices[:, 1] >= 0) & (indices[:, 1] < cols)
-    valid_indices[4] = False  # exclude current cell
     return grid[indices[valid_indices][:, 0], indices[valid_indices][:, 1]]
 
 # Test
@@ -212,9 +211,6 @@ argument to the function, but this would make the function impure again. Program
 design often involves trade-offs like this, if efficiency is important we can
 sacrifice purity, but if we want to be able to reason about our code and test it
 easily, we should strive for purity.
-
-The other bug is that we didn't actually include the current cell in
-`valid_indices`, so we need to remove the line that excludes it.
 
 ```python
 import numpy as np
