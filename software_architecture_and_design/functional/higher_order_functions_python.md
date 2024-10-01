@@ -1,5 +1,5 @@
 ---
-name: Higher Order Functions
+name: Higher-Order Functions
 dependsOn: [software_architecture_and_design.functional.side_effects_python]
 tags: [python]
 attribution:
@@ -67,13 +67,13 @@ For example, see [Lambda Expressions](https://en.cppreference.com/w/cpp/language
 Finally, there's another common use case of lambda functions that we'll come back to later when we see **closures**.
 Due to their simplicity, it can be useful to have a lamdba function as the inner function in a closure.
 
-## Higher Order Functions
+## Higher-Order Functions
 
 One of the main uses of lambda functions is to create temporary functions to
-pass into higher order functions. A higher order function is simply a function
+pass into higher-order functions. A higher-order function is simply a function
 that has other functions as one of its arguments.
 
-To illustrate the benifits of higher order functions, let us define two
+To illustrate the benifits of higher-order functions, let us define two
 functions, one that calculates the sum of a list of values, the other
 which calculates the maximum value of the list.
 
@@ -93,7 +93,7 @@ def maximum(data):
 
 We notice that these are really exactly the same algorithm, except that we
 change the binary operation done on the rhs of the statement in the loop, we
-therefore decide to combine these functions into one higher order function.
+therefore decide to combine these functions into one higher-order function.
 
 ```python
 def reduce(data, bin_op):
@@ -122,7 +122,7 @@ number of possible bugs and making the code easier to maintain in the future.
 
 ## Map, Filter, Reduce
 
-Python has a number of higher order functions built in, including `map`,
+Python has a number of higher-order functions built in, including `map`,
 `filter` and `reduce`. Note that the `map` and `filter` functions in Python use
 **lazy evaluation**. This means that values in an iterable collection are not
 actually calculated until you need them. We'll explain some of the implications
@@ -417,7 +417,7 @@ for i in (2 * i for i in range(5)):
 
 ## Decorators
 
-Decorators are higher order functions that take a function as an argument, modify it, and return it.
+Decorators are higher-order functions that take a function as an argument, modify it, and return it.
 
 Let's look at the following code for ways on how to "decorate" functions.
 
@@ -551,7 +551,7 @@ Took 0.124199753 seconds
 - _First-Class Functions_: functions that can be passed as arguments to other functions, returned from functions, or assigned to variables.
 - _Lambda Functions_: small, nameless functions defined in the normal flow of the program with a keyword lambda.
 - _Higher-Order Functions_: a function that has other functions as one of its arguments.
-- _Map, Filter and Reduce_: built-in higher order functions in Python that use lazy evaluation.
+- _Map, Filter and Reduce_: built-in higher-order functions in Python that use lazy evaluation.
 - _Comprehensions_: a more Pythonic way to structure map and filter operations.
 - _Generators_: similar to list comprehensions, but behave differently and not evaluated until you iterate over them.
 - _Decorators_: higher-order functions that take a function as an argument, modify it, and return it.
