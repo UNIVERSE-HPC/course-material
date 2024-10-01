@@ -69,11 +69,11 @@ Due to their simplicity, it can be useful to have a lamdba function as the inner
 
 ## Higher-Order Functions
 
-One of the main uses of lambda functions is to create temporary functions to
-pass into higher-order functions. A higher-order function is simply a function
-that has other functions as one of its arguments.
+Higher-order functions are functions that take another function as an argument
+or that return a function. One of the main uses of lambda functions is to create 
+temporary functions to pass into higher-order functions.
 
-To illustrate the benifits of higher-order functions, let us define two
+To illustrate the benefits of higher-order functions, let us define two
 functions, one that calculates the sum of a list of values, the other
 which calculates the maximum value of the list.
 
@@ -92,7 +92,7 @@ def maximum(data):
 ```
 
 We notice that these are really exactly the same algorithm, except that we
-change the binary operation done on the rhs of the statement in the loop, we
+change the binary operation done on the RHS of the statement in the loop, we
 therefore decide to combine these functions into one higher-order function.
 
 ```python
@@ -120,6 +120,14 @@ print(reduce(data, lambda a, b: min(a, b)))
 Excellent! We have reduced the amount of code we need to write, reducing the
 number of possible bugs and making the code easier to maintain in the future.
 
+Notice, though, that `max` and `min` are already binary functions, so we can
+pass them directly to `reduce` without having to wrap them in lambdas:
+
+```python
+print(reduce(data, max))
+print(reduce(data, min))
+```
+
 ## Map, Filter, Reduce
 
 Python has a number of higher-order functions built in, including `map`,
@@ -143,7 +151,7 @@ l = [1, 2, 3]
 def add_one(x):
     return x + 1
 
-# Returns a <map object> so need to cast to list
+# Returns a <map object> so need to convert to list
 print(list(map(add_one, l)))
 print(list(map(lambda x: x + 1, l)))
 ```
@@ -161,7 +169,7 @@ l = [1, 2, 3]
 def is_gt_one(x):
     return x > 1
 
-# Returns a <filter object> so need to cast to list
+# Returns a <filter object> so need to convert to list
 print(list(filter(is_gt_one, l)))
 print(list(filter(lambda x: x > 1, l)))
 ```
@@ -382,11 +390,9 @@ print({i: 2 * i for i in range(5)})
 
 ## Why No Tuple Comprehension
 
-Raymond Hettinger, one of the Python core developers, said in 2013:
+Raymond Hettinger, one of the Python core developers, [said in 2013](https://x.com/raymondh/status/324664257004322817):
 
-```text
-Generally, lists are for looping; tuples for structs. Lists are homogeneous; tuples heterogeneous. Lists for variable length.
-```
+> Generally, lists are for looping; tuples for structs. Lists are homogeneous; tuples heterogeneous. Lists for variable length.
 
 Since tuples aren't intended to represent sequences, there's no need for them to have a comprehension structure.
 :::
@@ -394,8 +400,9 @@ Since tuples aren't intended to represent sequences, there's no need for them to
 ## Generators
 
 **Generator expressions** look exactly like you might expect a tuple
-*comprehension (which don't exist) to look, and behaves a little differently
-*from the other comprehensions.
+comprehension (which don't exist) to look, and behaves a little differently
+from the other comprehensions.
+
 What happens if we try to use them in the same was as we did list
 comprehensions?
 
@@ -550,7 +557,7 @@ Took 0.124199753 seconds
 
 - _First-Class Functions_: functions that can be passed as arguments to other functions, returned from functions, or assigned to variables.
 - _Lambda Functions_: small, nameless functions defined in the normal flow of the program with a keyword lambda.
-- _Higher-Order Functions_: a function that has other functions as one of its arguments.
+- _Higher-Order Functions_: a function that has other functions as one of its arguments or that returns another function.
 - _Map, Filter and Reduce_: built-in higher-order functions in Python that use lazy evaluation.
 - _Comprehensions_: a more Pythonic way to structure map and filter operations.
 - _Generators_: similar to list comprehensions, but behave differently and not evaluated until you iterate over them.
