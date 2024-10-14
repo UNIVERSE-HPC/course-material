@@ -192,6 +192,7 @@ For the different dispensers case for your workers, however, think of the memory
 |Suitable for both distributed memory and shared memory (e.g., SMP) systems, allowing for parallelization across multiple nodes.|Designed for shared memory systems and cannot be used for parallelization across multiple computers.|
 |Enables parallelism through both processes and threads, providing flexibility for different parallel programming approaches.|Focuses solely on thread-based parallelism, limiting its scope to shared memory environments.|
 |Creation of process/thread instances and communication can result in higher costs and overhead.|Offers lower overhead, as inter-process communication is handled through shared memory, reducing the need for expensive process/thread creation.|
+
 ::::
 
 ## Parallel Paradigms
