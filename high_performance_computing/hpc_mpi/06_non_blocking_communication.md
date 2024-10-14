@@ -102,6 +102,7 @@ The "I" stands for "immediate", indicating that the function returns immediately
 | `MPI_Bsend()` | `MPI_Ibsend()` |
 | `MPI_Barrier()` | `MPI_Ibarrier()` |
 | `MPI_Reduce()` | `MPI_Ireduce()` |
+
 ::::
 
 When we use non-blocking communication, we have to follow it up with `MPI_Wait()` to synchronise the program and make sure `*buf` is ready to be re-used.
