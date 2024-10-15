@@ -54,7 +54,7 @@ my_cool_function(x, y)
 Now imagine we have a global variable defined elsewhere that is updated by
 `my_cool_function`, this is not even passed into the function so it is even
 more unclear that this is being updated. The global variable and function might
-even be declared in a separate file and brought in via an `import`
+even be declared in a separate file and brought in via an `import`.
 
 ```python
 z = 3
@@ -85,10 +85,9 @@ line = myfile.readline() # Same call to readline, but result is different!
 
 The main downside of having a state that is constantly updated is that it makes
 it harder for us to _reason_ about our code, to work out what it is doing.
-However, the upside is that we can use state to store temporary data to make
-calculations more efficient and store temporary data. For example an iteration
-loop that keeps track of a running total is a common pattern in procedural
-programming:
+However, the upside is that we can use state to store temporary data and make
+calculations more efficient. For example an iteration loop that keeps track of 
+a running total is a common pattern in procedural programming:
 
 ```python nolint
 result = 0
@@ -98,8 +97,8 @@ for x in data:
 
 ## Side Effects and Pure Functions
 
-By considering how we use state in our programs, we can improve our programming by
-making it more predictable, reliable, and testable. One way to achieve this is by
+By considering how we use state in our programs, we can make our programming
+more predictable, reliable, and testable. One way to achieve this is by
 adopting functional programming principles, which promote the use of pure functions that
 do not modify any external state and rely only on their input parameters to produce
 their output. Pure functions are easier to reason about and test, and they enable
@@ -160,7 +159,7 @@ refactor a Python program that implements Conway's Game of Life. The basic rules
 2. Any live cell with two or three live neighbors lives on to the next generation.
 3. Any live cell with more than three live neighbors dies, as if by overpopulation.
 
-The code has two bugs, one related to the improper management of the program
+The code has a bug related to the improper management of the program
 state, which you will fix. Refactor the code so that the `step`
 function is a pure function.
 
@@ -187,7 +186,6 @@ def get_neighbors(grid, i, j):
                         (i+1, j-1), (i+1, j), (i+1, j+1)])
     valid_indices = (indices[:, 0] >= 0) & (indices[:, 0] < rows) & \
                     (indices[:, 1] >= 0) & (indices[:, 1] < cols)
-    valid_indices[4] = False  # exclude current cell
     return grid[indices[valid_indices][:, 0], indices[valid_indices][:, 1]]
 
 # Test
@@ -212,9 +210,6 @@ argument to the function, but this would make the function impure again. Program
 design often involves trade-offs like this, if efficiency is important we can
 sacrifice purity, but if we want to be able to reason about our code and test it
 easily, we should strive for purity.
-
-The other bug is that we didn't actually include the current cell in
-`valid_indices`, so we need to remove the line that excludes it.
 
 ```python
 import numpy as np
