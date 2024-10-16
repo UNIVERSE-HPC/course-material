@@ -16,7 +16,7 @@ learningOutcomes:
 
 ---
 
-We've so far seen the basic building blocks for splitting work and communicating data between ranks, meaning we're now dangerous enough to write a simple and successful MPI application. 
+We've so far seen the basic building blocks for splitting work and communicating data between ranks, meaning we're now dangerous enough to write a simple and successful MPI application.
 We've worked, so far, with simple data structures, such as single variables or small 1D arrays.
 In reality, any useful software we write will use more complex data structures, such as structures, n-dimensional arrays and other complex types.
 Working with these in MPI require a bit more work to communicate them correctly and efficiently.
@@ -26,6 +26,7 @@ A derived type acts as a way to enable the translation of complex data structure
 communication.
 
 ::::callout
+
 ## Size limitations for messages
 
 All throughout MPI, the argument which says how many elements of data are being communicated is an integer: `int count`.
@@ -64,14 +65,14 @@ Arrays are row-major in C and column-major in Fortran.
 In a row-major array, the elements in each column of a row are contiguous, so element `x[i][j]` is preceded by `x[i][j - 1]` and is followed by `x[i][j +1]`.
 In Fortran, arrays are column-major so `x(i, j)` is followed by `x(i + 1, j)` and so on.
 
-The diagram below shows how a 4 x 4 matrix is mapped onto a linear memory space, for a row-major array. 
+The diagram below shows how a 4 x 4 matrix is mapped onto a linear memory space, for a row-major array.
 At the top of the diagram is the representation of the linear memory space, where each number is ID of the element in memory.
 Below that are two representations of the array in 2D: the left shows the coordinate of each element and the right shows the ID of the element.
 
 ![Column memory layout in C](fig/c_column_memory_layout.png)
 
 The purple elements (5, 6, 7, 8) which map to the coordinates `[1][0]`, `[1][1]`, `[1][2]` and `[1][3]` are contiguous in linear memory.
-The same applies for the orange boxes for the elements in row 2 (elements 9, 10, 11 and 12). 
+The same applies for the orange boxes for the elements in row 2 (elements 9, 10, 11 and 12).
 Columns in row-major arrays are contiguous.
 The next diagram instead shows how elements in adjacent rows are mapped in memory.
 
@@ -87,7 +88,7 @@ Do you think memory contiguity could impact the performance of our software, in 
 
 ::::solution
 Yes, memory contiguity can affect how fast our programs run.
-When data is stored in a neat and organized way, the computer can find and use it quickly. 
+When data is stored in a neat and organized way, the computer can find and use it quickly.
 But if the data is scattered around randomly (fragmented), it takes more time to locate and use it, which decreases performance.
 Keeping our data and data access patterns organized can make our programs faster.
 But we probably won't notice the difference for small arrays and data structures.
@@ -95,11 +96,12 @@ But we probably won't notice the difference for small arrays and data structures
 :::::
 
 ::::callout
+
 ## What about if I use `malloc()`?
 
-More often than not, we will see `malloc()` being used to allocate memory for arrays. 
+More often than not, we will see `malloc()` being used to allocate memory for arrays.
 Especially if the code is using an older standard, such as C90, which does not support [variable length arrays](https://en.wikipedia.org/wiki/Variable-length_array).
-When we use `malloc()`, we get a contiguous array of elements. 
+When we use `malloc()`, we get a contiguous array of elements.
 To create a 2D array using `malloc()`, we have to first create an array of pointers (which are contiguous) and allocate memory for each pointer:
 
 ```c
@@ -122,7 +124,7 @@ When `malloc()` requests memory, the operating system will assign whatever memor
 This is not always next to the block of memory from the previous allocation.
 This makes life tricky, since data *has* to be contiguous for MPI communication.
 But there are workarounds.
-One is to only use 1D arrays (with the same number of elements as the higher dimension array) and to map the n-dimensional coordinates into a linear coordinate system. 
+One is to only use 1D arrays (with the same number of elements as the higher dimension array) and to map the n-dimensional coordinates into a linear coordinate system.
 For example, the element `[2][4]` in a 3 x 5 matrix would be accessed as:
 
 ```c
@@ -183,7 +185,7 @@ int MPI_Type_commit(
 ```
 
 When a datatype is committed, resources which store information on how to handle it are internally allocated.
-This contains data structures such as memory buffers as well as data used for bookkeeping. 
+This contains data structures such as memory buffers as well as data used for bookkeeping.
 Failing to free those resources after finishing with the vector leads to memory leaks, just like when we don't free memory created using `malloc()`.
 To free up the resources, we use `MPI_Type_free()`,
 
@@ -237,7 +239,7 @@ In the above example, the intention is to only send the second and forth rows, s
 If we used `matrix`, the first and third rows would be sent instead.
 
 The other thing to notice, which is not immediately clear why it's done this way, is that the receive datatype is `MPI_INT` and the count is `num_elements = count * blocklength` instead of a single element of `rows_type`.
-This is because when a rank receives data, the data is contiguous array. 
+This is because when a rank receives data, the data is contiguous array.
 We don't need to use a vector to describe the layout of contiguous memory. We are just receiving a contiguous array of `num_elements = count * blocklength` integers.
 
 :::::challenge{id=sending-columns, title="Sending columns from an array"}
@@ -256,7 +258,7 @@ You may want to use [this code](code/solutions/skeleton-example.c) as your start
 ::::solution
 If your solution is correct you should see 2 and 5 printed to the screen.
 In the solution below, to send a 2 x 1 column of the matrix, we created a vector with `count = 2`, `blocklength = 1` and `stride = 3`.
-To send the correct column our send buffer was `&matrix[0][1]` which is the address of the first element in column 1. 
+To send the correct column our send buffer was `&matrix[0][1]` which is the address of the first element in column 1.
 To see why the stride is 3, take a look at the diagram below:
 
 ![Stride example for question](fig/stride_example_2x3.png)
@@ -310,6 +312,7 @@ int main(int argc, char **argv)
   return MPI_Finalize();
 }
 ```
+
 ::::
 :::::
 
@@ -328,7 +331,7 @@ int matrix[4][4] = {
 You can re-use most of your code from the previous exercise as your starting point, replacing the 2 x 3 matrix with the 4 x 4 matrix above and modifying the vector type and communication functions as required.
 
 ::::solution
-The receiving rank(s) should receive the numbers 6, 7, 10 and 11 if your solution is correct. 
+The receiving rank(s) should receive the numbers 6, 7, 10 and 11 if your solution is correct.
 In the solution below, we have created a vector with a count and block length of 2 and with a stride of 4.
 The first two arguments means two vectors of block length 2 will be sent.
 The stride of 4 results from that there are 4 elements between the start of each distinct block as shown in the image below:
@@ -387,9 +390,9 @@ int main(int argc, char **argv)
   return MPI_Finalize();
 }
 ```
+
 ::::
 :::::
-
 
 ## Structures in MPI
 
@@ -414,8 +417,8 @@ The main difference between vector and struct derived types is that the argument
 Most of these arguments are straightforward, given what we've just seen for defining vectors.
 But `array_of_displacements` is new and unique.
 
-When a struct is created, it occupies a single contiguous block of memory. But there is a catch. 
-For performance reasons, compilers insert arbitrary "padding" between each member. 
+When a struct is created, it occupies a single contiguous block of memory. But there is a catch.
+For performance reasons, compilers insert arbitrary "padding" between each member.
 This padding, known as [data structure alignment](https://en.wikipedia.org/wiki/Data_structure_alignment), optimises both the layout of the memory
 and the access of it.
 As a result, the memory layout of a struct may look like this instead:
@@ -426,7 +429,7 @@ Although the memory used for padding and the struct's data exists in a contiguou
 This is why we need the `array_of_displacements` argument, which specifies the distance, in bytes, between each struct member relative to the start of the struct.
 In practise, it serves a similar purpose of the stride in vectors.
 
-To calculate the byte displacement for each member, we need to know where in memory each member of a struct exists. 
+To calculate the byte displacement for each member, we need to know where in memory each member of a struct exists.
 To do this, we can use the function `MPI_Get_address()`:
 
 ```c
@@ -567,6 +570,7 @@ int main(int argc, char **argv)
   return MPI_Finalize();
 }
 ```
+
 ::::
 :::::
 
@@ -581,7 +585,7 @@ struct Grid {
 grid.position = malloc(3 * sizeof(double));
 ```
 
-If we use `malloc()` to allocate memory for `position`, how would we send data in the struct and the memory we allocated one rank to another? 
+If we use `malloc()` to allocate memory for `position`, how would we send data in the struct and the memory we allocated one rank to another?
 If you are unsure, try writing a short program to create a derived type for the struct.
 
 ::::solution
@@ -595,11 +599,11 @@ The memory we allocated for `*position` is somewhere else in memory, as shown in
 ::::
 :::::
 
-
 ::::callout
+
 ## A different way to calculate displacements
 
-There are other ways to calculate the displacement, other than using what MPI provides for us. 
+There are other ways to calculate the displacement, other than using what MPI provides for us.
 Another common way is to use the `offsetof()` macro part of `<stddef.h>`. `offsetof()` accepts two arguments, the first being the struct type and the second being the member to calculate the offset for.
 
 ```c
@@ -615,11 +619,10 @@ Some people prefer the "safety" of using `MPI_Get_address()` whilst others prefe
 Of course, if you're a Fortran programmer then you can't use the macro!
 ::::
 
-
 ## Dealing with other non-contiguous data
 
 The previous two sections covered how to communicate complex but structured data between ranks using derived datatypes.
-However, there are *always* some edge cases which don't fit into a derived types. 
+However, there are *always* some edge cases which don't fit into a derived types.
 For example, just in the last exercise we've seen that pointers and derived types don't mix well.
 Furthermore, we can sometimes also reach performance bottlenecks when working with heterogeneous data which doesn't fit, or doesn't make sense to be, in a derived type, as each data type needs to be communicated in separate communication calls.
 This can be especially bad if blocking communication is used!
@@ -689,8 +692,8 @@ int MPI_Pack_size(
 );
 ```
 
-`MPI_Pack_size()` is a helper function to calculate the *upper bound* of memory required. 
-It is, in general, preferable to calculate the buffer size using this function, as it takes into account any implementation specific MPI detail and thus is more portable between implementations and systems. 
+`MPI_Pack_size()` is a helper function to calculate the *upper bound* of memory required.
+It is, in general, preferable to calculate the buffer size using this function, as it takes into account any implementation specific MPI detail and thus is more portable between implementations and systems.
 If we wanted to calculate the memory required for three elements of some derived struct type and a `double` array, we would do the following:
 
 ```c
@@ -770,6 +773,7 @@ for (int i = 0; i < num_rows; ++i) {
 ```
 
 ::::callout
+
 ## Blocking or non-blocking?
 
 The processes of packing data into a contiguous buffer does not happen asynchronously.
@@ -779,9 +783,10 @@ It works just as well to communicate the buffer using non-blocking methods, as i
 ::::
 
 ::::callout
- ## What if the other rank doesn't know the size of the buffer?
 
-In some cases, the receiving rank may not know the size of the buffer used in `MPI_Pack()`. 
+## What if the other rank doesn't know the size of the buffer?
+
+In some cases, the receiving rank may not know the size of the buffer used in `MPI_Pack()`.
 This could happen if a message is sent and received in different functions, if some ranks have different branches through the program or if communication happens in a dynamic or non-sequential way.
 
 In these situations, we can use `MPI_Probe()` and `MPI_Get_count` to find the a message being sent and to get the number of elements in the message.
@@ -796,6 +801,7 @@ MPI_Get_count(&status, MPI_PACKED, &buffer_size);
 /* MPI_PACKED represents an element of a "byte stream." So, buffer_size is the size of the buffer to allocate */
 char *buffer = malloc(buffer_size);
 ```
+
 ::::
 
 :::::challenge{id=heterogeneous-data, title="Sending Heterogeneous Data in a Single Communication"}
@@ -819,7 +825,7 @@ for (int i = 0; i < float_data_count; ++i) {
 }
 ```
 
-Since the arrays are dynamically allocated, in rank 0, you should also pack the number of elements in each array. 
+Since the arrays are dynamically allocated, in rank 0, you should also pack the number of elements in each array.
 Rank 1 may also not know the size of the buffer. How would you deal with that?
 
 You can use this [skeleton code](code/solutions/08-pack-skeleton.c) to begin with.
@@ -922,5 +928,6 @@ int main(int argc, char **argv)
     return MPI_Finalize();
 }
 ```
+
 ::::
 :::::

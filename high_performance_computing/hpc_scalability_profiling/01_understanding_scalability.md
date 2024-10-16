@@ -3,6 +3,11 @@ name: Understanding Code Scalability
 dependsOn: [
 ]
 tags: [optimisation]
+learningOutcomes:
+  - Describe why code scalability is important when using HPC resources.
+  - Explain the difference between wall time and CPU time.
+  - Describe the differences between strong and weak scaling.
+  - Summarise the dangers of premature optimisation.
 ---
 
 When we submit a job to a cluster that runs our code, we have the option of specifying the number of CPUs (and in some cases GPUs) that will be allocated to the job. We need to consider to what extent that code is *scalable* with regards to how it uses these resources, to avoid the risk of consuming more resources than can be effectively used. As part of the application process for having new code installed on DiRAC, its scalability characteristics need to be measured. This helps inform how best to assign CPU resources when configuring jobs to run with that code.
@@ -30,17 +35,18 @@ Once we understand these scaling profiles for our code, we'll have an idea of th
 As a developer, if your code happens to take too long to run or scales badly it's tempting to dive in and try to optimise it straight away. But before you do, consider the following [rules of optimisation](https://hackernoon.com/the-rules-of-optimization-why-so-many-performance-efforts-fail-cf06aad89099):
 
 1. Don't,
-2. Don't... *yet*, and,
+1. Don't... *yet*, and,
 
-Another rule is sometimes added:
+        Another rule is sometimes added:
 
-3. If you must optimise your code, *profile* it first.
+1. If you must optimise your code, *profile* it first.
 
 In non-trivial cases premature optimisation is regarded as bad practice, since optimisation may lead to additional code complexity, incorrect results and reduced readability, making the code harder to understand and maintain. It is often effort-intensive, and difficult at a low level, particularly with modern compilers and interpreters, to improve on or anticipate the optimisations they already implement. A general maxim is to focus on writing understandable code and getting things working first - the former helps with the latter. Then, once strong and weak scaling profiles have been measured, if optimisation is justified you can *profile* your code, and work out where the majority of time is being spent and how best to optimise it. If you want to take this philosophy further, consider the [Rules of Optimisation Club](https://perlbuzz.com/2008/02/19/the_rules_of_optimization_club/).
 
 So what is *profiling*? Profiling your code is all about understanding its complexity and performance characteristics. The usual intent of profiling is to work out how best to *optimise* your code to improve its performance in some way, typically in terms of speedup or memory and disk usage. In particular, profiling helps identify *where* bottlenecks exist in your code, and helps avoid summary judgments and guesses which will often lead to unnecessary optimisations.
 
 ::::callout
+
 ## Profilers
 
 Each programming language will typically offer some open-source and/or free tools
@@ -57,6 +63,7 @@ open and free tools:
   [perf](https://perf.wiki.kernel.org/index.php/Main_Page),
   [gprof](https://ftp.gnu.org/old-gnu/Manuals/gprof-2.9.1/html_mono/gprof.html)
 - R: [profvis](https://github.com/rstudio/profvis)
+
 ::::
 
 Donald Knuth said *"we should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%."* In short, optimise the obvious trivial things, but avoid non-trivial optimisations until you've understood what needs to change. Optimisation is often difficult and time consuming. Premature optimization may be a waste of your time!

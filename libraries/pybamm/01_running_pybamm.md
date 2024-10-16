@@ -1,14 +1,13 @@
 ---
 name: Running PyBaMM
-dependsOn: [
-]
+dependsOn: []
 tags: [pybamm]
-attribution: 
-    - citation: >
-        PyBaMM documentation by the PyBaMM Team
-      url: https://docs.pybamm.org
-      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
-      license: BSD-3
+attribution:
+  - citation: >
+      PyBaMM documentation by the PyBaMM Team
+    url: https://docs.pybamm.org
+    image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
+    license: BSD-3
 ---
 
 Before starting this course, you should be comfortable with the basics of Python and have PyBaMM installed in your machine. If you need a refresher about Python you can check the [Intro to Python](/material/introductory_courses/python) course. The instructions on how to install PyBaMM are available in the [PyBaMM docs](https://docs.pybamm.org/en/latest/).
@@ -50,7 +49,7 @@ simulation.solve([0, 3600])
 Now that the simulation has been solved, we can simply call the `plot` method to generate an interactive plot of the key variables:
 
 ```python
-sim.plot()
+simulation.plot()
 ```
 
 ## Comparing multiple models
@@ -59,9 +58,9 @@ We have seen how to run a simulation of the DFN model, but PyBaMM includes many 
 
 ```python
 models = [
-	pybamm.lithium_ion.SPM(),
-	pybamm.lithium_ion.SPMe(),
-	pybamm.lithium_ion.DFN(),
+    pybamm.lithium_ion.SPM(),
+    pybamm.lithium_ion.SPMe(),
+    pybamm.lithium_ion.DFN(),
 ]
 ```
 
@@ -70,9 +69,9 @@ so we can now loop over the list, creating and solving the simulations as we go.
 ```python
 simulations = []
 for model in models:
-	simulation = pybamm.Simulation(model)
-	simulation.solve([0, 3600])
-	simulations.append(simulation)
+    simulation = pybamm.Simulation(model)
+    simulation.solve([0, 3600])
+    simulations.append(simulation)
 ```
 
 We can now plot the results. Because we want to plot all the simulations in the same plot we cannot use the same syntax as before, instead we can use the `pybamm.dynamic_plot` method, which takes the list of simulations as an input:
@@ -94,8 +93,8 @@ the argument should be a list of strings with the names of the variables to plot
 
 ```python
 output_variables = [
-	"Voltage [V]", 
-	["Electrode current density [A.m-2]", "Electrolyte current density [A.m-2]"]
+    "Voltage [V]",
+    ["Electrode current density [A.m-2]", "Electrolyte current density [A.m-2]"]
 ]
 simulation.plot(output_variables=output_variables)
 ```
@@ -137,6 +136,7 @@ simulation = pybamm.Simulation(model, experiment="Discharge at 3C until 3.3 V")
 ```
 
 ## Printing citations
+
 We aim to recognize all contributions by automatically generating citations to the relevant papers on which different parts of the code are built.
 These will change depending on what models and solvers you use. Adding the command
 

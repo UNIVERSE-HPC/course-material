@@ -1,33 +1,30 @@
 ---
 name: Side Effects
-dependsOn: [
-]
+dependsOn: []
 tags: [python]
-attribution: 
-    - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
-      url: https://www.sabsr3.ox.ac.uk
-      image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
-
 
 ## Program state
 
-In programming, the term "state" refers to the current status or condition of a program 
-at a particular moment in time. It can include various pieces of information, such as 
-the values of variables, data structures, or objects, and the state of the system 
+In programming, the term "state" refers to the current status or condition of a program
+at a particular moment in time. It can include various pieces of information, such as
+the values of variables, data structures, or objects, and the state of the system
 resources, such as the memory, files, or network connections.
 
-The state of a program can be modifiable or immutable, depending on whether it can be 
-changed or not during the program's execution. Modifiable state can be a powerful tool 
-in programming, as it allows us to store and update temporary data that we can use to 
-make calculations more efficient. However, it also introduces complexity and potential 
-pitfalls, as changes in state can lead to unpredictable behavior, bugs, or security 
+The state of a program can be modifiable or immutable, depending on whether it can be
+changed or not during the program's execution. Modifiable state can be a powerful tool
+in programming, as it allows us to store and update temporary data that we can use to
+make calculations more efficient. However, it also introduces complexity and potential
+pitfalls, as changes in state can lead to unpredictable behavior, bugs, or security
 vulnerabilities.
 
 The current state of a given program is composed of many different parts, some
@@ -60,10 +57,11 @@ more unclear that this is being updated. The global variable and function might
 even be declared in a separate file and brought in via an `import`
 
 ```python
-z = 3 
+z = 3
 def my_cool_function(x, y):
+    global z
     x = y
-    z = z + 1;
+    z = z + 1
 
 
 y = [3, 2]
@@ -76,6 +74,7 @@ opaque, part of the current state. This includes memory allocations, and file
 IO.
 
 ```python
+import numpy as np
 x = np.zeros(1000) # do we have enough RAM available for this?
 
 myfile = open("example.txt", "w") # does this file exist? Do I have write permissions?
@@ -85,44 +84,45 @@ line = myfile.readline() # Same call to readline, but result is different!
 ```
 
 The main downside of having a state that is constantly updated is that it makes
-it harder for us to *reason* about our code, to work out what it is doing.
+it harder for us to _reason_ about our code, to work out what it is doing.
 However, the upside is that we can use state to store temporary data to make
 calculations more efficient and store temporary data. For example an iteration
 loop that keeps track of a running total is a common pattern in procedural
 programming:
 
-```python
+```python nolint
 result = 0
 for x in data:
     result += expensive_computation(x)
 ```
+
 ## Side Effects and Pure Functions
 
-By considering how we use state in our programs, we can improve our programming by 
-making it more predictable, reliable, and testable. One way to achieve this is by 
-adopting functional programming principles, which promote the use of pure functions that 
-do not modify any external state and rely only on their input parameters to produce 
-their output. Pure functions are easier to reason about and test, and they enable 
-composability, parallelism, and other benefits that can improve the quality and 
+By considering how we use state in our programs, we can improve our programming by
+making it more predictable, reliable, and testable. One way to achieve this is by
+adopting functional programming principles, which promote the use of pure functions that
+do not modify any external state and rely only on their input parameters to produce
+their output. Pure functions are easier to reason about and test, and they enable
+composability, parallelism, and other benefits that can improve the quality and
 efficiency of our code.
 
 Functional computations only rely on the values that are provided as inputs to a
 function and not on the state of the program that precedes the function call.
 They do not modify data that exists outside the current function, including the
-input data - this property is referred to as the *immutability of data*. This
-means that such functions do not create any *side effects*, i.e. do not perform
+input data - this property is referred to as the _immutability of data_. This
+means that such functions do not create any _side effects_, i.e. do not perform
 any action that affects anything other than the value they return. For example:
 printing text, writing to a file, modifying the value of an input argument, or
 changing the value of a global variable. Functions without side affects that
 return the same data each time the same input arguments are provided are called
-*pure functions*.
+_pure functions_.
 
 ::::challenge{id="pure-functions" title="Pure Functions"}
 
 Which of these functions are pure?
 If you're not sure, explain your reasoning to someone else, do they agree?
 
-~~~python
+```python
 def add_one(x):
     return x + 1
 
@@ -136,15 +136,17 @@ def append_item_1(a_list, item):
 def append_item_2(a_list, item):
     result = a_list + [item]
     return result
-~~~
+```
 
 :::solution
+
 ## Solution
 
 1. `add_one` is pure - it has no effects other than to return a value and this value will always be the same when given the same inputs
 2. `say_hello` is not pure - printing text counts as a side effect, even though it is the clear purpose of the function
 3. `append_item_1` is not pure - the argument `a_list` gets modified as a side effect - try this yourself to prove it
 4. `append_item_2` is pure - the result is a new variable, so this time `a_list` does not get modified - again, try this yourself
+
 :::
 ::::
 
@@ -187,7 +189,7 @@ def get_neighbors(grid, i, j):
                     (indices[:, 1] >= 0) & (indices[:, 1] < cols)
     valid_indices[4] = False  # exclude current cell
     return grid[indices[valid_indices][:, 0], indices[valid_indices][:, 1]]
-    
+
 # Test
 grid = np.array([[0, 0, 0, 0, 0],
                  [0, 0, 1, 0, 0],
@@ -254,7 +256,6 @@ assert np.array_equal(new_grid, grid), "Grid should be unchanged"
 :::
 ::::
 
-
 ## Benefits of Functional Code
 
 There are a few benefits we get when working with pure functions:
@@ -274,17 +275,17 @@ will be, or how to measure them.
 
 **Composability** refers to the ability to make a new function from a chain of
 other functions by piping the output of one as the input to the next. If a
-function does not  have side effects or non-deterministic behaviour, then all
+function does not have side effects or non-deterministic behaviour, then all
 of its behaviour is reflected in the value it returns. As a consequence of
 this, any chain of combined pure functions is itself pure, so we keep all these
 benefits when we are combining functions into a larger program. As an example
 of this, we could make a function called `add_two`, using the `add_one`
 function we already have.
 
-~~~python
+```python
 def add_two(x):
     return add_one(add_one(x))
-~~~
+```
 
 **Parallelisability** is the ability for operations to be performed at the same
 time (independently). If we know that a function is fully pure and we have got
@@ -294,7 +295,9 @@ function depends only on its input, so we will get the right result regardless
 of when or where the code runs.
 
 :::callout
+
 ## Everything in Moderation
+
 Despite the benefits that pure functions can bring, we should not be trying to
 use them everywhere. Any software we write needs to interact with the rest of
 the world somehow, which requires side effects. With pure functions you cannot
@@ -311,16 +314,16 @@ as they return new data objects instead of changing existing ones.
 
 There are other advantageous properties that can be derived from the functional
 approach to coding. In languages which support functional programming, a
-function is a *first-class object* like any other object - not only can you
+function is a _first-class object_ like any other object - not only can you
 compose/chain functions together, but functions can be used as inputs to, passed
 around or returned as results from other functions (remember, in functional
-programming *code is data*). This is why functional programming is suitable for
+programming _code is data_). This is why functional programming is suitable for
 processing data efficiently - in particular in the world of Big Data, where code
 is much smaller than the data, sending the code to where data is located is
 cheaper and faster than the other way round. Let's see how we can do data
 processing using functional programming.
 
-## Key Points:
+## Key Points
 
 - Program state is composed of variables' values, including those modified by functions and interactions with the Operating System.
 - Functional computations rely only on input values, are immutable, and do not create side effects. Pure functions are testable, composable, and parallelizable.

@@ -27,7 +27,6 @@ In this case, the equation is used in a simplified form to describe how heat dif
 
 In the simulation the stick is split into a given number of slices, each with a constant temperature.
 
-
 ![Stick divided into separate slices with touching boundaries at each end](fig/poisson_stick.png)
 
 The temperature of the stick itself across each slice is initially set to zero, whilst at one boundary of the stick the amount of heat is set to 10.
@@ -90,7 +89,7 @@ The next step is to initialise the initial conditions of the simulation:
   u[0] = 10.0;
 ```
 
-`residual` here refers to the threshold of temperature equilibrium along the stick we wish to achieve. Once it's within this threshold, the simulation will end. 
+`residual` here refers to the threshold of temperature equilibrium along the stick we wish to achieve. Once it's within this threshold, the simulation will end.
 Note that initially, `u` is set entirely to zero, representing a temperature of zero along the length of the stick.
 As noted, `rho` is set to zero here for simplicity.
 
@@ -121,7 +120,7 @@ Finally, just for show, the code outputs a representation of the result - the en
 
 ### The Iterative Function - `poisson_step()`
 
-The `poisson_step()` progresses the simulation by a single step. 
+The `poisson_step()` progresses the simulation by a single step.
 After it accepts its arguments, for each slice in the stick it calculates a new value based on the temperatures of its neighbours:
 
 ```c
@@ -166,7 +165,7 @@ gcc poisson.c -o poisson
 
 And should see the following:
 
-```
+```text
 Final result:
 9-8-7-6-6-5-4-3-3-2-1-0-
 Run completed in 182 iterations with residue 9.60328e-06
@@ -176,15 +175,18 @@ Here, we can see a basic representation of the temperature of each slice of the 
 Ordinarily, we might output the full sequence to a file, but we've simplified it for convenience here.
 
 ::::callout{variant="warning"}
+
 ## Missing Links
+
 Depending on your system, you might get an error along the line of `undefined reference to symbol 'sqrt'`.
 
 This error was generated when the compiler attempted to link together the compiled versions of your code and the libraries it depends on to produce the final executable. The `sqrt` function is present in `math.h`, but on some systems the compiled `math` library isn't linked by default. You can explicitly include it using the `-lm` flag:
+
 ```bash
 gcc -poisson.c -o poisson -lm
 ```
-::::
 
+::::
 
 ## Approaching Parallelism
 
@@ -204,18 +206,19 @@ Looking at the code, which parts would benefit most from parallelisation, and ar
 
 ::::solution
 Potentially, the following regions could be executed in parallel:
- 
-* The setup, when initialising the fields
-* The calculation of each time step, `unew` - this is the most computationally intensive of the loops
-* Calculation of the cumulative temperature difference, `unorm`
-* Overwriting the field `u` with the result of the new calculation
+
+- The setup, when initialising the fields
+- The calculation of each time step, `unew` - this is the most computationally intensive of the loops
+- Calculation of the cumulative temperature difference, `unorm`
+- Overwriting the field `u` with the result of the new calculation
 
 As `GRIDSIZE` is increased, these will take proportionally more time to complete, so may benefit from parallelisation.
 
 However, there are a few regions in the code that will require exchange of data across the parallel executions to work correctly:
 
-* Calculation of `unorm` is a sum that requires difference data from all sections of the stick, so we'd need to somehow communicate these difference values to a single rank that computes and receives the overall sum
-* Each section of the stick does not compute a single step in isolation, it needs boundary data from neighbouring sections of the stick to arrive at its computed temperature value for that step, so we'd need to communicate temperature values between neighbours (i.e. using a nearest neighbours communication pattern)
+- Calculation of `unorm` is a sum that requires difference data from all sections of the stick, so we'd need to somehow communicate these difference values to a single rank that computes and receives the overall sum
+- Each section of the stick does not compute a single step in isolation, it needs boundary data from neighbouring sections of the stick to arrive at its computed temperature value for that step, so we'd need to communicate temperature values between neighbours (i.e. using a nearest neighbours communication pattern)
+
 ::::
 :::::
 
@@ -229,15 +232,14 @@ Examine the code and try to identify any serial regions that can't (or shouldn't
 ::::solution
 There aren't any large or time consuming serial regions, which is good from a parallelism perspective.
 However, there are a couple of small regions that are not amenable to running in parallel:
- 
-* Setting the `10.0` initial temperature condition at the stick 'starting' boundary. We only need to set this once at the beginning of the stick, and not at the boundary of every section of the stick
-* Printing a representation of the final result, since this only needs to be done once to represent the whole stick, and not for every section.
- 
+
+- Setting the `10.0` initial temperature condition at the stick 'starting' boundary. We only need to set this once at the beginning of the stick, and not at the boundary of every section of the stick
+- Printing a representation of the final result, since this only needs to be done once to represent the whole stick, and not for every section.
+
 So we'd need to ensure only one rank deals with these, which in MPI is typically the zeroth rank.
 This also makes sense in terms of our parallelism approach, since the zeroth rank would be the beginning of the stick, where we'd set the initial boundary temperature.
 ::::
 :::::
-
 
 ## Parallelising our Code
 
@@ -381,7 +383,9 @@ Insert the following into the `poisson_step()` function, putting the declaration
 ```c
   double unorm, global_unorm;
 ```
+
 Then add `MPI_Allreduce()` after the calculation of `unorm`:
+
 ```c
   MPI_Allreduce(&unorm, &global_unorm, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
 ```
@@ -483,7 +487,7 @@ mpicc poisson_mpi.c -o poisson_mpi
 mpirun -n 2 poisson_mpi
 ```
 
-```
+```text
 Final result:
 9-8-7-6-6-5-4-3-3-2-1-0-
 Run completed in 182 iterations with residue 9.60328e-06
@@ -492,18 +496,17 @@ Run completed in 182 iterations with residue 9.60328e-06
 Note that as it stands, the implementation assumes that `GRIDSIZE` is divisible by `n_ranks`.
 So to guarantee correct output, we should use only factors of 12 for our `n_ranks`.
 
-
 ### Testing our Parallel Code
 
 We should always ensure that as our parallel version is developed, that it behaves the same as our serial version.
-This may not be possible initially, particularly as large parts of the code need converting to use MPI, but where possible, we should continue to test. 
+This may not be possible initially, particularly as large parts of the code need converting to use MPI, but where possible, we should continue to test.
 So we should test once we have an initial MPI version, and as our code develops, perhaps with new optimisations to improve performance, we should test then too.
 
 :::::challenge{id=an-initial-test, title="An Initial Test"}
 Test the MPI version of your code against the serial version, using 1, 2, 3, and 4 ranks with the MPI version. Are the results as you would expect?
 
 What happens if you test with 5 ranks, and why? Write a simple test into the code that would catch the error using the `assert(condition)` function from the `assert.h` library, which will terminate the program if `condition` evalutes to `false`.
- 
+
 ::::solution
 Using these ranks, the MPI results should be the same as our serial version.
 Using 5 ranks, our MPI version yields `9-8-7-6-5-4-3-2-1-0-0-0-` which is incorrect.
@@ -514,20 +517,25 @@ This doesn't fill `resultbuf` with results representing an expected `GRIDSIZE` o
 This highlights another aspect of complexity we need to take into account when writing such parallel implementations, where we must ensure a problem space is correctly subdivided. We especially want to prevent situations where the code *appears* to run without a crash or error, but still gives a completely wrong answer.
 
 We can catch the error using an assertion by importing the `assert.h` library at the top of the file:
+
 ```c
 #include <assert.h>
 ```
-Then we can add the check itself just after calculating `rank_gridsize`, where we test to see if the gridsize calculation would have left a non-zero remainder. This means there are cells that can't be evenly distributed across the ranks. 
+
+Then we can add the check itself just after calculating `rank_gridsize`, where we test to see if the gridsize calculation would have left a non-zero remainder. This means there are cells that can't be evenly distributed across the ranks.
 
 If we don't add any conditions, we'll get one error message per rank, so we want to condition it to only run on a single one:
+
 ```c
   // Test that the grid can be subdivided between the ranks properly
   if (rank == 0) {
     assert(GRIDSIZE % n_ranks == 0);
   }
 ```
+
 This should give us a helpful error when we try to run the code for an invalid number of ranks, instead of simply giving us the wrong answer at the end:
-```
+
+```text
 poisson_mpi: poisson_mpi.c:105: main: Assertion `GRIDSIZE % n_ranks == 0' failed.
 ```
 
@@ -548,5 +556,6 @@ At initialisation, instead of setting it to zero we could do:
 ```c
     rho[i] = rho_coefficients[(rank * rank_gridsize) + i]
 ```
+
 ::::
 :::::

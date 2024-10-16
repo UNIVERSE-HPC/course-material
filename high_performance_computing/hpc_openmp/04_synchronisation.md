@@ -19,6 +19,7 @@ and race conditions. In the context of parallel computing, thread  or rank (in t
 crucial role in guaranteeing the *correctness* of our program, particularly in regard to data consistency and integrity.
 
 ::::callout
+
 ## What is code correctness?
 
 Code correctness in parallel programming is the guarantee that a program operates as expected in multi-threaded
@@ -53,6 +54,7 @@ correct value of 2. This illustrates why it's called a race condition, because t
 modify variables before another thread can!
 
 :::callout
+
 ## Analogy: Editing a document
 
 Imagine two people trying to update the same document at the same time. If they don't communicate what they're doing,
@@ -86,6 +88,7 @@ int main(void) {
     return EXIT_SUCCESS;
 }
 ```
+
 :::solution
 What you will notice is that when you run the program, the final value changes each time. The correct final value is
 10,000 but you will often get a value that is lower than this. This is caused by a race condition, as explained in
@@ -175,6 +178,7 @@ a `nowait` clause is used with a parallel for.
     next_function();
  }
 ```
+
 :::
 
 ### Synchronisation regions
@@ -310,7 +314,6 @@ threads and explored how be used to prevent race conditions in the previous exer
 will look at the other mechanisms which can prevent race conditions, namely by setting locks or by using atomic
 operations.
 
-
 ### Locks
 
 Critical regions provide a convenient and straightforward way to synchronise threads and guard data access to prevent
@@ -412,8 +415,8 @@ often less expensive than critical regions or locks, so they should be preferred
 still important to not be over-zealous with using atomic operations as they can still introduce synchronisation
 overheads which can damage the parallel performance.
 
-
 :::callout
+
 ### When should I prefer to use a critical region? Or an atomic operation, or a lock?
 
 There are three mechanisms we can use to prevent race conditions: critical regions, locks and atomic operations. The
@@ -472,7 +475,7 @@ int main(int argc, char **argv) {
 When we run the program multiple times, we expect the output `sum` to have the value of `0.000000`. However, due to an
 existing race condition, the program can sometimes produce wrong output in different runs, as shown below:
 
-```
+```text
 1. Sum: 1.000000
 2. Sum: -1.000000
 3. Sum: 2.000000
@@ -532,5 +535,6 @@ for (int i = 0; i < ARRAY_SIZE; ++i) {
     sum += array[i];
 }
 ```
+
 :::
 ::::

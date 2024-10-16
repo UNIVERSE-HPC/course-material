@@ -8,7 +8,7 @@ title: Using Parameters and Outputs
   - Using Parameters Sets
   - Changing Parameters
   - Input Parameters
-- Outputs: 
+- Outputs:
   - Variables
   - Processed Variables
   - Plots
@@ -16,7 +16,7 @@ title: Using Parameters and Outputs
 
 ## Parameter Sets
 
-- PyBaMM comes with a number of parameter sets that have been published in the 
+- PyBaMM comes with a number of parameter sets that have been published in the
   literature.
 - To see the available parameter sets and more information on each one:
 
@@ -53,17 +53,16 @@ parameter_values["Negative electrode thickness [m]"] = 1e-5
 
 ## Background - The PyBaMM Pipeline
 
-- To understand how parameters are used in PyBaMM, we need to understand the PyBaMM 
-  pipeline. 
-- Most of these steps are done automatically by the `pybamm.Simulation` class, but it is 
+- To understand how parameters are used in PyBaMM, we need to understand the PyBaMM
+  pipeline.
+- Most of these steps are done automatically by the `pybamm.Simulation` class, but it is
   useful to know what is going on under the hood.
-
 
 ### The PyBaMM Pipeline (cont.)
 
 The pipeline is a series of steps that PyBaMM goes through to solve a model:
 
-1. Define the model. The equations are continuous (i.e. not discretised in space or 
+1. Define the model. The equations are continuous (i.e. not discretised in space or
    time)
   and the parameters are symbolic (i.e. not yet given a value)
 
@@ -78,8 +77,7 @@ parameter_values = pybamm.ParameterValues("Marquis2019")
 param.process_model(model)
 param.process_geometry(geometry)
 ~~~
-     
-     
+
 ### The PyBaMM Pipeline (cont.)
 
 3. Discretise the equations in space and time
@@ -97,19 +95,19 @@ solver = pybamm.CasadiSolver(mode="fast")
 solution = solver.solve(model, t_eval)
 ~~~
 
-For more detail see the 
+For more detail see the
 [docs](https://docs.pybamm.org/en/latest/source/examples/notebooks/expression_tree/expression-tree.html)
 
 ## Updating Parameters in the Pipeline
 
-- To update the parameters in a model, we need to repeat steps 2-4 of the pipeline (i.e. 
+- To update the parameters in a model, we need to repeat steps 2-4 of the pipeline (i.e.
   nearly all of it!).
 - This overhead can be significant (e.g. paramter sweeps, optimisation).
 - To avoid this, PyBaMM has the concept of an **input parameter**.
 
 ## Input Parameters
 
-- An input parameter is a parameter that does not yet have a value, but one will be 
+- An input parameter is a parameter that does not yet have a value, but one will be
   provided when the model is solved.
 
 - An input parameter can be created by setting its value to the string `[input]`, like so:
@@ -121,11 +119,11 @@ parameter_values.update({
 })
 ~~~
 
-- This keeps the parameter symbolic through the pipeline, until the solve step, when the 
+- This keeps the parameter symbolic through the pipeline, until the solve step, when the
   user provides a value:
 
 ~~~python
 solution = simulation.solve([0, 3600], inputs={"Current function [A]": 2})
 ~~~
-    
+
 ## Questions?

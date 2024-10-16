@@ -2,6 +2,9 @@
 name: Why Use a Cluster?
 dependsOn: []
 tags: []
+learningOutcomes:
+  - Describe what an HPC system is.
+  - Identify how an HPC system could benefit you.
 attribution: 
     - citation: >
         "Introduction to High-Performance Computing" course by the HPC-carpentries
@@ -44,7 +47,6 @@ In all these cases, access to more (and larger) computers is needed. Those
 computers should be usable at the same time, __solving many researchers'
 problems in parallel__.
 
-
 ::::challenge{id=never-used-server title="I've Never Used a Server, Have I?"}
 
 Take a minute and think about which of your daily interactions with a
@@ -52,6 +54,7 @@ computer may require a remote server or even cluster to provide you with
 results.
 
 :::solution
+
 ## Some Ideas
 
 * Checking email: your computer (possibly in your pocket) contacts a remote

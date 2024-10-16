@@ -3,14 +3,14 @@ name: Functions
 dependsOn: [software_architecture_and_design.procedural.containers_cpp]
 tags: [cpp]
 attribution:
-- citation: This material was adapted from an "Introduction to C++" course developed by the Oxford RSE group.
-  url: https://www.rse.ox.ac.uk
-  image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
+  - citation: This material was adapted from an "Introduction to C++" course developed by the Oxford RSE group.
+    url: https://www.rse.ox.ac.uk
+    image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 # Functions
@@ -114,7 +114,7 @@ int main() {
 
 [`[< compiler explorer >]`](https://gcc.godbolt.org/z/F1MBsS)
 
-# Pass by reference
+## Pass by reference
 
 A common way of allowing a function to change the value of a variable outside the
 function is to use _references_. You can do this by adding

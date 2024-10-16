@@ -2,7 +2,8 @@
 id: essential_maths
 name: Essential Maths
 dependsOn: []
-files: [
+files:
+  [
     01_graphs.md,
     02_indices_and_logs.md,
     03_differentiation_1.md,
@@ -22,22 +23,21 @@ files: [
     17_probability_1.md,
     18_probability_2.md,
     19_probability_3.md,
-]
+  ]
 summary: |
-    A course in maths, containing a primer in everything you need to know in order to analyse systems of differential equations. 
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
+  A course in maths, containing a primer in everything you need to know in order to analyse systems of differential equations.
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 The most recent substantial iteration of this course was developed by Fergus Cooper, Beth Dingley, and Elliot Howard-Spink.
-
 
 ## Why Maths?
 
@@ -50,13 +50,13 @@ You are going into research, and you
 
 Some of you **may** feel you don't need to know any maths, but this course will be useful to you even if you never have to write down a system of differential equations yourself.
 
-**Data analysis:**
+### Data analysis
 
 - Interpretation and inference
 - Identify patterns, trends, relationships
 - Deal robustly with uncertainty and variation
 
-**Describe the behaviour of systems:**
+### Describe the behaviour of systems
 
 - Remove ambiguity: explicit assumptions
 - Quantitative hypotheses
@@ -64,17 +64,15 @@ Some of you **may** feel you don't need to know any maths, but this course will 
 - "If I make this intervention, I expect to see that change"
 - Explain **why** something is observed
 
-
-**Vital for dynamic and nonlinear systems**
+### Vital for dynamic and nonlinear systems
 
 - Simple intuition breaks down
 - Most of biology is dynamic and nonlinear!
 
-
 ## Course aims
 
 - Develop confidence in your mathematical abilities
-    - Extensive practice
+  - Extensive practice
 - Become able to communicate effectively with mathematical collaborators
 - Ensure you can read and understand mathematical papers in your field
 - Build on your ability to apply computational tools from **Python** to solve problems

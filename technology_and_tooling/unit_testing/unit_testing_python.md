@@ -1,8 +1,6 @@
 ---
 name: Unit Testing with Python
-dependsOn: [
-   technology_and_tooling.unit_testing.introduction
-]
+dependsOn: [technology_and_tooling.unit_testing.introduction]
 tags: [python, unit-testing]
 ---
 
@@ -24,6 +22,7 @@ As an example, we will test the `daily_mean` function defined in
 Create a file `sandbox.py` and paste the following code:
 
 ```python
+import pytest
 from inflammation.models import daily_mean
 import numpy as np
 
@@ -63,31 +62,32 @@ execution never reaches that point.
 
 Most people don’t enjoy writing tests, so if we want them to actually do it, it must be easy to:
 
-* Add or change tests.
-* Understand the tests that have already been written.
-* Run those tests.
-* Understand those tests’ results.
+- Add or change tests.
+- Understand the tests that have already been written.
+- Run those tests.
+- Understand those tests’ results.
 
 There are many unit testing frameworks in different languages
 
-* Python: pytest, unittest, nose2
-* C++: Catch2, GoogleTest, ...
-* Java: JUnit
-* Fortran: FRUIT
+- Python: pytest, unittest, nose2
+- C++: Catch2, GoogleTest, ...
+- Java: JUnit
+- Fortran: FRUIT
 
 Let’s add some tests for our library function, `daily_mean`:
 
 ```python
+import numpy as np
 def test_daily_mean_zeros():
-   """Test that mean function works for an array of zeros."""
-   from inflammation.models import daily_mean
+    """Test that mean function works for an array of zeros."""
+    from inflammation.models import daily_mean
 
-   test_array = np.array([[0, 0],
-                          [0, 0],
-                          [0, 0]])
+    test_array = np.array([[0, 0],
+                            [0, 0],
+                            [0, 0]])
 
-   # Need to use Numpy testing functions to compare arrays
-   npt.assert_array_equal(np.array([0, 0]), daily_mean(test_array))
+    # Need to use Numpy testing functions to compare arrays
+    np.assert_array_equal(np.array([0, 0]), daily_mean(test_array))
 ```
 
 Run `pytest tests/test_models.py`
@@ -106,12 +106,12 @@ functionality built in.
 
 ```python
 def test_daily_min_string():
-   """Test for TypeError when passing strings"""
-   from inflammation.models import daily_min
-   from pytest import raises
+    """Test for TypeError when passing strings"""
+    from inflammation.models import daily_min
+    from pytest import raises
 
-   with raises(TypeError):
-       daily_min([['Cannot', 'min'], ['string', 'arguments']])
+    with raises(TypeError):
+        daily_min([['Cannot', 'min'], ['string', 'arguments']])
 ```
 
 This code uses the `raises` function defined in pytest to create a block that
@@ -141,15 +141,15 @@ example, we could rewrite the `test_daily_mean_zeros()` and
 
 ```python
 @pytest.mark.parametrize(
-   "test, expected",
-   [
-       ([[0, 0], [0, 0], [0, 0]], [0, 0]),
-       ([[1, 2], [3, 4], [5, 6]], [3, 4]),
-   ])
+    "test, expected",
+    [
+        ([[0, 0], [0, 0], [0, 0]], [0, 0]),
+        ([[1, 2], [3, 4], [5, 6]], [3, 4]),
+    ])
 def test_daily_mean(test, expected):
-   """Test mean function works for array of zeroes and positive integers."""
-   from inflammation.models import daily_mean
-   npt.assert_array_equal(np.array(expected), daily_mean(np.array(test)))
+    """Test mean function works for array of zeroes and positive integers."""
+    from inflammation.models import daily_mean
+    np.assert_array_equal(np.array(expected), daily_mean(np.array(test)))
 ```
 
 ::: exercise
@@ -174,10 +174,10 @@ module in the curriculum.
 
 ## Recap
 
-* We are making use of a unit testing framework (pytest).
-* We have written tests that verify normal functional behaviour of three specific units.
-* We have tested that some common cases of function misuse fail in the way we expect them to fail.
-* We have parameterised tests to cut down on code duplication.
+- We are making use of a unit testing framework (pytest).
+- We have written tests that verify normal functional behaviour of three specific units.
+- We have tested that some common cases of function misuse fail in the way we expect them to fail.
+- We have parameterised tests to cut down on code duplication.
 
 In the next episode, we will walk through how to run unit tests automatically
 when we push code changes to GitHub.

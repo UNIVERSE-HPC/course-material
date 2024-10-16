@@ -1,22 +1,19 @@
 ---
 name: Indices, logs and exponentials
-dependsOn: [
-  scientific_computing.essential_maths.01_graphs
-]
+dependsOn: [scientific_computing.essential_maths.01_graphs]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
---- 
+---
 
 ## YouTube lecture recording from October 2020
 
@@ -113,6 +110,7 @@ where $n$ is a positive integer.
 ### (5) Zero index
 
 Similarly,
+
 > $$\frac{a^3}{a^3} = \frac{a \times a \times a}{a \times a \times a} = 1$$,
 
 and by using the division rule, the power should be $3-3=0$.
@@ -125,21 +123,18 @@ which is undefined:
 ### (6) Fractional (rational) indices
 
 > $$a^1 = a^{1/2} \times a^{1/2} {\rm ~~~~so~~~~}a^{1/2} = \sqrt{a} $$
-
 > $$a^{1\over n} = \sqrt[n]{a} $$
-
 > $$a^{n\over m} = \left(\sqrt[m]{a}\right)^n ~~~~~{\rm or}~~~\sqrt[m]{a^n}$$
-
 > $$a^{-{n\over m}} = {1\over {\left(\sqrt[m]{a}\right)^n}}~~~{\rm or}~~~~{1\over {\sqrt[m]{a^n}}}$$
 
 ### (7) Different bases, same index
 
 > $$(a\cdot b)^x = a^x\cdot b^x\qquad {\rm and}\qquad\Bigl( {a\over b}\Bigr)^x={{\,a^x}\over{\,b^x}}$$
 
-### (8) Two Cautionary remarks:
+### (8) Two Cautionary remarks
 
-1.  Powers of sums are **not** pretty:  $(a+b)^x \ne a^x + b^x$
-2.  Powers of differences are **not** pretty: $(a-b)^x \ne a^x - b^x$
+1. Powers of sums are **not** pretty: $(a+b)^x \ne a^x + b^x$
+2. Powers of differences are **not** pretty: $(a-b)^x \ne a^x - b^x$
 
 A useful formula for products of sums:
 $(p+q)\cdot(s+t) = ps + pt+qs + qt$
@@ -161,7 +156,7 @@ In general we write $\quad x = \log_a y \quad \Leftrightarrow \quad y=a^x$.
 The base of a logarithm may be any number. Commonly, logarithms either have **base** 10 or **base** $e$.
 It is almost always a good idea to explicitly state the base, e.g. $\;\log_3 9=2\;$ implies $\;3^2=9\;$.
 
-## Getting a feel for logarithms.
+## Getting a feel for logarithms
 
 Here's a graph of $y=\log_{10}x$:
 
@@ -178,60 +173,58 @@ Some physical phenomena use log metrics due to their huge dynamic range:
 
 ## The laws of logarithms
 
-### (1) Using the same base $a$ for both operations:
+### (1) Using the same base $a$ for both operations
 
-- *Taking the logarithm* undoes *raising to a power*:
+- _Taking the logarithm_ undoes _raising to a power_:
 
 > $$\log_a\,a^r=r$$
 
-- *Raising to a power* undoes *taking the logarithm*:
+- _Raising to a power_ undoes _taking the logarithm_:
 
 > $$a^{\log_a\,b}=b$$
 
-## The laws of logarithms
-
-### (2) Multiplication.
+### (2) Multiplication
 
 > $$\log_a (bc) = \log_a b + \log_a c ~~~~~(Add) $$
 
-### (3) Division. In a similar way to multiplication,
+### (3) Division. In a similar way to multiplication
 
 > $$\log_a \left({b \over c}\right) = \log_a b - \log_a c ~~~~~(Subtract)$$
 
-### (4) Powers.
+### (4) Powers
 
 > $$\log_a b^n = n \log_a b  ~~~~~~ (Multiply)$$
 
-### (5) Changing the base of  a logarithm:
+### (5) Changing the base of a logarithm
 
 > $$\log_a c = {\log_b c\over \log_b a}$$
 
 ### (6) Special case: if $b$ and $c$ are the same, (5) reduces to
 
-
 > $$ \log_a b ={\log_b b\over \log_b a}={1\over \log_b a}$$
 
-### (7) The log of any number to the base itself is 1:
+### (7) The log of any number to the base itself is 1
 
 > $$\log_a a =1 $$
 
-### (8) The log of 1 is 0 (unless a=0, in which case it is undefined):
+### (8) The log of 1 is 0 (unless a=0, in which case it is undefined)
 
 > $$\log_a 1 = 0 \quad{\rm since~~~}\quad a^0=1$$
 
-
-### (9) Inverse operation:
+### (9) Inverse operation
 
 > $$\log_a a^x = x$$
 
-### (10) Or,
+### (10) Or
 
 > $$a^{\log_a x}=x$$
 
-### (11) Negative logs.
+### (11) Negative logs
+
 > $$\log_a {1\over x} = \log_a1-\log_ax= 0 - \log_a x =-\log_ax$$
 
-### (12)  Two cautionary remarks:
+### (12) Two cautionary remarks
+
 1. $\;\log_a (x + y)\;$ and $\;\log_a (x-y)\;$ cannot be simplified any further, and should be left as they are.
 
 2. Neither can $\;\log_a\,x \cdot \log_a\,y\;$ or $\;\displaystyle{{\log_a\,x}\over {\log_a\,y}}.\;$ Leave them as they are.
@@ -240,12 +233,12 @@ Some physical phenomena use log metrics due to their huge dynamic range:
 
 Can the data below be fitted to the form: $y=Ax^n$?
 
-| x   | y   |
-|-----|-----|
-| 4.0 | 6.0 |
-| 16.0| 12.0|
-| 25.0| 15.0|
-| 64.0| 24.0|
+| x    | y    |
+| ---- | ---- |
+| 4.0  | 6.0  |
+| 16.0 | 12.0 |
+| 25.0 | 15.0 |
+| 64.0 | 24.0 |
 
 ![Graph of data table](fig/02_02_data.svg)
 
@@ -261,40 +254,37 @@ Intercept = $0.48 = \log_{10}A$ so $A=3.0$
 
 Data fit curve of the form:
 
-> $$y=3.0\times  x^{1/2}$$ 
+> $$y=3.0\times  x^{1/2}$$
 
 ## Example 2: pH
 
 1. What is the pH of a 0.011M solution of HCl?
 
-> $$pH = -\log_{10}[H^+]$$
+   > $$pH = -\log_{10}[H^+]$$
 
-```python
-pH = -np.log10(0.011)
-print('pH =',pH)
-```
+   ```python
+   import numpy as np
+   pH = -np.log10(0.011)
+   print('pH =',pH)
+   ```
 
-```
-pH = 1.958607314841775
-```
+   ```text
+   pH = 1.958607314841775
+   ```
 
 2. What is the H$^+$ concentration of a solution of HCl with a pH of 3?
 
-$$pH = -\log [H^+] = 3~~~~{\rm~so~~~}$$
+   $$pH = -\log [H^+] = 3~~~~{\rm~so~~~}$$
 
-```
-[H+] = 0.001 M
-```
+   ```text
+   [H+] = 0.001 M
+   ```
 
 ## Example 3: Simplifying logs
 
 Write an expression for $x$ without using logarithms:
 
-> $$\log(x) = \log(p) + 2 \log(q) - \log(k) -3$$
-
-> $$\log(x) =~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$$
-
-> $$x=~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$$
+> $$\log(x) = \log(p) + 2 \log(q) - \log(k) -3$$ > $$\log(x) =~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$$ > $$x=~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$$
 
 1. Use the laws of logarithms (above) to put all terms on the right hand side
    **within** the logarithm. This means we have to rewrite $\;3\;$ as $\;3\log(10)\;$.
@@ -302,7 +292,7 @@ Write an expression for $x$ without using logarithms:
 
 ## The exponential function and the real number e
 
-### Definition of the Real Number $e$:
+### Definition of the Real Number $e$
 
 The real number $e$, also known as Euler's number, is that base for which the graph $y=e^x$
 passes through the point $\;(0, 1)\;$ with gradient exactly equal to $\;1$.
@@ -322,10 +312,10 @@ $e$ has been found to arise in many branches of mathematics. It is also used as 
 
 Logs to base $e$ are called **natural logarithms**.
 
-## Definition of the natural logarithm:
+## Definition of the natural logarithm
 
 The **natural logarithm** of a number is the logarithm of that number taken using the base $\;e\;$.
-We usually write $\;\ln(x)\;$ for $\log_e(x)$.  Here are some examples:
+We usually write $\;\ln(x)\;$ for $\log_e(x)$. Here are some examples:
 
 - $\ln(e)=\log_e(e)=1$
 - $\ln(10)=\log_e(10)$ = "The power I need to raise $e$ to in order to get 10"
@@ -334,9 +324,8 @@ We usually write $\;\ln(x)\;$ for $\log_e(x)$.  Here are some examples:
 - $\exp(\ln(b))=e^{\ln(b)}=e^{\log_e b}=b$
 
 Note that examples (d) and (e) confirm the property that
-the functions  "$\exp$"  and "$\ln$"  are *functional
-inverses* of one another.
-
+the functions "$\exp$" and "$\ln$" are _functional
+inverses_ of one another.
 
 ### Introductory problems
 
@@ -347,6 +336,7 @@ Simplify:
 1. $\displaystyle \frac{\left(\sqrt {x}\right)^8}{x^4}$
 1. $\displaystyle \frac{y^{1\over 4}}{y^{-{2 \over 4}}}$
 1. $\displaystyle \frac{10^{-2/3} \times 10^7 \times 10^{-16} \times x^{1/2} \times y^4 \times z^{-1/3}}{10^{-19}\times 10^{43} \times 10^{2/3} \times z^{-1/3} \times y^{1/4} \times x^{5/2}}$
+
 ::::
 
 ::::challenge{id="02_intro_02" title="Introductory problems 2"}
@@ -356,6 +346,7 @@ Evaluate the following expressions without using a calculator:
 1. $\displaystyle 36^{1\over 2}+64^{2\over 3}$
 1. $\displaystyle \left( {1 \over 3}\right)^{-2}$
 1. $\displaystyle \left({81 \over 9}\right)^{3 \over 2}$
+
 ::::
 
 ::::challenge{id="02_intro_03" title="Introductory problems 3"}
@@ -364,6 +355,7 @@ Express the following in logarithmic form:
 1. $\displaystyle 5^3 = 125$
 1. $\displaystyle 8^{-{1\over 3}} = {1 \over 2}$
 1. $\displaystyle x^y = 4$
+
 ::::
 
 ::::challenge{id="02_intro_04" title="Introductory problems 4"}
@@ -373,6 +365,7 @@ Evaluate the following expressions without using a calculator:
 1. $\displaystyle \log_{\pi}\,(1)$
 1. $\displaystyle \log_{b}\, (b^a)$
 1. $\displaystyle 6^{\log_6\,({\pi})}$
+
 ::::
 
 ::::challenge{id="02_intro_05" title="Introductory problems 5"}
@@ -391,6 +384,7 @@ Simplify:
 1. $\displaystyle \ln \left(1\over{2e}\right)$
 1. $\displaystyle e^{\ln x^4}$
 1. $\displaystyle e^{3+\ln x}$
+
 ::::
 
 ### Main problems
@@ -400,13 +394,14 @@ In an experiment, the mass, $m$ grams, of a reaction product is measured at vari
 $$m=At^n$$
 The results are shown in the table below:
 
-| time (min) |  1  |   2  |   3  |  4  |   5  |  6  |   7  |   8  |  12 |
-|-----------:|:---:|:----:|:----:|:---:|:----:|:---:|:----:|:----:|:---:|
+| time (min) |  1  |  2   |  3   |  4  |  5   |  6  |  7   |  8   | 12  |
+| ---------: | :-: | :--: | :--: | :-: | :--: | :-: | :--: | :--: | :-: |
 |   mass (g) | 0.5 | 0.63 | 0.72 | 0.8 | 0.85 | 0.9 | 0.95 | 0.99 | 1.0 |
 
 1. Confirm this postulate graphically. There is one result that does not conform to this law. Which?
 1. Find appropriate values of $A$ and $n$, and in this context, explain the meaning of $n$. What are the units of $A$?
 1. Explain, with reasons, whether you would use these results to predict the mass when $t=15$.
+
 ::::
 
 ::::challenge{id="02_main_02" title="Main problems 2"}
@@ -414,6 +409,7 @@ These problems deal with pH:
 
 1. What is the pH of 130ml of a solution containing 4.7mg HCl, assuming that HCl is completely ionised in solution, and its molecular mass is 36.46?
 1. What would be the pH if the concentration of HCl were tripled?
+
 ::::
 
 ::::challenge{id="02_main_03" title="Main problems 3"}
@@ -422,6 +418,7 @@ Express in terms of $\log (a)$, $\log (b)$, $\log (c)$ and $\log (d)$:
 1. $\displaystyle \log\left({{b}\over ac}\right)$
 1. $\displaystyle \log (a^2 b c^3 d^4)$
 1. $\displaystyle \log \left(\sqrt {cd \over ab} \right)$
+
 ::::
 
 ::::challenge{id="02_main_04" title="Main problems 4"}
@@ -431,6 +428,7 @@ Simplify:
 1. $\displaystyle \log\left(x^2-1\right) - \log\left(x^2+1\right)$
 1. $\displaystyle 3\log_a(4) + \log_a(5) - 2\log_a(9)$
 1. $\displaystyle \log\left(x^9\right) - \log\left(x^6\right)$
+
 ::::
 
 ::::challenge{id="02_main_05" title="Main problems 5"}
@@ -440,6 +438,7 @@ Consider the equation $\displaystyle\,\log_3(x) + 4\log_x(3) = 5$:
 
 1. Verify that $x=3$ satisfies this equation
 1. There is one other value of $x$ that also satisfies this equation. Find it.
+
 ::::
 
 ::::challenge{id="02_main_06" title="Main problems 6"}
@@ -449,6 +448,7 @@ Solve the following equations for $x$:
 1. $\displaystyle 3^{2x+1} - 28\left(3^x\right) + 9 = 0$
 1. $\displaystyle 16 = \log_2 (x)$
 1. $\displaystyle \left(2 \sqrt 3 \log(x)\right)^2 - 7 \log(x^2) + 2 = 0$
+
 ::::
 
 ::::challenge{id="02_main_07" title="Main problems 7"}
@@ -456,6 +456,7 @@ Write an expression for $x$ or $y$ without using logarithms:
 
 1. $\displaystyle \log(x) = \log(3r) - 5 \log(s) + 3\log(t) - 3$
 1. $\displaystyle \log(2y) = 5 + 5\log\left(4^3\right) -15\log\left({\frac{2}{x}}\right) - 6\log(y)$
+
 ::::
 
 ::::challenge{id="02_main_08" title="Main problems 8"}
@@ -463,12 +464,14 @@ Write $x$ in terms of $y$ for each of the following:
 
 1. $\displaystyle y=2e^{4x}$
 1. $\displaystyle \ln y = 3 + 2\ln x$
+
 ::::
 
 ::::challenge{id="02_main_09" title="Main problems 9"}
 Express as a sum or difference of logarithms:
 
 1. $\displaystyle \ln\sqrt{\left({x-1\over x+1}\right)}$
+
 ::::
 
 ::::challenge{id="02_main_10" title="Main problems 10"}
@@ -476,5 +479,5 @@ Express as a single logarithm:
 
 1. $\displaystyle 1 - \ln 4x$
 1. $\displaystyle 3\ln x - {1\over 2} \ln\left(5-x^2\right)$
-::::
 
+::::

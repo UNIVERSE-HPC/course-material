@@ -1,21 +1,19 @@
 ---
 name: Graphs
-dependsOn: [
-]
+dependsOn: []
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
---- 
+---
 
 ## YouTube lecture recording from October 2020
 
@@ -30,11 +28,11 @@ The material is still very similar:
 
 Terminology:
 
-- $Y$ or $y$ is the *dependent* variable, sometimes called the *ordinate*
+- $Y$ or $y$ is the _dependent_ variable, sometimes called the _ordinate_
   marked on the vertical axis
-- $X$ or $x$ is the *independent* variable, sometimes called the *abscissa*
+- $X$ or $x$ is the _independent_ variable, sometimes called the _abscissa_
   marked on the horizontal axis
-- The dependent variable is said to be graphed *against* the independent
+- The dependent variable is said to be graphed _against_ the independent
   variable
 
 Essential Features:
@@ -55,18 +53,16 @@ Interpretation:
 - The intercept of this line on the $y$ axis is given by $y=c$, since at $x=0$,
   $y = c$
 
-
 - The gradient of this line (also called its "slope") is given by
   $$m = {y_2-y_1\over x_2 - x_1}$$
   ("change in $y$ divided by change in $x$")
-
 
 - The intercept of this line on the $x$ axis is given by $x = -{c \over m}$,
   since at $y=0$ we must have $mx=-c$
 
 ## Graphs of Polynomials
 
-An expression involving higher powers of $x$ is called a *polynomial* in $x$.
+An expression involving higher powers of $x$ is called a _polynomial_ in $x$.
 
 ### Example
 
@@ -84,11 +80,12 @@ The graph of a polynomial of degree $n$ has at most $n-1$ bends in it.
 
 If we wish to test visually whether some data fit a particular relationship, we can transform the data to plot something which should be linear if the relationship holds.
 
-### e.g. Test for *parabolic* shape for data in $(x,y)$: i.e. $y = x^2$
+### e.g. Test for _parabolic_ shape for data in $(x,y)$: i.e. $y = x^2$
 
 - We can plot $Y$ against $X$ where we let $Y=y$ and $X=x^2$.
 
 #### First plot the original data
+
 There's a definite curve, and we may suspect the trend is quadratic
 
 ![Graph of data with nonlinear trend](fig/01_03_nonlinear_trend.svg)
@@ -107,9 +104,7 @@ We next add a trendline through these points which we can use to determine the g
 
 - We find $(X,Y)$ lie along a straight line with slope 5 and Y-intercept 87.
 
-
 - This means that $Y=5X+87$
-
 
 - So, $y$ and $x$ can be modelled by the polynomial equation $y=5x^2+87$.
 
@@ -118,29 +113,25 @@ We next add a trendline through these points which we can use to determine the g
 The rate at which a given enzyme can catalyse a reaction can be dependent upon the substrate concentration:
 $${1\over V} = {m\over S} + c$$
 
-
 where $V$ is the rate of the reaction, $S$ is the substrate concentration and
 $m$ and $c$ are constants.
-
 
 - We can derive a straight line graph from the above formula by plotting
   $Y=1/V$ against $X=1/S$
 
-
 - It will have gradient $m$ and ordinate intercept $c$
-
 
 First, plot the original data which is observations of $V$ given varying $S$:
 
 ![Graph of original data](fig/01_06_original_data.svg)
 
-#### Now plot the data nonlinearly
+### Now plot the data nonlinearly
 
 If the hypothesised relationship holds, plotting $Y=1/V$ against $X=1/S$ should result in a straight line.
 
 ![Graph of linear trend](fig/01_07_linear_trend.svg)
 
-#### Calculate the gradient and the intercept
+### Calculate the gradient and the intercept
 
 We next add a trendline through these points which we can use to determine the gradient and intercept.
 
@@ -152,8 +143,7 @@ We next add a trendline through these points which we can use to determine the g
 
 - So, $V$ and $S$ can be modelled by the equation $1/V=3/S+5$.
 
-
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="01_intro_01" title="Introductory problems 1"}
 Sketch the following graphs.
@@ -178,6 +168,7 @@ y = 3 * x + 5
 
 plt.plot(x, y)
 ```
+
 ::::
 
 ::::challenge{id="01_intro_02" title="Introductory problems 2"}
@@ -187,8 +178,8 @@ For which values of $x$ are the following functions positive? Negative? Zero?
 1. $\displaystyle\sin(x)$
 1. $\displaystyle\sin(3x)$
 1. $\displaystyle\frac{2}{x} - \frac{1}{x^2}$
-::::
 
+::::
 
 ### Main problems
 
@@ -206,6 +197,7 @@ where $A$ and $B$ are positive constants, $V(R)$ is the potential energy, measur
 1. What is the physical interpretation of the sign of $V(R)$, and of its slope?
 1. What are the dimensions ([Length], [Mass], [Time]) and units of the constants $A$ and $B$?
 1. Use Python to plot the graph of $V$ versus $R$ for $A=0.06$ and $B = 0.03$. Remember to add relevant axis labels. Plot on the same graph the line of $V = 0$, so you can verify your answers in 1. and b).
+
 ::::
 
 ::::challenge{id="01_main_02" title="Main problems 2"}
@@ -215,17 +207,18 @@ Write down expressions for the gradient, $X$-intercept and $Y$-intercept of each
 1. $\displaystyle y = \frac{a}{x}$
 1. $\displaystyle y = b - a \sqrt{x}$
 1. $\displaystyle y = \frac{b}{1+ax}$
+
 ::::
 
 ::::challenge{id="01_main_03" title="Main problems 3"}
-The *osmotic pressure* of a solution of a protein is related to the concentration of that protein by the equation:
+The _osmotic pressure_ of a solution of a protein is related to the concentration of that protein by the equation:
 $$Z = R\;T\;b$$
 where $Z$ is the osmotic pressure in kPa, $T$ is the temperature in Kelvin, $R$ is the gas constant ($R=8.314\;{\rm kPa}\cdot{\rm dm}^3\cdot{\rm mol}^{-1}\cdot{\rm K}^{-1}$) and $b$ is the molarity of the protein (mol. solute per dm$^3$ solution).
 Plot a suitable graph to determine, as accurately as possible, the molecular mass (take care with units!) of the protein given the following data taken at room temperature (usually taken as 21$^{\circ}$C):
 
 |                                        |       |       |       |       |       |
-| ---------------------------------------|:-----:|:-----:|:-----:|:-----:|:-----:|
-| Protein Concentration (in g dm$^{-3})$ |   7.3 |  18.4 |  27.6 |  42.1 |  57.4 |
+| -------------------------------------- | :---: | :---: | :---: | :---: | :---: |
+| Protein Concentration (in g dm$^{-3})$ |  7.3  | 18.4  | 27.6  | 42.1  | 57.4  |
 | Osmotic Pressure (in kPa)              | 0.211 | 0.533 | 0.804 | 1.236 | 1.701 |
 
 Hint: compare the function with the equation of a straight line, $y=mx+c$, and think about the relationship between concentration, molar concentration and molecular weight).
@@ -233,13 +226,12 @@ Hint: compare the function with the equation of a straight line, $y=mx+c$, and t
 Use Python to plot the graph and confirm your pen & paper solution.
 ::::
 
-
 ### Extension problems
 
 ::::challenge{id="01_ext_01" title="Extension problems 1"}
 The rate at which a given enzyme catalyses a reaction is dependent upon the substrate concentration:
 $$V = \frac{S}{m+cS}$$
-where $V$ is the rate of the reaction, $S$ is the substrate concentration and $m$ and $c$ are *unknown* constants.
+where $V$ is the rate of the reaction, $S$ is the substrate concentration and $m$ and $c$ are _unknown_ constants.
 How can we transform $V$ and $S$ to derive a straight line graph relating them?
 What will be the gradient and the ordinate intercepts?
 ::::

@@ -1,23 +1,23 @@
 ---
 name: Automated Testing
 id: automated_testing
-dependsOn: [
-]
+dependsOn: []
 tags: [pytest]
-attribution: 
-    - citation: >
-        "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
-      url: https://doi.org/10.5281/zenodo.6532057
-      image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
-
+learningOutcomes:
+  - Explain the reasons why testing is important.
+  - Describe the three main types of tests and what each are used for.
+  - Implement and run unit tests to verify the correct behaviour of program functions.
+attribution:
+  - citation: >
+      "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
+    url: https://doi.org/10.5281/zenodo.6532057
+    image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
-
 
 ## Introduction
 
@@ -41,7 +41,6 @@ a lot of effort, particularly in the long run. In this episode we'll look into
 techniques of automated testing to improve the predictability of a software
 change, make development more productive, and help us produce code that works as
 expected and produces desired results.
-
 
 ## What Is Software Testing?
 
@@ -72,31 +71,31 @@ tests too.
 
 We will be using a simple inflammation data analysis python package to demonstrate the use of automated testing. Let's download this now. First, create a new directory inflammation and `cd` to it:
 
-~~~bash
-$ mkdir inflammation
-$ cd inflammation
-~~~
+```bash
+mkdir inflammation
+cd inflammation
+```
 
 If on WSL or Linux (e.g. Ubuntu or the Ubuntu VM), then do:
 
-~~~bash
-$ wget https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation.zip
-~~~
+```bash
+wget https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation.zip
+```
 
 Or, if on a Mac, do:
 
-~~~bash
-$ curl -O https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation.zip
-~~~
+```bash
+curl -O https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation.zip
+```
 
 Once done, you can unzip this file using the `unzip` command in Bash, which will unpack all the files
 in this zip archive into the current directory:
 
-~~~bash
-$ unzip inflammation.zip
-~~~
+```bash
+unzip inflammation.zip
+```
 
-This will unpack the zip file's contents into the new `inflammation` directory. The file structure should look like this: 
+This will unpack the zip file's contents into the new `inflammation` directory. The file structure should look like this:
 
 ```text
 inflammation/
@@ -111,33 +110,36 @@ inflammation/
 │   ├── test_patient.py
 │   └── test_models.py
 ├── .gitignore
-├── LICENSE 
+├── LICENSE
 ├── README.md
 └── requirements.txt
 ```
 
 The only files we'll be working with in this course are the following, so you can ignore the rest for now:
+
 1. `inflammation/models.py` - contains the functions we'll be testing
 2. `tests/test_models.py` - contains the tests we'll be writing
 3. `data/inflammation-*.csv` - contains the data we'll be using to test our functions
 
 :::callout
+
 ## What Does the Patient Inflammation Data Contain?
 
 Each dataset records inflammation measurements from a separate clinical trial of the drug, and each dataset contains information for 60 patients, who had their inflammation levels recorded for 40 days whilst participating in the trial.
 
 ![Snapshot of the inflammation dataset](fig/inflammation-study-pipeline.png)
-*Inflammation study pipeline from the [Software Carpentry Python novice lesson](https://swcarpentry.github.io/python-novice-inflammation/fig/lesson-overview.svg)*
+_Inflammation study pipeline from the [Software Carpentry Python novice lesson](https://swcarpentry.github.io/python-novice-inflammation/fig/lesson-overview.svg)_
 
 Each of the data files uses the popular [comma-separated (CSV) format](https://en.wikipedia.org/wiki/Comma-separated_values) to represent the data, where:
 
 - Each row holds inflammation measurements for a single patient,
 - Each column represents a successive day in the trial,
 - Each cell represents an inflammation reading on a given day for a patient (in some arbitrary units of inflammation measurement).
+
 :::
 
 The data is based on a clinical trial of inflammation in patients who have
-been given a new treatment for arthritis.  There are a number of datasets in the
+been given a new treatment for arthritis. There are a number of datasets in the
 `data` directory recording inflammation information in patients (each file
 representing a different trial), and are each stored in comma-separated values
 (CSV) format: each row holds information for a single patient, and the columns
@@ -149,25 +151,25 @@ activate it. Install the required dependencies (`numpy` and `matplotlib`) and
 then start the Python console by invoking the Python interpreter without any
 parameters, e.g.:
 
-~~~bash
-$ python3 -m venv venv
-$ source venv/bin/activate
-$ pip install numpy matplotlib
-$ python
-~~~
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install numpy matplotlib
+python
+```
 
 The last command will start the Python console within your shell, which enables us to execute Python commands
 interactively. Inside the console enter the following:
 
-~~~python
+```python
 import numpy as np
 data = np.loadtxt(fname='data/inflammation-01.csv', delimiter=',')
 data.shape
-~~~
+```
 
-~~~
+```text
 (60, 40)
-~~~
+```
 
 The data in this case is two-dimensional - it has 60 rows (one for each patient)
 and 40 columns (one for each day). Each cell in the data represents an
@@ -179,7 +181,7 @@ for calculating the mean average, the maximum, and the minimum values for a
 given number of rows in our data. For example, the `daily_mean()` function looks
 like this:
 
-~~~python
+```python
 def daily_mean(data):
     """Calculate the daily mean of a 2D inflammation data array for each day.
 
@@ -187,28 +189,28 @@ def daily_mean(data):
     :returns: An array of mean values of measurements for each day.
     """
     return np.mean(data, axis=0)
-~~~
+```
 
-Here, we use NumPy's `np.mean()` function to calculate the mean *vertically*
+Here, we use NumPy's `np.mean()` function to calculate the mean _vertically_
 across the data (denoted by `axis=0`), which is then returned from the function.
 So, if `data` was a NumPy array of three rows like...
 
-~~~python
+```python
 [[1, 2],
  [3, 4],
  [5, 6]]
-~~~
+```
 
 ...the function would return a 1D NumPy array of `[3, 4]` - each value representing the mean of each column (which are, coincidentally, the same values as the second row in the above data array).
 
-To show this working with our patient data, we can use the function like this, passing the first four patient rows to the 
+To show this working with our patient data, we can use the function like this, passing the first four patient rows to the
 function in the Python console:
 
-~~~python
+```python
 from inflammation.models import daily_mean
 
 daily_mean(data[0:4])
-~~~
+```
 
 Note we use a different form of `import` here - only importing the `daily_mean`
 function from our `models` instead of everything. This also has the effect that
@@ -218,13 +220,13 @@ module name too (i.e. `inflammation.models.daily_mean()`).
 The above code will return the mean inflammation for each day column across the
 first four patients (as a 1D NumPy array of shape (40, 0)):
 
-~~~
+```text
 array([ 0.  ,  0.5 ,  1.5 ,  1.75,  2.5 ,  1.75,  3.75,  3.  ,  5.25,
         6.25,  7.  ,  7.  ,  7.  ,  8.  ,  5.75,  7.75,  8.5 , 11.  ,
         9.75, 10.25, 15.  ,  8.75,  9.75, 10.  ,  8.  , 10.25,  8.  ,
         5.5 ,  8.  ,  6.  ,  5.  ,  4.75,  4.75,  4.  ,  3.25,  4.  ,
         1.75,  2.25,  0.75,  0.75])
-~~~
+```
 
 The other statistical functions are similar. Note that in real situations
 functions we write are often likely to be more complicated than these, but
@@ -233,7 +235,6 @@ test - more easily.
 
 Let's now look into how we can test each of our application's statistical
 functions to ensure they are functioning correctly.
-
 
 ## Writing Tests to Verify Correct Behaviour
 
@@ -246,13 +247,13 @@ referring back to our simple `daily_mean()` example above, we could use `[[1,
 2], [3, 4], [5, 6]]` as an input to that function and check whether the result
 equals `[3, 4]`:
 
-~~~python
+```python
 import numpy.testing as npt
 
 test_input = np.array([[1, 2], [3, 4], [5, 6]])
 test_result = np.array([3, 4])
 npt.assert_array_equal(daily_mean(test_input), test_result)
-~~~
+```
 
 So we use the `assert_array_equal()` function - part of NumPy's testing library - to test that our calculated result is the same as our expected result. This
 function explicitly checks the array's shape and elements are the same, and
@@ -263,7 +264,7 @@ with NumPy arrays in all cases.
 We could then add to this with other tests that use and test against other
 values, and end up with something like:
 
-~~~python
+```python
 test_input = np.array([[2, 0], [4, 0]])
 test_result = np.array([2, 0])
 npt.assert_array_equal(daily_mean(test_input), test_result)
@@ -275,11 +276,11 @@ npt.assert_array_equal(daily_mean(test_input), test_result)
 test_input = np.array([[1, 2], [3, 4], [5, 6]])
 test_result = np.array([3, 4])
 npt.assert_array_equal(daily_mean(test_input), test_result)
-~~~
+```
 
 However, if we were to enter these in this order, we'll find we get the following after the first test:
 
-~~~
+```text
 ...
 AssertionError:
 Arrays are not equal
@@ -289,7 +290,7 @@ Max absolute difference: 1.
 Max relative difference: 0.5
  x: array([3., 0.])
  y: array([2, 0])
-~~~
+```
 
 This tells us that one element between our generated and expected arrays doesn't
 match, and shows us the different arrays.
@@ -307,16 +308,16 @@ failed.
 Going back to our failed first test, what was the issue? As it turns out, the
 test itself was incorrect, and should have read:
 
-~~~python
+```python
 test_input = np.array([[2, 0], [4, 0]])
 test_result = np.array([3, 0])
 npt.assert_array_equal(daily_mean(test_input), test_result)
-~~~
+```
 
 Which highlights an important point: as well as making sure our code is
 returning correct answers, we also need to ensure the tests themselves are also
 correct. Otherwise, we may go on to fix our code only to return an incorrect
-result that *appears* to be correct. So a good rule is to make tests simple
+result that _appears_ to be correct. So a good rule is to make tests simple
 enough to understand so we can reason about both the correctness of our tests as
 well as our code. Otherwise, our tests hold little value.
 
@@ -342,7 +343,7 @@ lose faith in it and stop using it.
 
 Look at `tests/test_models.py`:
 
-~~~python
+```python
 """Tests for statistics functions within the Model layer."""
 
 import numpy as np
@@ -374,7 +375,7 @@ def test_daily_mean_integers():
     # Need to use NumPy testing functions to compare arrays
     npt.assert_array_equal(daily_mean(test_input), test_result)
 ...
-~~~
+```
 
 Here, although we have specified two of our previous manual tests as separate
 functions, they run the same assertions. Each of these test functions, in a
@@ -397,6 +398,7 @@ be using Pytest to write unit tests, but what you learn can scale to more
 complex functional testing for applications or libraries.
 
 :::callout
+
 ## What About Unit Testing in Other Languages?
 
 Other unit testing frameworks exist for Python, including Nose2 and Unittest,
@@ -406,52 +408,51 @@ Catch for C++, etc.
 
 :::
 
-
 ### Installing Pytest
 
 You can install `pytest` using `pip` - exit the Python console first (either with `Ctrl-D` or by typing `exit()`), then do:
 
-~~~bash
-$ pip install pytest
-~~~
+```bash
+pip install pytest
+```
 
 Whether we do this via VsCode or the command line, the results are exactly the same: our virtual environment will now have the `pytest` package installed for use.
-
 
 ### Running Tests
 
 Now we can run these tests using `pytest`:
 
-~~~python
-$ python -m pytest tests/test_models.py
-~~~
+```bash
+python -m pytest tests/test_models.py
+```
 
 Here, we use `-m` to invoke the `pytest` installed module, and specify the `tests/test_models.py` file to run the tests in that file
-explicitly. 
+explicitly.
 
 :::callout
+
 ## Why Run Pytest Using `python -m` and Not `pytest` ?
 
-Another way to run `pytest` is via its own command, so we *could* try to use `pytest tests/test_models.py` on the
+Another way to run `pytest` is via its own command, so we _could_ try to use `pytest tests/test_models.py` on the
 command line instead, but this would lead to a `ModuleNotFoundError: No module named 'inflammation'`. This is because
 using the `python -m pytest` method adds the current directory to its list of directories to search for modules,
 whilst using `pytest` does not - the `inflammation` subdirectory's contents are not 'seen', hence the
 `ModuleNotFoundError`. There are ways to get around this with [various methods](https://stackoverflow.com/questions/71297697/modulenotfounderror-when-running-a-simple-pytest), but we've used `python -m` for simplicity.
 :::
 
-~~~
+```text
 ============================================== test session starts =====================================================
 platform darwin -- Python 3.9.6, pytest-6.2.5, py-1.11.0, pluggy-1.0.0
 rootdir: /Users/alex/python-intermediate-inflammation
 plugins: anyio-3.3.4
-collected 2 items                               
-                                                                        
+collected 2 items
+
 tests/test_models.py ..                                                                                           [100%]
 
 =============================================== 2 passed in 0.79s ======================================================
-~~~
+```
 
-Pytest looks for functions whose names also start with the letters 'test_' and
+Pytest looks for functions whose names also start with the letters 'test\_' and
 runs each one. Notice the `..` after our test script:
 
 - If the function completes without an assertion being triggered, we count the test as a success (indicated as `.`).
@@ -469,13 +470,13 @@ new test cases that test the `daily_max()` and `daily_min()` functions, adding
 them to `test/test_models.py`. Here are some hints:
 
 - You could choose to format your functions very similarly to `daily_mean()`, defining test input and expected result arrays followed by the equality assertion.
-- Try to choose cases that are suitably different, and remember that these functions take a 2D array and return a 1D array with each element the result of analysing each *column* of the data.
+- Try to choose cases that are suitably different, and remember that these functions take a 2D array and return a 1D array with each element the result of analysing each _column_ of the data.
 
 Once added, run all the tests again with `python -m pytest tests/test_models.py`, and you should also see your new tests pass.
 
-
 :::solution
-~~~python
+
+```python
 ...
 def test_daily_max():
     """Test that max function works for an array of positive integers."""
@@ -500,10 +501,10 @@ def test_daily_min():
 
     npt.assert_array_equal(daily_min(test_input), test_result)
 ...
-~~~
+```
+
 :::
 ::::
-
 
 The big advantage is that as our code develops we can update our test cases and
 commit them back, ensuring that ourselves (and others) always have a set of
@@ -518,7 +519,7 @@ There are some cases where seeing an error is actually the correct behaviour,
 and Python allows us to test for exceptions. Add this test in
 `tests/test_models.py`:
 
-~~~python
+```python
 import pytest
 ...
 def test_daily_min_string():
@@ -527,7 +528,7 @@ def test_daily_min_string():
 
     with pytest.raises(TypeError):
         error_expected = daily_min([['Hello', 'there'], ['General', 'Kenobi']])
-~~~
+```
 
 Note that you need to import the `pytest` library at the top of our
 `test_models.py` file with `import pytest` so that we can use `pytest`'s
@@ -536,10 +537,11 @@ Note that you need to import the `pytest` library at the top of our
 Run all your tests as before.
 
 :::callout
+
 ## Why Should We Test Invalid Input Data?
 
 Testing the behaviour of inputs, both valid and invalid, is a really good idea
-and is known as *data validation*. Even if you are developing command line
+and is known as _data validation_. Even if you are developing command line
 software that cannot be exploited by malicious data entry, testing behaviour
 against invalid inputs prevents generation of erroneous results that could lead
 to serious misinterpretation (as well as saving time and compute cycles which

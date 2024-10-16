@@ -2,24 +2,25 @@
 name: "Docker Command Line"
 teaching: 10
 exercises: 0
-dependsOn: [
-  technology_and_tooling.docker.introduction
-]
+dependsOn: [technology_and_tooling.docker.introduction]
 tags: [docker]
-attribution: 
-    - citation: >
-        D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
-        Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator. 
-      url: https://github.com/carpentries-incubator/docker-introduction
-      image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
+      Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator.
+    url: https://github.com/carpentries-incubator/docker-introduction
+    image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
+    license: CC-BY-4.0
 ---
+
 ## Docker command line
 
-Start the Docker application that you installed in working through the setup instructions for this session. Note that this might not be necessary if your laptop is running Linux or if the installation added the Docker application to your startup process. 
+Start the Docker application that you installed in working through the setup instructions for this session. Note that this might not be necessary if your laptop is running Linux or if the installation added the Docker application to your startup process.
 
 :::callout
+
 ## You may need to login to Docker Hub
+
 The Docker application will usually provide a way for you to log in to the Docker Hub using the application's menu (macOS) or systray
 icon (Windows) and it is usually convenient to do this when the application starts. This will require you to use your Docker Hub
 username and your password. We will not actually require access to the Docker Hub until later in the course but if you can login now,
@@ -27,23 +28,27 @@ you should do so.
 :::
 
 :::callout
+
 ## Determining your Docker Hub username
+
 If you no longer recall your Docker Hub username, e.g., because you have been logging into the Docker Hub using your email address,
 you can find out what it is through the steps:
+
 - Open <https://hub.docker.com/> in a web browser window
 - Sign-in using your email and password (don't tell us what it is)
 - In the top-right of the screen you will see your username
+
 :::
 
 Once your Docker application is running, open a shell (terminal) window, and run the following command to check that Docker is installed and the command line tools are working correctly. Below is the output for a Mac version, but the specific version is unlikely to matter much: it does not have to precisely match the one listed below.
 
-~~~bash
-$ docker --version
-~~~
+```bash
+docker --version
+```
 
-~~~
+```text
 Docker version 20.10.5, build 55c4c88
-~~~
+```
 
 The above command has not actually relied on the part of Docker that runs containers, just that Docker
 is installed and you can access it correctly from the command line.
@@ -52,31 +57,31 @@ A command that checks that Docker is working correctly is the `docker container 
 
 Without explaining the details, output on a newly installed system would likely be:
 
-~~~bash
-$ docker container ls
-~~~
+```bash
+docker container ls
+```
 
-~~~
+```text
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-~~~
+```
 
 (The command `docker system info` could also be used to verify that Docker is correctly installed and operational but it produces a larger amount of output.)
 
 However, if you instead get a message similar to the following
 
-~~~
+```text
 Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
-~~~
+```
 
 then you need to check that you have started the Docker Desktop, Docker Engine, or however else you worked through the setup instructions.
 
 ## Getting help
+
 Often when working with a new command line tool, we need to get help. These tools often have some
 sort of subcommand or flag (usually `help`, `-h`, or `--help`) that displays a prompt describing how to use the
 tool. For Docker, it's no different. If we run `docker --help`, we see the following output (running `docker` also produces the help message):
 
-~~~
-
+```text
 Usage:  docker [OPTIONS] COMMAND
 
 A self-sufficient runtime for containers
@@ -158,18 +163,17 @@ Commands:
   wait        Block until one or more containers stop, then print their exit codes
 
 Run 'docker COMMAND --help' for more information on a command.
-~~~
+```
 
 There is a list of commands and the end of the help message says: `Run 'docker COMMAND --help' for more information on
 a command.` For example, take the `docker container ls` command that we ran previously. We can see from the Docker help prompt
 that `container` is a Docker command, so to get help for that command, we run:
 
-~~~bash
+```bash
 docker container --help  # or instead 'docker container'
-~~~
+```
 
-~~~
-
+```text
 Usage:  docker container COMMAND
 
 Manage containers
@@ -202,15 +206,15 @@ Commands:
   wait        Block until one or more containers stop, then print their exit codes
 
 Run 'docker container COMMAND --help' for more information on a command.
-~~~
+```
 
 There's also help for the `container ls` command:
 
-~~~bash
+```bash
 docker container ls --help  # this one actually requires the '--help' flag
-~~~
+```
 
-~~~
+```text
 Usage:  docker container ls [OPTIONS]
 
 List containers
@@ -227,7 +231,7 @@ Options:
       --no-trunc        Don't truncate output
   -q, --quiet           Only display container IDs
   -s, --size            Display total file sizes
-~~~
+```
 
 You may notice that there are many commands that stem from the `docker` command. Instead of trying to remember
 all possible commands and options, it's better to learn how to effectively get help from the command line. Although
@@ -235,13 +239,14 @@ we can always search the web, getting the built-in help from our tool is often m
 right away. This applies not only to Docker, but also to most command line-based tools.
 
 :::callout
+
 ## Docker Command Line Interface (CLI) syntax
 
 In this lesson we use the newest Docker CLI syntax
 [introduced with the Docker Engine version 1.13](https://www.docker.com/blog/whats-new-in-docker-1-13/).
-This new syntax combines commands into groups you will most often 
+This new syntax combines commands into groups you will most often
 want to interact with. In the help example above you can see `image` and `container`
-management commands, which can be used to interact with your images and 
+management commands, which can be used to interact with your images and
 containers respectively. With this new syntax you issue commands using the following
 pattern `docker [command] [subcommand] [additional options]`
 
@@ -256,17 +261,17 @@ error-prone and is therefore recommended.
 ::::challenge{id=exploring-a-command title="Exploring a command"}
 
 Run `docker --help` and pick a command from the list.
-Explore the help prompt for that command. Try to guess how a command would work by looking at the `Usage: `
+Explore the help prompt for that command. Try to guess how a command would work by looking at the `Usage:`
 section of the prompt.
 
 :::solution
 Suppose we pick the `docker image build` command:
 
-~~~bash
+```bash
 docker image build --help
-~~~
+```
 
-~~~
+```text
 Usage:  docker image build [OPTIONS] PATH | URL | -
 
 Build an image from a Dockerfile
@@ -300,25 +305,26 @@ Options:
  -t, --tag list                Name and optionally a tag in the 'name:tag' format
      --target string           Set the target build stage to build.
      --ulimit ulimit           Ulimit options (default [])
-~~~
+```
 
 We could try to guess that the command could be run like this:
 
-~~~bash
+```bash
 docker image build .
-~~~
+```
 
 or
 
-~~~bash
+```bash
 docker image build https://github.com/docker/rootfs.git
-~~~
+```
 
 Where `https://github.com/docker/rootfs.git` could be any relevant URL that supports a Docker image.
 :::
 ::::
 
-## Key Points:
+## Key Points
+
 - A toolbar icon indicates that Docker is ready to use (on Windows and macOS).
 - You will typically interact with Docker using the command line.
 - To learn how to run a certain Docker command, we can type the command followed by the `--help` flag.
