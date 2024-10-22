@@ -452,7 +452,7 @@ samples.
 obtain the updated DAG of jobs for the target file `calls/all.vcf`,
 it should look like this:
 
-![updated DAG](workflows/dag_call.png)
+![updated DAG](workflow/dag_call.png)
 
 ::::
 
