@@ -79,6 +79,7 @@ reference genome (see `tutorial-background`). For this, we will use the tool
 environment (IDE) tool Visual Studio Code, since it provides a good syntax highlighting
 Snakemake extension and a remote extension for directly using the IDE on a remote
 server. In the Snakefile, define the following rule:
+
 ```snakemake
 rule bwa_map:
     input:
