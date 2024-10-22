@@ -75,10 +75,10 @@ Our first Snakemake rule maps reads of a given sample to a given
 reference genome (see `tutorial-background`). For this, we will use the tool
 [bwa](http://bio-bwa.sourceforge.net), specifically the subcommand
 `bwa mem`. In the working directory, **create a new file** called
-`Snakefile` with an editor of your choice. We propose to use the
-[Atom](https://atom.io) editor, since it provides out-of-the-box syntax
-highlighting for Snakemake. In the Snakefile, define the following rule:
-
+`Snakefile` with an editor of your choice. We propose to use the integrated development
+environment (IDE) tool Visual Studio Code, since it provides a good syntax highlighting
+Snakemake extension and a remote extension for directly using the IDE on a remote
+server. In the Snakefile, define the following rule:
 ```snakemake
 rule bwa_map:
     input:
