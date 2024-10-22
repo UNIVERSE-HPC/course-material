@@ -385,7 +385,7 @@ list of samples `SAMPLES`, i.e.
 The function is particularly useful when the pattern contains multiple
 wildcards. For example,
 
-```sn akemake
+```snakemake
 expand("sorted_reads/{sample}.{replicate}.bam", sample=SAMPLES, replicate=[0, 1])
 ```
 
@@ -495,7 +495,7 @@ like `input`, `output`, `wildcards`, etc. are available as attributes of
 a global `snakemake` object. Create the file `scripts/plot-quals.py`,
 with the following content:
 
-```python
+```snakemake
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
