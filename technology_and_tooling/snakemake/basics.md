@@ -500,7 +500,6 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from pysam import VariantFile
-import snakemake
 
 quals = [record.qual for record in VariantFile(snakemake.input[0])]
 plt.hist(quals)
