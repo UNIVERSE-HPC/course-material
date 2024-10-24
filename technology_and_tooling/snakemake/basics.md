@@ -75,9 +75,10 @@ Our first Snakemake rule maps reads of a given sample to a given
 reference genome (see `tutorial-background`). For this, we will use the tool
 [bwa](http://bio-bwa.sourceforge.net), specifically the subcommand
 `bwa mem`. In the working directory, **create a new file** called
-`Snakefile` with an editor of your choice. We propose to use the
-[Atom](https://atom.io) editor, since it provides out-of-the-box syntax
-highlighting for Snakemake. In the Snakefile, define the following rule:
+`Snakefile` with an editor of your choice. We propose to use the integrated development
+environment (IDE) tool Visual Studio Code, since it provides a good syntax highlighting
+Snakemake extension and a remote extension for directly using the IDE on a remote
+server. In the Snakefile, define the following rule:
 
 ```snakemake
 rule bwa_map:
@@ -384,7 +385,7 @@ list of samples `SAMPLES`, i.e.
 The function is particularly useful when the pattern contains multiple
 wildcards. For example,
 
-```sn akemake
+```snakemake
 expand("sorted_reads/{sample}.{replicate}.bam", sample=SAMPLES, replicate=[0, 1])
 ```
 
@@ -452,7 +453,7 @@ samples.
 obtain the updated DAG of jobs for the target file `calls/all.vcf`,
 it should look like this:
 
-![updated DAG](workflows/dag_call.png)
+![updated DAG](workflow/dag_call.png)
 
 ::::
 
@@ -494,12 +495,11 @@ like `input`, `output`, `wildcards`, etc. are available as attributes of
 a global `snakemake` object. Create the file `scripts/plot-quals.py`,
 with the following content:
 
-```python
+```snakemake
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from pysam import VariantFile
-import snakemake
 
 quals = [record.qual for record in VariantFile(snakemake.input[0])]
 plt.hist(quals)
@@ -590,6 +590,8 @@ influence the DAG of jobs**.
   `--forcerun` flag in combination with some rulename) to understand
   the decisions of Snakemake.
 
+After having a look at the summary, please go on with the [advanced part of the tutorial](advanced).
+
 ::::
 
 ## Summary
@@ -654,3 +656,5 @@ rule plot_quals:
     script:
         "scripts/plot-quals.py"
 ```
+
+Now, please go on with the [advanced part of the tutorial](advanced).

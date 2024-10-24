@@ -1,5 +1,5 @@
 ---
-name: "Snakemake Tutorial"
+name: "Snakemake"
 id: snakemake
 dependsOn: [technology_and_tooling.bash_shell]
 files: [setup.md, basics.md, advanced.md, additional_features.md, short.md]
@@ -14,8 +14,7 @@ attribution:
     image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
     license: MIT license
 summary: |
-  This tutorial introduces the text-based workflow system
-  Snakemake.
+  This course introduces the text-based workflow system Snakemake. Snakemake is a general-purpose workflow management system for any discipline.
 ---
 
 This tutorial introduces the text-based workflow system
