@@ -247,7 +247,7 @@ The energy, $E$, carried by a photon of wavelength $\lambda$ is given by
 
 where $h$ is Planck's constant ($h=6.63\times 10^{-34}\,\rm{Js}$) and $c$ is the speed of light ($c=3 \times 10^8\,\rm{ms}^{-1}$).
 
-1. Calculate the energy carried by a photon of wavelength 500\thinspace nm.
+1. Calculate the energy carried by a photon of wavelength $500\,\rm{nm}$.
 1. Sketch a graph to show how E varies with $\lambda$.
 1. Derive an expression for $\displaystyle \frac{{\rm d}E}{{\rm d}\lambda}$, and calculate the slope of your graph when $\lambda=500\,\rm{nm}$.
 1. Hence, or otherwise, estimate the difference in energy between a photon of wavelength $500\,\rm{nm}$ and one of wavelength $505\,\rm{nm}$.
