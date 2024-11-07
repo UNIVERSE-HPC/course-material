@@ -4,12 +4,8 @@ name: Object-Orientated Programming
 dependsOn: [software_architecture_and_design.procedural]
 files:
   [
-    classes.md,
-    classes_cpp.md,
-    inheritance_and_composition.md,
-    inheritance_and_composition_cpp.md,
-    polymorphism.md,
-    polymorphism_cpp.md,
+    [classes_cpp.md, inheritance_and_composition_cpp.md, polymorphism_cpp.md],
+    [classes.md, inheritance_and_composition.md, polymorphism.md]
   ]
 summary: |
   The Object Oriented Paradigm builds upon the Procedural Paradigm, but builds code around data.

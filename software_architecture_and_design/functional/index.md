@@ -4,12 +4,8 @@ name: Functional Programming
 dependsOn: [software_architecture_and_design.procedural]
 files:
   [
-    side_effects_cpp.md,
-    side_effects_python.md,
-    recursion_cpp.md,
-    recursion_python.md,
-    higher_order_functions_cpp.md,
-    higher_order_functions_python.md,
+    [side_effects_cpp.md, recursion_cpp.md, higher_order_functions_cpp.md],
+    [side_effects_python.md, recursion_python.md,higher_order_functions_python.md],
   ]
 summary: |
   Functional Programming is based around the idea that programs are constructed
