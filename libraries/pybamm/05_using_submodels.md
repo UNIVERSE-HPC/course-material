@@ -2,6 +2,10 @@
 name: Using submodels
 dependsOn: [libraries.pybamm.04_outputs]
 tags: [pybamm]
+learningOutcomes:
+  - Understand the modular structure of PyBaMM
+  - Understand how battery models in PyBaMM are composed of submodels
+  - Be able to describe the physical processes built into PyBaMM's submodels
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team
