@@ -2,6 +2,9 @@
 name: Errors and Exceptions
 dependsOn: [introductory_courses.python.11_looping_over_data_sets]
 tags: [python]
+learningOutcomes:
+  - Understanding Python error traceback form
+  - Common types of errors (syntax, indentation, name, index, file)
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries
