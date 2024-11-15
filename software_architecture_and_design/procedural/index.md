@@ -4,7 +4,7 @@ name: Procedural Programming
 files:
   [
     [variables_cpp.md, functions_cpp.md, containers_cpp.md],
-    [variables_python.md, functions_python.md, containers_python.md, arrays_python.md],
+    [variables_python.md, containers_python.md, functions_python.md, arrays_python.md],
   ]
 dependsOn: [technology_and_tooling.ide]
 summary: |
