@@ -2,6 +2,10 @@
 name: Differentiation 3
 dependsOn: [scientific_computing.essential_maths.04_differentiation_2]
 tags: []
+learningOutcomes:
+  - Be able to calculate the derivative of exponential and logarithmic functions
+  - Understand how to differentiate functions of multiple independent variables
+  - Be able to calculate higher order derivatives with respect to multiple variables
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/
