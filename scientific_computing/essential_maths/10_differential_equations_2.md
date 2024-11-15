@@ -2,6 +2,9 @@
 name: Differential equations 2
 dependsOn: [scientific_computing.essential_maths.09_differential_equations_1]
 tags: []
+learningOutcomes:
+  - Be able to translate a literal description between quantities into a differential equation
+  - Understand how to use the method of substitution to solve higher-order differential equations
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/
