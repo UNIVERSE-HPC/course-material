@@ -140,7 +140,7 @@ int result = 1;
 for (const auto& op: ops) {
     result = op(result);
 }
-std::cout << result << std::end; // prints 6
+std::cout << result << std::endl; // prints 6
 ```
 
 `std::function` is an example of _type erasure_.
