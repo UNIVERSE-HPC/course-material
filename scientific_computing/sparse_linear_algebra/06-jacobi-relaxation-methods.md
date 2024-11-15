@@ -2,6 +2,9 @@
 name: Jacobi and Relaxation Methods
 dependsOn: ["scientific_computing.sparse_linear_algebra.04-scipy-sparse"]
 tags: []
+learningOutcomes:
+  - Using iterative methods to produce a series of approximate solutions.
+  - Introduction to relaxagion methods like the Jacobi method.
 attribution:
   - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
     url: https://www.sabsr3.ox.ac.uk
