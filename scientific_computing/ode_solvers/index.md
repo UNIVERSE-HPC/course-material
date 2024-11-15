@@ -3,6 +3,8 @@ id: ode_solvers
 name: Solving ODEs
 dependsOn: [scientific_computing.essential_maths]
 files: [01-AM.md, 02-PM.md]
+summary: This course introduces you to different implementations of Ordinary
+  Differential Equation (ODE) solvers.
 attribution:
   - citation: This material has been adapted from material by Joe Pitt-Francis from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
     url: https://www.sabsr3.ox.ac.uk
