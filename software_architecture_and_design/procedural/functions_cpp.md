@@ -2,6 +2,13 @@
 name: Functions
 dependsOn: [software_architecture_and_design.procedural.containers_cpp]
 tags: [cpp]
+learningOutcomes:
+  - Know how to define and call a function that takes parameters.
+  - Understand how and when to pass a function parameter by value or by reference.
+  - Return a value from a function.
+  - Understand and make use of function overloading.
+  - Handle errors and work with exceptions.
+  - Understand and use function templating.
 attribution:
   - citation: This material was adapted from an "Introduction to C++" course developed by the Oxford RSE group.
     url: https://www.rse.ox.ac.uk
