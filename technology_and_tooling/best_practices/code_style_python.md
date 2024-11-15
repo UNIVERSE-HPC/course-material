@@ -2,6 +2,15 @@
 name: Code Style
 dependsOn: []
 tags: [python]
+learningOutcomes:
+  - Understand the benefits of following community coding conventions.
+attribution:
+  - citation: >
+      This material was edited from the original in "Intermediate Research Software
+      Development Skills" hosted by the Carpentries Incubator.
+    url: https://carpentries-incubator.github.io/python-intermediate-development/
+    image: https://carpentries-incubator.org/assets/img/carpentries-incubator.svg
+    license: CC-BY-4.0
 ---
 
 :::callout

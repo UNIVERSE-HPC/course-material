@@ -3,6 +3,9 @@ name: Using Mocks in Tests
 id: mocking
 dependsOn: [technology_and_tooling.testing.testable_code_fixtures]
 tags: [pytest]
+learningOutcomes:
+  - Understand how to use mocking to support automated testing.
+  – Understand monkeypatching as an alternative to mocking.
 attribution:
   - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk

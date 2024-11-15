@@ -2,11 +2,20 @@
 name: Linters
 dependsOn: [technology_and_tooling.best_practices.code_style_python]
 tags: [python]
+learningOutcomes:
+  - Use code linting tools to verify a program’s adherence to a Python coding style convention.
+attribution:
+  - citation: >
+      This material was edited from the original in "Intermediate Research Software
+      Development Skills" hosted by the Carpentries Incubator.
+    url: https://carpentries-incubator.github.io/python-intermediate-development/
+    image: https://carpentries-incubator.org/assets/img/carpentries-incubator.svg
+    license: CC-BY-4.0
 ---
 
 :::callout
 This material was edited from the original in "Intermediate Research Software
-Development Skills" hosted by the Software Carpentries"
+Development Skills" hosted by the Software Carpentries
 :::
 
 ## Verifying Code Style Using Linters
