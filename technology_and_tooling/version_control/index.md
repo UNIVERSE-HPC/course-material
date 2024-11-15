@@ -15,13 +15,13 @@ files: [
   08-ignore.md
 ]
 learningOutcomes:
-    - Learn how version control systems work
-    - Configure Git and Github
-    - Create or clone repositories
-    - Learn the modify-add-commit cycle
-    - Compare files with previous versions
-    - Manage branches and resolve merge conflicts
-    - Exclude certain files from version control
+    - Learn how version control systems work.
+    - Configure Git and Github.
+    - Create or clone repositories.
+    - Learn the modify-add-commit cycle.
+    - Compare files with previous versions.
+    - Manage branches and resolve merge conflicts.
+    - Exclude certain files from version control.
 attribution:
   - citation: >
         This material was originally taken from training materials developed by the

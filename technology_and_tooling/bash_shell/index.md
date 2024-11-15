@@ -12,12 +12,12 @@ files: [
     06-loop.md
 ]
 learningOutcomes:
-    - Navigate the file system using absolute and relative paths
-    - Modify shell command behavior with options and arguments
-    - Create and manage directory hierarchies
-    - Combine commands to generate new outputs
-    - Redirect command outputs to files
-    - Write and execute shell scripts
+    - Navigate the file system using absolute and relative paths.
+    - Modify shell command behavior with options and arguments.
+    - Create and manage directory hierarchies.
+    - Combine commands to generate new outputs.
+    - Redirect command outputs to files.
+    - Write and execute shell scripts.
 summary: |
     The Bash shell is a command-line interface used in Unix-based operating systems
     such as Linux and macOS. This course will introduce you to the basics of using
