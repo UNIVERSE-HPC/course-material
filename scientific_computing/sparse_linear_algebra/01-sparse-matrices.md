@@ -3,7 +3,7 @@ name: Sparse Matrices
 dependsOn: []
 tags: []
 learningOutcomes:
-  - What are sparse matrices and the benefits of using them in scientific computing.
+  - Sparse matrices and the benefits of using them in scientific computing.
   - Some typical applications of sparse matrices.
 attribution:
   - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
