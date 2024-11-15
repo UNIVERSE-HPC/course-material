@@ -88,9 +88,7 @@ does not.
 
 ## Ch-Ch-Ch-Ch-Changes
 
-Data which can be modified in place is called [mutable]({{ page.root }}/reference.html#mutable),
-while data which cannot be modified is called
-[immutable]({{ page.root }}/reference.html#immutable).
+Data which can be modified in place is called mutable (can be altered after creation), while data which cannot be modified is called immutable (cannot be altered after creation).
 Strings and numbers are immutable. This does not mean that variables with string or number values
 are constants, but when we want to change the value of a string or number variable, we can only
 replace the old value with a completely new value.
