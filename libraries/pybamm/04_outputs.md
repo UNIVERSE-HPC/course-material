@@ -2,6 +2,11 @@
 name: Making the most of PyBaMM outputs
 dependsOn: [libraries.pybamm.03_parameter_values]
 tags: [pybamm]
+learningOutcomes:
+  - Understand the data contained within a PyBaMM solution object
+  - Understand how to explore the solution variables of a PyBaMM simulation
+  - Be able to create plots of solution variables from a simulation
+  - Be able to save solutions to disk for later use
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team
