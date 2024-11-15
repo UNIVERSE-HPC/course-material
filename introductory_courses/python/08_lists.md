@@ -2,6 +2,8 @@
 name: Lists
 dependsOn: [introductory_courses.python.07_pandas_dataframes]
 tags: [python]
+learningOutcomes:
+  - Storing and accessing values in lists
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries
