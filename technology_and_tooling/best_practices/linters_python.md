@@ -13,11 +13,6 @@ attribution:
     license: CC-BY-4.0
 ---
 
-:::callout
-This material was edited from the original in "Intermediate Research Software
-Development Skills" hosted by the Software Carpentries
-:::
-
 ## Verifying Code Style Using Linters
 
 We've seen how we can use PyCharm to help us format our Python code in a consistent style.

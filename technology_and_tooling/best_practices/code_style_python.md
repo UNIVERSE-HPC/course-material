@@ -14,11 +14,6 @@ attribution:
     license: CC-BY-4.0
 ---
 
-:::callout
-This material was edited from the original in "Intermediate Research Software
-Development Skills" hosted by the Software Carpentries
-:::
-
 ## Introduction
 
 We now have all the tools we need for software development and are raring to go.
