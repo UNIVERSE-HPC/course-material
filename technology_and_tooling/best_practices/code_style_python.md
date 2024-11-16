@@ -3,7 +3,8 @@ name: Code Style
 dependsOn: []
 tags: [python]
 learningOutcomes:
-  - Understand the benefits of following community coding conventions.
+  - Understand the benefits of following community code style conventions.
+  - Know some common Python code style conventions
 attribution:
   - citation: >
       This material was edited from the original in "Intermediate Research Software
