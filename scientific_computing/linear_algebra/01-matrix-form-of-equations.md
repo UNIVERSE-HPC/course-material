@@ -2,6 +2,12 @@
 name: Matrix form of equations
 dependsOn: []
 tags: []
+learningOutcomes:
+  - Be able to express a set of simultaneous equations as a matrix equation
+  - Understand how the geometry of a system of linear equations determines their solution
+  - Understand the concept of a singular matrix
+  - Be able to find the determinant of a matrix
+  - Be able to find the inverse of a matrix using NumPy in Python
 attribution:
   - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
     url: https://www.sabsr3.ox.ac.uk
