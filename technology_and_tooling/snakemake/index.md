@@ -3,6 +3,12 @@ name: "Snakemake"
 id: snakemake
 dependsOn: [technology_and_tooling.bash_shell]
 files: [setup.md, basics.md, advanced.md, additional_features.md, short.md]
+learningOutcomes:
+  - Learn how to install and setup Snakemake.
+  - Run a workflow by specifying rules in a Snakefile.
+  - Call custom scripts from a Snakefile.
+  - Learn further customisations such as defining threading and logging.
+  - Learn how to benchmark workflows and deploy software dependencies.
 attribution:
   - citation: >
       Mölder, F., Jablonski, K.P., Letcher, B., Hall, M.B., Tomkins-Tinch,

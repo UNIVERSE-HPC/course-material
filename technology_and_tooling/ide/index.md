@@ -7,6 +7,10 @@ summary: |
   Integrated Development Environments (IDEs)provide programmers with a complete development environment to
   write, edit, debug, and deploy their code. This course introduces the popular VSCode IDE, both for Python
   and C++ development.
+learningOutcomes:
+  - Find out how to install VSCode.
+  - Learn how to set up VSCode for Python development and use virtual environments.
+  - Discover how to use VSCode to write and compile C++ code. 
 attribution:
   - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk
