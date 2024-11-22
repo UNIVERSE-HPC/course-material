@@ -2,6 +2,9 @@
 name: Variable Scope
 dependsOn: [introductory_courses.python.13_writing_functions]
 tags: [python]
+learningOutcomes:
+  - Understand the difference between local and global scopes.
+  - Be able to distinguish the use of local and glorbal variables.
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries

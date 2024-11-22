@@ -2,6 +2,9 @@
 name: Conditionals
 dependsOn: [introductory_courses.python.09_for_loops]
 tags: [python]
+learningOutcomes:
+  - Using conditional 'if' statements to selectively execute code and in functions
+  - Using compound logic (e.g. and, or, parentheses) to define conditions
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries
