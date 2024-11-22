@@ -2,6 +2,9 @@
 name: Differential equations 3
 dependsOn: [scientific_computing.essential_maths.10_differential_equations_2]
 tags: []
+learningOutcomes:
+  - Be able to find the steady-state solution of a differential equation
+  - Be able to use Euler's method to numerically solve differential equations
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/

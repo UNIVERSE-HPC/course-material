@@ -2,6 +2,11 @@
 name: Linear algebra 2
 dependsOn: [scientific_computing.essential_maths.12_linear_algebra_1]
 tags: []
+learningOoutcomes:
+  - Understand the concept of a singular matrix
+  - Understand the concept of the null space for a matrix
+  - Be able to find the eigenvalues and eigenvectors of a matrix equation
+  - Be able to diagonalise a matrix
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/

@@ -2,6 +2,15 @@
 name: Complex numbers
 dependsOn: [scientific_computing.essential_maths.07_integration_2]
 tags: []
+learningOutcomes:
+  - Understand the concept of imaginary numbers
+  - Understand complex numbers as having real and imaginary components
+  - Be able to express complex numbers in the complex plane
+  - Understand the conjugate of a complex number
+  - Understand the modulus of a complex number
+  - Be able to perform algebraic operations on complex numbers
+  - Be able to express comples numbers in polar coordinates
+  - Understand the relationship between complex numbers and trigonometric functions
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/

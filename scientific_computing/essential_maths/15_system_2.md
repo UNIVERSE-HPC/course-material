@@ -2,6 +2,14 @@
 name: Systems of differential equations 2
 dependsOn: [scientific_computing.essential_maths.14_system_1]
 tags: []
+learningOutcomes:
+  - Be able to analyse non-linear systems in multiple dimensions
+  - Understand how to simplify the form of a system using parameter re-scaling
+  - Understand how to use properties of a system to simplify the set of equations
+  - Understand the concept of a phase plane
+  - Be able to identify nullclines of a non-linear system
+  - Be able to plot the phase plane of a non-linear system
+  - Be able to plot the phase plane of a non-linear system using matplotlib in Python
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/

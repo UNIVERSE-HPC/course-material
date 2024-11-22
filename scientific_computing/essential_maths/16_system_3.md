@@ -2,6 +2,9 @@
 name: Systems of differential equations 3
 dependsOn: [scientific_computing.essential_maths.15_system_2]
 tags: []
+learningOutcomes:
+  - Be able to describe the behaviour of a system using eigenvalue analysis
+  - Understand the nature of a system's stability from its eigenvalues
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/

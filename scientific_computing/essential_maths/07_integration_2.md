@@ -2,6 +2,9 @@
 name: Integration 2
 dependsOn: [scientific_computing.essential_maths.06_integration_1]
 tags: []
+learningOutcomes:
+  - Be able to use integration by parts to integrate a product of functions
+  - Be able to apply the method of partial fractions to integrate fractional functions
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/
