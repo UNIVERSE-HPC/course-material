@@ -3,8 +3,9 @@ name: Krylov subspace methods and CG
 dependsOn: ["scientific_computing.sparse_linear_algebra.06-jacobi-relaxation-methods"]
 tags: []
 learningOutcomes:
-  - Understand what are Krylov subspace methods.
-  - Summary of Conjugate Gradient method.
+  - Understand what are Krylov subspace methods, in particular the Conjugate Gradient Method
+  - Be able to use the CG, BICGSTAB, GMRES iterative solvers in `scipy`
+  - Awareness of the performance characteristics of these iterative solvers, compared with direct solvers such as LU or Cholesky
 attribution:
   - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
     url: https://www.sabsr3.ox.ac.uk

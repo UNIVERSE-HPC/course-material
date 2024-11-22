@@ -3,9 +3,8 @@ name: Scipy.sparse and problems
 dependsOn: ["scientific_computing.sparse_linear_algebra.03-finite-difference"]
 tags: []
 learningOutcomes:
-  - Sparse matrix types available in `scipy.sparse`.
-  - A few different direct solvers in Scipy for sparse matrics.
-  - Construct a FD matrix using `scipy.sparse`.
+  - Know what sparse matrix types and direct solvers are available in `scipy.sparse`.
+  - Be able to construct a sparse finite difference matrix and solve this using `scipy.sparse`.
 attribution:
   - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
     url: https://www.sabsr3.ox.ac.uk
