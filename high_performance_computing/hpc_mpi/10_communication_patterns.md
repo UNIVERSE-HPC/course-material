@@ -39,7 +39,7 @@ Since scatter and gather communications are collective, the communication time r
 The amount of messages that needs to be sent increases logarithmically with the number of ranks.
 The most efficient implementation of scatter and gather communication are to use the collective functions (`MPI_Scatter()` and `MPI_Gather()`) in the MPI library.
 
-One method for parallelising matrix multiplication is with a scatter and gather  ommunication.
+One method for parallelising matrix multiplication is with a scatter and gather  communication.
 To multiply two matrices, we follow the following equation,
 
 $$ \left[ \begin{array}{cc} A_{11} & A_{12} \\ A_{21} & A_{22}\end{array} \right] \cdot \left[ \begin{array}{cc}B_{11} & B_{12} \\ B_{21} & B_{22}\end{array} \right]   = \left[ \begin{array}{cc}A_{11} \cdot B_{11} + A_{12} \cdot B_{21} & A_{11} \cdot B_{12} + A_{12} \cdot B_{22} \\ A_{21} \cdot B_{11} + A_{22} \cdot B_{21} & A_{21} \cdot B_{12} + A_{22} \cdot B_{22}\end{array} \right]$$
@@ -86,10 +86,11 @@ It is again, like with scattering and gathering, best to use the reduction funct
 
 Given the fact that reductions fit in almost any algorithm or data access pattern, there are countless examples to show a reduction communication pattern.
 In the next code example, a Monte Carlo algorithm is implemented which estimates the value of $\pi$.
-To do that, a billion random points are generated and checked whether they fall within or outside of a circle.
-The ratio of points in and outside of the circle is propotional to the value of $\pi$.
+To do this, a billion random points are generated and checked to see if they fall inside or outside a circle.
+The ratio of points inside the circle to the total number of points is proportional to the value of $\pi$.
 
-Since each point generated and its position within the circle is completely independent to the other points, the communication pattern is simple (this is also an example of an embarrassingly parallel problem) as we only need one reduction.
+Since each point generated and its position within the circle is completely independent to the other points, 
+the communication pattern is simple (this is also an example of an embarrassingly parallel problem) as we only need one reduction.
 To parallelise the problem, each rank generates a sub-set of the total number of points and a reduction is done at the end, to calculate the total number of points within the circle from the entire sample.
 
 ```c
@@ -138,7 +139,7 @@ Here is a (non-exhaustive) list of examples where reduction operations are usefu
 
 1. Finding the maximum/minimum or average temperature in a simulation grid: by conducting a reduction across all the grid cells (which may have, for example, been scattered across ranks), you can easily find the maximum/minimum temperature in the grid, or sum up the temperatures to calculate the average temperature.
 2. Combining results into a global state: in some simulations, such as climate modelling, the simulation is split into discrete time steps.
-   At the end of each time step, a reduction can be used to update the global state or combine together pieces of data (similar to a gather operation).
+   At the end of each time step, a reduction can be used to update the global state or combine pieces of data (similar to a gather operation).
 3. Large statistical models: in a large statistical model, the large amounts of data can be processed by splitting it across ranks and calculating statistical values for the sub-set of data.
    The final values are then calculated by using a reduction operation and re-normalizing the values appropriately.
 4. Numerical integration: each rank will compute the area under the curve for its portion of the curve.
@@ -297,20 +298,20 @@ int MPI_Sendrecv(
 );
 ```
 
-|  |  |
-| --- | --- |
-| `*sendbuf`: | The data to be sent to `dest` |
+|              |                                                     |
+|--------------|-----------------------------------------------------|
+| `*sendbuf`:  | The data to be sent to `dest`                       |
 | `sendcount`: | The number of elements of data to be sent to `dest` |
-| `sendtype`: | The data type of the data to be sent to `dest` |
-| `dest`: | The rank where data is being sent to |
-| `sendtag`: | The communication tag for the send |
-| `*recvbuf`: | A buffer for data being received |
-| `recvcount`: | The number of elements of data to receive |
-| `recvtype`: | The data type of the data being received |
-| `source`: | The rank where data is coming from |
-| `recvtag`: | The communication tag for the receive |
-| `comm`: | The communicator |
-| `*status`: | The status handle for the receive |
+| `sendtype`:  | The data type of the data to be sent to `dest`      |
+| `dest`:      | The rank where data is being sent to                |
+| `sendtag`:   | The communication tag for the send                  |
+| `*recvbuf`:  | A buffer for data being received                    |
+| `recvcount`: | The number of elements of data to receive           |
+| `recvtype`:  | The data type of the data being received            |
+| `source`:    | The rank where data is coming from                  |
+| `recvtag`:   | The communication tag for the receive               |
+| `comm`:      | The communicator                                    |
+| `*status`:   | The status handle for the receive                   |
 ::::
 
 ```c

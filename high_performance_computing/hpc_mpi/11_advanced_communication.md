@@ -37,13 +37,13 @@ int MPI_Type_create_struct(
 );
 ```
 
-|  |  |
-| --- | --- |
-| `count`: | The number of fields in the struct |
-| `*array_of_blocklengths`: | The length of each field, as you would use to send that field using `MPI_Send()` |
-| `*array_of_displacements`: | The relative positions of each field in bytes |
-| `*array_of_types`: | The MPI type of each field |
-| `*newtype`: | The newly created data type for the struct |
+|                            |                                                                                  |
+|----------------------------|----------------------------------------------------------------------------------|
+| `count`:                   | The number of fields in the struct                                               |
+| `*array_of_blocklengths`:  | The length of each field, as you would use to send that field using `MPI_Send()` |
+| `*array_of_displacements`: | The relative positions of each field in bytes                                    |
+| `*array_of_types`:         | The MPI type of each field                                                       |
+| `*newtype`:                | The newly created data type for the struct                                       |
 
 The main difference between vector and struct derived types is that the arguments for structs expect arrays, since structs are made up of multiple variables. Most of these arguments are straightforward, given what we've just seen for defining vectors. But `array_of_displacements` is new and unique.
 
@@ -52,7 +52,8 @@ When a struct is created, it occupies a single contiguous block of memory. But t
 
 ![Memory layout for a struct](fig/struct_memory_layout.png) 
 
-Although the memory used for padding and the struct's data exists in a contiguous block, the actual data we care about is not contiguous any more. This is why we need the `array_of_displacements` argument, which specifies the distance, in bytes, between each struct member relative to the start of the struct. In practise, it serves a similar purpose of the stride in vectors.
+Although the memory used for padding and the struct's data exists in a contiguous block, 
+the actual data we care about is no longer contiguous. This is why we need the `array_of_displacements` argument, which specifies the distance, in bytes, between each struct member relative to the start of the struct. In practise, it serves a similar purpose of the stride in vectors.
 
 To calculate the byte displacement for each member, we need to know where in memory each member of a struct exists. To do this, we can use the function `MPI_Get_address()`,
 
@@ -63,10 +64,10 @@ int MPI_Get_address{
 };
 ```
 
-|  |  |
-| --- | --- |
-| `*location`: | A pointer to the variable we want the address of |
-| `*address`: | The address of the variable, as an MPI_Aint (address integer) |
+|              |                                                               |
+|--------------|---------------------------------------------------------------|
+| `*location`: | A pointer to the variable we want the address of              |
+| `*address`:  | The address of the variable, as an MPI_Aint (address integer) |
 
 In the following example, we use `MPI_Type_create_struct()` and `MPI_Get_address()` to create a derived type for a struct with two members,
 
@@ -259,7 +260,7 @@ array using `MPI_Pack()`.
 
 ![Layout of packed memory](fig/packed_buffer_layout.png)
 
-The coloured boxes in both memory representations (memory and pakced) are the same chunks of data. The green boxes
+The coloured boxes in both memory representations (memory and packed) are the same chunks of data. The green boxes
 containing only a single number are used to document the number of elements in the block of elements they are adjacent
 to, in the contiguous buffer. This is optional to do, but is generally good practise to include to create a
 self-documenting message. From the diagram we can see that we have "packed" non-contiguous blocks of memory into a
@@ -282,15 +283,15 @@ int MPI_Pack(
 );
 ```
 
-|  |  |
-| --- | --- |
-| `*inbuf`: | The data to pack into the buffer |
-| `incount`: | The number of elements to pack |
-| `datatype`: | The data type of the data to pack |
-| `*outbuf`: | The out buffer of contiguous data |
-| `outsize`: | The size of the out buffer, in bytes |
+|              |                                                                                            |
+|--------------|--------------------------------------------------------------------------------------------|
+| `*inbuf`:    | The data to pack into the buffer                                                           |
+| `incount`:   | The number of elements to pack                                                             |
+| `datatype`:  | The data type of the data to pack                                                          |
+| `*outbuf`:   | The out buffer of contiguous data                                                          |
+| `outsize`:   | The size of the out buffer, in bytes                                                       |
 | `*position`: | A counter for how far into the contiguous buffer to write (records the position, in bytes) |
-| `comm`: | The communicator |
+| `comm`:      | The communicator                                                                           |
 
 In the above, `inbuf` is the data we want to pack into a contiguous buffer and `incount` and `datatype` define the
 number of elements in and the datatype of `inbuf`. The parameter `outbuf` is the contiguous buffer the data is packed
@@ -302,7 +303,7 @@ in number of elements. Given that `MPI_Pack()` is all about manually arranging d
 allocation of memory for `outbuf`. But how do we allocate memory for it, and how much should we allocate? Allocation is
 done by using `malloc()`. Since `MPI_Pack()` works with `outbuf` in terms of bytes, the convention is to declare
 `outbuf` as a `char *`. The amount of memory to allocate is simply the amount of space, in bytes, required to store all
-of the data we want to pack into it. Just like how we would normally use `malloc()` to create an array. If we had
+the data we want to pack into it. Just like how we would normally use `malloc()` to create an array. If we had
 an integer array and a floating point array which we wanted to pack into the buffer, then the size required is easy to
 calculate,
 
@@ -327,12 +328,12 @@ int MPI_Pack_size(
    int *size
 );
 ```
-|  |  |
-| --- | --- |
-| `incount`: | The number of data elements |
-| `datatype`: | The data type of the data |
-| `comm`: | The communicator |
-| `*size`: | The calculated upper size limit for the buffer, in bytes |
+|             |                                                          |
+|-------------|----------------------------------------------------------|
+| `incount`:  | The number of data elements                              |
+| `datatype`: | The data type of the data                                |
+| `comm`:     | The communicator                                         |
+| `*size`:    | The calculated upper size limit for the buffer, in bytes |
 
 `MPI_Pack_size()` is a helper function to calculate the *upper bound* of memory required. It is, in general, preferable
 to calculate the buffer size using this function, as it takes into account any implementation specific MPI detail and
@@ -361,18 +362,18 @@ int MPI_Unpack(
 );
 ```
 
-|  |  |
-| --- | --- |
-| `*inbuf`: | The contiguous buffer to unpack |
-| `insize`: | The total size of the buffer, in bytes |
-| `*position`: | The position, in bytes, from where to start unpacking from |
-| `*outbuf`: | An array, or variable, to unpack data into -- this is the output |
-| `outcount`: | The number of elements of data to unpack |
-| `datatype`: | The data type of elements to unpack |
-| `comm`: | The communicator |
+|              |                                                                  |
+|--------------|------------------------------------------------------------------|
+| `*inbuf`:    | The contiguous buffer to unpack                                  |
+| `insize`:    | The total size of the buffer, in bytes                           |
+| `*position`: | The position, in bytes, from where to start unpacking from       |
+| `*outbuf`:   | An array, or variable, to unpack data into -- this is the output |
+| `outcount`:  | The number of elements of data to unpack                         |
+| `datatype`:  | The data type of elements to unpack                              |
+| `comm`:      | The communicator                                                 |
 
 The arguments for this function are essentially the reverse of `MPI_Pack()`. Instead of being the buffer to pack into,
-`inbuf` is now the packed buffer and `position` is the position, in bytes, in the buffer where to unpacking from.
+`inbuf` is now the packed buffer, and `position` specified the byte position in the buffer to start unpacking from.
 `outbuf` is then the variable we want to unpack into, and `outcount` is the number of elements of `datatype` to unpack.
 
 In the example below, `MPI_Pack()`, `MPI_Pack_size()` and `MPI_Unpack()` are used to communicate a (non-contiguous)
@@ -444,7 +445,7 @@ It works just as well to communicate the buffer using non-blocking methods, as i
 In some cases, the receiving rank may not know the size of the buffer used in `MPI_Pack()`.
 This could happen if a message is sent and received in different functions, if some ranks have different branches through the program or if communication happens in a dynamic or non-sequential way.
 
-In these situations, we can use `MPI_Probe()` and `MPI_Get_count` to find the a message being sent and to get the number of elements in the message.
+In these situations, we can use `MPI_Probe()` and `MPI_Get_count` to find the message being sent and to get the number of elements in the message.
 
 ```c
 // First probe for a message, to get the status of it

@@ -27,7 +27,7 @@ Non-blocking communication is communication which happens in the background. So 
 Just as with buffered, synchronous, ready and standard sends, MPI has to be programmed to use either blocking or non-blocking communication. For almost every blocking function, there is a non-blocking equivalent. They have the same name as their blocking counterpart, but prefixed with "I". The "I" stands for "immediate", indicating that the function returns immediately and does not block the program. The table below shows some examples of blocking functions and their non-blocking counterparts.
 
 | Blocking        | Non-blocking     |
-| --------------- | ---------------- |
+|-----------------|------------------|
 | `MPI_Bsend()`   | `MPI_Ibsend()`   |
 | `MPI_Barrier()` | `MPI_Ibarrier()` |
 | `MPI_Reduce()`  | `MPI_Ireduce()`  |
@@ -36,7 +36,10 @@ But, this isn't the complete picture. As we'll see later, we need to do some add
 non-blocking communications.
 ::::
 
-By effectively utilizing non-blocking communication, we can develop applications that scale significantly better during intensive communication. However, this comes with the trade-off of both increased conceptual and code complexity. Since non-blocking communication doesn't keep control until the communication finishes, we don't actually know if a communication has finished unless we check; this is usually referred to as synchronisation, as we have to keep ranks in sync to ensure they have the correct data. So whilst our program continues to do other work, it also has to keep pinging to see if the communication has finished, to ensure ranks are synchronised. If we check too often, or don't have enough tasks to "fill in the gaps", then there is no advantage to using non-blocking communication and we may replace communication overheads with time spent keeping ranks in sync! It is not always clear cut or predictable if non-blocking communication will improve performance. For example, if one ranks depends on the data of another, and there are no tasks for it to do whilst it waits, that rank will wait around until the data is ready, as illustrated in the diagram below. This essentially makes that non-blocking communication a blocking communication. Therefore unless our code is structured to take advantage of being able to overlap communication with computation, non-blocking communication adds complexity to our code for no gain.
+By effectively utilising non-blocking communication, we can develop applications that scale significantly better during intensive communication. However, this comes with the trade-off of both increased conceptual and code complexity. 
+Since non-blocking communication doesn't keep control until the communication finishes, we don't actually know if a communication has finished unless we check; this is usually referred to as synchronisation, as we have to keep ranks in sync to ensure they have the correct data. So whilst our program continues to do other work, it also has to keep pinging to see if the communication has finished, 
+to ensure ranks are synchronised. If we check too often, or don't have enough tasks to "fill in the gaps", then there is no advantage to using non-blocking communication, and we may replace communication overheads with time spent keeping ranks in sync! It is not always clear-cut or predictable if non-blocking communication will improve performance. For example, if one ranks depends on the data of another, and there are no tasks for it to do whilst it waits, that rank will wait around until the data is ready, as illustrated in the diagram below. This essentially makes that non-blocking communication a blocking communication. 
+Therefore, unless our code is structured to take advantage of being able to overlap communication with computation, non-blocking communication adds complexity to our code for no gain.
 
 ![Non-blocking communication with data dependency](fig/non-blocking-wait-data.png)
 
@@ -56,7 +59,7 @@ On the other hand, some  disadvantages are:
 
 - It is more difficult to use non-blocking communication.
   Not only does it result in more, and more complex, lines of code, we also have to worry about rank synchronisation and data dependency.
-- Whilst typically using non-blocking communication, where appropriate, improves performance, it's not always clear cut or predictable if non-blocking will result in sufficient performance gains to justify the increased complexity.
+- Whilst typically using non-blocking communication, where appropriate, improves performance, it's not always clear-cut or predictable if non-blocking will result in sufficient performance gains to justify the increased complexity.
 :::
 ::::
 
@@ -77,7 +80,7 @@ int MPI_Isend(
 );
 ```
 
-|    |                                          |
+|             |                                                     |
 |-------------|-----------------------------------------------------|
 | `*buf`:     | The data to be sent                                 |
 | `count`:    | The number of elements of data                      |
@@ -88,7 +91,7 @@ int MPI_Isend(
 | `*request`: | The request handle, used to track the communication |
 
 The arguments are identical to `MPI_Send()`, other than the addition of the `*request` argument.
-This argument is known as an *handle* (because it "handles" a communication request) which is used to track the progress of a (non-blocking) communication.
+This argument is known as a *handle* (because it "handles" a communication request) which is used to track the progress of a (non-blocking) communication.
 
 When we use non-blocking communication, we have to follow it up with `MPI_Wait()` to synchronise 
 the program and make sure `*buf` is ready to be re-used. This is incredibly important to do. 
@@ -98,8 +101,9 @@ Suppose we are sending an array of integers,
 MPI_Isend(some_ints, 5, MPI_INT, 1, 0, MPI_COMM_WORLD, &request); 
 some_ints[1] = 5;  /* !!! don't do this !!! */
 ```
-Modifying `some_ints` before the send has completed is undefined behaviour, and can result in breaking results! For 
-example, if `MPI_Isend()` decides to use its buffered mode then modifying `some_ints` before it's finished being copied to the send buffer will means the wrong data is sent. Every non-blocking communication has to have a corresponding `MPI_Wait()`, to wait and synchronise the program to ensure that the data being sent is ready to be modified again. `MPI_Wait()` is a blocking function which will only return when a communication has finished.
+Modifying `some_ints` before the **send** has completed is undefined behaviour, and can result in breaking results! For 
+example, if `MPI_Isend()` decides to use its buffered mode then modifying `some_ints` before it's finished being copied to 
+the send buffer means the wrong data is sent. Every non-blocking communication has to have a corresponding `MPI_Wait()`, to wait and synchronise the program to ensure that the data being sent is ready to be modified again. `MPI_Wait()` is a blocking function which will only return when a communication has finished.
 
 ```c
 int MPI_Wait(
@@ -107,10 +111,10 @@ int MPI_Wait(
     MPI_Status *status
 );
 ```
-|            |          |
-|-------------|----------------------|
+|             |                                          |
+|-------------|------------------------------------------|
 | `*request`: | The request handle for the communication |
-| `*status`: | The status handle for the communication |
+| `*status`:  | The status handle for the communication  |
 
 Once we have used `MPI_Wait()` and the communication has finished, we can safely modify `some_ints` again. To receive
 the data send using a non-blocking send, we can use either the blocking `MPI_Recv()` or it's non-blocking variant.
@@ -127,15 +131,15 @@ int MPI_Irecv(
 );
 ```
 
-|            |          |
-|-------------|----------------------|
-| `*buf`: | A buffer to receive data into |
-| `count`: | The number of elements of data to receive |
-| `datatype`: | The data type of the data |
-| `source`: | The rank to receive data from |
-| `tag`: | The communication tag |
-| `comm`: | The communicator |
-| `*request`: | The request handle for the receive |
+|             |                                           |
+|-------------|-------------------------------------------|
+| `*buf`:     | A buffer to receive data into             |
+| `count`:    | The number of elements of data to receive |
+| `datatype`: | The data type of the data                 |
+| `source`:   | The rank to receive data from             |
+| `tag`:      | The communication tag                     |
+| `comm`:     | The communicator                          |
+| `*request`: | The request handle for the receive        |
 
 
 :::::challenge{id=true-or-false, title="True or False?"}
@@ -167,7 +171,7 @@ if (my_rank == 0) {
 }
 ```
 
-The code above is functionally identical to blocking communication, because of `MPI_Wait()` is blocking. The program will not continue until `MPI_Wait()` returns. Since there is no additional work between the communication call and blocking wait, this is a poor example of how non-blocking communication should be used. It doesn't take advantage of the asynchronous nature of non-blocking communication at all. To really make use of non-blocking communication, we need to interleave computation (or any busy work we need to do) with communication, such as as in the next example.
+The code above is functionally identical to blocking communication, because of `MPI_Wait()` is blocking. The program will not continue until `MPI_Wait()` returns. Since there is no additional work between the communication call and blocking wait, this is a poor example of how non-blocking communication should be used. It doesn't take advantage of the asynchronous nature of non-blocking communication at all. To really make use of non-blocking communication, we need to interleave computation (or any busy work we need to do) with communication, such as in the next example.
 
 ```c
 MPI_Status status;
@@ -232,8 +236,8 @@ MPI_Waitall(2, requests, statuses);  // Wait for both requests in one function
 ```
 
 This version of the code will not deadlock, because the non-blocking functions return immediately. So even though rank 
-0 and 1 one both send, meaning there is no corresponding receive, the immediate return from send means the 
-receive function is still called. Thus a deadlock cannot happen.
+0 and 1 one both send, meaning there is no corresponding **receive**, the immediate return from send means the 
+receive function is still called. Thus, a deadlock cannot happen.
 
 However, it is still possible to create a deadlock using `MPI_Wait()`. If `MPI_Wait()` is waiting to for `MPI_Irecv()` to get some data, but there is no matching send operation (so no data has been sent), then `MPI_Wait()` can never return resulting in a deadlock. In the example code below, rank 0 becomes deadlocked.
 
@@ -265,11 +269,11 @@ int MPI_Test(
     MPI_Status *status,    
 );
 ```
-|            |          |
-|-------------|------------------------------------------|
-| `*request`: | The request handle for the communication |
-| `*flag`: | A flag to indicate if the communication has completed |
-| `*status`: | The status handle for the communication |
+|             |                                                       |
+|-------------|-------------------------------------------------------|
+| `*request`: | The request handle for the communication              |
+| `*flag`:    | A flag to indicate if the communication has completed |
+| `*status`:  | The status handle for the communication               |
 
 `*request` and `*status` are the same you'd use for `MPI_Wait()`. `*flag` is the variable which is modified to indicate if the communication has finished or not. Since it's an integer, if the communication hasn't finished then `flag == 0`.
 
@@ -334,7 +338,7 @@ if (elapsed_time >= COMM_TIMEOUT) {
 
 Something like this would effectively remove deadlocks in our program, and allows us to take appropriate actions to recover the program back into a predictable state.
 In reality, however, it would be hard to find a useful and appropriate use case for this in scientific computing.
-In any case, though, it demonstrate the power and flexibility offered by non-blocking communication.
+In any case, though, it demonstrates the power and flexibility offered by non-blocking communication.
 ::::
 
 :::::challenge{id=try-it-yourself, title="Try it yourself"}
@@ -342,7 +346,7 @@ In the MPI program below, a chain of ranks has been set up so one rank will rece
 
 ![A chain of ranks](fig/rank_chain.png)
 
-For following skeleton below, use non-blocking communication to send `send_message` to the right right and receive a message from the left rank. Create two programs, one using `MPI_Wait()` and the other using `MPI_Test()`.
+For following skeleton below, use non-blocking communication to send `send_message` to the right and receive a message from the left rank. Create two programs, one using `MPI_Wait()` and the other using `MPI_Test()`.
 
 ```c
 #include <mpi.h>
@@ -463,16 +467,16 @@ int MPI_Ireduce(
 );
 ```
 
-|            |          |
-|-------------|------------------------------------------|
-| `*sendbuf`: | The data to be reduced by the root rank |
-| `*recvbuf`: | A buffer to contain the reduction output |
-| `count`: | The number of elements of data to be reduced |
-| `datatype`: | The data type of the data |
-| `op`: | The reduction operation to perform |
-| `root`: | The root rank, which will perform the reduction |
-| `comm`: | The communicator |
-| `*request`: | The request handle for the communicator |
+|             |                                                 |
+|-------------|-------------------------------------------------|
+| `*sendbuf`: | The data to be reduced by the root rank         |
+| `*recvbuf`: | A buffer to contain the reduction output        |
+| `count`:    | The number of elements of data to be reduced    |
+| `datatype`: | The data type of the data                       |
+| `op`:       | The reduction operation to perform              |
+| `root`:     | The root rank, which will perform the reduction |
+| `comm`:     | The communicator                                |
+| `*request`: | The request handle for the communicator         |
 
 As with `MPI_Send()` vs. `MPI_Isend()` the only change in using the non-blocking variant of `MPI_Reduce()` is the addition of the `*request` argument, which returns a request handle.
 This is the request handle we'll use with either `MPI_Wait()` or `MPI_Test()` to ensure that the communication has finished, and been successful.
@@ -503,7 +507,7 @@ When a rank reaches a non-blocking barrier, `MPI_Ibarrier()` will return immedia
 Non-blocking barriers can be used to help hide/reduce synchronisation overhead.
 We may want to add a synchronisation point in our program so the ranks start some work all at the same time.
 With a blocking barrier, the ranks have to wait for every rank to reach the barrier, and can't do anything other than wait.
-But with a non-blocking barrier, we can overlap the barrier operation with other, ndependent, work whilst ranks wait for the other ranks to catch up.
+But with a non-blocking barrier, we can overlap the barrier operation with other, independent, work whilst ranks wait for the other ranks to catch up.
 ::::
 :::::
 

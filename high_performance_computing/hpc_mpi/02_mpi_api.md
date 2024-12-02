@@ -29,7 +29,7 @@ Since its inception, MPI has undergone several revisions, each introducing new f
 
 - **MPI-1 (1994):** The initial release of the MPI standard provided a common set of functions, datatypes, and communication semantics.
   It formed the foundation for parallel programming using MPI.
-- **MPI-2 (1997):** This version expanded upon MPI-1 by introducing additional features such as dynamic process management, one-sided communication, paralell I/O, C++ and Fortran 90 bindings.
+- **MPI-2 (1997):** This version expanded upon MPI-1 by introducing additional features such as dynamic process management, one-sided communication, parallel I/O, C++ and Fortran 90 bindings.
   MPI-2 improved the flexibility and capabilities of MPI programs.
 - **MPI-3 (2012):** MPI-3 brought significant enhancements to the MPI standard, including support for non-blocking collectives, improved multithreading, and performance optimisations.
   It also addressed limitations from previous versions and introduced fully compliant Fortran 2008 bindings.
@@ -98,7 +98,7 @@ If you are not sure which implementation/version of MPI you should use on a part
 
 ## MPI Elsewhere
 
-This episode assumes you will be using a HPC cluster, but you can also install OpenMPI on a desktop or laptop:
+This episode assumes you will be using an HPC cluster, but you can also install OpenMPI on a desktop or laptop:
 
 - **Linux:** Most distributions have OpenMPI available in their package manager:
 
@@ -150,7 +150,7 @@ int main (int argc, char *argv[]) {
 Although the code is not an MPI program, we can use the command `mpicc` to compile it.
 The `mpicc` command is essentially a wrapper around the underlying C compiler, such as **gcc**, providing additional functionality for compiling MPI programs.
 It simplifies the compilation process by incorporating MPI-specific configurations and automatically linking the necessary MPI libraries and header files.
-Therefore the below command generates an executable file named **hello_world** .
+Therefore, the below command generates an executable file named **hello_world** .
 
 ```bash
 mpicc -o hello_world hello_world.c 
@@ -208,11 +208,12 @@ As we've just learned, running a program with `mpiexec` or `mpirun` results in t
 mpirun -n 4 ./hello_world
 ```
 
-However, in the example above, the program does not know it was started by `mpirun`, and each copy just works as if they were the only one. For the copies to work together, they need to know about their role in the computation, in order to properly take advantage of parallelisation. This usually also requires knowing the total number of tasks running at the same time.
+However, in the example above, the program does not know it was started by `mpirun`, and each copy just works as if they were the only one. 
+For the copies to work together, they need to know about their role in the computation, in order to properly take advantage of parallelisation. This usually also requires knowing the total number of tasks running at the same time.
 
 - The program needs to call the `MPI_Init()` function.
 - `MPI_Init()` sets up the environment for MPI, and assigns a number (called the *rank*) to each process.
-- At the end, each process should also cleanup by calling `MPI_Finalize()`.
+- At the end, each process should also clean up by calling `MPI_Finalize()`.
 
 ```c
 int MPI_Init(&argc, &argv);
@@ -381,5 +382,6 @@ For this we would need ways for ranks to communicate - the primary benefit of MP
 
 ## What About Python?
 
-In [MPI for Python (mpi4py)](https://mpi4py.readthedocs.io/en/stable/), the initialisation and finalisation of MPI are handled by the library, and the user can perform MPI calls after ``from mpi4py import MPI``.
+In [MPI for Python (mpi4py)](https://mpi4py.readthedocs.io/en/stable/), 
+the initialisation and finalisation of MPI are handled by the library, and the user can perform MPI calls after ``from mpi4py import MPI``.
 ::::
