@@ -13,7 +13,11 @@ learningOutcomes:
   - Learn how to use collective communication functions.
 ---
 
-The previous episode showed how to send data from one rank to another using point-to-point communication. If we wanted to send data from multiple ranks to a single rank to, for example, add up the value of a variable across multiple ranks, we have to manually loop over each rank to communicate the data. This type of communication, where multiple ranks talk to one another known as called collective communication. In the code example below, point-to-point communication is used to calculate the sum of the rank numbers - feel free to try it out!
+The previous episode showed how to send data from one rank to another using point-to-point communication. 
+If we wanted to send data from multiple ranks to a single rank to, for example, add up the value of a variable across multiple 
+ranks, we have to manually loop over each rank to communicate the data. This type of communication, where multiple ranks talk to 
+one another known as called collective communication. In the code example below, point-to-point communication is used to 
+calculate the sum of the rank numbers - feel free to try it out!
 
 ```c
 #include <stdio.h>
@@ -57,14 +61,21 @@ int main(int argc, char **argv) {
 }
 ```
 
-For it's use case, the code above works perfectly fine. However, it isn't very efficient when you need to communicate large amounts of data, have lots of ranks, or when the workload is uneven (due to the blocking communication). It's also a lot of code to do not much, which makes it easy to introduce mistakes in our code. A common mistake in this example would be to start the loop over ranks from 0, which would cause a deadlock! It's actually quite a common mistake for new MPI users to write something like the above.
+For its use case, the code above works perfectly fine. However, it isn't very efficient when you need to communicate large 
+amounts of data, have lots of ranks, or when the workload is uneven (due to the blocking communication). It's also a lot of code 
+to do not much, which makes it easy to introduce mistakes in our code. A common mistake in this example would be to start the 
+loop over ranks from 0, which would cause a deadlock! It's actually quite a common mistake for new MPI users to write something 
+like the above.
 
-We don't need to write code like this (unless we want *complete* control over the data communication), because MPI has access to collective communication functions to abstract all of this code for us. The above code can be replaced by a single collective communication function. Collection operations are also implemented far more efficiently in the MPI library than we could ever write using point-to-point communications.
+We don't need to write code like this (unless we want *complete* control over the data communication), because MPI has 
+access to collective communication functions to abstract all of this code for us. The above code can be replaced by a single 
+collective communication function. Collection operations are also implemented far more efficiently in the MPI library than we 
+could ever write using point-to-point communications.
 
 There are several collective operations that are implemented in the MPI standard. The most commonly-used are:
 
 | Type            | Description                                                          |
-| --------------- | -------------------------------------------------------------------- |
+|-----------------|----------------------------------------------------------------------|
 | Synchronisation | Wait until all processes have reached the same point in the program. |
 | One-To-All      | One rank sends the same message to all other ranks.                  |
 | All-to-One      | All ranks send data to a single rank.                                |
@@ -81,13 +92,15 @@ int MPI_Barrier(
     MPI_Comm comm
 );
 ```
-|  |  |
-|------ | ------- |
+|       |                                      |
+|-------|--------------------------------------|
 | comm: | The communicator to add a barrier to |
 
-When a rank reaches a barrier, it will pause and wait for all the other ranks to catch up and reach the barrier as well. As ranks waiting at a barrier aren't doing anything, barriers should be used sparingly to avoid large synchronisation overheads, which affects the scalability of our program. We should also avoid using barriers in parts of our program has have complicated branches, as we may introduce a deadlock by having a barrier in only one branch.
+When a rank reaches a barrier, it will pause and wait for all the other ranks to catch up and reach the barrier as well. As ranks waiting at a barrier aren't doing anything, barriers should be used sparingly to avoid large synchronisation overheads, which affects the scalability of our program. 
+We should also avoid using barriers in parts of our program has have complicated branches, as we may introduce a deadlock by having a barrier in only one branch.
 
-In practise, there are not that many practical use cases for a barrier in an MPI application. In a shared-memory environment, synchronisation is important to ensure consistent and controlled access to shared data. But in MPI, where each rank has its own private memory space and often resources, it's rare that we need to care about ranks becoming out-of-sync. However, one usecase is when multiple ranks need to write *sequentially* to the same file. The code example below shows how you may handle this by using a barrier.
+In practise, there are not that many practical use cases for a barrier in an MPI application. In a shared-memory environment, synchronisation is important to ensure consistent and controlled access to shared data. But in MPI, 
+where each rank has its own private memory space and often resources, it's rare that we need to care about ranks becoming out-of-sync. However, one use case is when multiple ranks need to write *sequentially* to the same file. The code example below shows how you may handle this by using a barrier.
 
 ```c
 for (int i = 0; i < num_ranks; ++i) {
@@ -102,7 +115,9 @@ for (int i = 0; i < num_ranks; ++i) {
 
 ### Broadcast
 
-We'll often find that we need to data from one rank to all the other ranks. One approach, which is not very efficient, is to use `MPI_Send()` in a loop to send the data from rank to rank one by one. A far more efficient approach is to use the collective function `MPI_Bcast()` to *broadcast* the data from a root rank to every other rank.
+We'll often find that we need to data from one rank to all the other ranks. One approach, which is not very efficient, 
+is to use `MPI_Send()` in a loop to send the data from rank to rank one by one. A far more efficient approach is to use the 
+collective function `MPI_Bcast()` to *broadcast* the data from a root rank to every other rank.
 The `MPI_Bcast()` function has the following arguments,
 
 ```c
@@ -114,23 +129,29 @@ int MPI_Bcast(
     MPI_Comm comm           
 );
 ```
-|  |  |
-| ---- | ---- |
-| `*data`: | The data to be sent to all ranks |
-| `count`: | The number of elements of data |
-| `datatype`: | The datatype of the data |
-| `root`: | The rank which data will be sent from |
-| `comm:` | The communicator containing the ranks to broadcast to |
+|             |                                                       |
+|-------------|-------------------------------------------------------|
+| `*data`:    | The data to be sent to all ranks                      |
+| `count`:    | The number of elements of data                        |
+| `datatype`: | The datatype of the data                              |
+| `root`:     | The rank which data will be sent from                 |
+| `comm`:     | The communicator containing the ranks to broadcast to |
 
 `MPI_Bcast()` is similar to the `MPI_Send()` function.
-The main functional difference is that `MPI_Bcast()` sends the data to all ranks (other than itself, where the data already is) instead of a single rank, as shown in the diagram below.
+The main functional difference is that `MPI_Bcast()` sends the data to all ranks (other than itself, where the data already is) 
+instead of a single rank, as shown in the diagram below.
 
 ![Each rank sending a piece of data to root rank](fig/broadcast.png)
 
+Unlike `MPI_Send()` and `MPI_Recv()`, collective operations like `MPI_Bcast()` do not require explicitly matching sends and 
+receives in the user code. The internal implementation of collective functions ensures that all ranks correctly send and 
+receive data as needed, abstracting this complexity from the programmer. This makes collective operations easier to use and less error-prone compared to point-to-point communication.
+
+
 There are lots of use cases for broadcasting data.
 One common case is when data is sent back to a "root" rank to process, which then broadcasts the results back out to all the other ranks.
-Another example, shown in the code exerpt below, is to read data in on the root rank and to broadcast it out.
-This is useful pattern on some systems where there are not enough resources (filesystem bandwidth, limited concurrent I/O operations) for every ranks to read the file at once.
+Another example, shown in the code excerpt below, is to read data in on the root rank and to broadcast it out.
+This is useful pattern on some systems where there are not enough resources (filesystem bandwidth, limited concurrent I/O operations) for every rank to read the file at once.
 
 ```c
 int data_from_file[NUM_POINTS]
@@ -184,7 +205,7 @@ int main(int argc, char **argv) {
 One way to parallelise processing amount of data is to have ranks process a subset of the data.
 One method for distributing the data to each rank is to have a root rank which prepares the data, and then send the data to every rank.
 The communication could be done *manually* using point-to-point communication, but it's easier, and faster, to use a single collective communication.
-We can use `MPI_Scatter()` to split the data into *equal* sized chunks and communicate a diferent chunk to each rank, as shown in the diagram below.
+We can use `MPI_Scatter()` to split the data into *equal* sized chunks and communicate a different chunk to each rank, as shown in the diagram below.
 
 ![Each rank sending a piece of data to root rank](fig/scatter.png)
 
@@ -203,20 +224,23 @@ int MPI_Scatter(
 );
 ```
 
-|  |  |
-| --- | --- |
-| `*sendbuff`: | The data to be scattered across ranks (only important for the root rank) |
-| `sendcount`: | The number of elements of data to send to each root rank (only important for the root rank) |
-| `sendtype`: | The data type of the data being sent (only important for the root rank) |
-| `*recvbuffer`: | A buffer to receive data into, including the root rank |
-| `recvcount`: | The number of elements of data to receive. Usually the same as `sendcount` |
-| `recvtype`: | The data type of the data being received. Usually the same as `sendtype` |
-| `root`: | The rank data is being scattered from |
-| `comm`: | The communicator |
+|                |                                                                                        |
+|----------------|----------------------------------------------------------------------------------------|
+| `*sendbuff`:   | The data to be scattered across ranks (only important for the root rank)               |
+| `sendcount`:   | The number of elements of data to send to each rank (only important for the root rank) |
+| `sendtype`:    | The data type of the data being sent (only important for the root rank)                |
+| `*recvbuffer`: | A buffer to receive data into, including the root rank                                 |
+| `recvcount`:   | The number of elements of data to receive. Usually the same as `sendcount`             |
+| `recvtype`:    | The data type of the data being received. Usually the same as `sendtype`               |
+| `root`:        | The rank data is being scattered from                                                  |
+| `comm`:        | The communicator                                                                       |
 
 The data to be *scattered* is split into even chunks of size `sendcount`.
 If `sendcount` is 2 and `sendtype` is `MPI_INT`, then each rank will receive two integers.
-The values for `recvcount` and `recvtype` are the same as `sendcount` and `sendtype`.
+The values for `recvcount` and `recvtype` are the same as `sendcount` and `sendtype`. However, there are cases where `sendcount` 
+and `recvcount` might differ, such as when using derived types, which change how data is packed and unpacked during communication. 
+For more on derived types and their impact on collective operations, see the 
+[Derived Data Types](07-derived-data-types.md) episode.
 If the total amount of data is not evenly divisible by the number of processes, `MPI_Scatter()` will not work.
 In this case, we need to use [`MPI_Scatterv()`](https://www.open-mpi.org/doc/v4.0/man3/MPI_Scatterv.3.php) instead to specify the amount of data each rank will receive.
 The code example below shows `MPI_Scatter()` being used to send data which has been initialised only on the root rank.
@@ -258,18 +282,18 @@ int MPI_Gather(
     MPI_Comm comm
 );
 ```
-|  |  |
-| --- | --- |
-| `*sendbuff`: | The data to send to the root rank |
-| `sendcount`: | The number of elements of data to send |
-| `sendtype`: | The data type of the data being sent |
-| `recvbuff`: | The buffer to put gathered data into (only important for the root rank) |
-| `recvcount`: | The number of elements being received, usually the same as `sendcount` |
-| `recvtype`: | The data type of the data being received, usually the same as `sendtype` |
-| `root`: | The root rank, where data will be gathered to |
-| `comm`: | The communicator |
+|              |                                                                          |
+|--------------|--------------------------------------------------------------------------|
+| `*sendbuff`: | The data to send to the root rank                                        |
+| `sendcount`: | The number of elements of data to send                                   |
+| `sendtype`:  | The data type of the data being sent                                     |
+| `*recvbuff`: | The buffer to put gathered data into (only important for the root rank)  |
+| `recvcount`: | The number of elements being received, usually the same as `sendcount`   |
+| `recvtype`:  | The data type of the data being received, usually the same as `sendtype` |
+| `root`:      | The root rank, where data will be gathered to                            |
+| `comm`:      | The communicator                                                         |
 
-The receive buffer needs to be large enough to hold data data from all of the ranks. For example, if there are 4 ranks sending 10 integers, then `recvbuffer` needs to be able to store *at least* 40 integers.
+The receive buffer needs to be large enough to hold data from all of the ranks. For example, if there are 4 ranks sending 10 integers, then `recvbuffer` needs to be able to store *at least* 40 integers.
 We can think of `MPI_Gather()` as being the inverse of `MPI_Scatter()`.
 This is shown in the diagram below, where data from each rank on the left is sent to the root rank (rank 0) on the right.
 
@@ -340,7 +364,7 @@ int main(int argc, char **argv) {
 
 ### Reduce
 
-A reduction operation is one which takes a values across the ranks, and combines them into a single value.
+A reduction operation is one which takes values across the ranks, and combines them into a single value.
 Reductions are probably the most common collective operation you will use.
 The example at the beginning of this episode was a reduction operation, summing up a bunch of numbers, implemented using point-to-point communication.
 Reduction operations can be done using the collection function `MPI_Reduce()`, which has the following arguments:
@@ -357,20 +381,20 @@ int MPI_Reduce(
 );
 ```
 
-|  |  |
-| --- | --- |
-| `*sendbuff`: | The data to be reduced by the root rank |
-| `*recvbuffer`: | A buffer to contain the reduction output |
-| `count`: | The number of elements of data to be reduced |
-| `datatype`: | The data type of the data |
-| `op`: | The reduction operation to perform |
-| `root`: |  The root rank, which will perform the reduction |
-| `comm`: | The communicator |
+|                |                                                 |
+|----------------|-------------------------------------------------|
+| `*sendbuff`:   | The data to be reduced by the root rank         |
+| `*recvbuffer`: | A buffer to contain the reduction output        |
+| `count`:       | The number of elements of data to be reduced    |
+| `datatype`:    | The data type of the data                       |
+| `op`:          | The reduction operation to perform              |
+| `root`:        | The root rank, which will perform the reduction |
+| `comm`:        | The communicator                                |
 
 The `op` argument controls which reduction operation is carried out, from the following possible operations:
 
 | Operation    | Description                                                                      |
-| ------------ | -------------------------------------------------------------------------------- |
+|--------------|----------------------------------------------------------------------------------|
 | `MPI_SUM`    | Calculate the sum of numbers sent by each rank.                                  |
 | `MPI_MAX`    | Return the maximum value of numbers sent by each rank.                           |
 | `MPI_MIN`    | Return the minimum of numbers sent by each rank.                                 |
@@ -408,18 +432,19 @@ int MPI_Allreduce(
     MPI_Comm comm           
 );
 ```
-|  |  |
-| --- | --- |
-| `*sendbuff`: | The data to be reduced, on all ranks |
+|                |                                                  |
+|----------------|--------------------------------------------------|
+| `*sendbuff`:   | The data to be reduced, on all ranks             |
 | `*recvbuffer`: | A buffer which will contain the reduction output |
-| `count`: | The number of elements of data to be reduced |
-| `datatype`: | The data type of the data |
-| `op`: | The reduction operation to use |
-| `comm`: | The communicator |
+| `count`:       | The number of elements of data to be reduced     |
+| `datatype`:    | The data type of the data                        |
+| `op`:          | The reduction operation to use                   |
+| `comm`:        | The communicator                                 |
 
 ![Each rank sending a piece of data to root rank](fig/allreduce.png)
 
-`MPI_Allreduce()` performs the same operations as `MPI_Reduce()`, but the result is sent to all ranks rather than only being available on the root rank. This means we can remove the `MPI_Bcast()` in the previous code example and remove almost all of the code in the reduction example using point-to-point communication at the beginning of the episode. This is shown in the following code example:
+`MPI_Allreduce()` performs the same operations as `MPI_Reduce()`, but the result is sent to all ranks rather than only being available on the root rank. 
+This means we can remove the `MPI_Bcast()` in the previous code example and remove almost all of the code in the reduction example using point-to-point communication at the beginning of the episode. This is shown in the following code example:
 
 ```c
 int sum;
