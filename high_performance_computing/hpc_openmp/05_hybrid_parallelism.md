@@ -58,7 +58,7 @@ the data that threads in another MPI process have access to due to each MPI proc
 still possible to communicate thread-to-thread, but we have to be very careful and explicitly set up communication
 between specific threads using the parent MPI processes.
 
-As an example of how resources could be split using an MPI+OpenMP approach, consider a HPC cluster with some number of
+As an example of how resources could be split using an MPI+OpenMP approach, consider an HPC cluster with some number of
 compute nodes with each having 64 CPU cores. One approach would be to spawn one MPI process per rank which spawns 64
 OpenMP threads, or 2 MPI processes which both spawn 32 OpenMP threads, and so on and so forth.
 
@@ -66,7 +66,7 @@ OpenMP threads, or 2 MPI processes which both spawn 32 OpenMP threads, and so on
 
 #### Improved memory efficiency
 
-Since MPI processes each have their own private memory space, there is almost aways some data replication. This could be
+Since MPI processes each have their own private memory space, there is almost always some data replication. This could be
 on small pieces of data, such as some physical constants each MPI rank needs, or it could be large pieces of data such a
 grid of data or a large dataset. When there is large data being replicated in each rank, the memory requirements of an
 MPI program can rapidly increase making it unfeasible to run on some systems. In an OpenMP application, we don't have to
@@ -82,7 +82,7 @@ can more easily control the work balance, in comparison to a pure MPI implementa
 schedulers to address imbalance on a node. There is typically also a reduction in communication overheads, as there is
 no communication required between threads (although this overhead may be replaced by thread synchronisation overheads)
 which can improve the performance of algorithms which previously required communication such as those which require
-exchanging data between overlapping sub-domains (halo exchange).
+exchanging data between overlapping subdomains (halo exchange).
 
 ### Disadvantages
 
@@ -90,7 +90,7 @@ exchanging data between overlapping sub-domains (halo exchange).
 
 Writing *correct* and efficient parallel code in pure MPI and pure OpenMP is hard enough, so combining both of them is,
 naturally, even more difficult to write and maintain. Most of the difficulty comes from having to combine both
-parallelism models in an easy to read and maintainable fashion, as the interplay between the two parallelism models adds
+parallelism models in an easy-to-read and maintainable fashion, as the interplay between the two parallelism models adds
 complexity to the code we write. We also have to ensure we do not introduce any race conditions, making sure to
 synchronise threads and ranks correctly and at the correct parts of the program. Finally, because we are using two
 parallelism models, MPI+OpenMP code bases are larger than a pure MPI or OpenMP version, making the overall
@@ -114,13 +114,13 @@ Most of this can, however, be mitigated with good documentation and a robust bui
 
 So, when should we use a hybrid scheme? A hybrid scheme is particularly beneficial in scenarios where you need to
 leverage the strength of both the shared and distributed-memory parallelism paradigms. MPI is used to exploit lots of
-resources across nodes on a HPC cluster, whilst OpenMP is used to efficiently (and somewhat easily) parallelise the work
+resources across nodes on an HPC cluster, whilst OpenMP is used to efficiently (and somewhat easily) parallelise the work
 each MPI task is required to do.
 
 The most common reason for using a hybrid scheme is for large-scale simulations, where the workload doesn't fit or work
 efficiently in a pure MPI or OpenMP implementation. This could be because of memory constraints due to data replication,
 or due to poor/complex workload balance which are difficult to handle in MPI, or because of inefficient data access
-patterns from how ranks are coordinated. Of course, your mileage may vary and it is not always appropriate to use a
+patterns from how ranks are coordinated. Of course, your mileage may vary, and it is not always appropriate to use a
 hybrid scheme. It could be better to think about other ways or optimisations to decrease overheads and memory
 requirements, or to take a different approach to improve the work balance.
 
@@ -134,12 +134,12 @@ parallelised. Specifically, we will write a program to solve the integral to com
 $$ \int_{0}^{1} \frac{4}{1 + x^{2}} ~ \mathrm{d}x = 4 \tan^{-1}(x) = \pi $$
 
 There are a plethora of methods available to numerically evaluate this integral. To keep the problem simple, we will
-re-cast the integral into a easier-to-code summation. How we got here isn't that important for our purposes, but what we
+re-cast the integral into an easier-to-code summation. How we got here isn't that important for our purposes, but what we
 will be implementing in code is the following summation,
 
 $$ \pi = \lim_{n \to \infty} \sum_{i = 0}^{n} \frac{1}{n} ~ \frac{4}{1 + x_{i}^{2}} $$
 
-where $x_{i}$ is the the midpoint of the $i$-th rectangle. To get an accurate approximation of $\pi$, we'll need to
+where $x_{i}$ is the midpoint of the $i$-th rectangle. To get an accurate approximation of $\pi$, we'll need to
 split the domain into a large number of smaller rectangles.
 
 ### A simple parallel implementation using OpenMP
@@ -196,7 +196,7 @@ Calculated pi           3.141593 error           0.000000
 Total time = 34.826832 seconds
 ```
 
-You should see that we've compute an accurate approximation of $\pi$, but it also took a very long time at 35 seconds!
+You should see that we've computed an accurate approximation of $\pi$, but it also took a very long time at 35 seconds!
 To speed this up, let's first parallelise this using OpenMP. All we need to do, for this simple application, is to use a
 `parallel for` to split the loop between OpenMP threads as shown below.
 
@@ -231,9 +231,9 @@ Total time = 5.166490 seconds
 ### A hybrid implementation using MPI and OpenMP
 
 Now that we have a working parallel implementation using OpenMP, we can now expand our code to a hybrid parallel code by
-implementing MPI. In this example, we can porting an OpenMP code to a hybrid MPI+OpenMP application but we could have
+implementing MPI. In this example, we wil be porting an OpenMP code to a hybrid MPI+OpenMP application, but we could have
 also done this the other way around by porting an MPI code into a hybrid application. Neither *"evolution"* is more
-common or better than the other, the route each code takes toward becoming hybrid is different.
+common nor better than the other, the route each code takes toward becoming hybrid is different.
 
 So, how do we split work using a hybrid approach? For an embarrassingly parallel problem, such as the one we're working on, 
 we can split the problem size into smaller chunks across MPI ranks and use OpenMP to parallelise the work. For example, consider 
@@ -378,8 +378,8 @@ Total time = 5.818889 seconds
 Ouch, this took longer to run than the pure OpenMP implementation (although only marginally longer in this example!). You
 may have noticed that we have 8 MPI ranks, each of which are spawning 8 of their own OpenMP threads. This is an
 important thing to realise. When you specify the number of threads for OpenMP to use, this is the number of threads
-*each* MPI process will spawn. So why did it take longer? With each of the 8 MPI ranks spawning 8 threads, 64 threads
-threads were in flight. More threads means more overheads and if, for instance, we have 8 CPU Cores, then contention
+*each* MPI process will spawn. So why did it take longer? With each of the 8 MPI ranks spawning 8 threads, 64 threads 
+were in flight. More threads means more overheads and if, for instance, we have 8 CPU Cores, then contention
 arises as each thread competes for access to a CPU core.
 
 Let's improve this situation by using a combination of rank and threads so that $N_{\mathrm{ranks}} N_{\mathrm{threads}}
