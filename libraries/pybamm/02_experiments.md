@@ -3,6 +3,9 @@ name: The Experiment class
 id: experiments
 dependsOn: [libraries.pybamm.01_running_pybamm]
 tags: [pybamm]
+learningOutcomes:
+  - Be able to describe sequences of instructions to create complex PyBaMM experiments
+  - Understand how to access the steps of a multi-step experiment from a simulation output
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team

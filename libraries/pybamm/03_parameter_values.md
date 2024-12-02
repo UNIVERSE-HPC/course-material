@@ -2,6 +2,10 @@
 name: Parameter sets
 dependsOn: [libraries.pybamm.02_experiments]
 tags: [pybamm]
+learningOutcomes:
+  - Understand how to explore and use PyBaMM's built-in parameter sets
+  - Be able to change values in existing parameter sets
+  - Be able to create and use your own parameter sets
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team

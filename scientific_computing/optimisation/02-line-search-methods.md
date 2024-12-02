@@ -2,6 +2,12 @@
 name: Line Search Methods
 dependsOn: [scientific_computing.optimisation.01-nonlinear-optimisation]
 tags: []
+learningOutcomes:
+  - Understand the gradient descent algorithm as an example of a line search method for local optimisation.
+  - For plateaus with low gradient, understand the Newtons method and Quasi-Newton method.
+  - Be able to choose the step length in a line search method.
+  - Familiarise with Wolfe and Goldstein conditions.
+  - Understand the backtracking algorithm.
 attribution:
   - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
     url: https://www.sabsr3.ox.ac.uk
@@ -15,7 +21,7 @@ attribution:
 
 ### Gradient descent
 
-One of the simplest local optimisation algoriths is _gradient descent_. It is
+One of the simplest local optimisation algorithms is _gradient descent_. It is
 initialised at some point in parameter space $a_0$, and at each iteration the function
 $f(x)$ is reduced by following the direction of _steepest descent_ $-\nabla f(a)$
 

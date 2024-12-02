@@ -2,6 +2,10 @@
 name: Cholesky decomposition
 dependsOn: ["scientific_computing.linear_algebra.04-LU-decomposition"]
 tags: []
+learningOutcomes:
+  - Recognise symmetric positive definite (SPD) matrices as a special case for matrix decomposition
+  - Understand Cholesky decomposition as a method to efficiently decompose SPD matrices
+  - Understand the relationship between LU decomposition and Cholesky decomposition
 attribution:
   - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
     url: https://www.sabsr3.ox.ac.uk

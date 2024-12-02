@@ -3,9 +3,9 @@ name: Integration 1
 dependsOn: [scientific_computing.essential_maths.05_differentiation_3]
 tags: []
 attribution:
-  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-    url: https://www.sabsr3.ox.ac.uk
-    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+  - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
+    url: https://www.dtc.ox.ac.uk/
+    image: fig/dtc_hex.svg
     license: CC-BY-4.0
   - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk
@@ -443,17 +443,17 @@ Let $u$ and $v$ be functions of $x$.
    :::
 
 ::::challenge{id="06*ext_03" title="Extension problems 3"}
-A country wishes to achieve net-zero CO$*{2}$ emissions in 50 years. At the start of the program, their emissions ($E$) are 800MtCO$_{2}$year$^{-1}$. They decide that they will be able to reduce their emissions at a stable rate, so that each year they emit 12MtCO$_{2}$year$^{-1}$ less than the previous year.
+A country wishes to achieve net-zero $\text{CO}_2$ emissions in 50 years. At the start of the program, their emissions ($E$) are 800$\text{Mt CO}_2\ \text{year}^{-1}$. They decide that they will be able to reduce their emissions at a stable rate, so that each year they emit 12$\text{Mt CO}_2\ \text{year}^{-1}$ less than the previous year.
 
 - Write down the rate of change of the countries emissions ($E$), each year ($t$), $\def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{E}{t}$. Use this to calculate the total emissions that the country had produced over the 50 years.
 
-After 10 years of these emissions, the country starts a CO$_{2}$ removal program, whereby a certain amount of CO$_{2}$ is captured from the atmosphere and sequestered underground each year. This CO$_{2}$ follows the curve
+After 10 years of these emissions, the country starts a $\text{CO}_2$ removal program, whereby a certain amount of $\text{CO}_2$ is captured from the atmosphere and sequestered underground each year. This $\text{CO}_2$ follows the curve
 $$R = 0.1t^{2} - t$$
-where $R$ is the amount of CO$_{2}$ removal in MtCO$_{2}$year$^{-1}$.
+where $R$ is the amount of $\text{CO}_2$ removal in $\text{Mt CO}_2\ \text{year}^{-1}$.
 
 - Determine whether the country achieves their 50 year net-zero emissions goal by finding the year in which the emissions produced are equal to the emissions removed.
 
-After the 50 year program, the countries emission rate stabilises, and they emit the same amount of CO$_{2}$ each year after that. The CO$_{2}$ absorption rate per year follows the same trend as before. The country wishes to have not contributed to global warming at all since the start of the program. This means their net total CO$_{2}$ emissions over the entire program would have to be zero.
+After the 50 year program, the countries emission rate stabilises, and they emit the same amount of $\text{CO}_2$ each year after that. The $\text{CO}_2$ absorption rate per year follows the same trend as before. The country wishes to have not contributed to global warming at all since the start of the program. This means their net total $\text{CO}_2$ emissions over the entire program would have to be zero.
 
 - Show that is takes approximately 109 years for the country to have a net-zero effect on global warming since the start of the program.
 

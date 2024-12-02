@@ -2,6 +2,8 @@
 name: Finite Difference Matrix
 dependsOn: ["scientific_computing.sparse_linear_algebra.02-coo-matrix"]
 tags: []
+learningOutcomes:
+  -  Understand how to construct a sparse matrix that is derived from the finite difference discretisation of the Poisson equation.
 attribution:
   - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
     url: https://www.sabsr3.ox.ac.uk
@@ -16,7 +18,7 @@ attribution:
 Many matrices in scientific computing contain mostly zeros, particularly those arising
 from the discretisation of partial differential equations (PDEs). Here we will construct
 a sparse matrix using `scipy.sparse` that is derived from the finite difference
-discretistaion of the Poisson equation. In 1D, Poisson equation is
+discretisation of the Poisson equation. In 1D, Poisson equation is
 
 $$
 u_{xx} = f(x)\text{ for }0 \le x \le 1

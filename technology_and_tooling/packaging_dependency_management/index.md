@@ -11,6 +11,13 @@ files:
     virtual_environments_python.md,
     cmake.md,
   ]
+learningOutcomes:
+  - Organise your Python code into a package.
+  - Import functions from your Python package. 
+  - Configure your Python package to distribute to others.
+  - Share your Python package by publishing to a package index.
+  - Use Python virtual environments for reproducibility.
+  - Allow reproducible builds of your C++ code with CMake.
 attribution:
   - citation: >
       "Python Packaging" course developed by Thibault Lestang and the Oxford Research 

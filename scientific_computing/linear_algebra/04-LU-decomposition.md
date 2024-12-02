@@ -2,6 +2,12 @@
 name: LU decomposition
 dependsOn: ["scientific_computing.linear_algebra.02-gaussian-elimination"]
 tags: []
+learningOutcomes:
+  - Understand the concept of matrix decomposition
+  - Understand the benefits of different matrix decomposition methods
+  - Be able to perform LU decomposition on a matrix
+  - Understand the concept of pivoting in LU decomposition
+  - Recognise the benefit of LDL decomposition for symmetric matrices
 attribution:
   - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
     url: https://www.sabsr3.ox.ac.uk

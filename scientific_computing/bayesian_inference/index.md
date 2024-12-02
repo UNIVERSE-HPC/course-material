@@ -3,6 +3,10 @@ id: bayesian_inference
 name: Bayesian Inference
 dependsOn: [scientific_computing.ode_solvers]
 files: [01-AM.md, 02-PM.md]
+summary: |
+  This course offers a refresher of Bayesian inference and Markov
+  chain Monte Carlo methods before delving into the ODE inference
+  problem.
 attribution:
   - citation: This material has been adapted from material by Ben Lambert from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
     url: https://www.sabsr3.ox.ac.uk
