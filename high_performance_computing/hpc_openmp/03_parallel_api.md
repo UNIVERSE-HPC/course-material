@@ -73,10 +73,13 @@ So in summary, simply by adding this directive we have accomplished a basic form
 So how do we make use of variables across, and within, our parallel threads?
 Of particular importance in parallel programs is how memory is managed and how and where variables can be manipulated,
 and OpenMP has a number of mechanisms to indicate how they should be handled.
-Essentially, OpenMP provided two ways to do this for variables:
+Essentially, OpenMP provides two ways to do this for variables:
 
-- **Shared**: holds a single instance for all threads to share
-- **Private**: creates and hold a separate copy of the variable for each thread
+- **Shared**: A single instance of the variable is shared among all threads, meaning every thread can access 
+and modify the same data. This is useful for shared resources but requires careful management to prevent conflicts or 
+unintended behavior.
+- **Private**: Each thread gets its own isolated copy of the variable, similar to how variables are 
+private in `if` statements or functions, where each thread’s version is independent and doesn't affect others.
 
 For example, what if we wanted to hold the thread ID and the total number of threads within variables in the code block?
 Let's start by amending the parallel code block to the following:
@@ -123,16 +126,57 @@ But what about declarations outside of this block? For example:
 ```
 
 Which may seem on the surface to be correct.
-However this illustrates a critical point about why we need to be careful.
-Now the variables declarations are outside of the parallel block,
-by default, variables are *shared* across threads, which means these variables can be changed at any time by
-any thread, which is potentially dangerous.
-So here, `thread_id` may hold the value for another thread identifier when it's printed,
-since there is an opportunity between it's assignment and it's access within `printf` to be changed in another thread.
+However, this illustrates a critical point about why we need to be careful.
+Now, since the variable declarations are outside the parallel block, they are, 
+by default, *shared* across threads. This means any thread can modify these variables at any time, 
+which is potentially dangerous. So here, `thread_id` may hold the value for another thread identifier when it's printed,
+since there is an opportunity between its assignment and its access within `printf` to be changed in another thread.
 This could be particularly problematic with a much larger data set and complex processing of that data,
 where it might not be obvious that incorrect behaviour has happened at all,
 and lead to incorrect results.
 This is known as a *race condition*, and we'll look into them in more detail in the next episode.
+
+But there’s another common scenario to watch out for. What happens when we want to declare a variable 
+outside the parallel region, make it private, and retain its initial value inside the block? 
+Let’s consider the following example:
+
+```c
+int initial_value = 15;
+
+#pragma omp parallel private(initial_value)
+{
+    printf("Thread %d sees initial_value = %d\n", omp_get_thread_num(), initial_value);
+}
+```
+You might expect each thread to start with `initial_value` set to `15`. 
+However, this is not the case. When a variable is declared as `private`, each thread gets its own copy 
+of the variable, but those copies are **uninitialised**—they don’t inherit the value from the variable outside 
+the parallel region. As a result, the output may vary and include seemingly random numbers, depending on the 
+compiler and runtime.
+
+To handle this, you can use the `firstprivate` directive. With `firstprivate`, each thread gets its own 
+private copy of the variable, and those copies are initialised with the value from the variable outside the 
+parallel region. For example:
+
+```c
+int initial_value = 15;
+
+#pragma omp parallel firstprivate(initial_value)
+{
+    printf("Thread %d sees initial_value = %d\n", omp_get_thread_num(), initial_value);
+}
+```
+Now, the initial value is correctly passed to each thread:
+
+```text
+Thread 0 sees initial_value = 15
+Thread 1 sees initial_value = 15
+Thread 2 sees initial_value = 15
+Thread 3 sees initial_value = 15
+
+```
+Each thread begins with initial_value set to `15`. This avoids the unpredictable 
+behavior of uninitialised variables and ensures that the initial value is preserved for each thread.
 
 ::::callout
 
@@ -220,6 +264,44 @@ and how to specify different scheduling behaviours.
 
 :::callout
 
+## Nested Loops with `collapse`
+
+By default, OpenMP parallelises only the outermost loop in a nested structure. This works fine for many cases, 
+but what if the outer loop doesn’t have enough iterations to keep all threads busy, or the inner loop does most 
+of the work?  In these situations, we can use the `collapse` clause to combine the iteration 
+spaces of multiple loops into a single loop for parallel execution.
+
+For example, consider a nested loop structure:
+
+```c
+#pragma omp parallel for
+for (int i = 0; i < N; i++) {
+    for (int j = 0; j < M; j++) {
+        ...
+    }
+}
+```
+Without the `collapse` clause, the outer loop is divided into `N` iterations, and the inner loop is executed sequentially 
+within each thread. If `N` is small or `M` contains the bulk of the work, some threads might finish their work quickly 
+and sit idle, waiting for others to complete. This imbalance can slow down the overall execution of the program.
+
+Adding `collapse` changes this:
+
+```c
+#pragma omp parallel for collapse(2)
+for (int i = 0; i < N; i++) {
+    for (int j = 0; j < M; j++) {
+        ...
+    }
+}
+```
+The number `2` in `collapse(2)` specifies how many nested loops to combine. 
+Here, the two loops `(i and j)` are combined into a single iteration space with `N * M` iterations. 
+These iterations are then distributed across the threads, ensuring a more balanced workload.
+:::
+
+:::callout
+
 ## A Shortcut for Convenience
 
 The `#pragma omp parallel for` is actually equivalent to using two separate directives.
@@ -229,7 +311,7 @@ For example:
 #pragma omp parallel
 {
     #pragma omp for     
-    for (int 1 = 1; 1 <=10; i++)
+    for (int i = 1; i <=10; i++)
     {
         ...
     }
@@ -240,7 +322,7 @@ For example:
 
 ```c
 #pragma omp parallel for
-for (int 1 = 1; 1 <=10; i++)
+for (int i = 1; i <=10; i++)
 {
     ...
 }
@@ -304,7 +386,7 @@ wait until the others are done before the program can continue, but it's also an
 threads/cores idling rather than doing work.
 
 Fortunately, we can use other types of "scheduling" to control how work is divided between threads. In simple terms, a
-scheduler is an algorithm which decides how to assign chunks of work to the threads. We can controller the scheduler we
+scheduler is an algorithm which decides how to assign chunks of work to the threads. We can control the schedule we
 want to use with the `schedule` directive:
 
 ```c
