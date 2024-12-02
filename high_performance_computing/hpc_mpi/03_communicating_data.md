@@ -27,7 +27,7 @@ access data from one rank to another, we use the MPI API to transfer data in a "
 which contains the data we want to send, and is usually expressed as a collection of data elements of a particular data
 type.
 
-Sending and receiving data can happen happen in two patterns. We either want to send data from one specific rank to
+Sending and receiving data can happen in two patterns. We either want to send data from one specific rank to
 another, known as point-to-point communication, or to/from multiple ranks all at once to a single or multiples targets,
 known as collective communication. Whatever we do, we always have to *explicitly* "send" something and to *explicitly*
 "receive" something. Data communication can't happen by itself. A rank can't just get data from one rank, and ranks
@@ -60,8 +60,8 @@ When we send a message, MPI needs to know the size of the data being transferred
 data being sent, as you may expect, but is instead the number of elements of a specific data type being sent. When we
 send a message, we have to tell MPI how many elements of "something" we are sending and what type of data it is. If we
 don't do this correctly, we'll either end up telling MPI to send only *some* of the data or try to send more data than
-we want! For example, if we were sending an array and we specify too few elements, then only a subset of the array will
-be sent or received. But if we specify too many elements, than we are likely to end up with either a segmentation fault
+we want! For example, if we were sending an array, and we specify too few elements, then only a subset of the array will
+be sent or received. But if we specify too many elements, then we are likely to end up with either a segmentation fault
 or undefined behaviour! And the same can happen if we don't specify the correct data type.
 
 There are two types of data type in MPI: "basic" data types and derived data types. The basic data types are in essence
@@ -70,7 +70,7 @@ primitive C types in its API, using instead a set of constants which internally 
 types are in the table below:
 
 | MPI basic data type    | C equivalent           |
-| ---------------------- | ---------------------- |
+|------------------------|------------------------|
 | MPI_SHORT              | short int              |
 | MPI_INT                | int                    |
 | MPI_LONG               | long int               |
@@ -91,8 +91,8 @@ Remember, these constants aren't the same as the primitive types in C, so we can
 MPI_INT my_int = 1;
 ```
 
-is not valid code because, under the hood, these constants are actually special data structures used by MPI. Therefore
-we can only them as arguments in MPI functions.
+is not valid code because, under the hood, these constants are actually special data structures used by MPI. 
+Therefore, we can only them as arguments in MPI functions.
 
 ::::callout
 
@@ -113,7 +113,9 @@ INT_TYPE my_int = 1;
 ```
 ::::
 
-Derived data types, on the other hand, are very similar to C structures which we define by using the basic MPI data types. They're often useful to group together similar data in communications, or when you need to send a structure from one rank to another. This is covered in more detail in the optional [Advanced Communication Techniques](../hpc_mpi/11_advanced_communication.md) episode.
+Derived data types, on the other hand, are very similar to C structures which we define by using the basic MPI data types. 
+They are often useful for grouping similar data in communications or when sending a structure from one rank to another. 
+This is covered in more detail in the optional [Advanced Communication Techniques](11_advanced_communication.md) episode.
 
 :::::challenge{id=what-type, title="What Type Should You Use?"}
 For the following pieces of data, what MPI data types should you use?
@@ -124,7 +126,7 @@ For the following pieces of data, what MPI data types should you use?
 
 ::::solution
 
-The fact that `a[]` is an array does not matter, because all of the elemnts in `a[]` will be the same data type. In MPI, as we'll see in the next episode, we can either send a single value or multiple values (in an array).
+The fact that `a[]` is an array does not matter, because all the elements in `a[]` will be the same data type. In MPI, as we'll see in the next episode, we can either send a single value or multiple values (in an array).
 
 1. `MPI_INT`
 2. `MPI_DOUBLE` - `MPI_FLOAT` would not be correct as `float`'s contain 32 bits of data whereas `double`s are 64 bit.
@@ -150,11 +152,12 @@ In addition to `MPI_COMM_WORLD`, we can make sub-communicators and distribute ra
 
 ## Communication modes
 
-When sending data between ranks, MPI will use one of four communication modes: synchronous, buffered, ready or standard. When a communication function is called, it takes control of program execution until the send-buffer is safe to be re-used again. What this means is that it's safe to re-use the memory/variable you passed without affecting the data that is still being sent. If MPI didn't have this concept of safety, then you could quite easily overwrite or destroy any data before it is transferred fully! This would lead to some very strange behaviour which would be hard to debug. The difference between the communication mode is when the buffer becomes safe to re-use. MPI won't guess at which mode *should* be used. That is up to the programmer. Therefore each mode has an associated communication function:
+When sending data between ranks, MPI will use one of four communication modes: synchronous, buffered, ready or standard. When a communication function is called, it takes control of program execution until the send-buffer is safe to be re-used again. What this means is that it's safe to re-use the memory/variable you passed without affecting the data that is still being sent. If MPI didn't have this concept of safety, then you could quite easily overwrite or destroy any data before it is transferred fully! This would lead to some very strange behaviour which would be hard to debug. The difference between the communication mode is when the buffer becomes safe to re-use. MPI won't guess at which mode *should* be used. 
+That is up to the programmer. Therefore, each mode has an associated communication function:
 
 
 | Mode        | Blocking function |
-| ----------- | ----------------- |
+|-------------|-------------------|
 | Synchronous | `MPI_SSend()`     |
 | Buffered    | `MPI_Bsend()`     |
 | Ready       | `MPI_Rsend()`     |
@@ -163,7 +166,7 @@ When sending data between ranks, MPI will use one of four communication modes: s
 In contrast to the four modes for sending data, receiving data only has one mode and therefore only a single function.
 
 | Mode    | MPI Function |
-| ------- | ------------ |
+|---------|--------------|
 | Receive | `MPI_Recv()` |
 
 ### Synchronous sends
@@ -203,7 +206,8 @@ then you may have to repeat yourself to make sure your transmit the information 
 
 ### Standard sends
 
-The standard send mode is the most commonly used type of send, as it provides a balance between ease of use and performance. Under the hood, the standard send is either a buffered or a synchronous send, depending on the availability of system resources (e.g. the size of the internal buffer) and which mode MPI has determined to be the most efficient. 
+The standard send mode is the most commonly used type of send, as it provides a balance between ease of use and performance. 
+Under the hood, the standard send is either a buffered or a synchronous send, depending on the availability of system resources (e.g. the size of the internal buffer) and which mode MPI has determined to be the most efficient. 
 
 ::::callout
 
@@ -217,9 +221,9 @@ the standard send, `MPI_Send()`, and optimise later. If the standard send doesn'
 
 ## Communication mode summary: 
 
-|Mode | Description | Analogy | MPI Function |
-| --- | ----------- | ------- | ------------ |
-| Synchronous | Returns control to the program when the message has been sent and received successfully. | Making a phone call | `MPI_Ssend()`|
+| Mode        | Description                                                                                                                                                                 | Analogy                                        | MPI Function  |
+|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------|---------------|
+| Synchronous | Returns control to the program when the message has been sent and received successfully.                                                                                    | Making a phone call                            | `MPI_Ssend()` |
 | Buffered    | Returns control immediately after copying the message to a buffer, regardless of whether the receive has happened or not.                                                   | Sending a letter or e-mail                     | `MPI_Bsend()` |
 | Ready       | Returns control immediately, assuming the matching receive has already been posted. Can lead to errors if the receive is not ready.                                         | Talking to someone you think/hope is listening | `MPI_Rsend()` |
 | Standard    | Returns control when it's safe to reuse the send buffer. May or may not wait for the matching receive (synchronous mode), depending on MPI implementation and message size. | Phone call or letter                           | `MPI_Send()`  |
@@ -228,7 +232,7 @@ the standard send, `MPI_Send()`, and optimise later. If the standard send doesn'
 ### Blocking vs. non-blocking communication
 
 In addition to the communication modes, communication is done in two ways: either by blocking execution
-until the communication is complete (like how a synchronous send blocks until an receive acknowledgment is sent back),
+until the communication is complete (like how a synchronous send blocks until a **receive** acknowledgment is sent back),
 or by returning immediately before any part of the communication has finished, with non-blocking communication. Just
 like with the different communication modes, MPI doesn't decide if it should use blocking or non-blocking communication
 calls. That is, again, up to the programmer to decide. As we'll see in later episodes, there are different functions
@@ -249,11 +253,12 @@ The buffered communication mode is a type of asynchronous communication, because
 `MPI_Ibsend()` (more on this later). Even though the data transfer happens in the background, allocating and copying data to the send buffer happens in the foreground, blocking execution of our program. On the other hand, `MPI_Ibsend()` is "fully" asynchronous because even allocating and copying data to the send buffer happens in the background.
 :::
 
-One downside to blocking communication is that if rank B is never listening for messages, rank A will become *deadlocked*. A deadlock happens when your program hangs indefinitely because the send (or receive) is unable to
-complete. Deadlocks occur for a countless number of reasons. For example, we may forget to write the corresponding
-receive function when sending data. Or a function may return earlier due to an error which isn't handled properly, or a
-while condition may never be met creating an infinite loop. Ranks can also can silently, making communication with them
-impossible, but this doesn't stop any attempts to send data to crashed rank.
+One downside to blocking communication is that if rank B is never listening for messages, rank A will become *deadlocked*. A deadlock 
+happens when your program hangs indefinitely because the **send** (or **receive**) operation is unable to
+complete. Deadlocks can happen for countless number of reasons. For example, we might forget to write the corresponding
+**receive** function when sending data. Or a function may return earlier due to an error which isn't handled properly, or a
+**while** condition may never be met creating an infinite loop. Ranks can also silently fail, making communication with them
+impossible, but this does not stop any attempts to send data to crashed rank.
 
 ::::callout
 
@@ -264,7 +269,8 @@ A common piece of advice in C is that when allocating memory using `malloc()`, a
 You can apply the same mantra to communication in MPI. When you send data, always write the code to receive the data as you may forget to later and accidentally cause a deadlock.
 ::::
 
-Blocking communication works best when the work is balanced across ranks, so that each rank has an equal amount of things to do. A common pattern in scientific computing is to split a calculation across a grid and then to share the results between all ranks before moving onto the next calculation. If the workload is well balanced, each rank will finish at roughly the same time and be ready to transfer data at the same time. But, as shown in the diagram below, if the workload is unbalanced, some ranks will finish their calculations earlier and begin to send their data to the other ranks before they are ready to receive data. This means some ranks will be sitting around doing nothing whilst they wait for the other ranks to become ready to receive data, wasting computation time.
+Blocking communication works best when the work is balanced across ranks, so that each rank has an equal amount of things to do. A common pattern in scientific computing is to split a calculation across a grid and then to share the results between all ranks before moving onto the next calculation. 
+If the workload is well-balanced, each rank will finish at roughly the same time and be ready to transfer data at the same time. But, as shown in the diagram below, if the workload is unbalanced, some ranks will finish their calculations earlier and begin to send their data to the other ranks before they are ready to receive data. This means some ranks will be sitting around doing nothing whilst they wait for the other ranks to become ready to receive data, wasting computation time.
 
 ![Blocking communication](fig/blocking-wait.png)
 
