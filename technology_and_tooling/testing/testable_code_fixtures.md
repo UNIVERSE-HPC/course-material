@@ -3,6 +3,9 @@ name: Testable Code and Fixtures
 id: testable_code_fixtures
 dependsOn: [technology_and_tooling.testing.diagnosing_issues]
 tags: [pytest]
+learningOutcomes:
+  - Understand how to design testable code.
+  – Understand how test pytest fixtures can help write tests.
 attribution:
   - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk

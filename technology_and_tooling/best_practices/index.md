@@ -9,5 +9,5 @@ learningOutcomes:
   - Discover what a code smell is.
   - Find out how to use linters to check code.
 summary: |
-  This course covers how to style your Python code, and use linters to enforce a consistant style and highlight any code that can lead to commonly encountered bugs or problems.
+  This course covers how to style your Python code, and use linters to enforce a consistent style and highlight any code that can lead to commonly encountered bugs or problems.
 ---
