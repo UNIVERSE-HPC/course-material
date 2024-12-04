@@ -2,6 +2,10 @@
 name: Containers
 dependsOn: [software_architecture_and_design.procedural.variables_cpp]
 tags: [cpp]
+learningOutcomes:
+  - Use container-type data structures such as vectors, arrays, maps and sets to hold multiple sets of data.
+  - Use indexing and other access methods to access data within containers.
+  - Understand memory management and allocation for data structures.
 attribution:
   - citation: >
       This material was adapted from an "Introduction to C++" course developed by the

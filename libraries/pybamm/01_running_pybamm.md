@@ -2,6 +2,13 @@
 name: Running PyBaMM
 dependsOn: []
 tags: [pybamm]
+learningOutcomes:
+  - Be able to make the PyBaMM library available in a Python program
+  - Be able to use PyBaMM's built-in lithium-ion battery models
+  - Be able to solve a PyBaMM model over a specified time interval
+  - Be able to generate a plot of the key variables of a PyBaMM simulation
+  - Understand how to query the variables and parameters used in a model
+  - Understand how to query the relevant citations for parts of the PyBaMM library
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team

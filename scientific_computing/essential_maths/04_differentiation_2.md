@@ -3,9 +3,9 @@ name: Differentiation 2
 dependsOn: [scientific_computing.essential_maths.03_differentiation_1]
 tags: []
 attribution:
-  - citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-    url: https://www.sabsr3.ox.ac.uk
-    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+  - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
+    url: https://www.dtc.ox.ac.uk/
+    image: fig/dtc_hex.svg
     license: CC-BY-4.0
   - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk
@@ -247,7 +247,7 @@ The energy, $E$, carried by a photon of wavelength $\lambda$ is given by
 
 where $h$ is Planck's constant ($h=6.63\times 10^{-34}\,\rm{Js}$) and $c$ is the speed of light ($c=3 \times 10^8\,\rm{ms}^{-1}$).
 
-1. Calculate the energy carried by a photon of wavelength 500\thinspace nm.
+1. Calculate the energy carried by a photon of wavelength $500\,\rm{nm}$.
 1. Sketch a graph to show how E varies with $\lambda$.
 1. Derive an expression for $\displaystyle \frac{{\rm d}E}{{\rm d}\lambda}$, and calculate the slope of your graph when $\lambda=500\,\rm{nm}$.
 1. Hence, or otherwise, estimate the difference in energy between a photon of wavelength $500\,\rm{nm}$ and one of wavelength $505\,\rm{nm}$.
