@@ -48,6 +48,7 @@ The most basic methods of coordination are:
 Clearly, all of these have the potential to slow things down as they can lead to workers waiting around for others to finish, so you should try and do as little coordination as possible (while still ensuring that you get the correct result!).
 
 ### Adding to a Variable
+
 One of our basic operations is to increment a variable, for example to add up the total number of cars that move each iteration. It may not be obvious but, on a computer, adding one to a variable does not comprise a single operation. Using the whiteboard analogy, it has the following stages:
 
 - take a copy of the value on the whiteboard and write it in your notepad (load a value from memory into register);
@@ -170,6 +171,7 @@ To get you started:
 You do not need to provide a clear-cut answer. Instead, list the things that you think need to be considered and why.
 
 ### Extra Exercises
+
 In fact, sending a message can be implemented in two different ways:
 
 - like making a phone call (synchronously) or
@@ -257,7 +259,7 @@ cd foundation-exercises/sharpen/C-MPI
 make
 ```
 
-```
+```output
 mpicc -cc=cc -O3 -DC_MPI_PRACTICAL -c sharpen.c
 mpicc -cc=cc -O3 -DC_MPI_PRACTICAL -c dosharpen.c
 mpicc -cc=cc -O3 -DC_MPI_PRACTICAL -c filter.c
@@ -272,6 +274,7 @@ Write a job submission script that runs this sharpen MPI code.
 Remember that can't just run the MPI code using `./sharpen`. How should we run it in our submission script?
 
 :::solution
+
 ```bash
 #!/bin/bash
 
@@ -287,6 +290,7 @@ Remember that can't just run the MPI code using `./sharpen`. How should we run i
 
 srun ./sharpen
 ```
+
 :::
 ::::
 
@@ -324,6 +328,7 @@ To summarise:
 When we create threads we rely on the OS to assign them to different CPU-cores. How do think the OS makes that decision? What does it need to take into account, when there may be many more threads than CPU-cores?
 
 ::::callout
+
 ## Would you like to know more?
 
 If you're interested in a more detailed introduction to OpenMP that covers the technical concepts and its history,
@@ -341,7 +346,7 @@ cd foundation-exercises/sharpen/C-OMP
 make
 ```
 
-```
+```output
 cc -O3 -fopenmp -DC_OPENMP_PRACTICAL -c sharpen.c
 cc -O3 -fopenmp -DC_OPENMP_PRACTICAL -c dosharpen.c
 cc -O3 -fopenmp -DC_OPENMP_PRACTICAL -c filter.c
@@ -354,6 +359,7 @@ cc -O3 -fopenmp -DC_OPENMP_PRACTICAL -o sharpen sharpen.o dosharpen.o filter.o c
 Write a job submission script that runs this sharpen OpenMP code.
 
 :::solution
+
 ```bash
 #!/bin/bash
 
@@ -372,6 +378,7 @@ export OMP_NUM_THREADS=4
 
 ./sharpen
 ```
+
 :::
 ::::
 

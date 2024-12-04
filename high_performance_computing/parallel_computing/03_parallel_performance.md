@@ -34,19 +34,19 @@ For example, if the program took 200 seconds on 1 CPU-core (i.e. running in seri
 $$
 S_{10} = \frac{T_1}{T_{10}} = \frac{100}{25} = 8
 $$
- 
+
 Ideally we would like our parallel program to run 10 times faster on 10 CPU-cores, but this is not normally possible due to the inevitable overheads. In general, $S_P$ will be less than $P$.
 
-Another way of quantifying this is to compute the parallel efficiency:   
+Another way of quantifying this is to compute the parallel efficiency:
 
 $$
-E_P = \frac{S_P}{P} 
+E_P = \frac{S_P}{P}
 $$
 
 This gives us an idea of how efficiently we are using the CPU-cores. For the example given above, the parallel efficiency is
 
 $$
-E_{10} = \frac{S_{10}}{10} = \frac{8}{10} = 0.80 = 80 \% 
+E_{10} = \frac{S_{10}}{10} = \frac{8}{10} = 0.80 = 80 \%
 $$
 
 Ideally we would like our parallel program to be 100% efficient, but in general $E_P$ will be less than 1.0 (i.e. less than 100%).
@@ -78,13 +78,12 @@ We will consider two possible aeroplanes: a Jumbo Jet (top speed 700 kph) and Co
 
 The important observation is that the total journey time is the flight time plus the additional overheads of travelling between the city centre and the airport, waiting at check-in, clearing security or passport control, collecting your luggage etc. For simplicity, let’s assume that travel to the airport takes an hour by bus each way, and that you spend an hour in the airport at each end.
 
-| Plane	| Destination |	Flight Time | Over-head | Total Journey | Speed-up S3 | Efficiency E3 |
+| Plane | Destination | Flight Time | Over-head | Total Journey | Speed-up S3 | Efficiency E3 |
 | --- | --- | --- | --- | --- | --- | --- |
-| Jumbo Jet |	New York | 8:00 | 4:00 | 12:00 |	 	 
-| Concorde	| New York | 2:40 |	4:00 | 6:40 | 1.8 | 60% |
-| Jumbo Jet | Sydney | 24:00 | 4:00 | 28:00 |
-| Concorde | Sydney | 8:00 | 4:00 |	12:00 |	2.3	| 78% |
-
+| Jumbo Jet | New York | 8:00 | 4:00 | 12:00 | | |
+| Concorde | New York | 2:40 | 4:00 | 6:40 | 1.8 | 60% |
+| Jumbo Jet | Sydney | 24:00 | 4:00 | 28:00 | | |
+| Concorde | Sydney | 8:00 | 4:00 | 12:00 | 2.3 | 78% |
 
 Try to answer the following questions:
 
@@ -127,7 +126,7 @@ $$
 where alpha is the fraction of the calculation that is entirely serial. For example, for the New York journey then
 
 $$
- \alpha = \frac{4\, \rm hours}{12\, \rm hours} = 0.33 
+ \alpha = \frac{4\, \rm hours}{12\, \rm hours} = 0.33
 $$
 
 Amdahl’s law predicts that, although the speedup always increases with P, it never exceeds 1/$\alpha$. For the New York trip, this means the speedup is limited to 3.0 which is what we already observed.
@@ -160,6 +159,7 @@ To what extent do these figures agree or disagree with Amdahl’s law and Gustaf
 These calculations, require you to make a number of assumptions so when comparing answers with your fellow learners you should not focus on the numerical results so much. Looking at the reasoning behind each of the assumptions and comparing your overall conclusions should be more interesting.
 
 ---
+
 ## Terminology Recap
 
 ::::challenge{id=pcing_programming.1 title="Parallel Computing Programming Q1"}
@@ -168,11 +168,13 @@ For P CPU-cores it is calculated as the time taken to run a program on ____
 CPU-core divided by the time taken to run it on ____ CPU-cores.
 
 :::solution
+
 A) speed up
 
 B) one
 
 C) P
+
 :::
 ::::
 
@@ -180,9 +182,11 @@ C) P
 In parallel computing, the parallel ____ is used to measure how efficiently the CPU-cores are utilised. Although, we would like this to be as high as possible, it is typically less than ____.
 
 :::solution
-A) efficency 
+
+A) efficency
 
 B) 1.0
+
 :::
 ::::
 
@@ -190,8 +194,10 @@ B) 1.0
 The plot showing the performance of a parallel program with increasing number of CPU-cores is referred to as a ____ ____ . The fact that parallel programs do not scale perfectly (i.e. the speedup is not equal to the number of CPU-cores) is explained by an equation called ____ ____ .
 
 :::solution
+
 A) scaling curve
 
 B) Amdahl's Law
+
 :::
 ::::

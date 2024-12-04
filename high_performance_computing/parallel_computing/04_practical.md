@@ -16,13 +16,13 @@ attribution:
 
 ### Mandelbrot Set
 
-The Mandelbrot set is a famous example of a fractal in mathematics. It is a set of complex numbers $c$ for which the function 
+The Mandelbrot set is a famous example of a fractal in mathematics. It is a set of complex numbers $c$ for which the function
 
 $f_c(z) = z^2 + c$
 
-does not diverge to infinity when iterated from $z=0$, i.e the values of $c$ for which the sequence 
+does not diverge to infinity when iterated from $z=0$, i.e the values of $c$ for which the sequence
 
-$[ c,\ c^2+c,\ (c^2+c)^2+c,\ ((c^2+c)^2+c)^2+c,\ ...]$ 
+$[ c,\ c^2+c,\ (c^2+c)^2+c,\ ((c^2+c)^2+c)^2+c,\ ...]$
 
 remains bounded.
 
@@ -59,9 +59,9 @@ From the parallel programming point of view the useful feature of the Mandelbrot
 
 #### Task farm
 
-Task farming is one of the common approaches used to parallelise applications. Its main idea is to automatically create pools of calculations (called tasks), dispatch them to the processes and the to collect the results. 
+Task farming is one of the common approaches used to parallelise applications. Its main idea is to automatically create pools of calculations (called tasks), dispatch them to the processes and the to collect the results.
 
-The process responsible for creating this pool of jobs is known as a **source**, sometimes it is also called a *master* or *controller process*. 
+The process responsible for creating this pool of jobs is known as a **source**, sometimes it is also called a *master* or *controller process*.
 
 The process collecting the results is called a **sink**. Quite often one process plays both roles – it creates, distributes tasks and collects results. It is also possible to have a team of source and sink process. A ‘farm’ of one or more workers claims jobs from the source, executes them and returns results to the sink. The workers continually claim jobs (usually complete one task then ask for another) until the pool is exhausted.
 
@@ -71,6 +71,7 @@ Figure 1 shows the basic concept of how a task farm is structured.
 *Schematic representation of a simple task farm*
 
 In summary processes can assume the following roles:
+
 - **Source** - creates and distributes tasks
 - **Worker processes** - complete tasks received from the source process and then send results to the sink process
 - **Sink** - gathers results from worker processes.
@@ -88,7 +89,7 @@ calculations are independent is it possible to assign tasks in the most effectiv
 way, and thus speed up the overall calculation with the most efficiency. After
 all, if the tasks are independent from each other, the processors can request
 them as they become available, i.e. usually after they complete their current
-task, without worrying about the order in which tasks are completed. 
+task, without worrying about the order in which tasks are completed.
 
 This dynamic allocation of tasks is an effective method for getting more use
 out of the compute resources. It is inevitable that some calculations will take
@@ -114,7 +115,7 @@ As mentioned before, to determine the points lying within the Mandelbrot set
 there is no need for the communications between the worker tasks, which
 makes it an embarrassingly parallel problem that is suitable for task-farming.
 Although the calculation can employ the task farm approach, we still need to
-consider how to use it in the most optimal way. 
+consider how to use it in the most optimal way.
 
 Consider the following scenarios:
 
@@ -122,7 +123,7 @@ Consider the following scenarios:
 more, equal and fewer tasks than workers?
 - In your opinion what would be the optimal combination of the number
 of workers and task? What would it depend on the most? Task size?
-Problem size? Computer architecture? 
+Problem size? Computer architecture?
 
 ### Load Balancing
 
@@ -134,7 +135,7 @@ A successful load balancing will avoid overloading a single worker,
 maximising the throughput of the system and making best use of resources
 available. Poor load balancing will cause some workers of the system to be
 idle and consequently other elements to be ‘overworked’, leading to increased
-computation time and significantly reduced performance. 
+computation time and significantly reduced performance.
 
 #### Poor load balancing
 
@@ -144,7 +145,7 @@ to CPU3. The total runtime is equivalent to the longest runtime on any of the
 CPUs so the calculation time will be longer than it would be if the resource
 were used optimally. This can occur when load balancing is not considered,
 random scheduling is used (although this is not always bad) or poor decisions
-are made about the job sizes. 
+are made about the job sizes.
 
 ![Poor load balance](images/load_imbalance.png)
 *Poor load balance*
@@ -165,7 +166,7 @@ smaller jobs to equal out the workload.
 
 If the job sizes can change or the running times are unknown, then an
 adaptive system could be used which tries to infer future task lengths based
-upon observed runtimes. 
+upon observed runtimes.
 
 ![Good load balance](images/load_balance.png)
 *Good load balance*
@@ -202,7 +203,7 @@ make
 
 For this particular code, you'll note that the created executable `fractal` cannot be run on its own, since if you try you get:
 
-```
+```output
 ERROR: need at least two processes for the task farm!
 ```
 
@@ -230,20 +231,21 @@ to accomodate the sink process:
 
 srun ./fractal
 ```
+
 :::
 ::::
 
 Once complete, you should find the log file contains something like the following:
 
-```
+```output
 --------- CONFIGURATION OF THE TASKFARM RUN ---------
 
-Number of processes:			 17
-Image size:			 768 x 768 
-Task size:			 192 x 192 (pixels)
-Number of iterations:		 5000
-Coordinates in X dimension:	 -2.000000 to 1.000000
-Coordinates in Y dimension:	 -1.500000 to 1.500000
+Number of processes:         17
+Image size:                  768 x 768
+Task size:                   192 x 192 (pixels)
+Number of iterations:        5000
+Coordinates in X dimension:  -2.000000 to 1.000000
+Coordinates in Y dimension:  -1.500000 to 1.500000
 
 -----Workload Summary (number of iterations)---------
 
@@ -265,7 +267,7 @@ overlaid with blocks in different shades, which correspond to the work done by d
 ![Fractal output.ppm]( ./images/fractal_output.png)
 *Example output image created using 16 workers and 16 tasks.*
 
-So in our example script, the program created a task farm with one master process and 2 workers. The master divides the image up into tasks, where each task is a square of the size of 192 by 192 pixels (the default size of each square). The default image size is thus 768 x 768 pixels, which means there is exactly 1 task per worker, 
+So in our example script, the program created a task farm with one master process and 2 workers. The master divides the image up into tasks, where each task is a square of the size of 192 by 192 pixels (the default size of each square). The default image size is thus 768 x 768 pixels, which means there is exactly 1 task per worker,
 
 The load of a worker is estimated as the total number of iterations of the Mandelbrot calculation summed over all the pixels considered by that worker. The assumption is that the time taken is proportional to this. The only time that is actually measured is the total time taken to complete the calculation.
 

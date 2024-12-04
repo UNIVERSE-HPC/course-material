@@ -128,6 +128,7 @@ Do you understand why only one car can move at each iteration?
 This is actually quite important not only in our toy traffic model but also in any kind of computer simulations. The process of transferring continuous functions, equations and models into small distinct bits to be executed in a sequence of steps is called discretisation. This process is one of the initial steps in creating computer simulations. We will talk more about this in Week 4.
 
 ---
+
 ## Example 3: Rubbernecking
 
 ::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_8a540tg5&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_uwprlc3q" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Traffic_Rubbernecking_hd"}
@@ -168,7 +169,7 @@ Having watched the video, is it clear to you what boundary conditions are? Do yo
 ![Program code](images/chris-ried-ieic5Tq8YMk-unsplash.jpg)
 *Image courtesy of [Chrid Ried](https://unsplash.com/@cdr6934) from [Unsplash](https://unsplash.com)*
 
-## Traffic model: predictions, implementation and cellular automata 
+## Traffic model: predictions, implementation and cellular automata
 
 Using the measurements mentioned in the previous steps, we can see that the simulation predicts the onset of congestion (traffic jams) whenever the density of cars exceeds 50%.
 
@@ -200,7 +201,7 @@ For the one-dimensional case like the Traffic Model, it turns out that there are
 
 - each cell depends on the values of three cells (itself and its two immediate neighbours);
 - this means there are 8 rules (i.e. 111, 110, 101, 100, 011, 010, 001 and 000), each with two possible outcomes (occupied = 1, unoccupied = 0). First number corresponds to the preceding, second to the current and third the next cell, giving the following outcomes for the new state of the central cells: 1, 0, 1, 1, 1, 0, 0 and 0, respectively.
-- that makes a total of 256 = 28 possible models (to include every possible combination of 2 outcomes for 8 rules - 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 = 128).
+- that makes a total of 256 = 28 possible models (to include every possible combination of 2 outcomes for 8 rules - 2 \* 2 \* 2 \* 2 \* 2 \* 2 \* 2 \* 2 = 128).
 
 Most of these models will be very boring, but with our particular choice of rules the model can be seen as a simulation of traffic moving from left to right. The traffic model is sometimes called “Rule 184” - there is a (surprisingly detailed) discussion of it on [Wikipedia](https://en.wikipedia.org/wiki/Rule_184).
 
@@ -223,10 +224,10 @@ It turns out that, despite its simplicity, the traffic model is representative o
 
 There are two fundamentally different approaches to parallelising a calculation which correspond to the two parallel architectures. We call these approaches programming models.
 
-| Parallel Architecture	| Programming Model |
-| --- | --- |
-| Shared Memory | Shared Variables |
-| Distributed Memory | Message Passing |
+| Parallel Architecture | Programming Model |
+| --------------------- | ----------------- |
+| Shared Memory         | Shared Variables  |
+| Distributed Memory    | Message Passing   |
 
 What we mean by a programming model is that we take a high-level view of the way we are going to use the parallel computer, only concerned with the fundamental features of the computer and not bothering about the details (here, the fundamental feature is how the memory is arranged).
 
@@ -235,4 +236,3 @@ To illustrate what we mean by a model in this context, let’s take another exam
 Although both models achieve the same aim of transporting you between the two cities, they do so in fundamentally different ways with their own pros and cons. At this level, we are not concerned about the details of how each model is implemented: whether you drive an electric or petrol car, or travel by bus or by train, the fundamental distinction between the private and public models remains the same despite differing in the details.
 
 In terms of the two programming models, we are not concerned about the details of how the computer is built, whether it has a fast communications network or a slow one, whether each processor has a few cores or dozens of them. All we care about is whether or not different CPU cores are all directly attached to the same memory: are the workers sharing the same office or in different offices?
-

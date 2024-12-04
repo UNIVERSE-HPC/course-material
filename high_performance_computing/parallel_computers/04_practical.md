@@ -79,7 +79,7 @@ Without it, the `#pragma` statements won't be interpreted and our program will j
 
 If you run this now using `./hello-THRD yourname` you should see something like:
 
-```
+```output
 Hello yourname, this is node ln01 responding from thread 151
 Hello yourname, this is node ln01 responding from thread 157
 Hello yourname, this is node ln01 responding from thread 106
@@ -108,16 +108,18 @@ We can change the number of threads used by an OpenMP program by setting the `OM
 Try this now, and check the output.
 
 :::solution
+
 ```bash
 export OMP_NUM_THREADS=4
 ```
 
-```
+```output
 Hello yourname, this is node ln01 responding from thread 0
 Hello yourname, this is node ln01 responding from thread 1
 Hello yourname, this is node ln01 responding from thread 3
 Hello yourname, this is node ln01 responding from thread 2
 ```
+
 :::
 
 ::::
@@ -138,6 +140,7 @@ Write a job submission script that runs this OpenMP code.
 You'll need to specify the number of CPU cores to use using the `--cpus-per-task` `#SBATCH` parameter.
 
 :::solution
+
 ```bash
 #!/bin/bash
 
@@ -157,6 +160,7 @@ export OMP_NUM_THREADS=4
 
 ./hello-THRD yourname
 ```
+
 :::
 ::::
 
@@ -279,12 +283,13 @@ We need to use the `tasks-per-node` parameter to specify the number of processes
 
 srun ./hello-MPI yourname
 ```
+
 :::
 ::::
 
 After you've submitted the job and it's completed, you should see something like:
 
-```
+```output
 Hello, yourname@nid001686 I am process 1 of 4 total processes executing and I am running on node nid001686.
 Hello, yourname@nid001686 I am process 2 of 4 total processes executing and I am running on node nid001686.
 Hello, yourname@nid001686 I am process 3 of 4 total processes executing and I am running on node nid001686.
@@ -298,7 +303,7 @@ Why do you think this happens?
 :::solution
 You'll see something like:
 
-```
+```output
 Hello, yourname@nid003165 I am process 4 of 8 total processes executing and I am running on node nid003174.
 Hello, yourname@nid003165 I am process 5 of 8 total processes executing and I am running on node nid003174.
 Hello, yourname@nid003165 I am process 6 of 8 total processes executing and I am running on node nid003174.
@@ -308,6 +313,7 @@ Hello, yourname@nid003165 I am process 2 of 8 total processes executing and I am
 Hello, yourname@nid003165 I am process 3 of 8 total processes executing and I am running on node nid003165.
 Hello, yourname@nid003165 I am process 1 of 8 total processes executing and I am running on node nid003165.
 ```
+
 Increasing the number of nodes to 2, with 4 tasks (or processes) per node means we have a total of 8 processes running our code.
 :::
 ::::

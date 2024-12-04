@@ -85,6 +85,7 @@ You have seen how important initial conditions are, this is even more true for m
 Well, the short answer is not well enough! We do not possess enough information to be able to tell what is happening at all points on and above our planet’s surface.
 
 ### Data Assimilation
+
 The higher levels in the atmosphere, large areas of ocean, and inaccessible regions on land are examples of places on Earth for which we do not posses sufficient observational data. This certainly poses a problem, after all we need to re-create the current weather state as closely as possible. Somehow, we need to fill in these gaps in our knowledge.
 
 Weather science does exactly that using a process called data assimilation, which combines available observational data with a forecast of what we think the current state of the atmosphere is. This is done by comparing a previous forecast with the most recently received observations and then adjusting the model to reflect these observations. This process is repeated until satisfactory results are achieved. This way, the best estimate of the current weather state can be used as an input to the actual simulation.
@@ -92,6 +93,7 @@ Weather science does exactly that using a process called data assimilation, whic
 Depending on the forecast range, the rate of data assimilation is different - shorter and more localised forecasts are fed with observational data more often, and with more data points, than the longer ones.
 
 ### Parametrisation
+
 Besides the initial condition derived from the observational data, there are also other parameters that need to be included in weather models. These parameters are introduced to account for the processes that are too small or too complex to be explicitly represented. For example, the descent rate of raindrops, or a cumulus cloud, which is typically smaller than 1km.
 
 Among the processes that are to complex to be directly included in weather models is cloud microphysics - processes that lead to the formation, growth and precipitation of atmospheric clouds. Due to the complexity and difference in scale it’s too computationally expensive to directly include these processes in weather models. Nevertheless, capturing and describing their effect on the weather patterns is important. This is done through the parametrisation derived from observational data and our understanding of these processes.

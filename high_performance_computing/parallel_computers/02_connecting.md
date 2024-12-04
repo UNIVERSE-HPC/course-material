@@ -99,25 +99,24 @@ ARCHER2 has a total of 750,080 CPU-cores: 5,860 nodes wch with 128 CPU-cores. Wi
 
 For example, on ARCHER2 one instruction can perform up to four separate additions. In fact, the cores have separate units for doing additions and for doing multiplications that run in parallel. With the wind in the right direction and everything going to plan, a core can therefore perform 16 floating-point operations per cycle: eight additions and eight multiplications.
 
-This gives a peak performance of 750,080 * 2.25 * 16 Gflop/s = 27,002,880 Glop/s, agreeing with the 25.8 Pflop/s figure in the top500 list.
+This gives a peak performance of 750,080 \* 2.25 \* 16 Gflop/s = 27,002,880 Glop/s, agreeing with the 25.8 Pflop/s figure in the top500 list.
 
 ARCHER2 comprises 23 seperate cabinets, each about the height and width of a standard door, with around 32,768 CPU-cores (256 nodes) or about 60,000 virtual cores (using multi-threading) in each cabinet.
-
 
 ![Photo of someone managing ARCHER2 system](images/hero_73afa9aa-74db-4ad2-893e-971956518bdf.jpg)
 *© EPCC*
 
 ### Storage
-Most of the ARCHER2 nodes have 256 GByte of memory (some have 512 GByte), giving a total memory in excess of 1.5 PByte of RAM. 
 
-Disk storage systems are quite complicated, but they follow the same basic approach as supercomputers themselves: connect many standard units together to create a much more powerful parallel system. ARCHER2 has over a 15 PByte of Disk storage. 
+Most of the ARCHER2 nodes have 256 GByte of memory (some have 512 GByte), giving a total memory in excess of 1.5 PByte of RAM.
+
+Disk storage systems are quite complicated, but they follow the same basic approach as supercomputers themselves: connect many standard units together to create a much more powerful parallel system. ARCHER2 has over a 15 PByte of Disk storage.
 
 ### Power and Cooling
 
 If all the CPU-cores are fully loaded, ARCHER2 requires in excess of 4 Megwatts of power, roughly equivalent to a small town of around 4000 houses. This is a significant amount of power to consume and has an associated environmental imact that we must look to mitigate therefore ARCHER2 is supplied by a 100% renewable energy contract.
 
 The ARCHER2 cabinets are kept cool by pumping water through cooling pipes. The water enters at approximately 18°C and, after passing through the cabinets, comes out at around 29°C; it can then be cooled back down and re-circulated. When necessary the water is cooled by electrical chillers but, most of the time, ARCHER2 can take advantage of the mild Scottish climate and cool the water for free simply by pumping it through external cooling towers, so saving significant amounts of energy.
-
 
 ![Diagram of datacenter cooling](images/hero_87e2018b-86eb-4aa5-a7c4-efd271a505b2.webp)
 *© Mike Brown*
@@ -173,7 +172,7 @@ For anyone interested in how Wee ARCHIE has been put together (and possibly want
 ![Photo of overly complex road junction](images/timo-volz-9Psb5Q1TLD4-unsplash.jpg)
 *Image courtesy of [Timo Volz](https://unsplash.com/@magict1911) from [Unsplash](https://unsplash.com)*
 
-## ARCHER2 - it's more complicated...
+## ARCHER2 - it's more complicated
 
 In the last few steps we have glossed over a few details of the processors and the network.
 
@@ -198,15 +197,14 @@ This time lapse video documents the installation of the ARCHER2 system at EPCC i
 
 Is there anything that surprised you? We are curious to know so share your impressions in the comments section!
 
-
 ---
+
 ## Quiz - Processors, ARCHER2 and Wee ARCHIE
 
 ::::challenge{id=pc_connecting.1 title="Connecting Parallel Computers Q1"}
 Which of these are true about a typical processor in a modern supercomputer?
 
 Select all the answers you think are correct.
-
 
 A) it contains a single CPU-core
 
@@ -230,7 +228,6 @@ How are the CPU-cores attached to the memory in a modern multicore processor?
 
 Select all the answers you think are correct.
 
-
 A) the memory is physically sliced up between them
 
 B) the memory is shared between all the CPU-cores
@@ -253,7 +250,6 @@ Yes - you’ve correctly identified one of the challenges of shared memory: cont
 ::::challenge{id=pc_connecting.3 title="Connecting Parallel Computers Q3"}
 Like almost all supercomputers, ARCHER2 is constructed as a series of separate cabinets (23 in the case of ARCHER2), each standing about as high and wide as a standard door. Why do you think this size of cabinet is chosen?
 
-
 A) it is the minimum size that can be cooled effectively
 
 B) it is the maximum size that can be run from a single power supply
@@ -273,7 +269,6 @@ Spot on! It’s the age-old problem of trying to get a grand piano into a high-r
 
 ::::challenge{id=pc_connecting.4 title="Connecting Parallel Computers Q4"}
 How are ARCHER2’s 750,080 cores arranged?
-
 
 A) as one large shared-memory system
 

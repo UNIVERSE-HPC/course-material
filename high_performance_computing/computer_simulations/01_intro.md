@@ -96,7 +96,6 @@ When we were talking about nondeterministic characteristics of the systems we me
 
 Does that give you a better idea of what uncertainties are? Can you think of any other sources of uncertainties in this model?
 
-
 © Modelling Commons - 1997 Uri Wilensky
 
 ---
@@ -121,6 +120,7 @@ To understand the importance of choosing the right input parameters, and see the
 How difficult was it to find the sets of parameters to meet the conditions? Have you noticed anything unexpected?
 
 ---
+
 ## Terminology Recap
 
 ::::challenge{id=comp_sim_intro.1 title="Computer Simulations Q1"}
@@ -258,15 +258,11 @@ What are the main reasons for running computer simulations on supercomputers?
 
 Select all the answers you think are correct.
 
-
 A) to solve larger or more complex problems
-
 
 B) to solve problems faster
 
-
 C) it’s often cheaper than carrying out experiments
-
 
 D) computer simulations may be the only way of studying some problems
 
@@ -297,11 +293,13 @@ C) a model should always capture all interactions between the components of the 
 D) all of the above are true
 
 :::solution
-A) 
+
+A)
 
 Think about the relation between a model, simulation and reality.
 
 Correct! - the execution of mathematical model on a computer is called simulation
+
 :::
 ::::
 
@@ -317,11 +315,13 @@ C) numerical values of simulation variables during the simulation run
 D) none of the above
 
 :::solution
-D) 
+
+D)
 
 Think about why approximations are necessary.
 
 Correct! - above approximations are necessary to allow computer simulations to study the behaviour of systems in time and cost effective manner.
+
 :::
 ::::
 

@@ -33,7 +33,6 @@ attribution:
 2:32 - So hopefully, you can see– that although, we have the things we are going to need, the CPU and memory– there’s clearly a whole lot of other stuff going on here, which we’re not going to need when packing this up into a supercomputer.
 :::
 
-
 We’ve explained that the hardware building blocks of supercomputers, memory and processors, are the same as for general-purpose computers.
 
 But wait, ARCHER looks very different from your laptop! In this video David deconstructs a laptop so that, in the next step, we can compare its packaging to the specialist design of a supercomputer.
@@ -117,13 +116,13 @@ However, we have seen that a modern distributed-memory parallel supercomputer is
 - separate nodes communicate over a network, so network performance is also important.
 
 ### Latency and bandwidth
+
 It’s worth getting some ballpark feeling for memory and network performance so you can understand the factors that limit performance in practice. We’ll use the ARCHER system to give us some typical values. The two basic measures are latency and bandwidth:
 
 - **latency** is the minimum time taken to do anything at all, i.e. the time taken to transfer a single byte. You have to pay this overhead no matter how much data you are dealing with.
 - **bandwidth** is the rate at which you transfer large amounts of data.
 
 A useful analogy is to think of people going up an escalator. The time taken for a single person to travel from the bottom to the top is the latency - if someone wants to use the escalator to go up a floor it’s going to take a minimum of around 10 seconds. However, this doesn’t mean that the escalator can only transport one person every ten seconds. Many people can be standing on the escalator at once, so if a large crowd of people is using the escalator then we might have several people reaching the top of the escalator every second. This is the bandwidth.
-
 
 ### Numbers from ARCHER2
 
@@ -168,6 +167,7 @@ Supercomputers are largely built out of general-purpose components, which until 
 Computer games are such an enormous market that it is worthwhile developing special processors, Graphics Processing Units or GPUs, to produce high quality 3D graphics. Although the details are quite complicated, you can think of a GPU as a very specialised multicore processor which has a very large number of simple cores. The cores can be simplified because they are designed for a single purpose: 3D graphics. Producing high-quality graphics at many tens of frames per second requires an enormous amount of data to be processed, so GPUs also have special memory which has significantly higher bandwidth than the memory normally attached to a CPU.
 
 ### Accelerated supercomputers
+
 Fortunately for those of us involved in supercomputing, the calculations required for 3D graphics are very similar to those required for scientific simulations - large numbers of operations involving floating-point numbers. So, although developed for a completely different purpose, GPUs look perfect for supercomputing:
 
 - designed for very fast floating-point calculation;
@@ -183,6 +183,7 @@ Programming a GPGPU isn’t quite as straightforward as a CPU, and not all appli
 Earlier we asked you to look at Piz Daint, which is accelerated compared to ARCHER2 by the addition of Nvidia’s GPGPUs. Use the sublist generator on the top500 page to check how many top500 systems use Nvidia accelerators. Do you see what you expected to see?
 
 ---
+
 ## terminology Recap
 
 ::::challenge{id=pc_comparison.1 title="Comparing the Two Approaches Q1"}
@@ -196,7 +197,7 @@ operating system
 
 ::::challenge{id=pc_comparison.2 title="Comparing the Two Approaches Q2"}
 The two basic measures characterising the memory and network performance are: ____
-and ____ . 
+and ____ .
 ____ is the rate at which you transfer large amounts of data.
 ____ is the minimum time taken to do anything at all, i.e. the time taken to transfer a single byte.
 

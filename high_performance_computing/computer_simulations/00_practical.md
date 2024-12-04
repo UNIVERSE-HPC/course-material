@@ -26,7 +26,7 @@ make
 
 :::callout
 
-## A Reminder...
+## A Reminder
 
 You may wish to reacquaint yourself with *The traffic model* section in the *Parallel Computing* material that briefly describes
 the simulation model.
@@ -54,7 +54,7 @@ You can run the serial program direct on the login nodes:
 
 You should see:
 
-```
+```output
 Length of road is 100000
 Number of iterations is 2000 
 Target density of cars is 0.520000 
@@ -181,6 +181,7 @@ do
     ./traffic
 done
 ```
+
 :::
 ::::
 
@@ -194,7 +195,6 @@ by examining the Slurm output file and enter each time into a table, e.g. using 
 | 1        | ...
 | 2        | ...
 | ...      | ...
-...
 
 :::solution
 
@@ -240,6 +240,7 @@ Of course, for expediency in this exercise we're using small problem spaces to r
 ::::
 
 :::callout
+
 ## How to Time Code that doesn't Time Itself?
 
 With the traffic simulation code we're fortunate that it has an in-built ability to time itself.
@@ -251,13 +252,13 @@ For example, change directory to where your serial version of hello world is loc
 time ./hello-SER yourname
 ```
 
-```
+```output
 Hello World!
 Hello yourname, this is ln01.
 
 real    0m0.059s
 user    0m0.004s
-sys	    0m0.000s
+sys     0m0.000s
 ```
 
 Which gives us, essentially, the completed run time of 0.059s.
