@@ -14,7 +14,6 @@ attribution:
 ![Photo of a supercomputer](images/taylor-vick-M5tzZtFCOfs-unsplash.jpg)
 *Image courtesy of [Taylor Vick](https://unsplash.com/@tvick) from [Unsplash](https://unsplash.com)*
 
-
 ## Supercomputers - what are they?
 
 A supercomputer is a computer with very high-level computational capacities compared to a general-purpose computer such as a personal desktop or laptop.
@@ -24,15 +23,16 @@ Clearly this is a moving target - today’s laptop would have been a supercomput
 Supercomputers were first introduced in the 1960s by Seymour Roger Cray at Control Data Corporation (CDC), and have been used intensively in science and engineering ever since. To keep track of the state-of-the-art, the supercomputing community looks to the Top500 list, which ranks the fastest 500 supercomputers in the world every six months. We will look at this list in more detail in the next activity.
 
 ### Number crunching
+
 So why do we need supercomputers? Who uses them and what are they used for? We will see that their main application is in large-scale numerical computations, also called number-crunching. Of course, for simple calculations such as:
 
-~~~
+~~~math
 123 + 765 = 888
 ~~~
 
 or
 
-~~~
+~~~math
 1542.38 x 2643.56 = 4077374.07
 ~~~
 
@@ -43,6 +43,7 @@ The types of large-scale computations that are done by supercomputers, such as w
 So what if a computation takes several days or weeks to finish, and you want to run the same calculations many times with different input parameters. Do you want to wait while you can’t do anything else because the computation uses up all the resources of your computer? Are you prepared to wait for years before being able to collect all the results? Probably not, especially if the result you’re after is tomorrow’s weather. This is where supercomputers come into their own, finishing a job within a few hours or days when it would take many years on a general-purpose computer, or tackling problems that are just too large or complex for an everyday machine to store in its memory.
 
 ### Parallelism: the key to performance
+
 Supercomputers achieve this using parallel computing. Performing computations in parallel means carrying out many calculations simultaneously. It is like having thousands of general-purpose computers all working for you on the same problem at the same time. This is in fact an excellent analogy for how modern supercomputers work - you will learn more about the details of how it is done later in the course.
 
 Also keep in mind that although supercomputers provide enormous computational capacities, they are also very expensive to develop, purchase and operate. For example, the typical power consumption of a supercomputer is in the order of several megawatts (Mega = 1 000 000), where a megawatt (MW) is enough to power a small town of around 1000 people. That is why it’s important to use them as efficiently as possible.

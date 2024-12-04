@@ -104,6 +104,7 @@ You might think the answer is obvious: surely two CPU-cores will run my computer
 So what is the advantage for a normal user who is not running parallel programs? We call these serial programs.
 
 ### Operating Systems
+
 The important point is that, as a user, you don’t actually say please run this program on that CPU-core. There is a piece of software that sits between you and the hardware, the Operating System or OS, that isolates you from direct access to the CPU-cores, memory etc. There are several common OS’s around today - e.g. Windows, macOS, Linux and Android - but they all perform the same basic function: you ask the OS to execute a program, and it then decides if and when to actually run it on a physical CPU-core.
 
 ![Diagram of user in relation to computer containing an operating system, processor and memory](images/hero_6d93ece3-84b2-495f-b5c5-0e0f652196ea.png)
@@ -111,6 +112,7 @@ The important point is that, as a user, you don’t actually say please run this
 This enables even a single CPU-core machine to appear to be doing more than one thing at once - it will seem to be running dozens of programs at the same time. What is actually happening is that the OS is running one program for, say, a hundredth of a second, then stopping that program and running another one for a hundredth of a second, etc. Just like an animation running at many individual frames per second, this gives the illusion of continuous motion.
 
 ### How the OS exploits many CPU-cores
+
 On a shared-memory computer, the important point is that all the CPU-cores are under the control of a single OS (meaning you don’t need to buy 4 Windows licences for your quadcore laptop!). This means that your computer can genuinely run more than one program at the same time. It’s a bit more complicated for the OS - it has to decide not just which programs to run but also where to run them - but a good OS performs a juggling act to keep all the CPU-cores busy.
 
 ![User in relation to computer, containing operating system, multiple cores and memory](images/hero_4a65543e-9635-4624-9811-5da1a0ab431e.png)
@@ -192,12 +194,11 @@ double salarysum(double salarylist[], int npeople)
 
 David: I re-ran the same studies covered in the video but with almost all other tasks disabled , for example I did not run the graphical performance monitor, which allowed me to have access to all four CPU-cores. Here are the results.
 
-| dataset	| #copies	| runtime (seconds)|
-| --- | --- | --- |
-| small |	1	| 9.7 |
-| small	| 4	| 11.1 |
-| small	| 8 |	22.2 |
-
+| dataset | #copies | runtime (seconds) |
+| ------- | ------- | ----------------- |
+| small   | 1       | 9.7               |
+| small   | 4       | 11.1              |
+| small   | 8       | 22.2              |
 
 ---
 
@@ -215,6 +216,7 @@ Think of the analogy with many workers sharing an office. The obvious solution t
 This works very well for a single worker: you can work entirely from your personal notebook for long periods, and then transfer any updated results to the whiteboard before moving on to the next piece of work.
 
 ### Writing data
+
 It also works very well for multiple workers if they only ever read data. Unfortunately, real programs also write data, i.e. workers will want to modify the data on the whiteboard. If two people are working on the same data at the same time, we have a problem: if one worker changes some numbers in their notebook then the other worker needs to know about it. The compromise solution is to let everyone know whenever you modify any results in your notebook. Whenever you alter a number, you have to shout out:
 
 "I’ve just changed the entry for the 231st salary - if you have a copy of it then you’ll need to get the new value from me!"
@@ -231,7 +233,7 @@ Keeping all the caches coherent when we write data is the major challenge.
 
 What do you think is the current state-of-the-art? How many CPU-cores do high-end processors have?
 
---- 
+---
 
 ## Resource Contention
 
@@ -266,14 +268,14 @@ Note that I accidentally mis-spoke in the video and the larger calculation actua
 
 As for Step 2.6, I also re-ran the same calculations with the graphical monitor turned off so I had access to all 4 CPU-cores. Here are the timings for this large dataset where I reproduce the previous small dataset results for comparison.
 
-|dataset | #copies | runtime (seconds)|
-| --- | --- | --- |
-|small |	1	| 9.7 |
-|small |	4	| 11.1 |
-|small |	8	| 22.2 |
-|large |	1	| 10.7 |
-|large |	4 |	28.5 |
-|large |	8 |	57.0 |
+| dataset | #copies | runtime (seconds) |
+| ------  | ------- | ----------------- |
+| small   | 1       | 9.7               |
+| small   | 4       | 11.1              |
+| small   | 8       | 22.2              |
+| large   | 1       | 10.7              |
+| large   | 4       | 28.5              |
+| large   | 8       | 57.0              |
 
 ---
 
@@ -285,9 +287,11 @@ architecture, whereas a system composed of many separate processors connected vi
 ____ ____ architecture.
 
 :::solution
+
 1) shared memory
 
 2) distributed memory
+
 :::
 ::::
 
@@ -298,6 +302,7 @@ The smallest but also the fastest memory is called ____ memory.
 And keeping the data consistent and up-to-date on all the CPU-cores is called ____ ____.
 
 :::solution
+
 1) capacity
 
 2) access speed
@@ -305,6 +310,7 @@ And keeping the data consistent and up-to-date on all the CPU-cores is called __
 3) cache
 
 4) cache coherency
+
 :::
 ::::
 
@@ -312,6 +318,8 @@ And keeping the data consistent and up-to-date on all the CPU-cores is called __
 The situation when multiple CPU-cores try to use the same resources, e.g. memory, disk storage or network buses, is called ____ ____.
 
 :::solution
+
 1) resource contention
+
 :::
 ::::

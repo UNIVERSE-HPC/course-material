@@ -25,6 +25,7 @@ make
 ```
 
 :::callout
+
 ## A Reminder...
 
 You may wish to reacquaint yourself with *The traffic model* section in the *Parallel Computing* material that briefly describes

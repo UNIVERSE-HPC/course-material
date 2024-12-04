@@ -39,7 +39,7 @@ $$
 In practice, the Laplacian also highlights the noise in the image and, therefore, it is sensible to apply smoothing to the image as a first step. Here we will apply a Guassian filter. The Guassian filter $G(x,y)$ approximates each pixel as a weighted average of its neighbors.
 
 $$
-G(x,y) = \frac{1}{2 \pi \sigma^2} e^{- (x^2+y^2)/(2 \sigma^2)}   
+G(x,y) = \frac{1}{2 \pi \sigma^2} e^{- (x^2+y^2)/(2 \sigma^2)}
 $$
 
 The two operations can be combined to give the Laplacian of Gaussian filter $L \circ G(x,y)$.
@@ -68,7 +68,6 @@ $$
 \text{edges}(i,j) = \sum_{k=-d}^d \sum_{l=-d}^d  \text{image}(i + k, j + l) \times \text{filter}(k,l),
 $$
 
-
 the sharpened image is then created by adding the edges to the original image, with a scaling factor (See the source code for the full details).
 
 ---
@@ -88,7 +87,7 @@ Alternatively you might have already cloned the repository as part of another ex
 
 If you clone the repository the output will look similar to this
 
-```
+```output
 Cloning into 'foundation-exercises'...
 remote: Enumerating objects: 131, done.
 remote: Counting objects: 100% (131/131), done.
@@ -107,7 +106,7 @@ ls
 
 Output:
 
-```
+```output
 C-MPI  C-OMP  C-SER  F-MPI  F-OMP  F-SER
 ```
 
@@ -119,26 +118,26 @@ We will compile the serial version of the source code using a Makefile.
 
 Move into the ``C-SER`` directory and list the contents.
 
-```
+```bash
 cd C-SER
 ls
 ```
 
 Output:
 
-```
-cio.c  dosharpen.c  filter.c  fuzzy.pgm  Makefile  sharpen.c  sharpen.h  sharpen.slurm	utilities.c  utilities.h
+```output
+cio.c  dosharpen.c  filter.c  fuzzy.pgm  Makefile  sharpen.c  sharpen.h  sharpen.slurm  utilities.c  utilities.h
 ```
 
 You will see that there are various code files. The Makefile contains the commands to compile them together to produce the executable program. To use the Makefile type ``make`` command.
 
-```
+```bash
 make
 ```
 
 Output:
 
-```
+```output
 cc -O3 -DC_SERIAL_PRACTICAL -c sharpen.c
 cc -O3 -DC_SERIAL_PRACTICAL -c dosharpen.c
 cc -O3 -DC_SERIAL_PRACTICAL -c filter.c
@@ -159,7 +158,7 @@ We can run the serial program directly on the login nodes
 
 You should see something like:
 
-```
+```output
 Image sharpening code running in serial
 
 Input file is: fuzzy.pgm
@@ -184,6 +183,7 @@ Overall run time was 1.498794 seconds
 You should find an output file `sharpened.pgm` which contains the sharpened image.
 
 ::::callout
+
 ## Would you like to know more?
 
 If you're interested in the implementation itself, take a look at the code - particularly `dosharpen.c`.
@@ -204,6 +204,7 @@ scp username@login.archer2.ac.uk:/work/[project code]/[group code]/[username]/fo
 Then you should be able to open and view the image file on your local machine.
 
 ::::callout
+
 ## What about viewing the file *without* copying?
 
 Another way to view this file more directly without having to copy it is to install X window client installed on your local machine and then log into the remote machine with X forwarding enabled.
@@ -211,6 +212,7 @@ Covering this in detail is beyond the scope of this course, although the ARCHER2
 ::::
 
 ::::challenge{id=sc_practical_pr.1 title="Submit sharpen to a compute node"}
+
 ## Submitting to a compute node
 
 Write a Slurm script to run sharpen on a compute node, and submit it.

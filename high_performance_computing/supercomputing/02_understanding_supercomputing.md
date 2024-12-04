@@ -57,14 +57,14 @@ We say peak performance because this is the absolute maximum, never-to-be-exceed
 
 Clearly, with many thousands of CPU-cores we’re going to encounter some big numbers so here is a table summarising the standard abbreviations you’ll come across:
 
-|Ops per second  |	Scientific Notation | Prefix	| Unit |
-|---|---|---|---|
-| 1 000	| 10^3  |	Kilo	| Kflops |
-| 1 000 000 |	10^6|	Mega |	Mflops |
-| 1 000 000 000	| 10^9 |	Giga |	Gflops |
-| 1 000 000 000 000 |	10^12 |	Tera |	Tflops |
-| 1 000 000 000 000 000 |	10^15 |	Peta |	Pflops |
-| 1 000 000 000 000 000 000 |	10^18 |	Exa | Eflops |
+|Ops per second             | Scientific Notation | Prefix  | Unit   |
+|---------------------------|---------------------|---------|--------|
+| 1 000                     | 10^3                | Kilo    | Kflops |
+| 1 000 000                 | 10^6                | Mega    | Mflops |
+| 1 000 000 000             | 10^9                | Giga    | Gflops |
+| 1 000 000 000 000         | 10^12               | Tera    | Tflops |
+| 1 000 000 000 000 000     | 10^15               | Peta    | Pflops |
+| 1 000 000 000 000 000 000 | 10^18               | Exa     | Eflops |
 
 :::callout
 A quick word of warning here: when talking about performance measures such as Gflops, we are talking about powers of ten. For other aspects such as memory, it is more natural to work in powers of 2 - computers are binary machines after all.
@@ -214,6 +214,7 @@ This example aims to get you used to the command line environment of a high perf
 First, we'll need to create an example code to compile.
 
 ::::callout
+
 ## Recap: Using an Editor from within the Shell
 
 When working on an HPC system, we will frequently need to create or edit text
@@ -291,12 +292,13 @@ cc helloWorldSerial.c -o hello-SER
 
 And you should see:
 
-```
+```output
 Hello World!
 Hello yourname, this is ln01.
 ```
 
 ::::callout
+
 ## Be Kind to the login nodes
 
 It’s worth remembering that the login node is often very busy managing lots of users logged in, creating and editing files and compiling software, and submitting jobs. As such, although running quick jobs directly on a login node is ok, for example to compile and quickly test some code, it’s not intended for running computationally intensive jobs and these should always be submitted for execution on a compute node, which we'll look at shortly.
@@ -329,9 +331,9 @@ Place this bash code into a file called `Hello_Serial_Slurm.sh` and replace `YOU
 ./hello-SER YOUR_NAME_HERE
 ```
 
-If you run this script (e.g. using `bash Hello_Serial_Slurm.sh` you should see the output as before. 
+If you run this script (e.g. using `bash Hello_Serial_Slurm.sh` you should see the output as before.
 But we have also defined some scheduler directives as comments (prefixed by `#SBATCH`) in our script which are interpreted by the job scheduler, which indicate:
- 
+
 - `--job-name` - a name for the job, which acn be anything
 - `--nodes`, `--tasks-per-node`, `--cpus-per-node` - the number of compute nodes we wish to request for the job, the number of tasks (or processes) we wish to run, and the number of cpus we wish to use (in this case, a single process on 1 CPU on 1 node)
 - `--time` - the expected overall run time (or *wall time*) for the job, in `minutes:hours:seconds`. If our job goes over this, the scheduler may terminate the job!
@@ -346,7 +348,7 @@ sbatch Hello_Serial_Slurm.sh
 
 A unique job identifier is returned:
 
-```
+```output
 Submitted batch job 5843243
 ```
 
@@ -356,19 +358,19 @@ Using this identifier, we can check the status of the job, e.g.:
 squeue --job 5843243
 ```
 
-```
+```output
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
            5843243  standard Hello-SE username PD       0:00      1 (Priority)
 ```
 
-Eventually, we should see the job's state (`ST`) change to `R` to indicate it's running, along with the node it's running on indicated under `NODELIST`, and the time it's been running so far: 
+Eventually, we should see the job's state (`ST`) change to `R` to indicate it's running, along with the node it's running on indicated under `NODELIST`, and the time it's been running so far:
 
-```
+```output
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
            5843243  standard Hello-SE username  R       0:01      1 nid003218
 ```
 
-And we may even see it enter the completing (`CG`) state as the job finishes. Once complete, the job will disappear from this 
+And we may even see it enter the completing (`CG`) state as the job finishes. Once complete, the job will disappear from this list.
 
 We should now see one file returned as output, named `slurm-[job id].out`, containing the name of the node it ran on.
 
@@ -382,7 +384,7 @@ Add a `sleep 240` at the end of the submission script which will cause the scrip
 
 You should see the following in the job's Slurm output log file, indicating it was terminated:
 
-```
+```output
 Hello world!
 slurmstepd: error: *** JOB 5851929 ON nid001099 CANCELLED AT 2024-03-07T09:15:27 DUE TO TIME LIMIT ***
 ```
@@ -394,7 +396,7 @@ You may notice that the job is cancelled perhaps around 30 seconds *after* its r
 
 ---
 
-## What Supercomputing is not ...
+## What Supercomputing is not
 
 One of the main aims of this course is to de-mystify the whole area of supercomputing.
 
@@ -420,7 +422,6 @@ B) the number of float-point operations performed per second
 C) the clock frequency of the CPU-cores
 
 D) the total memory
-
 
 :::solution
 B) - it’s our basic measure of supercomputer speed.
@@ -511,4 +512,3 @@ E) - That’s right - parallelism is ubiquitous across almost all modern compute
 ::::
 
 ---
-

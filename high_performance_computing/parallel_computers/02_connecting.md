@@ -34,12 +34,12 @@ The office analogy is very useful here: a distributed-memory parallel computer i
 
 | Advantages |
 | --- |
-| The number of whiteboards (i.e. the total memory) grows as we add more offices. |	
-| There is no overcrowding so every worker has easy access to a whiteboard. |	
+| The number of whiteboards (i.e. the total memory) grows as we add more offices. |
+| There is no overcrowding so every worker has easy access to a whiteboard. |
 | We can, in principle, add as many workers as we want provided the telephone network can cope. |
 
 | Disadvantages |
-| --- | 
+| --- |
 | If we have large amounts of data, we have to decide how to split it up across all the different offices. |
 | We need to have lots of separate copies of the operating system. |
 | It is more difficult to communicate with each other as you cannot see each others whiteboards so you have to make a phone call. |
@@ -54,7 +54,7 @@ Well, unfortunately not. The compromises we have had to make (many separate comp
 
 Why do you think the distributed memory architecture is common in supercomputing but is not used in your laptop?
 
---- 
+---
 
 ![Two calculators](images/isawred-Mn4_KuFSpe4-unsplash.jpg)
 *Image courtesy of [iSawRed](https://unsplash.com/@isawred) from [Unsplash](https://unsplash.com)*
@@ -79,7 +79,6 @@ To minimise the communication-related costs, try to make as few phone calls as p
 
 ## Case study of a real machine
 
-
 To help you understand the general concepts we have introduced this week, we’ll now look at a specific supercomputer. I’m going to use the UK National Supercomputer, ARCHER2, as a concrete example. As well as being a machine I’m very familiar with, it has a relatively straightforward construction and is therefore a good illustration of supercomputer hardware in general.
 
 ### General
@@ -90,11 +89,12 @@ Archer2 is a HPE Cray EX machine, built by American supercomputer company Cray, 
 
 The basic processor used in ARCHER2 is the AMD Zen2 (Rome) EPYC 7742 CPU, which has a clock speed of 2.25 Ghz . The nodes on ARCHER2 have 128 cores across two of the AMD processors. All the cores are under the control of a single operating system. The OS is the HPE Cray Linux Environment, which is a specialised version of SUSE Linux.
 
-### Network 
+### Network
 
 The complete ARCHER2 system contains 5,860 nodes, i.e. ARCHER2 is effectively 6,000 seperate computers each running their own copy of Linux. They are connected by the HPE Slingshot interconnect, which has a complicated hierarchical structure specifically designed for supercomputing applications. Each node has two 100 Gb/s network connections, this means each node has a network bandwidth 2048 times faster than what is possible over a 100 Mb/s fast broadband connection!
 
 ### System performance
+
 ARCHER2 has a total of 750,080 CPU-cores: 5,860 nodes wch with 128 CPU-cores. With a Clock frequency of 2.25 Ghz, the CPU-cores can operate at 2.25 billion instructions per second. However, on a modern processor, a single instruction can perform more than one floating-point operation.
 
 For example, on ARCHER2 one instruction can perform up to four separate additions. In fact, the cores have separate units for doing additions and for doing multiplications that run in parallel. With the wind in the right direction and everything going to plan, a core can therefore perform 16 floating-point operations per cycle: eight additions and eight multiplications.
