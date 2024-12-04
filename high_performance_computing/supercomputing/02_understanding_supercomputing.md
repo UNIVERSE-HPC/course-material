@@ -157,11 +157,48 @@ Although the compute nodes may have disks attached to them, they are only used f
 
 ---
 
-## Practical 1: Logging in to ARCHER2
+## Practical 1: Setting up Prerequisites
+
+To undertake the practical sessions in this course you'll need one of the following:
+
+- A machine with OpenMP and MPI installed (see links to instructions below), although you won't be able to run the Slurm job scheduler examples unless you have access to ARCHER2 which these examples assume.
+- The Slurm job submission examples presented assume access to [ARCHER2](https://www.archer2.ac.uk/) which has OpenMP and MPI preinstalled. These examples can be made to work on other HPC infrastructures, such as [DiRAC](https://dirac.ac.uk/), but due to differences in how these systems are configured, prior knowledge of job scripts and the correct parameters to use for those systems will be required.
+
+### Local machine installation
+
+#### Installing OpenMP on your machine
+
+In order to make use of OpenMP, it's usually a case of ensuring you have the [right compiler installed on your system](https://www.openmp.org/resources/openmp-compilers-tools/), such as gcc.
+
+#### Installing MPI on your machine
+
+To install a popular version of MPI called [OpenMPI](https://www.open-mpi.org/) on a desktop or laptop:
+
+- **Linux:** Most distributions have OpenMPI available in their package manager, e.g.
+
+  ```bash
+  sudo apt install openmpi-bin openmpi-dev
+  ```
+
+- **Mac:** The MacPorts and Homebrew package managers both have OpenMPI available:
+
+  ```bash
+  brew install openmpi
+  # or
+  port install openmpi
+  ```
+
+- **Windows:** Whilst you *can* build OpenMPI yourself on Windows, it's generally easier to use the [**Windows Subsystem for Linux**](https://learn.microsoft.com/en-us/windows/wsl/install).
+
+This can be useful for when you're writing code or testing it on a smaller scale, but you will need to check that you're installing a version of OpenMPI that's also available on whichever HPC cluster you're likely to scale up to.
+
+### Using ARCHER2
+
+The other option, if you already have an account on it, is to use ARCHER2 which has all the software pre-installed.
 
 ### Installing an SSH client
 
-We'll first need to connect to ARCHER2 from our local laptop or PC using an SSH client, which allows us to connect to and use a command line interface on a remote computer as if we were our own.
+To connect to ARCHER2 from our local laptop or PC you'll need an SSH client, which allows us to connect to and use a command line interface on a remote computer as if we were our own.
 Please follow the directions below to install an SSH client for your system if you do not already have one.
 
 #### Windows
@@ -217,22 +254,22 @@ First, we'll need to create an example code to compile.
 
 ## Recap: Using an Editor from within the Shell
 
-When working on an HPC system, we will frequently need to create or edit text
-files.
+When working on an HPC system we will frequently need to create or edit text files.
 
-Some of the more common
-ones are:
+Some of the more common ones are:
 
 - `vi`: a very basic text editor developed during the 1970's/80's. It differs from most editors - and is commonly found to be confusing because of it - in that it has two modes of operation: command and insert. In command mode, you are able to pass instructions to the editor, such as dealing with files (save, load, or insert a file), and editing (cut, copy, and paste text). However, you can't insert new characters. For that the editor needs to be in insert mode, which allows you to type into a text document. You can enter insert mode by typing `i`. To return to the command mode, you can use `Escape`.
 - `vim`: built on `vi`, `vim` goes much further, adding features like undo/redo, autocompletion, search and replace, and syntax highlighting (which uses different coloured text to distinguish different programming language text). It mainly uses the same command/insert modes as `vi` which can take some getting used to, but is developed as a power-users editing tool that is highly configurable.
 - `emacs`: also highly configurable and extensible, `emacs` has a less steep learning curve than `vim` but offers features common to many modern code editors. It readily integrates with debuggers, which is great if you need to find problems in your code as it runs.
 - `nano`: a lightweight editor that also uses the more common way of allowing the editing of text by default, but allows you to access extra editor functionality such as search/replace or saving files by using `Ctrl` with other keys.
 
-These are all text-based editors, in that they do not use a graphical user interface like Windows. They simply appear in the terminal, which has a key advantage, particularly for HPC systems like DiRAC: they can be used everywhere there is a terminal, such as via an SSH connection.
+These are all text-based editors, in that they do not use a graphical user interface like Windows. They simply appear in the terminal, which has a key advantage, particularly for HPC systems like ARCHER2 or DiRAC: they can be used everywhere there is a terminal, such as via an SSH connection.
 
 One of the common pitfalls of using Linux is that the `vi` editor is commonly set as the default editor. If you find yourself in `vi`, you can exit using `Escape` to get into command mode, and then `:` to enter a new command followed by `q` + `!`, which means quit `vi` without saving the file.
 
 We'll use `nano`, a lightweight editor that's accessible from practically any installation of Linux.
+
+If following this on your own machine (e.g. not via ARCHER2), feel free to use any editor you like.
 
 ::::
 
@@ -290,6 +327,8 @@ cc helloWorldSerial.c -o hello-SER
 ./hello-SER yourname
 ```
 
+If you're running this on your own machine you may need to replace `cc` with `gcc` to get it to use the right compiler on your machine.
+
 And you should see:
 
 ```output
@@ -301,12 +340,14 @@ Hello yourname, this is ln01.
 
 ## Be Kind to the login nodes
 
-It’s worth remembering that the login node is often very busy managing lots of users logged in, creating and editing files and compiling software, and submitting jobs. As such, although running quick jobs directly on a login node is ok, for example to compile and quickly test some code, it’s not intended for running computationally intensive jobs and these should always be submitted for execution on a compute node, which we'll look at shortly.
+It’s worth remembering that if you're using an HPC infrastructure the login node is often very busy managing lots of users logged in, creating and editing files and compiling software, and submitting jobs. As such, although running quick jobs directly on a login node is ok, for example to compile and quickly test some code, it’s not intended for running computationally intensive jobs and these should always be submitted for execution on a compute node, which we'll look at shortly.
 
 The login node is shared with all other users and your actions could cause issues for other people, so think carefully about the potential implications of issuing commands that may use large amounts of resource.
 ::::
 
 ### Submitting our First Job
+
+**To be able to run the job submission examples in this segment, you'll need to either have access to ARCHER2, or an HPC infrastructure running the Slurm job scheduler and knowledge of how to configure job scripts for submission.**
 
 To take advantage of the compute nodes, we need the batch scheduler to queue our code to run on a compute node. The scheduler used in this lesson is Slurm. Although Slurm is not used everywhere, it's very popular and the process of specifying and running jobs is quite similar regardless of what scheduling software is being used.
 

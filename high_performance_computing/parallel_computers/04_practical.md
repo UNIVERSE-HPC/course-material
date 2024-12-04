@@ -68,11 +68,14 @@ int main(int argc, char* argv[])
 
 In this case, the code block indicated by the `#pragma omp parallel` statement will be run (by default) over as many threads as are available (typically one per available core).
 
-Let's compile this code now:
+Let's compile this code now.
+On ARCHER2, this looks like the following:
 
 ```bash
 cc helloWorldThreaded.c -fopenmp -o hello-THRD
 ```
+
+Again, on a local machine, depending on your compiler setup, you may need to use `gcc` instead of `cc`.
 
 Here, we inform the C compiler that this is an OpenMP program using the `-fopenmp` flag.
 Without it, the `#pragma` statements won't be interpreted and our program will just run within a single thread.
@@ -102,6 +105,7 @@ Hello yourname, this is node ln01 responding from thread 242
 ```
 
 Which when running on an ARCHER2 login node will likely make use of 256 threads.
+If on your own machine, this is probably more like 4, 8 or perhaps 16 threads.
 
 ::::challenge{id=parallel_comp_pr.1 title="How many threads?"}
 We can change the number of threads used by an OpenMP program by setting the `OMP_NUM_THREADS` environment variable.
@@ -135,6 +139,9 @@ Since the threads are running in parallel, they are not guaranteed to run their 
 ::::
 
 ::::challenge{id=parallel_comp_pr.3 title="Submitting an OpenMP job"}
+
+**To be able to run the job submission examples in this segment, you'll need to have access to a Slurm job scheduler for example on an HPC infrastructure such as ARCHER2 or DiRAC.**
+
 Write a job submission script that runs this OpenMP code.
 
 You'll need to specify the number of CPU cores to use using the `--cpus-per-task` `#SBATCH` parameter.
@@ -252,13 +259,35 @@ We'll cover this in more detail in the next lesson.
 But essentially, after initialising MPI and working out how many separate processes we have available to use (known as `ranks`),
 rank 0 sends the command line string using `MPI_Bcast` (broadcast) to all other processes.
 
-Compile this code using:
+On ARCHER2, you compile this code using:
 
 ```bash
 cc helloWorldMPI.c -o hello-MPI
 ```
 
+::::callout
+
+## On your own machine
+
+If you're compiling and running this on your own machine, you'll very likely need to use a custom MPI compiler called `mpicc` instead which is typically bundled as part of an MPI installation:
+
+```bash
+mpicc helloWorldMPI.c -o hello-MPI
+```
+
+Then, to run this locally on your own machine, you typically use the `mpiexec` command.
+For example, to run our code over 4 processes, or ranks:
+
+```bash
+mpiexec -n 4 ./hello-MPI
+```
+
+::::
+
 ::::challenge{id=parallel_comp_pr.4 title="Submitting an MPI job"}
+
+**To be able to run the job submission examples in this segment, you'll need to either have access to ARCHER2, or an HPC infrastructure running the Slurm job scheduler and knowledge of how to configure job scripts for submission.**
+
 Write a Slurm submission script for our MPI job, so that it runs across 4 processes. Note that you'll need to:
 
 - Specify the number of processes to use as an `#SBATCH` parameter. Which one should you use? (*Hint:* look back at the material that introduced the first job we submitted via Slurm)
@@ -287,7 +316,7 @@ srun ./hello-MPI yourname
 :::
 ::::
 
-After you've submitted the job and it's completed, you should see something like:
+After you've submitted the job (or run it locally) and it's completed, you should see something like:
 
 ```output
 Hello, yourname@nid001686 I am process 1 of 4 total processes executing and I am running on node nid001686.

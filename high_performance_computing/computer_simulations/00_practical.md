@@ -17,7 +17,9 @@ attribution:
 Let's look at serial and OpenMP implementations of the traffic simulation model we looked at in the previous material,
 let's investigate the basic performance characteristics of these implementations.
 
-To find the serial version of the traffic simulation code, firstly make sure you're on the `/work` partition (i.e. `cd /work/[project code]/[project code]/yourusername`), then change directory to where the code is located. Finally, use `make` as before to compile it:
+If on ARCHER2, to find the serial version of the traffic simulation code, firstly make sure you're on the `/work` partition (i.e. `cd /work/[project code]/[project code]/yourusername`).
+
+Change directory to where the code is located, and use `make` as before to compile it:
 
 ```bash
 cd foundation-exercises/traffic/C-SER
@@ -92,24 +94,26 @@ What we'd like to do now is measure how long it takes to run the simulation give
 so we can determine an ideal number of threads for running simulations in the future.
 
 ::::challenge{id=compsim_pr.1 title="Traffic Simulation: An OpenMP Submission Script"}
-
 We could submit a number of separate jobs running the code with an increasing number of threads,
+or if running this on our own machine, create a Bash script that does this locally,
 but with the simulation's current configuration, each of these jobs would only take a second or so to run
 (although if it took much longer than this, then separate jobs would likely make sense!).
 
-So instead of creating a number of separate submission scripts and submitting those,
-we'll put all the runs into a single submission script.
+So instead of creating a number of separate scripts and submitting/running those,
+we'll put all the runs into a single script.
 Create a single script that does the following for 1, 2, 4, 6, 8, 10, 12, 14, 16, 18, and 20 threads:
 
 - Sets the number of threads (i.e. setting the `OMP_NUM_THREADS` variable)
 - Runs the `traffic` code
 
-You'll need to set `--cpus-per-task` to the maximum number of threads you'll use in the script (i.e. 20),
+If you're writing ARCHER2 job submission scripts you'll need to set `--cpus-per-task` to the maximum number of threads you'll use in the script (i.e. 20),
 and set `--time` to a suitable value so encompass all the separate runs.
 
-Then, submit the script using `sbatch`.
+Then, either submit the job script using `sbatch` to submit it to ARCHER2 or run it directly using e.g. `bash script.sh`.
 
 :::solution
+
+(If you're running this on your own machine in a normal Bash script, you can ignore the lines starting `#SBATCH`)
 
 ```bash
 #!/bin/bash

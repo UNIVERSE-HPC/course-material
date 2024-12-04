@@ -135,6 +135,37 @@ You will see that there are various code files. The Makefile contains the comman
 make
 ```
 
+::::callout
+
+## Which Compiler?
+
+If you're running this on your own machine or another HPC infrastructure,
+you may find you get an error message about not being able to find the compiler, e.g.:
+
+```output
+cc -O3 -DC_SERIAL_PRACTICAL -c sharpen.c
+make: cc: No such file or directory
+make: *** [Makefile:32: sharpen.o] Error 127
+```
+
+In which case, you can edit the file `Makefile`, which contains the instructions to compile the code, and ensure it uses `gcc` instead.
+Edit `Makefile` in an editor of your choice and replace the following line:
+
+```bash
+CC= cc
+```
+
+with this one:
+
+```bash
+CC= gcc
+```
+
+and then save the file, and re-run `make`.
+In future practical sections you can perform the same change to makefiles if you encounter the same error.
+
+::::
+
 Output:
 
 ```output
@@ -191,10 +222,12 @@ If you're interested in the implementation itself, take a look at the code - par
 
 ### Viewing the images
 
-To view the sharpened image, you'll need to copy the file from ARCHER2 to your local machine.
+If you're running this via your own machine, take a look at the produced image file named `sharpened.pgm`.
+
+If however you're following this on an HPC infrastructure like ARCHER2, to view the sharpened image you'll need to copy the file to your local machine.
 Fortunately, we can use the `scp` (secure copy) command to do this over SSH.
 From a terminal on your local machine or laptop.
-Use the `pwd` command to output your current directory location, and use it with `scp` to copy the original and sharpened files over, e.g.:
+Use the `pwd` command to output your current directory location, and use it with `scp` to copy the original and sharpened files over, e.g. on ARCHER2:
 
 ```bash
 scp username@login.archer2.ac.uk:/work/[project code]/[group code]/[username]/foundation-exercises/sharpen/C-SER/fuzzy.pgm .
@@ -207,13 +240,15 @@ Then you should be able to open and view the image file on your local machine.
 
 ## What about viewing the file *without* copying?
 
-Another way to view this file more directly without having to copy it is to install X window client installed on your local machine and then log into the remote machine with X forwarding enabled.
+Another way to view this file on an HPC resource more directly without having to copy it is to install X window client installed on your local machine and then log into the remote machine with X forwarding enabled.
 Covering this in detail is beyond the scope of this course, although the ARCHER2 [documentation on connecting](https://docs.archer2.ac.uk/user-guide/connecting/#logging-in) has some information.
 ::::
 
 ::::challenge{id=sc_practical_pr.1 title="Submit sharpen to a compute node"}
 
 ## Submitting to a compute node
+
+**To be able to run the job submission examples in this segment, you'll need to either have access to ARCHER2, or an HPC infrastructure running the Slurm job scheduler and knowledge of how to configure job scripts for submission.**
 
 Write a Slurm script to run sharpen on a compute node, and submit it.
 

@@ -186,7 +186,7 @@ It is a useful measure because it allows you to predict what the runtime would b
 
 ## Part 2: Compile and Run
 
-Let's compile and run the example fractal code, which makes use of MPI.
+Let's compile and run the example fractal code which makes use of MPI.
 
 ### Compiling the source code
 
@@ -201,19 +201,23 @@ Similarly to the previous examples, we can compile the serial source code by doi
 make
 ```
 
-For this particular code, you'll note that the created executable `fractal` cannot be run on its own, since if you try you get:
+Again, if running this on your own machine locally, you may need to edit the `Makefile` to change the compiler used. You can then run the code directly with `mpiexec`, e.g. `mpiexec -n 4 ./fractal` to run it with 4 processes.
+
+If you're running this on ARCHER2 you'll note that the created executable `fractal` cannot be run directly, since if you try you get:
 
 ```output
 ERROR: need at least two processes for the task farm!
 ```
 
 ::::challenge{id=parallel_prog_pr.1 title="Submitting a Fractal MPI job"}
-So we'll need (and should!) submit this as ax job via Slurm.
+**To be able to run the job submission examples in this segment, you'll need to either have access to ARCHER2, or an HPC infrastructure running the Slurm job scheduler and knowledge of how to configure job scripts for submission.**
+
+So on an HPC infrastructure, we'll need (and should!) submit this as a job via Slurm.
 Write a script that executes the fractal MPI code that uses 16 worker processes on a single node.
 
 :::solution
 So in order to have this generated using two worker processes, we need to set `tasks-per-node` to 17,
-to accomodate the sink process:
+to accomodate the sink process. e.g. on ARCHER2:
 
 ```bash
 #!/bin/bash
@@ -262,16 +266,16 @@ Load Imbalance Factor: 5.034134
 ```
 
 The ``fractal`` executable will take a number of parameters and produce a fractal image in a file called ``output.ppm``. By default the image will be
-overlaid with blocks in different shades, which correspond to the work done by different processors. This way we can see how the tasks were allocated. An example of this is presented in figure 1 – the image is divided into 16 tasks (squares) and different shade corresponds to each of 16 workers.
+overlaid with blocks in different shades, which correspond to the work done by different processors. This way we can see how the tasks were allocated. An example of this is presented in figure 1 – the image is divided into 16 tasks (squares) and a different shade of red corresponds to each of the workers. For example, running this on ARCHER2 with 16 workers will therefore yield 16 shades of red, and running this on your own machine with 4 workers will yield 4 shades instead.
 
 ![Fractal output.ppm]( ./images/fractal_output.png)
 *Example output image created using 16 workers and 16 tasks.*
 
-So in our example script, the program created a task farm with one master process and 2 workers. The master divides the image up into tasks, where each task is a square of the size of 192 by 192 pixels (the default size of each square). The default image size is thus 768 x 768 pixels, which means there is exactly 1 task per worker,
+So in our example script, the program created a task farm with one master process and 2 workers. The master divides the image up into tasks, where each task is a square of the size of 192 by 192 pixels (the default size of each square). The default image size is thus 768 x 768 pixels, which means there is exactly 1 task per worker.
 
 The load of a worker is estimated as the total number of iterations of the Mandelbrot calculation summed over all the pixels considered by that worker. The assumption is that the time taken is proportional to this. The only time that is actually measured is the total time taken to complete the calculation.
 
-Using `scp` to copy file back to your local machine you can then view the output file `output.ppm`, although your "pattern" of workers for each segment may differ.
+If on ARCHER2, use `scp` to copy the `output.ppm` image file back to your local machine to view it, otherwise if on your own machine open the file directly. In any event, your "pattern" of workers for each segment will likely differ than what's depicted here, depending on which workers were assigned which task and how many workers you used.
 
 ::::challenge{id=parallel_prog_pr.2 title="Removing Diagnostic Output"}
 Try adding `-n` to `fractal`'s arguments in the submission script. What happens?
@@ -302,6 +306,8 @@ The following options are recognised by the fractal program:
 
 ## Part 3: Investigation
 
+**For this segment, if you're running this locally on your own machine assume 4 workers and 4 tasks, instead of 16 workers and 16 tasks - since it's quite possible your own machine will not be able to handle 16 parallel MPI processes.**
+
 To explore the effect of load balancing run the code with different parameters and try to answer the following questions.
 
 ::::challenge{id=parallel_prog_pr.3 title="Predict Runtime"}
@@ -328,17 +334,33 @@ You can use `-t` as an argument to the `fractal` program to set the task/grid si
 
 :::solution
 
+Running this on ARCHER2 with 16 workers, you may find your answers look something like:
+
 | Grid size | Runtime(s) | Load imbalance factor
 |-----------|------------|----------------------
 | 192       | 0.772049   | 5.034134
 | 96        | 0.237510   | 1.545613
 | 48        | 0.170243   | 1.107278
-| 24        | 0.160345   | 1.041810  
+| 24        | 0.160345   | 1.041810
 | 12        | 0.155502   | 1.006157
 | 6         | 0.159350   | 1.003959
 | 3         | 0.176114   | 1.005451
 | 2         | 0.211402   | 1.004163
 | 1         | 0.417041   | 1.003397
+
+Running this on a local machine with 3 workers, you may find your answers look more like:
+
+| Grid size | Runtime(s) | Load imbalance factor
+|-----------|------------|----------------------
+| 192       | 1.298491   | 1.337907
+| 96        | 1.003863   | 1.015820
+| 48        | 0.955120   | 1.006782
+| 24        | 0.970588   | 1.007317
+| 12        | 0.983153   | 1.013827
+| 6         | 0.981687   | 0.990886
+| 3         | 1.024623   | 1.032792
+| 2         | 1.019592   | 1.003972
+| 1         | 1.132916   | 1.015426
 
 Of course, your figures may differ somewhat!
 :::
@@ -351,6 +373,10 @@ Does the minimum runtime approach what you predicted from the load imbalance fac
 :::solution
 Based on the distribution of the tasks in our generated image, the workers responsible for the bottom and top rows of the grid, as well as the left column had very little work to do, whereas the middle 4 cells had the most work, based on their overlap with the Mandelbrot set (the black areas require the most cycles to compute).
 
-Clearly the load imbalance is quite high because once a worker has finished processing its task there is no additional work it can do. In order to remedy this we can reduce the size of the tasks that are assigned to the workers. Looking in our table, we see that the time to solution and load imbalance factors drop rapidly. The fastest runtime is achieved for tasks with a gridsize of 12, by which point the load imbalance factor is only 1.0062. The load imbalance factor continues to decrease somewhat, but the runtimes increase for smaller grid sizes due to the cost of having to do more communication with the controller process to be assigned a new task. Effectively the master process has become a bottleneck because it cannot assign work to the workers fast enough. This point may be reached at different task sizes depending on how many workers there are. Depending on the problem size and complexity,a large number of workers will require a relatively larger task size to prevent the controller process becoming the bottleneck.
+Clearly the load imbalance is quite high because once a worker has finished processing its task there is no additional work it can do. In order to remedy this we can reduce the size of the tasks that are assigned to the workers. Looking in our table, we see that the time to solution and load imbalance factors drop rapidly.
+
+If on ARCHER2, for example, the fastest runtime is achieved for tasks with a gridsize of 12, by which point the load imbalance factor is only 1.0062. The load imbalance factor continues to decrease somewhat, but the runtimes increase for smaller grid sizes due to the cost of having to do more communication with the controller process to be assigned a new task. Effectively the master process has become a bottleneck because it cannot assign work to the workers fast enough. This point may be reached at different task sizes depending on how many workers there are. Depending on the problem size and complexity,a large number of workers will require a relatively larger task size to prevent the controller process becoming the bottleneck.
+
+If running this on your own machine with a lower number of workers, you may see a similar "shape" to the numbers or graph, with an initially high imbalance factor that decreases to around 1.0 even faster. Correspondingly, the runtime also initially decreases and then increases again as the master process becomes a bottleneck, although with fewer workers this variance is less pronounced.
 :::
 ::::
