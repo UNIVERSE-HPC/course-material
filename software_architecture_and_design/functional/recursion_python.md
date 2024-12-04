@@ -65,6 +65,11 @@ def factorial(n):
         return  n * factorial(n-1) # recursive call to the same function
 ```
 
+Note that Python is limited in the depth of recursion it supports. If you
+call `factorial(1000)`, for example, you will get a `RecursionError`. In
+cases, where you might exceed this limit, it's better to stick to iteration.
+Still, as we're about to see, recursion is sometimes the best solution.
+
 ::::challenge{id="recursion_on_trees" title="Recursion on trees"}
 
 Recursion is a powerful tool for traversing tree data structures. Consider a
