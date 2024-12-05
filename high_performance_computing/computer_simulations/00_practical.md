@@ -93,7 +93,7 @@ The simulation is set at the same initial parameters as the serial version of th
 What we'd like to do now is measure how long it takes to run the simulation given an increasing number of threads,
 so we can determine an ideal number of threads for running simulations in the future.
 
-::::challenge{id=compsim_pr.1 title="Traffic Simulation: An OpenMP Submission Script"}
+::::challenge{id=compsim_pr.1 title="Traffic Simulation: Scripting the Process"}
 We could submit a number of separate jobs running the code with an increasing number of threads,
 or if running this on our own machine, create a Bash script that does this locally,
 but with the simulation's current configuration, each of these jobs would only take a second or so to run
