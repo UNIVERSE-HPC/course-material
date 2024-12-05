@@ -306,7 +306,7 @@ The following options are recognised by the fractal program:
 
 ## Part 3: Investigation
 
-**For this segment, if you're running this locally on your own machine assume 4 workers and 4 tasks, instead of 16 workers and 16 tasks - since it's quite possible your own machine will not be able to handle 16 parallel MPI processes.**
+**For this segment, if you're running this locally on your own machine assume 3 workers (and 1 master process) instead of 16 workers (and 1 master process), since it's quite possible your own machine will not be able to handle 17 parallel MPI processes over 17 separate cores.**
 
 To explore the effect of load balancing run the code with different parameters and try to answer the following questions.
 
