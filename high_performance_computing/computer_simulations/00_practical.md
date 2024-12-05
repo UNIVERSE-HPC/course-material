@@ -192,7 +192,7 @@ done
 ::::challenge{id=compsim_pr.2 title="Traffic Simulation: Measuring Multiple Threads Runtimes"}
 
 Next, let's look at the timings together by first entering them into a table,
-by examining the Slurm output file and enter each time into a table, e.g. using the following columns:
+by examining the output (or via Slurm output files) and enter each time into a table, e.g. using the following columns:
 
 | #Threads | Time(s)
 |----------|--------
