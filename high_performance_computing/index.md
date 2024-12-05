@@ -5,6 +5,10 @@ dependsOn: [
   technology_and_tooling.bash_shell
 ]
 courses: [
+  supercomputing,
+  parallel_computers,
+  parallel_computing,
+  computer_simulations,
   hpc_aws_slurm_setup,
   hpc_intro,
   hpc_parallel_intro,
