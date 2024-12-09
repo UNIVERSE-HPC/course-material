@@ -131,38 +131,51 @@ as the calculation depends on this data (See the full code [here](code/examples/
 }
 ```
 Similarly, in iterative tasks like matrix calculations, barriers help coordinate threads so that all updates 
-are completed before moving to the next step. For example, in the following snippet, a barrier makes sure that updates 
-to `next_matrix` are finished by all threads before its values are copied back into 
-`current_matrix`. 
+are completed before moving to the next step. For example, in the following snippet, each thread updates its assigned 
+row of a matrix using data from its current row and the row above (except for the first row, which has no dependency; 
+see the full code [here](code/examples/04-matrix-update.c)). A barrier ensures that all threads finish updating 
+their rows in `next_matrix` before the values are copied back into `current_matrix`.  Without this barrier, threads might 
+read outdated or partially updated data, causing inconsistencies.
+
+Here, the number of rows (`nx`) is dynamically determined at runtime using `omp_get_max_threads()`. This function provides 
+the maximum number of threads OpenMP can use in a parallel region, based on the system's resources and runtime configuration. 
+Using this value, we define the number of rows in the matrix, with each row corresponding to a potential thread. This setup 
+ensures that both the `current_matrix` and `next_matrix provide` rows for the maximum number of threads allocated during 
+parallel execution.
 
 ```c
 ......
 int main() {
-    double current_matrix[NX][NY];
-    double next_matrix[NX][NY];
-    
-    /* Initialise the matrix */
-    initialise_matrix(current_matrix, NX);
+    int nx = omp_get_max_threads();
+    double current_matrix[nx][NY];
+    double next_matrix[nx][NY];
+
+    /* Initialise the current matrix */
+    initialise_matrix(current_matrix, nx);
 
     for (int iter = 0; iter < NUM_ITERATIONS; ++iter) {
         #pragma omp parallel
         {
             int thread_id = omp_get_thread_num();
 
-            iterate_matrix_solution(current_matrix, next_matrix, thread_id, NX); /* Each thread updates its assigned row */
+            /* Update next_matrix based on current_matrix */
+            iterate_matrix_solution(current_matrix, next_matrix, thread_id, nx);
 
-            #pragma omp barrier /* Wait for every thread to finish updating next_matrix */
+            #pragma omp barrier /* Synchronise all threads before copying */
         }
-
-        copy_matrix(next_matrix, current_matrix, NX); /* Copy next_matrix to current_matrix */
+        /* Copy the next_matrix into current_matrix for the next iteration */
+        copy_matrix(next_matrix, current_matrix, nx);
     }
+
+    /* Print the final matrix */
+    print_matrix("Final Matrix", current_matrix, nx);
 }
 ```
 :::callout{variant='note'}
 OpenMP does not allow barriers to be placed directly inside `#pragma omp parallel for` loops due to restrictions 
 on closely [nested regions](https://www.openmp.org/spec-html/5.2/openmpse101.html#x258-27100017.1). To coordinate threads 
 effectively in iterative tasks like this, we use a `#pragma omp parallel` construct, which gives explicit control over 
-the loop and allows proper barrier placement. You can find the full code for this example [here](code/examples/04-matrix-update.c).
+the loop and allows proper barrier placement.
 :::
 
 Barriers introduce additional overhead into our parallel algorithms, as some threads will be idle whilst waiting for
