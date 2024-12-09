@@ -221,7 +221,7 @@ If the serial parts are a significant part of the algorithm, it may not be possi
 Examine the code and try to identify any serial regions that can't (or shouldn't) be parallelised.
 
 ::::solution
-There aren't any large or time consuming serial regions, which is good from a parallelism perspective.
+There aren't any large or time-consuming serial regions, which is good from a parallelism perspective.
 However, there are a couple of small regions that are not amenable to running in parallel:
 
 - Setting the `10.0` initial temperature condition at the stick 'starting' boundary. We only need to set this once at the beginning of the stick, and not at the boundary of every section of the stick
@@ -289,7 +289,8 @@ Then at the very end of `main()` let's complete our use of MPI:
 
 ### `main()`: Initialising the Simulation and Printing the Result
 
-Since we're not initialising for the entire stick (`GRIDSIZE`) but just the section apportioned to our rank (`rank_gridsize`), we need to amend the loop that initialises `u` and `rho` accordingly, to:
+Since we're not initialising the entire stick (`GRIDSIZE`), but only the section apportioned to our rank (`rank_gridsize`), 
+we need to adjust the loop that initialises `u` and `rho` accordingly. The revised loop as follows:
 
 ```c
   // Initialise the u and rho field to 0
@@ -375,7 +376,8 @@ Insert the following into the `poisson_step()` function, putting the declaration
   MPI_Allreduce(&unorm, &global_unorm, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
 ```
 
-So here, we use this function in an `MPI_SUM` mode, which will sum all instances of `unorm` and place the result in a single (`1`) value global_unorm`. We must also remember to amend the return value to this global version, since we need to calculate equilibrium across the entire stick:
+So here, we use this function in an `MPI_SUM` mode, which will sum all instances of `unorm` and place the result in a single (`1`) value 
+global_unorm`. We must also remember to amend the return value to this global version, since we need to calculate equilibrium across the entire stick:
 
 ```c
   return global_unorm;

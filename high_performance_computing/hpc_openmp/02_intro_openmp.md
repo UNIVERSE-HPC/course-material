@@ -11,7 +11,8 @@ learningOutcomes:
 
 ## What is OpenMP?
 
-OpenMP is an industry-standard API specifically designed for parallel programming in shared memory environments. It supports programming in languages such as C, C++, and Fortran. OpenMP is an open source, industry-wide initiative that benefits from collaboration among hardware and software vendors, governed by the OpenMP Architecture Review Board ([OpenMP ARB](https://www.openmp.org/)).
+OpenMP is an industry-standard API specifically designed for parallel programming in shared memory environments. It supports programming in languages such as C, C++, 
+and Fortran. OpenMP is an open source, industry-wide initiative that benefits from collaboration among hardware and software vendors, governed by the OpenMP Architecture Review Board ([OpenMP ARB](https://www.openmp.org/)).
 
 ::::challenge{id=timeline, title="An OpenMP Timeline"}
 
@@ -35,16 +36,17 @@ OpenMP consists of three key components that enable parallel programming using t
 
 - **Compiler Directives:** OpenMP makes use of special code markers known as *compiler directives* to indicate to the compiler when and how to parallelise various sections of code. These directives are prefixed with `#pragma omp`, and mark sections of code to be executed concurrently by multiple threads.
 - **Runtime Library Routines:** These are predefined functions provided by the OpenMP runtime library. They allow you to control the behavior of threads, manage synchronisation, and handle parallel execution. For example, we can use the function `omp_get_thread_num()` to obtain the unique identifier of the calling thread.
-- **Environment Variables:** These are settings that can be adjusted to influence the behavior of the OpenMP runtime. They provide a way to fine-tune the parallel execution of your program. Setting OpenMP environment variables is typically done similarly to other environment variables for your system. For instance, you can adjust the number of threads to use for a program you are about to execute by specifying the value in the `OMP_NUM_THREADS` environment variable.
+- **Environment Variables:** These are settings that can be adjusted to influence the behavior of the OpenMP runtime. They provide a way to fine-tune the parallel execution of your program. Setting OpenMP environment variables is typically done similarly to other environment variables for your system. 
+For instance, you can adjust the number of threads to use for a program you are about to execute by specifying the value in the `OMP_NUM_THREADS` environment variable.
 
 Since parallelisation using OpenMP is accomplished by adding compiler directives to existing code structures, it's relatively easy to get started using it.
 This also means it's straightforward to use on existing code, so it can prove a good approach to migrating serial code to parallel.
-Since OpenMP support is built into existing compilers, it's also a defacto standard for C parallel programming.
-However, it's worth noting that other options exist in different languages (e.g. there are c++many options in C++, the [multiprocessing library](https://docs.python.org/3/library/multiprocessing.html) for Python, [Rayon](https://docs.rs/rayon/latest/rayon/) for Rust).
+Since OpenMP support is built into existing compilers, it's also a de facto standard for C parallel programming.
+However, it's worth noting that other options exist in different languages (e.g. there are many options in C++, the [multiprocessing library](https://docs.python.org/3/library/multiprocessing.html) for Python, [Rayon](https://docs.rs/rayon/latest/rayon/) for Rust).
 
 ## Running a Code with OpenMP
 
-Before we get into into specifics of writing code that uses OpenMP, let's first look at how we compile and run an example "Hello World!" OpenMP program that prints this to the console.
+Before we get into specifics of writing code that uses OpenMP, let's first look at how we compile and run an example "Hello World!" OpenMP program that prints this to the console.
 
 Wherever you may eventually run your OpenMP code - locally, on another machine, or on an HPC infrastructure - it's a good practice to develop OpenMP programs on your local machine first.
 This has the advantage of allowing you to more easily configure your development environment to suit your needs, particularly for making use of tools like Integrated Development Environments (IDEs), such as Microsoft VSCode.
@@ -63,8 +65,15 @@ int main() {
     }
 }
 ~~~
+:::callout{variant="note"}
+In this example, `#include <omp.h>` is not strictly necessary since the code does 
+not call OpenMP runtime functions. However, it is a good practice to include this header to make it clear that 
+the program uses OpenMP and to prepare for future use of OpenMP library functions.
+:::
 
-You'll likely want to compile it using a standard compiler such as `gcc`, although this may depend on your system. To enable the creation of multi-threaded code based on OpenMP directives, pass the `-fopenmp` flag to the compiler. This flag indicates that you're compiling an OpenMP program:
+You'll likely want to compile it using a standard compiler such as `gcc`, although this may depend on your 
+system. To enable the creation of multi-threaded code based on OpenMP directives, pass the `-fopenmp` flag to the compiler. 
+This flag indicates that you're compiling an OpenMP program:
 
 ~~~bash
 gcc hello_world_omp.c -o hello_world_omp -fopenmp

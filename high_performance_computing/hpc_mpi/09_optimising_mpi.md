@@ -28,7 +28,8 @@ Therefore, it's really helpful to understand how well our code *scales* in perfo
 
 ## Prerequisite: [Intro to High Performance Computing](../hpc_intro/01_hpc_intro)
 
-Whilst the previous episodes can be done on a laptop or desktop, this episode covers how to profile your code using tools that are only available on a HPC cluster.
+Whilst the previous episodes can be done on a laptop or desktop, this episode covers how to profile your code using tools that are only available on 
+an HPC cluster.
 ::::
 
 ## Characterising the Scalability of Code
@@ -48,8 +49,9 @@ Ideally, we would like software to have a linear speedup that is equal to the nu
 (speedup = N), as that would mean that every processor would be contributing 100% of its computational power.
 Unfortunately, this is a very challenging goal for real applications to attain,
 since there is always an overhead to making parallel use of greater resources.
-In addition, in a program there is always some portion of it which must be executed in serial (such as initialisation routines, I/O operations and inter-communication) which cannot be parallelised.
-This limits how much a program can be speeded up,
+In addition, in a program there is always some portion of it which must be executed in serial (such as initialisation routines, I/O operations and 
+inter-communication) which cannot be parallelised.
+This limits how much a program can be sped up,
 as the program will always take at least the length of the serial portion.
 
 ### Amdahl's Law and Strong Scaling
@@ -74,7 +76,7 @@ Amdahl’s law states that, for a fixed problem, the upper limit of speedup is d
 ## Amdahl's Law in Practice
 
 Consider a program that takes 20 hours to run using one core.
-If a particular part of the rogram, which takes one hour to execute, cannot be parallelised (s = 1/20 = 0.05), and if the code that takes up the remaining 19 hours of execution time can be parallelised (p = 1 − s = 0.95), then regardless of how many processors are devoted to a parallelised execution of this program, the minimum execution time cannot be less than that critical one hour.
+If a particular part of the program, which takes one hour to execute, cannot be parallelised (s = 1/20 = 0.05), and if the code that takes up the remaining 19 hours of execution time can be parallelised (p = 1 − s = 0.95), then regardless of how many processors are devoted to a parallelised execution of this program, the minimum execution time cannot be less than that critical one hour.
 Hence, the theoretical speedup is limited to at most 20 times (when N = ∞, speedup = 1/s = 20).
 ::::
 
@@ -130,7 +132,7 @@ The figure below shows an example of the scaling with `GRIDSIZE=512` and `GRIDSI
 ![Figure showing the result described above for `GRIDSIZE=512` and `GRIDSIZE=2048`](fig/poisson_scaling_plot.png)
 
 In the example, which runs on a machine with two 20-core Intel Xeon Scalable CPUs, using 32 ranks actually takes more time.
-The 32 ranks don't fit on one CPU and communicating between the the two CPUs takes more time, even though they are in the same machine.
+The 32 ranks don't fit on one CPU and communicating between the two CPUs takes more time, even though they are in the same machine.
 
 The communication could be made more efficient.
 We could use non-blocking communication and do some of the computation while communication is happening.
@@ -241,7 +243,7 @@ For more information on ARM Forge see the [product website](https://www.arm.com/
 
 ## Software Availability
 
-The ARM Forge suite of tools are licensed, and so may or may not be available on your HPC cluster (and certainly won't be on your laptop or desktop unless you buy a license and build them yourself!).
+The ARM Forge suite of tools is licensed, and so may or may not be available on your HPC cluster (and certainly won't be on your laptop or desktop unless you buy a license and build them yourself!).
 
 If you don't have access to the ARM Forge tools, your local HPC cluster should have an alternative installed with similar functionality.
 ::::
@@ -282,7 +284,7 @@ terminal and one `.html` file which can be opened in a browser
 cat poisson_mpi_4p_1n_2024-01-30_15-38.txt
 ```
 
-```text
+```
 Command:        mpirun -n 4 poisson_mpi
 Resources:      1 node (28 physical, 56 logical cores per node)
 Memory:         503 GiB per node

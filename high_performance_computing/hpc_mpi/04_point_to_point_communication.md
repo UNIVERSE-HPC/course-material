@@ -14,7 +14,8 @@ learningOutcomes:
 ---
 
 In the previous episode we introduced the various types of communication in MPI.
-In this section we will use the MPI library functions `MPI_Send()` and `MPI_Recv()`, which employ point-to-point communication, to send data from one rank to another.
+In this section we will use the MPI library functions `MPI_Send()` and `MPI_Recv()`, which employ point-to-point communication, 
+to send data from one rank to another.
 
 ![Sending data from one rank to another using MPI_SSend and MPI_Recv()](fig/send-recv.png)
 
@@ -43,14 +44,14 @@ int MPI_Send(
   MPI_Comm communicator
 )
 ```
-|  |  |
-| ------- | -------- |
-| `*data`: | Pointer to the start of the data being sent. We would not expect this to change, hence it's defined as `const` |
-| `count`: | Number of elements to send |
-| `datatype`: | The type of the element data being sent, e.g. MPI_INTEGER, MPI_CHAR, MPI_FLOAT, MPI_DOUBLE, ... |
-| `destination`: | The rank number of the rank the data will be sent to |
-| `tag`: | An message tag (integer), which is used to differentiate types of messages. We can specify `0` if we don't need different types of messages |
-| `communicator`: | The communicator, e.g. MPI_COMM_WORLD as seen in previous episodes |
+|                 |                                                                                                                                             |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| `*data`:        | Pointer to the start of the data being sent. We would not expect this to change, hence it's defined as `const`                              |
+| `count`:        | Number of elements to send                                                                                                                  |
+| `datatype`:     | The type of the element data being sent, e.g. MPI_INTEGER, MPI_CHAR, MPI_FLOAT, MPI_DOUBLE, ...                                             |
+| `destination`:  | The rank number of the rank the data will be sent to                                                                                        |
+| `tag`:          | An message tag (integer), which is used to differentiate types of messages. We can specify `0` if we don't need different types of messages |
+| `communicator`: | The communicator, e.g. MPI_COMM_WORLD as seen in previous episodes                                                                          |
 
 
 For example, if we wanted to send a message that contains `"Hello, world!\n"` from rank 0 to rank 1, we could state
@@ -61,7 +62,9 @@ char *message = "Hello, world!\n";
 MPI_Send(message, 14, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
 ```
 
-So we are sending 14 elements of `MPI_CHAR()` one time, and specified `0` for our message tag since we don't anticipate having to send more than one type of message. This call is synchronous, and will block until the corresponding `MPI_Recv()` operation receives and acknowledges receipt of the message.
+So we are sending 14 elements of `MPI_CHAR()` one time, and specified `0` for our message tag since we don't anticipate 
+having to send more than one type of message. This call is synchronous, and will block until the corresponding `MPI_Recv()` 
+operation receives and acknowledges receipt of the message.
 
 ::::callout
 
@@ -96,27 +99,29 @@ int MPI_Recv(
 )
 ```
 
-|  |  |
-| --- | ---- |
-| `*data`:         | Pointer to where the received data should be written |
-| `count`:        | Maximum number of elements to receive |
-| `datatype`:     | The type of the data being received |
-| `source`:       | The number of the rank sending the data |
-| `tag`:          | A message tag (integer), which must either match the tag in the sent message, or if `MPI_ANY_TAG` is specified, a message with any tag will be accepted |
-| `communicator`: | The communicator (we have used `MPI_COMM_WORLD` in earlier examples) |
-| `status`:       | A pointer for writing the exit status of the MPI command, indicating whether the operation succeeded or failed |
+|                 |                                                                                                                                               |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| `*data`:        | Pointer to where the received data should be written                                                                                          |
+| `count`:        | Maximum number of elements to receive                                                                                                         |
+| `datatype`:     | The type of the data being received                                                                                                           |
+| `source`:       | The number of the rank sending the data                                                                                                       |
+| `tag`:          | A message tag, which must either match the tag in the sent message, or if `MPI_ANY_TAG` is specified, a message with any tag will be accepted |
+| `communicator`: | The communicator (we have used `MPI_COMM_WORLD` in earlier examples)                                                                          |
+| `*status`:      | A pointer for writing the exit status of the MPI command, indicating whether the operation succeeded or failed                                |
 
 Continuing our example, to receive our message we could write:
 
 ```c
-char message[15];
+char message[15] = {0}; /* Initialise teh buffer to zeros */
 MPI_Status status;
 MPI_Recv(message, 14, MPI_CHAR, 0, 0, MPI_COMM_WORLD, &status);
+message[14] = '\0';
 ```
-
-Here, we create our buffer to receive the data, as well as a variable to hold the exit status of the receive operation.
-We then call `MPI_Recv()`, specifying our returned data buffer, the number of elements we will receive (14) which will be of type `MPI_CHAR` and sent by rank 0, with a message tag of 0.
-As with `MPI_Send()`, this call will block - in this case until the message is received and acknowledgement is sent to rank 0, at which case both ranks will proceed.
+Here, we create a buffer `message` to store the received data and initialise it to zeros (`{0}`) to prevent 
+any garbage content. We then call `MPI_Recv()` to receive the message, specifying the source rank (`0`), the message tag (`0`), 
+and the communicator (`MPI_COMM_WORLD`). The status object is passed to capture details about the received message, such as 
+the actual source rank or tag, though it is not used in this example. To ensure safe string handling, 
+we explicitly null-terminate the received message by setting `message[14] = '\0'`.
 
 Let's put this together with what we've learned so far.
 Here's an example program that uses `MPI_Send()` and `MPI_Recv()` to send the string `"Hello World!"` from rank 0 to rank 1:
@@ -143,14 +148,15 @@ int main(int argc, char** argv) {
   MPI_Comm_rank(MPI_COMM_WORLD,&rank);
 
   if( rank == 0 ){
-     char *message = "Hello, world!\n";
+     constant char *message = "Hello, world!\n";
      MPI_Send(message, 14, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
   }
 
   if( rank == 1 ){
-     char message[14];
+     char message[15] = {0};
      MPI_Status  status;
      MPI_Recv(message, 14, MPI_CHAR, 0, 0, MPI_COMM_WORLD, &status);
+     message[14] = `\0`;
      printf("%s",message);
   }
 
@@ -158,6 +164,11 @@ int main(int argc, char** argv) {
   return MPI_Finalize();
 }
 ```
+:::callout{variant='warning'}
+When using `MPI_Recv()` to receive string data, ensure that your buffer is large enough to hold the message and 
+includes space for a null terminator. Explicitly initialising the buffer and adding the null terminator avoids 
+undefined behavior or garbage output.
+:::
 
 ::::callout
 
@@ -246,15 +257,18 @@ int main(int argc, char** argv) {
   if( my_pair < n_ranks ){
 
     if( rank%2 == 0 ){
-        char *message = "Hello, world!\n";
+        const char *message = "Hello, world!\n";
+        printf("Rank %d sending to Rank %d\n", rank, my_pair);
+        fflush(stdout);
         MPI_Send(message, 14, MPI_CHAR, my_pair, 0, MPI_COMM_WORLD);
     }
 
     if( rank%2 == 1 ){
-        char message[14];
-        MPI_Status  status;
+        char message[15] = {0};
+        MPI_Status status;
         MPI_Recv(message, 14, MPI_CHAR, my_pair, 0, MPI_COMM_WORLD, &status);
-        printf("%s",message);
+        printf("Rank %d received from Rank %d: %s\n", rank, my_pair, message);
+        fflush(stdout);
       }
   }
 
@@ -277,7 +291,7 @@ Have rank 0 print each message.
 
 int main(int argc, char **argv) {
     int rank;
-    int message[30];
+    char message[30];
 
     // First call MPI_Init
     MPI_Init(&argc, &argv);
@@ -293,6 +307,10 @@ int main(int argc, char **argv) {
     return MPI_Finalize();
 }
 ```
+Note: In MPI programs, every rank runs the same code. To make ranks behave differently, you must 
+explicitly program that behavior based on their rank ID. For example:
+- Use conditionals like `if (rank == 0)` to define specific actions for rank 0.
+- All other ranks can perform different actions in an `else` block.
 
 ::::solution
 
@@ -314,6 +332,8 @@ int main(int argc, char **argv) {
 
        char message[30];
        sprintf(message, "Hello World, I'm rank %d\n", rank);
+       printf("Rank %d is sending a message to Rank 0.\n", rank);
+       fflush(stdout);
        MPI_Send(message, 30, MPI_CHAR, 0, 0, MPI_COMM_WORLD);
 
     } else {
@@ -322,9 +342,8 @@ int main(int argc, char **argv) {
        for( int sender = 1; sender < n_ranks; sender++ ) {
           char message[30];
           MPI_Status status;
-
           MPI_Recv(message, 30, MPI_CHAR, sender, 0, MPI_COMM_WORLD, &status);
-          printf("%s",message);
+          printf("Rank 0 received a message from Rank %d: %s", sender, message);
        }
     }
 
@@ -332,8 +351,16 @@ int main(int argc, char **argv) {
     return MPI_Finalize();
 }
 ```
+Here rank 0 calls `MPI_Recv` to gather messages, while other ranks call `MPI_Send` to send their messages. 
+Without this differentiation, ranks will attempt the same actions, potentially causing errors or deadlocks.
 ::::
 :::::
+
+:::callout{variant='note'}
+If you don't require the additional information provided by `MPI_Status`, such as source or tag, 
+you can use `MPI_STATUS_IGNORE` in `MPI_Recv` calls. This simplifies your code by removing the need to declare and manage an 
+`MPI_Status` object. This is particularly useful in straightforward message-passing scenarios.
+:::
 
 :::::challenge{id=blocking, title="Blocking"}
 Try the code below and see what happens. How would you change the code to fix the problem?
@@ -441,16 +468,24 @@ int main(int argc, char** argv) {
   {
     // Receive the ball
     MPI_Recv(&ball, 1, MPI_INT, neighbour, 0, MPI_COMM_WORLD, &status);
-       
+ 
+    
     // Increment the counter and send the ball back
     counter += 1;
     MPI_Send(&ball, 1, MPI_INT, neighbour, 0, MPI_COMM_WORLD);
+    
+        // Log progress every 100,000 iterations
+        if (counter % 100000 == 0) {
+            printf("Rank %d exchanged the ball %d times\n", rank, counter);
+            fflush(stdout);
+        }
+
 
     // Check if the rank is bored
     bored = counter >= max_count;
   }
-  printf("rank %d is bored and giving up \n", rank);
-
+  printf("Rank %d is bored and giving up after %d exchanges\n", rank, counter);
+  fflush(stdout);
   // Call finalise at the end
   return MPI_Finalize();
 }

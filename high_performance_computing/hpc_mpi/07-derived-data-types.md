@@ -21,7 +21,8 @@ To help with this, MPI provides an interface to create new types known as derive
 
 ## Size limitations for messages 
 
-All throughout MPI, the argument which says how many elements of data are being communicated is an integer: int count. In most 64-bit Linux systems, int's are usually 32-bit and so the biggest number you can pass to count is 2^31 - 1 = 2,147,483,647, which is about 2 billion. Arrays which exceed this length can't be communicated easily in versions of MPI older than MPI-4.0, when support for "large count" communication was added to the MPI standard. In older MPI versions, there are two workarounds to this limitation. The first is to communicate large arrays in smaller, more manageable chunks. The other is to use derived types, to re-shape the data. 
+All throughout MPI, the argument which says how many elements of data are being communicated is an integer: int count. 
+In most 64-bit Linux systems, ints are usually 32-bit and so the biggest number you can pass to count is 2^31 - 1 = 2,147,483,647, which is about 2 billion. Arrays which exceed this length can't be communicated easily in versions of MPI older than MPI-4.0, when support for "large count" communication was added to the MPI standard. In older MPI versions, there are two workarounds to this limitation. The first is to communicate large arrays in smaller, more manageable chunks. The other is to use derived types, to re-shape the data. 
 ::::
 
 Almost all scientific and computing problems nowadays require us to think in more than one dimension. Using
@@ -130,13 +131,13 @@ int MPI_Type_vector(
    MPI_Datatype *newtype
 );
 ```
-|  |  |
-| --- | --- |
-| `count`: | The number of "blocks" which make up the vector |
-| `blocklength`: | The number of contiguous elements in a block |
-| `stride`: | The number of elements between the start of each block |
-| `oldtype`: | The data type of the elements of the vector, e.g. MPI_INT, MPI_FLOAT |
-| `newtype`: | The newly created data type to represent the vector |
+|                |                                                                      |
+|----------------|----------------------------------------------------------------------|
+| `count`:       | The number of "blocks" which make up the vector                      |
+| `blocklength`: | The number of contiguous elements in a block                         |
+| `stride`:      | The number of elements between the start of each block               |
+| `oldtype`:     | The data type of the elements of the vector, e.g. MPI_INT, MPI_FLOAT |
+| `newtype`:     | The newly created data type to represent the vector                  |
 
 To understand what the arguments mean, look at the diagram below showing a vector to send two rows of a 4 x 4 matrix
 with a row in between (rows 2 and 4), 
