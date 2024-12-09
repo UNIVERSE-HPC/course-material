@@ -16,6 +16,7 @@ void initialise_lookup_table(int thread_id, double lookup_table[TABLE_SIZE]) {
 void do_main_calculation(int thread_id, double lookup_table[TABLE_SIZE]) {
     int num_threads = omp_get_num_threads();
     for (int i = thread_id; i < TABLE_SIZE; i += num_threads) {
+        lookup_table[i] = lookup_table[i] * 5.0;
         printf("Thread %d processing lookup_table[%d] = %f\n", thread_id, i, lookup_table[i]);
     }
 }
