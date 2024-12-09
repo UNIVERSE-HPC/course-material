@@ -131,35 +131,51 @@ as the calculation depends on this data (See the full code [here](code/examples/
 }
 ```
 Similarly, in iterative tasks like matrix calculations, barriers help coordinate threads so that all updates 
-are finished before moving to the next step. For example, in the following snippet, a barrier makes sure that updates 
-to `new_matrix` are completed before it is copied into `old_matrix`:
+are completed before moving to the next step. For example, in the following snippet, each thread updates its assigned 
+row of a matrix using data from its current row and the row above (except for the first row, which has no dependency; 
+see the full code [here](code/examples/04-matrix-update.c)). A barrier ensures that all threads finish updating 
+their rows in `next_matrix` before the values are copied back into `current_matrix`.  Without this barrier, threads might 
+read outdated or partially updated data, causing inconsistencies.
+
+Here, the number of rows (`nx`) is dynamically determined at runtime using `omp_get_max_threads()`. This function provides 
+the maximum number of threads OpenMP can use in a parallel region, based on the system's resources and runtime configuration. 
+Using this value, we define the number of rows in the matrix, with each row corresponding to a potential thread. This setup 
+ensures that both the `current_matrix` and `next_matrix provide` rows for the maximum number of threads allocated during 
+parallel execution.
 
 ```c
 ......
 int main() {
-    double old_matrix[NX][NY];
-    double new_matrix[NX][NY];
+    int nx = omp_get_max_threads();
+    double current_matrix[nx][NY];
+    double next_matrix[nx][NY];
 
-    #pragma omp parallel
-    {
-        for (int i = 0; i < NUM_ITERATIONS; ++i) {
+    /* Initialise the current matrix */
+    initialise_matrix(current_matrix, nx);
+
+    for (int iter = 0; iter < NUM_ITERATIONS; ++iter) {
+        #pragma omp parallel
+        {
             int thread_id = omp_get_thread_num();
 
-            iterate_matrix_solution(old_matrix, new_matrix, thread_id); /* Each thread updates a portion of the matrix */
+            /* Update next_matrix based on current_matrix */
+            iterate_matrix_solution(current_matrix, next_matrix, thread_id, nx);
 
-            #pragma omp barrier /* You may want to wait until new_matrix has been updated by all threads */
-
-            copy_matrix(new_matrix, old_matrix);
+            #pragma omp barrier /* Synchronise all threads before copying */
         }
+        /* Copy the next_matrix into current_matrix for the next iteration */
+        copy_matrix(next_matrix, current_matrix, nx);
     }
-}
 
+    /* Print the final matrix */
+    print_matrix("Final Matrix", current_matrix, nx);
+}
 ```
 :::callout{variant='note'}
 OpenMP does not allow barriers to be placed directly inside `#pragma omp parallel for` loops due to restrictions 
 on closely [nested regions](https://www.openmp.org/spec-html/5.2/openmpse101.html#x258-27100017.1). To coordinate threads 
-effectively in iterative tasks like this, the loop has been rewritten using a `#pragma omp parallel` construct with 
-explicit loop control. You can find the full code for this example [here](code/examples/04-matrix-update.c).
+effectively in iterative tasks like this, we use a `#pragma omp parallel` construct, which gives explicit control over 
+the loop and allows proper barrier placement.
 :::
 
 Barriers introduce additional overhead into our parallel algorithms, as some threads will be idle whilst waiting for
@@ -301,9 +317,9 @@ up the private copies into the shared variable value. This means the output will
 The code below attempts to track the progress of a parallel loop using a shared counter, `progress`. 
 However, it has a problem: the final value of progress is often incorrect, and the progress updates might be 
 inconsistent.
-- Can you identify the issue with the current implementation?
-- How would you fix it to ensure the progress counter works correctly and updates are synchronised?
-- After fixing the issue, experiment with different loop schedulers (`static`, `dynamic`, `guided` and `auto`) 
+1. Can you identify the issue with the current implementation?
+2. How would you fix it to ensure the progress counter works correctly and updates are synchronised?
+3. After fixing the issue, experiment with different loop schedulers (`static`, `dynamic`, `guided` and `auto`) 
 to observe how they affect progress reporting.
     - What changes do you notice in the timing and sequence of updates when using these schedulers?
     - Which scheduler produces the most predictable progress updates?
@@ -311,6 +327,7 @@ to observe how they affect progress reporting.
 ```c
 #include <math.h>
 #include <omp.h>
+#include <stdio.h>
 
 #define NUM_ELEMENTS 10000
 
@@ -321,6 +338,10 @@ int main(int argc, char **argv) {
     #pragma omp parallel for schedule(static)
     for (int i = 0; i < NUM_ELEMENTS; ++i) {
         array[i] = log(i) * cos(3.142 * i);
+        
+        if (i % (NUM_ELEMENTS / 10) == 0) {
+            printf("Progress: %d%%\n", (i * 100) / NUM_ELEMENTS);
+        }
 
         progress++;
     }
@@ -336,17 +357,16 @@ gcc counter.c -o counter -fopenmp -lm
 ```
 
 :::solution
-The above program tracks progress using a shared counter (`progress++`) inside the loop, 
-but it does so without synchronisation, leading to a race condition. 
-Since multiple threads can access and modify progress at the same time, the final value of progress will likely be incorrect. 
+1. The above program tracks progress using a shared counter (`progress++`) inside the loop, 
+but it does so without synchronisation, leading to a race condition. Since multiple threads can access and modify progress at the same time, the final value of progress will likely be incorrect. 
 This happens because the updates to progress are not synchronised across threads. As a result, the final value of 
-`progress` is often incorrect and varies across runs. You might see output like this:
+`progress` is often incorrect and varies across runs. You might see output like this: 
 
 ```text
 Final progress: 9983 (Expected: 10000)
 ```
 
-To fix this issue, we use a critical region to synchronise updates to progress. 
+2. To fix this issue, we use a critical region to synchronise updates to progress. 
 We also introduce a second variable, `output_frequency`, to control how often progress updates are reported 
 (e.g., every 10% of the total iterations).
 
@@ -388,9 +408,7 @@ critical region, and if the loop body is lightweight (e.g., simple calculations)
 computational benefits of parallelisation. For example, if each iteration takes only a few nanoseconds to compute, 
 the time spent waiting for access to the critical region might dominate the runtime.
 
-### Behaviour with different schedulers
-
-The static scheduler, used in the corrected version, divides iterations evenly among threads. This ensures predictable 
+3. The static scheduler, used in the corrected version, divides iterations evenly among threads. This ensures predictable 
 and consistent progress updates. For instance, progress increments occur at regular intervals (e.g., 10%, 20%, etc.), 
 producing output like:
 
