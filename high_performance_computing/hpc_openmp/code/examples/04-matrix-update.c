@@ -1,17 +1,30 @@
 #include <omp.h>
 #include <stdio.h>
 
-#define NX 4
-#define NY 4
-#define NUM_ITERATIONS 10
+#define NY 4 // Number of columns
+#define NUM_ITERATIONS 10 // Number of iterations
 
-void iterate_matrix_solution(double old_matrix[NX][NY], double new_matrix[NX][NY], int thread_id) {
-    for (int j = 0; j < NY; ++j) {
-        new_matrix[thread_id][j] = old_matrix[thread_id][j] + 1;
+void initialise_matrix(double matrix[][NY], int NX) {
+    for (int i = 0; i < NX; ++i) {
+        for (int j = 0; j < NY; ++j) {
+            matrix[i][j] = i + j * 0.5;
+        }
     }
 }
 
-void copy_matrix(double src[NX][NY], double dest[NX][NY]) {
+void iterate_matrix_solution(double current_matrix[][NY], double next_matrix[][NY], int thread_id, int NX) {
+    for (int j = 0; j < NY; ++j) {
+        if (thread_id > 0) {
+            /* Each row depends on the current and previous rows */
+            next_matrix[thread_id][j] = current_matrix[thread_id][j] + current_matrix[thread_id - 1][j];
+        } else {
+            /* First row is independent */
+            next_matrix[thread_id][j] = current_matrix[thread_id][j] + 1;
+        }
+    }
+}
+
+void copy_matrix(double src[][NY], double dest[][NY], int NX) {
     for (int i = 0; i < NX; ++i) {
         for (int j = 0; j < NY; ++j) {
             dest[i][j] = src[i][j];
@@ -19,23 +32,52 @@ void copy_matrix(double src[NX][NY], double dest[NX][NY]) {
     }
 }
 
-int main() {
-    double old_matrix[NX][NY] = {{0}};
-    double new_matrix[NX][NY] = {{0}};
+void print_matrix(const char *label, double matrix[][NY], int NX) {
+    printf("%s:\n", label);
+    for (int i = 0; i < NX; ++i) {
+        for (int j = 0; j < NY; ++j) {
+            printf("%.2f ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
 
+int main() {
+    int NX;
+
+    /* Dynamically determine NX based on the number of threads */
     #pragma omp parallel
     {
-        for (int i = 0; i < NUM_ITERATIONS; ++i) {
-            int thread_id = omp_get_thread_num();
-
-            iterate_matrix_solution(old_matrix, new_matrix, thread_id); /* Each thread updates a portion of the matrix */
-
-            #pragma omp barrier /* Wait until all threads complete updates to new_matrix */
-
-            copy_matrix(new_matrix, old_matrix);
-        }
+        NX = omp_get_num_threads();
     }
 
-    printf("Matrix update complete.\n");
+    double current_matrix[NX][NY];
+    double next_matrix[NX][NY];
+
+    /* Initialise the matrix */
+    initialise_matrix(current_matrix, NX);
+
+    /* Print the initial matrix */
+    print_matrix("Initial Matrix", current_matrix, NX);
+
+
+    for (int iter = 0; iter < NUM_ITERATIONS; ++iter) {
+        #pragma omp parallel
+        {
+            int thread_id = omp_get_thread_num();
+
+            /* Update the next matrix based on the current matrix */
+            iterate_matrix_solution(current_matrix, next_matrix, thread_id, NX);
+
+            #pragma omp barrier /* Synchronise all threads before copying */
+        }
+
+        /* Copy the next matrix back into the current matrix */
+        copy_matrix(next_matrix, current_matrix, NX);
+    }
+
+    print_matrix("Final Matrix", current_matrix, NX);
+
     return 0;
 }
