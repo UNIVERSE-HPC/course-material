@@ -235,11 +235,11 @@ implementing MPI. In this example, we wil be porting an OpenMP code to a hybrid 
 also done this the other way around by porting an MPI code into a hybrid application. Neither *"evolution"* is more
 common nor better than the other, the route each code takes toward becoming hybrid is different.
 
-So, how do we split work using a hybrid approach? For an embarrassingly parallel problem, such as the one we're working on, 
-we can split the problem size into smaller chunks across MPI ranks and use OpenMP to parallelise the work. For example, consider 
-a problem where we have to do a calculation for 1,000,000 input parameters. If we have four MPI ranks each of which will spawn 10 threads, 
-we could split the work evenly between MPI ranks so each rank will deal with 250,000 input parameters. We will then use OpenMP 
-threads to do the calculations in parallel. If we use a sequential scheduler, then each thread will do 25,000 calculations. Or we 
+So, how do we split work using a hybrid approach? For an embarrassingly parallel problem, such as the one we're working on,
+we can split the problem size into smaller chunks across MPI ranks and use OpenMP to parallelise the work. For example, consider
+a problem where we have to do a calculation for 1,000,000 input parameters. If we have four MPI ranks each of which will spawn 10 threads,
+we could split the work evenly between MPI ranks so each rank will deal with 250,000 input parameters. We will then use OpenMP
+threads to do the calculations in parallel. If we use a sequential scheduler, then each thread will do 25,000 calculations. Or we
 could use OpenMP's dynamic scheduler to automatically balance the workload. We have implemented this situation in the code example below.
 
 ```c
@@ -378,7 +378,7 @@ Total time = 5.818889 seconds
 Ouch, this took longer to run than the pure OpenMP implementation (although only marginally longer in this example!). You
 may have noticed that we have 8 MPI ranks, each of which are spawning 8 of their own OpenMP threads. This is an
 important thing to realise. When you specify the number of threads for OpenMP to use, this is the number of threads
-*each* MPI process will spawn. So why did it take longer? With each of the 8 MPI ranks spawning 8 threads, 64 threads 
+*each* MPI process will spawn. So why did it take longer? With each of the 8 MPI ranks spawning 8 threads, 64 threads
 were in flight. More threads means more overheads and if, for instance, we have 8 CPU Cores, then contention
 arises as each thread competes for access to a CPU core.
 
