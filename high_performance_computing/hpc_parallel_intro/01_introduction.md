@@ -35,26 +35,23 @@ The “_processing units_” might include central processing units (**CPU**s), 
 
 Typical programming assumes that computers execute one operation at a time in the sequence specified by your program code. At any time step, the computer’s CPU core will be working on one particular operation from the sequence.
 In other words, a problem is broken into discrete series of instructions that are executed one for another.
-Therefore only one instruction can execute at any moment in time. We will call this traditional style of sequential computing.
+Therefore, only one instruction can execute at any moment in time. We will call this traditional style of sequential computing.
 
 In contrast, with parallel computing we will now be dealing with multiple CPU cores that each are independently and simultaneously working on a series of instructions.
 This can allow us to do much more at once, and therefore get results more quickly than if only running an equivalent sequential program. The act of changing sequential code to parallel code is called parallelisation.
 
-| **Sequential Computing** | **Parallel Computing** |
-| ---                      | ---                    |
+| **Sequential Computing**                  | **Parallel Computing**                       |
+|-------------------------------------------|----------------------------------------------|
 | ![Serial Computing](fig/serial2_prog.png) | ![Parallel Computing](fig/parallel_prog.png) |
 
-
-::::callout
-
-## Analogy
+::::callout{variant="tip"}
 
 The basic concept of parallel computing is simple to understand: we divide our job in tasks that can be executed at the same time so that we finish the job in a fraction of the time that it would have taken if the tasks are executed one by one.
 
 Suppose that we want to paint the four walls in a room. This is our **problem**. We can divide our **problem** into 4 different **tasks**: paint each of the walls.
-In principle, our 4 tasks are independent from each other in the sense that we don't need to finish one to start another.
+In principle, our 4 tasks are independent of each other in the sense that we don't need to finish one to start another.
 However, this does not mean that the tasks can be executed simultaneously or in parallel.
-It all depends on on the amount of resources that we have for the tasks.
+It all depends on the amount of resources that we have for the tasks.
 
 If there is only one painter, they could work for a while in one wall, then start painting another one, then work a little bit on the third one, and so on.
 The tasks are being executed concurrently **but not in parallel** and only one task is being performed at a time.
@@ -124,9 +121,7 @@ While they provide an effective means of utilizing multiple CPU cores on a singl
 
 ![Threads](fig/multithreading.svg)
 
-::::callout
-
-## Analogy
+::::callout{variant="tip"}
 
 Let's go back to our painting 4 walls analogy.
 Our example painters have two arms, and could potentially paint with both arms at the same time.
@@ -160,9 +155,7 @@ Distributed memory programming models, such as MPI, facilitate communication and
 - **Programming Complexity:** Shared memory programming models offer simpler constructs and require less explicit communication compared to distributed memory models.
   Distributed memory programming involves explicit data communication and synchronization, adding complexity to the programming process.
   
-::::callout
-
-## Analogy
+::::callout{variant="tip"}
 
 Imagine that all workers have to obtain their paint form a central dispenser located at the middle of the room.
 If each worker is using a different colour, then they can work asynchronously.
@@ -177,7 +170,7 @@ Suppose that worker A, for some reason, needs a colour that is only available in
 
 ::::callout
 
-## Key Idea
+### Key Idea
 
 In our analogy, the paint dispenser represents access to the memory in your computer.
 Depending on how a program is written, access to data in memory can be synchronous or asynchronous.
@@ -188,13 +181,13 @@ For the different dispensers case for your workers, however, think of the memory
 
 ## MPI vs OpenMP: What is the difference?
 
-|   MPI   |  OpenMP   |
-|---------|-----------|
-|Defines an API, vendors provide an optimized (usually binary) library implementation that is linked using your choice of compiler.|OpenMP is integrated into the compiler (e.g., gcc) and does not offer much flexibility in terms of changing compilers or operating systems unless there is an OpenMP compiler available for the specific platform.|
-|Offers support for C, Fortran, and other languages, making it relatively easy to port code by developing a wrapper API interface for a pre-compiled MPI implementation in a different language.|Primarily supports C, C++, and Fortran, with limited options for other programming languages.|
-|Suitable for both distributed memory and shared memory (e.g., SMP) systems, allowing for parallelization across multiple nodes.|Designed for shared memory systems and cannot be used for parallelization across multiple computers.|
-|Enables parallelism through both processes and threads, providing flexibility for different parallel programming approaches.|Focuses solely on thread-based parallelism, limiting its scope to shared memory environments.|
-|Creation of process/thread instances and communication can result in higher costs and overhead.|Offers lower overhead, as inter-process communication is handled through shared memory, reducing the need for expensive process/thread creation.|
+| MPI                                                                                                                                                                                             | OpenMP                                                                                                                                                                                                             |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Defines an API, vendors provide an optimized (usually binary) library implementation that is linked using your choice of compiler.                                                              | OpenMP is integrated into the compiler (e.g., gcc) and does not offer much flexibility in terms of changing compilers or operating systems unless there is an OpenMP compiler available for the specific platform. |
+| Offers support for C, Fortran, and other languages, making it relatively easy to port code by developing a wrapper API interface for a pre-compiled MPI implementation in a different language. | Primarily supports C, C++, and Fortran, with limited options for other programming languages.                                                                                                                      |
+| Suitable for both distributed memory and shared memory (e.g., SMP) systems, allowing for parallelization across multiple nodes.                                                                 | Designed for shared memory systems and cannot be used for parallelization across multiple computers.                                                                                                               |
+| Enables parallelism through both processes and threads, providing flexibility for different parallel programming approaches.                                                                    | Focuses solely on thread-based parallelism, limiting its scope to shared memory environments.                                                                                                                      |
+| Creation of process/thread instances and communication can result in higher costs and overhead.                                                                                                 | Offers lower overhead, as inter-process communication is handled through shared memory, reducing the need for expensive process/thread creation.                                                                   |
 
 ::::
 
@@ -261,7 +254,7 @@ for(i=0; i<m; i++) {
 - `m` is the reduced number of loops each core needs to do (if there are `N` cores, `m` is 1 (=`N`/`N`)).
   
 But the parallelization by message passing is not complete yet.
-In the message passing paradigm, each core operates independently from the other cores.
+In the message passing paradigm, each core operates independently of the other cores.
 So each core needs to be sent the correct data to compute, which then returns the output from that computation.
 However, we _also_ need a core to coordinate the splitting up of that data, send portions of that data to other cores, and to receive the resulting computations from those cores.
 
@@ -280,6 +273,7 @@ if(this_core==0) {
   // Collect the chunks of `a` from all the other cores and put them together
 }
 ```
+
 ::::callout
 
 ## Summary
@@ -298,7 +292,7 @@ In this case, _data parallelism_ is used for the portion of the problem containe
 Designing a parallel algorithm that determines which of the two paradigms above one should follow rests on the actual understanding of how the problem can be solved in parallel.
 This requires some thought and practice.
 
-To get used to "thinking in parallel", we discuss "Embarrassingly Parallel" (EP) problems first and then we consider problems which are not EP problems.
+To get used to "thinking in parallel", we discuss "Embarrassingly Parallel" (EP) problems first, and then we consider problems which are not EP problems.
 
 ### Embarrassingly Parallel Problems
 
