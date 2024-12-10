@@ -89,7 +89,7 @@ In the next code example, a Monte Carlo algorithm is implemented which estimates
 To do this, a billion random points are generated and checked to see if they fall inside or outside a circle.
 The ratio of points inside the circle to the total number of points is proportional to the value of $\pi$.
 
-Since each point generated and its position within the circle is completely independent to the other points, 
+Since each point generated and its position within the circle is completely independent to the other points,
 the communication pattern is simple (this is also an example of an embarrassingly parallel problem) as we only need one reduction.
 To parallelise the problem, each rank generates a sub-set of the total number of points and a reduction is done at the end, to calculate the total number of points within the circle from the entire sample.
 
@@ -242,12 +242,14 @@ void scatter_sub_arrays_to_other_ranks(double *image, double *rank_image, MPI_Da
       MPI_Recv(rank_image, num_elements_per_rank, MPI_DOUBLE, ROOT_RANK, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
    }
 }
+
 ```
+
 ::::
 
 The function [`MPI_Dims_create()`](https://www.open-mpi.org/doc/v4.1/man3/MPI_Dims_create.3.php) is a useful utility function in MPI which is used to determine the dimensions of a Cartesian grid of ranks.
 In the above example, it's used to determine the number of rows and columns in each sub-array, given the number of ranks in the row and column directions of the grid of ranks from `MPI_Dims_create()`.
-In addition to the code above, you may also want to create a 
+In addition to the code above, you may also want to create a
 [*virtual Cartesian communicator topology*](https://www.mpi-forum.org/docs/mpi-3.1/mpi31-report/node187.htm#Node187) to reflect the decomposed geometry in the communicator as well, as this give access to a number of other utility functions which makes communicating data easier.
 
 ### Halo exchange
@@ -312,6 +314,7 @@ int MPI_Sendrecv(
 | `recvtag`:   | The communication tag for the receive               |
 | `comm`:      | The communicator                                    |
 | `*status`:   | The status handle for the receive                   |
+
 ::::
 
 ```c

@@ -289,7 +289,7 @@ Then at the very end of `main()` let's complete our use of MPI:
 
 ### `main()`: Initialising the Simulation and Printing the Result
 
-Since we're not initialising the entire stick (`GRIDSIZE`), but only the section apportioned to our rank (`rank_gridsize`), 
+Since we're not initialising the entire stick (`GRIDSIZE`), but only the section apportioned to our rank (`rank_gridsize`),
 we need to adjust the loop that initialises `u` and `rho` accordingly. The revised loop as follows:
 
 ```c
@@ -376,7 +376,7 @@ Insert the following into the `poisson_step()` function, putting the declaration
   MPI_Allreduce(&unorm, &global_unorm, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
 ```
 
-So here, we use this function in an `MPI_SUM` mode, which will sum all instances of `unorm` and place the result in a single (`1`) value 
+So here, we use this function in an `MPI_SUM` mode, which will sum all instances of `unorm` and place the result in a single (`1`) value
 global_unorm`. We must also remember to amend the return value to this global version, since we need to calculate equilibrium across the entire stick:
 
 ```c
@@ -462,7 +462,6 @@ Once complete across all ranks, every rank will then have the slice boundary dat
 ### Running our Parallel Code
 
 You can obtain a full version of the parallelised Poisson code from [here](code/examples/poisson/poisson_mpi.c). Now we have the parallelised code in place, we can compile and run it, e.g.:
-
 
 ```bash
 mpicc poisson_mpi.c -o poisson_mpi
