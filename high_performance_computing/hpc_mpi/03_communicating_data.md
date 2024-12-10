@@ -48,7 +48,7 @@ finished, similar to read receipts in e-mails and instant messages.
 Consider a simulation where each rank calculates the physical properties for a subset of cells on a very large grid of points. One step of the calculation needs to know the average temperature across the entire grid of points. How would you approach calculating the average temperature?
 
 ::::solution
-There are multiple ways to approach this situation, but the most efficient approach would be to use collective operations to send the average temperature to a main rank which performs the final calculation. You can, of course, also use a point-to-point pattern, but it would be less efficient, especially with a large number of ranks. 
+There are multiple ways to approach this situation, but the most efficient approach would be to use collective operations to send the average temperature to a main rank which performs the final calculation. You can, of course, also use a point-to-point pattern, but it would be less efficient, especially with a large number of ranks.
 
 If the simulation wasn't done in parallel, or was instead using shared-memory parallelism, such as OpenMP, we wouldn't need to do any communication to get the data required to calculate the average.
 ::::
@@ -85,13 +85,13 @@ types are in the table below:
 | MPI_LONG_DOUBLE        | long double            |
 | MPI_BYTE               | char                   |
 
-Remember, these constants aren't the same as the primitive types in C, so we can't use them to create variables, e.g., 
+Remember, these constants aren't the same as the primitive types in C, so we can't use them to create variables, e.g.,
 
 ```c
 MPI_INT my_int = 1;
 ```
 
-is not valid code because, under the hood, these constants are actually special data structures used by MPI. 
+is not valid code because, under the hood, these constants are actually special data structures used by MPI.
 Therefore, we can only them as arguments in MPI functions.
 
 ::::callout
@@ -111,10 +111,11 @@ need to change the type, you would only have to do it in one place, e.g.:
 // use them as you would normally
 INT_TYPE my_int = 1;
 ```
+
 ::::
 
-Derived data types, on the other hand, are very similar to C structures which we define by using the basic MPI data types. 
-They are often useful for grouping similar data in communications or when sending a structure from one rank to another. 
+Derived data types, on the other hand, are very similar to C structures which we define by using the basic MPI data types.
+They are often useful for grouping similar data in communications or when sending a structure from one rank to another.
 This is covered in more detail in the optional [Advanced Communication Techniques](11_advanced_communication.md) episode.
 
 :::::challenge{id=what-type, title="What Type Should You Use?"}
@@ -131,6 +132,7 @@ The fact that `a[]` is an array does not matter, because all the elements in `a[
 1. `MPI_INT`
 2. `MPI_DOUBLE` - `MPI_FLOAT` would not be correct as `float`'s contain 32 bits of data whereas `double`s are 64 bit.
 3. `MPI_BYTE` or `MPI_CHAR` - you may want to use [strlen](https://man7.org/linux/man-pages/man3/strlen.3.html) to calculate how many elements of `MPI_CHAR` being sent.
+
 ::::
 :::::
 
@@ -147,14 +149,13 @@ int my_rank;
 MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);  // MPI_COMM_WORLD is the communicator the rank belongs to
 ```
 
-In addition to `MPI_COMM_WORLD`, we can make sub-communicators and distribute ranks into them. Messages can only be sent and received to and from the same communicator, effectively isolating messages to a communicator. For most applications, we usually don't need anything other than `MPI_COMM_WORLD`. But organising ranks into communicators can be helpful in some circumstances, as you can create small "work units" of multiple ranks to dynamically schedule the workload, or to help compartmentalise the problem into smaller chunks by using a 
+In addition to `MPI_COMM_WORLD`, we can make sub-communicators and distribute ranks into them. Messages can only be sent and received to and from the same communicator, effectively isolating messages to a communicator. For most applications, we usually don't need anything other than `MPI_COMM_WORLD`. But organising ranks into communicators can be helpful in some circumstances, as you can create small "work units" of multiple ranks to dynamically schedule the workload, or to help compartmentalise the problem into smaller chunks by using a
 [virtual cartesian topology](https://www.mpi-forum.org/docs/mpi-3.1/mpi31-report/node192.htm#Node192). Throughout this course, we will stick to using `MPI_COMM_WORLD`.
 
 ## Communication modes
 
-When sending data between ranks, MPI will use one of four communication modes: synchronous, buffered, ready or standard. When a communication function is called, it takes control of program execution until the send-buffer is safe to be re-used again. What this means is that it's safe to re-use the memory/variable you passed without affecting the data that is still being sent. If MPI didn't have this concept of safety, then you could quite easily overwrite or destroy any data before it is transferred fully! This would lead to some very strange behaviour which would be hard to debug. The difference between the communication mode is when the buffer becomes safe to re-use. MPI won't guess at which mode *should* be used. 
+When sending data between ranks, MPI will use one of four communication modes: synchronous, buffered, ready or standard. When a communication function is called, it takes control of program execution until the send-buffer is safe to be re-used again. What this means is that it's safe to re-use the memory/variable you passed without affecting the data that is still being sent. If MPI didn't have this concept of safety, then you could quite easily overwrite or destroy any data before it is transferred fully! This would lead to some very strange behaviour which would be hard to debug. The difference between the communication mode is when the buffer becomes safe to re-use. MPI won't guess at which mode *should* be used.
 That is up to the programmer. Therefore, each mode has an associated communication function:
-
 
 | Mode        | Blocking function |
 |-------------|-------------------|
@@ -177,7 +178,7 @@ you and the person have both picked up the phone, had your conversation and hung
 
 Synchronous communication is typically used when you need to guarantee synchronisation, such as in iterative methods or
 time dependent simulations where it is vital to ensure consistency. It's also the easiest communication mode to develop
-and debug with because of its predictable behaviour. 
+and debug with because of its predictable behaviour.
 
 ### Buffered sends
 
@@ -189,7 +190,7 @@ the postbox. You are blocked from doing other tasks whilst you write and send th
 postbox, you carry on with other tasks and don't wait for the letter to be delivered!
 
 Buffered sends are good for large messages and for improving the performance of your communication patterns by taking
-advantage of the asynchronous nature of the data transfer. 
+advantage of the asynchronous nature of the data transfer.
 
 ### Ready sends
 
@@ -206,20 +207,20 @@ then you may have to repeat yourself to make sure your transmit the information 
 
 ### Standard sends
 
-The standard send mode is the most commonly used type of send, as it provides a balance between ease of use and performance. 
-Under the hood, the standard send is either a buffered or a synchronous send, depending on the availability of system resources (e.g. the size of the internal buffer) and which mode MPI has determined to be the most efficient. 
+The standard send mode is the most commonly used type of send, as it provides a balance between ease of use and performance.
+Under the hood, the standard send is either a buffered or a synchronous send, depending on the availability of system resources (e.g. the size of the internal buffer) and which mode MPI has determined to be the most efficient.
 
 ::::callout
 
 ## Which mode should I use?
 
-Each communication mode has its own use cases where it excels. However, it is often easiest, at first, to use 
+Each communication mode has its own use cases where it excels. However, it is often easiest, at first, to use
 the standard send, `MPI_Send()`, and optimise later. If the standard send doesn't meet your requirements, or if you need more control over communication, then pick which communication mode suits your requirements best. You'll probably need to experiment to find the best!
 ::::
 
 ::::callout{variant="note"}
 
-## Communication mode summary: 
+## Communication mode summary
 
 | Mode        | Description                                                                                                                                                                 | Analogy                                        | MPI Function  |
 |-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------|---------------|
@@ -227,6 +228,7 @@ the standard send, `MPI_Send()`, and optimise later. If the standard send doesn'
 | Buffered    | Returns control immediately after copying the message to a buffer, regardless of whether the receive has happened or not.                                                   | Sending a letter or e-mail                     | `MPI_Bsend()` |
 | Ready       | Returns control immediately, assuming the matching receive has already been posted. Can lead to errors if the receive is not ready.                                         | Talking to someone you think/hope is listening | `MPI_Rsend()` |
 | Standard    | Returns control when it's safe to reuse the send buffer. May or may not wait for the matching receive (synchronous mode), depending on MPI implementation and message size. | Phone call or letter                           | `MPI_Send()`  |
+
 ::::
 
 ### Blocking vs. non-blocking communication
@@ -249,11 +251,11 @@ communication is done -- and to not modify/use the data/variable/memory before t
 
 ## Is `MPI_Bsend()` non-blocking?
 
-The buffered communication mode is a type of asynchronous communication, because the function returns before the data has been received by another rank. But, it's not a non-blocking call **unless** you use the non-blocking version 
+The buffered communication mode is a type of asynchronous communication, because the function returns before the data has been received by another rank. But, it's not a non-blocking call **unless** you use the non-blocking version
 `MPI_Ibsend()` (more on this later). Even though the data transfer happens in the background, allocating and copying data to the send buffer happens in the foreground, blocking execution of our program. On the other hand, `MPI_Ibsend()` is "fully" asynchronous because even allocating and copying data to the send buffer happens in the background.
 :::
 
-One downside to blocking communication is that if rank B is never listening for messages, rank A will become *deadlocked*. A deadlock 
+One downside to blocking communication is that if rank B is never listening for messages, rank A will become *deadlocked*. A deadlock
 happens when your program hangs indefinitely because the **send** (or **receive**) operation is unable to
 complete. Deadlocks can happen for countless number of reasons. For example, we might forget to write the corresponding
 **receive** function when sending data. Or a function may return earlier due to an error which isn't handled properly, or a
@@ -264,12 +266,12 @@ impossible, but this does not stop any attempts to send data to crashed rank.
 
 ## Avoiding communication deadlocks
 
-A common piece of advice in C is that when allocating memory using `malloc()`, always write the accompanying call to 
+A common piece of advice in C is that when allocating memory using `malloc()`, always write the accompanying call to
 `free()` to help avoid memory leaks by forgetting to deallocate the memory later.
 You can apply the same mantra to communication in MPI. When you send data, always write the code to receive the data as you may forget to later and accidentally cause a deadlock.
 ::::
 
-Blocking communication works best when the work is balanced across ranks, so that each rank has an equal amount of things to do. A common pattern in scientific computing is to split a calculation across a grid and then to share the results between all ranks before moving onto the next calculation. 
+Blocking communication works best when the work is balanced across ranks, so that each rank has an equal amount of things to do. A common pattern in scientific computing is to split a calculation across a grid and then to share the results between all ranks before moving onto the next calculation.
 If the workload is well-balanced, each rank will finish at roughly the same time and be ready to transfer data at the same time. But, as shown in the diagram below, if the workload is unbalanced, some ranks will finish their calculations earlier and begin to send their data to the other ranks before they are ready to receive data. This means some ranks will be sitting around doing nothing whilst they wait for the other ranks to become ready to receive data, wasting computation time.
 
 ![Blocking communication](fig/blocking-wait.png)

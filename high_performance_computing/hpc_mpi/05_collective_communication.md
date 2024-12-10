@@ -13,10 +13,10 @@ learningOutcomes:
   - Learn how to use collective communication functions.
 ---
 
-The previous episode showed how to send data from one rank to another using point-to-point communication. 
-If we wanted to send data from multiple ranks to a single rank to, for example, add up the value of a variable across multiple 
-ranks, we have to manually loop over each rank to communicate the data. This type of communication, where multiple ranks talk to 
-one another known as called collective communication. In the code example below, point-to-point communication is used to 
+The previous episode showed how to send data from one rank to another using point-to-point communication.
+If we wanted to send data from multiple ranks to a single rank to, for example, add up the value of a variable across multiple
+ranks, we have to manually loop over each rank to communicate the data. This type of communication, where multiple ranks talk to
+one another known as called collective communication. In the code example below, point-to-point communication is used to
 calculate the sum of the rank numbers - feel free to try it out!
 
 ```c
@@ -61,15 +61,15 @@ int main(int argc, char **argv) {
 }
 ```
 
-For its use case, the code above works perfectly fine. However, it isn't very efficient when you need to communicate large 
-amounts of data, have lots of ranks, or when the workload is uneven (due to the blocking communication). It's also a lot of code 
-to do not much, which makes it easy to introduce mistakes in our code. A common mistake in this example would be to start the 
-loop over ranks from 0, which would cause a deadlock! It's actually quite a common mistake for new MPI users to write something 
+For its use case, the code above works perfectly fine. However, it isn't very efficient when you need to communicate large
+amounts of data, have lots of ranks, or when the workload is uneven (due to the blocking communication). It's also a lot of code
+to do not much, which makes it easy to introduce mistakes in our code. A common mistake in this example would be to start the
+loop over ranks from 0, which would cause a deadlock! It's actually quite a common mistake for new MPI users to write something
 like the above.
 
-We don't need to write code like this (unless we want *complete* control over the data communication), because MPI has 
-access to collective communication functions to abstract all of this code for us. The above code can be replaced by a single 
-collective communication function. Collection operations are also implemented far more efficiently in the MPI library than we 
+We don't need to write code like this (unless we want *complete* control over the data communication), because MPI has
+access to collective communication functions to abstract all of this code for us. The above code can be replaced by a single
+collective communication function. Collection operations are also implemented far more efficiently in the MPI library than we
 could ever write using point-to-point communications.
 
 There are several collective operations that are implemented in the MPI standard. The most commonly-used are:
@@ -92,14 +92,15 @@ int MPI_Barrier(
     MPI_Comm comm
 );
 ```
+
 |       |                                      |
 |-------|--------------------------------------|
 | comm: | The communicator to add a barrier to |
 
-When a rank reaches a barrier, it will pause and wait for all the other ranks to catch up and reach the barrier as well. As ranks waiting at a barrier aren't doing anything, barriers should be used sparingly to avoid large synchronisation overheads, which affects the scalability of our program. 
+When a rank reaches a barrier, it will pause and wait for all the other ranks to catch up and reach the barrier as well. As ranks waiting at a barrier aren't doing anything, barriers should be used sparingly to avoid large synchronisation overheads, which affects the scalability of our program.
 We should also avoid using barriers in parts of our program has have complicated branches, as we may introduce a deadlock by having a barrier in only one branch.
 
-In practise, there are not that many practical use cases for a barrier in an MPI application. In a shared-memory environment, synchronisation is important to ensure consistent and controlled access to shared data. But in MPI, 
+In practise, there are not that many practical use cases for a barrier in an MPI application. In a shared-memory environment, synchronisation is important to ensure consistent and controlled access to shared data. But in MPI,
 where each rank has its own private memory space and often resources, it's rare that we need to care about ranks becoming out-of-sync. However, one use case is when multiple ranks need to write *sequentially* to the same file. The code example below shows how you may handle this by using a barrier.
 
 ```c
@@ -115,8 +116,8 @@ for (int i = 0; i < num_ranks; ++i) {
 
 ### Broadcast
 
-We'll often find that we need to data from one rank to all the other ranks. One approach, which is not very efficient, 
-is to use `MPI_Send()` in a loop to send the data from rank to rank one by one. A far more efficient approach is to use the 
+We'll often find that we need to data from one rank to all the other ranks. One approach, which is not very efficient,
+is to use `MPI_Send()` in a loop to send the data from rank to rank one by one. A far more efficient approach is to use the
 collective function `MPI_Bcast()` to *broadcast* the data from a root rank to every other rank.
 The `MPI_Bcast()` function has the following arguments,
 
@@ -129,6 +130,7 @@ int MPI_Bcast(
     MPI_Comm comm           
 );
 ```
+
 |             |                                                       |
 |-------------|-------------------------------------------------------|
 | `*data`:    | The data to be sent to all ranks                      |
@@ -138,18 +140,16 @@ int MPI_Bcast(
 | `comm`:     | The communicator containing the ranks to broadcast to |
 
 `MPI_Bcast()` is similar to the `MPI_Send()` function.
-The main functional difference is that `MPI_Bcast()` sends the data to all ranks (other than itself, where the data already is) 
+The main functional difference is that `MPI_Bcast()` sends the data to all ranks (other than itself, where the data already is)
 instead of a single rank, as shown in the diagram below.
 
 ![Each rank sending a piece of data to root rank](fig/broadcast.png)
 
-Unlike `MPI_Send()` and `MPI_Recv()`, collective operations like `MPI_Bcast()` do not require explicitly matching sends and 
-receives in the user code. The internal implementation of collective functions ensures that all ranks correctly send and 
+Unlike `MPI_Send()` and `MPI_Recv()`, collective operations like `MPI_Bcast()` do not require explicitly matching sends and
+receives in the user code. The internal implementation of collective functions ensures that all ranks correctly send and
 receive data as needed, abstracting this complexity from the programmer. This makes collective operations easier to use and less error-prone compared to point-to-point communication.
 
-
-There are lots of use cases for broadcasting data.
-One common case is when data is sent back to a "root" rank to process, which then broadcasts the results back out to all the other ranks.
+There are lots of use cases for broadcasting data. One common case is when data is sent back to a "root" rank to process, which then broadcasts the results back out to all the other ranks.
 Another example, shown in the code excerpt below, is to read data in on the root rank and to broadcast it out.
 This is useful pattern on some systems where there are not enough resources (filesystem bandwidth, limited concurrent I/O operations) for every rank to read the file at once.
 
@@ -168,6 +168,7 @@ MPI_Bcast(data_from_file, NUM_POINTS, MPI_INT, 0, MPI_COMM_WORLD);
 ```
 
 :::::challenge{id=sending-greetings, title="Sending Greetings"}
+
 Send a message from rank 0 saying "Hello from rank 0" to all ranks using `MPI_Bcast()`.
 
 ::::solution
@@ -197,6 +198,7 @@ int main(int argc, char **argv) {
     return MPI_Finalize();
 }
 ```
+
 ::::
 :::::
 
@@ -237,12 +239,11 @@ int MPI_Scatter(
 
 The data to be *scattered* is split into even chunks of size `sendcount`.
 If `sendcount` is 2 and `sendtype` is `MPI_INT`, then each rank will receive two integers.
-The values for `recvcount` and `recvtype` are the same as `sendcount` and `sendtype`. However, there are cases where `sendcount` 
-and `recvcount` might differ, such as when using derived types, which change how data is packed and unpacked during communication. 
-For more on derived types and their impact on collective operations, see the 
-[Derived Data Types](07-derived-data-types.md) episode.
-If the total amount of data is not evenly divisible by the number of processes, `MPI_Scatter()` will not work.
-In this case, we need to use [`MPI_Scatterv()`](https://www.open-mpi.org/doc/v4.0/man3/MPI_Scatterv.3.php) instead to specify the amount of data each rank will receive.
+The values for `recvcount` and `recvtype` are the same as `sendcount` and `sendtype`. However, there are cases where `sendcount`
+and `recvcount` might differ, such as when using derived types, which change how data is packed and unpacked during communication.
+For more on derived types and their impact on collective operations, see the
+[Derived Data Types](07-derived-data-types.md) episode. If the total amount of data is not evenly divisible by the number of processes, `MPI_Scatter()` will
+not work. In this case, we need to use [`MPI_Scatterv()`](https://www.open-mpi.org/doc/v4.0/man3/MPI_Scatterv.3.php) instead to specify the amount of data each rank will receive.
 The code example below shows `MPI_Scatter()` being used to send data which has been initialised only on the root rank.
 
 ```c
@@ -282,6 +283,7 @@ int MPI_Gather(
     MPI_Comm comm
 );
 ```
+
 |              |                                                                          |
 |--------------|--------------------------------------------------------------------------|
 | `*sendbuff`: | The data to send to the root rank                                        |
@@ -432,6 +434,7 @@ int MPI_Allreduce(
     MPI_Comm comm           
 );
 ```
+
 |                |                                                  |
 |----------------|--------------------------------------------------|
 | `*sendbuff`:   | The data to be reduced, on all ranks             |
@@ -443,7 +446,7 @@ int MPI_Allreduce(
 
 ![Each rank sending a piece of data to root rank](fig/allreduce.png)
 
-`MPI_Allreduce()` performs the same operations as `MPI_Reduce()`, but the result is sent to all ranks rather than only being available on the root rank. 
+`MPI_Allreduce()` performs the same operations as `MPI_Reduce()`, but the result is sent to all ranks rather than only being available on the root rank.
 This means we can remove the `MPI_Bcast()` in the previous code example and remove almost all of the code in the reduction example using point-to-point communication at the beginning of the episode. This is shown in the following code example:
 
 ```c
@@ -573,6 +576,7 @@ double find_maximum(double *vector, int N) {
    return global_max;
 }
 ```
+
 ::::
 :::::
 
@@ -580,6 +584,6 @@ double find_maximum(double *vector, int N) {
 
 ## More collective operations are available
 
-The collective functions introduced in this episode do not represent an exhaustive list of *all* collective operations in MPI. There are a number which are not covered, as their usage is not as common. You can usually find a list of the collective functions available for the implementation of MPI you choose to use, e.g. 
+The collective functions introduced in this episode do not represent an exhaustive list of *all* collective operations in MPI. There are a number which are not covered, as their usage is not as common. You can usually find a list of the collective functions available for the implementation of MPI you choose to use, e.g.
 [Microsoft MPI documentation](https://learn.microsoft.com/en-us/message-passing-interface/mpi-collective-functions).
 ::::

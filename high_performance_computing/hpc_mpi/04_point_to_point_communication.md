@@ -14,7 +14,7 @@ learningOutcomes:
 ---
 
 In the previous episode we introduced the various types of communication in MPI.
-In this section we will use the MPI library functions `MPI_Send()` and `MPI_Recv()`, which employ point-to-point communication, 
+In this section we will use the MPI library functions `MPI_Send()` and `MPI_Recv()`, which employ point-to-point communication,
 to send data from one rank to another.
 
 ![Sending data from one rank to another using MPI_SSend and MPI_Recv()](fig/send-recv.png)
@@ -44,6 +44,7 @@ int MPI_Send(
   MPI_Comm communicator
 )
 ```
+
 |                 |                                                                                                                                             |
 |-----------------|---------------------------------------------------------------------------------------------------------------------------------------------|
 | `*data`:        | Pointer to the start of the data being sent. We would not expect this to change, hence it's defined as `const`                              |
@@ -53,7 +54,6 @@ int MPI_Send(
 | `tag`:          | An message tag (integer), which is used to differentiate types of messages. We can specify `0` if we don't need different types of messages |
 | `communicator`: | The communicator, e.g. MPI_COMM_WORLD as seen in previous episodes                                                                          |
 
-
 For example, if we wanted to send a message that contains `"Hello, world!\n"` from rank 0 to rank 1, we could state
 (assuming we were rank 0):
 
@@ -62,8 +62,8 @@ char *message = "Hello, world!\n";
 MPI_Send(message, 14, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
 ```
 
-So we are sending 14 elements of `MPI_CHAR()` one time, and specified `0` for our message tag since we don't anticipate 
-having to send more than one type of message. This call is synchronous, and will block until the corresponding `MPI_Recv()` 
+So we are sending 14 elements of `MPI_CHAR()` one time, and specified `0` for our message tag since we don't anticipate
+having to send more than one type of message. This call is synchronous, and will block until the corresponding `MPI_Recv()`
 operation receives and acknowledges receipt of the message.
 
 ::::callout
@@ -117,10 +117,11 @@ MPI_Status status;
 MPI_Recv(message, 14, MPI_CHAR, 0, 0, MPI_COMM_WORLD, &status);
 message[14] = '\0';
 ```
-Here, we create a buffer `message` to store the received data and initialise it to zeros (`{0}`) to prevent 
-any garbage content. We then call `MPI_Recv()` to receive the message, specifying the source rank (`0`), the message tag (`0`), 
-and the communicator (`MPI_COMM_WORLD`). The status object is passed to capture details about the received message, such as 
-the actual source rank or tag, though it is not used in this example. To ensure safe string handling, 
+
+Here, we create a buffer `message` to store the received data and initialise it to zeros (`{0}`) to prevent
+any garbage content. We then call `MPI_Recv()` to receive the message, specifying the source rank (`0`), the message tag (`0`),
+and the communicator (`MPI_COMM_WORLD`). The status object is passed to capture details about the received message, such as
+the actual source rank or tag, though it is not used in this example. To ensure safe string handling,
 we explicitly null-terminate the received message by setting `message[14] = '\0'`.
 
 Let's put this together with what we've learned so far.
@@ -164,9 +165,10 @@ int main(int argc, char** argv) {
   return MPI_Finalize();
 }
 ```
+
 :::callout{variant='warning'}
-When using `MPI_Recv()` to receive string data, ensure that your buffer is large enough to hold the message and 
-includes space for a null terminator. Explicitly initialising the buffer and adding the null terminator avoids 
+When using `MPI_Recv()` to receive string data, ensure that your buffer is large enough to hold the message and
+includes space for a null terminator. Explicitly initialising the buffer and adding the null terminator avoids
 undefined behavior or garbage output.
 :::
 
@@ -174,7 +176,7 @@ undefined behavior or garbage output.
 
 ## MPI Data Types in C
 
-In the above example we send a string of characters and therefore specify the type `MPI_CHAR`. For a complete list of types, 
+In the above example we send a string of characters and therefore specify the type `MPI_CHAR`. For a complete list of types,
 see [the MPICH documentation](https://www.mpich.org/static/docs/v3.3/www3/Constants.html).
 ::::
 
@@ -307,8 +309,10 @@ int main(int argc, char **argv) {
     return MPI_Finalize();
 }
 ```
-Note: In MPI programs, every rank runs the same code. To make ranks behave differently, you must 
+
+Note: In MPI programs, every rank runs the same code. To make ranks behave differently, you must
 explicitly program that behavior based on their rank ID. For example:
+
 - Use conditionals like `if (rank == 0)` to define specific actions for rank 0.
 - All other ranks can perform different actions in an `else` block.
 
@@ -351,14 +355,15 @@ int main(int argc, char **argv) {
     return MPI_Finalize();
 }
 ```
-Here rank 0 calls `MPI_Recv` to gather messages, while other ranks call `MPI_Send` to send their messages. 
+
+Here rank 0 calls `MPI_Recv` to gather messages, while other ranks call `MPI_Send` to send their messages.
 Without this differentiation, ranks will attempt the same actions, potentially causing errors or deadlocks.
 ::::
 :::::
 
 :::callout{variant='note'}
-If you don't require the additional information provided by `MPI_Status`, such as source or tag, 
-you can use `MPI_STATUS_IGNORE` in `MPI_Recv` calls. This simplifies your code by removing the need to declare and manage an 
+If you don't require the additional information provided by `MPI_Status`, such as source or tag,
+you can use `MPI_STATUS_IGNORE` in `MPI_Recv` calls. This simplifies your code by removing the need to declare and manage an
 `MPI_Status` object. This is particularly useful in straightforward message-passing scenarios.
 :::
 
@@ -399,7 +404,7 @@ int main(int argc, char **argv) {
 ::::solution
 `MPI_Send()` will block execution until the receiving process has called `MPI_Recv()`. This prevents the sender from unintentionally modifying the message buffer before the message is actually sent. Above, both ranks call `MPI_Send()` and just wait for the other to respond. The solution is to have one of the ranks receive its message before sending.
 
-Sometimes `MPI_Send()` will actually make a copy of the buffer and return immediately. This generally happens only for short messages. Even when this happens, the actual transfer will not start before the receive is posted. 
+Sometimes `MPI_Send()` will actually make a copy of the buffer and return immediately. This generally happens only for short messages. Even when this happens, the actual transfer will not start before the receive is posted.
 
 For this example, let’s have rank 0 send first, and rank 1 receive first. So all we need to do to fix this is to swap the send and receive for rank 1:
 
@@ -413,6 +418,7 @@ if (rank == 0) {
    MPI_Ssend(&numbers, ARRAY_SIZE, MPI_INT, 0, comm_tag, MPI_COMM_WORLD);
 }
 ```
+
 ::::
 :::::
 
@@ -490,5 +496,6 @@ int main(int argc, char** argv) {
   return MPI_Finalize();
 }
 ```
+
 ::::
 :::::

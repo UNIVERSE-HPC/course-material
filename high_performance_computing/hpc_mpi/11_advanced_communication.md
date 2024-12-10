@@ -13,8 +13,11 @@ learningOutcomes:
   - Know how to define and use derived datatypes.
 ---
 
-In an earlier episode, we introduced the concept of derived data types to send vectors or a sub-array of a larger array, which may or may not be contiguous in memory. Other than vectors, there are multiple other types of derived data types that allow us to handle other complex data structures efficiently. In this episode, we will see how to create structure derived types. Additionally, we will also learn how to use `MPI_Pack()` and `MPI_Unpack()` to manually pack complex data structures and heterogeneous into a single contiguous buffer, when other methods of communication are too complicated or inefficient.
-
+In an earlier episode, we introduced the concept of derived data types to send vectors or a sub-array of a larger array,
+which may or may not be contiguous in memory. Other than vectors, there are multiple other types of derived data types that allow us to
+handle other complex data structures efficiently. In this episode, we will see how to create structure derived types. Additionally, we will
+also learn how to use `MPI_Pack()` and `MPI_Unpack()` to manually pack complex data structures and heterogeneous into a single contiguous
+buffer, when other methods of communication are too complicated or inefficient.
 
 ## Structures in MPI
 
@@ -47,12 +50,12 @@ int MPI_Type_create_struct(
 
 The main difference between vector and struct derived types is that the arguments for structs expect arrays, since structs are made up of multiple variables. Most of these arguments are straightforward, given what we've just seen for defining vectors. But `array_of_displacements` is new and unique.
 
-When a struct is created, it occupies a single contiguous block of memory. But there is a catch. For performance reasons, compilers insert arbitrary "padding" between each member for performance reasons. This padding, known as 
+When a struct is created, it occupies a single contiguous block of memory. But there is a catch. For performance reasons, compilers insert arbitrary "padding" between each member for performance reasons. This padding, known as
 [data structure alignment](https://en.wikipedia.org/wiki/Data_structure_alignment), optimises both the layout of the memory and the access of it. As a result, the memory layout of a struct may look like this instead:
 
-![Memory layout for a struct](fig/struct_memory_layout.png) 
+![Memory layout for a struct](fig/struct_memory_layout.png)
 
-Although the memory used for padding and the struct's data exists in a contiguous block, 
+Although the memory used for padding and the struct's data exists in a contiguous block,
 the actual data we care about is no longer contiguous. This is why we need the `array_of_displacements` argument, which specifies the distance, in bytes, between each struct member relative to the start of the struct. In practise, it serves a similar purpose of the stride in vectors.
 
 To calculate the byte displacement for each member, we need to know where in memory each member of a struct exists. To do this, we can use the function `MPI_Get_address()`,
@@ -198,6 +201,7 @@ int main(int argc, char **argv)
     return MPI_Finalize();
 }
 ```
+
 ::::
 :::::
 
@@ -327,7 +331,9 @@ int MPI_Pack_size(
    MPI_Comm comm,
    int *size
 );
+
 ```
+
 |             |                                                          |
 |-------------|----------------------------------------------------------|
 | `incount`:  | The number of data elements                              |
@@ -457,6 +463,7 @@ MPI_Get_count(&status, MPI_PACKED, &buffer_size);
 // MPI_PACKED represents an element of a "byte stream." So, buffer_size is the size of the buffer to allocate
 char *buffer = malloc(buffer_size);
 ```
+
 ::::
 
 :::::challenge{id=heterogeneous-data, title="Sending Heterogeneous Data in a Single Communication"}
@@ -582,6 +589,8 @@ int main(int argc, char **argv)
 
     return MPI_Finalize();
 }
+
 ```
+
 ::::
 :::::

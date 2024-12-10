@@ -28,8 +28,8 @@ Therefore, it's really helpful to understand how well our code *scales* in perfo
 
 ## Prerequisite: [Intro to High Performance Computing](../hpc_intro/01_hpc_intro)
 
-Whilst the previous episodes can be done on a laptop or desktop, this episode covers how to profile your code using tools that are only available on 
-an HPC cluster.
+Whilst the previous episodes can be done on a laptop or desktop, this episode covers how to profile your code using tools
+that are only available on an HPC cluster.
 ::::
 
 ## Characterising the Scalability of Code
@@ -49,10 +49,9 @@ Ideally, we would like software to have a linear speedup that is equal to the nu
 (speedup = N), as that would mean that every processor would be contributing 100% of its computational power.
 Unfortunately, this is a very challenging goal for real applications to attain,
 since there is always an overhead to making parallel use of greater resources.
-In addition, in a program there is always some portion of it which must be executed in serial (such as initialisation routines, I/O operations and 
-inter-communication) which cannot be parallelised.
-This limits how much a program can be sped up,
-as the program will always take at least the length of the serial portion.
+In addition, in a program there is always some portion of it which must be executed in serial (such as initialisation
+routines, I/O operations and inter-communication) which cannot be parallelised.
+This limits how much a program can be sped up, as the program will always take at least the length of the serial portion.
 
 ### Amdahl's Law and Strong Scaling
 
@@ -136,6 +135,7 @@ The 32 ranks don't fit on one CPU and communicating between the two CPUs takes m
 
 The communication could be made more efficient.
 We could use non-blocking communication and do some of the computation while communication is happening.
+
 ::::
 :::::
 
@@ -186,7 +186,9 @@ The increase in runtime is probably due to the memory bandwidth of the node bein
 
 The other significant factors in the speed of a parallel program are communication speed and latency.
 
-Communication speed is determined by the amount of data one needs to  send/receive, and the bandwidth of the underlying hardware for the communication. Latency consists of the software latency (how long the operating system needs in order to prepare for a communication), and the hardware latency (how long the hardware takes to send/receive even a small bit of data). 
+Communication speed is determined by the amount of data one needs to  send/receive, and the bandwidth of the underlying
+hardware for the communication. Latency consists of the software latency (how long the operating system needs in order to prepare
+for a communication), and the hardware latency (how long the hardware takes to send/receive even a small bit of data).
 
 For a fixed-size problem, the time spent in communication is not significant when the number of ranks is small and the execution of parallel regions gets faster with the number of ranks. But if we keep increasing the number of ranks, the time spent in communication grows when multiple cores are involved with communication.
 
@@ -284,7 +286,7 @@ terminal and one `.html` file which can be opened in a browser
 cat poisson_mpi_4p_1n_2024-01-30_15-38.txt
 ```
 
-```
+```text
 Command:        mpirun -n 4 poisson_mpi
 Resources:      1 node (28 physical, 56 logical cores per node)
 Memory:         503 GiB per node
@@ -319,8 +321,8 @@ spent in the actual compute sections of the code.
 :::::challenge{id=profile-poisson, title="Profile Your Poisson Code"}
 Compile, run and analyse your own MPI version of the poisson code.
 
-How closely does it match the performance above? What are the main differences? 
-Try reducing the number of processes used, rerun and investigate the profile. Is it still MPI-bound? 
+How closely does it match the performance above? What are the main differences?
+Try reducing the number of processes used, rerun and investigate the profile. Is it still MPI-bound?
 
 Increase the problem size, recompile, rerun and investigate the profile.
 What has changed now?

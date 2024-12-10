@@ -40,9 +40,9 @@ Since its inception, MPI has undergone several revisions, each introducing new f
 These revisions, along with subsequent updates and errata, have refined the MPI standard, making it more robust, versatile, and efficient.
 ::::
 
-Today, various MPI implementations are available, each tailored to specific hardware architectures and systems. Popular implementations like  [MPICH](https://www.mpich.org/), 
-[Intel MPI](https://www.intel.com/content/www/us/en/developer/tools/oneapi/mpi-library.html#gs.0tevpk), 
-[IBM Spectrum MPI](https://www.ibm.com/products/spectrum-mpi), [MVAPICH](https://mvapich.cse.ohio-state.edu/) and 
+Today, various MPI implementations are available, each tailored to specific hardware architectures and systems. Popular implementations like  [MPICH](https://www.mpich.org/),
+[Intel MPI](https://www.intel.com/content/www/us/en/developer/tools/oneapi/mpi-library.html#gs.0tevpk),
+[IBM Spectrum MPI](https://www.ibm.com/products/spectrum-mpi), [MVAPICH](https://mvapich.cse.ohio-state.edu/) and
 [Open MPI](https://www.open-mpi.org/) offer optimised performance, portability, and flexibility.
 For instance, MPICH is known for its efficient scalability on HPC systems, while Open MPI prioritises extensive portability and adaptability, providing robust support for multiple operating systems, programming languages, and hardware platforms.
 
@@ -127,10 +127,10 @@ HPC clusters don't usually have GUI-based IDEs installed on them.
 We can write code locally, and copy it across using `scp` or `rsync`, but most IDEs have the ability to open folders on a remote machine, or to automatically synchronise a local folder with a remote one.
 
 For **VSCode**, the [Remote-SSH](https://code.visualstudio.com/docs/remote/ssh) extension provides most of the functionality of a regular VSCode window, but on a remote machine.
-Some older Linux systems don't support it - in that case, try the 
+Some older Linux systems don't support it - in that case, try the
 [SSH FS](https://marketplace.visualstudio.com/items?itemName=Kelvin.vscode-sshfs) extension instead.
 
-Other IDEs like **CLion** also support 
+Other IDEs like **CLion** also support
 [a variety of remote development methods](https://www.jetbrains.com/help/clion/remote-development.html).
 ::::
 
@@ -208,7 +208,7 @@ As we've just learned, running a program with `mpiexec` or `mpirun` results in t
 mpirun -n 4 ./hello_world
 ```
 
-However, in the example above, the program does not know it was started by `mpirun`, and each copy just works as if they were the only one. 
+However, in the example above, the program does not know it was started by `mpirun`, and each copy just works as if they were the only one.
 For the copies to work together, they need to know about their role in the computation, in order to properly take advantage of parallelisation. This usually also requires knowing the total number of tasks running at the same time.
 
 - The program needs to call the `MPI_Init()` function.
@@ -235,6 +235,7 @@ int main(void) {
     return MPI_Finalize();
 }
 ```
+
 ::::
 
 After MPI is initialised, you can find out the total number of ranks and the specific rank of the copy:
@@ -382,6 +383,6 @@ For this we would need ways for ranks to communicate - the primary benefit of MP
 
 ## What About Python?
 
-In [MPI for Python (mpi4py)](https://mpi4py.readthedocs.io/en/stable/), 
+In [MPI for Python (mpi4py)](https://mpi4py.readthedocs.io/en/stable/),
 the initialisation and finalisation of MPI are handled by the library, and the user can perform MPI calls after ``from mpi4py import MPI``.
 ::::
