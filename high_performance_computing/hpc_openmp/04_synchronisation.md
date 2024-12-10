@@ -130,18 +130,17 @@ as the calculation depends on this data (See the full code [here](code/examples/
     do_main_calculation(thread_id);
 }
 ```
-Similarly, in iterative tasks like matrix calculations, barriers help coordinate threads so that all updates 
-are completed before moving to the next step. For example, in the following snippet, each thread updates its assigned 
-row of a matrix using data from its current row and the row above (except for the first row, which has no dependency; 
-see the full code [here](code/examples/04-matrix-update.c)). A barrier ensures that all threads finish updating 
-their rows in `next_matrix` before the values are copied back into `current_matrix`.  Without this barrier, threads might 
-read outdated or partially updated data, causing inconsistencies.
 
-Here, the number of rows (`nx`) is dynamically determined at runtime using `omp_get_max_threads()`. This function provides 
-the maximum number of threads OpenMP can use in a parallel region, based on the system's resources and runtime configuration. 
-Using this value, we define the number of rows in the matrix, with each row corresponding to a potential thread. This setup 
-ensures that both the `current_matrix` and `next_matrix provide` rows for the maximum number of threads allocated during 
-parallel execution.
+Similarly, in iterative tasks like matrix calculations, barriers help coordinate threads so that all updates
+are completed before moving to the next step. For example, in the following snippet, each thread updates its assigned
+row of a matrix using data from its current row and the row above (except for the first row, which has no dependency;
+see the full code [here](code/examples/04-matrix-update.c)). A barrier ensures that all threads finish updating their rows in `next_matrix` before the values are
+copied back into `current_matrix`.  Without this barrier, threads might read outdated or partially updated data, causing inconsistencies.
+
+Here, the number of rows (`nx`) is dynamically determined at runtime using `omp_get_max_threads()`. This function provides
+the maximum number of threads OpenMP can use in a parallel region, based on the system's resources and runtime configuration.
+Using this value, we define the number of rows in the matrix, with each row corresponding to a potential thread. This setup
+ensures that both the `current_matrix` and `next_matrix provide` rows for the maximum number of threads allocated during parallel execution.
 
 ```c
 ......
@@ -171,11 +170,12 @@ int main() {
     print_matrix("Final Matrix", current_matrix, nx);
 }
 ```
+
 :::callout{variant='note'}
-OpenMP does not allow barriers to be placed directly inside `#pragma omp parallel for` loops due to restrictions 
-on closely [nested regions](https://www.openmp.org/spec-html/5.2/openmpse101.html#x258-27100017.1). To coordinate threads 
-effectively in iterative tasks like this, we use a `#pragma omp parallel` construct, which gives explicit control over 
-the loop and allows proper barrier placement.
+
+OpenMP does not allow barriers to be placed directly inside `#pragma omp parallel for` loops due to restrictions on
+closely [nested regions](https://www.openmp.org/spec-html/5.2/openmpse101.html#x258-27100017.1). To coordinate threads effectively in iterative tasks like this, we use a `#pragma omp parallel` construct,
+which gives explicit control over the loop and allows proper barrier placement.
 :::
 
 Barriers introduce additional overhead into our parallel algorithms, as some threads will be idle whilst waiting for
@@ -247,17 +247,17 @@ write the result to disk (See the full code [here](code/examples/04-single-regio
 ```
 
 :::callout{variant='note'}
-OpenMP has a restriction: you cannot use `#pragma omp single` or `#pragma omp master` directly inside a `#pragma omp parallel for` 
-loop. If you attempt this, you'll encounter an error because OpenMP does not allow these regions to be **"closely nested"** 
-within a parallel loop. However, there’s a useful workaround: move the `single` or `master` region into a separate function 
-and call that function from within the loop. This approach works because OpenMP allows these regions when they are not 
-explicitly part of the loop structure
+
+OpenMP has a restriction: you cannot use `#pragma omp single` or `#pragma omp master` directly inside a `#pragma omp parallel for` loop.
+If you attempt this, you'll encounter an error because OpenMP does not allow these regions to be **"closely nested"** within a parallel loop.
+However, there’s a useful workaround: move the `single` or `master` region into a separate function and call that function from within the
+loop. This approach works because OpenMP allows these regions when they are not explicitly part of the loop structure
+
 :::
 
-If we wanted to sum up something in parallel (e.g., a reduction operation like summing an array), we would need to use a 
-critical region to prevent a race condition when threads update the reduction variable-the shared variable that stores 
-the final result. In the 'Identifying Race Conditions' challenge earlier, we saw that multiple threads 
-updating the same variable (**value**) at the same time caused inconsistencies—a classic race condition. 
+If we wanted to sum up something in parallel (e.g., a reduction operation like summing an array), we would need to use a critical region to
+prevent a race condition when threads update the reduction variable-the shared variable that stores the final result. In the 'Identifying Race Conditions' challenge
+earlier, we saw that multiple threads updating the same variable (**value**) at the same time caused inconsistencies—a classic race condition.
 This problem can be fixed by using a critical region, which allows threads to update **value** one at a time. For example:
 
 ```c
@@ -272,20 +272,20 @@ for (int i = 0; i < NUM_TIMES; ++i) {
 }
 ```
 
-However, while this approach eliminates the race condition, it introduces synchronisation overhead. 
-For lightweight operations like summing values, this overhead can outweigh the benefits of parallelisation.
+However, while this approach eliminates the race condition, it introduces synchronisation overhead. For lightweight operations like
+summing values, this overhead can outweigh the benefits of parallelisation.
 
 :::callout
 
 ### Reduction Clauses
 
-A more efficient way to handle tasks like summing values is to use OpenMP's `reduction` clause. 
-Unlike the critical region approach, the `reduction` clause avoids explicit synchronisation by 
-allowing each thread to work on its own private copy of the variable. Once the loop finishes, 
-OpenMP combines these private copies into a single result. This not only simplifies the code but also avoids delays 
+A more efficient way to handle tasks like summing values is to use OpenMP's `reduction` clause.
+Unlike the critical region approach, the `reduction` clause avoids explicit synchronisation by
+allowing each thread to work on its own private copy of the variable. Once the loop finishes,
+OpenMP combines these private copies into a single result. This not only simplifies the code but also avoids delays
 caused by threads waiting to access the shared variable.
 
-For example, instead of using a critical region to sum values, we can rewrite the code with a `reduction` clause 
+For example, instead of using a critical region to sum values, we can rewrite the code with a `reduction` clause
 as shown below:
 
 ```c
@@ -306,20 +306,24 @@ int main() {
 
     return 0;
 }
-
 ```
-Here, the `reduction(+:value)` directive does the work for us. During the loop, each thread maintains its 
-own copy of value, avoiding any chance of a race condition. When the loop ends, OpenMP automatically sums 
+
+Here, the `reduction(+:value)` directive does the work for us. During the loop, each thread maintains its
+own copy of value, avoiding any chance of a race condition. When the loop ends, OpenMP automatically sums
 up the private copies into the shared variable value. This means the output will always be correct—in this case, **10000**.
 :::
 
-::::challenge{id=reportingprogress, title="Reporting progress"}
-The code below attempts to track the progress of a parallel loop using a shared counter, `progress`. 
-However, it has a problem: the final value of progress is often incorrect, and the progress updates might be 
+::::challenge{id=reportingprogress title="Reporting progress"}
+
+The code below attempts to track the progress of a parallel loop using a shared counter, `progress`.
+However, it has a problem: the final value of progress is often incorrect, and the progress updates might be
 inconsistent.
+
 1. Can you identify the issue with the current implementation?
+
 2. How would you fix it to ensure the progress counter works correctly and updates are synchronised?
-3. After fixing the issue, experiment with different loop schedulers (`static`, `dynamic`, `guided` and `auto`) 
+
+3. After fixing the issue, experiment with different loop schedulers (`static`, `dynamic`, `guided` and `auto`)
 to observe how they affect progress reporting.
     - What changes do you notice in the timing and sequence of updates when using these schedulers?
     - Which scheduler produces the most predictable progress updates?
@@ -350,6 +354,7 @@ int main(int argc, char **argv) {
     return 0;
 }
 ```
+
 NB: To compile this you’ll need to add `-lm` to inform the linker to link to the math C library, e.g.
 
 ```bash
@@ -357,17 +362,18 @@ gcc counter.c -o counter -fopenmp -lm
 ```
 
 :::solution
-1. The above program tracks progress using a shared counter (`progress++`) inside the loop, 
-but it does so without synchronisation, leading to a race condition. Since multiple threads can access and modify progress at the same time, the final value of progress will likely be incorrect. 
-This happens because the updates to progress are not synchronised across threads. As a result, the final value of 
-`progress` is often incorrect and varies across runs. You might see output like this: 
+
+**1.** The above program tracks progress using a shared counter (`progress++`) inside the loop,
+but it does so without synchronisation, leading to a race condition. Since multiple threads can access and modify progress at the same time, the final value of progress will likely be incorrect.
+This happens because the updates to progress are not synchronised across threads. As a result, the final value of
+`progress` is often incorrect and varies across runs. You might see output like this:
 
 ```text
 Final progress: 9983 (Expected: 10000)
 ```
 
-2. To fix this issue, we use a critical region to synchronise updates to progress. 
-We also introduce a second variable, `output_frequency`, to control how often progress updates are reported 
+**2.** To fix this issue, we use a critical region to synchronise updates to progress.
+We also introduce a second variable, `output_frequency`, to control how often progress updates are reported
 (e.g., every 10% of the total iterations).
 
 The corrected version:
@@ -402,17 +408,18 @@ int main(int argc, char **argv) {
     return 0;
 }
 ```
-This implementation resolves the race condition by ensuring that only one thread can modify progress at a time. 
-However, this solution comes at a cost: **synchronisation overhead**. Every iteration requires threads to enter the 
-critical region, and if the loop body is lightweight (e.g., simple calculations), this overhead may outweigh the 
-computational benefits of parallelisation. For example, if each iteration takes only a few nanoseconds to compute, 
+
+This implementation resolves the race condition by ensuring that only one thread can modify progress at a time.
+However, this solution comes at a cost: **synchronisation overhead**. Every iteration requires threads to enter the
+critical region, and if the loop body is lightweight (e.g., simple calculations), this overhead may outweigh the
+computational benefits of parallelisation. For example, if each iteration takes only a few nanoseconds to compute,
 the time spent waiting for access to the critical region might dominate the runtime.
 
-3. The static scheduler, used in the corrected version, divides iterations evenly among threads. This ensures predictable 
-and consistent progress updates. For instance, progress increments occur at regular intervals (e.g., 10%, 20%, etc.), 
+**3.** The static scheduler, used in the corrected version, divides iterations evenly among threads. This ensures predictable
+and consistent progress updates. For instance, progress increments occur at regular intervals (e.g., 10%, 20%, etc.),
 producing output like:
 
-```
+```text
 Progress: 10%
 Progress: 20%
 Progress: 30%
@@ -420,33 +427,35 @@ Progress: 30%
 Final progress: 10000 (Expected: 10000)
 ```
 
-When experimenting with other schedulers, such as `dynamic` or `guided`, 
+When experimenting with other schedulers, such as `dynamic` or `guided`,
 the timing and sequence of updates change due to differences in how iterations are assigned to threads.
 
-With the `dynamic` scheduler, threads are assigned smaller chunks of iterations as they finish their current work. 
-This can lead to progress updates appearing irregular, as threads complete their chunks at varying speeds based on 
+With the `dynamic` scheduler, threads are assigned smaller chunks of iterations as they finish their current work.
+This can lead to progress updates appearing irregular, as threads complete their chunks at varying speeds based on
 workload. For example:
 
-```
+```text
 Progress: 15%
 Progress: 30%
 Progress: 55%
 ...
 Final progress: 10000 (Expected: 10000)
 ```
-Using the `guided` scheduler results in yet another pattern. Threads start with larger chunks of iterations, 
-and the chunk size decreases as the loop progresses. This often leads to progress updates being sparse at the start but 
+
+Using the `guided` scheduler results in yet another pattern. Threads start with larger chunks of iterations,
+and the chunk size decreases as the loop progresses. This often leads to progress updates being sparse at the start but
 becoming more frequent toward the end of the loop:
 
-```
+```text
 Progress: 25%
 Progress: 70%
 Progress: 100%
 Final progress: 10000 (Expected: 10000)
 ```
-The `auto` scheduler, on the other hand, leaves the decision about iteration assignment to the OpenMP runtime system. 
-This provides flexibility, as the runtime adapts the scheduling to optimise for the specific platform and workload. 
-However, because `auto` is implementation-dependent, the timing and predictability of progress updates can vary and 
+
+The `auto` scheduler, on the other hand, leaves the decision about iteration assignment to the OpenMP runtime system.
+This provides flexibility, as the runtime adapts the scheduling to optimise for the specific platform and workload.
+However, because `auto` is implementation-dependent, the timing and predictability of progress updates can vary and
 are harder to generalise.
 :::
 ::::
@@ -466,7 +475,7 @@ race conditions. But in some cases, critical regions may not be flexible or gran
 amount of serialisation. If this is the case, we can use *locks* instead to achieve the same effect as a critical
 region. Locks are a mechanism in OpenMP which, just like a critical regions, create regions in our code which only one
 thread can be in at one time. The main advantage of locks, compared to critical regions, is that they provide more
-granular control over thread synchronisation by protecting different-sized or fragmented regions of code, therefore 
+granular control over thread synchronisation by protecting different-sized or fragmented regions of code, therefore
 allowing greater flexibility. Locks are also far more flexible when it comes to making our code more modular, as it is possible to
 nest locks, or for accessing and modifying global variables.
 
@@ -527,10 +536,10 @@ forget to or unset a lock in the wrong place.
 ### Atomic operations
 
 Another mechanism is atomic operations. In computing, an atomic operation is an operation which is performed without
-interruption, meaning that once initiated, it is guaranteed to execute without interference from other operations. 
-In OpenMP, this refers to operations that execute without interference from other threads. If we make an operation modifying a value in 
-an array atomic, the compiler guarantees that no other thread can read or modify that array until the atomic operation is 
-finished. You can think of it as a thread having temporary exclusive access to something in our program, similar to a 
+interruption, meaning that once initiated, it is guaranteed to execute without interference from other operations.
+In OpenMP, this refers to operations that execute without interference from other threads. If we make an operation modifying a value in
+an array atomic, the compiler guarantees that no other thread can read or modify that array until the atomic operation is
+finished. You can think of it as a thread having temporary exclusive access to something in our program, similar to a
 'one at a time' rule for accessing and modifying parts of the program.
 
 To do an atomic operation, we use the `omp atomic` pragma before the operation we want to make atomic.
@@ -547,22 +556,19 @@ int main() {
   /* Put the pragma before the shared variable */
   #pragma omp parallel
   {
-  	#pragma omp atomic
-  	shared_variable += 1;
-  	printf("Shared variable updated: %d\n", shared_variable);
+    #pragma omp atomic
+    shared_variable += 1;
+    printf("Shared variable updated: %d\n", shared_variable);
   }
 
   /* Can also use in a parallel for */
   #pragma omp parallel for
   for (int i = 0; i < 4; ++i) {
-  	#pragma omp atomic
-  	shared_array[i] += 1;
-  	printf("Shared array element %d updated: %d\n", i, shared_array[i]);
-
+    #pragma omp atomic
+    shared_array[i] += 1;
+    printf("Shared array element %d updated: %d\n", i, shared_array[i]);
   }
-
 }
-
 ```
 
 Atomic operations are for single line operations or piece of code. As in the example above, we can do an atomic
@@ -587,7 +593,7 @@ Critical regions and locks are more appropriate when:
 
 Atomic operations are good when:
 
-- The operation which needs synchronisation is simple, such as needing to protect a single variable update in the parallel 
+- The operation which needs synchronisation is simple, such as needing to protect a single variable update in the parallel
 algorithm.
 - There is low contention for shared data.
 - When you need to be as performant as possible, as atomic operations generally have the lowest performance cost.
@@ -632,7 +638,7 @@ int main(int argc, char **argv) {
 When we run the program multiple times, we expect the output `sum` to have the value of `0.000000`. However, due to an
 existing race condition, the program can sometimes produce wrong output in different runs, as shown below:
 
-```
+```text
 1. Sum: 1.000000
 2. Sum: -1.000000
 3. Sum: 2.000000

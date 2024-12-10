@@ -75,11 +75,9 @@ Of particular importance in parallel programs is how memory is managed and how a
 and OpenMP has a number of mechanisms to indicate how they should be handled.
 Essentially, OpenMP provides two ways to do this for variables:
 
-- **Shared**: A single instance of the variable is shared among all threads, meaning every thread can access 
-and modify the same data. This is useful for shared resources but requires careful management to prevent conflicts or 
-unintended behavior.
-- **Private**: Each thread gets its own isolated copy of the variable, similar to how variables are 
-private in `if` statements or functions, where each thread’s version is independent and doesn't affect others.
+- **Shared**: A single instance of the variable is shared among all threads, meaning every thread can access
+and modify the same data. This is useful for shared resources but requires careful management to prevent conflicts or unintended behavior.
+- **Private**: Each thread gets its own isolated copy of the variable, similar to how variables are private in `if` statements or functions, where each thread’s version is independent and doesn't affect others.
 
 For example, what if we wanted to hold the thread ID and the total number of threads within variables in the code block?
 Let's start by amending the parallel code block to the following:
@@ -127,8 +125,7 @@ But what about declarations outside of this block? For example:
 
 Which may seem on the surface to be correct.
 However, this illustrates a critical point about why we need to be careful.
-Now, since the variable declarations are outside the parallel block, they are, 
-by default, *shared* across threads. This means any thread can modify these variables at any time, 
+Now, since the variable declarations are outside the parallel block, they are, by default, *shared* across threads. This means any thread can modify these variables at any time,
 which is potentially dangerous. So here, `thread_id` may hold the value for another thread identifier when it's printed,
 since there is an opportunity between its assignment and its access within `printf` to be changed in another thread.
 This could be particularly problematic with a much larger data set and complex processing of that data,
@@ -136,9 +133,7 @@ where it might not be obvious that incorrect behaviour has happened at all,
 and lead to incorrect results.
 This is known as a *race condition*, and we'll look into them in more detail in the next episode.
 
-But there’s another common scenario to watch out for. What happens when we want to declare a variable 
-outside the parallel region, make it private, and retain its initial value inside the block? 
-Let’s consider the following example:
+But there’s another common scenario to watch out for. What happens when we want to declare a variable outside the parallel region, make it private, and retain its initial value inside the block? Let’s consider the following example:
 
 ```c
 int initial_value = 15;
@@ -148,15 +143,14 @@ int initial_value = 15;
     printf("Thread %d sees initial_value = %d\n", omp_get_thread_num(), initial_value);
 }
 ```
-You might expect each thread to start with `initial_value` set to `15`. 
-However, this is not the case. When a variable is declared as `private`, each thread gets its own copy 
-of the variable, but those copies are **uninitialised**—they don’t inherit the value from the variable outside 
-the parallel region. As a result, the output may vary and include seemingly random numbers, depending on the 
-compiler and runtime.
 
-To handle this, you can use the `firstprivate` directive. With `firstprivate`, each thread gets its own 
-private copy of the variable, and those copies are initialised with the value from the variable outside the 
-parallel region. For example:
+You might expect each thread to start with `initial_value` set to `15`.
+However, this is not the case. When a variable is declared as `private`, each thread gets its own copy
+of the variable, but those copies are **uninitialised**—they don’t inherit the value from the variable outside
+the parallel region. As a result, the output may vary and include seemingly random numbers, depending on the compiler and runtime.
+
+To handle this, you can use the `firstprivate` directive. With `firstprivate`, each thread gets its own private copy of the variable,
+and those copies are initialised with the value from the variable outside the parallel region. For example:
 
 ```c
 int initial_value = 15;
@@ -166,17 +160,20 @@ int initial_value = 15;
     printf("Thread %d sees initial_value = %d\n", omp_get_thread_num(), initial_value);
 }
 ```
+
 Now, the initial value is correctly passed to each thread:
 
 ```text
+
 Thread 0 sees initial_value = 15
 Thread 1 sees initial_value = 15
 Thread 2 sees initial_value = 15
 Thread 3 sees initial_value = 15
 
 ```
-Each thread begins with initial_value set to `15`. This avoids the unpredictable 
-behavior of uninitialised variables and ensures that the initial value is preserved for each thread.
+
+Each thread begins with initial_value set to `15`. This avoids the unpredictable behavior of uninitialised
+variables and ensures that the initial value is preserved for each thread.
 
 ::::callout
 
@@ -266,9 +263,8 @@ and how to specify different scheduling behaviours.
 
 ## Nested Loops with `collapse`
 
-By default, OpenMP parallelises only the outermost loop in a nested structure. This works fine for many cases, 
-but what if the outer loop doesn’t have enough iterations to keep all threads busy, or the inner loop does most 
-of the work?  In these situations, we can use the `collapse` clause to combine the iteration 
+By default, OpenMP parallelises only the outermost loop in a nested structure. This works fine for many cases,
+but what if the outer loop doesn’t have enough iterations to keep all threads busy, or the inner loop does most of the work?  In these situations, we can use the `collapse` clause to combine the iteration
 spaces of multiple loops into a single loop for parallel execution.
 
 For example, consider a nested loop structure:
@@ -281,8 +277,9 @@ for (int i = 0; i < N; i++) {
     }
 }
 ```
-Without the `collapse` clause, the outer loop is divided into `N` iterations, and the inner loop is executed sequentially 
-within each thread. If `N` is small or `M` contains the bulk of the work, some threads might finish their work quickly 
+
+Without the `collapse` clause, the outer loop is divided into `N` iterations, and the inner loop is executed sequentially
+within each thread. If `N` is small or `M` contains the bulk of the work, some threads might finish their work quickly
 and sit idle, waiting for others to complete. This imbalance can slow down the overall execution of the program.
 
 Adding `collapse` changes this:
@@ -295,8 +292,9 @@ for (int i = 0; i < N; i++) {
     }
 }
 ```
-The number `2` in `collapse(2)` specifies how many nested loops to combine. 
-Here, the two loops `(i and j)` are combined into a single iteration space with `N * M` iterations. 
+
+The number `2` in `collapse(2)` specifies how many nested loops to combine.
+Here, the two loops `(i and j)` are combined into a single iteration space with `N * M` iterations.
 These iterations are then distributed across the threads, ensuring a more balanced workload.
 :::
 
@@ -410,22 +408,22 @@ for (int i = 0; i < NUM_ITERATIONS; ++i) {
 
 ## How the `auto` Scheduler Works
 
-The `auto` scheduler lets the compiler or runtime system automatically decide the best way to distribute work among threads. This is really convenient because 
-you don’t have to manually pick a scheduling method—the system handles it for you. It’s especially handy if your workload distribution is uncertain or changes a 
-lot. But keep in mind that how well `auto` works can depend a lot on the compiler. Not all compilers optimize equally well, and there might be a bit of overhead 
-as the runtime figures out the best scheduling method, which could affect performance in highly optimized code. 
- 
+The `auto` scheduler lets the compiler or runtime system automatically decide the best way to distribute work among threads.
+This is really convenient because you don’t have to manually pick a scheduling method—the system handles it for you.
+It’s especially handy if your workload distribution is uncertain or changes a lot. But keep in mind that how
+well `auto` works can depend a lot on the compiler. Not all compilers optimize equally well, and there might be a bit of overhead
+as the runtime figures out the best scheduling method, which could affect performance in highly optimized code.
+
 The [OpenMP documentation](https://www.openmp.org/wp-content/uploads/OpenMP4.0.0.pdf) states that with `schedule(auto)`, the scheduling decision is left to the compiler or runtime system. So, how does the compiler make this decision? When using GCC, which is common in many environments including HPC, the `auto` scheduler often maps to `static` scheduling. This means it splits the work into equal chunks ahead of time for simplicity and performance. `static` scheduling is straightforward and has low overhead, which often leads to efficient execution for many applications.
 
-However, specialised HPC compilers, like those from Intel or IBM, might handle `auto` differently. These advanced compilers can dynamically adjust the scheduling 
+However, specialised HPC compilers, like those from Intel or IBM, might handle `auto` differently. These advanced compilers can dynamically adjust the scheduling
 method during runtime, considering things like workload variability and specific hardware characteristics to optimize performance.
 
-So, when should you use `auto`? It’s great during development for quick performance testing without having to manually adjust scheduling methods. It’s also 
-useful in environments where the workload changes a lot, letting the runtime adapt the scheduling as needed. While `auto` can make your code simpler, it’s 
-important to test different schedulers to see which one works best for your specific application. 
+So, when should you use `auto`? It’s great during development for quick performance testing without having to manually adjust scheduling methods. It’s also
+useful in environments where the workload changes a lot, letting the runtime adapt the scheduling as needed. While `auto` can make your code simpler, it’s
+important to test different schedulers to see which one works best for your specific application.
 
-
-::: 
+:::
 
 ::::challenge{id=differentschedulers, title="Try Out Different Schedulers"}
 
