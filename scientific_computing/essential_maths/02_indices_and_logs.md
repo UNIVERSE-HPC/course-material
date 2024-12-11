@@ -2,6 +2,12 @@
 name: Indices, logs and exponentials
 dependsOn: [scientific_computing.essential_maths.01_graphs]
 tags: []
+learningOutcomes:
+  - Understand the meaning of raising a number to an index
+  - Be able to rearrange algebraic expressions with indices
+  - Understand logarithms and their relationship with indices
+  - Be able to apply the laws of logarithms to algebraic expressions
+  - Understand the use of logarithmic axes in graphs
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/

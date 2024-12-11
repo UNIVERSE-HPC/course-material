@@ -6,6 +6,11 @@ dependsOn:
     scientific_computing.essential_maths.13_linear_algebra_2,
   ]
 tags: []
+learningOutcomes:
+  - Understand the concept of a linear system of differential equations
+  - Recognise the different methods to solve a linear system
+  - Be able to turn a coupled linear system into a single differential equation
+  - Be able to use matrix diagonalisation to solve a linear system in terms of its eigenvalues
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/

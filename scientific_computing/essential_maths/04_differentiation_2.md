@@ -2,6 +2,13 @@
 name: Differentiation 2
 dependsOn: [scientific_computing.essential_maths.03_differentiation_1]
 tags: []
+learningOutcomes:
+  - Be able to recognise the derivatives of standard functions
+  - Understand the associative, commutative and distributive properties of derivatives
+  - Be able to use the chain rule to differentiate a function of a function
+  - Be able to use the product rule for differentiating a product of functions
+  - Be able to use the quotient rule for differentiating the ratio of functions
+  - Be able to use SymPy to calculate derivatives in Python
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/

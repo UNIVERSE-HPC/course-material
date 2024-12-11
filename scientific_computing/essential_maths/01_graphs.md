@@ -2,6 +2,12 @@
 name: Graphs
 dependsOn: []
 tags: []
+learningOutcomes:
+  - Be able to describe the fundamental components of a graph
+  - Understand how to derive and use the equation of a straight line
+  - Understand how to interpret graphs of polynomial functions
+  - Be able to sketch the graph of a function
+  - Use graphs to understand and evaluate functions
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/
