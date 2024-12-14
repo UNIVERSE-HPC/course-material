@@ -2,6 +2,9 @@
 name: Pandas Dataframes
 dependsOn: [introductory_courses.python.06_analyzing_and_visualizing_data]
 tags: [python]
+learningOutcomes:
+  - Reading and writing data.
+  - Using Pandas library to inspect, summarize, and subset tabular data.
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries

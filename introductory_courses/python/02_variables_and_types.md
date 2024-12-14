@@ -2,6 +2,10 @@
 name: Variables and Types
 dependsOn: [introductory_courses.python.01_running_python]
 tags: [python]
+learningOutcomes:
+  - Creating and using variables.
+  - Understanding variable types.
+  - Basic operations on strings and numeric types.
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries

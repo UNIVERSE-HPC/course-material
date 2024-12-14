@@ -2,6 +2,9 @@
 name: Writing and running Python from an IDE
 dependsOn: [introductory_courses.python.02_variables_and_types]
 tags: [python]
+learningOutcomes:
+  - Creating Python scripts
+  - Using Integrated Development Environment (IDE)
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries
