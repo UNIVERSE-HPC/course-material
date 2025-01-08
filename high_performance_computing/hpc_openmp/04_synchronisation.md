@@ -140,7 +140,7 @@ copied back into `current_matrix`.  Without this barrier, threads might read out
 Here, the number of rows (`nx`) is dynamically determined at runtime using `omp_get_max_threads()`. This function provides
 the maximum number of threads OpenMP can use in a parallel region, based on the system's resources and runtime configuration.
 Using this value, we define the number of rows in the matrix, with each row corresponding to a potential thread. This setup
-ensures that both the `current_matrix` and `next_matrix provide` rows for the maximum number of threads allocated during parallel execution.
+ensures that both the `current_matrix` and `next_matrix` provide rows for the maximum number of threads allocated during parallel execution.
 
 ```c
 ......
