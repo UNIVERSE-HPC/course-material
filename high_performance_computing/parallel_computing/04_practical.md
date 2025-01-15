@@ -30,7 +30,7 @@ The complex numbers can be thought of as 2d coordinates, that is a complex numbe
 
 The pseudo code for this is:
 
-```python
+```
 for each x,y coordinate 
     x0, y0 = x, y
     x = 0
