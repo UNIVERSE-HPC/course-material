@@ -1,5 +1,5 @@
 ---
-name: Higher Order Functions
+name: Higher-Order Functions
 dependsOn: [software_architecture_and_design.functional.side_effects_cpp]
 tags: [cpp]
 attribution:
@@ -36,7 +36,7 @@ auto hello_world = []() {
 hello_world();
 ```
 
-The `auto`{.Cpp} keyword allows the compiler to determine the correct type for
+The `auto` keyword allows the compiler to determine the correct type for
 the lambda, rather than you declaring it manually (impossible for lambda
 functions). You can call or execute a lambda as you would any other function.
 
@@ -145,13 +145,13 @@ std::cout << result << std::endl; // prints 6
 
 `std::function` is an example of _type erasure_.
 
-## Higher Order Functions
+## Higher-Order Functions
 
-One of the main uses of lambda functions is to create temporary functions to
-pass into higher order functions. A higher order function is simply a function
-that has other functions as one of its arguments.
+Higher-order functions are functions that take another function as an argument
+or that return a function. One of the main uses of lambda functions is to create 
+temporary functions to pass into higher-order functions.
 
-To illustrate the benefits of higher order functions, let us define two
+To illustrate the benefits of higher-order functions, let us define two
 functions, one that calculates the sum of a `std::vector<int>`, the other
 which calculates the maximum value the same vector type.
 
@@ -173,8 +173,8 @@ int maximum(const std::vector<int>& data) {
 ```
 
 We notice that these are really exactly the same algorithm, except that we
-change the binary operation done on the rhs of the statement in the loop, we
-therefore decide to combine these functions into one higher order function.
+change the binary operation done on the RHS of the statement in the loop, we
+therefore decide to combine these functions into one higher-order function.
 
 ```cpp
 int reduce(const std::vector<int>& data, std::function<int(int, int)> bin_op) {
@@ -202,7 +202,7 @@ C++ actually has a `std::reduce`, which is part of the _algorithms_ standard lib
 ### The Algorithms Library
 
 The [algorithms library](https://en.cppreference.com/w/cpp/algorithm) is a
-collection of higher order functions implementing many common algorithms. These
+collection of higher-order functions implementing many common algorithms. These
 are typically algorithms that you write over and over again, often without
 recognising their conceptual similarities. Using the algorithms library means:
 
@@ -267,9 +267,10 @@ Notice here we are breaking out the inner algorithm of determining if an `int` i
 or not, from the outer algorithm of looping through a collection of numbers and
 filtering them according to a function (as opposed to writing them together in a
 standard loop). This division makes each algorithm clearer, and we also have a nice
-self-contained `is_prime` function we can potentially reuse.
+self-contained `is_prime` function we can potentially reuse. (Though in practice you
+might want to use a more efficient algorithm for testing primality.)
 
-Finally, the reduce, or `std::reduce`, which we will use to calculate the min and
+Finally, the reduce, or `std::reduce`, which we will use to calculate the minimum and
 maximum elements of an vector. At the same time we introduce another algorithm
 `std::generate`, which assigns values to a range based on a generator function, and some
 of the random number generation options in the standard library.
@@ -289,7 +290,7 @@ int main() {
   std::random_device rd;
   std::mt19937 gen(rd());
   std::normal_distribution<double> dist(5, 2);
-  auto gen_random = [&]() { return dist(gen);};
+  auto gen_random = [&]() { return dist(gen); };
 
   std::vector<double> data(1000);
   std::generate(data.begin(), data.end(), gen_random);
@@ -300,14 +301,14 @@ int main() {
     max = std::max(max, x);
     return std::make_tuple(min, max);
   };
-  auto [min, max] = std::accumulate(data.begin(), data.end(), std::make_tuple(0., 0.), calc_min_max);
+  auto [min, max] = std::reduce(std::next(data.begin()), data.end(), std::make_tuple(data[0], data[0]), calc_min_max);
   std::cout << "min is "<< min << " max is "<< max << std::endl;
 }
 ```
 
 ::::challenge{id=sum_squares title="Sum of Squares"}
 
-Use `std::accumulate` to write a function that calculates the sum of the squares of the values in a vector.
+Use `std::reduce` to write a function that calculates the sum of the squares of the values in a vector.
 Your function should behave as below:
 
 ```cpp
@@ -330,7 +331,7 @@ std::cout << sum_of_squares({1, 3, -2}) << std::endl;
 
 int sum_of_squares(const std::vector<int>& data) {
   auto sum_squares = [](int sum, int x) { return sum + std::pow(x, 2); };
-  return std::accumulate(data.begin(), data.end(), 0, sum_squares);
+  return std::reduce(data.begin(), data.end(), 0, sum_squares);
 }
 ```
 
