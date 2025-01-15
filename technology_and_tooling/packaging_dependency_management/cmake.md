@@ -1,33 +1,31 @@
 ---
 name: Introduction to CMake
-dependsOn: [
-  technology_and_tooling.ide.cpp
-]
+dependsOn: [technology_and_tooling.ide.cpp]
 tags: [cpp]
 ---
 
 :::callout
-This has been edited from the [introductory course in 
+This has been edited from the [introductory course in
 CMake](https://github.com/OxfordRSE/IntroCMakeCourse) from Oxford RSE.
 :::
 
 # Getting started
 
-Clone the material repository and change your current working directory to the project 
+Clone the material repository and change your current working directory to the project
 root:
 
-~~~bash
+```bash
 git clone https://github.com/OxfordRSE/IntroCMakeCourse
 cd IntroCMakeCourse
-~~~
+```
 
 # Problem Statement
 
 You want your C++ code to compile on other computers, not just your laptop.
 
- - group workstation
- - HPC compile node
- - collaborator laptops
+- group workstation
+- HPC compile node
+- collaborator laptops
 
 Everyone should end up with a program that behaves the same way, wherever they build.
 
@@ -44,7 +42,7 @@ CMake works on Linux, Windows, macOS and more.
 Checkpoint 0 is a simple "hello, world" program written in C++. Let's use CMake to build it.
 
 ```bash
-$ cd checkpoint_0
+cd checkpoint_0
 ```
 
 # `CMakeLists.txt`
@@ -110,7 +108,7 @@ Checkpoint 0
 Hello, World!
 ```
 
-# Breakout time
+## Breakout time
 
 Verify that we can all configure, compile and run the executable in Checkpoint 0.
 
@@ -125,8 +123,6 @@ build$ cmake -G Ninja ..
 build$ ninja
 [2/2] Linking CXX executable main_executable
 ```
-
-# Choosing a generator
 
 You can build uniformly, regardless of the generator:
 
@@ -153,8 +149,6 @@ CMAKE_CXX_COMPILER= /usr/local/bin/g++-10
 [...]
 ```
 
-# Setting configuration
-
 You can switch between Debug, Release, RelWithDebInfo and MinSizeRel, by default:
 
 ```bash
@@ -171,12 +165,11 @@ CMAKE_CXX_FLAGS_RELEASE          -O3 -DNDEBUG
 CMAKE_CXX_FLAGS_RELWITHDEBINFO   -O2 -g -DNDEBUG
 ```
 
-# Breakout time
+## Breakout time
 
 Try using the Ninja generator, compiling in Release mode, and using another compiler if you have one installed.
 
 Remember that you might have to clean your build directory when, e.g., changing generator.
-
 
 # Adding subdirectories
 
@@ -238,7 +231,7 @@ Our project has grown! In addition to the code in `main.cpp`, some new functiona
 
 This code is now contained in a specific directory `src/`, inside the project directory.
 
-# Breakout time
+## Breakout time
 
 Look through the files in Checkpoint 1.
 
@@ -248,11 +241,10 @@ Add a new pair of hpp/cpp files that defines a new function.
 - Add the files to `src/CMakeLists.txt`
 - Configure, compile and run: check that your new function has been executed
 
-
 # Target properties
 
 CMake allows for a very fine-grained control of target builds, through
-*properties*.
+_properties_.
 
 For example, the property `INCLUDE_DIRECTORIES`{.cmake} specifies the list of
 directories to be specified with the compiler switch `-I`{.cmake} (or `/I`{.cmake}).
@@ -267,8 +259,7 @@ target_include_directories(main_executable
 )
 ```
 
-*Properties are different from variables!*
-
+_Properties are different from variables!_
 
 # Creating a library
 
@@ -295,9 +286,9 @@ implementation. Programs using `another_target`{.cmake} don't need to know about
 
 Picture another dependency scenario:
 
--   `another_target`{.cmake} uses `my_lib`{.cmake} in its internal implementation.
--   **and** `another_target`{.cmake} defines some function that take parameters of a type defined
-    in `my_lib`{.cmake}.
+- `another_target`{.cmake} uses `my_lib`{.cmake} in its internal implementation.
+- **and** `another_target`{.cmake} defines some function that take parameters of a type defined
+  in `my_lib`{.cmake}.
 
 Programs using `another_target`{.cmake} also must link against `my_lib`{.cmake}:
 
@@ -321,24 +312,28 @@ target_link_libraries(another_target INTERFACE my_lib)
 Target properties are paired with another property
 `INTERFACE_<PROPERTY>`{.cmake}. For instance
 
-    INTERFACE_INCLUDE_DIRECTORIES
+```cmake
+INTERFACE_INCLUDE_DIRECTORIES
+```
 
 These properties are inherited by depending targets (such as
 executables and other libraries).
 
 Example:
 
-    target_include_directories(my_lib INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+```cmake
+target_include_directories(my_lib INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+```
 
--   `PRIVATE`{.cmake}: sets `INCLUDE_DIRECTORIES`{.cmake}.
--   `INTERFACE`{.cmake}: sets `INTERFACE_INCLUDE_DIRECTORIES`{.cmake}.
--   `PUBLIC`{.cmake}: sets both.
+- `PRIVATE`{.cmake}: sets `INCLUDE_DIRECTORIES`{.cmake}.
+- `INTERFACE`{.cmake}: sets `INTERFACE_INCLUDE_DIRECTORIES`{.cmake}.
+- `PUBLIC`{.cmake}: sets both.
 
-# Breakout time
+## Breakout time
 
 Let's separate the functionality from the executable itself:
 
-```bash
+```text
 CMakeLists.txt
 src/
     <library>
@@ -360,7 +355,8 @@ Tasks:
 set(name "Jane Doe")
 message(STATUS "Hello ${name}")
 ```
-```
+
+```text
 -- The C compiler identification is GNU 8.3.0
 ...
 -- Hello Jane Doe
@@ -374,19 +370,19 @@ message(STATUS "Hello ${name}")
 message(STATUS "A simple message")
 ```
 
-`STATUS`{.cmake} can be replaced by *e.g.* `WARNING`{.cmake}, `SEND_ERROR`{.cmake}, `FATAL_ERROR`{.cmake}
+`STATUS`{.cmake} can be replaced by _e.g._ `WARNING`{.cmake}, `SEND_ERROR`{.cmake}, `FATAL_ERROR`{.cmake}
 depending on the situation.
 
 ```cmake
 message(SEND_ERROR "An error occurred but configure step continues")
 ```
-```
+
+```text
 CMake Error at CMakeLists.txt:2 (message):
     An error occurred but configure step continues
 
 -- Configuring incomplete, errors occurred!
 ```
-
 
 # Finding dependencies
 
@@ -416,14 +412,14 @@ the library is installed).
 
 This is usually given by the library vendor.
 
-# Breakout time
+## Breakout time
 
 Look at Checkpoint 3. A new file `src/functionality_eigen.cpp` depends on the [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) library for linear algebra.
 
 Task: Using `find_package`{.cmake}, modify the `CMakeLists.txt` in directory `src/` to
 link target `cmake_course_lib`{.cmake} against Eigen.
 
-*Hint: Useful instructions can be found at [Using Eigen in CMake Projects](http://eigen.tuxfamily.org/dox/TopicCMakeGuide.html).*
+_Hint: Useful instructions can be found at [Using Eigen in CMake Projects](http://eigen.tuxfamily.org/dox/TopicCMakeGuide.html)._
 
 Note that keyword `NO_MODULE`{.cmake} is equivalent to `CONFIG`{.cmake}.
 
@@ -439,7 +435,7 @@ This behaviour corresponds to using `find_package`{.cmake} with the keyword `MOD
 find_package(library_name MODULE REQUIRED)
 ```
 
-Such *module files* are typically provided by CMake itself.
+Such _module files_ are typically provided by CMake itself.
 
 They can also be written for a particular use case if required.
 
@@ -457,16 +453,14 @@ find_package(Boost MODULE REQUIRED COMPONENTS ${boost_components})
 ```
 
 The CMake target for a component is `<PackageName>::<ComponentName>`{.cmake}
-(*e.g.* `Boost::filesystem`{.cmake}).
+(_e.g._ `Boost::filesystem`{.cmake}).
 
-
-# Breakout time
+## Breakout time
 
 Look at Checkpoint 4. The executable `exe/main.cpp` depends on the [Boost Program Options](https://www.boost.org/doc/libs/1_74_0/doc/html/program_options.html) library for handling command line arguments.
 
 Task: Using `find_package`{.cmake} in `MODULE`{.cmake} mode, modify the `CMakeLists.txt` in directory `exe/` to
 find and link target `main_executable`{.cmake} against `Boost::program_options`{.cmake}.
-
 
 # Adding CMake functionality using `include`
 
@@ -487,9 +481,7 @@ set(name "Jane Doe")
 message(STATUS "Hello ${name}")
 ```
 
-# Adding CMake functionality using `include`
-
-```
+```text
 -- Hello Jane Doe
 -- Hello Foo Bar
 -- Configuring done
@@ -532,8 +524,7 @@ Functions cannot return a value.
 
 Functions introduce a new scope.
 
-A similar notion is CMake *macros*, which does **not** introduce a new scope.
-
+A similar notion is CMake _macros_, which does **not** introduce a new scope.
 
 # Setting options with `option()`
 
@@ -555,7 +546,7 @@ between CMake runs.
 
 # Built-in CMake variables
 
-CMake provides *a lot* of pre-defined variables which values describe the system.
+CMake provides _a lot_ of pre-defined variables which values describe the system.
 
 For instance, the value of `CMAKE_CXX_COMPILER_ID`{.cmake} can be queried
 to determine which C++ compiler is used.
@@ -577,7 +568,7 @@ A useful technique for adding options to targets, for instance adding compiler f
 
 Let's see how that works, in Checkpoint 5...
 
-# Breakout time
+## Breakout time
 
 Look at Checkpoint 5. The compiler should now warn us about bad C++. This is encouraged!
 
@@ -592,10 +583,10 @@ Do you get a compiler warning? An error? Try configuring `WARNINGS_AS_ERRORS`{.c
 ```bash
 cmake -DWARNINGS_AS_ERRORS=ON ..
 ```
+
 ```bash
 cmake -DWARNINGS_AS_ERRORS=OFF ..
 ```
-
 
 # That's all, folks
 

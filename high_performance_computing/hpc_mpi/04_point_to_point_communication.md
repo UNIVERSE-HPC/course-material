@@ -17,7 +17,7 @@ learningOutcomes:
 ---
 
 In the previous episode we introduced the various types of communication in MPI.
-In this section we will use the MPI library functions `MPI_Send` and `MPI_Recv`, which employ point-to-point communication, to send data from one rank to another. 
+In this section we will use the MPI library functions `MPI_Send` and `MPI_Recv`, which employ point-to-point communication, to send data from one rank to another.
 
 ![Sending data from one rank to another using MPI_SSend and MPI_Recv](fig/send-recv.png)
 
@@ -26,10 +26,10 @@ Let's look at how `MPI_Send` and `MPI_Recv`are typically used:
 - Rank A decides to send data to rank B. It first packs the data to send into a buffer, from which it will be taken.
 - Rank A then calls `MPI_Send` to create a message for rank B.
   The underlying MPI communication is then given the responsibility of routing the message to the correct destination.
-- Rank B must know that it is about to receive a message and acknowledge this by calling `MPI_Recv`. 
+- Rank B must know that it is about to receive a message and acknowledge this by calling `MPI_Recv`.
   This sets up a buffer for writing the incoming data when it arrives and instructs the communication device to listen for the message.
 
-As mentioned in the previous episode, `MPI_Send` and `MPI_Recv` are *synchronous* operations, 
+As mentioned in the previous episode, `MPI_Send` and `MPI_Recv` are *synchronous* operations,
 and will not return until the communication on both sides is complete.
 
 ## Sending a Message: MPI_Send
@@ -68,20 +68,21 @@ So we are sending 14 elements of `MPI_CHAR` one time, and specified `0` for our 
 This call is synchronous, and will block until the corresponding `MPI_Recv` operation receives and acknowledges receipt of the message.
 
 ::::callout
+
 ## MPI_Ssend: an Alternative to MPI_Send
+
 `MPI_Send` represents the "standard mode" of sending messages to other ranks, but some aspects of its behaviour are dependent on both the implementation of MPI being used, and the circumstances of its use. There are three scenarios to consider:
 
 1. The message is directly passed to the receive buffer, in which case the communication has completed
 2. The send message is buffered within some internal MPI buffer but hasn't yet been received
 3. The function call waits for a corresponding receiving process
- 
-In scenarios 1 & 2, the call is able to return immediately, but with 3 it may block until the recipient is ready to receive. 
+
+In scenarios 1 & 2, the call is able to return immediately, but with 3 it may block until the recipient is ready to receive.
 It is dependent on the MPI implementation as to what scenario is selected, based on performance, memory, and other considerations.
- 
+
 A very similar alternative to `MPI_Send` is to use `MPI_Ssend` - synchronous send - which ensures the communication is both synchronous and blocking.
 This function guarantees that when it returns, the destination has categorically started receiving the message.
 ::::
-
 
 ## Receiving a Message: MPI_Recv
 
@@ -164,16 +165,19 @@ int main(int argc, char** argv) {
 Compile and run the above code. Does it behave as you expect?
 
 ::::solution
+
 ```bash
 mpicc mpi_hello_world.c -o mpi_hello_world
 mpirun -n 2 mpi_hello_world
 ```
+
 Note above that we specified only 2 ranks, since that's what the program requires (see line 12).
 You should see:
 
-```
+```text
 Hello, world!
 ```
+
 ::::
 :::::
 
@@ -181,14 +185,16 @@ Hello, world!
 Try modifying, compiling, and re-running the code to see what happens if you...
 
 1. Change the tag integer of the sent message. How could you resolve this where the message is received?
-2. Modify the element count of the received message to be smaller than that of the sent message. 
+2. Modify the element count of the received message to be smaller than that of the sent message.
   How could you resolve this in how the message is sent?
- 
+
 ::::solution
-1. The program will hang since it's waiting for a message with a tag that will never be sent (press `Ctrl-C` to kill the hanging process). 
+
+1. The program will hang since it's waiting for a message with a tag that will never be sent (press `Ctrl-C` to kill the hanging process).
   To resolve this, make the tag in `MPI_Recv` match the tag you specified in `MPI_Send`.
 2. You will likely see a message like the following:
-  ```
+
+  ```text
   [...:220695] *** An error occurred in MPI_Recv
   [...:220695] *** reported by process [2456485889,1]
   [...:220695] *** on communicator MPI_COMM_WORLD
@@ -196,6 +202,7 @@ Try modifying, compiling, and re-running the code to see what happens if you...
   [...:220695] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
   [...:220695] ***    and potentially your MPI job)
   ```
+
 You could resolve this by sending a message of equal size, truncating the message. A related question is whether this fix makes any sense!
 ::::
 :::::
@@ -205,6 +212,7 @@ Change the above example so that it works with any number of ranks.
 Pair even ranks with odd ranks and have each even rank send a message to the corresponding odd rank.
 
 ::::solution
+
 ```c
 #include <stdio.h>
 #include <mpi.h>
@@ -248,13 +256,14 @@ int main(int argc, char** argv) {
   return MPI_Finalize();
 }
 ```
+
 ::::
 :::::
 
 :::::challenge{id=hello-again, title="Hello Again, World!"}
 Modify the Hello World code below so that each rank sends its message to rank 0.
 Have rank 0 print each message.
- 
+
 ```c
 #include <stdio.h>
 #include <mpi.h>
@@ -274,7 +283,9 @@ int main(int argc, char** argv) {
   return MPI_Finalize();
 }
 ```
+
 ::::solution
+
 ```c
 #include <stdio.h>
 #include <mpi.h>
@@ -311,14 +322,14 @@ int main(int argc, char** argv) {
   return MPI_Finalize();
 }
 ```
+
 ::::
 :::::
 
-
 :::::challenge{id=blocking, title="Blocking"}
-Try the code below and see what happens. How would you change the code to fix the problem? 
+Try the code below and see what happens. How would you change the code to fix the problem?
 
-_Note: If you are using the MPICH library, this example might automagically work. With OpenMPI it shouldn't!)_
+*Note: If you are using the MPICH library, this example might automagically work. With OpenMPI it shouldn't!)*
 
 ```c
 #include <stdio.h>
@@ -435,20 +446,22 @@ int main(int argc, char** argv) {
   return MPI_Finalize();
 }
 ```
+
 ::::
 :::::
 
 :::::challenge{id=ping-pong, title="Ping Pong"}
 Write a simplified simulation of Ping Pong according to the following rules:
- 
-* Ranks 0 and 1 participate
-* Rank 0 starts with the ball
-* The rank with the ball sends it to the other rank
-* Both ranks count the number of times they get the ball
-* After counting to 1 million, the rank is bored and gives up
-* There are no misses or points
+
+- Ranks 0 and 1 participate
+- Rank 0 starts with the ball
+- The rank with the ball sends it to the other rank
+- Both ranks count the number of times they get the ball
+- After counting to 1 million, the rank is bored and gives up
+- There are no misses or points
 
 ::::solution
+
 ```c
 #include <stdio.h>
 #include <mpi.h>
@@ -502,5 +515,6 @@ int main(int argc, char** argv) {
   return MPI_Finalize();
 }
 ```
+
 ::::
 :::::

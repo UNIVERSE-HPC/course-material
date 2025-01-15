@@ -8,12 +8,13 @@ title: Introduction to Version Control
 
 - A tool that tracks changes to files
 - Records the changes you made, and the order in which you made them
-- Like the history of a page on Wikipedia 
+- Like the history of a page on Wikipedia
 - Or - like turning on ‘Track Changes’ in Word, but for code.
 
 ![](images/track_changes.svg)
 
 :::{.notes}
+
 - Version control is a tool that tracks changes to files.
 - Version control records the changes you made, and the order in which you made them.
 - It’s like the history of a page on wikipedia or like turning on “Track Changes” in Word or Google Docs, but for code.
@@ -35,6 +36,7 @@ title: Introduction to Version Control
 :::
 
 :::{.notes}
+
 - You may have experienced the common problem of having multiple nearly-identical versions of the same file with no meaningful explanation of what the differences are, just incremental changes in filename (thesis.doc, thesis_final.doc, thesis_final2.doc…).
 - If we’re just dealing with text documents, some word processors let us deal with this a little better, like Microsoft Word’s “Track Changes” or Google Docs’ version history.
 - However, research isn’t just Word docs, it’s code and data and diagrams too, and a single paper or project can involve a whole constellation of files, all of which need backing up!
@@ -50,6 +52,7 @@ title: Introduction to Version Control
 - Easy to share full copy of any version
 
 :::{.notes}
+
 - When you use version control, at any point in the future, you can retrieve the correct versions of your documents, scripts or code. So, for example, a year after publication, you can get hold of the precise combination of scripts and data that you used to assemble a paper.
 - Version control makes reproducibility simpler. Without using version control it’s very hard to say that your research is truly reproducible…
 :::
@@ -70,6 +73,7 @@ title: Introduction to Version Control
 :::
 
 :::{.notes}
+
 - As well as maintaining a revison history, VC tools also help multiple authors collaborate on the same file or set of files.
 - Professional software developers use VC to work in large teams and to keep track of what they’ve done.
 - If you know what changes have been made to each file, you can easily combine multiple people’s changes to a single file.
@@ -85,6 +89,7 @@ title: Introduction to Version Control
 ![](images/track_changes.svg)
 
 :::{.notes}
+
 - Version control systems start by storing the base version of the file that you save and then store just the changes you made at each step on the way.
 - You can think of it like storing Lego bricks and the instructions for putting them together - if you start with the first piece, then add each other in turn, you end up with your final document.
 :::
@@ -93,7 +98,8 @@ title: Introduction to Version Control
 
 :::{.columns}
 ::::{.column width="50%"}
-- Changes are separate from the document itself 
+
+- Changes are separate from the document itself
 - Two users can make independent sets of changes
 - Creates two different versions of the document
 ::::
@@ -104,6 +110,7 @@ title: Introduction to Version Control
 :::
 
 :::{.notes}
+
 - Once you think of changes as separate from the document itself, you can then think about taking the same document and adding different changes to it, getting different versions of the document.
 - For example, two users can make independent sets of changes based on the same document.
 :::
@@ -116,12 +123,14 @@ title: Introduction to Version Control
 ::::
 
 ::::{.column width="50%"}
+
 - If no conflicts - merge changes
 - Two different sets of changes can be merged together onto the same base document
 ::::
 :::
 
 :::{.notes}
+
 - If there aren’t conflicts, you can even try to combine two different sets of changes together onto the same base document, a process called merging.
 :::
 
@@ -133,6 +142,7 @@ title: Introduction to Version Control
 - Subversion
 
 :::{.notes}
+
 - Git is overwhelmingly the most popular version control system in academia, and beyond.
 - It’s a distributed version control system, where every developer in a team has their own full copy of a repository, and can synchronise between them.
 - It’s partly become such a success thanks to sites like GitHub and GitLab, which make it easy to collaborate on a Git repository, and provide all kinds of extra tools to manage software projects.
@@ -142,6 +152,7 @@ title: Introduction to Version Control
 
 :::{.columns}
 ::::{.column width="50%"}
+
 - Command-line `git`
 - Standalone graphical user interface
   - GitHub Desktop
@@ -159,6 +170,7 @@ title: Introduction to Version Control
 :::
 
 :::{.notes}
+
 - We’re going to teach you how to use Git on the command line, as it’s the same on every single platform (Mac, Linux & Windows) - and it’s the only way to use it on high-performance clusters like Iridis.
 - However, if you’re not working on a high-performance system you could use a graphical user interface rather than the command line.
 - There are many different graphical user interfaces for Git, like GitHub desktop, git kraken and sourcetree.

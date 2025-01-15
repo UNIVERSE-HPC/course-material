@@ -1,21 +1,18 @@
 ---
 name: Inheritance and Composition
-dependsOn: [
-    software_architecture_and_design.object_orientated.classes_cpp,
-]
+dependsOn: [software_architecture_and_design.object_orientated.classes_cpp]
 tags: [cpp]
-attribution: 
-    - citation: >
-        This material was adapted from an "Introduction to C++" course developed by the
-        Oxford RSE group.
-      url: https://www.rse.ox.ac.uk
-      image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
+attribution:
+  - citation: >
+      This material was adapted from an "Introduction to C++" course developed by the
+      Oxford RSE group.
+    url: https://www.rse.ox.ac.uk
+    image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Prerequisites
@@ -23,11 +20,11 @@ attribution:
 The code blocks in this lesson will assume that some boilerplate C++ code is present.
 In particular, we will assume that the following headers are included:
 
-~~~ cpp
+```cpp
 #include <iostream>
 #include <string>
 #include <vector>
-~~~
+```
 
 We will also assume that you are using the C++17 language standard, or later.
 This will be the default with most modern compilers.
@@ -52,10 +49,9 @@ That time, we used a function which converted temperatures in Celsius to Kelvin 
 
 In the same way, in object oriented programming, we can make things components of other things.
 
-We often use composition where we can say 'x *has a* y' - for example in our game, we might want to say that a character *has* an inventory, and that an inventory *has* items.
+We often use composition where we can say 'x _has a_ y' - for example in our game, we might want to say that a character _has_ an inventory, and that an inventory _has_ items.
 
-In the case of our example, we're already saying that a character *has a* position, so we're already using composition here.
-
+In the case of our example, we're already saying that a character _has a_ position, so we're already using composition here.
 
 :::::challenge{id=inventory title="Write an inventory"}
 
@@ -68,7 +64,7 @@ Modify your `Character` class to contain an `Inventory` data member.
 
 Here is an example of what that might look like:
 
-~~~ cpp
+```cpp
 class Inventory {
 private:
     std::vector<Item> items;
@@ -114,36 +110,35 @@ public:
         return inventory.getItem(index);
     }
 };
-~~~
+```
+
 ::::
 :::::
 
 We now have several examples of composition:
 
-- Character *has a* position
-- Item *has a* position
-- Characher *has an* inventory
-- Inventory *has many* items
+- Character _has a_ position
+- Item _has a_ position
+- Characher _has an_ inventory
+- Inventory _has many_ items
 
 You can see how we can build quickly build up complex behaviours.
-Now have a think: would it be simple to build this behavour without classes?
+Now have a think: would it be simple to build this behaviour without classes?
 It would probably be very messy.
-
 
 ### Inheritance
 
 The other type of relationship used in object oriented programming is **inheritance**.
-Inheritance is about data and behaviour shared by classes, because they have some shared identity - 'x *is a* y'.
+Inheritance is about data and behaviour shared by classes, because they have some shared identity - 'x _is a_ y'.
 
 For instance, we might have two types of character: warriors and mages.
 We can create two classes: `Warrior` and `Mage`.
 But, fundamentally, they are both characters and have common code such as an inventory and a position.
 We should not duplicate this code.
 
-We achieve this through *inheritance*.
-If class `Warrior` inherits from (*is a*)  `Character`, we say that `Character` is the **base class**, **parent class**, or **superclass** of `Warrior`.
+We achieve this through _inheritance_.
+If class `Warrior` inherits from (_is a_) `Character`, we say that `Character` is the **base class**, **parent class**, or **superclass** of `Warrior`.
 We say that `Warrior` is a **derived class**, **child class**, or **subclass** of `Character`.
-
 
 The base class provides a set of attributes and behaviors that the derived class can inherit.
 The derived class can then add or override these attributes and behaviors as needed.
@@ -151,7 +146,7 @@ This terminology is common across many object-oriented programming languages.
 
 A Warrior class may look something like this:
 
-~~~ cpp
+```cpp
 class Warrior : public Character {
 private:
     int strength;
@@ -168,7 +163,7 @@ public:
         return strength;
     }
 };
-~~~
+```
 
 Let's examine the syntax:
 
@@ -180,12 +175,10 @@ Let's examine the syntax:
 
 4. **Methods**: `void physicalAttack()` is a public method unique to `Warrior`. This could be an example of method overriding, if there was a `physicalAttack()` method in the `Character` class that we wanted to behave differently for `Warrior`. `int getStrength() const` is a getter method for `strength`.
 
-
 Note: in this example, `Character(name, health, position, inventoryCapacity)` is the call to the base class constructor, which will be executed before the body of the `Warrior` constructor.
 After the base class constructor has been called, the `Warrior` constructor will continue with its own initialisation, setting the value of `strength` in this case.
 This sequence ensures that the base class portion of the `Warrior` object is properly constructed before the `Warrior` constructor attempts to use it or modify it.
 This is a fundamental feature of how constructors and inheritance work together in C++.
-
 
 :::::challenge{id=mage title="Write a Mage class"}
 
@@ -195,7 +188,7 @@ Write a class called `Mage` that inherits from `Character`, and give it some uni
 
 Here is an example of what that might look like:
 
-~~~ cpp
+```cpp
 class Mage : public Character {
 private:
     int manaPoints;
@@ -212,15 +205,15 @@ public:
         return manaPoints;
     }
 };
-~~~
+```
+
 ::::
 :::::
-
 
 ## Composition vs Inheritance
 
 When deciding how to implement a model of a particular system, you often have a choice of either composition or inheritance, where there is no obviously correct choice.
-For example, it's not obvious whether a photocopier *is a* printer and *is a* scanner, or *has a* printer and *has a* scanner.
+For example, it's not obvious whether a photocopier _is a_ printer and _is a_ scanner, or _has a_ printer and _has a_ scanner.
 
 Both of these would be perfectly valid models and would work for most purposes.
 However, unless there's something about how you need to use the model which would benefit from using a model based on inheritance, it's usually recommended to opt for **composition over inheritance**.
@@ -230,7 +223,6 @@ This is a common design principle in the object oriented paradigm and is worth r
 Composition, on the other hand, tends to offer greater flexibility.
 It allows you to change behavior on the fly by changing the component at runtime and leads to a more decoupled system, which is easier to maintain and evolve.
 The downside can be that it might result in a little more boilerplate code as you delegate methods to the component classes.
-
 
 :::::challenge{id=swords-and-shields title="Swords and Shields"}
 
@@ -243,7 +235,7 @@ Update your code to reflect this, and identify the inheritance and composition n
 
 Here is an example of what that might look like:
 
-~~~ cpp
+```cpp
 class Sword : public Item {
 private:
     int damage;
@@ -312,11 +304,11 @@ public:
         return equippedSword;
     }
 };
-~~~
+```
 
 Then we can use that functionality like this:
 
-~~~ cpp
+```cpp
 Sword sword("Excalibur", 10);
 Shield shield("Aegis", 5);
 
@@ -345,21 +337,21 @@ if (mage.getEquippedSword()) {
 }
 
 return 0;
-~~~
+```
 
 ::::
 :::::
 
-## Key Points:
-- Relationships between concepts can be described using inheritance (*is a*) and composition (*has a*).
+## Key Points
 
+- Relationships between concepts can be described using inheritance (_is a_) and composition (_has a_).
 
 ## Full code sample for lession
 
-Here is working code for this lession that defines the classes and then gives an example of how to use them.
+Here is working code for this lesson that defines the classes and then gives an example of how to use them.
 You can also see this code in action, and play with it and run it, on [Compiler Explorer](https://gcc.godbolt.org/z/K51dPz1os):
 
-~~~ cpp
+```cpp
 #include <iostream>
 #include <vector>
 #include <string>
@@ -538,4 +530,4 @@ int main() {
 
     return 0;
 }
-~~~
+```

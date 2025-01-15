@@ -1,22 +1,19 @@
 ---
 name: Differential equations 1
-dependsOn: [
-  scientific_computing.essential_maths.07_integration_2
-]
+dependsOn: [scientific_computing.essential_maths.07_integration_2]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
+    url: https://www.dtc.ox.ac.uk/
+    image: fig/dtc_hex.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
---- 
+---
 
 ## YouTube lecture recording from October 2020
 
@@ -47,11 +44,9 @@ Since all the terms in $y$ (just the derivative in this case) on the left, and a
 
 > $$\displaystyle {\rm d}y = (x^3 + 5x^2 + 1) ~{\rm d}x$$
 
-
 Then we integrate both sides
 
 > $$\displaystyle \int {\rm d}y = \int (x^3 + 5x^2 + 1) ~{\rm d}x$$
-
 
 The general solution to this equation is
 
@@ -73,13 +68,10 @@ This approach can be generalised into what is known as the **Separation of Varia
 The equation is already separated, with all terms in $y$ (just the derivative in
 this case) on the left, and terms involving $x$ on the right.
 
-
 We then integrate both sides with respect to $x$:
 
 > $$\displaystyle  \int \frac{{\rm d}y}{{\rm d}x}\,{\rm d}x = \int (2x + c)\, {\rm d}x $$
-
 > $$\displaystyle y + k_1 = x^2 + cx + k_2$$
-
 > $$\displaystyle y = x^2 + cx + A\qquad{\rm with}\qquad A=k_2-k_1$$
 
 #### Initial conditions
@@ -94,13 +86,13 @@ We have that
 
 so:
 
-> $$\displaystyle c = 1^2 + c\cdot 1 + A$$
-
-> $$\displaystyle A = -1$$
+> $$\displaystyle c = 1^2 + c\cdot 1 + A$$ > $$\displaystyle A = -1$$
 
 Is this right? Here's an example of how we can use SciPy's `odeint` method to numerically solve differential equations:
 
 ```python
+import scipy
+import numpy as np
 c = 1.0
 A = -1.0
 x0 = 1.0
@@ -115,14 +107,11 @@ y_numerical = scipy.integrate.odeint(dydx, c, x)
 
 ![Plot of the numerical vs exact solution](fig/09_01_solution.svg)
 
-
 ### Separation of variables: example 2
 
 > $$\displaystyle {{\rm d}y\over {\rm d}x} = 5 x^{{3\over 2}} y $$
 
 Separate the variables so that all the terms in $x$ are on one side of the equation and all the terms in $y$ are on the other side:
-
-> $$\displaystyle {1\over y}\frac{{\rm d}y}{{\rm d}x} = 5 x^{{3\over 2}} $$
 
 > $$\displaystyle {1\over y}\frac{{\rm d}y}{{\rm d}x} = 5 x^{{3\over 2}} $$
 
@@ -163,11 +152,9 @@ y &= \pm\sqrt{-2 e^{-x} (1+x) + c_3}
 \end{align*}
 $$
 
-
 Let's check this answer: $\displaystyle y = \pm\sqrt{-2 e^{-x} (1+x) + c_3}$.
 
 Substitute in initial conditions $y(0) = 0$ gives $c_3 = 2$
-
 
 ```python
 c3 = 2.0
@@ -184,8 +171,6 @@ y_numerical = scipy.integrate.odeint(dydx, 1e-8, x) # why 1e-8 instead of zero?
 ```
 
 ![Plot of the numerical vs exact solution](fig/09_02_solution.svg)
-
-
 
 ### Real-world example 1: biochemistry
 
@@ -229,11 +214,7 @@ When $s\ll K$, $\;s\;$ in the differential equation's denominator can be neglect
 
 The rate of change in concentration depends on the concentration, so this is a **first order process**.
 
-> $$\displaystyle \int {1\over s}\,{\rm d}s = -\int {V\over K}\,{\rm d}t$$
-
-> $$\displaystyle \Rightarrow\quad\ln s = -{V\over K}t + D\qquad{\rm D~is~a~constant}$$
-
-> $$\displaystyle \Rightarrow\quad s = Be^{-V t\over K}\qquad{\rm B~is~a~constant}$$
+> $$\displaystyle \int {1\over s}\,{\rm d}s = -\int {V\over K}\,{\rm d}t$$ > $$\displaystyle \Rightarrow\quad\ln s = -{V\over K}t + D\qquad{\rm D~is~a~constant}$$ > $$\displaystyle \Rightarrow\quad s = Be^{-V t\over K}\qquad{\rm B~is~a~constant}$$
 
 On a graph $\;s\;$ crosses the vertical axis at $\;s=B\;$ and decreases with time exponentially.
 
@@ -251,7 +232,6 @@ K=1.0:
 
 ![s with K equal to 1.0](fig/09_04_k10.svg)
 
-
 ### Real-world example 2: bacterial growth
 
 Suppose the growth rate of a bacterial colony is proportional to its size,
@@ -259,7 +239,6 @@ and that we observe that the colony triples in size after 10 hours.
 How long will it take to reach 11 times its original size?
 
 Let $\;N\;$ represent the number of bacteria, and suppose there are $\;N_0\;$ at time $\;t=0$.
-
 
 We are given that when $\;t=10\;$ hours, $\;N=3N_0$, and need to find the time at which $\;N=11N_0\;$.
 The equation of growth is:
@@ -278,14 +257,13 @@ To find $t$ when $N=11N_0$:
 
 > $$\displaystyle \ln{11N_0\over N_0} = 0.11 t \qquad\Rightarrow\qquad t={\ln 11\over 0.11}=21.8{\rm~hours.}$$
 
-
 ### Real-world example 3: radioactive decay
 
 The rate at which a sample decays is proportional to the amount left, i.e.
 
 > $$\displaystyle \frac{{\rm d}N}{{\rm d}t} = -\lambda N$$
 
-where $\;N\;$ is the mass of radioactive atoms at time $\;t\;$ and $\;\lambda\;$ is called the *decay constant*.
+where $\;N\;$ is the mass of radioactive atoms at time $\;t\;$ and $\;\lambda\;$ is called the _decay constant_.
 
 The element radium (atomic mass=226) has a decay constant of $\;13.6 \times 10^{-12}\;$s$^{-1}$.
 
@@ -305,14 +283,11 @@ The **half-life**, $\;t_{1\over 2},\;$ is the time taken for $\;N\;$ to reduce b
 
 Putting $\;N=N_0/2\;$ and $\;t=t_0+t_{1\over 2}\;$ in (2) we get
 
-> $$\displaystyle \ln {N_0\over2N_0} = -\lambda t_{1\over 2}$$
-
-> $$\displaystyle t_{1\over 2} = {\ln 2\over\lambda} \approx {0.693\over\lambda}$$
+> $$\displaystyle \ln {N_0\over2N_0} = -\lambda t_{1\over 2}$$ > $$\displaystyle t_{1\over 2} = {\ln 2\over\lambda} \approx {0.693\over\lambda}$$
 
 Note that this time is **independent** of the initial value $N_0$,
 
 The half-life for radium is thus $\;t_{1\over 2}={\ln2\over13.6\times10^{-12}}=5.10\times10^{10}\,s,\;$ or about 1600 years.
-
 
 ### Real-world example 4: more biochemistry
 
@@ -329,45 +304,34 @@ components. This rate law is thus second-order overall.
 
 Note that this is **different** from the order of an ODE, which is given by the
 highest derivative.
-Both zeroth and first order *processes* are modelled below by *first order
-differential equations*.
+Both zeroth and first order _processes_ are modelled below by _first order
+differential equations_.
 
-#### (A) Zeroth order processes:
+#### (A) Zeroth order processes
 
 - rate of change is **independent** of concentration, i.e. the rate of change is proportional to concentration raised to power zero
 
-> $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = k \quad \text{(growth)}$$
-
-> $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = -k\quad \text{(decay)}$$
+> $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = k \quad \text{(growth)}$$ > $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = -k\quad \text{(decay)}$$
 
 General solutions:
 
-> $$\displaystyle A = A_0 + k(t-t_0)$$
+> $$\displaystyle A = A_0 + k(t-t_0)$$ > $$\displaystyle A = A_0 - k(t-t_0)$$
 
-> $$\displaystyle A = A_0 - k(t-t_0)$$
-
-#### (B) First order processes:
+#### (B) First order processes
 
 The rate of change depends on the concentration of one species, i.e. the rate of change is proportional to concentration raised to first power.
 
 Half-life is a constant, i.e. it is independent of the amount there at the beginning.
 
-> $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = kA\quad\text{growth}$$
-
-> $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = -kA\quad\text{decay}$$
+> $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = kA\quad\text{growth}$$ > $$\displaystyle \frac{{\rm d}A}{{\rm d}t} = -kA\quad\text{decay}$$
 
 General solutions:
 
-> $$\displaystyle A = A_0 e^{k(t-t_0)}$$
-
-> $$\displaystyle A = A_0 e^{-k(t-t_0)}$$
+> $$\displaystyle A = A_0 e^{k(t-t_0)}$$ > $$\displaystyle A = A_0 e^{-k(t-t_0)}$$
 
 When $k=2.0$ the two different solutions look like this:
 
 ![s with K equal to 1.0](fig/09_05_k2.svg)
-
-
-
 
 ### Introductory problems
 
@@ -414,8 +378,8 @@ y = odeint(dydx, y0, x)
 # plot the numerical solution and your hand-calculated
 # solution, and check that they agree
 ```
-::::
 
+::::
 
 ### Main problems
 
@@ -427,8 +391,8 @@ When first observed, the culture contained $\displaystyle n_0$ bacteria, and two
 1. How long did it take for the number of bacteria to triple?
 1. Sketch a curve of the solution to the equation that you derive.
 1. What assumptions are implicit in this model of bacterial growth?
-::::
 
+::::
 
 ::::challenge{id="09_main_02" title="Main problems 2"}
 Solve:
@@ -436,6 +400,7 @@ Solve:
 1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} y^2\dd{y}{x} = \frac{2}{3}x \quad{\rm with}\quad y(\sqrt{2})=1$
 1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{y}{x} = \frac{\beta}{x} \quad{\rm with}\quad y(1) = 0$. Find $\beta$ such that $\displaystyle y(e^3)=1.$
 1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{y}{x} = a + bx + cx^2 + dx^3 + ex^4 \quad{\rm with}\quad y(0) = \pi$
+
 ::::
 
 ::::challenge{id="09_main_03" title="Main problems 3"}
@@ -446,6 +411,7 @@ Given that the original mass of $\displaystyle A$ is 130g, and that 50g has been
 1. Form and solve the differential equation relating $\displaystyle m_t$ to $\displaystyle t$.
 1. Find the mass of $\displaystyle A$ transformed over a 300s period.
 1. Sketch a graph of $\displaystyle m_t$ versus $\displaystyle t$.
+
 ::::
 
 ::::challenge{id="09_main_04" title="Main problems 4"}
@@ -461,6 +427,7 @@ If $\displaystyle T_0$ is the initial temperature of a body, $\displaystyle T_s$
    At what time can the glycerol be added to the protein?
 1. Using a choice of axes that will allow you easily to predict the temperature of the glycerol, sketch a graph of the anticipated variation of the glycerol temperature with time.
 1. Once the glycerol has been added to the protein, will the rate of cooling be described by the same constant $\displaystyle k$? Give reasons for your answer.
+
 ::::
 
 ::::challenge{id="09_main_05" title="Main problems 5"}
@@ -480,23 +447,22 @@ Assuming that the charcoal was formed during the building of the site, use this 
 
 ### Extension problems
 
-::::challenge{id="09_ext_01" title="Extension problems 1"}
-The _absorbance_ $A$ of a solution is given by the equation:
-$$A=\log_{10}\left(\frac{I_o}{I}\right)$$
+::::challenge{id="09*ext*01" title="Extension problems 1"}
+The **absorbance** $A$ of a solution is given by the equation:
+$$A=\log*{10}\left(\frac{I_o}{I}\right)$$
 where $I_o$ is the intensity of the light impinging on the solution (incident light) and $I$ is the intensity of the light emerging from it (transmitted light).
 The Beer-Lambert law states that
 $$A=\epsilon\cdot c\cdot l$$
 where $\epsilon$ is the absorbance of the solute, $c$ is the concentration of the solute and $l$ is the distance that the light has travelled through the solution.
 
-
 1. The _transmittance_ $\displaystyle T$ is defined as the fraction of incident light transmitted through the solution ($\displaystyle T={I\over I_o}$).
-Derive an expression relating the transmittance, $T$, of the solution to $\epsilon$, $c$ and $l$.
+   Derive an expression relating the transmittance, $T$, of the solution to $\epsilon$, $c$ and $l$.
 1. The _attenuation_ $Q$ of the light beam is defined as the difference between the intensities of the incident and the transmitted light ($Q=I_o-I$).
-Derive an expression for the attenuation of the light beam  when a beam of light intensity $I_o$ traverses a distance $l$ through a solution of fixed concentration $c$.
-Sketch a graph showing the dependence of $Q$ on $l$ in a solution of fixed concentration.
+   Derive an expression for the attenuation of the light beam when a beam of light intensity $I_o$ traverses a distance $l$ through a solution of fixed concentration $c$.
+   Sketch a graph showing the dependence of $Q$ on $l$ in a solution of fixed concentration.
 1. ATP has a molar absorbtion of $\displaystyle 15.7\times 10^3\,{\rm M}^{-1}{\rm cm}^{-1}$.
-Calculate the initial rate (in watts/cm) at which light intensity is attenuated when a light beam of intensity 200 watts enters a $\displaystyle 10\mu\,{\rm M}$ solution of ATP.
-What would happen to this rate if
+   Calculate the initial rate (in watts/cm) at which light intensity is attenuated when a light beam of intensity 200 watts enters a $\displaystyle 10\mu\,{\rm M}$ solution of ATP.
+   What would happen to this rate if
    i. the concentration of ATP is doubled;
    i. the intensity of the incident light is doubled;
    i. the length of the cell holding the solution is doubled?

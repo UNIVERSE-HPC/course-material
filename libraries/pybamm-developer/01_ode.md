@@ -1,15 +1,13 @@
 ---
 name: ODE models in PyBaMM
-dependsOn: [
-    libraries.pybamm
-]
+dependsOn: [libraries.pybamm]
 tags: [pybamm]
-attribution: 
-    - citation: >
-        PyBaMM documentation by the PyBaMM Team
-      url: https://docs.pybamm.org
-      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
-      license: BSD-3
+attribution:
+  - citation: >
+      PyBaMM documentation by the PyBaMM Team
+    url: https://docs.pybamm.org
+    image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
+    license: BSD-3
 ---
 
 # A simple ODE battery model
@@ -32,7 +30,7 @@ where $x_n$ and $x_p$ are the dimensionless stochiometries of the negative and p
 
 The reservoir model has a number of output variables, which are either the state
 variables $x_n$ and $x_p$ that are explicitly solved for, or derived variables
-such as the voltage $V(t)$. 
+such as the voltage $V(t)$.
 
 In PyBaMM a state variable can be defined using the
 [`pybamm.Variable`](https://docs.pybamm.org/en/stable/source/api/expression_tree/variable.html#variable)
@@ -40,6 +38,7 @@ class. For example, if you wanted to define a state variable with name "x", you
 would write
 
 ```python
+import pybamm
 x = pybamm.Variable("x")
 ```
 
@@ -49,10 +48,12 @@ Define the state variables for the reservoir model, including the stochiometries
 $x_n$ and $x_p$.
 
 :::solution
+
 ```python
 x_n = pybamm.Variable("Negative electrode stochiometry")
 x_p = pybamm.Variable("Positive electrode stochiometry")
 ```
+
 :::
 ::::
 
@@ -62,7 +63,7 @@ later once we have defined the expressions for the ODEs.
 ## PyBaMM parameters
 
 The reservoir model has a number of parameters that need to be defined. In PyBaMM a parameter can be defined using the [`pybamm.Parameter`](https://docs.pybamm.org/en/stable/source/api/expression_tree/parameter.html#parameter) class. For example, if you wanted to define a parameter with name "a", you would write
-    
+
 ```python
 a = pybamm.Parameter("a")
 ```
@@ -74,6 +75,7 @@ You can also define a parameter that is defined as a function using the [`pybamm
 ```python
 P = pybamm.FunctionParameter("Your parameter name here", {"Time [s]": pybamm.t})
 ```
+
 where the first argument is a string with the name of your parameter (which is used when passing the parameter values) and the second argument is a dictionary of `name: symbol` of all the variables on which the function parameter depends on. In particular, `pybamm.t` is a special variable that represents time.
 
 ::::challenge{id="ode-parameters" title="Define the parameters for the reservoir model"}
@@ -81,6 +83,7 @@ where the first argument is a string with the name of your parameter (which is u
 Define the parameters for the reservoir model, including the current $I(t)$, the OCV functions $U_p(x_p)$ and $U_n(x_n)$, the capacities $Q_n$ and $Q_p$, and the resistance $R$.
 
 :::solution
+
 ```python
 i = pybamm.FunctionParameter("Current function [A]", {"Time [s]": pybamm.t})
 x_n_0 = pybamm.Parameter("Initial negative electrode stochiometry")
@@ -91,6 +94,7 @@ Q_n = pybamm.Parameter("Negative electrode capacity [A.h]")
 Q_p = pybamm.Parameter("Positive electrode capacity [A.h]")
 R = pybamm.Parameter("Electrode resistance [Ohm]")
 ```
+
 :::
 ::::
 
@@ -109,6 +113,7 @@ model = pybamm.BaseModel("my model")
 By construction, PyBaMM expects the equations to be written in a very specific, with time derivatives playing a central role: ODEs must be written in explicit form, that is $\frac{\mathrm{d} u}{\mathrm{d} t} = f(u, t)$. Then, we only need to define the $f(u,t)$ term (called RHS for right hand side) for a given variable $u$, as the left hand side will be assumed to be $\frac{\mathrm{d} u}{\mathrm{d} t}$. PyBaMM can also have equations with no time derivatives, which are called algebraic equations.
 
 Going back to the PyBaMM model, the class has four useful attributes for defining a model, which are:
+
 1. `rhs` - a python dictionary of the right-hand-side equations with the form `variable: rhs`.
 2. `algebraic` - a python dictionary of the algebraic equations (we won't need this for our ODE model). Should be passed as a dictionary of the form `variable: algebraic`. Note that the variable is only for indexing purposes, and this imposes `algebraic = 0` not `variable = algebraic`.
 3. `initial_conditions` - a python dictionary of the initial conditions of the form `variable: ic`, which imposes `variable = ic` at the initial time.
@@ -119,6 +124,7 @@ As an example, lets define a simple model for exponential decay with a single st
 $$\frac{\mathrm d x}{\mathrm d t} = - a x, \qquad x(0) = 1.$$
 
 We can write this as a PyBaMM model by writing:
+
 ```python
 x = pybamm.Variable("x")
 a = pybamm.Parameter("a")
@@ -135,6 +141,7 @@ Now we have all the pieces we need to define the reservoir model. Define the
 model using the parameters and variables you defined earlier.
 
 :::solution
+
 ```python
 model = pybamm.BaseModel("reservoir model")
 model.rhs[x_n] = -i / Q_n
@@ -142,7 +149,7 @@ model.initial_conditions[x_n] = x_n_0
 model.rhs[x_p] = i / Q_p
 model.initial_conditions[x_p] = x_p_0
 
-model.variables["Voltage [V]"] = U_p - U_n -  i * R
+model.variables["Voltage [V]"] = U_p - U_n - i * R
 model.variables["Negative electrode stochiometry"] = x_n
 model.variables["Positive electrode stochiometry"] = x_p
 ```
@@ -152,7 +159,6 @@ example above, this is just to show that there are multiple ways to define these
 dictionaries using Python.
 :::
 ::::
-
 
 ## PyBaMM expressions
 
@@ -189,7 +195,7 @@ You can also print the expression as a string using the `print` method:
 print(model.rhs[x_n])
 ```
 
-```
+```text
 -Current function [A] / Negative electrode capacity [A.h]
 ```
 
@@ -198,13 +204,17 @@ mathematical equation, which can then be later on used by the PyBaMM solvers to
 solve the model equations over time.
 
 The variable `children` returns a list of the children nodes of a given parent node. For example, to access the `Negative electrode capacity` parameter we could type
+
 ```python
 model.rhs[x_n].children[1]
 ```
+
 as it is the second children of the division node (remember python starts indexing at 0). The command can be used recursively to navigate across the expression tree. For example, if we want to access the time variable in the expression tree above, we can type
+
 ```python
 model.rhs[x_n].children[0].children[0].children[0]
 ```
+
 This is extremely useful to debug the expression tree as it allows you to access the relevant nodes.
 
 ## PyBaMM events
@@ -237,6 +247,7 @@ Define four events that ensure that the stochiometries $x_n$ and $x_p$ are
 between 0 and 1. The simulation should stop when either reach 0 or 1.
 
 :::solution
+
 ```python
 model.events = [
     pybamm.Event("Minimum negative stochiometry", x_n - 0),
@@ -245,6 +256,7 @@ model.events = [
     pybamm.Event("Maximum positive stochiometry", 1 - x_p),
 ]
 ```
+
 :::
 ::::
 
@@ -293,31 +305,32 @@ following values:
 - The OCV functions are the LGM50 OCP from the Chen2020 model, which are given by the functions:
 
 ```python
+import numpy as np
 def graphite_LGM50_ocp_Chen2020(sto):
-  u_eq = (
-      1.9793 * np.exp(-39.3631 * sto)
-      + 0.2482
-      - 0.0909 * np.tanh(29.8538 * (sto - 0.1234))
-      - 0.04478 * np.tanh(14.9159 * (sto - 0.2769))
-      - 0.0205 * np.tanh(30.4444 * (sto - 0.6103))
-  )
+    u_eq = (
+        1.9793 * np.exp(-39.3631 * sto)
+        + 0.2482
+        - 0.0909 * np.tanh(29.8538 * (sto - 0.1234))
+        - 0.04478 * np.tanh(14.9159 * (sto - 0.2769))
+        - 0.0205 * np.tanh(30.4444 * (sto - 0.6103))
+    )
 
-  return u_eq
+    return u_eq
 
 def nmc_LGM50_ocp_Chen2020(sto):
-  u_eq = (
-      -0.8090 * sto
-      + 4.4875
-      - 0.0428 * np.tanh(18.5138 * (sto - 0.5542))
-      - 17.7326 * np.tanh(15.7890 * (sto - 0.3117))
-      + 17.5842 * np.tanh(15.9308 * (sto - 0.3120))
-  )
-  
-  return u_eq
+    u_eq = (
+        -0.8090 * sto
+        + 4.4875
+        - 0.0428 * np.tanh(18.5138 * (sto - 0.5542))
+        - 17.7326 * np.tanh(15.7890 * (sto - 0.3117))
+        + 17.5842 * np.tanh(15.9308 * (sto - 0.3120))
+    )
+
+    return u_eq
 ```
 
-
 :::solution
+
 ```python
 param = pybamm.ParameterValues({
     "Current function [A]": lambda t: 1 + 0.5 * pybamm.sin(100*t),
@@ -330,11 +343,11 @@ param = pybamm.ParameterValues({
     "Negative electrode OCV": graphite_LGM50_ocp_Chen2020,
 })
 ```
+
 :::
 ::::
 
 ## Solving the model
-
 
 Now that we have defined the reservoir model, we can solve it using the PyBaMM simulation class and plot the results like so:
 
@@ -351,4 +364,3 @@ plot the results. Vary the paramters and see how the solution changes to assure
 yourself that the model is working as expected.
 
 ::::
-

@@ -1,24 +1,27 @@
 ---
 name: Loops
-dependsOn: [
-    technology_and_tooling.bash_shell.05-script
-]
+dependsOn: [technology_and_tooling.bash_shell.05-script]
 tags: [bash]
+learningOutcomes:
+  - Write a loop that applies one or more commands separately to each file in a set of files.
+  - Trace the values taken on by a loop variable during execution of the loop.
+  - Explain the difference between the name and the value of a variable.
+  - Re-run recently executed commands without retyping them.
 attribution:
-- citation: >
+  - citation: >
       This material was originally taken from training materials developed by the
       University of Southampton Research Software Group, which are based on
       the Software Carpentries course "Version Control with Git".
-  url: https://github.com/Southampton-RSG-Training/shell-novice/
-  image: https://southampton-rsg-training.github.io/shell-novice/assets/img/home-logo.png
-  license: CC-BY-4.0
+    url: https://github.com/Southampton-RSG-Training/shell-novice/
+    image: https://southampton-rsg-training.github.io/shell-novice/assets/img/home-logo.png
+    license: CC-BY-4.0
 ---
 
 Wildcards and tab completion are two ways to reduce typing as well as typing mistakes.
 Another is to tell the shell to do something over and over again, which could save us considerable time,
 depending on how many times we need the shell to do this thing.
 
-### Couldn't we just...
+### Couldn't we just
 
 Suppose we have several hundred genome data files named `basilisk.dat`, `minotaur.dat`, `unicorn.dat`, and so on.
 In this example,
@@ -27,41 +30,41 @@ but the principles can be applied to many many more files at once.
 Let's first go to the `creatures` directory (using tab completion to enter the full directory will save considerable
 typing here!):
 
-~~~bash
-$ cd ~/shell-novice/shell/test_directory/creatures
-$ ls
-~~~
+```bash
+cd ~/shell-novice/shell/test_directory/creatures
+ls
+```
 
-~~~
+```text
 basilisk.dat minotaur.dat unicorn.dat
-~~~
+```
 
 We would like to modify these files, but also save a version of the original files and rename them
 as `original-basilisk.dat`, `original-minotaur.dat`, `original-unicorn.dat`.
 We can't use the following (don't type this, it's just for illustrative purposes):
 
-~~~bash
-$ mv *.dat original-*.dat
-~~~
+```bash
+mv *.dat original-*.dat
+```
 
 Because as we learnt previously, with wildcards that would expand to:
 
-~~~bash
-$ mv basilisk.dat minotaur.dat unicorn.dat original-*.dat
-~~~
+```bash
+mv basilisk.dat minotaur.dat unicorn.dat original-*.dat
+```
 
 This wouldn't back up our files, instead we would get an error. If on a Mac or Linux it would look like:
 
-~~~
+```text
 mv: target `original-*.dat' is not a directory
-~~~
+```
 
 Or if on Windows using Git Bash, we would see:
 
-~~~
+```text
 usage: mv [-f | -i | -n] [-v] source target
        mv [-f | -i | -n] [-v] source ... directory
-~~~
+```
 
 Even though the error is different, the cause is the same.
 It arises when `mv` receives more than two inputs. When this happens, it
@@ -77,26 +80,26 @@ Here's a simple example that displays the first three lines of each file in turn
 
 Let's create a new shell script using `nano` called `top.sh` that uses a loop.
 
-~~~bash
-$ nano top.sh
-~~~
+```bash
+nano top.sh
+```
 
 In that file enter the following:
 
-~~~bash
+```bash
 for filename in basilisk.dat minotaur.dat unicorn.dat
 do
     head -3 $filename
 done
-~~~
+```
 
 After saving it by using `Control-O` and `Control-X`, run the script:
 
-~~~bash
-$ bash top.sh
-~~~
+```bash
+bash top.sh
+```
 
-~~~
+```text
 COMMON NAME: basilisk
 CLASSIFICATION: basiliscus vulgaris
 UPDATED: 1745-05-02
@@ -106,7 +109,7 @@ UPDATED: 1764-09-12
 COMMON NAME: unicorn
 CLASSIFICATION: equus monoceros
 UPDATED: 1738-11-24
-~~~
+```
 
 So what's happening, and how does the loop work?
 
@@ -118,6 +121,7 @@ the name of the thing currently being operated on is assigned to
 the **variable** called `filename`.
 
 :::callout
+
 ## What is a variable?
 
 Variables are used to store information that we want to refer to later, and are a fundamental concept in
@@ -151,6 +155,7 @@ the command that's actually being run is our old friend `head`,
 so this loop prints out the first three lines of each data file in turn.
 
 :::callout
+
 ## Why the extra spaces?
 
 Note the use of spaces for indentation before the `head` command.
@@ -162,6 +167,7 @@ such as these, code becomes much harder to read.
 :::
 
 :::callout
+
 ## Dos and don'ts of variable naming
 
 We have called the variable in this loop `filename`
@@ -169,24 +175,24 @@ in order to make its purpose clearer to human readers.
 The shell itself doesn't care what the variable is called;
 if we wrote this loop as:
 
-~~~bash
+```bash
 for x in basilisk.dat minotaur.dat unicorn.dat
 do
     head -3 $x
 done
-~~~
+```
 
 or:
 
-~~~bash
+```bash
 for temperature in basilisk.dat minotaur.dat unicorn.dat
 do
     head -3 $temperature
 done
-~~~
+```
 
 it would work exactly the same way.
-*Don't do this.*
+_Don't do this._
 Programs are only useful if people can understand them,
 so meaningless names like `x`, or misleading names like `temperature`,
 increase the odds that the program won't do what its readers think it does.
@@ -199,12 +205,12 @@ run a loop over them all? Using what we've learnt
 we can solve our original problem using the following loop.
 In a new script called `rename.sh` enter the following:
 
-~~~bash
+```bash
 for filename in *.dat
 do
     mv $filename original-$filename
 done
-~~~
+```
 
 Note that here, we use `*.dat` to get a list of all files ending in `.dat`,
 which is very similar to doing `ls *.dat`.
@@ -214,123 +220,127 @@ The first time,
 when `$filename` expands to `basilisk.dat`,
 the shell executes:
 
-~~~bash
+```bash
 mv basilisk.dat original-basilisk.dat
-~~~
+```
 
 The second time, the command is:
 
-~~~bash
+```bash
 mv minotaur.dat original-minotaur.dat
-~~~
+```
 
 The third time, the command is:
 
-~~~bash
+```bash
 mv unicorn.dat original-unicorn.dat
-~~~
+```
 
 Note that once you've run this command once, running it again has an interesting effect that we
 likely don't intend - the `.dat` files we end up with are:
 
-~~~
+```text
 original-original-basilisk.dat original-original-unicorn.dat
 original-original-minotaur.dat
-~~~
+```
 
 This is because the `.dat` files picked up by `for filename in *.dat` will now match on `original-basilisk.dat`,
-`original-unicorn.dat`, and `original-minotaur.dat`, and each of these files is then renamed with *yet another*
+`original-unicorn.dat`, and `original-minotaur.dat`, and each of these files is then renamed with _yet another_
 `original-` prefix added to it. This is another example of why you should always ensure you have a backup of
 files before you operate on them!
 
 :::callout
+
 ## Measure Twice, Run Once
 
 A loop is a way to do many things at once --- or to make many mistakes at
-once if it does the wrong thing. One way to check what a loop *would* do
+once if it does the wrong thing. One way to check what a loop _would_ do
 is to echo the commands it would run instead of actually running them.
 For example, we could write our file renaming loop like this:
 
-~~~bash
+```bash
 for filename in *.dat
 do
     echo mv $filename original-$filename
 done
-~~~
+```
 
 Instead of running `mv`, this loop runs `echo`, which prints out:
 
-~~~bash
+```bash
 mv basilisk.dat original-basilisk.dat
 mv unicorn.dat original-unicorn.dat
-~~~
+```
 
-*without* actually running those commands. We can then use up-arrow to
+_without_ actually running those commands. We can then use up-arrow to
 redisplay the loop, back-arrow to get to the word `echo`, delete it, and
 then press "enter" to run the loop with the actual `mv` commands. This
 isn't foolproof, but it's a handy way to see what's going to happen when
 you're still learning how loops work.
 :::
 
-
 ## Exercises
 
 ::::challenge{id=save-to-file-1 title="Saving to a File in a Loop, Part 1"}
 In the same directory, what is the effect of this loop?
 
-~~~bash
+```bash
 for sugar in *.dat
 do
   echo $sugar
   cat $sugar > xylose.dat
 done
-~~~
+```
 
-1.  Prints `fructose.dat`, `glucose.dat`, and `sucrose.dat`, and the text from `sucrose.dat` will be saved to a file called 
-    `xylose.dat`.
-2.  Prints `fructose.dat`, `glucose.dat`, and `sucrose.dat`, and the text from all three files would be
-    concatenated and saved to a file called `xylose.dat`.
-3.  Prints `fructose.dat`, `glucose.dat`, `sucrose.dat`, and
-    `xylose.dat`, and the text from `sucrose.dat` will be saved to a file called `xylose.dat`.
-4.  None of the above.
+1. Prints `fructose.dat`, `glucose.dat`, and `sucrose.dat`, and the text from `sucrose.dat` will be saved to a file called
+   `xylose.dat`.
+2. Prints `fructose.dat`, `glucose.dat`, and `sucrose.dat`, and the text from all three files would be
+   concatenated and saved to a file called `xylose.dat`.
+3. Prints `fructose.dat`, `glucose.dat`, `sucrose.dat`, and
+   `xylose.dat`, and the text from `sucrose.dat` will be saved to a file called `xylose.dat`.
+4. None of the above.
 
 :::solution
+
 1. Correct.
 2. Incorrect, since we're using the `>` redirect operator, which will overwrite any previous contents of `xylose.dat`.
 3. Incorrect, since the file `xylose.dat` would not have existed when `*.dat` would have been expanded.
 4. Incorrect.
+
 :::
 ::::
 
 ::::challenge{id=save-to-file-2 title="Saving to a File in a Loop, Part 2"}
 In another directory, where `ls` returns:
 
-~~~
+```text
 fructose.dat    glucose.dat   sucrose.dat   maltose.txt
-~~~
+```
 
 What would be the output of the following loop?
 
-~~~bash
+```bash
 for datafile in *.dat
 do
   cat $datafile >> sugar.dat
 done
-~~~
+```
 
-1.  All of the text from `fructose.dat`, `glucose.dat` and `sucrose.dat` would be
-    concatenated and saved to a file called `sugar.dat`.
-2.  The text from `sucrose.dat` will be saved to a file called `sugar.dat`.
-3.  All of the text from `fructose.dat`, `glucose.dat`, `sucrose.dat` and `maltose.txt`
-    would be concatenated and saved to a file called `sugar.dat`.
-4.  All of the text from `fructose.dat`, `glucose.dat` and `sucrose.dat` would be printed
-    to the screen and saved to a file called `sugar.dat`
+1. All of the text from `fructose.dat`, `glucose.dat` and `sucrose.dat` would be
+   concatenated and saved to a file called `sugar.dat`.
+2. The text from `sucrose.dat` will be saved to a file called `sugar.dat`.
+3. All of the text from `fructose.dat`, `glucose.dat`, `sucrose.dat` and `maltose.txt`
+   would be concatenated and saved to a file called `sugar.dat`.
+4. All of the text from `fructose.dat`, `glucose.dat` and `sucrose.dat` would be printed
+   to the screen and saved to a file called `sugar.dat`
 
 :::solution
+
 1. Correct.
 2. Incorrect, since we're looping through each of the other `.dat` files (`fructose.dat` and `glucose.dat`) whose contents would also be included.
 3. Incorrect, since `maltose.txt` has a `.txt` extension and not a `.dat` extension, so won't match on `*.dat` and won't be included in the loop.
 4. Incorrect, since the `>>` operator redirects all output to the `sugar.dat` file, so we won't see any screen output.
+
 :::
 ::::
 
@@ -338,31 +348,31 @@ done
 Suppose we want to preview the commands the following loop will execute
 without actually running those commands:
 
-~~~bash
+```bash
 for file in *.dat
 do
   analyze $file > analyzed-$file
 done
-~~~
+```
 
 What is the difference between the the two loops below, and which one would we
 want to run?
 
-~~~bash
+```bash
 # Version 1
 for file in *.dat
 do
   echo analyze $file > analyzed-$file
 done
-~~~
+```
 
-~~~bash
+```bash
 # Version 2
 for file in *.dat
 do
   echo "analyze $file > analyzed-$file"
 done
-~~~
+```
 
 :::solution
 Version 2 is the one that successfully acts as a dry run. In version 1, since the `>` file redirect is not within quotes, the script will create three files `analyzed-basilisk.dat`, `analyzed-minotaur.dat`, and `analyzed-unicorn.dat` which is not what we want.

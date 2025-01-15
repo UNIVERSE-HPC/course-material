@@ -1,15 +1,13 @@
 ---
 name: Writing and running Python from an IDE
-dependsOn: [
-    introductory_courses.python.02_variables_and_types
-]
+dependsOn: [introductory_courses.python.02_variables_and_types]
 tags: [python]
-attribution: 
-    - citation: >
-        "Programming with Python" course by the Carpentries
-      url: https://swcarpentry.github.io/python-novice-inflammation/
-      image: https://carpentries.org/assets/img/TheCarpentries.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Programming with Python" course by the Carpentries
+    url: https://swcarpentry.github.io/python-novice-inflammation/
+    image: https://carpentries.org/assets/img/TheCarpentries.svg
+    license: CC-BY-4.0
 ---
 
 ## Python scripts
@@ -17,11 +15,11 @@ attribution:
 So far we've worked in the REPL which does not allow us to save our programs.
 
 Instead of the interactive mode, Python can read a file that contains Python instructions.
-This file is commonly referred to as a Python *script*.
+This file is commonly referred to as a Python _script_.
 
 Python scripts are plain text files.
-To create a plain text file, you need to use a *text editor*.
-When we do programming, typically we will use a special text editor called an IDE, or *integrated development environment*, that contains lots of tools to help us.
+To create a plain text file, you need to use a _text editor_.
+When we do programming, typically we will use a special text editor called an IDE, or _integrated development environment_, that contains lots of tools to help us.
 We will use Visual Studio Code (vscode), which is a free IDE available for Windows, Mac, and Linux.
 
 :::callout
@@ -41,21 +39,21 @@ Follow these steps:
 
 Now, change your script to contain the following:
 
-~~~ python
+```python
 print("hello world")
 varint = 1
 print("Variable 'varint' is a", type(varint))
 varstr = "astring"
 print("Variable 'varstr' is a", type(varstr))
-~~~
+```
 
 Press the triangular `Play` button in the top right, and you should see the following output:
 
-~~~ python
+```text
 hello world
 Variable 'varint' is a <class 'int'>
 Variable 'varstr' is a <class 'str'>
-~~~
+```
 
 Can you guess what happened?
 Python read the file, executing each line one after the other.

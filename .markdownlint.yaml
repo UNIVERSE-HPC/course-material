@@ -1,0 +1,7 @@
+default: true
+MD041: false # Ignore first line heading warnings (because we title set in front matters)
+MD013: false # Ignore line length warnings
+MD033:
+  allowed_elements: ["kbd"]
+MD024:
+  siblings_only: true

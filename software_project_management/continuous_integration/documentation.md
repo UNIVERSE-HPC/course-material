@@ -1,23 +1,21 @@
 ---
 name: Documentation
-dependsOn: [
-  software_project_management.continuous_integration.code_coverage
-]
-
+dependsOn: [software_project_management.continuous_integration.code_coverage]
 tags: [sphinx, readthedocs]
-attribution: 
-    - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
-      url: https://www.sabsr3.ox.ac.uk
-      image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
-
+learningOutcomes:
+  - List benefits of having good documentation for software.
+  - Describe the key features of the Sphinx and Read the Docs documentation and hosting tools.
+  - Use Sphinx to generate documentation for a software project.
+attribution:
+  - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
-
 
 Writing documentation for software is crucial.
 
@@ -45,7 +43,6 @@ Writing documentation for software is crucial.
 
 We will be using [Sphinx](https://www.sphinx-doc.org/en/master/) and [Read the Docs](https://readthedocs.org/) to create and deploy documentation pages for our repository.
 
-
 ## Sphinx
 
 Sphinx is a powerful and flexible open-source documentation generation tool primarily used for Python, but it can be used for other programming languages as well.
@@ -61,7 +58,6 @@ Here are some key features:
 1. **Indexing and Searching**: Sphinx provides robust indexing that is crucial for larger projects. It supports glossaries and can generate search pages for HTML output.
 
 1. **Theming Support**: Sphinx supports themes for its HTML output, allowing documentation to match the aesthetic and branding of a project or organization.
-
 
 ## Read the Docs
 
@@ -80,14 +76,13 @@ Here are some of its key features:
 
 1. **PDF and EPUB Export**: Users can download a PDF or EPUB version of your documentation for offline reading.
 
-
 ## Getting started
 
 From your repository, run:
 
-~~~ bash
+```bash
 pip install -e ."[dev,docs]"
-~~~
+```
 
 to ensure you have all development and documentation dependencies installed.
 
@@ -95,9 +90,9 @@ Next, create a directory at the top level of your project called `docs`.
 
 From the `docs` directory, run
 
-~~~
+```shell
 sphinx-quickstart
-~~~
+```
 
 Use the default values, but fill in a unique project name.
 
@@ -114,7 +109,7 @@ Next, go to [Read the Docs](https://readthedocs.org/).
 - Follow the instructions, leaving everything as default
 
 You should then see your documentation building!
-Wait for it to complete, and then click *View Docs*.
+Wait for it to complete, and then click _View Docs_.
 This will take you to the website `https://<project_name>.readthedocs.io/en/latest/`.
 
 ::::challenge{id="start-documenting" title="Start documenting"}
