@@ -88,7 +88,7 @@ types are in the table below:
 Remember, these constants aren't the same as the primitive types in C, so we can't use them to create variables, e.g.,
 
 ```c
-MPI_INT my_int = 1;
+MPI_INT my_data = 1;
 ```
 
 is not valid code because, under the hood, these constants are actually special data structures used by MPI.
@@ -106,10 +106,10 @@ need to change the type, you would only have to do it in one place, e.g.:
 
 ```c
 // define constants for your data types
-#define MPI_INT_TYPE MPI_INT
-#define INT_TYPE int
+#define MPI_DATA_TYPE MPI_INT
+#define DATA_TYPE int
 // use them as you would normally
-INT_TYPE my_int = 1;
+INT_TYPE my_data = 1;
 ```
 
 ::::
@@ -129,9 +129,9 @@ For the following pieces of data, what MPI data types should you use?
 
 The fact that `a[]` is an array does not matter, because all the elements in `a[]` will be the same data type. In MPI, as we'll see in the next episode, we can either send a single value or multiple values (in an array).
 
-1. `MPI_INT`
-2. `MPI_DOUBLE` - `MPI_FLOAT` would not be correct as `float`'s contain 32 bits of data whereas `double`s are 64 bit.
-3. `MPI_BYTE` or `MPI_CHAR` - you may want to use [strlen](https://man7.org/linux/man-pages/man3/strlen.3.html) to calculate how many elements of `MPI_CHAR` being sent.
+1. Use `MPI_INT` or `MPI_LONG`, depending on the type of the array. 
+2. The array contains floating-point values. Use `MPI_DOUBLE` if the array type is `double`, or `MPI_FLOAT` if it's declared as `float`.
+3. Use `MPI_BYTE` or `MPI_CHAR` for character arrays. You may want to use [strlen](https://man7.org/linux/man-pages/man3/strlen.3.html) to calculate how many elements of `MPI_CHAR` being sent.
 
 ::::
 :::::
