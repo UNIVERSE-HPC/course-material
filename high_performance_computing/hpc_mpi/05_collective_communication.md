@@ -102,7 +102,7 @@ int MPI_Barrier(
 When a rank reaches a barrier, it will pause and wait for all the other ranks to catch up and reach the barrier as well. As ranks waiting at a barrier aren't doing anything, barriers should be used sparingly to avoid large synchronisation overheads, which affects the scalability of our program.
 We should also avoid using barriers in parts of our program has have complicated branches, as we may introduce a deadlock by having a barrier in only one branch.
 
-In practise, there are not that many practical use cases for a barrier in an MPI application. In a shared-memory environment, synchronisation is important to ensure consistent and controlled access to shared data. But in MPI,
+In practice, there are not that many practical use cases for a barrier in an MPI application. In a shared-memory environment, synchronisation is important to ensure consistent and controlled access to shared data. But in MPI,
 where each rank has its own private memory space and often resources, it's rare that we need to care about ranks becoming out-of-sync. However, one use case is when multiple ranks need to write *sequentially* to the same file. The code example below shows how you may handle this by using a barrier.
 
 ```c
