@@ -217,7 +217,7 @@ We can use `MPI_Scatter()` to split the data into *equal* sized chunks and commu
 
 ```c
 int MPI_Scatter(
-    void *sendbuff,
+    void *sendbuf,
     int sendcount,
     MPI_Datatype sendtype,
     void *recvbuffer,
@@ -230,7 +230,7 @@ int MPI_Scatter(
 
 |                |                                                                                        |
 |----------------|----------------------------------------------------------------------------------------|
-| `*sendbuff`:   | The data to be scattered across ranks (only important for the root rank)               |
+| `*sendbuf`:    | The data to be scattered across ranks (only important for the root rank)               |
 | `sendcount`:   | The number of elements of data to send to each rank (only important for the root rank) |
 | `sendtype`:    | The data type of the data being sent (only important for the root rank)                |
 | `*recvbuffer`: | A buffer to receive data into, including the root rank                                 |
@@ -275,7 +275,7 @@ We can do this by using the collection function `MPI_Gather()`, which has these 
 
 ```c
 int MPI_Gather(
-    void *sendbuff,
+    void *sendbuf,
     int sendcount,
     MPI_Datatype sendtype,
     void *recvbuff,
@@ -288,7 +288,7 @@ int MPI_Gather(
 
 |              |                                                                          |
 |--------------|--------------------------------------------------------------------------|
-| `*sendbuff`: | The data to send to the root rank                                        |
+| `*sendbuf`:  | The data to send to the root rank                                        |
 | `sendcount`: | The number of elements of data to send                                   |
 | `sendtype`:  | The data type of the data being sent                                     |
 | `*recvbuff`: | The buffer to put gathered data into (only important for the root rank)  |
@@ -375,7 +375,7 @@ Reduction operations can be done using the collection function `MPI_Reduce()`, w
 
 ```c
 int MPI_Reduce(
-    void *sendbuff,
+    void *sendbuf,
     void *recvbuffer,
     int count,
     MPI_Datatype datatype,
@@ -387,7 +387,7 @@ int MPI_Reduce(
 
 |                |                                                 |
 |----------------|-------------------------------------------------|
-| `*sendbuff`:   | The data to be reduced by the root rank         |
+| `*sendbuf`:    | The data to be reduced by the root rank         |
 | `*recvbuffer`: | A buffer to contain the reduction output        |
 | `count`:       | The number of elements of data to be reduced    |
 | `datatype`:    | The data type of the data                       |
@@ -428,7 +428,7 @@ In the code example just above, after the reduction operation we used `MPI_Bcast
 
 ```c
 int MPI_Allreduce(
-    void *sendbuff,          
+    void *sendbuf,          
     void *recvbuffer,       
     int count,              
     MPI_Datatype datatype,  
@@ -439,7 +439,7 @@ int MPI_Allreduce(
 
 |                |                                                  |
 |----------------|--------------------------------------------------|
-| `*sendbuff`:   | The data to be reduced, on all ranks             |
+| `*sendbuf`:    | The data to be reduced, on all ranks             |
 | `*recvbuffer`: | A buffer which will contain the reduction output |
 | `count`:       | The number of elements of data to be reduced     |
 | `datatype`:    | The data type of the data                        |
