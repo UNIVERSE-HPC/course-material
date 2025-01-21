@@ -13,7 +13,7 @@ learningOutcomes:
   - Learn how to define and use derived data types.
 ---
 
-We've so far seen the basic building blocks for splitting work and communicating data between ranks, meaning we're now dangerous enough to write a simple and successful MPI application. We've worked, so far, with simple data structures, such as single variables or small 1D arrays. In reality, any useful software we write will use more complex data structures, such as n-dimensional arrays, structures and other complex types. Working with these in MPI require a bit more work to communicate them correctly and efficiently.
+We've so far seen the basic building blocks for splitting work and communicating data between ranks, meaning we're ready enough to write a simple and successful MPI application. We've worked, so far, with simple data structures, such as single variables or small 1D arrays. In reality, any useful software we write will use more complex data structures, such as n-dimensional arrays, structures and other complex types. Working with these in MPI require a bit more work to communicate them correctly and efficiently.
 
 To help with this, MPI provides an interface to create new types known as derived data types. A derived type acts as a way to enable the translation of complex data structures into instructions which MPI uses for efficient data access communication. In this episode, we will learn how to use derived data types to send array vectors and sub-arrays.
 
@@ -213,7 +213,7 @@ MPI_Type_free(&rows_type);
 
 There are two things above, which look quite innocent, but are important to understand. First of all, the send buffer in `MPI_Send()` is not `matrix` but `&matrix[1][0]`. In `MPI_Send()`, the send buffer is a pointer to the memory location where the start of the data is stored. In the above example, the intention is to only send the second and forth rows, so the start location of the data to send is the address for element `[1][0]`. If we used `matrix`, the first and third rows would be sent instead.
 
-The other thing to notice, which is not immediately clear why it's done this way, is that the receive data type is `MPI_INT` and the count is `num_elements = count * blocklength` instead of a single element of `rows_type`. This is because when a rank receives data, the data is contiguous array. We don't need to use a vector to describe the layout of contiguous memory. We are just receiving a contiguous array of `num_elements = count * blocklength` integers.
+The other thing to notice, which is not immediately clear why it's done this way, is that the receive data type is `MPI_INT` and the count is `num_elements = count * blocklength` instead of a single element of `rows_type`. This is because when a rank receives data, the data is a contiguous array. We don't need to use a vector to describe the layout of contiguous memory. We are just receiving a contiguous array of `num_elements = count * blocklength` integers.
 
 ::::challenge{id=sending-columns title="Sending columns from an array"}
 
