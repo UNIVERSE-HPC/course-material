@@ -16,7 +16,7 @@ learningOutcomes:
 In an earlier episode, we introduced the concept of derived data types to send vectors or a sub-array of a larger array,
 which may or may not be contiguous in memory. Other than vectors, there are multiple other types of derived data types that allow us to
 handle other complex data structures efficiently. In this episode, we will see how to create structure derived types. Additionally, we will
-also learn how to use `MPI_Pack()` and `MPI_Unpack()` to manually pack complex data structures and heterogeneous into a single contiguous
+also learn how to use `MPI_Pack()` and `MPI_Unpack()` to manually pack complex data structures and heterogeneous data into a single contiguous
 buffer, when other methods of communication are too complicated or inefficient.
 
 ## Structures in MPI
