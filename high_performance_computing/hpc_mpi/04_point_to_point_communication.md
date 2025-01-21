@@ -27,8 +27,8 @@ Let's look at how `MPI_Send()` and `MPI_Recv()`are typically used:
 - Rank B must know that it is about to receive a message and acknowledge this by calling `MPI_Recv()`.
   This sets up a buffer for writing the incoming data when it arrives and instructs the communication device to listen for the message.
 
-As mentioned in the previous episode, `MPI_Send()` and `MPI_Recv()` are *synchronous* operations,
-and will not return until the communication on both sides is complete.
+Note that `MPI_Send` and `MPI_Recv()` are often used in a synchronous manner, meaning they will not return until communication is complete on both sides. 
+However, as mentioned in the previous episode, `MPI_Send()` may return before the communication is complete, depending on the implementation and message size.
 
 ## Sending a Message: MPI_Send()
 
@@ -49,10 +49,10 @@ int MPI_Send(
 |-----------------|---------------------------------------------------------------------------------------------------------------------------------------------|
 | `*data`:        | Pointer to the start of the data being sent. We would not expect this to change, hence it's defined as `const`                              |
 | `count`:        | Number of elements to send                                                                                                                  |
-| `datatype`:     | The type of the element data being sent, e.g. MPI_INTEGER, MPI_CHAR, MPI_FLOAT, MPI_DOUBLE, ...                                             |
+| `datatype`:     | The type of the element data being sent, e.g. `MPI_INTEGER`, `MPI_CHAR`, `MPI_FLOAT`, `MPI_DOUBLE`, ...                                     |
 | `destination`:  | The rank number of the rank the data will be sent to                                                                                        |
 | `tag`:          | An message tag (integer), which is used to differentiate types of messages. We can specify `0` if we don't need different types of messages |
-| `communicator`: | The communicator, e.g. MPI_COMM_WORLD as seen in previous episodes                                                                          |
+| `communicator`: | The communicator, e.g. `MPI_COMM_WORLD` as seen in previous episodes                                                                        |
 
 For example, if we wanted to send a message that contains `"Hello, world!\n"` from rank 0 to rank 1, we could state
 (assuming we were rank 0):
@@ -149,7 +149,7 @@ int main(int argc, char** argv) {
   MPI_Comm_rank(MPI_COMM_WORLD,&rank);
 
   if( rank == 0 ){
-     constant char *message = "Hello, world!\n";
+     const char *message = "Hello, world!\n";
      MPI_Send(message, 14, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
   }
 
