@@ -406,7 +406,7 @@ The `op` argument controls which reduction operation is carried out, from the fo
 | `MPI_MAXLOC` | Return the maximum value and the number of the rank that sent the maximum value. |
 | `MPI_MINLOC` | Return the minimum value of the number of the rank that sent the minimum value.  |
 
-In a reduction operation, each ranks sends a piece of data to the root rank, which are combined, depending on the choice of operation, into a single value on the root rank, as shown in the diagram below. Since the data is sent and operation done on the root rank, it means the reduced value is only available on the root rank.
+In a reduction operation, each rank sends a piece of data to the root rank, which are combined, depending on the choice of operation, into a single value on the root rank, as shown in the diagram below. Since the data is sent and operation done on the root rank, it means the reduced value is only available on the root rank.
 
 ![Each rank sending a piece of data to root rank](fig/reduction.png)
 
