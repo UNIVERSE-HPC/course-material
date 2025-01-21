@@ -74,12 +74,14 @@ could ever write using point-to-point communications.
 
 There are several collective operations that are implemented in the MPI standard. The most commonly-used are:
 
-| Type            | Description                                                          |
-|-----------------|----------------------------------------------------------------------|
-| Synchronisation | Wait until all processes have reached the same point in the program. |
-| One-To-All      | One rank sends the same message to all other ranks.                  |
-| All-to-One      | All ranks send data to a single rank.                                |
-| All-to-All      | All ranks have data and all ranks receive data.                      |
+| Type            | Example MPI Function | Description                                                    |
+|-----------------|----------------------|----------------------------------------------------------------|
+| Synchronization | Barrier              | Wait until all ranks reach the same point in the program.      |
+| One-To-All      | Broadcast            | One rank sends the same message to all other ranks.            |
+| All-To-One      | Reduce               | All ranks send data to a single rank.                          |
+| One-To-Many     | Scatter              | A single rank sends different parts of data to multiple ranks. |
+| Many-To-One     | Gather               | Multiple ranks send data to a single rank.                     |
+| All-To-All      | Allreduce            | All ranks have data and all ranks receive data.                |
 
 ## Synchronisation
 
