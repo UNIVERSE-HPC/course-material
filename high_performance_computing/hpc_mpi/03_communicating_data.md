@@ -129,7 +129,7 @@ For the following pieces of data, what MPI data types should you use?
 
 The fact that `a[]` is an array does not matter, because all the elements in `a[]` will be the same data type. In MPI, as we'll see in the next episode, we can either send a single value or multiple values (in an array).
 
-1. Use `MPI_INT` or `MPI_LONG`, depending on the type of the array. 
+1. Use `MPI_INT` or `MPI_LONG`, depending on the type of the array.
 2. The array contains floating-point values. Use `MPI_DOUBLE` if the array type is `double`, or `MPI_FLOAT` if it's declared as `float`.
 3. Use `MPI_BYTE` or `MPI_CHAR` for character arrays. You may want to use [strlen](https://man7.org/linux/man-pages/man3/strlen.3.html) to calculate how many elements of `MPI_CHAR` being sent.
 

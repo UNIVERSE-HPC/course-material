@@ -27,7 +27,7 @@ Let's look at how `MPI_Send()` and `MPI_Recv()`are typically used:
 - Rank B must know that it is about to receive a message and acknowledge this by calling `MPI_Recv()`.
   This sets up a buffer for writing the incoming data when it arrives and instructs the communication device to listen for the message.
 
-Note that `MPI_Send` and `MPI_Recv()` are often used in a synchronous manner, meaning they will not return until communication is complete on both sides. 
+Note that `MPI_Send` and `MPI_Recv()` are often used in a synchronous manner, meaning they will not return until communication is complete on both sides.
 However, as mentioned in the previous episode, `MPI_Send()` may return before the communication is complete, depending on the implementation and message size.
 
 ## Sending a Message: MPI_Send()
