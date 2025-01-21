@@ -56,7 +56,7 @@ When a struct is created, it occupies a single contiguous block of memory. But t
 ![Memory layout for a struct](fig/struct_memory_layout.png)
 
 Although the memory used for padding and the struct's data exists in a contiguous block,
-the actual data we care about is no longer contiguous. This is why we need the `array_of_displacements` argument, which specifies the distance, in bytes, between each struct member relative to the start of the struct. In practise, it serves a similar purpose of the stride in vectors.
+the actual data we care about is no longer contiguous. This is why we need the `array_of_displacements` argument, which specifies the distance, in bytes, between each struct member relative to the start of the struct. In practice, it serves a similar purpose of the stride in vectors.
 
 To calculate the byte displacement for each member, we need to know where in memory each member of a struct exists. To do this, we can use the function `MPI_Get_address()`,
 
@@ -266,7 +266,7 @@ array using `MPI_Pack()`.
 
 The coloured boxes in both memory representations (memory and packed) are the same chunks of data. The green boxes
 containing only a single number are used to document the number of elements in the block of elements they are adjacent
-to, in the contiguous buffer. This is optional to do, but is generally good practise to include to create a
+to, in the contiguous buffer. This is optional to do, but is generally good practice to include to create a
 self-documenting message. From the diagram we can see that we have "packed" non-contiguous blocks of memory into a
 single contiguous block. We can do this using `MPI_Pack()`. To reverse this action, and "unpack" the buffer, we use
 `MPI_Unpack()`. As you might expect, `MPI_Unpack()` takes a buffer, created by `MPI_Pack()` and unpacks the data back
