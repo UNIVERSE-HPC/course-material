@@ -246,15 +246,18 @@ git config --global push.autoSetupRemote true
 
 ## Downloading Branches
 
-It's easy to share a branch with a collaborator so they can test out a different version of the code. If they `clone` the repository, like we did back at the start, it defaults to `main` but they can download the other branches and try them out too, using:
+It's easy to share a branch with a collaborator so they can test out a different version of the code. If they `clone` the repository - like we did back at the start - it defaults to `main` but all branches on the repository are stored in that clone, so they can `switch` to another branch:
 
 ```bash
 git clone git@github.com:yourname/climate-analysis.git
-git fetch
+cd climate-analysis
 git switch dev
 ```
 
-Where `git fetch` downloads _all_ the branches on the remote repository, not just the `main` one.
+:::
+
+:::callout(variant="tip")
+It is good practice to make sure your local repository is up-to-date before starting work. To do so simply run `git fetch` in the working directory to retrieve the latest remote changes.
 :::
 
 ## Merging Branches
