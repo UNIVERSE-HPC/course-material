@@ -58,10 +58,10 @@ Now we'll download a copy of the repository to our server.
 **Make sure you select SSH!** Whilst Git supports both **HTTPS** and **SSH**, **GitHub** will only let you _download_ with **HTTPS**, as it's less secure.
 :::
 
-We have our SSH key in place and have created our new repository from the template, so we can finally clone the repository to our machine:
+We have our SSH key in place and have created our new repository from the template, so we can finally clone the repository to our machine. Type `git clone` and then paste in the repository URL you copied above. It will look something like this with `<your account name>` differing depending on the name:
 
 ```bash
-git clone git@github.com:yourname/climate-analysis.git
+git clone git@github.com:<your account name>/climate-analysis.git
 ```
 
 After you enter the `git clone` command, you should see:
