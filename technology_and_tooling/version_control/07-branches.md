@@ -100,7 +100,6 @@ We'll give it a try. In one of our earlier edits to `climate_analysis.py`, we me
 
 ```bash
 nano rainfall_conversion.py
-cat rainfall_conversion.py
 ```
 
 ```text
