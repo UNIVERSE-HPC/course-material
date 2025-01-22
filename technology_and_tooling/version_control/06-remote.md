@@ -116,7 +116,16 @@ Pretending to be an existing collaborator, we'll go and add those installation i
 
 ![GitHub edit button](fig/06-remote/edit-button.png)
 
-And just expand it a little, making more use of GitHub's markdown formatting:
+And expand it a little, making more use of GitHub's markdown formatting by adding the following lines after the first:
+
+````text
+To install a copy of the toolkit, open a terminal and run:
+```
+    git clone git@github.com:smangham/climate-analysis.git
+```
+
+**This code is currently in development and not all features will work**
+````
 
 ![GitHub editing Readme](fig/06-remote/edit-readme.png)
 
