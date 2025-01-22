@@ -211,7 +211,7 @@ To github.com:smangham/climate-analysis.git
 branch 'dev' set up to track 'origin/dev'.
 ```
 
-Now we've got it up on GitHub successfully! Let's go check on the site:
+Now we've got it up on GitHub successfully! Let's go check on the site (refresh the page if `dev` is not shown):
 
 ![Switching branch on GitHub](fig/07-branches/push-dev.png)
 
