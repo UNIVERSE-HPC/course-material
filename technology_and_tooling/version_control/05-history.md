@@ -225,8 +225,13 @@ git restore climate_analysis.py
 cat climate_analysis.py
 ```
 
+`cat` will output the contents of the file, starting with:
+
 ```text
-[SNIPPED - but changes rolled back]
+""" Climate Analysis Tools """
+import sys
+import temp_conversion
+...
 ```
 
 By default, `restore` replaces the file with the version of it in the _staging area_. If you haven't used `git add`, that should be the same as the version in the last commit. But what if we already used `git add` on our incorrect version of a file, or we broke the file more than one commit ago?
