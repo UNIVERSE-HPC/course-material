@@ -53,7 +53,6 @@ We do this by creating a file in the root directory of our project called `.giti
 
 ```bash
 nano .gitignore
-cat .gitignore
 ```
 
 ```text
