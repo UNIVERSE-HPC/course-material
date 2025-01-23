@@ -126,12 +126,12 @@ The name of this workflow is `Python versions`. It runs whenever there's a push 
 This workflow only has one job, named `build`, and it runs on the latest version of Ubuntu.
 
 This job utilizes a strategy called a matrix, which allows you to run the same job with different configurations.
-In this case, it's set to run the job with three different Python versions - "3.8", "3.9", and "3.10".
+In this case, it's set to run the job with three different Python versions - "3.9", "3.10", and "3.11".
 The `fail-fast` option is set to `false`, which means that if one version fails, the other versions will continue to run.
 
 This job consists of a series of steps:
 
-1. **Checkout Code:** The first step uses an action, `actions/checkout@v3`, which checks out your repository's code onto the runner, so the job can access it.
+1. **Checkout Code:** The first step uses an action, `actions/checkout@v4`, which checks out your repository's code onto the runner, so the job can access it.
 
 2. **Set Up Python:** The next step uses another action, `actions/setup-python@v3`, to set up a Python environment with the version specified in the matrix.
 
@@ -198,11 +198,11 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python 3.10
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
-          python-version: "3.10"
+          python-version: "3.11"
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip setuptools wheel
