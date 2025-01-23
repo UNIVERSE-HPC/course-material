@@ -61,6 +61,7 @@ You may need to follow the steps required to grant Codecov access to see your re
 Once you have done that, you should see your repository on the Codecov webpage.
 
 Next to your repository, you should see a 'Configure' button. Click this to set up code coverage:
+
 1. Make sure 'Using GitHub Actions' is selected.
 1. Select 'Pytest' from the menu of language options.
 1. Select 'Repository token' to generate a secret just for this repository.
