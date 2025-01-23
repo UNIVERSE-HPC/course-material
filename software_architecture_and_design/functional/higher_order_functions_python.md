@@ -70,7 +70,7 @@ Due to their simplicity, it can be useful to have a lamdba function as the inner
 ## Higher-Order Functions
 
 Higher-order functions are functions that take another function as an argument
-or that return a function. One of the main uses of lambda functions is to create 
+or that return a function. One of the main uses of lambda functions is to create
 temporary functions to pass into higher-order functions.
 
 To illustrate the benefits of higher-order functions, let us define two
