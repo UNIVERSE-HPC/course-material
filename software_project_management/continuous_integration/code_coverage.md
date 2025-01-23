@@ -60,9 +60,10 @@ Go to [https://codecov.io/](https://codecov.io/), and log in with your GitHub ac
 You may need to follow the steps required to grant Codecov access to see your repositories.
 Once you have done that, you should see your repository on the Codecov webpage.
 
-Next to your repository, you should see text like:
-
-> Not yet enabled [setup repo]
+Next to your repository, you should see a 'Configure' button. Click this to set up code coverage:
+1. Make sure 'Using GitHub Actions' is selected.
+1. Select 'Pytest' from the menu of language options.
+1. Select 'Repository token' to generate a secret just for this repository.
 
 You will see a token of the form `CODECOV_TOKEN=XXXXXXXXXX`.
 This token will allow your GitHub Actions workflow to communicate with Codecov.
@@ -169,7 +170,7 @@ You will find the following step helpful:
 
 ```yml
 - name: Upload coverage reports to Codecov
-  uses: codecov/codecov-action@v3
+  uses: codecov/codecov-action@v5
   with:
     token: ${{ secrets.CODECOV_TOKEN }}
     fail_ci_if_error: true
@@ -198,12 +199,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Set up Python 3.10
+      - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
-          python-version: "3.10"
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
@@ -216,7 +217,7 @@ jobs:
           cat coverage.xml
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
