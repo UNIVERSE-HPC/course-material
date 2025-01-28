@@ -82,14 +82,14 @@ Here's a brief breakdown of this basic workflow:
 If you now navigate to the _Actions_ tab on your GitHub repository, you should see that this workflow has run and succeeded.
 
 In this case it was run because we just pushed a change.
-We can also trigger this workflow by opening a pull request, or by navigating navigating to the workflow via the _Actions_ tab and then selecting the \*Run Workflow" dropdown (this is the `workflow_dispatch` trigger).
+We can also trigger this workflow by opening a pull request, or by navigating to the workflow via the _Actions_ tab and then selecting the _Run Workflow_ dropdown (this is the `workflow_dispatch` trigger).
 
 ## Creating a Python-specific workflow
 
 Now let's do something more useful.
 
 Navigate to the GitHub _Actions_ tab and then click _New Workflow_ (near the top left).
-This will let us start with a preset workflow containg many of the elements we are interested in.
+This will let us start with a preset workflow containing many of the elements we are interested in.
 
 Search for "python package" and select the following workflow by pressing _Configure_:
 
