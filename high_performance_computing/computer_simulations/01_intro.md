@@ -191,7 +191,9 @@ It has become quite common to come across terms like computational economics or 
 
 Even more recently, advances in machine learning has led to an entirely new subfield of computational science and its application across a huge range of disciplines.
 
+:::callout{variant="discussion"}
 If you want to know what sorts of applications are run on the UK’s national supercomputer ARCHER2, visit the relevant page on the ARCHER2 website. Is there anything that surprises you there?
+:::
 
 ---
 
