@@ -4,7 +4,8 @@
 
 #define NUM_ITERATIONS 100000
 
-int main (int argc, char *argv[]) {
+int main(int argc, char **argv)
+{
     int my_rank;
     int num_ranks;
 
@@ -19,8 +20,9 @@ int main (int argc, char *argv[]) {
     int rank_end = (my_rank + 1) * iterations_per_rank;
 
     // catch cases where the work can't be split evenly
-    if (rank_end > NUM_ITERATIONS || (my_rank == (num_ranks-1) && rank_end < NUM_ITERATIONS))
+    if (rank_end > NUM_ITERATIONS || (my_rank == (num_ranks - 1) && rank_end < NUM_ITERATIONS)) {
         rank_end = NUM_ITERATIONS;
+    }
 
     // each rank is dealing with a subset of the problem
     int prime_count = 0;
@@ -28,8 +30,9 @@ int main (int argc, char *argv[]) {
         bool is_prime = true;
 
         // 0 and 1 are not prime numbers
-        if (n == 0 || n == 1)
+        if (n == 0 || n == 1) {
             is_prime = false;
+        }
 
         // if we can only divide n by i, then n is not prime
         for (int i = 2; i <= n / 2; ++i) {
@@ -39,8 +42,9 @@ int main (int argc, char *argv[]) {
             }
         }
 
-        if (is_prime)
+        if (is_prime) {
             prime_count++;
+        }
     }
     printf("Rank %d - count of primes between %d-%d: %d\n", my_rank, rank_start, rank_end, prime_count);
 
