@@ -16,7 +16,7 @@ attribution:
 
 ## Supercomputers - what are they?
 
-A supercomputer is a computer with very high-level computational capacities compared to a general-purpose computer such as a personal desktop or laptop.
+A supercomputer is a computer with very high-level computational capacities, significantly surpassing a general-purpose computer such as a personal desktop or laptop.
 
 Clearly this is a moving target - today’s laptop would have been a supercomputer only a couple of decades ago - but no matter how fast today’s general-purpose computers are, there will always be a need for much more powerful machines.
 
