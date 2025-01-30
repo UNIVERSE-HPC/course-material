@@ -132,7 +132,9 @@ Try to find values of parameters that:
 - Allow the wolf population to die out.
 
 :::callout{variant="discussion}
+:::callout{variant="discussion}
 How difficult was it to find the sets of parameters to meet the conditions? Have you noticed anything unexpected?
+:::
 :::
 
 ---
