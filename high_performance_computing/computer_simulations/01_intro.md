@@ -70,6 +70,12 @@ The key point to remember about models, and hence simulations, is that although 
 
 Think back to our toy traffic model, how many approximations, uncertainties or potential sources of errors can you think of?
 
+:::callout{variant="tip"}
+Errors introduced by numerical precision can not be eliminated but they can be mitigated, appropriate choices of step sizes, appropriate normalisation of your variables to avoid overly large or small numbers (both of which cause larger rounding errors), appropriate algorithm choices and etc.
+
+It is important to not only be aware of this source of error but also be aware of their size and use relevant strategies to reduce them if they are too large.
+:::
+
 ---
 
 ![Herd of sheep](images/andrea-lightfoot-Pj6fYNRzRT0-unsplash.jpg)
