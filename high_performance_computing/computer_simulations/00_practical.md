@@ -14,10 +14,11 @@ attribution:
 
 ## Part 1: Traffic Simulation - Serial
 
-Let's look at serial and OpenMP implementations of the traffic simulation model we looked at in the previous material,
-let's investigate the basic performance characteristics of these implementations.
+Let's first revisit the serial and OpenMP implementations of the traffic simulation model, demonstrated in earlier sections, and investigate the basic performance characteristics of these implementations.
 
+:::callout{variant="tip"}
 If on ARCHER2, to find the serial version of the traffic simulation code, firstly make sure you're on the `/work` partition (i.e. `cd /work/[project code]/[project code]/yourusername`).
+:::
 
 Change directory to where the code is located, and use `make` as before to compile it:
 
@@ -30,8 +31,7 @@ make
 
 ## A Reminder
 
-You may wish to reacquaint yourself with *The traffic model* section in the *Parallel Computing* material that briefly describes
-the simulation model.
+You may wish to reacquaint yourself with *The traffic model* section in the *Parallel Computing* material that describes the simulation model.
 :::
 
 A number of variables are currently fixed in the source code, which you can see by looking at the following lines
