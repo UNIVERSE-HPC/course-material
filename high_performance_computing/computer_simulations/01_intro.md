@@ -178,9 +178,9 @@ In fact, computational science is considered by many to be a third methodology i
 
 You should not confuse computational science, which uses computational methods to deal with scientific problems, and computer science, which focuses on the computer itself. Having said that, computational science draws upon computer science, as well as upon mathematics and applied sciences. Computational science typically consists of three main components:
 
-1) algorithms and models
-2) software developed to solve problems and
-3) the computer and information infrastructure e.g. hardware, networking and data management components.
+1. algorithms and models
+1. software developed to solve problems and
+1. the computer and information infrastructure e.g. hardware, networking and data management components.
 
 Clearly, computational science is an intersection between mathematics, applied disciplines and computer science.
 
