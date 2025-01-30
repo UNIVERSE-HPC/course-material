@@ -186,7 +186,10 @@ Clearly, computational science is an intersection between mathematics, applied d
 
 Some of the disciplines traditionally associated with computational science include: atmospheric sciences (e.g. weather forecasting, climate and ocean modelling, seismology etc.), astrophysics, nuclear engineering, chemistry, fluid dynamics, structural analysis and material research. It’s easy to see why these disciplines were quick to take up computational science.
 
-However, more recently, other disciplines, such as medicine (e.g. medical imaging, blood flow simulations, bone structure simulations), biology (e.g. ecosystem and environmental modelling) and economics became part of computational science as well. It is quite common nowadays to come across terms like computational economics or computational biology.
+Other disciplines, such as medicine (e.g. medical imaging, blood flow simulations, bone structure simulations), biology (e.g. ecosystem and environmental modelling) and economics are embracing computational science as well.
+It has become quite common to come across terms like computational economics or computational biology.
+
+Even more recently, advances in machine learning has led to an entirely new subfield of computational science and its application across a huge range of disciplines.
 
 If you want to know what sorts of applications are run on the UK’s national supercomputer ARCHER2, visit the relevant page on the ARCHER2 website. Is there anything that surprises you there?
 
