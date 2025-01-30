@@ -47,7 +47,7 @@ Supercomputers are indispensable tools for solving the most computationally dema
 
 ### Parallelism: the key to performance
 
-Supercomputers achieve this using parallel computing. Performing computations in parallel means carrying out many calculations simultaneously. It is like having thousands of general-purpose computers all working for you on the same problem at the same time. This is in fact an excellent analogy for how modern supercomputers work - you will learn more about the details of how it is done later in the course.
+Supercomputers achieve this using parallel computing, carrying out many calculations simultaneously. Imagine thousands of general-purpose computers all working for you on the same problem at the same time. This analogy reflects how modern supercomputers work - you will learn more about the details of their architecture and operation later in the course.
 
 Also keep in mind that although supercomputers provide enormous computational capacities, they are also very expensive to develop, purchase and operate. For example, the typical power consumption of a supercomputer is in the order of several megawatts (Mega = 1 000 000), where a megawatt (MW) is enough to power a small town of around 1000 people. That is why it’s important to use them as efficiently as possible.
 
