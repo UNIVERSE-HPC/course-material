@@ -53,7 +53,8 @@ Once an appropriate algorithm (a set of rules and methods used to solve the prob
 
 ### Rounding Error
 
-The latter comes from the fact that the number of digits that can be used to represent a real number on a computer is limited by its finite memory. Therefore, numbers that require more digits to be expressed (sometimes an infinite number!) end up being rounded - they are just approximations of the numbers they are meant to represent. This difference between the real number and its approximation is referred to as the rounding error. In fact, there are many more numbers that need to be approximated than not.
+Rounding errors, errors that arise due to this limit of numerical precision, occur because the number of digits that can be used to represent a real number on a computer is limited by the finite number of memory bits that are allocated to store that number.
+Therefore, numbers that require more digits to be expressed (sometimes an infinite number!) end up being rounded - they are just approximations of the numbers they are meant to represent. This difference between the real number and its approximation is referred to as the rounding error. The vast majority of numbers need to be approximated.
 
 Moreover, the result of any operation between a number and an approximation is another approximation. This way the rounding errors can accumulate and significantly affect the accuracy of the simulation results. Additionally, in parallel computing the order in which partial results (results obtained by the individual processes) are combined matters as well! Due to the rounding error, adding partial results in a different order may lead to a slightly different final result.
 
