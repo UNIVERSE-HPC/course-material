@@ -39,7 +39,11 @@ You don’t need a supercomputer. In fact you don’t even need a personal compu
 
 The types of large-scale computations that are done by supercomputers, such as weather-forecasting or simulating new materials at the atomic scale, are fundamentally based on simple numerical calculations that could each be done on a calculator. However, the sheer scale of these computations and the levels of accuracy these applications require mean that almost unimaginably large numbers of individual calculations are needed to do the job. To produce an accurate weather forecast, the total number of calculations required is measured in the quintillions, where a quintillion is one with 18 zeroes after it: 1 000 000 000 000 000 000 !
 
-So what if a computation takes several days or weeks to finish, and you want to run the same calculations many times with different input parameters. Do you want to wait while you can’t do anything else because the computation uses up all the resources of your computer? Are you prepared to wait for years before being able to collect all the results? Probably not, especially if the result you’re after is tomorrow’s weather. This is where supercomputers come into their own, finishing a job within a few hours or days when it would take many years on a general-purpose computer, or tackling problems that are just too large or complex for an everyday machine to store in its memory.
+Imagine running a computation that takes several days or weeks to complete, one that you may need to repeat it many times with different input parameters. Such a task could monopolize your computer's resources, leaving you unable to use it for anything else. This is particularly problematic for time-sensitive applications, like predicting tomorrow's weather, where a delay would make the results irrelevant.
+
+This is where supercomputers excel. By leveraging thousands of processors working in parallel, they can finish jobs in hours or days that would take general-purpose computers many years to complete. Furthermore, they tackle problems that are too large or complex for everyday machines to store in their memory, such as modeling the Earth's climate, simulating molecular interactions, or processing massive datasets in astrophysics.
+
+Supercomputers are indispensable tools for solving the most computationally demanding challenges.
 
 ### Parallelism: the key to performance
 
