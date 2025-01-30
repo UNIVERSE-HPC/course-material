@@ -124,11 +124,12 @@ In this case the boundary conditions define what happens to wolves and sheep tha
 
 As you know, initial conditions refer to the parameters you choose before running the simulation e.g. the initial number of wolves and sheep, the grass regrow period and the reproduction rates of both populations.
 
-To understand the importance of choosing the right input parameters, and see the difference even the smallest variation can produce, you are encouraged to play with the values of different parameters. Try to find values of parameters that would:
+To understand the importance of choosing the right input parameters, and see the difference even the smallest variation can produce, you are encouraged to play with the values of different parameters.
+Try to find values of parameters that:
 
-- allow both populations to be stable (i.e. neither population is dying out) even after 1000 time steps
-- allow the sheep population to die out
-- allow the wolf population to die out
+- Allow both populations to be stable (i.e. neither population is dying out) even after 1000 time steps.
+- Allow the sheep population to die out.
+- Allow the wolf population to die out.
 
 How difficult was it to find the sets of parameters to meet the conditions? Have you noticed anything unexpected?
 
