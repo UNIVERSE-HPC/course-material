@@ -56,7 +56,10 @@ Once an appropriate algorithm (a set of rules and methods used to solve the prob
 Rounding errors, errors that arise due to this limit of numerical precision, occur because the number of digits that can be used to represent a real number on a computer is limited by the finite number of memory bits that are allocated to store that number.
 Therefore, numbers that require more digits to be expressed (sometimes an infinite number!) end up being rounded - they are just approximations of the numbers they are meant to represent. This difference between the real number and its approximation is referred to as the rounding error. The vast majority of numbers need to be approximated.
 
-Moreover, the result of any operation between a number and an approximation is another approximation. This way the rounding errors can accumulate and significantly affect the accuracy of the simulation results. Additionally, in parallel computing the order in which partial results (results obtained by the individual processes) are combined matters as well! Due to the rounding error, adding partial results in a different order may lead to a slightly different final result.
+When operations are performed on approximated numbers, the resulting values are also approximations.
+Over time, these rounding errors can accumulate, significantly impacting the accuracy of simulation results.
+This issue becomes even more pronounced in parallel computing, where the order in which partial results (computed by individual processes) are combined affects the final outcome.
+Due to rounding errors, combining these partial results in a different sequence can lead to slight variations in the result.
 
 The aim of the verification stage is to ensure that the model is implemented correctly, and each part of the simulation does exactly what is expected of it. Most of the errors should be discovered and fixed at this stage. The aim of the validation stage is to ensure that, for its intended purpose, the simulation is sufficiently close to reality.
 
