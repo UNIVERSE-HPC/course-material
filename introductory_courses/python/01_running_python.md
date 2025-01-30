@@ -2,6 +2,9 @@
 name: Running Python
 dependsOn: []
 tags: [python]
+learningOutcomes:
+  - Accessing Python.
+  - Interact with Python using the Read-Eval-Print-Loop.
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries
