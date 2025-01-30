@@ -61,7 +61,10 @@ Over time, these rounding errors can accumulate, significantly impacting the acc
 This issue becomes even more pronounced in parallel computing, where the order in which partial results (computed by individual processes) are combined affects the final outcome.
 Due to rounding errors, combining these partial results in a different sequence can lead to slight variations in the result.
 
-The aim of the verification stage is to ensure that the model is implemented correctly, and each part of the simulation does exactly what is expected of it. Most of the errors should be discovered and fixed at this stage. The aim of the validation stage is to ensure that, for its intended purpose, the simulation is sufficiently close to reality.
+The aim of the verification stage is to ensure that the model is implemented correctly, and each part of the simulation does exactly what is expected of it.
+Most of the errors should be discovered and fixed at this stage.
+The aim of the validation stage is to ensure that, for its intended purpose, the simulation is sufficiently close to reality.
+Often it is possible to know the accuracy of an algorithm in advance, or even to control the accuracy of your simulation during execution to meet a chosen standard, this is especially true if using standard algorithms to perform your calculations.
 
 The key point to remember about models, and hence simulations, is that although they simplify and idealise, they are still able to tell us something about the nature of the system they describe.
 
