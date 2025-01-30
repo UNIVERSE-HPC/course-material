@@ -202,8 +202,6 @@ If you want to know what sorts of applications are run on the UK’s national su
 
 ## Why use supercomputers?
 
-Having learned how computer simulations work and what supercomputers are capable of you should have a good idea why we need them.
-
 In this exercise we want you to have a look at three examples of computer simulations and answer the following questions:
 
 - In your opinion, what are three main reasons for using supercomputers in science and industry?
