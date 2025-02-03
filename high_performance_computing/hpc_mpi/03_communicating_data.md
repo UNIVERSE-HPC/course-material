@@ -109,7 +109,7 @@ need to change the type, you would only have to do it in one place, e.g.:
 #define MPI_DATA_TYPE MPI_INT
 #define DATA_TYPE int
 // use them as you would normally
-INT_TYPE my_data = 1;
+DATA_TYPE my_data = 1;
 ```
 
 ::::
