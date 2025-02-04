@@ -71,13 +71,13 @@ one-dimensional movement of a particle undergoing [brownian motion](https://en.w
 The first column contains the various times when the particle's position was recorded, and
 the second column the corresponding position.
 
-Let's have a quick overview of these scripts, but **don't try to understand the
+Let's have a quick overview of this scripts, but **don't try to understand the
 details**, it is irrelevant to the present workshop. Instead, let's briefly
 describe their structure.
 
 ### Overview of `analysis.py`
 
-After reading the timeseries from the file `brownian.csv`, this script `base.py` does
+After reading the timeseries from the file `brownian.csv`, this script `analysis.py` does
 three things:
 
 - It computes the average value of the particle's position over time and the standard
@@ -86,8 +86,7 @@ three things:
   50 time units.
 - Lastly, it computes and plots the histogram of the particle's position over the entirety
   of the timeseries. In addition, the theoritical histogram is computed and drawn as a
-  continuous line on top of the measured histogram. For this, a function `get_theoritical_histogram`
-  is defined, resembling the `numpy` function `histogram`.
+  continuous line on top of the measured histogram.
 
 You're probably familiar with this kind of script, in which several independant
 operations are performed on a single dataset. It is the typical output of some
@@ -106,14 +105,7 @@ Going back to `analysis.py`, consider the following questions:
   to `numpy.histogram`).
 - What would you do if you were given a similar dataset to `brownian.csv` and asked to compute the mean, compute the histogram along with other things not implemented in `analysis.py` ?
 
-In the interest of time, you are likely to end up modifying some specific lines
-(to compute the PDF instead of the histogram for example), or/and copy and paste
-of lot of code. Whilst convenience on a short term basis, is it going to be
-increasingly difficult to understand your script, track its purpose, and test
-that its results are correct. Three months later, facing a smilar dataset,
-would you not be tempted to rewrite things from scratch? It doesn't have to be
-this way! As you're going to learn in this ourse, organising your Python
-software into _packages_ alleviates most of these issues.
+In the interest of time, you are likely to end up modifying some specific lines (to compute the PDF instead of the histogram for example), or/and copy and paste a lot of code. Whilst convenient on a short term basis, is it going to be increasingly difficult to understand your script, track its purpose, and test that its results are correct. Three months later, facing a similar dataset, would you not be tempted to rewrite things from scratch? It doesn't have to be this way! As you're going to learn in this course, organising your Python software into _packages_ alleviates most of these issues.
 
 ## Separating methods from parameters and data
 
@@ -162,12 +154,7 @@ The actual implementation of the various operations (computing the mean and vari
 _encapsulated_ inside the package `my_pkg`.
 All that remains are the actual steps of the analysis.
 
-If we were to make changes to the way some operations are implemented, we would
-simply make changes to the package, leaving the scripts unmodified. This reduces
-the risk of messing of introducing errors in your analysis, when all what you
-want to do is modyfying some opearation of data. The changes are then made
-available to all the programs that use the package: no more copying and pasting
-code around.
+If we were to make changes to the way some operations are implemented, we would simply make changes to the package, leaving the scripts unmodified. This reduces the risk of introducing errors in your analysis, when all you want to do is modify some operation of data. The changes are then made available to all the programs that use the package: no more copying and pasting code around.
 
 :::callout
 Taking a step back, the idea of separating different components is pervasive in software
