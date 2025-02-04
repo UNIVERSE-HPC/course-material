@@ -206,7 +206,7 @@ current $I$. For example, to define the OCP of the positive electrode as a
 function of the surface stoichiometry $x_p^s$:
 
 ```python
-U_p = pybamm.FunctionParameter("Positive electrode OCP [V]", {"stoichiometry": "x_p_s"})
+U_p = pybamm.FunctionParameter("Positive electrode OCP [V]", {"stoichiometry": x_p_s})
 ```
 
 ### PyBaMM's built-in functions
