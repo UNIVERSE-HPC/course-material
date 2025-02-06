@@ -32,7 +32,8 @@ In this short PRACE video, Prof. Pier Luigi Vidale talks about possibilities and
 
 In the next steps we will use an example of Numerical Weather Modelling to illustrate the key concepts of computer simulations.
 
-Despite many weather forecasts being widely available to the public, not many people understand how they are created and how they should be interpreted. It’s crucial to understand that there is a huge difference between a 3-day and a 14-day forecast. That is because different forecast ranges focus on different aspects of the atmosphere so depending on the forecast range different models are used to predict the weather.
+Despite many weather forecasts being widely available to the public, not many people understand how they are created and how they should be interpreted.
+There is a huge difference between a 3-day and a 14-day forecast; different forecast ranges focus on different aspects of the atmosphere so, depending on the range, different models are used to predict the weather.
 
 For example, processes that do not have a clear impact on day-to-day forecasts, such as deep ocean circulation or carbon cycle, are absolutely essential to long range forecasts and climate modelling. That’s why climate projections use coupled ocean-atmosphere models, while short range weather forecasts do not.
 
