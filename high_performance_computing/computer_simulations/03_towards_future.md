@@ -41,7 +41,7 @@ For HPC architectures, this can be taken to mean working towards a system with a
 In 2016, the US government announced the Exascale Computing Project, which aims to have its first supercomputer operating at 1 Exaflop/s or more in production by 2021. If past trends in the Top500 list had been followed, then a 1 Exaflop/s system would have been expected in 2018 – the fact that this date will be missed by at least 2 or 3 years is a measure of the technical challenges involved, both in the hardware and software.
 
 As of 2022 exascale has only been achieved by one system [https://www.top500.org/system/180047/](Frontier) based at Oak Ridge National Laboratory. Although at some level this is just an arbitrary number, it has become a significant technological (and political) milestone.
-
+2022 saw the first exascale system, [https://www.top500.org/system/180047/](Frontier), based at Oak Ridge National Laboratory, with 2 more exascale systems, Aurora and El Capitan - both also in the US, following in 2024. Although at some level this is just an arbitrary number, it has become a significant technological (and political) milestone and more machines will follow in the near future as computing needs continue to grow.
 Some of the main barriers to building a useful and economically viable Exascale machine are:
 
 ### Hardware speeds
