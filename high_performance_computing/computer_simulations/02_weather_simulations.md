@@ -37,7 +37,9 @@ There is a huge difference between a 3-day and a 14-day forecast; different fore
 
 For example, processes that do not have a clear impact on day-to-day forecasts, such as deep ocean circulation or carbon cycle, are absolutely essential to long range forecasts and climate modelling. That’s why climate projections use coupled ocean-atmosphere models, while short range weather forecasts do not.
 
+:::callout{variant="discussion"}
 How often do you check weather forecasts? Usually, how much in advance are you checking them? From your own experience, how often are short-term forecasts correct? What about longer-term forecasts? Why makes you think this?
+:::
 
 © PRACE
 
