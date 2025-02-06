@@ -252,7 +252,7 @@ It’s not hard to imagine that all of these may record and store their measurem
 
 ### Execution
 
-Quite often, especially on a large machines, once the simulation has been started it runs until the end or until a certain, significant point in a calculation (we call these checkpoints) has been reached, and only then the output is produced. We have mentioned the batch submission procedure in earlier weeks, but just to reiterate - once an user submits their executable along with required input files to the submission queue, the job gets scheduled by a job scheduler, and some time later it runs and generates its output. In other words, you do not really see what is happening in the simulation and cannot interact with it.
+Quite often, especially on a large machines, once the simulation has been started it runs until the end or until a certain, significant point in a calculation (we call these checkpoints) has been reached, and only then the output is produced. With batch systems, once an user submits their executable along with required input files to the submission queue, the job gets scheduled by a job scheduler, and some time later it runs and generates its output. In other words, you do not really see what is happening in the simulation and cannot interact with it.
 
 There are a number of reasons why supercomputing facilities use this approach but the main ones are:
 

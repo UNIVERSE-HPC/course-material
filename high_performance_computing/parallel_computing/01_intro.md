@@ -125,7 +125,7 @@ In this second example, we use the chessboard to look at the traffic congestion.
 
 Do you understand why only one car can move at each iteration?
 
-This is actually quite important not only in our toy traffic model but also in any kind of computer simulations. The process of transferring continuous functions, equations and models into small distinct bits to be executed in a sequence of steps is called discretisation. This process is one of the initial steps in creating computer simulations. We will talk more about this in Week 4.
+This is actually quite important not only in our toy traffic model but also in any kind of computer simulations. The process of transferring continuous functions, equations and models into small distinct bits to be executed in a sequence of steps is called discretisation. This process is one of the initial steps in creating computer simulations.
 
 ---
 

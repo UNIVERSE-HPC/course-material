@@ -25,7 +25,7 @@ In this discussion step we would like you to have a look at [ARCHER2’s case st
 - is there any social or economic benefit to it?
 - what are the main reasons for using supercomputers to study this problem?
 - in your opinion, what is the most surprising or interesting aspect of this case study?
-- are there any similarities between the case study you picked and the three case studies we have discussed in this week? Why do you think that is?
+- are there any similarities between the case study you picked and the three case studies we have discussed in this module? Why do you think that is?
 
 ---
 

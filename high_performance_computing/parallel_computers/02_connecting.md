@@ -79,7 +79,7 @@ To minimise the communication-related costs, try to make as few phone calls as p
 
 ## Case study of a real machine
 
-To help you understand the general concepts we have introduced this week, we’ll now look at a specific supercomputer. I’m going to use the UK National Supercomputer, ARCHER2, as a concrete example. As well as being a machine I’m very familiar with, it has a relatively straightforward construction and is therefore a good illustration of supercomputer hardware in general.
+To help you understand the general concepts we have introduced, we’ll now look at a specific supercomputer. I’m going to use the UK National Supercomputer, ARCHER2, as a concrete example. As well as being a machine I’m very familiar with, it has a relatively straightforward construction and is therefore a good illustration of supercomputer hardware in general.
 
 ### General
 
@@ -155,7 +155,7 @@ The ARCHER2 cabinets are kept cool by pumping water through cooling pipes. The w
 5:41 - Here we only have 16 nodes, each of which has four CPU-cores, as opposed to thousands of nodes with tens of CPU-cores in them. And so Wee ARCHIE mirrors a real supercomputer such as ARCHER in almost every way, except for just the speed and the scale.
 :::
 
-Finally, Wee ARCHIE makes its appearance again! This video uses Wee ARCHIE to explain the parallel computer architecture concepts introduced in this week.
+Finally, Wee ARCHIE makes its appearance again! This video uses Wee ARCHIE to explain the parallel computer architecture concepts we've introduced.
 
 It is worth emphasising that the physical distance between the nodes does impact their communication time i.e. the further apart they are the longer it takes to send a message between them. Can you think of any reason why this behaviour may be problematic on large machines and any possible workarounds?
 

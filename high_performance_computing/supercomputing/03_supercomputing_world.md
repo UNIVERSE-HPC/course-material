@@ -119,7 +119,7 @@ Every two years the number of transistors that can fit onto an integrated circui
 
 Every two years the number of CPU-cores in a processor now doubles.
 
-In this video David uses the income calculation example to illustrate what is the impact of the first point in practice. We will return to the second point next week.
+In this video David uses the income calculation example to illustrate what is the impact of the first point in practice.
 
 ---
 

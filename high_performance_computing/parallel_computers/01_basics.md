@@ -17,7 +17,7 @@ attribution:
 
 ## Computer Basics
 
-Before we look at how supercomputers are built, it’s worth recapping what we learned last week about how a standard home computer or laptop works.
+Before we look at how supercomputers are built, it’s worth recapping what we learned previously about how a standard home computer or laptop works.
 
 Things have become slightly more complicated in the past decade, so for a short while let’s pretend we are back in 2005 (notable events from 2005, at least from a UK point of view, include Microsoft founder Bill Gates receiving an honorary knighthood and the BBC relaunching Dr Who after a gap of more than a quarter of a century).
 
@@ -78,12 +78,12 @@ Think of owning one quad-core laptop compared to two dual-core laptops - which i
 
 ## Simple Parallel Calculation
 
-We can investigate a very simple example of how we might use multiple CPU-cores by returning to the calculation we encountered in the first week: computing the average income of the entire world’s population.
+We can investigate a very simple example of how we might use multiple CPU-cores by returning to the calculation we encountered in the first module: computing the average income of the entire world’s population.
 
 If we’re a bit less ambitious and think about several hundred people rather than several billion, we can imagine that all the individual salaries are already written on the shared whiteboard. Let’s imagine that the whiteboard is just large enough to fit 80 individual salaries. Think about the following:
 
 - how could four workers cooperate to add up the salaries faster than a single worker?
-- using the estimates of how fast a human is from last week, how long would a single worker take to add up all the salaries?
+- using the estimates of how fast a human is from the previous module, how long would a single worker take to add up all the salaries?
 - how long would 4 workers take for the same number of salaries?
 - how long would 8 workers take (you can ignore the issue of overcrowding)?
 - would you expect to get exactly the same answer as before?
@@ -99,7 +99,7 @@ We’ll revisit this problem in much more detail later but you know enough alrea
 
 We’ve motivated the need for many CPU-cores in terms of the need to build more powerful computers in an era when the CPU-cores themselves aren’t getting any faster. Although this argument makes sense for the world’s largest supercomputers, we now have multicore laptops and mobile phones - why do we need them?
 
-You might think the answer is obvious: surely two CPU-cores will run my computer program twice as fast as a single CPU-core? Well, it may not be apparent until we cover how to parallelise a calculation next week, but it turns out that this is not the case. It usually requires manual intervention to enable a computer program to take advantage of multiple CPU-cores. Although this is possible to do, it certainly wouldn’t have been the case back in 2005 when multicore CPUs first became commonplace.
+You might think the answer is obvious: surely two CPU-cores will run my computer program twice as fast as a single CPU-core? Well, it may not be apparent until we cover how to parallelise a calculation later, but it turns out that this is not the case. It usually requires manual intervention to enable a computer program to take advantage of multiple CPU-cores. Although this is possible to do, it certainly wouldn’t have been the case back in 2005 when multicore CPUs first became commonplace.
 
 So what is the advantage for a normal user who is not running parallel programs? We call these serial programs.
 

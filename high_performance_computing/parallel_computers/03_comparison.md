@@ -147,7 +147,7 @@ ARCHER2 has a very high-performance network with the following characteristics:
 
 A 2 microseconds latency corresponds to around 5000 instruction cycles, so even communicating over a network as fast as ARCHER2’s is a substantial overhead. Although the bandwidth is shared between all the CPU-cores on a node, there are thousands of separate network links so, overall, ARCHER2 can in principle transfer many TBytes/second.
 
-We will see next week that if we are careful about how we split our calculation up amongst all the CPU-cores we can accommodate these overheads to a certain extent, enabling real programs to run effectively on tens of thousands of cores. Despite this, it is still true that:
+We will see in the next module that if we are careful about how we split our calculation up amongst all the CPU-cores we can accommodate these overheads to a certain extent, enabling real programs to run effectively on tens of thousands of cores. Despite this, it is still true that:
 
 **The maximum useful size of a modern supercomputer is limited by the performance of the network.**
 
