@@ -50,7 +50,9 @@ Since around 2006, there has been little significant increase in the clock frequ
 
 ### Energy consumption
 
-If we were to build a 1 Exaflop/s computer today, using standard Intel Xeon processors, then it would consume around 400 megawatts of power: that’s enough electricity for 700,000 households, or about 1% of the UK’s entire electricity generating capacity! That’s not only hugely expensive, but it would require a big investment in engineering infrastructure, and would be politically challenging from a carbon footprint point of view.
+If we were to build a 1 Exaflop/s computer today, using standard Intel Xeon processors, then it would consume around 400 megawatts of power: that’s enough electricity for 700,000 households, or about 1% of the UK’s entire electricity generating capacity!
+That’s not only hugely expensive, but it would require a big investment in engineering infrastructure, and would be politically challenging from a carbon footprint point of view.
+There are also plans to use waste heat from supercomputers as heating for homes, or for direct energy recovery which could substantially decrease the cost and environmental impact of running these scales of machines.
 
 The target energy consumption for an Exascale system is 20-30 megawatts. Some of the required savings can be made by using special purpose manycore processors, such as GPUs, instead of standard Xeons, but we are still around a factor of 5 off this target. Closing this gap is one of the big challenges in the short to medium term – some savings can be made by reducing the clock frequency of processors, but this has to be compensated for by a corresponding increase in the number of cores, in order to meet the total computational capacity target.
 
