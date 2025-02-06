@@ -270,7 +270,9 @@ The post-processing stage extracts the results of the simulation and puts them i
 
 For example, in weather forecasting it is common to show the movement of rain or clouds over a map showing geographical coordinates and timestamps. Nowadays, it is common for the simulation outputs to graphically display large amounts of data.
 
+:::callout{variant="discussion"}
 What do you think may be required to perform the pre- and post-processing steps? Do you think they have to be done on the same machine the simulation is run on? Do you think these steps have different hardware or software requirements than the execution step?
+:::
 
 ---
 
