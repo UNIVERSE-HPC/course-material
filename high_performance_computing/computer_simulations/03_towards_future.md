@@ -108,7 +108,10 @@ Although these approaches have been very successful across a wide range of probl
 
 ### Neural Networks
 
-AI takes a rather different approach: rather than writing a separate program for each problem, you write software that can learn how to solve a much more general problem. This can be done by creating an artificial neural network which takes an input (such as an image of a face) and produces an output (such as “that looks like David”). We first train the network on a set of known results (e.g. a set of passport photos that have already been identified by a human), and then apply the trained network to the unknown input to get useful results (e.g. “this person is David because he looks like David’s passport photo”). This is called “Machine Learning”.
+AI takes a rather different approach: rather than writing a separate program for each problem, you write software that can learn how to solve a much more general problem. This can be done by creating an artificial neural network which takes an input (such as an image of a face) and produces an output (such as “that looks like David”).
+We first train the network on a set of known results (e.g. a set of passport photos that have already been identified by a human), and then apply the trained network to the unknown input to get useful results (e.g. “this person is David because he looks like David’s passport photo”).
+All neural networks work on this basic principle of pattern recognition whether it is recognising subjects in images, trends in data, or predicting the next word(s) in a sequence (LLMs).
+This is called “Machine Learning”.
 
 It’s very important to recognise that, although neural networks are inspired by the way the human brain is organised as a set of connected neurons, we are not simulating the brain. The Blue Brain project is building computer models of real brains: this is in order to understand how the human brain works, not to create a synthetic AI human. Neural networks are designed to solve particular tasks that the human brain can do very easily, but using completely synthetic neural networks that look nothing like the real human brain.
 
