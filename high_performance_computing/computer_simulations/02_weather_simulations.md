@@ -56,7 +56,9 @@ Not having any computing power at his disposal, he estimated that making a usefu
 
 ### Numerical Weather Prediction
 
-The forecast starts with a creation of a three-dimensional grid consisting of many data points representing the current atmospheric conditions over a region of interest, extending from the surface to the upper atmosphere. Each of these data points contains a set of atmospheric variables, e.g. temperature, pressure, wind speed and direction, humidity and so on, coming from the observational data. The interaction and behaviour of these atmospheric variables is captured by a set of equations.
+The forecast starts with a creation of a three-dimensional grid consisting of many data points representing the current atmospheric conditions over a region of interest, extending from the surface to the upper atmosphere.
+Each data point contains a set of atmospheric variables, e.g. temperature, pressure, wind speed and direction, humidity and so on, taken from the observational data.
+The interaction and evolution of these atmospheric variables is dictated by a set of model equations.
 
 These equations can be divided into two categories - dynamical and physical. The dynamical equations treat the Earth as a rotating sphere and the atmosphere as a fluid, so describing the evolution of the atmospheric flow means solving the equations of motion for a fluid on a rotating sphere. However, this is not enough to capture the complex behaviour of the atmosphere so a number of physical equations are added to represent other atmospheric processes, such as warming, cooling, drying and moistening of the atmosphere, cloud formation, precipitation and so on.
 
