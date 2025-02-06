@@ -240,7 +240,9 @@ This means that we can never create a perfect forecast system because we can nev
 
 ## Simulation steps
 
-In the previous steps we discussed briefly what simulations are and how they are created. However, most of the time people using simulations in their work do not actually write them, they simply make use of already existing pieces of software. From the user perspective, the simulation process can be thought of as consisting of three linked steps: pre-processing, running of a simulation and post-processing.
+In the previous steps we discussed briefly what simulations are and how they are created.
+Most people using scientific simulations in their work do not write them, they simply make use of or adapt already existing pieces of software.
+From the user perspective, the simulation process can be thought of as consisting of three linked steps: pre-processing, running of a simulation and post-processing.
 
 ### Pre-processing
 
