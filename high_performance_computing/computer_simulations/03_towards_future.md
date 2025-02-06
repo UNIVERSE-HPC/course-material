@@ -112,7 +112,7 @@ It’s very important to recognise that, although neural networks are inspired b
 
 ### What has this got to do with Supercomputing?
 
-Neural networks have been around for a long time, but recent advances in computer hardware have enabled them to be large enough and fast enough to begin to tackle problems that were previously impossible to address. The combination of modern Machine Learning software and powerful computers has come to be called Deep Learning. It is also a very parallelisable problem: if I have to train my network on 1000 known images, each image can be processed independently on a separate CPU-core. We are starting to see people designing and building supercomputers specifically targeted at Deep Learning. It turns out that GPUs are very well suited to AI problems, and Google has even designed its own “TPU” (Tensor Processing Unit) processor specifically targeted at Deep Learning problems.
+Neural networks have been around for a long time, but only recent advances in computer hardware have enabled them to be large enough and fast enough to begin to tackle problems that were previously impossible to address. The combination of modern Machine Learning software and powerful computers has come to be called Deep Learning. It is also a very parallelisable problem: if I have to train my network on 1000 known images, each image can be processed independently on a separate CPU-core. We are starting to see people designing and building supercomputers specifically targeted at Deep Learning. GPUs, with their extreme parallel nature, are very well suited to machine learning problems, and Google has even designed its own “TPU” (Tensor Processing Unit) processor specifically targeted at Deep Learning problems.
 
 ### What about the future?
 
