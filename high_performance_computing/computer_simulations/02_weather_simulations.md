@@ -62,7 +62,7 @@ The interaction and evolution of these atmospheric variables is dictated by a se
 
 These equations can be divided into two categories - dynamical and physical. The dynamical equations treat the Earth as a rotating sphere and the atmosphere as a fluid, so describing the evolution of the atmospheric flow means solving the equations of motion for a fluid on a rotating sphere. However, this is not enough to capture the complex behaviour of the atmosphere so a number of physical equations are added to represent other atmospheric processes, such as warming, cooling, drying and moistening of the atmosphere, cloud formation, precipitation and so on.
 
-Now, you already know that computers work in steps, so to predict a new weather state some time into the future, these equations need to be solved a number of times. The number of time steps and their length depends on a forecast timescale and type - short, medium or long term.
+Now, you already know that computers work in discrete steps, so, to predict a new weather state some time into the future, these equations need to be solved a number of times. The number of time steps and their length depends on a forecast timescale and type - short, medium or long term.
 
 ### The Butterfly Effect
 
