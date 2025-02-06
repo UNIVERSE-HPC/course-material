@@ -54,8 +54,6 @@ Meteorology was one of the first disciplines to harness the power of computers, 
 
 Not having any computing power at his disposal, he estimated that making a useful, timely forecast would require 64,000 people to perform the calculations. Not very feasible at the time, but his theory formed the basis for weather forecasting.
 
-How are numerical models used to predict weather and climate?
-
 ### Numerical Weather Prediction
 
 The forecast starts with a creation of a three-dimensional grid consisting of many data points representing the current atmospheric conditions over a region of interest, extending from the surface to the upper atmosphere. Each of these data points contains a set of atmospheric variables, e.g. temperature, pressure, wind speed and direction, humidity and so on, coming from the observational data. The interaction and behaviour of these atmospheric variables is captured by a set of equations.
