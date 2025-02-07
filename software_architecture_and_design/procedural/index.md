@@ -6,6 +6,12 @@ files:
     [variables_cpp.md, functions_cpp.md, containers_cpp.md],
     [variables_python.md, containers_python.md, functions_python.md, arrays_python.md],
   ]
+learningOutcomes:
+  - Variables basics - assigning values and printing contents of variables
+  - Create and use container-type variables to hold multiple sets of data
+  - Define functions that take parameters and return values
+  - Test and debug functions
+  - Learn the basics of data arrays and the NumPy library
 dependsOn: [technology_and_tooling.ide]
 summary: |
   Procedural Programming is based around the idea that code should be structured
