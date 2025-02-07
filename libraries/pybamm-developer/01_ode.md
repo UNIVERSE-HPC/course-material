@@ -2,6 +2,11 @@
 name: ODE models in PyBaMM
 dependsOn: [libraries.pybamm]
 tags: [pybamm]
+learningOutcomes:
+  - Understand how to define the variables, constants, equations and initial conditions of a mathematical system in PyBaMM.
+  - Be able to set up a PyBaMM model to solve a system of ODEs.
+  - Be able to visualise expression trees to show the symbolic representation of a model's equations.
+  - Be able to trigger actions during a PyBaMM simulation using events.
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team
