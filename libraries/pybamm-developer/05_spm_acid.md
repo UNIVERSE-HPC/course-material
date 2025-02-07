@@ -2,6 +2,8 @@
 name: SPM with Acid Dissolution
 dependsOn: [libraries.pybamm-developer.04_spm_class]
 tags: [pybamm]
+learningOutcomes:
+  - Be able to extend a PyBaMM model with additional behaviour
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team
