@@ -24,7 +24,7 @@ x_p(0) &= x_{p0}, \\
 \end{align*}
 $$
 
-where $x_n$ and $x_p$ are the dimensionless stochiometries of the negative and positive electrodes, $I(t)$ is the current, $Q_n$ and $Q_p$ are the capacities of the negative and positive electrodes, $U_p(x_p)$ and $U_n(x_n)$ are the open circuit potentials of the positive and negative electrodes, and $R$ is the resistance of the battery.
+where $x_n$ and $x_p$ are the dimensionless stoichiometries of the negative and positive electrodes, $I(t)$ is the current, $Q_n$ and $Q_p$ are the capacities of the negative and positive electrodes, $U_p(x_p)$ and $U_n(x_n)$ are the open circuit potentials of the positive and negative electrodes, and $R$ is the resistance of the battery.
 
 ## PyBaMM variables
 
@@ -44,14 +44,14 @@ x = pybamm.Variable("x")
 
 ::::challenge{id="ode-variables" title="Define the state variables for the reservoir model"}
 
-Define the state variables for the reservoir model, including the stochiometries
+Define the state variables for the reservoir model, including the stoichiometries
 $x_n$ and $x_p$.
 
 :::solution
 
 ```python
-x_n = pybamm.Variable("Negative electrode stochiometry")
-x_p = pybamm.Variable("Positive electrode stochiometry")
+x_n = pybamm.Variable("Negative electrode stoichiometry")
+x_p = pybamm.Variable("Positive electrode stoichiometry")
 ```
 
 :::
@@ -70,7 +70,7 @@ a = pybamm.Parameter("a")
 
 The name of the parameter is used to identify it in the model, the name of the Python variable you assign it to is arbitrary.
 
-You can also define a parameter that is defined as a function using the [`pybamm.FunctionParameter`](ihttps://docs.pybamm.org/en/stable/source/api/expression_tree/parameter.html#pybamm.FunctionParameter) class, which is useful for time varying parameters such as the current, or functions like the OCV function parameters $U_p(x_p)$ and $U_n(x_n)$, which are both functions of the stochiometries $x_p$ and $x_n$. For example, to define a parameter that is a function of time, you would write
+You can also define a parameter that is defined as a function using the [`pybamm.FunctionParameter`](ihttps://docs.pybamm.org/en/stable/source/api/expression_tree/parameter.html#pybamm.FunctionParameter) class, which is useful for time varying parameters such as the current, or functions like the OCV function parameters $U_p(x_p)$ and $U_n(x_n)$, which are both functions of the stoichiometries $x_p$ and $x_n$. For example, to define a parameter that is a function of time, you would write
 
 ```python
 P = pybamm.FunctionParameter("Your parameter name here", {"Time [s]": pybamm.t})
@@ -86,8 +86,8 @@ Define the parameters for the reservoir model, including the current $I(t)$, the
 
 ```python
 i = pybamm.FunctionParameter("Current function [A]", {"Time [s]": pybamm.t})
-x_n_0 = pybamm.Parameter("Initial negative electrode stochiometry")
-x_p_0 = pybamm.Parameter("Initial positive electrode stochiometry")
+x_n_0 = pybamm.Parameter("Initial negative electrode stoichiometry")
+x_p_0 = pybamm.Parameter("Initial positive electrode stoichiometry")
 U_p = pybamm.FunctionParameter("Positive electrode OCV", {"x_p": x_p})
 U_n = pybamm.FunctionParameter("Negative electrode OCV", {"x_n": x_n})
 Q_n = pybamm.Parameter("Negative electrode capacity [A.h]")
@@ -150,8 +150,8 @@ model.rhs[x_p] = i / Q_p
 model.initial_conditions[x_p] = x_p_0
 
 model.variables["Voltage [V]"] = U_p - U_n - i * R
-model.variables["Negative electrode stochiometry"] = x_n
-model.variables["Positive electrode stochiometry"] = x_p
+model.variables["Negative electrode stoichiometry"] = x_n
+model.variables["Positive electrode stoichiometry"] = x_p
 ```
 
 Note that we have defined the dictionaries in a slightly different way to the
@@ -241,19 +241,19 @@ simulation will stop when any of the events are triggered.
 model.events = [stop_at_t_equal_3]
 ```
 
-::::challenge{id="ode-events" title="Define the stochiometry cut-off events"}
+::::challenge{id="ode-events" title="Define the stoichiometry cut-off events"}
 
-Define four events that ensure that the stochiometries $x_n$ and $x_p$ are
+Define four events that ensure that the stoichiometries $x_n$ and $x_p$ are
 between 0 and 1. The simulation should stop when either reach 0 or 1.
 
 :::solution
 
 ```python
 model.events = [
-    pybamm.Event("Minimum negative stochiometry", x_n - 0),
-    pybamm.Event("Maximum negative stochiometry", 1 - x_n),
-    pybamm.Event("Minimum positive stochiometry", x_p - 0),
-    pybamm.Event("Maximum positive stochiometry", 1 - x_p),
+    pybamm.Event("Minimum negative stoichiometry", x_n - 0),
+    pybamm.Event("Maximum negative stoichiometry", 1 - x_n),
+    pybamm.Event("Minimum positive stoichiometry", x_p - 0),
+    pybamm.Event("Maximum positive stoichiometry", 1 - x_p),
 ]
 ```
 
@@ -297,8 +297,8 @@ you like for the parameters, but in the solution below we will define the
 following values:
 
 - The current is a function of time, $I(t) = 1 + 0.5 \sin(100t)$
-- The initial negative electrode stochiometry is 0.9
-- The initial positive electrode stochiometry is 0.1
+- The initial negative electrode stoichiometry is 0.9
+- The initial positive electrode stoichiometry is 0.1
 - The negative electrode capacity is 1 Ah
 - The positive electrode capacity is 1 Ah
 - The electrode resistance is 0.1 Ohm
@@ -334,8 +334,8 @@ def nmc_LGM50_ocp_Chen2020(sto):
 ```python
 param = pybamm.ParameterValues({
     "Current function [A]": lambda t: 1 + 0.5 * pybamm.sin(100*t),
-    "Initial negative electrode stochiometry": 0.9,
-    "Initial positive electrode stochiometry": 0.1,
+    "Initial negative electrode stoichiometry": 0.9,
+    "Initial positive electrode stoichiometry": 0.1,
     "Negative electrode capacity [A.h]": 1,
     "Positive electrode capacity [A.h]": 1,
     "Electrode resistance [Ohm]": 0.1,
@@ -354,7 +354,7 @@ Now that we have defined the reservoir model, we can solve it using the PyBaMM s
 ```python
 sim = pybamm.Simulation(model, parameter_values=param)
 sol = sim.solve([0, 1])
-sol.plot(["Voltage [V]", "Negative electrode stochiometry", "Positive electrode stochiometry"])
+sol.plot(["Voltage [V]", "Negative electrode stoichiometry", "Positive electrode stoichiometry"])
 ```
 
 ::::challenge{id="ode-solve" title="Solve the reservoir model"}
