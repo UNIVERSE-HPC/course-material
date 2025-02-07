@@ -2,6 +2,10 @@
 name: Single Particle Model (now as a class)
 dependsOn: [libraries.pybamm-developer.03_spm]
 tags: [pybamm]
+learningOutcomes:
+  - Understand how to encapsulate PyBaMM models using classes
+  - Be able to create new models which inherit from PyBaMM's built-in models
+  - Understand how to use PyBaMM's test suite to test a model
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team
