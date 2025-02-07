@@ -2,6 +2,11 @@
 name: PDE models in PyBaMM
 dependsOn: [libraries.pybamm-developer.01_ode]
 tags: [pybamm]
+learningOutcomes:
+  - Be able to set up a PyBaMM model to solve partial differential equations (PDEs)
+  - Understand how to define the boundary conditions of a PyBaMM model
+  - Understand how to define the domain on which a PyBaMM variable is defined
+  - Understand how to define a mesh to represent a discretised domain
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team
