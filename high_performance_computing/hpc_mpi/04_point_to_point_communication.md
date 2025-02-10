@@ -150,7 +150,7 @@ int main(int argc, char** argv) {
   }
 
   if( rank == 1 ){
-     char message[14];
+     char message[15];
      MPI_Status  status;
      MPI_Recv(message, 14, MPI_CHAR, 0, 0, MPI_COMM_WORLD, &status);
      printf("%s",message);
