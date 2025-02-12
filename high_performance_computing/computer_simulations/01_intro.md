@@ -35,7 +35,7 @@ This is acceptable, as long as the model still offers useful insights into the s
 A good model focuses on capturing the dominant factors influencing the system, using a minimal yet effective set of variables and relationships.
 A model’s predictive power lies not in its complexity or completeness but in its ability to accurately represent the key drivers of the system with the necessary approximations.
 
-Now, how one goes about creating a model and a simulation? Any ideas?
+Now, how one goes about creating a model and a simulation?
 
 ---
 
@@ -44,19 +44,25 @@ Now, how one goes about creating a model and a simulation? Any ideas?
 
 ## Errors and approximations
 
-In this section we will discuss the steps involved in creating a computer simulation. Do not worry if you have trouble understanding some of the terms or concepts at the moment, hopefully everything will become clear by the end of the next step.
+The diagram above was developed in 1979 by the Technical Committee on Model Credibility of the Society for Computer Simulation.
+While technology has advanced considerably since then, the fundamental approach to modeling and simulation remains largely unchanged.
+The relationship between a model, a simulation, and the reality it represents is still the same.
 
-The diagram that you can see at the top of the page was developed by the Technical Committee on Model Credibility of the Society for Computer Simulation in 1979. The technology has advanced, but our approach to modelling and simulations has not changed that much. After all, the relation between model and simulation and their link to reality is still the same.
-
-It is important to note that each of these steps requires some sort of approximation and is prone to errors and uncertainties. The first step - analysis of the physical system and creation of its model - is purely conceptual so no mathematical equations are involved and emphasis is put on determining all possible factors, and deciding which components and interactions are crucial, and which can be neglected.
+Each step in the simulation process involves approximations and is subject to errors and uncertainties. The first step—analyzing the physical system and creating a conceptual model is qualitative: It focuses on identifying all possible factors within the system and deciding which components and interactions are essential, and which can be reasonably neglected.
+At this stage, no mathematical equations are involved.
 
 ### Uncertainties
 
-A special treatment is given to the elements of a system that need to be treated as nondeterministic, which simply means that their behaviour is not precisely predictable. In nondeterministic simulations the same input can produce different outputs. This unpredictability may be a result of inherent variations of the physical system, any potential inaccuracy stemming from the lack of knowledge, or human interaction with the system. All of these are sources of a system uncertainties and should be taken into consideration in the mathematical description of the system.
+A special treatment is given to the elements of a system that need to be treated as nondeterministic, which simply means that their behaviour is not precisely predictable.
+In nondeterministic simulations the same input can produce different outputs.
+This unpredictability may be a result of inherent variations of the physical system, any potential inaccuracy stemming from the lack of knowledge, or human interaction with the system.
+All of these are sources of a system uncertainties and should be taken into consideration in the mathematical description of the system.
 
-The transition between the conceptual and mathematical model involves capturing the interactions of the relevant components in a set of equations, and determining the boundary and initial conditions. The next step ensures that discrete mathematics is used - i.e. continuous equations are approximated by small and distinct steps so that computers can deal with them one by one.
+The transition between the conceptual and mathematical model involves capturing the interactions of the relevant components in a set of equations, and determining the boundary and initial conditions.
+The next step ensures that discrete mathematics is used; continuous equations are approximated by small and distinct steps so that computers can deal with them one by one.
 
-Once an appropriate algorithm (a set of rules and methods used to solve the problem) has been decided on, the model is implemented and errors start creeping in. By errors we mean inaccuracies that are not caused by the lack of knowledge. Some of them may be due to a programmer’s mistakes and others are related to the numeric precision.
+Once an appropriate algorithm (a set of rules and methods used to solve the problem) has been decided on and the model is implemented, errors start creeping in: inaccuracies that are not caused by the difference between the model and reality.
+While it is possible for the programmer to make mistakes, even a perfectly written simulation is beholden to numerical precision limitations inherent in computational methods.
 
 ### Rounding Error
 
@@ -263,9 +269,9 @@ Quite often, especially on a large machines, once the simulation has been starte
 
 There are a number of reasons why supercomputing facilities use this approach but the main ones are:
 
-1) a machine is a shared resource but most users want/need an exclusive access to the compute resources;
-2) most of the applications are written in a way that require dedicated resources to scale efficiently;
-3) the whole system must be utilised as fully as possible (even during weekends and public holidays!) otherwise its resources are being wasted.
+1. A machine is a shared resource but most users want/need an exclusive access to the compute resources.
+1. Most of the applications are written in a way that require dedicated resources to scale efficiently.
+1. The whole system must be utilised as fully as possible (even during weekends and public holidays!) otherwise its resources are being wasted.
 
 The point is that real-time visualisations (in situ visualisations), although slowly making their appearance, are not really used in a large scale simulations run on supercomputers. Downloading data to off-site locations (i.e. off the compute nodes of a supercomputer) allows interactive visualisations to be performed, without issues caused by limiting batch-mode workflows necessary on supercomputers. This means that to see what has happened during the simulation, i.e. to create a step-by-step visualisation of the simulation, it is necessary to save a lot of data at each time step.
 
