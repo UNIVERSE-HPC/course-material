@@ -27,12 +27,9 @@ In this video David will give a brief description of what awaits you in this mod
 0:48 - Now the way the traffic simulation is parallelised will allow us to look at what overheads are introduced by parallelisation and enable us to start to quantify when running on a parallel computer is worthwhile and when it isn’t.
 :::
 
-In the last section we talked about supercomputers mostly from a hardware perspective,
+We have previously discussed supercomputers mostly from a hardware perspective,
 in this part we will focus more on the software side i.e. how supercomputers are programmed.
 
-The first activity is centred around a traffic simulation example,
-which hopefully will help you understand the concepts of parallel computing better.
-
-The second activity will teach you about different programming models and how they relate to machine architectures.
-
-Finally, in the last activity we will talk about performance - you will learn how to determine if a parallel program uses computing resources efficiently.
+We begin by using the traffic simulation to illustrate the core concepts of parallel computing.
+From there, we delve into different programming models and their relationship to machine architectures and how they can be applied to our case study.
+Finally, we examine performance, learning how to evaluate whether our simulations are efficiently utilizes computing resources.

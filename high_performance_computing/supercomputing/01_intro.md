@@ -18,9 +18,10 @@ attribution:
 
 A supercomputer is a computer with very high-level computational capacities, significantly surpassing a general-purpose computer such as a personal desktop or laptop.
 
-Supercomputers were first introduced in the 1960s by Seymour Roger Cray at Control Data Corporation (CDC), and have been used intensively in science and engineering ever since. 
+Supercomputers were first introduced in the 1960s by Seymour Roger Cray at Control Data Corporation (CDC), and have been used intensively in science and engineering ever since.
 Clearly the technology has improved since then - today’s laptop would have been a supercomputer only a couple of decades ago - but no matter how fast today’s general-purpose computers are, there will always be a need for much more powerful machines.
 To keep track of the state-of-the-art, the supercomputing community looks to the Top500 list, which ranks the fastest 500 supercomputers in the world every six months.
+
 ### Number crunching
 
 The main application of supercomputers is in large-scale numerical computations, also called number-crunching. For simple calculations such as:
@@ -51,7 +52,9 @@ Supercomputers achieve this using parallel computing, carrying out many calculat
 
 Also keep in mind that although supercomputers provide enormous computational capacities, they are also very expensive to develop, purchase and even just to operate. For example, the typical power consumption of a supercomputer is of the order of several megawatts, where a megawatt (MW) is enough to power a small town of around 1000 people. That is why it’s important to use them as efficiently as possible.
 
+:::callout{variant="discussion"}
 Can you think of other examples of parallelism in everyday life, where many hands make light work?
+:::
 
 © SURFsara
 
@@ -66,8 +69,6 @@ This UKRI video gives you an overview of why high performance computing is impor
 
 In the video Prof. Mark Parsons uses the term of High Performance Computing (HPC). When reading about supercomputing, you will encounter this term quite often. HPC is a general term that includes all the activities and components associated with supercomputers, including aspects such as software and data storage as well as the bare supercomputer hardware.
 
-Are there any applications of supercomputers you know of, that made you interested in this course?
-We'll be covering other examples of how supercomputers are used in science later in this course.
 
 ![Computer simulation example image](images/large_hero_e0df48e4-9b4d-422c-a18f-d7898b9578d8.jpg)
 *Computer simulation covering multiple physical phenomena and machine learning algorithms can predict how dinosaurs might have moved. The laws of physics apply for extinct animals exactly as they do for living ones. © 2016 ARCHER image competition*
@@ -80,17 +81,24 @@ To do science in the real world we have to build complicated instruments for eac
 
 However, some problems are actually too large, too distant or too dangerous to study directly: we cannot experiment on the earth’s weather to study climate change, we cannot travel thousands of light years into space to watch two galaxies collide, and we cannot dive into the centre of the sun to measure the nuclear reactions that generate its enormous heat. However, one supercomputer can run different computer programs that reproduce all of these experiments inside its own memory.
 
+:::callout{variant="discussion"}
+We'll be covering more examples of how supercomputers are used in science later in this course.
+Are there any applications of supercomputers you know of, that made you interested in this course?
+:::
+
+
 This gives the modern scientist a powerful new tool to study the real world in a virtual environment. The process of running a virtual experiment is called computer simulation, and compared to disciplines such as chemistry, biology and physics it is a relatively new area of research which has been around for a matter of decades rather than centuries. This new area, which many view as a third pillar of science which extends the two traditional approaches of theory and experiment, is called computational science and its practitioners are computational scientists.
 
 ### Computational Science
 
 It’s important to be clear about the difference between computational science and computer science. Computer science is the scientific study of computers: it is through the work of computer scientists that we have the hardware and software required to build and operate today’s supercomputers. In computational science, however, we use these supercomputers to run computer simulations and make predictions about the real world. To make things even more confusing, if a computer scientist talks about a computer simulation then they would probably mean simulating a computer, i.e. running a simulation of a computer (not of the real world), which is something you might do to check that your design for a new microprocessor works correctly before going into production.
+It’s important to distinguish between computational science and computer science. Computer science is the scientific study of computers, and it is through the work of computer scientists that we have the hardware and software required to build and operate today’s supercomputers. Computational science, on the other hand, leverages these supercomputers to run simulations and make predictions about the real world. Adding to the potential confusion, when computer scientists refer to a "computer simulation," they may also mean simulating a computer itself—such as testing the design of a new microprocessor through simulation before production—rather than simulating real-world phenomena.
 
-It is important to understand that large-scale computer simulation has applications in industry, applied engineering and commerce as well as academia. Modern cars and aeroplanes are designed and tested almost entirely by computer before they are ever constructed. A new car must pass crash safety tests before going to market: destructive testing of a new car is an expensive process in itself, but not nearly as expensive as having to redesign it should it fail the test. Computer simulation enables us to design new products that are much more likely to work correctly the very first time they are built.
+Large-scale computer simulation has applications in industry, engineering, commerce, and academia. For instance, modern cars and airplanes are designed and tested virtually long before physical prototypes are built. A new car must pass crash safety tests before going to market, and virtual crash simulations enable engineers to identify and resolve potential issues early in the design process. This significantly reduces the costs of physical destructive testing and minimizes the risk of expensive redesigns. Such simulations ensure that new products are far more likely to work correctly on the first attempt, saving time and resources while driving innovation.
 
 ### Breaking the world land speed record
 
-This point was very well described by Andy Green, the driver of the Bloodhound SSC supersonic car which is aiming to break the world land speed record. In an interview on BBC’s 5 live Drive, broadcast on 4th January 2017, Adrian Goldberg asked Andy about the risks involved compared to the records set by the famous British driver Malcolm Campbell over 80 years ago:
+This point was well made by Andy Green, the driver of the Bloodhound LSR supersonic car which was aiming to break the world land speed record. In an interview on BBC’s 5 live Drive, broadcast on 4th January 2017, Adrian Goldberg asked Andy about the risks involved compared to the records set by the famous British driver Malcolm Campbell over 80 years ago:
 
 Adrian: “But if you’re travelling at supersonic speeds and you’re breaking records, so by definition doing something that hasn’t been done before, there must be a risk?
 
