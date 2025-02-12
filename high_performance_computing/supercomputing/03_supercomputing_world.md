@@ -48,12 +48,14 @@ So for the past decade, Moore’s law has meant:
 
 In the last few years the process of doubling transistors in integrated circuits is showing signs of slowing down. It’s no longer every two years but perhaps every three years, but the overall trend still continues.
 
-So what happens if the CPU-cores are not getting any faster? How are we going to build faster supercomputers to cope with the increasing size and complexity of our computer simulations? The current trend in the supercomputing world is that supercomputers are getting bigger not faster. Since the speed of a single CPU-core cannot be increased any more, having more and more cores working together is the only way to meet our computational requirements.
+The current trend in the supercomputing world is that supercomputers are getting bigger not faster. Since the speed of a single CPU-core cannot be increased any more, having more and more cores working together is the only way to meet our computational requirements.
 
 ![Graph of transistor count over time, ](images/Transistor-Count-over-time.png)
 *Image courtesy of Max Roser, Hannah Ritchie [OurWorldinData](https://ourworldindata.org/uploads/2020/11/Transistor-Count-over-time.png) ([CC-BY](https://creativecommons.org/licenses/by/4.0/deed.en))*
 
+:::callout{variant="discussion"}
 Your next mobile phone will probably have more CPU-cores than your current one. Do you think this is more useful than a faster CPU? Can you see any problems in making use of all these CPU-cores?
+:::
 
 © SURFsara
 
@@ -136,12 +138,14 @@ in June at the ISC High Performance conference in Germany,
 and in November at the Supercomputing conference in the US.
 The site provides news with respect to supercomputers and HPC, it also has a handy statistics tool which people can use to gain more insights of the Top500 systems.
 
+:::callout{variant="discussion"}
 Have a look at the most recent list and briefly comment on the following question:
 
 - What manufacturers produce the world’s largest supercomputers?
 - What types of processors do they use?
 - What fraction of peak performance is typically achieved for the LINPACK benchmark?
 - Play with the statistics tool on top500.org and think about the trends in current HPC systems. For example, how many supercomputers in the Top500 are classed as being for use by industry?
+:::
 
 © SURFsara
 
