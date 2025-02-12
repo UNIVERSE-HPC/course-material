@@ -21,23 +21,44 @@ Before we look at how supercomputers are built, it’s worth recapping what we l
 
 Things have become slightly more complicated in the past decade, so for a short while let’s pretend we are back in 2005 (notable events from 2005, at least from a UK point of view, include Microsoft founder Bill Gates receiving an honorary knighthood and the BBC relaunching Dr Who after a gap of more than a quarter of a century).
 
-A personal computer from 2005 had three major components: a single processor for performing calculations, Random Access Memory (RAM) for temporary storage of data and a hard-disk for long-term storage of programs and files.
+In 2005, a personal computer typically had three main components:
+
+1. A single processor for performing calculations.
+1. Random Access Memory (RAM) for temporary data storage.
+1. A hard disk for long-term storage of programs and files.
 
 ![Diagram of relationship between processor, memory and disk](images/hero_9090d93c-0a48-4a33-8ed4-3b8fc6acf6cf.png)
 
-For us, it turns out that the way memory is configured is the most fundamental aspect so we’ll not worry about the disk for now.
+For our purposes, the configuration of memory is the most critical aspect, so we’ll set aside the hard disk for now.
 
-Moore’s law had meant that, over the previous three decades, processors had become faster and faster at an exponential rate due to ever increasing CPU clock speeds. However, around 2005, the increase in clock speed stopped and frequencies started to plateau at around a couple of GHz.
+### The Rise of Multicore Processors
+
+For three decades leading up to 2005, Moore’s Law ensured that processors became exponentially faster, primarily due to increasing CPU clock speeds. However, around 2005, clock speed growth plateaued at around 2 GHz.
 
 The reason was simple: the amount of electrical power required to run processors at these speeds had become so large that they were becoming too hot for the domestic market (could not be cooled by a simple fan) and too expensive to run for the commercial market (large electricity bills and expensive cooling infrastructure). So, around 2005, the application of Moore’s law changed: rather than using twice as many transistors to build a new, more complicated CPU with twice the frequency, manufacturers started to put two of the old CPUs on the same silicon chip - this is called a dual-core CPU.
 
 The trend continued with four CPUs on a chip, then more … Generically, they are called multicore CPUs, although for very large numbers the term manycore CPU is now commonplace.
 
-The terminology gets somewhat confusing now as, when you say processor or CPU, it’s sometimes not clear if you mean the physical chip that you buy from a hardware store (which actually has more than one CPU on it) or whether you mean the individual CPUs themselves. To avoid confusion, in this course we call each individual CPU a CPU-core, and reserve CPU or processor for the entire multicore CPU. So, a quad-core CPU (or quad-core processor) has four CPU-cores.
+:::callout{variant="info"}
+With multicore processors, terminology can be confusing. When we refer to a "processor" or "CPU," it’s not always clear whether we mean the physical chip (which houses multiple processors) or the individual processing units within.
 
-We now have two complementary ways of building a parallel computer: we can build a single multicore computer using a processor with perhaps a few tens of CPU-cores, or we can take lots of separate computers, each with their own processor and memory, and link them together using a high-speed network. These two approaches are called the shared-memory architecture and the distributed-memory architecture and we will now look at them in detail.
+To avoid confusion in this course:
+- CPU-core refers to each individual processing unit within a chip.
+- CPU or processor refers to the entire multicore chip.
 
+So, a quad-core CPU (or quad-core processor) has four CPU-cores.
+:::
+
+We now have two complementary ways of building a parallel computer:
+
+- Shared-memory architecture: Build a single multicore computer using a processor with dozens of CPU-cores.
+- Distributed-memory architecture: Connect multiple individual computers, each with its own processor and memory, via a high-speed network.
+
+We will now explore these approaches in detail.
+
+:::callout{variant="discussion"}
 What do you think the main differences between these two approaches are? Can you think of any advantages and/or disadvantages for both of them?
+:::
 
 ---
 
@@ -56,16 +77,18 @@ This is the basic architecture of a modern mobile phone, laptop or desktop PC. I
 
 A good analogy here is to think of four office-mates or workers (the CPU-cores) sharing a single office (the computer) with a single whiteboard (the memory). Each worker has their own set of whiteboard pens and an eraser, but they are not allowed to talk to each other: they can only communicate by writing to and reading from the whiteboard.
 
-Later on, we’ll start to think about how we can use this shared whiteboard to get the four workers to cooperate to solve the same problem more quickly than they can do it alone. However, the analogy already illustrates two key limitations of this approach:
+Later in this module, we’ll explore strategies for leveraging this shared whiteboard to enable efficient cooperation among the workers. However, this analogy already illustrates two key limitations of this approach:
 
-1) **memory capacity**: there is a limit to the size of the whiteboard that you can fit into an office, i.e. there is a limit to the amount of memory you can put into a single shared-memory computer;
-2) **memory access speed**: imagine that there were ten people in the same office - although they can in principle all read and write to the whiteboard, there’s simply not enough room for more than around four of them to do so at the same time as they start to get in each other’s way. Although you can fill the office full of more and more workers, their productivity will stall after about 4 workers because the additional workers will spend more and more time idle as they have to queue up to access the shared whiteboard.
+1. **memory capacity**: There is a limit to the size of the whiteboard that you can fit into an office, i.e. there is a limit to the amount of memory you can put into a single shared-memory computer;
+1. **memory access speed**: imagine that there were ten people in the same office - although they can in principle all read and write to the whiteboard, there’s simply not enough room for more than around four of them to do so at the same time as they start to get in each other’s way. Although you can fill the office full of more and more workers, their productivity will stall after about 4 workers, as contention for the shared memory bus increases a bottleneck is created.
 
 ### Limitations
 
-It turns out that memory access speed is a real issue in shared-memory machines. If you look at the processor diagram above, you’ll see that all the CPU-cores share the same bus: the connection between the bus and the memory eventually becomes a bottleneck and there is simply no point in adding additional CPU-cores. Coupled with the fact that the kinds of programs we run on supercomputers tend to read and write large quantities of data, it is often memory access speed that is the limiting factor controlling how fast we can do a calculation, not the floating-point performance of the CPU-cores.
+It turns out that memory access speed is a real issue in shared-memory machines. 
+If you look at the processor diagram above, you’ll see that all the CPU-cores share the same bus: the connection between the bus and the memory becomes a bottleneck, limiting the number of CPU-cores that can efficiently utilize the shared memory.
+Coupled with the fact that the variety of programs we run on supercomputers tend to read and write large quantities of data, memory access speed often becomes the primary factor limiting calculation speed, outweighing the importance of the CPU-cores' floating-point performance.
 
-There are various tricks to overcoming these two issues, but the overcrowded office clearly illustrates the fundamental challenges of this approach if we require many hundreds of thousands of CPU-cores.
+Several strategies have been developed to mitigate these challenges, but the overcrowded office analogy highlights the inherent difficulties when scaling to hundreds of thousands of CPU-cores.
 
 Despite its limitations, shared memory architectures are universal in modern processors. What do you think the advantages are?
 
