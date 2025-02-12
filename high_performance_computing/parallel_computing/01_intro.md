@@ -17,11 +17,17 @@ attribution:
 
 ## Parallel Computing
 
-We have seen over the first two parts of the course that almost all modern computers are parallel computers, consisting of many individual CPU-cores that can be connected together in two different ways: in either a shared-memory or a distributed-memory fashion. A supercomputer will contain tens of thousands of CPU-cores, all operating simultaneously.
+We have seen over the first two parts of the course that almost all modern computers are parallel computers, consisting of many individual CPU-cores that are connected together working simultaneously on one or more computer programs.
 
-A single CPU-core acts as a serial computer, running a single computer program at any one time. The Oxford English Dictionary defines serial computing as ‘the performance of operations … in a set order one at a time’. To take advantage of a parallel computer, we need to perform many operations at the same time so that we can make use of many CPU-cores. Parallel computing is defined as ‘Involving the concurrent or simultaneous performance of certain operations’.
+A single CPU-core acts as a serial computer, running only a single computer program at any one time.
+The Oxford English Dictionary defines serial computing as ‘the performance of operations … in a set order one at a time’.
+To take advantage of a parallel computer, we need to perform many operations at the same time so that we can make use of many CPU-cores.
+Parallel computing is defined as ‘Involving the concurrent or simultaneous performance of certain operations’.
 
-It is quite clear that a supercomputer has the potential for doing calculations very quickly. However, it may not immediately be obvious how to take advantage of this potential power for any particular problem. In this session, we look at ways to solve problems that enable us to take advantage of parallel computers. That requires a problem, calculation or serial computer program to be parallelised.
+It is quite clear that a supercomputer has the potential for doing calculations very quickly.
+However, it may not immediately be obvious how to take advantage of this potential power for any particular problem.
+We next look at techniques we can use in our programs in order to take advantage of parallel computers.
+This requires a problem, calculation or serial computer program to be parallelised.
 
 The process of parallelising a calculation has a number of important steps:
 
@@ -30,11 +36,15 @@ The process of parallelising a calculation has a number of important steps:
 - implementing these two operations using standard approaches;
 - executing the parallel program on a parallel computer.
 
-The first two steps typically depend on the problem you are trying to solve, and you do not have to consider the architecture of the particular parallel computer you are eventually going to run on. However, we will see that the last two steps are quite different depending on whether you are targetting a shared or distributed-memory computer. In these cases we use different programming models called the shared-variables model or the message-passing model; these two models are executed in very different ways.
+The first two steps typically depend only on the problem you are trying to solve, and not on the architecture of the particular parallel computer it is to be run on.
+However, we will see that the last two steps are quite different depending on whether you are targeting a shared or distributed-memory computer.
+In these cases, we use two distinct programming models: the shared-variables model and the message-passing model, each executed in fundamentally different ways.
 
-Once you have reached step 3, there are many existing software packages and tools to help you automate the process. However, it may be surprising to you that the first two steps are still done by hand, requiring someone to sit down and think things through using pencil-and-paper, maybe trying a number of ideas to see which works best.
+There are many existing software packages and tools to help you actually write the implementation but, the first two steps (the design of the program) are still done by hand.
+This requires someone to sit down and think things through using pencil-and-paper, maybe experimenting with a number of ideas to find the best approach.
 
-Parallel computing has been around for several decades so there is a wealth of experience to draw upon, and the best parallelisation strategies have been identified for a wide range of standard problems. Despite this, it is not currently possible to completely automate these first two steps for anything but the simplest problems – perhaps a disappointing state of affairs given the fact that almost every phone, tablet or laptop is now a parallel computer, but good news if you are employed as a parallel programmer!
+Parallel computing has been around for several decades so there is a wealth of experience to draw upon, and the best parallelisation strategies have been identified for a wide range of standard problems.
+Despite this, it is not currently possible to completely automate these design steps for anything but the simplest problems – perhaps a disappointing state of affairs given the fact that almost every phone, tablet or laptop is now a parallel computer, but good news if you are employed as a parallel programmer!
 
 ---
 
@@ -48,21 +58,28 @@ Now we are going to consider how to parallelise a more interesting example than 
 We are going to look at a very simple way of trying to simulate the way that traffic flows. This better illustrates how parallel computing is used in practice compared to the previous salaries example:
 
 - We process the same data over and over again rather than just reading it once;
-- The way the model works (where the behaviour of each car depends on the road conditions immediately in front and behind) is a surprisingly good analogy for much more complicated computations such as weather modelling which we will encounter later on.
+- The way the model works (where the behaviour of each car depends on the road conditions immediately in front and behind) is a surprisingly good analogy for much more complicated computations, such as weather modelling, which we will encounter later on.
 
 ### The traffic model
 
-In this example we only talk about a straight, one-way road without any intersections. We think of the road as being divided into a number of sections or cells, each of which either contains a car (is occupied) or is empty (unoccupied). The way a car behaves is very simple: if the cell in front is occupied then it cannot move and remains where it is; if the cell in front is unoccupied then it moves forward. A complete sweep of the road, where we consider every car once, is called an iteration; each iteration, a car can only move once. Having updated the entire road, we proceed to the next iteration and check again which cars can move and which cars stand still.
+In this example we only talk about a straight, one-way road without any intersections.
+We think of the road as being divided into a number of sections or cells, each cell either contains a car (is occupied) or is empty (unoccupied).
+The car behaviour is very simple: if the cell in front is occupied then it cannot move and remains where it is; if the cell in front is unoccupied then it moves forward.
+A complete sweep of the road, where we consider every car once, is called an iteration; each iteration, a car can only move once.
+Having updated the entire road, we proceed to the next iteration and check again which cars can move and which cars stand still.
 
 If you want, you can think of each cell representing about 5 metres of road and each iteration representing around half a second of elapsed time.
 
 Despite being such a simple simulation, it represents some of the basic features of real traffic flow quite well. We will talk you through some examples in the next few videos.
 
-The simplest way to characterise different simulations is the density of cars, that is the number of cars divided by the number of cells. If all cells are occupied then the density is 1.0 (i.e. 100%), and if half of them are occupied then the density is 0.5 (50%).
+The simplest way to characterise different simulations is the density and average velocity of the cars: The density is the number of cars divided by the number of cells. If all cells are occupied then the density is 1.0 (i.e. 100%), and if half of them are occupied then the density is 0.5 (50%).
+If we define the top speed of a car as 1.0 (i.e. it moves one cell in an iteration) then the average speed of the cars at each iteration is the number of cars that move divided by the total number of cars. 
+For example, if we have 10 cars and, in a given iteration, all of them move then the average speed is 1.0.
+If only four of them move then the average speed is 0.4 and, if none of them move, then the average speed is zero (total gridlock).
 
-Perhaps the simplest quantity to measure is the average speed of the cars after each iteration. If we call the top speed of a car 1.0 (i.e. it moves one cell in an iteration) then the average speed of the cars at each iteration is the number of cars that move divided by the total number of cars. For example, if we have 10 cars and all of them move then the average speed is 1.0. If only four of them move then the average speed is 0.4. If none of them move (total gridlock) then the average speed is zero.
-
+:::callout{variant="discussion"}
 Why do you think this problem is a good analogy for other, more complex simulations? If the traffic flow problem was to be parallelised, how do you think it could be decomposed into parallel tasks?
+:::
 
 ---
 
@@ -85,7 +102,9 @@ In this short video David uses a chessboard to explain how the traffic model wor
 
 We will be using the chessboard to illustrate a few examples of the traffic conditions in the next steps.
 
+:::callout{variant="discussion"}
 Do you think this simplified model is actually useful? Why?
+:::
 
 ---
 
@@ -104,7 +123,9 @@ Do you think this simplified model is actually useful? Why?
 
 In this first example David uses the traffic model on a chessboard to simulate a situation created by traffic lights.
 
+:::callout{variant="discussion"}
 In your opinion, is our toy model capable of capturing the effect of traffic lights? Can you outline the most essential assumptions?
+:::
 
 ---
 
@@ -121,7 +142,7 @@ In your opinion, is our toy model capable of capturing the effect of traffic lig
 1:18 - And that’s just quite interesting observation, but it might help you, in fact, to try to think about how the model works.
 :::
 
-In this second example, we use the chessboard to look at the traffic congestion.
+In this second example, we again use the chessboard to look at the traffic congestion.
 
 Do you understand why only one car can move at each iteration?
 
@@ -160,9 +181,11 @@ This is actually quite important not only in our toy traffic model but also in a
 
 In this video David talks about another example of traffic conditions - rubbernecking.
 
-We use term the rubbernecking to refer to the activity of motorists slowing down in order to see something on the other side of a road or highway, which creates backwards waves in traffic.
+The term rubbernecking refers to the activity of motorists slowing down in order to see something on the other side of a road or highway, which creates backwards waves in traffic.
 
+:::callout{variant="discussion"}
 Having watched the video, is it clear to you what boundary conditions are? Do you understand why they are needed?
+:::
 
 ---
 
@@ -187,9 +210,14 @@ What perhaps isn’t obvious (at least it wasn’t obvious to me) is how rapidly
 
 You might be concerned about what happens at the extreme ends of the road. If I have a road containing 100 cells, what happens if the car in cell 100 wants to move forward? Which cell is to the right of cell 100? Which cell is to the left of cell 1? In computer simulations, these are called the boundary conditions: we have to decide what to do at the boundaries (i.e. the extreme ends) of the simulation.
 
-For simplicity, we will choose to simulate traffic driving on a very large roundabout rather than a straight piece of road. If you imagine wrapping the road into a circle, this means that when a car moves away from cell 100 it reappears back on cell 1. So, the cell forward from cell 100 is cell 1; the cell backward from cell 1 is cell 100. These are called periodic boundary conditions.
+For simplicity, we will choose to simulate traffic driving on a very large roundabout rather than a straight piece of road.
+If you imagine wrapping the road into a circle, this means that when a car moves away from cell 100 it reappears back on cell 1.
+So, the cell forward from cell 100 is cell 1; the cell backward from cell 1 is cell 100.
+These are called periodic boundary conditions.
+There are plenty of other strategies used to handle boundaries in computational science, different problems require different solutions.
 
-For the traffic model, it has the nice side-effect that the total number of cars stays the same on every iteration as there is no way for cars to enter or leave the roundabout. This is a nice way of checking our simulation: if the number of cars changes from iteration to iteration then we must have made a mistake!
+For the traffic model, this has the nice side-effect that the total number of cars stays the same on every iteration as there is no way for cars to enter or leave the roundabout.
+If the number of cars changes from iteration to iteration then we must have made a mistake!
 
 ![Barges from Conway's Game of Life](images/Conways_game_of_life.png)
 
@@ -207,11 +235,11 @@ Most of these models will be very boring, but with our particular choice of rule
 
 We have chosen a 1D model for simplicity. What do you think you would need to consider to simulate a 2D model? How much more work would it be?
 
-### Can we do better?
-
+:::callout{variant="discussion"}
 We’ve made a lot of simplifications to simulate traffic using this Rule 184 cellular automaton. Can you list what they are? What important aspects of real traffic flow are we missing?
 
-Do you think it is possible to perform realistic traffic simulations using a more complicated cellular automaton, or would you recommend a completely different approach. Why?
+Do you think it is possible to perform realistic traffic simulations using a more complicated cellular automaton, or would you recommend a completely different approach. Why?  
+:::
 
 ---
 
