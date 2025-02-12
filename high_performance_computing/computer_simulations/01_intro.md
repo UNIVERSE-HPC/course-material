@@ -30,7 +30,10 @@ By definition a mathematical model is a simplification of reality. Typically, it
 
 For simulations like weather forecasting, or wildfire modelling, the time-to-solution should to be as short as possible. In other cases, you may not care about how long it takes to reach the solution, but what about the required computing power and associated costs? Computer simulations are very much about tradeoffs: time-to-solution, performance and computational cost vs. scientific usefulness.
 
-Moreover, regardless of how complex a model is, the actual physical system will always contain phenomena that are not represented in the model. This is not a problem, as long as the model still provides insight into the behaviour of the system. That’s why a truly useful model should be able to determine all relevant behaviour and properties of the studied system using a relatively small number of variables and relations between them. The predictive power of a model does not directly depend on its completeness or complexity but on its ability to correctly identify the dominant controlling factors and hence, the necessary approximations.
+No matter how detailed a model is, the physical system it represents will always involve unaccounted phenomena.
+This is acceptable, as long as the model still offers useful insights into the system’s behavior.
+A good model focuses on capturing the dominant factors influencing the system, using a minimal yet effective set of variables and relationships.
+A model’s predictive power lies not in its complexity or completeness but in its ability to accurately represent the key drivers of the system with the necessary approximations.
 
 Now, how one goes about creating a model and a simulation? Any ideas?
 
