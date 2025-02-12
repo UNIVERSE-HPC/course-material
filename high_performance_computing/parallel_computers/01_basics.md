@@ -90,9 +90,11 @@ Coupled with the fact that the variety of programs we run on supercomputers tend
 
 Several strategies have been developed to mitigate these challenges, but the overcrowded office analogy highlights the inherent difficulties when scaling to hundreds of thousands of CPU-cores.
 
+:::callout{variant="discussion"}
 Despite its limitations, shared memory architectures are universal in modern processors. What do you think the advantages are?
 
 Think of owning one quad-core laptop compared to two dual-core laptops - which is more useful to you and why?
+:::
 
 ---
 
@@ -124,15 +126,19 @@ We’ve motivated the need for many CPU-cores in terms of the need to build more
 
 You might think the answer is obvious: surely two CPU-cores will run my computer program twice as fast as a single CPU-core? Well, it may not be apparent until we cover how to parallelise a calculation later, but it turns out that this is not the case. It usually requires manual intervention to enable a computer program to take advantage of multiple CPU-cores. Although this is possible to do, it certainly wouldn’t have been the case back in 2005 when multicore CPUs first became commonplace.
 
-So what is the advantage for a normal user who is not running parallel programs? We call these serial programs.
+What advantages do multicore processors offer to users running programs that don’t utilize parallel computing? Such programs, operating on a single CPU-core, are called serial programs.
 
 ### Operating Systems
 
-The important point is that, as a user, you don’t actually say please run this program on that CPU-core. There is a piece of software that sits between you and the hardware, the Operating System or OS, that isolates you from direct access to the CPU-cores, memory etc. There are several common OS’s around today - e.g. Windows, macOS, Linux and Android - but they all perform the same basic function: you ask the OS to execute a program, and it then decides if and when to actually run it on a physical CPU-core.
+As a user, you don’t directly assign programs to specific CPU-cores.
+The Operating System (OS) acts as an intermediary between you and the hardware, managing access to CPU-cores, memory, and other components.
+There are several common OS’s around today - e.g. Windows, macOS, Linux and Android - but they all perform the same basic function: you ask the OS to execute a program, and a component of the OS called the scheduler manages when and on which CPU-core the program is executed.
 
 ![Diagram of user in relation to computer containing an operating system, processor and memory](images/hero_6d93ece3-84b2-495f-b5c5-0e0f652196ea.png)
 
-This enables even a single CPU-core machine to appear to be doing more than one thing at once - it will seem to be running dozens of programs at the same time. What is actually happening is that the OS is running one program for, say, a hundredth of a second, then stopping that program and running another one for a hundredth of a second, etc. Just like an animation running at many individual frames per second, this gives the illusion of continuous motion.
+This enables even a single CPU-core machine to appear to be doing more than one thing at once - it will seem to be running dozens of programs at the same time.
+What is actually happening is that the OS runs one program, say, for a hundredth of a second, then stops that program and runs another one for a hundredth of a second, etc.
+Just like an animation made up of many individual frames, this gives the illusion of continuous motion.
 
 ### How the OS exploits many CPU-cores
 
@@ -140,13 +146,19 @@ On a shared-memory computer, the important point is that all the CPU-cores are u
 
 ![User in relation to computer, containing operating system, multiple cores and memory](images/hero_4a65543e-9635-4624-9811-5da1a0ab431e.png)
 
-This means that you can run a web browser, listen to music, edit a document and run a spreadsheet all at the same time without these different programs slowing each other down. Because of the shared memory, the OS can stop a program on CPU-core 1 and then restart it later on CPU-core 3: all the workers can read and write to the same shared whiteboard so can easily pick up where someone else has left off.
+This means that you can run a web browser, listen to music, edit a document and run a spreadsheet all at the same time without these different programs slowing each other down. 
+With shared memory, the OS can pause a program on CPU-core 1 and resume it later on CPU-core 3, as all CPU-cores can access the same shared memory. 
+This allows seamless task switching.
 
 A shared-memory computer looks like a more powerful single-core computer: it operates like a single computer because it has a single OS, which fundamentally relies on all the CPU-cores being able to access the same memory. It is this flexibility that makes multicore shared-memory systems so useful.
 
-So, for home use, the Operating System does everything for us, running many separate programs at the same time. On the other hand, in supercomputing we want to run a single program but make it go faster - the OS can’t really help us here and we’ll see that we have to work a bit harder.
+So, for home use, the Operating System does everything for us, running many separate programs at the same time. 
+In supercomputing, the goal is to accelerate a single program rather than running multiple tasks simultaneously. 
+Achieving this requires effort beyond what the OS can provide.
 
+:::callout{variant="discussion"}
 In your opinion what are the downsides of this more advanced ‘single-core computer’ approach?
+:::
 
 ---
 
@@ -187,13 +199,17 @@ Watch what happens when David runs multiple copies of a simple income calculatio
 
 ![User in relation to computer, containing operating system, multiple cores and memory](images/hero_4a65543e-9635-4624-9811-5da1a0ab431e.png)
 
-Note that, although we are running few instances of our toy program at the same time, there is no time advantage in doing so. We are running exactly the SAME program many times, so each run will give us exactly the same results in approximately the same time. This demo illustrates nicely how an operating system handles execution on multiple CPU-cores, but otherwise is a waste of resources.
+Note that running multiple instances of our toy program simultaneously does not save time.
+Each instance runs independently, producing identical results in approximately the same duration. 
+This demo illustrates how an operating system handles execution on multiple CPU-cores, but otherwise is a waste of resources.
 
 Can you think of a situation in which this kind of execution may be useful?
 
 We haven’t really explained what the concept of minimum interference is about - think of David closing down his browser before running his code - but can you think of a reason why it may be important to isolate your program as much as possible, especially when running on a supercomputer? What are the implications of not doing this?
 
-If you are interested, here is the function that David actually timed. It’s written in the C language - it’s purely here for reference and its not meant to be compiled or run as it stands.
+If you are interested, here is the function that David actually timed. 
+The function is written in C and is provided purely for reference.
+It is not intended to be compiled or executed as it is.
 
 ```c
 // Add up a given number of salaries to compute total income.
@@ -233,7 +249,8 @@ David: I re-ran the same studies covered in the video but with almost all other 
 We mentioned before that memory access speeds are a real issue in supercomputing, and adding more and more CPU-cores to the same memory bus just makes the contention even worse.
 
 The standard solution is to have a memory cache. This is basically a small amount of scratch memory on every CPU-core, which is very fast. However, it is also quite small - well under a megabyte when the total memory will be more than a thousand times larger - so how can it help us?
-
+The standard solution is to have a memory cache; a small, high-speed storage area located on each CPU-core. It allows the core to access frequently used data much faster than from main memory.
+However, it is also quite small, well under a megabyte, representing less than a thousandth of the total memory.
 Think of the analogy with many workers sharing an office. The obvious solution to avoid always queueing up to access the shared whiteboard is to take a temporary copy of what you are working on. Imagine that each worker has a small notebook: when you need to read data from the whiteboard, you fill your notebook with everything you need and then you can work happily on your own at your desk while other people access the whiteboard.
 
 This works very well for a single worker: you can work entirely from your personal notebook for long periods, and then transfer any updated results to the whiteboard before moving on to the next piece of work.
