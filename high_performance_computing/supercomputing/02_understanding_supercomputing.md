@@ -21,11 +21,12 @@ So what are supercomputers made of? Are the building components really so differ
 
 In this step, we start to outline the answers to these questions. We will go into a lot more detail in a future module but for now we will cover enough of the basics for you to be able to understand the characteristics of the supercomputers in the [Top500](https://www.top500.org/lists/top500/2023/11/) list (the linked list is from November 2023).
 
-It may surprise you to learn that supercomputers are built using the same basic elements that you normally find in your desktop, such as processors, memory and disk. The difference is largely a matter of scale. The reason is quite simple: the cost of developing new hardware is measured in billions of euros, and the market for consumer products is vastly larger than that for supercomputing, so the most advanced technology you can find is actually what you find in general-purpose computers.
-
-When we talk about a processor, we mean the central processing unit (CPU) in a computer which can also be considered as the computer’s brain. The CPU carries out the instructions of a computer program. The terms CPU and processor are generally used interchangeably. The slightly confusing thing is that a modern CPU actually contains several independent brains; it is actually a collection of several separate processing units, so we really need another term to avoid confusion. We will call each independent processing unit a CPU-core - some people just use the term core.
+When we talk about a processor, we mean the central processing unit (CPU) in a computer which is sometimes considered to be the computer’s brain. The CPU carries out the instructions of computer programs, the terms CPU and processor are generally used interchangeably.
+A modern CPU is composed of a collection of several separate processing units, we call each independent processing unit a CPU-core - some people just use the term core.
 
 A modern domestic device (e.g. a laptop, mobile phone or iPad) will usually have a few CPU-cores (perhaps two or four), while a supercomputer has tens or hundreds of thousands of CPU-cores. As mentioned before, a supercomputer gets its power from all these CPU-cores working together at the same time - working in parallel. Conversely, the mode of operation you are familiar with from everyday computing, in which a single CPU-core is doing a single computation, is called serial computing.
+
+It may surprise you to learn that supercomputers are built using the same basic elements that you normally find in your desktop, such as processors, memory and disk. The difference is largely a matter of scale. The reason is quite simple: the cost of developing new hardware is measured in billions of euros, and the market for consumer products is vastly larger than that for supercomputing, so the most advanced technology you can find is actually what you find in general-purpose computers.
 
 Interestingly, the same approach is used for computer graphics - the graphics processor (or GPU) in a home games console will have hundreds of cores. Special-purpose processors like GPUs are now being used to increase the power of supercomputers - in this context they are called accelerators.
 
@@ -45,7 +46,6 @@ Does it surprise you to learn that games console components and other general-pu
 
 ## Understanding Supercomputing - Performance
 
-The Top500 list ranks supercomputers by their floating-point performance - let’s take a look at what that means.
 
 In supercomputing, we are normally interested in numerical computations: what is the answer to 0.234 + 3.456, or 1.4567 x 2.6734? Computers store numbers like these in floating-point format, so they are called floating-point numbers. A single instruction like addition or multiplication is called an operation, so we measure the speed of supercomputers in terms of floating-point operations per second or Flop/s, which is sometimes written and said more simply as Flops.
 
@@ -67,6 +67,7 @@ Clearly, with many thousands of CPU-cores we’re going to encounter some big nu
 | 1 000 000 000 000 000 000 | 10^18               | Exa     | Eflops |
 
 :::callout
+:::callout{variant="info"}
 A quick word of warning here: when talking about performance measures such as Gflops, we are talking about powers of ten. For other aspects such as memory, it is more natural to work in powers of 2 - computers are binary machines after all.
 :::
 
@@ -85,22 +86,28 @@ This might seem like an academic point since, for a KByte, the difference is onl
 
 If we are going to compare performance we need some standard measure. When buying a car, we don’t just take the manufacturer’s word for how good the car is - we take it for a test drive car and see how well it performs in practice. For cars we might be interested in top speed or fuel economy, and it turns out that we are interested in the equivalent quantities for supercomputers: maximum floating-point performance and power consumption.
 
-To measure supercomputer performance the test drive is how fast it can run a standard program, and this process is called benchmarking.
+In the supercomputer world, two parameters are frequently used to measure the performance of a system, Rpeak and Rmax: Rpeak is the theoretical peak performance, which is just the peak performance of a CPU-core multiplied by the number of CPU-cores; Rmax is the measured maximum performance. To measure supercomputer performance the equivalent of a test drive is how fast it can run a standard program, the process of measuring performance is called benchmarking. Both are expressed in units of FLOPS.
 
-In the supercomputer world, two terminologies are often used to measure the performance of a system, Rpeak and Rmax. Rpeak is the theoretical peak performance, which is just the peak performance of a CPU-core multiplied by the number of CPU-cores. Rmax is the maximum performance achieved while running the LINPACK benchmark.
+The standard benchmark for supercomputing is the High Performance LINPACK (HPL) benchmark.
+LINPACK involves running a standard mathematical computation called an LU factorisation on a very large square matrix of size Nmax by Nmax.
+The matrix is just a table of floating-point numbers, and Nmax is chosen in order to fill the machines available memory and to maximise performance.
 
-LINPACK involves running a standard mathematical computation called an LU factorisation on a very large square matrix of size Nmax by Nmax. The matrix is just a table of floating-point numbers, and the rules of the benchmark allow you to choose how big Nmax is.
+[The top 500](https://top500.org/lists/top500/2024/11/) uses these values to compare the performance of the worlds fastest machines.
 
-As of June 2018, the world’s fastest supercomputer (the Summit system at the Oak Ridge National Laboratory in the USA) used Nmax of over 16 million - imagine working with a spreadsheet with over 16 million rows and 16 millions columns!
+:::callout{variant="info"}
+The Nmax used to achieve the measured performance is not typically disclosed but in June 2018, the world’s fastest supercomputer (the Summit system at the Oak Ridge National Laboratory in the USA, since decommisioned) used Nmax of over 16 million - imagine working with a spreadsheet with over 16 million rows and 16 millions columns!
+:::
 
-Supercomputers are not only expensive to purchase, but they are also expensive to run because the power consumption can be huge. A typical supercomputer consumes multiple megawatts, and this power is turned into heat which we have to get rid of.
+Supercomputers are not only expensive to purchase, but they are also extremely expensive to run due to their extreme power consumption. A typical supercomputer consumes multiple megawatts, and this power is turned into heat which we have to get rid of via external cooling.
 
 For example, the fourth on the top500 list, Tianhe-2 system has a peak power consumption of 18.5 megawatts and, including external cooling, the system drew an aggregate of 24 megawatts when running the LINPACK benchmark. If a kilowatt of power costs 10 cents per hour, Tianhe-2’s peak power consumption will be 2400 euros per hour, which is in excess of 21 million euros per year.
-
+For example, Tianhe-2 system has a peak power consumption of 18.5 megawatts and, including external cooling, the system drew an aggregate of 24 megawatts when running the LINPACK benchmark. If a kilowatt of power costs 10 cents per hour, Tianhe-2’s peak power consumption will be 2400 euros per hour, which is in excess of 21 million euros per year.
 Rpeak and Rmax are what Top500 uses to rank supercomputers. Also quoted is the electrical power consumption, which leads to the creation of another list - the [Green 500](https://www.top500.org/lists/green500/2022/06/) (June 2022)- which ranks supercomputers on their fuel economy in terms of Flops perWatt. Despite its massive power bill, Frontier is quite power-efficient. The top ranked system (Frontier) holds 2nd position on the Green 500.
-
+Rpeak and Rmax are what Top500 uses to rank supercomputers performance but, also quoted is the electrical power consumption, which leads to the creation of another list - the [Green 500](https://www.top500.org/lists/green500/2024/11/) (November 2024)- which ranks supercomputers on their fuel economy in terms of Flops perWatt.
 Take a look at the [Top500](https://www.top500.org/lists/top500/2022/06/) list  - does the fact the top supercomputer for performance is also the to for power efficeny surprise you? What could be the reason for this?
-
+:::callout{variant="discussion"}
+Take a look at the [Top500](https://www.top500.org/lists/top500/2022/06/) list for June 2022 - does the fact the top supercomputer for performance is also the top for power efficiency surprise you? What could be the reason for this?
+:::
 © SURFsara
 
 ---
@@ -108,24 +115,11 @@ Take a look at the [Top500](https://www.top500.org/lists/top500/2022/06/) list  
 ![Photo of magnifying glass used on laptop keyboard](images/agence-olloweb-d9ILr-dbEdg-unsplash.jpg)
 *Image courtesy of [Agence Olloweb](https://unsplash.com/@olloweb) from [Unsplash](https://unsplash.com/)*
 
-## Supercomputing Word Search
-
-To help you familiarise with the supercomputing terminology we have prepared a word search for you to print out!
-
-![Wordsearch image to print out](images/large_hero_9748869f-e962-4c23-a6b6-8216e757920c.png)
-
-The word search contains 19 words that have been mentioned in the previous steps. Can you find all of them? Do you know how to explain all of them?
-
----
-
-![Photo of nearly finished jigsaw puzzle](images/pierre-bamin-5B0IXL2wAQ0-unsplash.jpg)
-*Image courtesy of [Pierre Bamin](https://unsplash.com/@bamin) from [Unsplash](https://unsplash.com)*
-
 ## HPC System Design
 
-Now you understand the basic hardware of supercomputers, you might be wondering what a complete system looks like. Let’s have a look at the high-level architecture of supercomputer, mainly pointing out how it differs from a desktop machine.
+Now you understand the basic hardware of supercomputers, you might be wondering what a complete system looks like. Let’s have a look at the high-level architecture of supercomputer, with emphasis on how it differs from a desktop machine.
 
-The figure below shows the building blocks of a complete supercomputer system and how they are connected together. Most systems in the world will look like this at an abstract level, so understanding this simple figure will give you a good model for how all supercomputers are put together.
+The figure below shows the building blocks of a complete supercomputer system and how they are connected together. Most systems in the world will look like this at an abstract level, so understanding this will give you a good model for how all supercomputers are put together.
 
 ![Diagram of general supercomputer architecture and how its components relate to a user's own computer](images/large_hero_a3db6ae7-8a0e-4fe4-b2da-302380de963a.png)
 
@@ -142,6 +136,8 @@ Since a supercomputer system typically has many hundreds of users, there are nor
 Once logged into an interactive node, you can now run large computations on the supercomputer. It is very important to understand that you do not directly access the CPU-cores that do the hard work. Supercomputers operate in batch mode - you submit a job (including everything needed to run your simulation) to a queue and it is run some time in the future. This is done to ensure that the whole system is utilised as fully as possible.
 
 The user creates a small file, referred to as a job script, which specifies all the parameters of the computation such as which program is to be run, the number of CPU-cores required, the expected duration of the job etc. This is then submitted to the batch system. Resources will be allocated when available and a user will be guaranteed exclusive access to all the CPU-cores they are assigned. This prevents other processes from interfering with a job and allows it to achieve the best performance.
+
+Individual users will not have access to the full resources of the supercomputer. Instead, they will be allocated resources according to the specifications in their job script and the limits defined by their project's funding or allocation agreements.
 
 It is the job of the batch scheduler to look at all the jobs in the queue and decide which jobs to run based on, for example, their expected execution time and how many CPU-cores they require. At any one time, a single supercomputer could be running several parallel jobs with hundreds waiting in the queue. Each job will be allocated a separate portion of the whole supercomputer. A good batch system will keep the supercomputer full with jobs all the time, but not leave individual jobs in the queue for too long.
 
@@ -336,7 +332,7 @@ Hello World!
 Hello yourname, this is ln01.
 ```
 
-::::callout
+::::callout{variant="tip"}
 
 ## Be Kind to the login nodes
 
