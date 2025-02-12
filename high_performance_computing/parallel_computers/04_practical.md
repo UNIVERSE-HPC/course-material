@@ -12,20 +12,18 @@ attribution:
       license: CC-BY-4.0
 ---
 
-So far the code examples we've looked at and submitted have been limited to serial computation.
-Building on what we've learned so far, the next lesson will look at how we achieve parallel computations using both shared and distributed memory approaches.
-To get us started, let's look at how we can compile and run parallel code versions of our "Hello world" example using shared and distributed memory frameworks,
+So far the code examples we've run have been limited to serial computation.
+Building on what we've learned so far, this lesson will look at parallel computations using both shared and distributed memory approaches.
+To get started, let's look at how we can compile and run parallel code versions of our "Hello world" example using both shared and distributed memory frameworks,
 MPI (Message Passing Interface) and OpenMP (Open Multi-processing),
-which are both heavily used in HPC applications and we'll cover in more detail later on.
+which are both heavily used in HPC applications and are covered in detail later on.
 
 ## Part 1: Shared Memory Parallelism Using OpenMP
 
-OpenMP uses a shared memory approach to parallelism, allowing simultaneous computations to be spread over multiple threads within a process.
+OpenMP uses a shared memory approach to parallelism, allowing simultaneous computations to be spread over multiple threads. 
+These threads can be run an any number of cpu-cores.
 
-This threaded example runs on as many threads on a node as you allow it to.
-
-You'll notice the code below is a little more complex than our original Hello world example, with
-OpenMP making use of compiler directives (`#pragma`) to inform the compiler how to parallelise certain parts of the code when building an executable.
+You'll notice the code below is more complex than the original Hello world example, with the addition of compiler directives (`#pragma`) which openMP uses to inform the compiler how to parallelise sections of the code when it builds the executable.
 
 Add this code to a new file `helloWorldThreaded.c`:
 
@@ -66,7 +64,9 @@ int main(int argc, char* argv[])
 }
 ```
 
-In this case, the code block indicated by the `#pragma omp parallel` statement will be run (by default) over as many threads as are available (typically one per available core).
+The code block indicated by the `#pragma omp parallel` statement will be executed by multiple threads. 
+By default, OpenMP creates one thread per hardware thread (logical core), which typically corresponds to one or two threads per physical core, depending on whether hyper-threading is enabled.
+OpenMP also allows users to manually define how many threads they want to be created.
 
 Let's compile this code now.
 On ARCHER2, this looks like the following:
@@ -255,8 +255,7 @@ int main(int argc, char *argv[])
 ```
 
 You’ll notice that the program is a fair bit more complex, since here we need to handle explicitly how we send messages.
-We'll cover this in more detail in the next lesson.
-But essentially, after initialising MPI and working out how many separate processes we have available to use (known as `ranks`),
+MPI is covered in detail alter but essentially, after initialising MPI and working out how many separate processes we have available to use (known as `ranks`),
 rank 0 sends the command line string using `MPI_Bcast` (broadcast) to all other processes.
 
 On ARCHER2, you compile this code using:
@@ -264,6 +263,10 @@ On ARCHER2, you compile this code using:
 ```bash
 cc helloWorldMPI.c -o hello-MPI
 ```
+
+:::callout{variant="tip"}
+If you encounter compilation errors, you may need to load an mpi module before compiling using mpi, consult the documentation for your cluster to find out how.
+:::
 
 ::::callout
 

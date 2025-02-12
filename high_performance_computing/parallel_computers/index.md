@@ -27,5 +27,5 @@ In this module we look at supercomputing hardware and architectures.
 :::
 
 We will talk about the main building blocks of supercomputers and introduce the concepts of shared and distributed memory architectures.
-You will also learn about the main differences between your laptop and a node of a supercomputer.
-You will also have an opportunity to build and manage your own supercomputer by playing the Supercomputing App game.
+You will also learn about the main differences between your laptop and a supercomputer node.
+You will also have an opportunity to build and manage your own supercomputer through the Supercomputing App game.
