@@ -23,7 +23,7 @@ Clearly the technology has improved since then - today’s laptop would have bee
 To keep track of the state-of-the-art, the supercomputing community looks to the Top500 list, which ranks the fastest 500 supercomputers in the world every six months.
 ### Number crunching
 
-So why do we need supercomputers? Who uses them and what are they used for? We will see that their main application is in large-scale numerical computations, also called number-crunching. Of course, for simple calculations such as:
+The main application of supercomputers is in large-scale numerical computations, also called number-crunching. For simple calculations such as:
 
 ~~~math
 123 + 765 = 888
