@@ -251,27 +251,34 @@ We mentioned before that memory access speeds are a real issue in supercomputing
 The standard solution is to have a memory cache. This is basically a small amount of scratch memory on every CPU-core, which is very fast. However, it is also quite small - well under a megabyte when the total memory will be more than a thousand times larger - so how can it help us?
 The standard solution is to have a memory cache; a small, high-speed storage area located on each CPU-core. It allows the core to access frequently used data much faster than from main memory.
 However, it is also quite small, well under a megabyte, representing less than a thousandth of the total memory.
-Think of the analogy with many workers sharing an office. The obvious solution to avoid always queueing up to access the shared whiteboard is to take a temporary copy of what you are working on. Imagine that each worker has a small notebook: when you need to read data from the whiteboard, you fill your notebook with everything you need and then you can work happily on your own at your desk while other people access the whiteboard.
+Think of the analogy with many workers sharing an office: The obvious solution to avoid always queueing up to access the shared whiteboard is to take a temporary copy of what you are working on.
+When you need to read data from the whiteboard, you copy the necessary data into your notebook and work independently, reducing contention for the shared resource.
 
-This works very well for a single worker: you can work entirely from your personal notebook for long periods, and then transfer any updated results to the whiteboard before moving on to the next piece of work.
+This works very well for a single worker: you can work entirely from your personal notebook for long periods, and then transfer any updated results to the whiteboard before moving on to the next piece of work. 
+It can also work very well for multiple workers as long as they only ever read data.
 
 ### Writing data
 
-It also works very well for multiple workers if they only ever read data. Unfortunately, real programs also write data, i.e. workers will want to modify the data on the whiteboard. If two people are working on the same data at the same time, we have a problem: if one worker changes some numbers in their notebook then the other worker needs to know about it. The compromise solution is to let everyone know whenever you modify any results in your notebook. Whenever you alter a number, you have to shout out:
+Unfortunately, real programs also write data, meaning workers need to update the shared whiteboard. If two people are working on the same data at the same time, we have a problem: if one worker changes some numbers in their notebook then the other worker needs to know about it. Whenever you alter a number, you must inform the other workers, for example: 
 
 "I’ve just changed the entry for the 231st salary - if you have a copy of it then you’ll need to get the new value from me!"
 
-Although this is OK for a small number of workers, it clearly has problems when there are lots of workers. Imagine 100 workers: whenever you change a number you have to let 99 other people know about it, which wastes time. Even worse, you have to be continually listening for updates from 99 other workers instead of concentrating on doing your own calculation.
+Although this could work for a small number of workers, it clearly has problems of scalability.
+Imagine 100 workers: whenever you change a number you have to let 99 other people know about it, which wastes time.
+Even worse, you have to be continually listening for updates from 99 other workers instead of concentrating on doing your own calculation.
 
 This is the fundamental dilemma: memory access is so slow that we need small, fast caches so we can access data as fast as we can process it. However, whenever we write data there is an overhead which grows with the number of CPU-cores and will eventually make everything slow down again.
 
-Keeping the data consistent and up-to-date on all the CPU-cores is called cache coherency. It means that we always have up-to-date values in our notebook (or, at the very least, that we know when our notebook is out of date and we must return to the whiteboard). Ensuring cache coherency is the major obstacle to building very large multicore processors.
+This process of ensuring consistent and up-to-date data across all CPU-cores is called cache coherency, a critical challenge in multicore processor design.
+It ensures we always have up-to-date values in our notebook (or, at the very least, that we know when our notebook is out of date and we must return to the whiteboard).
 
 ![Diagram of processors with memory caches between them and the memory (or memory bus)](images/hero_f158c8fd-2092-4272-a9dc-e4806b44f9cc.png)
 
 Keeping all the caches coherent when we write data is the major challenge.
 
+:::callout{variant="discussion"}
 What do you think is the current state-of-the-art? How many CPU-cores do high-end processors have?
+:::
 
 ---
 
@@ -298,15 +305,18 @@ What do you think is the current state-of-the-art? How many CPU-cores do high-en
 
 This video shows a simple demo to illustrate what happens when multiple cores try to use the same resources at the same time.
 
-As we have mentioned before, the situation when multiple CPU-cores try to use the same resources, e.g. memory, disk storage or network buses, is called resource contention. Here we look at memory access.
+As mentioned earlier, resource contention occurs when multiple CPU-cores attempt to access the same resources, such as memory, disk storage, or network buses.
+Here we look at memory access.
 
 Watch what happens when three copies of a larger income calculation program are running on three CPU-cores at the same time. Is this what you expected?
 
-Keep in mind that, although, the CPU-cores do affect each other it’s not because they exchange any data, but because they need the same data from the memory. In other words, the CPU-cores do not collaborate with each other i.e. they do not share the total work amongst themselves.
+Keep in mind that CPU-cores are affecting each other not by exchanging data, but because they compete for the same data in memory.
+In other words, the CPU-cores do not collaborate with each other i.e. they do not share the total work amongst themselves.
 
-Note that I accidentally mis-spoke in the video and the larger calculation actually processes 100 million salaries and not 1 million - David
+Please note that the larger calculation processes 100 million salaries, not 1 million as mistakenly mentioned in the video. — David
 
-As for Step 2.6, I also re-ran the same calculations with the graphical monitor turned off so I had access to all 4 CPU-cores. Here are the timings for this large dataset where I reproduce the previous small dataset results for comparison.
+For Step 2.6, the calculations are reran with the graphical monitor turned off, allowing access to all 4 CPU-cores.
+Here are the timings for this large dataset with the small dataset results included for comparison.
 
 | dataset | #copies | runtime (seconds) |
 | ------  | ------- | ----------------- |
