@@ -21,7 +21,10 @@ But understanding what a computer simulation truly is, is a different matter.
 
 In the English language, the word simulate originally meant to imitate the appearance or character of and was derived from the Latin simulat, which meant copied or represented. A modern dictionary also states that the word simulation may refer to the representation of the behaviour or characteristics of one system through the use of another system. This is precisely what computer simulations are meant to do.
 
-In a strict sense, a computer simulation is a program run on a computer, which step by step explores the behaviour of a real-world system, which is represented as a mathematical model. In other words, a simulation is an act of running a model representing the system of interest. More broadly speaking, computer simulations are an entire, comprehensive process for studying systems. This process includes choosing a model, implementing it, calculating the output and processing the resultant data, for example by visualising them.
+In essence, a computer simulation is a program that iteratively examines the behavior of a real-world system modeled mathematically.
+Put simply, simulation involves running a model to study the system of interest.
+However, simulations often encompass much more than just running a program.
+They involve defining a suitable model, implementing it, analyzing the results, and interpreting the data - often through some sort of visualization.
 
 By definition a mathematical model is a simplification of reality. Typically, it is impossible to perfectly capture all the components of a system and their interaction. In fact, more often than not, it would not be a useful thing to do. Think about it - if you could simulate something well enough in about 5 minutes, would you want to spend 5 days to do it perfectly?
 
