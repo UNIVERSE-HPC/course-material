@@ -14,7 +14,7 @@ attribution:
 ![Photo of a supercomputer](images/taylor-vick-M5tzZtFCOfs-unsplash.jpg)
 *Image courtesy of [Taylor Vick](https://unsplash.com/@tvick) from [Unsplash](https://unsplash.com)*
 
-## Supercomputers - what are they?
+## What are supercomputers?
 
 A supercomputer is a computer with very high-level computational capacities, significantly surpassing a general-purpose computer such as a personal desktop or laptop.
 
