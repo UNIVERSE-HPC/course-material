@@ -19,8 +19,6 @@ attribution:
 
 Because of the difficulty of having very large numbers of CPU-cores in a single shared-memory computer, all of today’s supercomputers use the same basic approach to build a very large system: take lots of separate computers and connect them together with a fast network.
 
-For the moment, let’s ignore the complication that each computer is itself a shared-memory computer, and just say we have one processor in each computer:
-
 ![Diagram depicting multiple computers connected by a network](images/hero_91d652a7-98f2-49d1-85ee-62d3ff46bac6.jpg)
 
 The most important points are:
@@ -30,13 +28,15 @@ The most important points are:
 - each node runs a separate copy of the operating system
 - the only way that two nodes can interact with each other is by communication over the network.
 
-The office analogy is very useful here: a distributed-memory parallel computer is like workers all in separate offices, each with their own personal whiteboard, who can only communicate by phoning each other.
+For the moment, let’s ignore the complication that each computer is itself a shared-memory computer, and consider one processor per node.
+
+The office analogy can be further extended: a distributed-memory parallel computer has workers all in separate offices, each with their own personal whiteboard, who can only communicate by phoning each other.
 
 | Advantages |
 | --- |
 | The number of whiteboards (i.e. the total memory) grows as we add more offices. |
 | There is no overcrowding so every worker has easy access to a whiteboard. |
-| We can, in principle, add as many workers as we want provided the telephone network can cope. |
+| We can, in principle, add as many workers as we want provided the network can cope. |
 
 | Disadvantages |
 | --- |
@@ -44,15 +44,20 @@ The office analogy is very useful here: a distributed-memory parallel computer i
 | We need to have lots of separate copies of the operating system. |
 | It is more difficult to communicate with each other as you cannot see each others whiteboards so you have to make a phone call. |
 
-The second disadvantage can be a pain when we do software updates - we have to upgrade thousands of copies of the OS! However, it doesn’t have any direct cost implications as almost all supercomputers use some version of the Linux OS which is free.
+The second disadvantage on this list doesn’t have any direct cost implications as almost all supercomputers use some version of the Linux OS which is free but, it does mean thousands of copies of the OS, or other installed software, need to be upgraded when updates are required.
 
-It turns out that it is much easier to build networks that can connect large numbers of computers together than it is to have large numbers of CPU-cores in a single shared-memory computer. This means it is relatively straightforward to build very large supercomputers - it is an engineering challenge, but a challenge that the computer engineers seem to be very good at tackling!
+Building networks to connect many computers is significantly easier than designing shared-memory computers with a large number of CPU-cores.
+This means it is relatively straightforward to build very large supercomputers - it remains an engineering challenge, one that computer engineers excel at solving.
 
 So, if building a large distributed-memory supercomputer is relatively straightforward then we’ve cracked the problem?
 
-Well, unfortunately not. The compromises we have had to make (many separate computers each with their own private memory) mean that the difficulties are now transferred to the software side. Having built a supercomputer, we now have to write a program that can take advantage of all those thousands of CPU-cores and this can be quite challenging in the distributed-memory model.
+Well, unfortunately not. The compromises we make (many separate computers each with their own private memory) mean that the difficulties are now transferred to the software side.
+Having built a supercomputer, we now have to write a program that can take advantage of all those thousands of CPU-cores.
+This can be quite challenging in the distributed-memory model.
 
+:::callout{variant="discussion"}
 Why do you think the distributed memory architecture is common in supercomputing but is not used in your laptop?
+:::
 
 ---
 
@@ -61,7 +66,8 @@ Why do you think the distributed memory architecture is common in supercomputing
 
 ## Simple Parallel Calculation
 
-Let’s return to the income calculation example. This time we’ll be a bit more ambitious and try and add up 800 salaries rather than 80. This list of salaries fills 8 whiteboards (100 on each) all in separate offices.
+Let’s return to the income calculation example. This time we’ll be a bit more ambitious and try and add up 800 salaries rather than 80.
+The salaries are spread across 8 whiteboards (100 on each), all in separate offices
 
 Here we are exploiting the fact that distributed-memory architectures allow us to have a large amount of memory.
 
@@ -95,13 +101,13 @@ The complete ARCHER2 system contains 5,860 nodes, i.e. ARCHER2 is effectively 6,
 
 ### System performance
 
-ARCHER2 has a total of 750,080 CPU-cores: 5,860 nodes wch with 128 CPU-cores. With a Clock frequency of 2.25 Ghz, the CPU-cores can operate at 2.25 billion instructions per second. However, on a modern processor, a single instruction can perform more than one floating-point operation.
+ARCHER2 has a total of 750,080 CPU-cores: 5,860 nodes each with 128 CPU-cores. With a Clock frequency of 2.25 Ghz, the CPU-cores can execute 2.25 billion instructions per second. However, on a modern processor, a single instruction can perform more than one floating-point operation.
 
 For example, on ARCHER2 one instruction can perform up to four separate additions. In fact, the cores have separate units for doing additions and for doing multiplications that run in parallel. With the wind in the right direction and everything going to plan, a core can therefore perform 16 floating-point operations per cycle: eight additions and eight multiplications.
 
 This gives a peak performance of 750,080 \* 2.25 \* 16 Gflop/s = 27,002,880 Glop/s, agreeing with the 25.8 Pflop/s figure in the top500 list.
 
-ARCHER2 comprises 23 seperate cabinets, each about the height and width of a standard door, with around 32,768 CPU-cores (256 nodes) or about 60,000 virtual cores (using multi-threading) in each cabinet.
+ARCHER2 comprises 23 separate cabinets, each about the height and width of a standard door, with around 32,768 CPU-cores (256 nodes) or about 60,000 virtual cores (using multi-threading) in each cabinet.
 
 ![Photo of someone managing ARCHER2 system](images/hero_73afa9aa-74db-4ad2-893e-971956518bdf.jpg)
 *© EPCC*
@@ -114,9 +120,12 @@ Disk storage systems are quite complicated, but they follow the same basic appro
 
 ### Power and Cooling
 
-If all the CPU-cores are fully loaded, ARCHER2 requires in excess of 4 Megwatts of power, roughly equivalent to a small town of around 4000 houses. This is a significant amount of power to consume and has an associated environmental imact that we must look to mitigate therefore ARCHER2 is supplied by a 100% renewable energy contract.
+If all the CPU-cores are fully loaded, ARCHER2 requires in excess of 4 Megawatts of power, roughly equivalent to the average consumption of around 4000 houses.
+This is a significant amount of power to mitigate the associated environmental impact, ARCHER2 is supplied by a 100% renewable energy contract.
 
-The ARCHER2 cabinets are kept cool by pumping water through cooling pipes. The water enters at approximately 18°C and, after passing through the cabinets, comes out at around 29°C; it can then be cooled back down and re-circulated. When necessary the water is cooled by electrical chillers but, most of the time, ARCHER2 can take advantage of the mild Scottish climate and cool the water for free simply by pumping it through external cooling towers, so saving significant amounts of energy.
+The ARCHER2 cabinets are cooled by water flowing through pipes, with water entering at 18°C and exiting at 29°C.
+The heated water is then cooled and re-circulated.
+When necessary the water is cooled by electrical chillers but, most of the time, ARCHER2 can take advantage of the mild Scottish climate and cool the water for free simply by pumping it through external cooling towers, so saving significant amounts of energy.
 
 ![Diagram of datacenter cooling](images/hero_87e2018b-86eb-4aa5-a7c4-efd271a505b2.webp)
 *© Mike Brown*
@@ -157,9 +166,11 @@ The ARCHER2 cabinets are kept cool by pumping water through cooling pipes. The w
 
 Finally, Wee ARCHIE makes its appearance again! This video uses Wee ARCHIE to explain the parallel computer architecture concepts we've introduced.
 
+:::callout(variant="discussion")
 It is worth emphasising that the physical distance between the nodes does impact their communication time i.e. the further apart they are the longer it takes to send a message between them. Can you think of any reason why this behaviour may be problematic on large machines and any possible workarounds?
 
 As usual, share your thought with your fellow learners!
+:::
 
 For anyone interested in how Wee ARCHIE has been put together (and possibly wanting to build their own cluster), we invite you to follow the links from this blog article - Setting up your own Raspberry Pi cluster.
 
@@ -176,11 +187,14 @@ For anyone interested in how Wee ARCHIE has been put together (and possibly want
 
 In the last few steps we have glossed over a few details of the processors and the network.
 
-If you look up the specifications of the AMD Zen2 (Rome) EPYC 7742 processor you will see that it has 64 CPU-cores, whereas the ARCHER2 nodes have 128 CPU-cores. This is possible because each node actually contains two physical processors. However, they are put together so that both processors share the same memory so, to the user, it basically looks identical to a single 128-core processor. How this is done is illustrated below and is called a Non-Uniform Memory Access (NUMA) architecture.
+If you look up the specifications of the AMD Zen2 (Rome) EPYC 7742 processor you will see that it has 64 CPU-cores, whereas the ARCHER2 nodes have 128 CPU-cores.
+Each node contains two physical processors, configured to share the same memory. This design makes the system appear as a single 128-core processor to the user.
+This setup, known as Non-Uniform Memory Access (NUMA) architecture, is illustrated below.
 
 ![Diagram of NUMA architecture, with two sets of multicore CPUs/memory connected by a shared memory bus](images/hero_9f93cf41-f24d-4ab2-8a7e-d25a78a8089c.png)
 
-Although every CPU-core can access all the memory regardless of which processor it is located on, this can involve going through an additional memory bus so reading data from another CPU’s memory is slower than reading from your own memory. This hardware arrangement is really a detail that isn’t usually very important - the most important feature is that the 128 CPU-cores form a single shared-memory computer, all under the control of a single operating system.
+Every CPU-core can access all the memory regardless of which processor it is located on but, reading data from another CPU’s memory can involve going through an additional memory bus, making the process slower than reading from its own memory. 
+Although this hardware arrangement introduces technical complexities, the key point is that the 128 CPU-cores function as a single shared-memory system, managed by one operating system.
 
 The details of the network are even more complicated with four separate levels ranging from direct connections between the nodes packaged together on the same blade, up to fibre-optic connections between separate cabinets. If you are interested in the details see the ARCHER2 website.
 
@@ -195,7 +209,9 @@ Wee ARCHIE is very small and was built on someone’s desk. Real supercomputers 
 
 This time lapse video documents the installation of the ARCHER2 system at EPCC in Edinburgh, UK. We use it to pick out various aspects of supercomputer hardware that are not so well illustrated by Wee ARCHIE.
 
-Is there anything that surprised you? We are curious to know so share your impressions in the comments section!
+:::callout{variant="discussion"}
+Is there anything that surprised you? We are curious to know so feel free share your impressions by leaving a comment.
+:::
 
 ---
 
