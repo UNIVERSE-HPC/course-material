@@ -70,11 +70,19 @@ Moreover, the atmosphere is a chaotic system, which means it is very susceptible
 
 You may be familiar both with the term and the associated metaphor (a butterfly flapping its wings influencing a distant hurricane several weeks later). After all, it has been used not only in science but also in popular culture. The term was actually coined by Edward Lorenz, one of the pioneers of chaos theory, who encountered the effect while studying weather modelling. In 1961 he showed that running a weather simulation, stopping it and then restarting it, produced a different weather forecast than a simulation run without stopping!
 
-This behaviour can be explained by the way computers work - stopping of the simulation meant that the values of all variables had to be stored in a machine’s memory. The problem was that the level of precision of those stored numbers was less than the precision the computer used to compute them - the numbers were being rounded. Assuming that such small differences could have no significant effect, Lorenz rounded the numbers accurate to six decimal places (e.g. 6.174122) to three decimal places (e.g. 6.174) before printing. The simulation was restarted with those slightly different numbers and the initially small differences were amplified into different weather forecasts!
+This behaviour was explained by the way computers work - stopping of the simulation meant that the values of all variables had to be output to storage and then to restart, the numbers were re-input back into memory.
+The problem was, the level of precision of those stored numbers was less than the precision the computer had used to compute them.
+The numbers were being rounded, assuming that such small differences could have no significant effect.
+Lorenz rounded the numbers accurate to six decimal places (e.g. 6.174122) to three decimal places (e.g. 6.174) when output.
+When the simulation was restarted,the initially small differences were amplified into completely different weather forecasts!
 
 Typically, to lessen the uncertainty in weather predictions, ensemble forecasting is used. In simple terms, a number of simulations are run with slightly different initial conditions and the results are combined into probabilistic forecasts, showing how likely particular weather conditions are. If results of the ensemble runs are similar, then the uncertainty is small, and if they are significantly different then the uncertainty is bigger.
 
+:::callout{variant="discussion}
 Does this explain why the public weather forecasts should be taken with a pinch of salt? Does weather forecasting work as you expected? Do you find anything surprising?
+
+Considering the chaotic nature of weather forecasts, how does the range of the forecast effect the differences between forecasts in the ensemble?
+:::
 
 ---
 
@@ -156,7 +164,8 @@ Quite often special software is required to allow post-processing and then visua
 
 ### Visualisations
 
-At any given moment in time, a weather state is represented by at least tens of thousands of data points. Can you imagine a weather forecast presented just with words and numbers? It would be completely incomprehensible! The amount of processed and produced data is so vast that some visual form is needed to make sense of it.
+At any given moment in time, a weather state is represented by at least tens of thousands of data points. 
+The sheer volume of data is so vast that some visual form is needed to make sense of it.
 
 One of the earliest visualisations techniques used in weather science were maps. They usually focus on a few variables only (e.g. temperature and cloud/rain cover) and show how they will behave over the next hours or days. If you are interested in seeing how weather maps used in TV weather forecasts changed over time, visit the BBC article - [Presenting a warm front: 60 years of the British TV weather forecast](https://www.bbc.co.uk/news/magazine-25665340).
 
@@ -227,7 +236,10 @@ If you would like to learn more about the upgraded model visit the dedicated [EC
 
 The limitations of weather simulations can be divided into two categories: theoretical and practical. The theoretical limitation is related to the mathematical description of the model.
 
-Processes governing the atmosphere are very complex and it’s difficult to capture them with equations. Even if it were possible, they would not have proper solutions because solving them without approximations is not possible. Over the years, thanks to the increase in the computational power the effects of these approximations have been increasingly minimised through better parametrisation, increased resolution and more complex models. Nowadays, a seven-day forecast is as accurate as a three-day forecast was in 1975.
+Processes governing the atmosphere are very complex and it’s difficult to capture them with equations.
+Even if it were possible, they would not have exact solutions because solving them without approximations is not possible.
+Over the years, thanks to the increase in the computational power, the effects of these approximations have been increasingly minimised through better parametrisation, increased resolution and more complex models.
+Nowadays, a seven-day forecast is as accurate as a three-day forecast was in 1975.
 
 ### Increasing Resolution
 
@@ -237,7 +249,9 @@ To give you a better picture, to represent a feature within a model you need at 
 
 Generally, decreasing the spacing between grid points is not easy, not only because the computational intensity scales to the square of the spacing (for each direction) but also because of the need to maintain the numerical stability of the equations used to simulate the atmospheric variables.
 
-Numerical stability refers to the behaviour of the equations solved with erroneous input - in a numerically unstable algorithm a small error in the input causes a larger error in the results. Therefore, increasing the resolution of the grid may require the equations to be rewritten to maintain their numerical stability. Generally, the higher the resolution (smaller grid spacing) the shorter the time step that is needed to maintain stability.
+Numerical stability refers to the behaviour of the equations solved with erroneous input - in a numerically unstable algorithm a small error in the input causes a larger error in the results. Therefore, increasing the resolution of the grid may require the equations to be rewritten to maintain their numerical stability.
+Generally, the higher the resolution (smaller grid spacing) the shorter the time step that is needed to maintain stability.
+This limitation on stability due to step-size is known as the [Courant–Friedrichs–Lewy condition](https://en.wikipedia.org/wiki/Courant%E2%80%93Friedrichs%E2%80%93Lewy_condition).
 
 ### Observational Data
 
@@ -246,8 +260,10 @@ Despite the difficulty of utilising these disparate data sources, it’s absolut
 
 To illustrate the importance of the initial data, consider the following example of Superstorm Sandy, which was one of the costliest hurricanes in US history and deadliest in 2012. The ECMWF successfully approximated its path, predicting its route seven days before it turned left and hit the shores of New Jersey. This almost unprecedented path was attributed to interactions with the large-scale atmospheric flow and highlighted the importance of the data provided by satellite observations.
 
-After the storm, ECMWF run a number of experiments to determine the role of satellite data by running simulations with deliberately withheld satellite data. The results showed that without the data gathered by polar-orbiting satellites the model would fail to predict that Sandy would hit New Jersey!
+After the storm, ECMWF run a number of experiments to determine the role of satellite data by running simulations with deliberately withheld satellite data. The results showed that without the data gathered by polar-orbiting satellites the model would have failed to predict the hurricane hitting New Jersey!
 
 You may think that with the technological advances the number of satellites is steadily increasing so there is no danger of not being able to provide enough data to the weather models. However, in fact, a number of the satellites are ageing and funding their replacement is not always easy. It seems that governments are not very keen on spending money on new satellites. This could definitely prove to be a problem and cause degradation in our ability to predict the weather but also impact our understanding of Earth’s climate and life support systems.
 
+:::callout{variant="discussion"}
 In your opinion, what is the most limiting factor in our current ability to forecast the weather?
+:::
