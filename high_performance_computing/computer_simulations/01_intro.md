@@ -16,7 +16,8 @@ attribution:
 
 ## Computer simulations
 
-How many people haven’t heard about computer simulations? Few, if any. After all, the term has become a part of popular culture. Some people are even suggesting that we are living in a Matrix-style computer simulation. But how many people actually understand what a computer simulation is? Do you?
+Most people will have heard of computer simulations, after all, the term has become a part of popular culture; some people even suggest we may be living in a Matrix-style computer simulation.
+But understanding what a computer simulation truly is, is a different matter.
 
 In the English language, the word simulate originally meant to imitate the appearance or character of and was derived from the Latin simulat, which meant copied or represented. A modern dictionary also states that the word simulation may refer to the representation of the behaviour or characteristics of one system through the use of another system. This is precisely what computer simulations are meant to do.
 
