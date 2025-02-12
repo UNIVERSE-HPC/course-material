@@ -35,7 +35,8 @@ $$
 S_{10} = \frac{T_1}{T_{10}} = \frac{100}{25} = 8
 $$
 
-Ideally we would like our parallel program to run 10 times faster on 10 CPU-cores, but this is not normally possible due to the inevitable overheads. In general, $S_P$ will be less than $P$.
+Ideally, we would like our parallel program to run 10 times faster on 10 CPU-cores, but this is not normally possible due to the inevitable overheads. 
+These overheads ensure $S_P$ is generally less than $P$.
 
 Another way of quantifying this is to compute the parallel efficiency:
 
@@ -49,14 +50,15 @@ $$
 E_{10} = \frac{S_{10}}{10} = \frac{8}{10} = 0.80 = 80 \%
 $$
 
-Ideally we would like our parallel program to be 100% efficient, but in general $E_P$ will be less than 1.0 (i.e. less than 100%).
+As before our parallelisation will not be 100% efficient and $E_P$ will be less than 1.0 (i.e. less than 100%).
 
 When considering the way a parallel program behaves, the standard approach is to measure the performance for increasing values of P and to plot a graph of either parallel speedup or parallel efficiency against the number of CPU-cores.
 
 ![Performance chart of number of cpu cores against speedup for perfect speedup and example speedup](images/hero_afc04aae-ee23-4f71-8df0-80c3bf10d38e.png)
 
-We call this a scaling curve - we are trying to understand how well the performance scales with increasing numbers of CPU-cores. We talk about whether or not a program scales well or scales poorly (or has good or bad scalability).
-For some problems a parallel efficiency of 80% will be considered to be very good and for others not so good. Can you think of a reason why that is?
+We call this a scaling curve - we are trying to understand how well the performance scales with increasing numbers of CPU-cores; determining whether the program scales well or scales poorly (has good or bad scalability).
+
+For some problems a parallel efficiency of 80% would be considered to be very good and for others not so good. Can you think of a reason why that is?
 
 ---
 
@@ -109,7 +111,10 @@ The key point here is that the overhead does not depend on the distance flown by
 
 The journey to New York illustrates Amdahl’s Law - the speedup is less than 3.0 because of the overheads. In a parallel program, these overheads can be characterised as serial parts of the calculation, i.e. parts of the calculation that do not go any faster when you use more CPU-cores. Typical examples can include reading and writing data from and to disk (which is often done via single CPU-core), or the time spent in communications.
 
-In fact, Gene Amdahl used this simple example to argue, way back in 1967, that parallel computing was not very useful in practice - no matter how fast your parallel computer is, you cannot eliminate the serial overheads. Even if we had a starship travelling at almost the speed of light, the journey time to New York would never be less than 4 hours so the speedup would never exceed 3.0. The fact that we can only make the calculation three times faster even if we use thousands of CPU-cores is a little dispiriting…
+In fact, Gene Amdahl used this simple example to argue, way back in 1967, that parallel computing was not very useful in practice - no matter how fast your parallel computer is, you cannot eliminate the serial overheads.
+Even if we had a starship travelling at almost the speed of light, the journey time to New York would never be less than 4 hours so the speedup would never exceed 3.0.
+Inherently, your program is always going to be limited by the portions of the program that cannot be parallelised, even if these portions only make up a small fraction of the runtime of the serial program.
+The fact that we may only be able to make a calculation three times faster even if we use thousands of CPU-cores is a little dispiriting…
 
 However, the journey to Sydney illustrates Gustafson’s Law - things get better if you tackle larger problems because the serial overheads stay the same but the parallel part gets larger. For the large problem, our maximum speedup would be 7.0.
 
@@ -156,7 +161,9 @@ Compute the speedup S4 for roads of length 200, 2000 and 20000 cells - what do y
 
 To what extent do these figures agree or disagree with Amdahl’s law and Gustafson’s Law?
 
+:::callout{variant="discussion"}
 These calculations, require you to make a number of assumptions so when comparing answers with your fellow learners you should not focus on the numerical results so much. Looking at the reasoning behind each of the assumptions and comparing your overall conclusions should be more interesting.
+:::
 
 ---
 
