@@ -57,8 +57,6 @@ The current trend in the supercomputing world is that supercomputers are getting
 Your next mobile phone will probably have more CPU-cores than your current one. Do you think this is more useful than a faster CPU? Can you see any problems in making use of all these CPU-cores?
 :::
 
-© SURFsara
-
 ---
 
 ## How to calculate the world's yearly income?
@@ -146,8 +144,6 @@ Have a look at the most recent list and briefly comment on the following questio
 - What fraction of peak performance is typically achieved for the LINPACK benchmark?
 - Play with the statistics tool on top500.org and think about the trends in current HPC systems. For example, how many supercomputers in the Top500 are classed as being for use by industry?
 :::
-
-© SURFsara
 
 ---
 

@@ -56,8 +56,6 @@ Also keep in mind that although supercomputers provide enormous computational ca
 Can you think of other examples of parallelism in everyday life, where many hands make light work?
 :::
 
-© SURFsara
-
 ---
 
 ## Supercomputers - why do we need them?
@@ -105,8 +103,6 @@ Adrian: “But if you’re travelling at supersonic speeds and you’re breaking
 Andy: “You’re missing the point between something that hasn’t been done before and something that is not fully understood. Back in the 1930’s, if you were doing something that hadn’t been done before, there was no other way of doing it apart from to go out and find out, to see what happens.
 
 Nowadays you can actually produce a computer model in a supercomputer and spend literally years researching a programme down to an extraordinarily fine level of detail so that when you actually go out to push back the boundary of human endeavour, to achieve something absolutely remarkable that will make everybody look round and go ‘wow, that was impressive!’, you can actually do it in a safe, step-by-step controlled way. You can actually understand the problem in advance and that’s all the difference.”
-
-© SURFsara, BBC
 
 ---
 

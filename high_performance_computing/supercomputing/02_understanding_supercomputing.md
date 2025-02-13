@@ -37,8 +37,6 @@ To use all of these CPU-cores together means they must be able to talk to each o
 
 Does it surprise you to learn that games console components and other general-purpose hardware are also used in supercomputers?
 
-© SURFsara
-
 ---
 
 ![Photo of tape measures with varying units of measurement](images/william-warby-WahfNoqbYnM-unsplash.jpg)
@@ -46,10 +44,9 @@ Does it surprise you to learn that games console components and other general-pu
 
 ## Understanding Supercomputing - Performance
 
-
 In supercomputing, we are normally interested in numerical computations: what is the answer to 0.234 + 3.456, or 1.4567 x 2.6734? Computers store numbers like these in floating-point format, so they are called floating-point numbers. A single instruction like addition or multiplication is called an operation, so we measure the speed of supercomputers in terms of floating-point operations per second or Flop/s, which is sometimes written and said more simply as Flops.
 
-So how many Flops can a modern CPU-core perform? Let’s take a high-end processor like the AMD EPYC Zen2 (Rome) 7F32 CPU (which happens to be the processor used in the Snellius system at SURFsara). The way a processor is normally marketed is to quote its clock frequency, which here is 3.7 GHz. This is the rate at which each CPU-core operates. Clock speed is expressed in cycles per second (Hertz), and the prefix Giga means a billion (a thousand million), so this CPU-core is working at the almost mind-blowing rate of 3.7 billion cycles per second. Under favourable circumstances, an AMD EPYC CPU-core can perform 16 floating-point operations per cycle, which means each CPU-core can perform 16 x 3.7 billion = 59.2 billion floating-point operations per second.
+So how many Flops can a modern CPU-core perform? Let’s take a high-end processor like the AMD EPYC Zen2 (Rome) 7F32 CPU (which happens to be the processor used in the Snellius system at [SURFsara](https://www.surf.nl/en/services/snellius-the-national-supercomputer), the Netherlands National Supercomputer). The way a processor is normally marketed is to quote its clock frequency, which here is 3.7 GHz. This is the rate at which each CPU-core operates. Clock speed is expressed in cycles per second (Hertz), and the prefix Giga means a billion (a thousand million), so this CPU-core is working at the almost mind-blowing rate of 3.7 billion cycles per second. Under favourable circumstances, an AMD EPYC CPU-core can perform 16 floating-point operations per cycle, which means each CPU-core can perform 16 x 3.7 billion = 59.2 billion floating-point operations per second.
 
 So, the peak performance of one of our CPU-cores is 59.2 GFlops.
 
@@ -74,8 +71,6 @@ A quick word of warning here: when talking about performance measures such as Gf
 It is something of a coincidence that 2^10 = 1024 is very close to 10^3 = 1000, so we are often sloppy in the terminology. However, we should really be clear if a kiloByte (Kbyte) is 1000 Bytes or 1024 Bytes. By KByte, people usually mean 1024 Bytes but, strictly speaking, a Kbyte is actually 1000 Bytes. The technically correct terminology for 1024 Bytes is KibiByte written as KiByte.
 
 This might seem like an academic point since, for a KByte, the difference is only about 2%. However, the difference between a PByte and a PiByte is more than 12%. If your supercomputer salesman quotes you a price for a PetaByte of disk, make sure you know exactly how much storage you’re getting!
-
-© SURFsara
 
 ---
 
@@ -108,7 +103,6 @@ Take a look at the [Top500](https://www.top500.org/lists/top500/2022/06/) list  
 :::callout{variant="discussion"}
 Take a look at the [Top500](https://www.top500.org/lists/top500/2022/06/) list for June 2022 - does the fact the top supercomputer for performance is also the top for power efficiency surprise you? What could be the reason for this?
 :::
-© SURFsara
 
 ---
 
@@ -148,8 +142,6 @@ The compute nodes are at the core of the system and the part that we’ve concen
 ### Storage
 
 Although the compute nodes may have disks attached to them, they are only used for temporary storage while a job is running. There will be some large external storage, comprising thousands of disks, to store the input and output files for each computation. This is connected to the compute nodes using fast interconnect so that computations which have large amounts of data as input or output don’t spend too much time accessing their files. The main storage area will also be accessible from the interactive nodes, e.g. so you can visualise your results.
-
-© SURFsara
 
 ---
 
