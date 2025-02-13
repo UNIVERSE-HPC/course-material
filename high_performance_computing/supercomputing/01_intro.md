@@ -5,7 +5,8 @@ dependsOn: [
 tags: [foundation]
 attribution: 
     - citation: >
-        "Introduction to High-Performance Computing" course by Edinburgh Parallel Computing Centre.
+        "Introduction to HPC" course by EPCC.
+        This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
       url: https://epcced.github.io/Intro-to-HPC/
       image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
       license: CC-BY-4.0
