@@ -154,11 +154,7 @@ int main(int argc, char** argv) {
   }
 
   if( rank == 1 ){
-<<<<<<< HEAD
-     char message[15];
-=======
      char message[15] = {0};
->>>>>>> main
      MPI_Status  status;
      MPI_Recv(message, 14, MPI_CHAR, 0, 0, MPI_COMM_WORLD, &status);
      message[14] = `\0`;
