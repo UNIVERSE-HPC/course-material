@@ -354,7 +354,7 @@ In the MPI program below, a chain of ranks has been set up so one rank will rece
 
 [A chain of ranks](fig/rank_chain.png)
 
-For for following skeleton below, use non-blocking communication to send `send_message` to the right right and receive a message from the left rank.
+For the following skeleton below, use non-blocking communication to send `send_message` to the right right and receive a message from the left rank.
 Create two programs, one using `MPI_Wait()` and the other using `MPI_Test()`.
 
 ```c
@@ -373,7 +373,7 @@ int main(int argc, char **argv)
 
     if (num_ranks < 2) {
         printf("This example requires at least two ranks\n");
-        MPI_Abort(1);
+        return MPI_Finalize();
     }
 
     char send_message[MESSAGE_SIZE];

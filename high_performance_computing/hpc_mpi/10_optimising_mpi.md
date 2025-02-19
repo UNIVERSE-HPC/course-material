@@ -77,7 +77,7 @@ Amdahl’s law states that, for a fixed problem, the upper limit of speedup is d
 ## Amdahl's Law in Practice
 
 Consider a program that takes 20 hours to run using one core.
-If a particular part of the rogram, which takes one hour to execute, cannot be parallelized (s = 1/20 = 0.05), and if the code that takes up the remaining 19 hours of execution time can be parallelized (p = 1 − s = 0.95), then regardless of how many processors are devoted to a parallelized execution of this program, the minimum execution time cannot be less than that critical one hour.
+If a particular part of the program, which takes one hour to execute, cannot be parallelized (s = 1/20 = 0.05), and if the code that takes up the remaining 19 hours of execution time can be parallelized (p = 1 − s = 0.95), then regardless of how many processors are devoted to a parallelized execution of this program, the minimum execution time cannot be less than that critical one hour.
 Hence, the theoretical speedup is limited to at most 20 times (when N = ∞, speedup = 1/s = 20).
 ::::
 

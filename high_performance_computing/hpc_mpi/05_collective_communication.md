@@ -181,7 +181,7 @@ int main(int argc, char **argv) {
 
 ### Scatter
 
-One way to parallelise processing amount of data is to have ranks process a subset of the data.
+One way to parallelise processing an amount of data is to have ranks process a subset of the data.
 One method for distributing the data to each rank is to have a root rank which prepares the data, and then send the data to every rank.
 The communication could be done *manually* using point-to-point communication, but it's easier, and faster, to use a single collective communication.
 We can use `MPI_Scatter()` to split the data into *equal* sized chunks and communicate a diferent chunk to each rank, as shown in the diagram below.
@@ -413,7 +413,7 @@ Not all collective operations support in-place operations, and the usage of `MPI
 
 :::::challenge{id=reductions, title="Reductions"}
 The following program creates an array called `vector` that contains a list of `n_numbers` on each rank.
-The first rank contains the numbers from > 1 to n_numbers, the second rank from n_numbers to 2*n_numbers2 and so on.
+The first rank contains the numbers from 0 to n_numbers, the second rank from n_numbers to 2*n_numbers and so on.
 It then calls the `find_max` and `find_sum` functions that should calculate the sum and maximum of the vector.
 
 These functions are not implemented in parallel and only return the sum and the maximum of the local vectors.

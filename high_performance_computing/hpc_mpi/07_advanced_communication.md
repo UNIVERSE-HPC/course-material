@@ -210,7 +210,7 @@ MPI_Type_vector(count, blocklength, stride, MPI_INT, &rows_type);
 /* Don't forget to commit it */
 MPI_Type_commit(&rows_type);
 
-/* Send the middle row of our 2d send_buffer array. Note that we are sending
+/* Send the middle and last row of our 2d send_buffer array. Note that we are sending
    &send_buffer[1][0] and not send_buffer. This is because we are using an offset
    to change the starting point of where we begin sending memory */
 int matrix[4][4] = {
@@ -471,7 +471,7 @@ for (int i = 0; i < 2; ++i) {
   block_offsets[i] = MPI_Aint_diff(block_offsets[i], base_address);
 }
 
-/* We finally can create out struct data type */
+/* We finally can create our struct data type */
 MPI_Datatype struct_type;
 MPI_Type_create_struct(count, block_lengths, block_offsets, block_types, &struct_type);
 MPI_Type_commit(&struct_type);
@@ -637,7 +637,7 @@ The diagram below shows how two (non-contiguous) chunks of data may be packed in
 
 ![Layout of packed memory](fig/packed_buffer_layout.png)
 
-The coloured boxes in both memory representations (memory and pakced) are the same chunks of data.
+The coloured boxes in both memory representations (memory and packed) are the same chunks of data.
 The green boxes containing only a single number are used to document the number of elements in the block of elements they are adjacent to, in the contiguous buffer.
 This is optional to do, but is generally good practise to include to create a self-documenting message.
 From the diagram we can see that we have "packed" non-contiguous blocks of memory into a single contiguous block.

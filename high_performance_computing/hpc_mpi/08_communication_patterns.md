@@ -356,7 +356,7 @@ To communicate the halos, we need to:
 3. Using the derived types and neighbouring ranks, communicate the top row of the sub-domain to the bottom halo row of the neighbouring top domain.
    We also need to repeat the same process for the bottom row to the neighbouring sub-domain below and so on for the left and right columns of halo data.
 
-To re-build the sub-domains into one domain, we can do the reverse of the hidden code exert of the function `scatter_sub_arrays_to_other ranks`.
+To re-build the sub-domains into one domain, we can do the reverse of the the function `scatter_sub_arrays_to_other_ranks` shown [above](#extra-scattering-the-image-to-other-ranks)
 Instead of the root rank sending data, it instead receives data from the other ranks using the same `sub_array_t` derived type.
 ::::
 :::::
