@@ -3,6 +3,11 @@ name: Collaboration on GitHub
 id: collaboration
 dependsOn: [technology_and_tooling.version_control]
 files: [refresher.md, workflows.md, issues.md]
+learningOutcomes:
+  - Refresh your knowledge of Git and creating and managing branches.
+  - Use the feature branch workflow to collaborate with others on the same repository.
+  - Learn about code reviews and pull requests on GitHub.
+  - Understand and create GitHub issues to manage bug reports and feature requests.
 attribution:
   - citation: >
       "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"

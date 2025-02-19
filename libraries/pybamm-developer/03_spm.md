@@ -2,6 +2,9 @@
 name: Single Particle Model
 dependsOn: [libraries.pybamm-developer.02_pde]
 tags: [pybamm]
+learningOutcomes:
+  - Understand how to define and set functions as parameter values
+  - Be able to create a single particle model of a battery using PyBaMM
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team

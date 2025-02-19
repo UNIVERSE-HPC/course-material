@@ -2,6 +2,10 @@
 name: Submodels
 dependsOn: [libraries.pybamm-developer.05_spm_acid]
 tags: [pybamm]
+learningOutcomes:
+  - Understand how PyBaMM models are built up from combinations of submodels
+  - Understand the components of a submodel
+  - Be able to create a new submodel to add new behaviour to PyBaMM
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team
