@@ -370,7 +370,7 @@ int main(int argc, char **argv)
 
     if (num_ranks < 2) {
         printf("This example requires at least two ranks\n");
-        MPI_Abort(MPI_COMM_WORLD, 1);
+        return MPI_Finalize();
     }
 
     char send_message[MESSAGE_SIZE];
