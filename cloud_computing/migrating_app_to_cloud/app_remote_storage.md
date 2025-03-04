@@ -9,9 +9,9 @@ learningOutcomes:
 
 This is a modified version of the image processing application. Instead of relying on local storage and databases, this version utilizes AWS services, specifically **S3** for image storage and **DynamoDB** for metadata management.
 
-### Prerequisites
+## Prerequisites
 
-In addition to the prerequisites (e.g., Git, Python, Pip, Docker, etc.) covered in **Running the Image Processing Application Locally**, we also need to install and configure the **AWS Command Line Interface (CLI)** to enable interaction with AWS services.
+In addition to the prerequisites covered in [Running the Image Processing Application Locally](app_local_storage.md) (e.g., Git, Python, Pip, Docker, etc.), we also need to install and configure the **AWS Command Line Interface (CLI)** to enable interaction with AWS services.
 
 #### Step 1: Install the AWS CLI
 
