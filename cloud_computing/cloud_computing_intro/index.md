@@ -13,7 +13,7 @@ summary: |
 
 ## Cloud Computing: A High-Level Overview
 
-Cloud computing refers to the delivery of computing services —including servers, storage, databases, networking, software, analytics, and intelligence— over the Internet ("the cloud") to offer faster innovation, flexible resources, and economies of scale. It enables organizations to access resources without the need to own or manage physical infrastructure, allowing them to innovate rapidly, adapt to changing workloads, and grow efficiently while minimizing costs. By leveraging the cloud, organizations can focus more on delivering value and less on managing IT infrastructure, enhancing their ability to compete in an increasingly digital world.
+Cloud computing refers to the delivery of computing services — including servers, storage, databases, networking, software, analytics, and intelligence — over the Internet ("the cloud") to offer faster innovation, flexible resources, and economies of scale. It enables organizations to access resources without the need to own or manage physical infrastructure, allowing them to innovate rapidly, adapt to changing workloads, and grow efficiently while minimizing costs. By leveraging the cloud, organizations can focus more on delivering value and less on managing IT infrastructure, enhancing their ability to compete in an increasingly digital world.
 
 ## Key Features of Cloud Computing
 
