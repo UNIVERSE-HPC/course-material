@@ -7,9 +7,9 @@ learningOutcomes:
 
 To overcome the limitations of running a local application with cloud services, we will migrate the entire image processing application to AWS, where it will be deployed and managed using Elastic Beanstalk. Migrating the application to AWS allows you to fully leverage cloud scalability, performance, and automation. Elastic Beanstalk takes care of provisioning the required infrastructure and scaling your application as needed.
 
-### Prerequisites
+## Prerequisites
 
-In addition to the prerequisites covered in **Integrating AWS Services with the Local Application** (e.g., Git, Python, Pip, Docker, AWS CLI), you will also need to install and configure the **AWS Elastic Beanstalk CLI** (`awsebcli`).
+In addition to the prerequisites covered in [Integrating AWS Services with the Local Application](app_remote_storage.md) (e.g., Git, Python, Pip, Docker, AWS CLI), you will also need to install and configure the **AWS Elastic Beanstalk CLI** (`awsebcli`).
 
 > **Note:** Before setting up Elastic Beanstalk, make sure that the **AWS CLI** is installed and configured with valid credentials. This includes your **AWS Access Key ID**, **AWS Secret Access Key**, and **Default region name**. These credentials are essential for interacting with AWS services, including Elastic Beanstalk.
 
