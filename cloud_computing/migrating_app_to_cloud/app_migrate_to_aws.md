@@ -72,7 +72,12 @@ The S3 bucket will be used to store the images uploaded by the users and process
 
 #### 2. **Creating a DynamoDB Table:**
 
-The DynamoDB table will be used to store metadata related to the images.
+Amazon DynamoDB will be used to store metadata related to the images. DynamoDB is a fully managed NoSQL database that is built for performance and scalability. It stores data in key-value pairs and offers flexible schemas, making it perfect for handling high-throughput tasks. DynamoDB manages millions of requests per second and includes built-in replication across various regions. It provides options for on-demand or provisioned capacity, enabling you to optimize both performance and cost.
+
+Compared to other AWS databases, such as RDS and Aurora, which are relational databases that use SQL and are best for structured data with complex queries, DynamoDB is a NoSQL database optimized for high-speed transactions and scalability.
+
+To use DynamoDB, you need go through the following steps:
+
 
 1. Open the AWS Management Console and navigate to the [DynamoDB service](https://console.aws.amazon.com/dynamodb/home). Please make sure you are in the correct AWS region. You can select the region by clicking on the region dropdown in the top right corner of the console. Refer to the image below, where the region selection is highlighted with a red box for guidance on changing the region.
 
