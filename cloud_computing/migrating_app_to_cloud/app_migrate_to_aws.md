@@ -101,7 +101,7 @@ To use DynamoDB, you need go through the following steps:
 Once these resources are set up, you can proceed to clone the application and configure it to use the S3 bucket and DynamoDB table.
 
 
-### Cloning the Application from GitHub
+## Cloning the Application from GitHub
 
 To get started with the image processing application, follow these steps to clone the repository and set it up locally:
 
@@ -128,7 +128,7 @@ IMAGE_METADATA_TABLE = 'YOUR_AWS_DYNAMODB_TABLE_NAME'
 > **Note:** Please replace the values above with those specific to your AWS resources. Ensure you use the correct region, S3 bucket name, and DynamoDB table name that you created.
 
 
-### Deploying the Application to AWS Elastic Beanstalk
+## Deploying the Application to AWS Elastic Beanstalk
 
 After cloning the repository and navigating to the project directory, follow these steps to deploy the application using Elastic Beanstalk, leveraging the existing configuration files.
 
@@ -197,7 +197,7 @@ global:
 
 Each of these configurations ensures the application is deployed and managed predictably on Elastic Beanstalk, allowing for easier troubleshooting and a standardized setup.
 
-### Step 1.5: Create and use your own EC2 key
+### Step 1.2: Create and use your own EC2 key
 
 Create an EC2 key and use it to replace **ar-fsl-keypair** in **config.yml**
 
