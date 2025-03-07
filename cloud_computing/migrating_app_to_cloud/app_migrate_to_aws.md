@@ -189,7 +189,7 @@ global:
 
 - **`global`**: Contains general settings for the application:
   - **`application_name`**: Specifies the name of the Elastic Beanstalk application (e.g., `image-processing-cloud-app`). This helps identify the app in the AWS Console.
-  - **`default_ec2_keyname`**: The name of the EC2 key pair used for SSH access to application instances, here set to `ar-fsl-keypair`.
+  - **`default_ec2_keyname`**: The name of the EC2 key pair used for SSH access to application instances, here set to `ar-fsl-keypair`. You will learn to create this key pair in the next section.
   - **`default_platform`**: Defines the platform and runtime environment (Python 3.11 on Amazon Linux 2023), ensuring compatibility with the Flask app.
   - **`default_region`**: Sets the AWS region (e.g., `eu-west-2` for London), determining the location of resources.
   - **`include_git_submodules`**: When set to `true`, Elastic Beanstalk includes any Git submodules, which is helpful if the application has dependencies managed as submodules.
