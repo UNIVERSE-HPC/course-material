@@ -236,8 +236,6 @@ To verify the application creation, go to the [AWS Elastic Beanstalk Console](ht
 
 ### Step 3: Create the Environment and Deploy the Application
 
-Now, you will create the environment and perform the initial deployment of your application:
-
 Run the following command to create a new environment and deploy your application:
 
 ```bash
