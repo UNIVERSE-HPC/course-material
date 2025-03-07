@@ -14,7 +14,7 @@ In addition to the prerequisites covered in [Integrating AWS Services with the L
 > **Note:** Before setting up Elastic Beanstalk, make sure that the **AWS CLI** is installed and configured with valid credentials. This includes your **AWS Access Key ID**, **AWS Secret Access Key**, and **Default region name**. These credentials are essential for interacting with AWS services, including Elastic Beanstalk.
 
 
-#### Install the AWS Elastic Beanstalk CLI
+### Install the AWS Elastic Beanstalk CLI
 
 Once the AWS CLI is configured, you can proceed to install the AWS Elastic Beanstalk (EB) Command Line Interface (CLI), which allows you to deploy and manage applications in Elastic Beanstalk using terminal commands.
 
