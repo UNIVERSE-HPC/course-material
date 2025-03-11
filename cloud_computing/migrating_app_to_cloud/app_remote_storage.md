@@ -62,7 +62,7 @@ To verify that the AWS CLI is correctly configured, try listing your S3 buckets:
 aws s3 ls
 ```
 
-If the configuration is successful, you will see a list of your S3 buckets. If there are any issues, you will likely see an error message indicating the problem.
+If the configuration is successful, you will see a list of your S3 buckets. As you have not created any bucket yet, it will show an empty list. If there are any issues, you will likely see an error message indicating the problem.
 
 
 ### Setting Up AWS Resources
