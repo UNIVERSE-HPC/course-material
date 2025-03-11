@@ -5,11 +5,11 @@ tags: []
 learningOutcomes:
 ---
 
-### Image Processing Application Using S3 and DynamoDB
+## Image Processing Application Using S3 and DynamoDB
 
 This is a modified version of the image processing application. Instead of relying on local storage and databases, this version utilizes AWS services, specifically **S3** for image storage and **DynamoDB** for metadata management.
 
-## Prerequisites
+### Prerequisites
 
 In addition to the prerequisites covered in [Running the Image Processing Application Locally](app_local_storage.md) (e.g., Git, Python, Pip, Docker, etc.), we also need to install and configure the **AWS Command Line Interface (CLI)** to enable interaction with AWS services.
 
@@ -87,30 +87,27 @@ The S3 bucket will be used to store the images uploaded by the users and process
 
 4. Leave the other settings as default unless you have specific requirements. However, it's important to understand and consider the following options:
 
-#### Object Ownership:
 
-- **Object Ownership** defines the access control behavior for objects uploaded to the bucket. By default, Amazon disables Access Control Lists (ACLs), which is the recommended approach for most use cases as it simplifies permissions management. Disabling ACLs ensures that the bucket owner automatically owns all objects, even if they are uploaded by different AWS accounts.
+   - **Object Ownership** defines the access control behavior for objects uploaded to the bucket. By default, Amazon disables Access Control Lists (ACLs), which is the recommended approach for most use cases as it simplifies permissions management. Disabling ACLs ensures that the bucket owner automatically owns all objects, even if they are uploaded by different AWS accounts.
 
-#### Block Public Access:
 
-- **Block Public Access** settings are critical for securing your bucket. By default, *Block all public access* is selected, which is highly recommended unless you need to expose objects publicly. This setting prevents any accidental exposure of sensitive data stored in the bucket.
+   - **Block Public Access** settings are critical for securing your bucket. By default, *Block all public access* is selected, which is highly recommended unless you need to expose objects publicly. This setting prevents any accidental exposure of sensitive data stored in the bucket.
 
-#### Bucket Versioning:
 
-- **Bucket Versioning** is disabled by default. Enabling versioning allows you to retain multiple versions of an object, which is useful for backup and recovery scenarios. If versioning is important to your use case, you can enable it after creating the bucket.
+   - **Bucket Versioning** is disabled by default. Enabling versioning allows you to retain multiple versions of an object, which is useful for backup and recovery scenarios. If versioning is important to your use case, you can enable it after creating the bucket.
 
-#### Default Encryption:
 
-- **Server-Side Encryption (SSE)** is automatically applied to new objects stored in the bucket. By default, **SSE-S3** (Server-Side Encryption with Amazon S3 managed keys) is selected. This ensures that your data is encrypted at rest without requiring you to manage encryption keys.
-  
-  You also have the option to choose:
-  
-  - **SSE-KMS**: Server-side encryption with AWS Key Management Service (KMS) keys, which allows you to have more control over encryption keys.
-  - **DSSE-KMS**: Dual-layer encryption using AWS KMS keys for even greater security. This option applies two separate layers of encryption to your data, although it might incur additional costs. 
+   - **Server-Side Encryption (SSE)** is automatically applied to new objects stored in the bucket. By default, **SSE-S3** (Server-Side Encryption with Amazon S3 managed keys) is selected. This ensures that your data is encrypted at rest without requiring you to manage encryption keys.
+   
+   You also have the option to choose:
+   
+   - **SSE-KMS**: Server-side encryption with AWS Key Management Service (KMS) keys, which allows you to have more control over encryption keys.
+   - **DSSE-KMS**: Dual-layer encryption using AWS KMS keys for even greater security. This option applies two separate layers of encryption to your data, although it might incur additional costs. 
 
-#### Bucket Key:
 
-- If you select **SSE-KMS**, you will also have the option to enable the **S3 Bucket Key**, which reduces the cost of encryption by minimizing calls to AWS KMS. Enabling S3 Bucket Keys can optimize costs when encrypting large volumes of data. This option is automatically enabled by default but can be disabled if necessary. Note that it is not supported for DSSE-KMS.
+   - **Bucket Key**
+
+      If you select **SSE-KMS**, you will also have the option to enable the **S3 Bucket Key**, which reduces the cost of encryption by minimizing calls to AWS KMS. Enabling S3 Bucket Keys can optimize costs when encrypting large volumes of data. This option is automatically enabled by default but can be disabled if necessary. Note that it is not supported for DSSE-KMS.
 
 5. Click **Create bucket** once you are comfortable with these settings. Refer to the image below for guidance, where the "Create bucket" button is highlighted with a red box:
 
