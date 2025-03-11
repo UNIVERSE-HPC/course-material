@@ -9,15 +9,15 @@ While integrating AWS services like S3 and DynamoDB with a locally running appli
 
 - **Increased Latency**  
 
-When running the application locally, every request to cloud-based services like S3 (for storage) or DynamoDB (for databases) must travel over the Internet. This introduces **network latency**, which can significantly slow down response times, especially if the cloud resources are hosted in regions far from the local machine. As the application grows in complexity and the number of interactions with AWS services increases, this latency can become more noticeable and degrade user experience.
+When running the application locally, every request to cloud-based services like S3 (for storage) or DynamoDB (for databases) must travel over the Internet. This introduces **network latency**, which can significantly slow down response times, especially if the cloud resources are hosted in regions far from the local machine. 
 
 - **Dependence on Internet Connectivity**
 
-The local application depends entirely on a **stable and fast Internet connection** to communicate with AWS services. Any disruption in connectivity, slow network speeds, or outages can cause the application to fail to access essential resources like files in S3 or data in DynamoDB. This dependency can lead to downtime or inconsistent behavior, which is particularly problematic for production environments or critical applications where reliability is key.
+The local application depends entirely on a **stable and fast Internet connection** to communicate with AWS services. Any disruption in connectivity, slow network speeds, or outages can cause the application to fail to access essential resources like files in S3 or data in DynamoDB. 
 
 - **Limited Scalability**
 
-While AWS services like S3 and DynamoDB are highly scalable by design, the **local machine** running the application is not. As your application grows, whether in the number of users or the volume of data processed, the local environment may struggle to keep up. You are constrained by the processing power, memory, and storage limitations of your local hardware. This lack of scalability can result in performance bottlenecks and reduce the overall efficiency of your application.
+While AWS services like S3 and DynamoDB are highly scalable by design, the **local machine** has hardware limitations. As the application grows in users or data volume, it may struggle to keep up due to constraints in processing power, memory, and storage.
 
 - **Management Overhead**
 
@@ -25,11 +25,11 @@ Running an application locally means that you are responsible for maintaining th
 
 - **Lack of Automatic Failover and High Availability**
 
-When running an application locally, you miss out on the **high availability** and **automatic failover** features offered by cloud platforms. If your local machine crashes or encounters hardware issues, the application will be completely unavailable until the problem is resolved. In contrast, AWS provides built-in redundancy and failover mechanisms to ensure continuous availability of services.
+When running an application locally, you miss out on the **high availability** and **automatic failover** features offered by cloud platforms. If your local machine crashes or encounters hardware issues, the application will be completely unavailable until the problem is resolved. 
 
 ### Motivation for Migrating to AWS Elastic Beanstalk
 
-To overcome the challenges of running applications locally, AWS offers **Elastic Beanstalk**, a fully managed service that simplifies the process of deploying, managing, and scaling web applications and services. Elastic Beanstalk handles the infrastructure provisioning, load balancing, auto-scaling, and monitoring, allowing developers to focus on writing code without worrying about the underlying infrastructure.
+To overcome the challenges of running applications locally, AWS offers **Elastic Beanstalk**, a fully managed service that simplifies deploying, managing, and scaling web applications by handling infrastructure, load balancing, auto-scaling, and monitoring capabilities. This allows developers to focus on code without worrying about the underlying infrastructure.
 
 Elastic Beanstalk offers several key benefits:
 
