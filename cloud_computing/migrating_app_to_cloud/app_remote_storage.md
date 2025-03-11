@@ -35,6 +35,9 @@ aws configure
 
 - **AWS Access Key ID:** This is a key that allows you to access AWS services. You can obtain it by logging into the AWS Management Console, navigating to Identity and Access Management (IAM), and creating a new user with programmatic access. Once created, the Access Key ID will be provided to you.
 
+   ![AWS Access Key ID](Create_Access_Key.jpg)
+
+
 - **AWS Secret Access Key:** This is the secret part of the Access Key pair. It's provided along with the Access Key ID when you create the user with programmatic access. Ensure you store this key securely, as you won't be able to view it again.
 
 - **Default region name:** This is the AWS region where you want your AWS services to operate. Examples include:
@@ -73,7 +76,7 @@ Before cloning and running the application, you need to create an S3 bucket and 
 
 The S3 bucket will be used to store the images uploaded by the users and processed by the application.
 
-1. Open the AWS Management Console and navigate to the [S3 service](https://s3.console.aws.amazon.com/s3/home). Please make sure you are in the correct AWS region. You can select the region by clicking on the region dropdown in the top right corner of the console. Refer to the image below, where the region selection is highlighted with a red box for guidance on changing the region
+1. Open the AWS Management Console and navigate to the [S3 service](https://s3.console.aws.amazon.com/s3/home). Please make sure you are in the correct AWS region. You can select the region by clicking on the region dropdown in the top right corner of the console. Refer to the image below, where the region selection is highlighted with a red box for guidance on changing the region.
 
    ![AWS Region Selection](S3_Region.jpg)
 
