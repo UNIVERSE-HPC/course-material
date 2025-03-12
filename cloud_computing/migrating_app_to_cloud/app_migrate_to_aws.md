@@ -363,7 +363,9 @@ eb terminate --all
 
 The `--all` flag ensures that all related resources, including environments, saved configurations, and the application itself, are fully removed.
 
-> **Note:** The `--all` flag also removes the `.elasticbeanstalk` directory, which contains your `config.yml` file. Be cautious when using this option, as any local configuration settings in `.elasticbeanstalk/config.yml` will be deleted, requiring reinitialization if you decide to recreate the application later. Therefore, it is highly recommended that you take a backup of this file or store it to git.
+:::callout{variant="note"}
+The `--all` flag also removes the `.elasticbeanstalk` directory, which contains your `config.yml` file. Be cautious when using this option, as any local configuration settings in `.elasticbeanstalk/config.yml` will be deleted, requiring reinitialization if you decide to recreate the application later. Therefore, it is highly recommended that you take a backup of this file or store it to git.
+:::
 
 ### Step 6: Resource Cleanup
 
