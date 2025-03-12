@@ -182,7 +182,9 @@ global:
   - **`include_git_submodules`**: When set to `true`, Elastic Beanstalk includes any Git submodules, which is helpful if the application has dependencies managed as submodules.
   - **`workspace_type`**: Indicates the type of workspace, in this case, `Application`, meaning it's an Elastic Beanstalk application workspace.
 
+:::callout{variant="note"}
 Each of these configurations ensures the application is deployed and managed predictably on Elastic Beanstalk, allowing for easier troubleshooting and a standardized setup.
+:::
 
 ### Step 1.2: Create and use your own EC2 key
 
