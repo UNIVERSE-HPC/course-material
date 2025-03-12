@@ -112,7 +112,9 @@ S3_BUCKET = 'YOUR_AWS_S3_BUCKET_NAME'
 IMAGE_METADATA_TABLE = 'YOUR_AWS_DYNAMODB_TABLE_NAME'
 ```
 
-> **Note:** Please replace the values above with those specific to your AWS resources. Ensure you use the correct region, S3 bucket name, and DynamoDB table name that you created.
+:::callout{variant="note"}
+Please replace the values above with those specific to your AWS resources. Ensure you use the correct region, S3 bucket name, and DynamoDB table name that you created.
+:::
 
 
 ## Deploying the Application to AWS Elastic Beanstalk
@@ -343,7 +345,9 @@ eb terminate
 
 When you run this command, Elastic Beanstalk will prompt you to confirm the termination by typing the environment name. This step ensures the termination is intentional, as it will delete all associated resources for that environment. This process takes a few minutes to complete.
 
-> **Note:** Terminating the environment does not delete the application itself. To fully remove the application, follow these steps in the AWS Console:
+:::callout{variant="note"}
+Terminating the environment does not delete the application itself. To fully remove the application, follow these steps in the AWS Console:
+:::
 
 1. Go to the [AWS Elastic Beanstalk Console](https://console.aws.amazon.com/elasticbeanstalk).
 2. In the left navigation panel, click on **Applications** to see a list of applications.
