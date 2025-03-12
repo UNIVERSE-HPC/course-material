@@ -221,7 +221,9 @@ To verify the application creation, go to the [AWS Elastic Beanstalk Console](ht
 
 ![Elastic Beanstalk Applications](fig/EB_Applications.jpg)
 
-> **Note:** This step only initializes the application. It does not yet create the environment or deploy the application.
+:::callout{variant="note"}
+This step only initializes the application. It does not yet create the environment or deploy the application.
+:::
 
 ### Step 3: Create the Environment and Deploy the Application
 
@@ -240,15 +242,19 @@ This command will:
   - **EC2 instance** to host the application.
   - **Load balancer** to distribute incoming traffic across multiple instances (if applicable).
 
-> ❗ **Error:** If your account cannot use Launch Configurations, an error message may appear at this stage.  
-> You can modify the command like this to force usage of Launch Templates instead:
->
-> ```bash
-> eb create image-processing-cloud-app-env --enable-spot
-> ```
-> The AWS Spot Instances feature allows users to take advantage of unused EC2 capacity at significantly reduced costs compared to On-Demand prices. However, Spot Instances can be interrupted by AWS with little notice when the capacity is reclaimed.
->
-> Using AWS Spot Instances with Launch Templates solves the issue faced by new AWS accounts, which are restricted from using the older Launch Configurations. AWS has deprecated Launch Configurations in favor of Launch Templates to enable more advanced features and flexibility. New accounts are often provisioned under policies that enforce modern practices, requiring Launch Templates for any EC2 instance configuration. 
+:::callout{variant="danger"}
+If your account cannot use Launch Configurations, an error message may appear at this stage.  
+:::
+
+You can modify the command like this to force usage of Launch Templates instead:
+
+
+ ```bash
+ eb create image-processing-cloud-app-env --enable-spot
+ ```
+The AWS Spot Instances feature allows users to take advantage of unused EC2 capacity at significantly reduced costs compared to On-Demand prices. However, Spot Instances can be interrupted by AWS with little notice when the capacity is reclaimed.
+
+Using AWS Spot Instances with Launch Templates solves the issue faced by new AWS accounts, which are restricted from using the older Launch Configurations. AWS has deprecated Launch Configurations in favor of Launch Templates to enable more advanced features and flexibility. New accounts are often provisioned under policies that enforce modern practices, requiring Launch Templates for any EC2 instance configuration. 
 
 This process can take a few minutes, during which Elastic Beanstalk will provision these resources and configure the environment. Once the environment is fully set up and the application is deployed, you will see a confirmation message on the console similar to:
 
