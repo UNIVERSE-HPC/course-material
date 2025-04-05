@@ -7,6 +7,10 @@ files:
     [side_effects_cpp.md, recursion_cpp.md, higher_order_functions_cpp.md],
     [side_effects_python.md, recursion_python.md,higher_order_functions_python.md],
   ]
+learningOutcomes:
+  - Learn about side effects and the benefits of functional code.
+  - Gain knowledge of recursion and examples of where it might be used.
+  - Learn about lambda functions and higher-order functions.
 summary: |
   Functional Programming is based around the idea that programs are constructed
   by applying and composing/chaining **functions**. This course will introduce
