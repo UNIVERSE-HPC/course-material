@@ -4,13 +4,9 @@ id: intro_to_cloud_computing
 dependsOn: []
 files: []
 summary: |
-<<<<<<< HEAD
+
   This course covers the basics of cloud computing, including key concepts, service models, and major providers. 
   It also highlights the primary benefits of cloud computing, while addressing common challenges faced in its adoption.
-=======
-    This course covers the basics of cloud computing, including key concepts, service models, and major cloud providers. 
-    It also highlights the primary benefits of cloud computing, while addressing common challenges faced in its adoption.
->>>>>>> 5e3762c (Improve cloud computing intro for clarity and readability)
 ---
 
 ## Cloud Computing: A High-Level Overview
