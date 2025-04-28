@@ -13,7 +13,7 @@ The running application (i.e., the image processing application) is built using 
 
 ### Application Features and Workflow
 
-We will walk through the main features and the workflow of the application, from image upload to metadata storage and display.
+We will walk through the core features and workflow steps involved in the image processing application, covering everything from initial image upload to metadata management and image retrieval:
 
 1. **Upload and Processing**: Users upload images through the web interface. Uploaded images are saved in the `uploads` directory, and metadata is stored in the SQLite database.
 2. **Image Processing**: Images are converted to grayscale and resized to 300x300 pixels. The processed images are saved in the `processed` directory.
