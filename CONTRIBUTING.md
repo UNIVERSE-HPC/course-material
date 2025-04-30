@@ -2,9 +2,9 @@
 
 To contribute new material, or update existing material please:
 
-  1. Create an issue on this repo with a description of the proposed change
-  2. Fork the repo and create a new branch. Add commits to your branch in your own fork with the changes. Please provide the issue number in each commit message, e.g. a commit message for issue number 5 might be "#5 added version control material"
-  3. When you are ready, open a pull request to merge your new commits to the `main` branch of this repo.
+1. Create an issue on this repo with a description of the proposed change
+2. Fork the repo and create a new branch. Add commits to your branch in your own fork with the changes. Please provide the issue number in each commit message, e.g. a commit message for issue number 5 might be "#5 added version control material"
+3. When you are ready, open a pull request to merge your new commits to the `main` branch of this repo.
 
 ## Rendering website
 
@@ -23,9 +23,9 @@ The file structure in this repo defines the structure of the generated material,
     - [section.id.md]
 ```
 
-The top level directories are *themes*, each containing a number of *courses*
+The top level directories are _themes_, each containing a number of _courses_
 (you can think of each course as being 1/2 or 1 day worth of material). Each
-course is further subdivided into *sections*, which are markdown files (with
+course is further subdivided into _sections_, which are markdown files (with
 extension `.md`) with the section content.
 
 ## Metadata
@@ -85,8 +85,7 @@ dependsOn: [
 
 ## Markdown
 
-The material itself is written using [GitHub-flavored
-Markdown](https://docs.github.com/en/get-started/writing-on-github). A few special directives have been defined to allow us to include problems/challenges and solutions. Each directive specifies a block that starts and ends with three or more colons, e.g.
+The material itself is written using [GitHub-flavored Markdown](https://docs.github.com/en/get-started/writing-on-github). A few special directives have been defined to allow us to include problems/challenges and solutions and callouts. Each directive specifies a block that starts and ends with three or more colons, e.g.
 
 ```pandoc
 :::directive_name
@@ -114,8 +113,7 @@ The id must be unique within this particular section, and the title is any strin
 
 ### Solution directive
 
-The solution directive produces a section that is initially hidden, but which a
-user can click to display. It can be written using the following syntax:
+The solution directive produces a section that is initially hidden, but which a user can click to display. It can be written using the following syntax:
 
 ```pandoc
 :::solution
@@ -139,6 +137,34 @@ The answer is 42.
 ::::
 ```
 
+### Internal Links
+
+You can obviously include links in markdown, using the standard markdown syntax:
+
+```markdown
+[link text](https://example.com)
+```
+
+However, since the full url varies depending on the deployment we have a dynamic system to generate internal urls, that is URLs that point to other sections of this markdown.
+
+This is done automatically by using the following syntax:
+
+```markdown
+[internal link]([theme.id]/[course.id]/[section.id])
+[with leading slash](/[theme.id]/[course.id]/[section.id])
+[link where you forgot to remove the .md](/[theme.id]/[course.id]/[section.id].md)
+```
+
+Also, you can use internal links in text as well, for ecxample:
+
+```markdown
+{{ base_url }}/[theme.id]/[course.id]/[section.id]
+```
+
+All of these examples will prepend the base URL and the material directory of the deployment to the link, so that it will work in any environment.
+
+For example, if the base URL is `https://example.com`, and the repo being used is `HPCu`, then all of the example lins will become `https://example.com/material/HPCu/[theme.id]/[course.id]/[section.id]`.
+
 ### Callout directive
 
 The callout directive produces a highlighted and bordered block of markdown content. It
@@ -147,8 +173,7 @@ can be written using the following syntax:
 ```pandoc
 :::callout
 
-More information on Douglas Adams' "The Hitchhikers Guide to the Galaxy" book series can 
-be found on [the series Wikipedia entry](https://en.wikipedia.org/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy)
+More information on Douglas Adams' "The Hitchhikers Guide to the Galaxy" book series can be found on [the series Wikipedia entry](https://en.wikipedia.org/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy)
 
 :::
 ```
@@ -163,7 +188,7 @@ Text
 
 Variants available are "danger", "warning", "tip", "discussion", "note" and "keypoints".
 
-![image](https://private-user-images.githubusercontent.com/60351846/301895586-343ade2a-0c4e-4f20-9559-8e3a4986a523.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTQxMjkxMjcsIm5iZiI6MTcxNDEyODgyNywicGF0aCI6Ii82MDM1MTg0Ni8zMDE4OTU1ODYtMzQzYWRlMmEtMGM0ZS00ZjIwLTk1NTktOGUzYTQ5ODZhNTIzLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA0MjYlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNDI2VDEwNTM0N1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPThjYjRmMGVkYTJmNWRmNTZkZWQwYWUzMzI0MTg0N2I0M2Q4ZDBkYWJlMmMwOWU3MWNmYTkzMTdiYzFmZGRhZjAmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.I4hgqTxWYcVN9TXzcFjDcyxotBrq_-o0TFWuVlJXW14)
+![image of callout variants](https://imgur.com/r2RcIXJ)
 
 #### Danger
 
@@ -188,3 +213,28 @@ Used to highlight additional information that the student may wat to bear in min
 #### Key Points
 
 Used to summarise the most essential or critical information in a topic. These can be takeaways or highlights that students should focus on.
+
+## Linting
+
+There are 3 linting actions that are run on the material in this repo, these are:
+
+### Front matter
+
+To check the front matters yaml is properly formatted, we use a custom `front-matter-lint` action.
+As it is not a command line tool, it can only be run locally with [act](https://github.com/nektos/act), a tool to run GitHub actions locally.
+
+### Markdownlint
+
+To ensure that the material is consistent and well formatted, we use `markdownlint` to check for common issues.
+You can also run the markdown linter manually using the following command:
+
+```bash
+markdownlint '**/*.md' --ignore '*/*/slides/*' --ignore README.md
+```
+
+### Python code
+
+Python code is checked using a custom action, this works by stitching all python blocks together into a single `.py` file, and then running a python linter on it.
+There is no command line tool for this, so it can only be run locally with `act`.
+
+There are no corresponding tools for other languages, e.g. C++, due to difficulties in stitching together a non-interpreted language.
