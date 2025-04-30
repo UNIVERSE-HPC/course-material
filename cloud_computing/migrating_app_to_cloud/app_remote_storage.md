@@ -27,16 +27,15 @@ After installation, you need to configure the AWS CLI with your credentials so t
 
 1. Open a terminal or Command Prompt and run the following command:
 
-```bash
-aws configure
-```
+   ```bash
+   aws configure
+   ```
 
-2. You will be prompted to enter the following information:
+1. You will be prompted to enter the following information:
 
 - **AWS Access Key ID:** This is a key that allows you to access AWS services. You can obtain it by logging into the AWS Management Console, navigating to Identity and Access Management (IAM), and creating a new user with programmatic access. Once created, the Access Key ID will be provided to you.
 
-   ![AWS Access Key ID](Create_Access_Key.jpg)
-
+  ![AWS Access Key ID](Create_Access_Key.jpg)
 
 - **AWS Secret Access Key:** This is the secret part of the Access Key pair. It's provided along with the Access Key ID when you create the user with programmatic access. Ensure you store this key securely, as you won't be able to view it again.
 
@@ -48,14 +47,14 @@ aws configure
 
 - **Default output format:** Choose how you want the CLI to display the results. Options include json, text, and table.
 
-   Example input:
+  Example input:
 
-   ```bash
-   AWS Access Key ID [None]: AAKIEXAMPLE
-   AWS Secret Access Key [None]: wJalFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-   Default region name [None]: eu-west-2
-   Default output format [None]: json
-   ```
+  ```bash
+  AWS Access Key ID [None]: AAKIEXAMPLE
+  AWS Secret Access Key [None]: wJalFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+  Default region name [None]: eu-west-2
+  Default output format [None]: json
+  ```
 
 #### Step 3: Test the Configuration
 
@@ -66,7 +65,6 @@ aws s3 ls
 ```
 
 If the configuration is successful, you will see a list of your S3 buckets. As you have not created any bucket yet, it will show an empty list. If there are any issues, you will likely see an error message indicating the problem.
-
 
 ### Setting Up AWS Resources
 
@@ -90,32 +88,26 @@ The S3 bucket will be used to store the images uploaded by the users and process
 
 4. Leave the other settings as default unless you have specific requirements. However, it's important to understand and consider the following options:
 
-
    - **Object Ownership** defines the access control behavior for objects uploaded to the bucket. By default, Amazon disables Access Control Lists (ACLs), which is the recommended approach for most use cases as it simplifies permissions management. Disabling ACLs ensures that the bucket owner automatically owns all objects, even if they are uploaded by different AWS accounts.
 
-
-   - **Block Public Access** settings are critical for securing your bucket. By default, *Block all public access* is selected, which is highly recommended unless you need to expose objects publicly. This setting prevents any accidental exposure of sensitive data stored in the bucket.
-
+   - **Block Public Access** settings are critical for securing your bucket. By default, _Block all public access_ is selected, which is highly recommended unless you need to expose objects publicly. This setting prevents any accidental exposure of sensitive data stored in the bucket.
 
    - **Bucket Versioning** is disabled by default. Enabling versioning allows you to retain multiple versions of an object, which is useful for backup and recovery scenarios. If versioning is important to your use case, you can enable it after creating the bucket.
 
-
    - **Server-Side Encryption (SSE)** is automatically applied to new objects stored in the bucket. By default, **SSE-S3** (Server-Side Encryption with Amazon S3 managed keys) is selected. This ensures that your data is encrypted at rest without requiring you to manage encryption keys.
-   
-   You also have the option to choose:
-   
-   - **SSE-KMS**: Server-side encryption with AWS Key Management Service (KMS) keys, which allows you to have more control over encryption keys.
-   - **DSSE-KMS**: Dual-layer encryption using AWS KMS keys for even greater security. This option applies two separate layers of encryption to your data, although it might incur additional costs. 
 
+   You also have the option to choose:
+
+   - **SSE-KMS**: Server-side encryption with AWS Key Management Service (KMS) keys, which allows you to have more control over encryption keys.
+   - **DSSE-KMS**: Dual-layer encryption using AWS KMS keys for even greater security. This option applies two separate layers of encryption to your data, although it might incur additional costs.
 
    - **Bucket Key**
 
-      If you select **SSE-KMS**, you will also have the option to enable the **S3 Bucket Key**, which reduces the cost of encryption by minimizing calls to AWS KMS. Enabling S3 Bucket Keys can optimize costs when encrypting large volumes of data. This option is automatically enabled by default but can be disabled if necessary. Note that it is not supported for DSSE-KMS.
+     If you select **SSE-KMS**, you will also have the option to enable the **S3 Bucket Key**, which reduces the cost of encryption by minimizing calls to AWS KMS. Enabling S3 Bucket Keys can optimize costs when encrypting large volumes of data. This option is automatically enabled by default but can be disabled if necessary. Note that it is not supported for DSSE-KMS.
 
 5. Click **Create bucket** once you are comfortable with these settings. Refer to the image below for guidance, where the "Create bucket" button is highlighted with a red box:
 
    ![AWS Create Bucket Confirmation](S3_Create_Button_Confirm.jpg)
-
 
 #### 2. **Creating a DynamoDB Table:**
 
@@ -125,40 +117,39 @@ The DynamoDB table will be used to store metadata related to the images.
 
    ![DynamoDB Region Selection](DynamoDB_Region.jpg)
 
-2. In the left panel, click on **Tables**. This will display the tables panel on the right-hand side, where you will see a **Create table** button. Click on **Create table** to begin setting up your new table. Refer to the images below for guidance, with each relevant section highlighted in a red box:
+1. In the left panel, click on **Tables**. This will display the tables panel on the right-hand side, where you will see a **Create table** button. Click on **Create table** to begin setting up your new table. Refer to the images below for guidance, with each relevant section highlighted in a red box:
 
    - ![DynamoDB Tables Panel](DynamoDB_Where_Tables.jpg)
    - ![DynamoDB Create Table Button](DynamoDB_Create_Table_Button.jpg)
 
-3. Provide a table name (e.g., `ar-ImageMetadata`) and set the **Partition key** to `id` (String). It's recommended to include your initials or another unique identifier in the table name to avoid naming conflicts. Refer to the image below for guidance, where the table name and partition key fields are highlighted with a red box:
+1. Provide a table name (e.g., `ar-ImageMetadata`) and set the **Partition key** to `id` (String). It's recommended to include your initials or another unique identifier in the table name to avoid naming conflicts. Refer to the image below for guidance, where the table name and partition key fields are highlighted with a red box:
 
    ![DynamoDB Table Name and Partition Key Setup](DynamDB_Table_Details.jpg)
 
-4. You can leave the other settings as default unless you need advanced configuration.
-5. Click **Create table** to finalize the setup. Refer to the image below for guidance, where the "Create table" button is highlighted with a red box:
+1. You can leave the other settings as default unless you need advanced configuration.
+1. Click **Create table** to finalize the setup. Refer to the image below for guidance, where the "Create table" button is highlighted with a red box:
 
    ![DynamoDB Create Table Confirmation](DynamoDB_Create_Table_Confirm.jpg)
 
-
 Once these resources are set up, you can proceed to clone the application and configure it to use the S3 bucket and DynamoDB table.
-
 
 ### Cloning the Application from GitHub
 
 To get started with the image processing application, follow these steps to clone the repository and set it up locally:
 
 1. Clone the repository from GitHub:
-```bash
-git clone https://github.com/Oxford-Research-Cloud-Competency-Centre/image-processing-hybrid-app
-```
 
-2. Navigate to the project directory:
-```bash
-cd image-processing-hybrid-app
-```
+   ```bash
+   git clone https://github.com/Oxford-Research-Cloud-Competency-Centre/image-processing-hybrid-app
+   ```
+
+1. Navigate to the project directory:
+
+   ```bash
+   cd image-processing-hybrid-app
+   ```
 
 Once cloned, and before running the application, you need to create a `.env` file in the root directory of the project. This file will store environment variables such as the AWS region, S3 bucket name, and DynamoDB table name. These variables will be used by the application to connect to the appropriate AWS resources and manage image storage and metadata effectively. Below are the required entries for the `.env` file:
-
 
 ```plaintext
 REGION_NAME = 'YOUR_AWS_REGION'
@@ -167,7 +158,6 @@ IMAGE_METADATA_TABLE = 'YOUR_AWS_DYNAMODB_TABLE_NAME'
 ```
 
 > **Note:** Please replace the values above with those specific to your AWS resources. Ensure you use the correct region, S3 bucket name, and DynamoDB table name that you created.
-
 
 ### Running the Application
 
@@ -178,38 +168,46 @@ The application can be run in two different ways, depending on your setup:
 To run the application locally on your system:
 
 1. Make sure the repository is cloned and you are inside the home directory of the application.
-2. Install the necessary Python dependencies:
+1. Install the necessary Python dependencies:
+
    ```bash
    pip install -r requirements.txt
    ```
-3. Run the Flask application:
+
+1. Run the Flask application:
+
    ```bash
    python -m app.app
    ```
 
-The application will be accessible at http://localhost:5000
+The application will be accessible at `http://localhost:5000`
 
 #### 2. **Running with Docker:**
 
 Alternatively, you can run the application inside a Docker container:
 
 1. Build the Docker image:
+
    ```bash
    docker build -t image-processing-hybrid-app .
    ```
-2. Run the Docker container:
+
+1. Run the Docker container:
+
    ```bash
    docker run -p 5000:5000 -e AWS_ACCESS_KEY_ID=your_access_key -e AWS_SECRET_ACCESS_KEY=your_secret_key -e AWS_DEFAULT_REGION=your_aws_region image_processing_cloud_app_local
    ```
-You can retrieve your AWS credentials (e.g., AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_DEFAULT_REGION) by checking your ~/.aws/credentials file. Your application inside the container can now access these credentials from the environment variables, and AWS SDKs will automatically pick them up.
 
-This will make the application available at http://localhost:5000, without the need to install Python or any other dependencies directly on your machine.
+   You can retrieve your AWS credentials (e.g., AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_DEFAULT_REGION) by checking your ~/.aws/credentials file. Your application inside the container can now access these credentials from the environment variables, and AWS SDKs will automatically pick them up.
+
+This will make the application available at `http://localhost:5000`, without the need to install Python or any other dependencies directly on your machine.
 
 ### Resource Cleanup
 
 Once you've set up and used the S3 and DynamoDB resources for this application, it's important to clean up these resources to avoid unnecessary costs. Follow the steps below to delete the resources.
 
 1. **Delete S3 Bucket**:
+
    - Go to the [S3 console](https://s3.console.aws.amazon.com/s3/home) and locate the bucket you created for this application.
    - Select the bucket, then click on **Empty** to delete all objects within the bucket. Refer to the image below, where the **Empty** button is highlighted in red for guidance:
 
@@ -230,6 +228,7 @@ Once you've set up and used the S3 and DynamoDB resources for this application, 
    - **Please Note:** It may take a few moments for AWS to fully delete the bucket. Wait until you see a confirmation message indicating that the bucket has been deleted to ensure the resource is fully removed.
 
 2. **Delete DynamoDB Table**:
+
    - Navigate to the [DynamoDB console](https://console.aws.amazon.com/dynamodb/home).
    - In the **Tables** section, locate the table you created (e.g., `ar-ImageMetadata`).
    - Select the table, then click on **Delete table** to remove it. Refer to the image below, where the **Delete table** button is highlighted in red:
@@ -242,7 +241,6 @@ Once you've set up and used the S3 and DynamoDB resources for this application, 
 
    - **Please Note:** It may take a few moments for AWS to fully delete the table. Wait until you see a confirmation message indicating that the table has been deleted to ensure the resource is completely removed.
 
-
-> **Note:** Ensure you have backed up any necessary data from these resources before deleting them, as this action is irreversible.
-
-
+:::callout{variant="note"}
+Ensure you have backed up any necessary data from these resources before deleting them, as this action is irreversible.
+:::

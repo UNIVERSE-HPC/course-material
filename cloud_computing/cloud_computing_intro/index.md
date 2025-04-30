@@ -1,15 +1,12 @@
 ---
 name: Introduction to Cloud Computing
 id: intro_to_cloud_computing
-dependsOn: [
-]
-files: [
-]
+dependsOn: []
+files: []
 summary: |
-    This course covers the basics of cloud computing, including key concepts, service models, and major providers. 
-    It also highlights the primary benefits of cloud computing, while addressing common challenges faced in its adoption.
+  This course covers the basics of cloud computing, including key concepts, service models, and major providers. 
+  It also highlights the primary benefits of cloud computing, while addressing common challenges faced in its adoption.
 ---
-
 
 ## Cloud Computing: A High-Level Overview
 
@@ -25,7 +22,6 @@ Cloud computing offers a range of key features that set it apart from traditiona
 4. **Scalability:** Resources can be scaled up or down automatically based on demand, providing agility for fluctuating workloads.
 5. **Pay-as-You-Go:** Users only pay for the resources they consume, making cloud infrastructure cost efficient and avoiding the expense of over provisioning.
 
-
 ## Cloud Service Models
 
 Cloud computing is delivered through three primary models, each offering different levels of control and responsibility:
@@ -36,7 +32,6 @@ Cloud computing is delivered through three primary models, each offering differe
 
 3. **Infrastructure as a Service (IaaS):** IaaS Provides virtualized computing resources like virtual machines and storage, giving users full control over operating systems and applications. Examples include AWS EC2, Microsoft Azure Virtual Machines, and Google Compute Engine.
 
-
 ## Leading Cloud Providers
 
 Several cloud providers offer a wide range of services to meet the diverse needs of organizations:
@@ -46,7 +41,6 @@ Several cloud providers offer a wide range of services to meet the diverse needs
 2. **Microsoft Azure:** A cloud platform integrated with Microsoft’s ecosystem of products, Azure provides services for building, managing, and scaling applications, as well as seamless integration with Windows, Office 365, and Azure Active Directory.
 
 3. **Google Cloud Platform (GCP):** Known for its strengths in data analytics, AI, and machine learning, GCP offers reliable cloud services through Google's global network. GCP is ideal for organizations looking to leverage cutting-edge technologies.
-
 
 ## Challenges of Cloud Computing
 
@@ -62,5 +56,3 @@ While cloud computing offers numerous benefits, there are also challenges that o
 Cloud computing is transforming industries by providing scalable, cost-effective, and globally accessible resources. While the cloud offers significant benefits, such as reduced costs and faster innovation, businesses must also be mindful of challenges like vendor lock-in and security concerns. By understanding both the advantages and potential drawbacks, organizations can make informed decisions and fully harness the power of cloud technology.
 
 Next, we will dive into hands-on exercises where you'll apply these concepts and gain practical experience with real-world cloud solutions.
-
-

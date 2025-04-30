@@ -12,9 +12,8 @@ To overcome the limitations of running a local application with cloud services, 
 In addition to the prerequisites covered in [Integrating AWS Services with the Local Application](app_remote_storage.md) (e.g., Git, Python, Pip, Docker, AWS CLI), you will also need to install and configure the **AWS Elastic Beanstalk CLI** (`awsebcli`).
 
 :::callout{variant="note"}
- Before setting up Elastic Beanstalk, make sure that the **AWS CLI** is installed and configured with valid credentials. This includes your **AWS Access Key ID**, **AWS Secret Access Key**, and **Default region name**. These credentials are essential for interacting with AWS services, including Elastic Beanstalk.
- :::
-
+Before setting up Elastic Beanstalk, make sure that the **AWS CLI** is installed and configured with valid credentials. This includes your **AWS Access Key ID**, **AWS Secret Access Key**, and **Default region name**. These credentials are essential for interacting with AWS services, including Elastic Beanstalk.
+:::
 
 ### Install the AWS Elastic Beanstalk CLI
 
@@ -30,12 +29,11 @@ eb --version
 
 This command should display the version of the EB CLI, indicating that the installation was successful.
 
-
 ### Setting Up AWS Resources
 
 Before cloning and running the application, you need to create an S3 bucket and a DynamoDB table on AWS, as the application will use these resources for storage and metadata management.
 
-#### 1. **Creating an S3 Bucket:**
+#### Creating an S3 Bucket
 
 The S3 bucket will be used to store the images uploaded by the users and processed by the application.
 
@@ -57,7 +55,7 @@ The S3 bucket will be used to store the images uploaded by the users and process
 
    ![AWS Create Bucket Confirmation](fig/S3_Create_Button_Confirm.jpg)
 
-#### 2. **Creating a DynamoDB Table:**
+#### Creating a DynamoDB Table
 
 Amazon DynamoDB will be used to store metadata related to the images. DynamoDB is a fully managed NoSQL database that is built for performance and scalability. It stores data in key-value pairs and offers flexible schemas, making it perfect for handling high-throughput tasks. DynamoDB manages millions of requests per second and includes built-in replication across various regions. It provides options for on-demand or provisioned capacity, enabling you to optimize both performance and cost.
 
@@ -65,46 +63,43 @@ Compared to other AWS databases, such as RDS and Aurora, which are relational da
 
 To use DynamoDB, you need go through the following steps:
 
-
 1. Open the AWS Management Console and navigate to the [DynamoDB service](https://console.aws.amazon.com/dynamodb/home). Please make sure you are in the correct AWS region. You can select the region by clicking on the region dropdown in the top right corner of the console. Refer to the image below, where the region selection is highlighted with a red box for guidance on changing the region.
 
    ![DynamoDB Region Selection](fig/DynamoDB_Region.jpg)
 
-2. In the left panel, click on **Tables**. This will display the tables panel on the right-hand side, where you'll see a **Create table** button. Click on **Create table** to begin setting up your new table. Refer to the images below for guidance, with each relevant section highlighted in a red box:
+1. In the left panel, click on **Tables**. This will display the tables panel on the right-hand side, where you'll see a **Create table** button. Click on **Create table** to begin setting up your new table. Refer to the images below for guidance, with each relevant section highlighted in a red box:
 
    - ![DynamoDB Tables Panel](fig/DynamoDB_Where_Tables.jpg)
    - ![DynamoDB Create Table Button](fig/DynamoDB_Create_Table_Button.jpg)
 
-3. Provide a table name (e.g., `ar-ImageMetadata`) and set the **Partition key** to `id` (String). It's recommended to include your initials or another unique identifier in the table name to avoid naming conflicts. Refer to the image below for guidance, where the table name and partition key fields are highlighted with a red box:
+1. Provide a table name (e.g., `ar-ImageMetadata`) and set the **Partition key** to `id` (String). It's recommended to include your initials or another unique identifier in the table name to avoid naming conflicts. Refer to the image below for guidance, where the table name and partition key fields are highlighted with a red box:
 
    ![DynamoDB Table Name and Partition Key Setup](fig/DynamDB_Table_Details.jpg)
 
-4. You can leave the other settings as default unless you need advanced configuration.
-5. Click **Create table** to finalize the setup. Refer to the image below for guidance, where the "Create table" button is highlighted with a red box:
+1. You can leave the other settings as default unless you need advanced configuration.
+1. Click **Create table** to finalize the setup. Refer to the image below for guidance, where the "Create table" button is highlighted with a red box:
 
    ![DynamoDB Create Table Confirmation](fig/DynamoDB_Create_Table_Confirm.jpg)
 
-
 Once these resources are set up, you can proceed to clone the application and configure it to use the S3 bucket and DynamoDB table.
-
 
 ## Cloning the Application from GitHub
 
 To get started with the image processing application, follow these steps to clone the repository and set it up locally:
 
 1. Clone the repository from GitHub:
-```bash
-git clone https://github.com/Oxford-Research-Cloud-Competency-Centre/image-processing-cloud-app
-```
+
+   ```bash
+   git clone https://github.com/Oxford-Research-Cloud-Competency-Centre/image-processing-cloud-app
+   ```
 
 2. Navigate to the project directory:
-```bash
-cd image-processing-cloud-app
-```
 
+   ```bash
+   cd image-processing-cloud-app
+   ```
 
 Once cloned, and before running the application, you need to create a `.env` file in the root directory of the project. This file will store environment variables such as the AWS region, S3 bucket name, and DynamoDB table name. These variables will be used by the application to connect to the appropriate AWS resources and manage image storage and metadata effectively. Below are the required entries for the `.env` file:
-
 
 ```plaintext
 REGION_NAME = 'YOUR_AWS_REGION'
@@ -116,7 +111,6 @@ IMAGE_METADATA_TABLE = 'YOUR_AWS_DYNAMODB_TABLE_NAME'
 Please replace the values above with those specific to your AWS resources. Ensure you use the correct region, S3 bucket name, and DynamoDB table name that you created.
 :::
 
-
 ## Deploying the Application to AWS Elastic Beanstalk
 
 After cloning the repository and navigating to the project directory, follow these steps to deploy the application using Elastic Beanstalk, leveraging the existing configuration files.
@@ -126,63 +120,64 @@ After cloning the repository and navigating to the project directory, follow the
 When deploying a Flask application to AWS Elastic Beanstalk, you need certain configuration files to set up the environment correctly and to define how AWS should handle the application and platform settings. Two essential files are **`flask.conf`** in `.ebextensions/` and **`config.yml`** in `.elasticbeanstalk/`.
 
 1. **`flask.conf` in `.ebextensions/`**
+   The `.ebextensions` folder contains configuration files that AWS Elastic Beanstalk reads during deployment to customize the environment. The `flask.conf` file specifically configures the environment for running a Flask application on Elastic Beanstalk.
 
-The `.ebextensions` folder contains configuration files that AWS Elastic Beanstalk reads during deployment to customize the environment. The `flask.conf` file specifically configures the environment for running a Flask application on Elastic Beanstalk.
+   **Contents of `flask.conf`:**
 
-**Contents of `flask.conf`:**
-```yaml
-option_settings:
-  aws:elasticbeanstalk:application:environment:
-    PYTHONPATH: "/var/app/current:$PYTHONPATH"
-  aws:elasticbeanstalk:container:python:
-    WSGIPath: "app.app:app"
-```
+   ```yaml
+   option_settings:
+     aws:elasticbeanstalk:application:environment:
+       PYTHONPATH: "/var/app/current:$PYTHONPATH"
+     aws:elasticbeanstalk:container:python:
+       WSGIPath: "app.app:app"
+   ```
 
-- **`option_settings`**: Specifies configuration options for Elastic Beanstalk.
+   - **`option_settings`**: Specifies configuration options for Elastic Beanstalk.
 
-- **`aws:elasticbeanstalk:application:environment:`**: Sets environment variables for the application. Here, the `PYTHONPATH` is set to include `/var/app/current`, ensuring that the Python environment includes the application's directory, which is essential for importing modules correctly.
+   - **`aws:elasticbeanstalk:application:environment:`**: Sets environment variables for the application. Here, the `PYTHONPATH` is set to include `/var/app/current`, ensuring that the Python environment includes the application's directory, which is essential for importing modules correctly.
 
-- **`aws:elasticbeanstalk:container:python:`**: Configures the Python container. The `WSGIPath` option defines the entry point for the Flask application. In this case, `"app.app:app"` points to a Python file and a Flask application instance named `app` inside the `app.py` file in the `app` directory. This setting tells the web server where to find the application's entry point, allowing it to serve HTTP requests to the Flask app.
+   - **`aws:elasticbeanstalk:container:python:`**: Configures the Python container. The `WSGIPath` option defines the entry point for the Flask application. In this case, `"app.app:app"` points to a Python file and a Flask application instance named `app` inside the `app.py` file in the `app` directory. This setting tells the web server where to find the application's entry point, allowing it to serve HTTP requests to the Flask app.
 
 2. `config.yml` in `.elasticbeanstalk/`
 
-The `config.yml` file within `.elasticbeanstalk/` contains settings for Elastic Beanstalk's CLI, including the application name, region, default platform, and EC2 settings. This file is essential for redeployments, ensuring consistent environment and platform settings.
+   The `config.yml` file within `.elasticbeanstalk/` contains settings for Elastic Beanstalk's CLI, including the application name, region, default platform, and EC2 settings. This file is essential for redeployments, ensuring consistent environment and platform settings.
 
-**Contents of `config.yml`:**
-```yaml
-branch-defaults:
-  default:
-    environment: null
-    group_suffix: null
-environment-defaults:
-  Image-processing-cloud-app-env:
-    branch: null
-    repository: null
-global:
-  application_name: image-processing-cloud-app
-  default_ec2_keyname: ar-fsl-keypair
-  default_platform: Python 3.11 running on 64bit Amazon Linux 2023
-  default_region: eu-west-2
-  include_git_submodules: true
-  instance_profile: null
-  platform_name: null
-  platform_version: null
-  profile: null
-  sc: null
-  workspace_type: Application
-```
+   **Contents of `config.yml`:**
 
-- **`branch-defaults`**: Defines default settings for any branches in version control systems (e.g., Git). Setting these to `null` here means there are no specific branch configurations.
+   ```yaml
+   branch-defaults:
+     default:
+       environment: null
+       group_suffix: null
+   environment-defaults:
+     Image-processing-cloud-app-env:
+       branch: null
+       repository: null
+   global:
+     application_name: image-processing-cloud-app
+     default_ec2_keyname: ar-fsl-keypair
+     default_platform: Python 3.11 running on 64bit Amazon Linux 2023
+     default_region: eu-west-2
+     include_git_submodules: true
+     instance_profile: null
+     platform_name: null
+     platform_version: null
+     profile: null
+     sc: null
+     workspace_type: Application
+   ```
 
-- **`environment-defaults`**: Holds configurations for specific environment names. In this example, `Image-processing-cloud-app-env` is set, which is the name of the environment Elastic Beanstalk will deploy.
+   - **`branch-defaults`**: Defines default settings for any branches in version control systems (e.g., Git). Setting these to `null` here means there are no specific branch configurations.
 
-- **`global`**: Contains general settings for the application:
-  - **`application_name`**: Specifies the name of the Elastic Beanstalk application (e.g., `image-processing-cloud-app`). This helps identify the app in the AWS Console.
-  - **`default_ec2_keyname`**: The name of the EC2 key pair used for SSH access to application instances, here set to `ar-fsl-keypair`. You will learn to create this key pair in the next section.
-  - **`default_platform`**: Defines the platform and runtime environment (Python 3.11 on Amazon Linux 2023), ensuring compatibility with the Flask app.
-  - **`default_region`**: Sets the AWS region (e.g., `eu-west-2` for London), determining the location of resources.
-  - **`include_git_submodules`**: When set to `true`, Elastic Beanstalk includes any Git submodules, which is helpful if the application has dependencies managed as submodules.
-  - **`workspace_type`**: Indicates the type of workspace, in this case, `Application`, meaning it's an Elastic Beanstalk application workspace.
+   - **`environment-defaults`**: Holds configurations for specific environment names. In this example, `Image-processing-cloud-app-env` is set, which is the name of the environment Elastic Beanstalk will deploy.
+
+   - **`global`**: Contains general settings for the application:
+     - **`application_name`**: Specifies the name of the Elastic Beanstalk application (e.g., `image-processing-cloud-app`). This helps identify the app in the AWS Console.
+     - **`default_ec2_keyname`**: The name of the EC2 key pair used for SSH access to application instances, here set to `ar-fsl-keypair`. You will learn to create this key pair in the next section.
+     - **`default_platform`**: Defines the platform and runtime environment (Python 3.11 on Amazon Linux 2023), ensuring compatibility with the Flask app.
+     - **`default_region`**: Sets the AWS region (e.g., `eu-west-2` for London), determining the location of resources.
+     - **`include_git_submodules`**: When set to `true`, Elastic Beanstalk includes any Git submodules, which is helpful if the application has dependencies managed as submodules.
+     - **`workspace_type`**: Indicates the type of workspace, in this case, `Application`, meaning it's an Elastic Beanstalk application workspace.
 
 :::callout{variant="note"}
 Each of these configurations ensures the application is deployed and managed predictably on Elastic Beanstalk, allowing for easier troubleshooting and a standardized setup.
@@ -232,7 +227,7 @@ This step only initializes the application. It does not yet create the environme
 Run the following command to create a new environment and deploy your application:
 
 ```bash
-eb create image-processing-cloud-app-env 
+eb create image-processing-cloud-app-env
 ```
 
 This command will:
@@ -250,13 +245,13 @@ If your account cannot use Launch Configurations, an error message may appear at
 
 You can modify the command like this to force usage of Launch Templates instead:
 
+```bash
+eb create image-processing-cloud-app-env --enable-spot
+```
 
- ```bash
- eb create image-processing-cloud-app-env --enable-spot
- ```
 The AWS Spot Instances feature allows users to take advantage of unused EC2 capacity at significantly reduced costs compared to On-Demand prices. However, Spot Instances can be interrupted by AWS with little notice when the capacity is reclaimed.
 
-Using AWS Spot Instances with Launch Templates solves the issue faced by new AWS accounts, which are restricted from using the older Launch Configurations. AWS has deprecated Launch Configurations in favor of Launch Templates to enable more advanced features and flexibility. New accounts are often provisioned under policies that enforce modern practices, requiring Launch Templates for any EC2 instance configuration. 
+Using AWS Spot Instances with Launch Templates solves the issue faced by new AWS accounts, which are restricted from using the older Launch Configurations. AWS has deprecated Launch Configurations in favor of Launch Templates to enable more advanced features and flexibility. New accounts are often provisioned under policies that enforce modern practices, requiring Launch Templates for any EC2 instance configuration.
 
 This process can take a few minutes, during which Elastic Beanstalk will provision these resources and configure the environment. Once the environment is fully set up and the application is deployed, you will see a confirmation message on the console similar to:
 
@@ -269,6 +264,7 @@ To verify the environment creation, go to the [AWS Elastic Beanstalk Console](ht
 ![Elastic Beanstalk Environments](fig/EB_Environments.jpg)
 
 This view shows details such as:
+
 - **Environment name**: The name of your environment.
 - **Health status**: Displayed in green with **"OK,"** indicating that the environment is running smoothly.
 - **Application name**: Associated with the environment.
@@ -290,27 +286,25 @@ eb deploy
 
 The `eb deploy` command pushes changes to your existing environment without recreating resources, allowing you to update your application efficiently.
 
-
 ### Step 4: Monitor and Manage the Application
 
 Elastic Beanstalk provides several commands to help you monitor and manage your application after deployment. Use the following commands to keep track of its status, troubleshoot issues, and access it directly.
 
 - **To check the application's status:**
 
- ```bash
- eb status
- ```
+```bash
+eb status
+```
 
 This command provides real-time information on the health and status of your Elastic Beanstalk environment, including details about the environment state, health, and any recent events. Use it regularly to ensure your application is running smoothly. If you prefer using the AWS console, you can also check the environment status in the [AWS Elastic Beanstalk Console](https://console.aws.amazon.com/elasticbeanstalk). Go to **Environments**, select your environment, and view the status and health details displayed on the overview page.
 
 - **To view logs and troubleshoot:**
 
- ```bash
- eb logs
- ```
+```bash
+eb logs
+```
 
- This command retrieves log files from the EC2 instances in your environment. Logs can help you troubleshoot errors, review access patterns, and monitor performance metrics. For more detailed information, use `eb logs --all` to pull logs from all instances or `eb logs --zip` to download them in a compressed format for offline analysis.
-
+This command retrieves log files from the EC2 instances in your environment. Logs can help you troubleshoot errors, review access patterns, and monitor performance metrics. For more detailed information, use `eb logs --all` to pull logs from all instances or `eb logs --zip` to download them in a compressed format for offline analysis.
 
 - **To open the application in a browser:**
 
@@ -320,16 +314,15 @@ There are two ways to access your application:
 
    ![Elastic Beanstalk Domain Link](fig/Eb_Application_Domain.jpg)
 
-2. **Using the EB CLI**: Run the following command in your console:
+1. **Using the EB CLI**: Run the following command in your console:
 
- ```bash
- eb open
- ```
+   ```bash
+   eb open
+   ```
 
 This command opens your application in the default web browser, taking you directly to the URL of your environment. It's a quick way to verify that the application is accessible and running as expected.
 
 After accessing your application, you can start using it. The application allows you to upload images, which are stored in the S3 bucket you created for this setup. Additionally, metadata associated with each image (e.g., filename, size, upload date) is saved in your DynamoDB table. This setup ensures that both the images and their metadata are stored securely and efficiently, enabling you to manage and retrieve image data through your application.
-
 
 ### Step 5: Terminate the Environment and Application
 
@@ -376,6 +369,7 @@ The `--all` flag also removes the `.elasticbeanstalk` directory, which contains 
 Once you have terminated your Elastic Beanstalk environment, it's important to clean up any resources you manually created, such as the S3 bucket and DynamoDB table, as well as resources Elastic Beanstalk created to store application versions. This helps you avoid unnecessary costs. Follow the steps below to safely delete these resources.
 
 1. **Delete the S3 Bucket (Application Storage)**:
+
    - Go to the [S3 console](https://s3.console.aws.amazon.com/s3/home) and locate the bucket you created specifically for storing images.
    - Select the bucket, then click on **Empty** to delete all objects within it. Refer to the image below, where the **Empty** button is highlighted in red for guidance:
 
@@ -410,6 +404,7 @@ Once you have terminated your Elastic Beanstalk environment, it's important to c
    This step completes the cleanup of all Elastic Beanstalk-related resources.
 
 3. **Delete the DynamoDB Table**:
+
    - Navigate to the [DynamoDB console](https://console.aws.amazon.com/dynamodb/home).
    - In the **Tables** section, locate the table you created (e.g., `ar-ImageMetadata`).
    - Select the table, then click on **Delete table** to remove it. Refer to the image below, where the **Delete table** button is highlighted in red:
@@ -423,9 +418,3 @@ Once you have terminated your Elastic Beanstalk environment, it's important to c
    - **Please Note:** It may take a few moments for AWS to fully delete the table. Wait until you see a confirmation message indicating that the table has been deleted to ensure it is completely removed.
 
 > **Important:** Be sure to back up any necessary data from these resources before deleting them, as this action is irreversible.
-
-
-
-
-
-
