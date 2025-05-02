@@ -1,28 +1,25 @@
 ---
 name: Recursion
-dependsOn: [
-    software_architecture_and_design.functional.higher_order_functions_cpp,
-]
+dependsOn: [software_architecture_and_design.functional.higher_order_functions_cpp]
 tags: [cpp]
-attribution: 
-    - citation: >
-        This material was adapted from an "Introduction to C++" course developed by the
-        Oxford RSE group.
-      url: https://www.rse.ox.ac.uk
-      image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
+attribution:
+  - citation: >
+      This material was adapted from an "Introduction to C++" course developed by the
+      Oxford RSE group.
+    url: https://www.rse.ox.ac.uk
+    image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Recursion
 
 Recursion is one of the common strategies used in Functional Programming.
 Instead of using loops to **iteratively** apply an operation, we can express a
-result in terms of previous results.  To do this, the function needs to call
+result in terms of previous results. To do this, the function needs to call
 itself to get the previous result, this is called **recursion**.
 
 The following two code examples implement the calculation of a factorial using
@@ -33,7 +30,7 @@ iteration and recursion, respectively. Recall that the factorial of a number `n`
 // factorial
 // @param n: the number to calculate the factorial of
 // @return: the factorial of n
-int factorial(int n):
+int factorial(int n) {
   int product = 1;
   for (int i = 2; i <= n; ++i) {
       product *= i;
@@ -42,14 +39,14 @@ int factorial(int n):
 }
 ```
 
-Functions in procedural programming are *procedures* that describe a detailed
+Functions in procedural programming are _procedures_ that describe a detailed
 list of instructions to tell the computer what to do step by step and how to
 change the state of the program and advance towards the result. They often use
-*iteration* to repeat a series of steps. Functional programming, on the other
-hand, often uses *recursion* - an ability of a function to call/repeat
+_iteration_ to repeat a series of steps. Functional programming, on the other
+hand, often uses _recursion_ - an ability of a function to call/repeat
 itself until a particular condition is reached.
 
-~~~cpp
+```cpp
 // factorial
 // @param n: the number to calculate the factorial of
 // @return: the factorial of n
@@ -62,9 +59,9 @@ int factorial(int n) {
   }
   return n * factorial(n - 1);
 }
-~~~
+```
 
-Note: this implementation is an example of *tail recursion*, which is typically
+Note: this implementation is an example of _tail recursion_, which is typically
 optimised by the compiler back to an iterative implementation (since this is
 faster).
 
@@ -88,8 +85,8 @@ int main() {
   //  1  *
   //    / \
   //   2   3
-  Node t = Node('+', { Node(1), 
-                       Node('*', { Node(2), 
+  Node t = Node('+', { Node(1),
+                       Node('*', { Node(2),
                                    Node(3)
                                  })
                      }
@@ -98,10 +95,10 @@ int main() {
 ```
 
 Write:
+
 1. a function that traverses the tree and returns the total number of nodes
 2. a function that traverses the tree and returns the result of the
    expression
-
 
 :::solution
 
@@ -168,10 +165,11 @@ int evaluate2(const Node& t) {
   return std::accumulate(t.children.begin() + 1, t.children.end(), evaluate(t.children[0]), op);
 }
 ```
+
 :::
 ::::
 
-## Key Points:
+## Key Points
 
 - Recursion is a programming technique where a function calls itself, allowing solutions to problems that can be broken down into smaller subproblems
 - Recursion is a useful approach for calculation and operations on tree data structures.

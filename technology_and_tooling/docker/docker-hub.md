@@ -2,28 +2,27 @@
 name: "Finding Containers on Docker Hub"
 teaching: 10
 exercises: 10
-dependsOn: [
-  technology_and_tooling.docker.managing-containers
-]
+dependsOn: [technology_and_tooling.docker.managing-containers]
 tags: [docker]
-attribution: 
-    - citation: >
-        D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
-        Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator. 
-      url: https://github.com/carpentries-incubator/docker-introduction
-      image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
+      Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator.
+    url: https://github.com/carpentries-incubator/docker-introduction
+    image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
+    license: CC-BY-4.0
 ---
 
-In the previous episode, we ran a few different containers derived from different 
+In the previous episode, we ran a few different containers derived from different
 container images: `hello-world`, `alpine`,
-and maybe `busybox`. Where did these container images come from?  The Docker Hub!
+and maybe `busybox`. Where did these container images come from? The Docker Hub!
 
 ## Introducing the Docker Hub
 
 The Docker Hub is an online repository of container images, a vast number of which are publicly available. A large number of the container images are curated by the developers of the software that they package. Also, many commonly used pieces of software that have been containerized into images are officially endorsed, which means that you can trust the container images to have been checked for functionality, stability, and that they don't contain malware.
 
 :::callout
+
 ## Docker can be used without connecting to the Docker Hub
 
 Note that while the Docker Hub is well integrated into Docker functionality, the
@@ -41,6 +40,7 @@ The top-left provides information about the name, short description, popularity 
 The top-right provides the command to pull this container image to your computer.
 
 The main body of the page contains many used headings, such as:
+
 - Which tags (i.e., container image versions) are supported;
 - Summary information about where to get help, which computer architectures are supported, etc.;
 - A longer description of the container image;
@@ -52,24 +52,24 @@ The "How to use the image" section of most container images' pages will provide 
 ## Exploring Container Image Versions
 
 A single Docker Hub page can have many different versions of container images,
-based on the version of the software inside.  These
+based on the version of the software inside. These
 versions are indicated by "tags". When referring to the specific version of a container image
 by its tag, you use a colon, `:`, like this:
 
-```
+```text
 CONTAINER_IMAGE_NAME:TAG
 ```
 
 So if I wanted to download the `python` container image, with Python 3.8, I would use this name:
 
 ```bash
-$ docker image pull python:3.8
+docker image pull python:3.8
 ```
 
 But if I wanted to download a Python 3.6 container image, I would use this name:
 
 ```bash
-$ docker image pull python:3.6
+docker image pull python:3.6
 ```
 
 The default tag (which is used if you don't specify one) is called `latest`.
@@ -83,11 +83,12 @@ groups like [rocker](https://hub.docker.com/u/rocker), a group that builds commu
 
 The name for these group- or individually-managed container images have this format:
 
-```
+```text
 OWNER/CONTAINER_IMAGE_NAME:TAG
 ```
 
 :::callout
+
 ## Repositories
 
 The technical name for the contents of a Docker Hub page is a "repository."
@@ -95,9 +96,10 @@ The tag indicates the specific version of the container image that you'd like
 to use from a particular repository. So a slightly more accurate version of
 the above example is:
 
-```
+```text
 OWNER/REPOSITORY:TAG
 ```
+
 :::
 
 ::::challenge{id=in-a-name title="What's in a name?"}
@@ -110,15 +112,17 @@ later in this lesson, so you don't actually need to pull the container image --
 constructing the correct `docker pull` command is sufficient.
 
 :::solution
+
 ## Solution
 
 First, search for `rocker` in Docker Hub. Then look for their `tidyverse` container image.
 You can look at the list of tags, or just guess that the tag is `3.6.1`. Altogether,
 that means that the name of the container image we want to download is:
 
-~~~bash
-$ docker image pull rocker/tidyverse:3.6.1
-~~~
+```bash
+docker image pull rocker/tidyverse:3.6.1
+```
+
 :::
 ::::
 
@@ -156,7 +160,8 @@ Once you find a container image, use the skills from the previous episode to dow
 the container image and explore it.
 :::
 
-## Key Points:
+## Key Points
+
 - The Docker Hub is an online repository of container images.
 - Many Docker Hub container images are public, and may be officially endorsed.
 - Each Docker Hub page about a container image provides structured information and subheadings

@@ -4,6 +4,9 @@ dependsOn: [
   high_performance_computing.hpc_intro.07_parallel
 ]
 tags: [slurm]
+learningOutcomes:
+  - Look up job statistics.
+  - Make more accurate resource requests in job scripts based on data describing past performance.
 attribution: 
     - citation: >
         "Introduction to High-Performance Computing" course by the HPC-carpentries
@@ -26,6 +29,7 @@ documentation or user testimonials provide some idea, we won't know how much
 memory or compute time a program will need.
 
 ::::callout
+
 ## Read the Documentation
 
 Most HPC facilities maintain documentation as a wiki, a website, or a
@@ -54,7 +58,8 @@ use `sacct -u yourUsername` to get statistics about `parallel-job.sh`.
 ```bash
 remote$ sacct -u yourUsername
 ```
-```
+
+```text
        JobID    JobName  Partition    Account  AllocCPUS      State ExitCode
 ------------ ---------- ---------- ---------- ---------- ---------- --------
 7               file.sh cpubase_b+ def-spons+          1  COMPLETED      0:0
@@ -87,6 +92,7 @@ remote$ sacct -u yourUsername -l -j 347087 | less -S
 ```
 
 ::::callout
+
 ## Discussion
 
 This view can help compare the amount of time requested and actually
@@ -109,7 +115,6 @@ actually finish. Specifying the expected runtime in the submission
 script more accurately will help alleviate cluster congestion and may
 get your job dispatched earlier.
 
-
 ::::challenge{id=time-estimate, title="Narrow the Time Estimate"}
 Edit `parallel_job.sh` to set a better time estimate. How close can you get?
 
@@ -121,5 +126,6 @@ The following line tells Slurm that our job should finish within 2 minutes:
 ```bash
 #SBATCH -t 00:02:00
 ```
+
 :::
 ::::

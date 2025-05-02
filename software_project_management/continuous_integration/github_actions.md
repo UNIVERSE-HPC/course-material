@@ -1,31 +1,34 @@
 ---
 name: GitHub Actions
-dependsOn: [
-]
+dependsOn: []
 tags: [github]
-attribution: 
-    - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
-      url: https://www.sabsr3.ox.ac.uk
-      image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
-
+learningOutcomes:
+  - Describe the structure and steps of a basic GitHub Actions workflow.
+  - Build a basic workflow and run it on GitHub.
+  - Create a workflow for a Python program to run a static code analysis tool and unit tests over the codebase.
+  - Diagnose and fix a workflow fault.
+  - Parameterise the running of a workflow over multiple operating systems.
+attribution:
+  - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Overview
 
-With a GitHub repository there's a very easy way to set up CI that runs when your 
-repository changes: simply add a [.yml file](https://learnxinyminutes.com/docs/yaml/) to your repository in the directory 
+With a GitHub repository there's a very easy way to set up CI that runs when your
+repository changes: simply add a [.yml file](https://learnxinyminutes.com/docs/yaml/) to your repository in the directory
 
-~~~
+```text
 .github/workflows
-~~~
+```
 
-Each file in this directory represents a *workflow* and will, when triggered, spin up a virtual machine and run the sequence of commands in the file.
+Each file in this directory represents a _workflow_ and will, when triggered, spin up a virtual machine and run the sequence of commands in the file.
 
 Information about the specifications of these VMs can be found [here](https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners).
 At the time of writing, each VM will have a 2-core CPU, 7GB of RAM and 14 GB of SSD space available, and each workflow can run for up to 6 hours.
@@ -39,13 +42,13 @@ In this section you will create several workflows by using the wizard and built-
 We will start with a minimal example to demonstrate various features of a GitHub Actions workflow.
 Createa file in your repository called:
 
-~~~
+```text
 .github/workflows/basic.yml
-~~~
+```
 
 Copy the following code, then commit and push the changes to GitHub.
 
-~~~ yml
+```yml
 name: Basic GitHub Actions Workflow
 
 on:
@@ -58,9 +61,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Run a one-line script
-      run: echo "Hello, world!"
-~~~
+      - name: Run a one-line script
+        run: echo "Hello, world!"
+```
 
 Here's a brief breakdown of this basic workflow:
 
@@ -76,26 +79,26 @@ Here's a brief breakdown of this basic workflow:
 
 6. The `run` field specifies the command to run. Here, it's just echoing "Hello, world!" to the console.
 
-If you now navigate to the *Actions* tab on your GitHub repository, you should see that this workflow has run and succeeded.
+If you now navigate to the _Actions_ tab on your GitHub repository, you should see that this workflow has run and succeeded.
 
 In this case it was run because we just pushed a change.
-We can also trigger this workflow by opening a pull request, or by navigating navigating to the workflow via the *Actions* tab and then selecting the *Run Workflow" dropdown (this is the `workflow_dispatch` trigger).
+We can also trigger this workflow by opening a pull request, or by navigating to the workflow via the _Actions_ tab and then selecting the _Run Workflow_ dropdown (this is the `workflow_dispatch` trigger).
 
 ## Creating a Python-specific workflow
 
 Now let's do something more useful.
 
-Navigate to the GitHub *Actions* tab and then click *New Workflow* (near the top left).
-This will let us start with a preset workflow containg many of the elements we are interested in.
+Navigate to the GitHub _Actions_ tab and then click _New Workflow_ (near the top left).
+This will let us start with a preset workflow containing many of the elements we are interested in.
 
-Search for "python package" and select the following workflow by pressing *Configure*:
+Search for "python package" and select the following workflow by pressing _Configure_:
 
-~~~
+```text
 Python package
 By GitHub Actions
 
 Create and test a Python package on multiple Python versions.
-~~~
+```
 
 This takes us into the web editor.
 We will make the following changes to the workflow:
@@ -105,15 +108,16 @@ We will make the following changes to the workflow:
 1. add the `workflow_dispatch` trigger, just like in the basic file
 
 1. Change the "Install dependencies" step to run the following block:
-    ~~~ bash
-            python -m pip install --upgrade pip setuptools wheel
-            python -m pip install .[dev]
-    ~~~
+
+   ```bash
+           python -m pip install --upgrade pip setuptools wheel
+           python -m pip install .[dev]
+   ```
 
 1. Change the "Lint with flake8" step to just run `flake8` (with no options at all)
 
 Then use the web interface to commit the changes.
-Go over to the *Actions* tab to see it running.
+Go over to the _Actions_ tab to see it running.
 
 Let's go through what is happening in this workflow:
 
@@ -122,12 +126,12 @@ The name of this workflow is `Python versions`. It runs whenever there's a push 
 This workflow only has one job, named `build`, and it runs on the latest version of Ubuntu.
 
 This job utilizes a strategy called a matrix, which allows you to run the same job with different configurations.
-In this case, it's set to run the job with three different Python versions - "3.8", "3.9", and "3.10".
+In this case, it's set to run the job with three different Python versions - "3.9", "3.10", and "3.11".
 The `fail-fast` option is set to `false`, which means that if one version fails, the other versions will continue to run.
 
 This job consists of a series of steps:
 
-1. **Checkout Code:** The first step uses an action, `actions/checkout@v3`, which checks out your repository's code onto the runner, so the job can access it.
+1. **Checkout Code:** The first step uses an action, `actions/checkout@v4`, which checks out your repository's code onto the runner, so the job can access it.
 
 2. **Set Up Python:** The next step uses another action, `actions/setup-python@v3`, to set up a Python environment with the version specified in the matrix.
 
@@ -136,7 +140,6 @@ This job consists of a series of steps:
 4. **Lint with flake8:** The fourth step runs the `flake8` linter to check the code for styling errors. `flake8` is a tool for enforcing Python's PEP 8 style guide, and it can find many different types of common problems with your code. You can check the `flake8` configuration for this project in the `.flake8` file in the repository.
 
 5. **Test with pytest:** The last step runs the `pytest` command to execute tests. `pytest` is a Python testing framework.
-
 
 ## Identify and fix the errors
 
@@ -173,7 +176,7 @@ Push your new workflow, and check that it runs as expected.
 
 The full file might look like this:
 
-~~~ yml
+```yml
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
@@ -181,14 +184,13 @@ name: Operating systems
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -196,27 +198,25 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip setuptools wheel
-        python -m pip install .[dev]
-    - name: Lint with flake8
-      run: |
-        flake8
-    - name: Test with pytest
-      run: |
-        pytest
-
-~~~
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install .[dev]
+      - name: Lint with flake8
+        run: |
+          flake8
+      - name: Test with pytest
+        run: |
+          pytest
+```
 
 :::
 ::::
-
 
 ## Next steps
 

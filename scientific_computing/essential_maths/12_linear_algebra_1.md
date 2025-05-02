@@ -1,23 +1,31 @@
 ---
 name: Linear algebra 1
-dependsOn: [
-  scientific_computing.essential_maths.08_complex_numbers
-]
+dependsOn: [scientific_computing.essential_maths.08_complex_numbers]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
+learningOutcomes:
+  - Understand the concept of a matrix
+  - Be able to perform addition and subtraction of matrices
+  - Be able to multiply a matrix by a scalar
+  - Understand the associative, commutative and distributive laws of matrices
+  - Be able to find the determinant of a matrix
+  - Be able to invert a matrix
+  - Be able to find the transpose of a matrix
+  - Be able to express a set of simultaneous equations as a matrix equation
+  - Understand how to solve a matrix equation $Ax=b$
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
+    url: https://www.dtc.ox.ac.uk/
+    image: fig/dtc_hex.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Introduction to Matrices
 
---- 
+---
 
 ## YouTube lecture recording from October 2020
 
@@ -62,7 +70,6 @@ This works, provided that $a_1b_2-a_2b_1\neq 0.$
 While the algebraic manipulation is straightforward when solving two equations, it can get really messy when solving large systems.
 
 What we want is a way to be able to easily manipulate **linear** systems, regardless of how big they are.
-
 
 ## The matrix
 
@@ -115,7 +122,6 @@ $$
 5\times\left(\begin{matrix} 2&1\\ 3&-4 \end{matrix}\right)=\left(\begin{matrix}10&5\\ 15&-20\end{matrix}\right)
 $$
 
-
 ### Matrix multiplication
 
 To multiply two matrices, we multiply each **row** in the first matrix by each **column** in the second one, and put the results into a new matrix.
@@ -125,7 +131,6 @@ A row and column are multiplied by summing up each element in the row, multiplie
 $$
 \left(\begin{matrix} 1&2 \\ 3&4 \end{matrix}\right) \left(\begin{matrix} 5&6\\7&8\end{matrix}\right) = \left(\begin{matrix} 1 \times 5 + 2 \times 7 & 1 \times 6 + 2 \times 8 \\ 3 \times 5 + 4 \times 7 & 3 \times 6 + 4\times 8\end{matrix}\right) = \left(\begin{matrix} 19&22\\43&46\end{matrix}\right)
 $$
-
 
 $$
 \left(\begin{matrix} 1&2&3&4\\ 5&6&7&8                \end{matrix}\right) \left(\begin{matrix} 1&2&3\\ 4&5&6\\ 7&8&9\\ 10&11&12 \end{matrix}\right) =   \left(\begin{matrix} 70&80&90\\ 158&184&210            \end{matrix}\right)
@@ -143,19 +148,17 @@ $$
 \left(\begin{matrix} 2 & 3 & 1 \\ 2 & -1 & 3\end{matrix}\right)\left(\begin{matrix} 1 & 0 \\ -1 & -4\end{matrix}\right) =\;?\;?\;?
 $$
 
-
 ### Matrix multiplication is not commutative
 
 This means that $A \times B$ is not the same as $B \times A$.
 This can be easily seen from the fact that multiplying different sized matrices doesn't always work:
 
-> $(3 x 2 \rm{matrix}) \times (2 x 2 \rm{matrix}) = (3 x 2 \rm{matrix})$
-
-> $(2 x 2 \rm{matrix}) \times (3 x 2 \rm{matrix}) = ???$
+> $(3 x 2 \rm{matrix}) \times (2 x 2 \rm{matrix}) = (3 x 2 \rm{matrix})$ > $(2 x 2 \rm{matrix}) \times (3 x 2 \rm{matrix}) = ???$
 
 However, even when sizes match, the product is usually not the same.
 
 ### The identity matrix
+
 $I$ is the identity matrix, which has the property that:
 
 > $A I = I A = A$
@@ -219,11 +222,8 @@ Then:
 As a check, calculate $A^{-1}A$:
 
 > $$\displaystyle A^{-1}A= \frac{1}{2}\left(\begin{matrix}4&3\\ 2&2\end{matrix}\right)\left(\begin{matrix}2&-3\\ -2&4\end{matrix}\right) $$
-
 > $$\displaystyle = \frac{1}{2}\left(\begin{matrix}2&0\\ 0&2\end{matrix}\right)$$
-
 > $$\displaystyle = \left(\begin{matrix}1&0\\ 0&1\end{matrix}\right)$$
-
 > $$\displaystyle =I_2.$$
 
 ## The transpose of a Matrix
@@ -232,9 +232,7 @@ $A^T$ is the transpose of $A$.
 
 Swap elements across the leading diagonal so that $A^T_{ij}= A_{ji}$.
 
-> $$\displaystyle A=\left(\begin{matrix}2&1&2\\ 1&4&6\\ 1&-1&2\end{matrix}\right)$$
-
-> $$\displaystyle A^T=\left(\begin{matrix}2&1&1\\ 1&4&-1\\ 2&6&2\end{matrix}\right)$$
+> $$\displaystyle A=\left(\begin{matrix}2&1&2\\ 1&4&6\\ 1&-1&2\end{matrix}\right)$$ > $$\displaystyle A^T=\left(\begin{matrix}2&1&1\\ 1&4&-1\\ 2&6&2\end{matrix}\right)$$
 
 ## Solving a linear system using matrices
 
@@ -242,14 +240,13 @@ To solve a matrix system $\displaystyle A {\bf x} = {\bf b}$ for an unknown left
 
 - If it's of order 2 then use the formula to write $A^{-1}$ and hence ${\bf x} = A^{-1}{\bf b}$.
 
-- If it's larger $(3\times3)$ then there's still a formula for  $A^{-1}$ (not in this course).
+- If it's larger $(3\times3)$ then there's still a formula for $A^{-1}$ (not in this course).
 
 - Use an analytical method (Gaussian elimination) to find the inverse (not in this course).
 
 - Use a numerical scheme to find an approximation to ${\bf x}$, such as Newton's method (not in this course).
 
 - Solve using linear algebra software (e.g. in Python, which we will see shortly).
-
 
 ### Example of solving a 2x2 linear system
 
@@ -278,9 +275,7 @@ We have:
 
 Thus:
 
-> $$\displaystyle \left(\begin{matrix}x\\ y\end{matrix}\right) = \frac{1}{10}\left(\begin{matrix}5 &-5\\ 1&1\end{matrix}\right)\left(\begin{matrix}11\\ 9\end{matrix}\right) =\frac{1}{10} \left(\begin{matrix}10\\ 20\end{matrix}\right)$$
-
-> $$\displaystyle =\left(\begin{matrix}1\\ 2\end{matrix}\right)$$
+> $$\displaystyle \left(\begin{matrix}x\\ y\end{matrix}\right) = \frac{1}{10}\left(\begin{matrix}5 &-5\\ 1&1\end{matrix}\right)\left(\begin{matrix}11\\ 9\end{matrix}\right) =\frac{1}{10} \left(\begin{matrix}10\\ 20\end{matrix}\right)$$ > $$\displaystyle =\left(\begin{matrix}1\\ 2\end{matrix}\right)$$
 
 And $x=1, y=2$
 
@@ -304,14 +299,14 @@ In matrix form, this gives:
 
 > $\displaystyle \left(\begin{matrix} 1 & 5 & 3 & -1 \\ 1 & -2 & 1 & 4 \\ -3 & 1 & -1 & 2\\ 1 & 1 & 1 & 0 \end{matrix}\right) \left(\begin{matrix} x \\ y \\ z \\ w\end{matrix}\right) = \left(\begin{matrix} 5 \\ 2 \\ -5 \\ 0\end{matrix}\right).$
 
-
 #### Numerically, using NumPy
 
 ```python
-## In python, we use numpy arrays to store the needed matrices
-## the procedure linalg.solve, solves the system Ax = b
-## We could also calculate the inverse of A (linalg.inv), and then multiply. 
-## But this is faster
+# In python, we use numpy arrays to store the needed matrices
+# the procedure linalg.solve, solves the system Ax = b
+# We could also calculate the inverse of A (linalg.inv), and then multiply.
+# But this is faster
+import numpy as np
 A = np.array([[1,5,3,-1],[1,-2,1,4],[-3,1,-1,2],[1,1,1,0]])
 
 b = np.array([5, 2, -5, 0])
@@ -323,14 +318,15 @@ print(x)
 print(np.matmul(A,x))
 ```
 
-> ```
-> [-5.94444444 -5.11111111 11.05555556 -3.33333333]
-> [ 5.0000000e+00  2.0000000e+00 -5.0000000e+00 -8.8817842e-16]
-> ```
+```text
+[-5.94444444 -5.11111111 11.05555556 -3.33333333]
+[ 5.0000000e+00  2.0000000e+00 -5.0000000e+00 -8.8817842e-16]
+```
 
 #### Symbolically, using SymPy
 
 ```python
+import sympy as sp
 A = sp.Matrix([[1,5,3,-1],[1,-2,1,4],[-3,1,-1,2],[1,1,1,0]])
 
 A.inv() * sp.Matrix([5, 2, -5, 0])
@@ -338,10 +334,6 @@ A.inv() * sp.Matrix([5, 2, -5, 0])
 ```
 
 $\displaystyle \left[\begin{matrix}- \frac{107}{18}\\- \frac{46}{9}\\\frac{199}{18}\\- \frac{10}{3}\end{matrix}\right]$
-
-
-
-
 
 ### Introductory problems
 
@@ -366,24 +358,19 @@ Where $A$ and $B$ are $3\times3$ matrices, and $\mathbf{x}$, $\mathbf{y}$, $\mat
 Check that your answers make sense by expanding your expressions to ensure you get back to the original equations.
 ::::
 
-
 ::::challenge{id="12_intro_02" title="Introductory problems 2"}
 
 Given
 
 > $$\displaystyle A = \begin{pmatrix} 2 & 1 \\ 3 & 4 \end{pmatrix} $$
-
 > $$\displaystyle B = \begin{pmatrix} 1 & 4 \\ 7 & 2 \end{pmatrix} $$
-
 > $$\displaystyle C = \begin{pmatrix} 3 & -1 \\ -5 & 2 \end{pmatrix} $$
-
 > $$\displaystyle D = \begin{pmatrix} 1 \\ 3 \end{pmatrix} $$
-
 > $$\displaystyle E = \begin{pmatrix} 2 & -1 \end{pmatrix} $$
 
 1. Write down $a_{21}$, $b_{12}$ and $c_{22}$
 1. Calculate:
-   - $A + A$ 
+   - $A + A$
    - $A - B$
    - $4C$
 1. Calculate, where possible, or explain why the product is not defined:
@@ -394,6 +381,7 @@ Given
 1. Do A and B commute? Do A and C commute?
 1. Does $(AB)C = A(BC)$? Does this either prove or disprove that matrix multiplication is associative?
 1. Does $AC + BC = (A+B)C$? Does this either prove or disprove the distributive property of matrices?
+
 ::::
 
 ### Main problems
@@ -402,23 +390,22 @@ Given
 If $\displaystyle A = \frac{1}{2}\left(\begin{array}{cc}  1 & 1 \\ 1 & 1 \end{array}\right)$, find $A^2$ and $A^3$ and comment on your results.
 ::::
 
-
 ::::challenge{id="12_main_02" title="Main problems 2"}
 Given
 
 > $$\displaystyle A = \begin{pmatrix} 2 & 1 & 3 \\ 3 & -2 & 1 \\ -1 & 0 & 1 \end{pmatrix}; \qquad B = \begin{pmatrix} 0 & -1 & 1 \\ -5 & 2 & -1 \\ 3 & 0 & 2 \end{pmatrix}$$
 
 Find:
- - $AB$
- - $BA$
- - ${A}^T {B}^T$
- - ${B}^T {A}^T$
- - ${(AB)^T}$
- - ${(BA)^T}$
+
+- $AB$
+- $BA$
+- ${A}^T {B}^T$
+- ${B}^T {A}^T$
+- ${(AB)^T}$
+- ${(BA)^T}$
 
 Comment on your results.
 ::::
-
 
 ::::challenge{id="12_main_03" title="Main problems 3"}
 Find the determinant, $|A|$, of the following matrices:
@@ -428,15 +415,13 @@ Find the determinant, $|A|$, of the following matrices:
 
 ::::
 
-
 ::::challenge{id="12_main_04" title="Main problems 4"}
 Find the inverse, $A^{-1}$, of the following matrices:
 
 1. $A = \begin{pmatrix}  2 & 5 \\-1 & 4 \end{pmatrix}$
 1. $A = \begin{pmatrix} -3 & 2 \\-1 & 7 \end{pmatrix}$
+
 ::::
-
-
 
 ::::challenge{id="12_main_05" title="Main problems 5"}
 
@@ -459,39 +444,33 @@ x = np.linalg.solve(A, b)
 
 print(x)
 ```
-::::
 
+::::
 
 ::::challenge{id="12_main_06" title="Main problems 6"}
 
 > $$\displaystyle X = \begin{pmatrix} 1 & 2 \\ 3 & 4  \end{pmatrix}; \qquad Y = \begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix}$$
 
 Calculate:
- - $XY$
- - $YX$
- - $X^{-1}$
- - $Y^{-1}$
- - $X^{-1}Y^{-1}$
- - $Y^{-1}X^{-1}$
- - $(XY)^{-1}$
- - $(YX)^{-1}$
+
+- $XY$
+- $YX$
+- $X^{-1}$
+- $Y^{-1}$
+- $X^{-1}Y^{-1}$
+- $Y^{-1}X^{-1}$
+- $(XY)^{-1}$
+- $(YX)^{-1}$
 
 Comment on your results.
 ::::
-
-
-
-
 
 ### Extension problems
 
 ::::challenge{id="12_ext_01" title="Extension problems 1"}
 Show that
 
-> $$\begin{pmatrix} 3 & 1  \\ 1 & 3 \end{pmatrix} \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{1}{\sqrt 2} \end{pmatrix}  = \lambda_1 \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{1}{\sqrt 2} \end{pmatrix}$$
-
-> $$\begin{pmatrix} 3 & 1  \\ 1 & 3 \end{pmatrix} \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{-1}{\sqrt 2} \end{pmatrix} = \lambda_2 \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{-1}{\sqrt 2} \end{pmatrix}$$
+> $$\begin{pmatrix} 3 & 1  \\ 1 & 3 \end{pmatrix} \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{1}{\sqrt 2} \end{pmatrix}  = \lambda_1 \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{1}{\sqrt 2} \end{pmatrix}$$ > $$\begin{pmatrix} 3 & 1  \\ 1 & 3 \end{pmatrix} \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{-1}{\sqrt 2} \end{pmatrix} = \lambda_2 \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{-1}{\sqrt 2} \end{pmatrix}$$
 
 where $\lambda_1$ and $\lambda_2$ are constants to be determined.
 ::::
-

@@ -1,17 +1,16 @@
 ---
 name: State and Side Effects
-dependsOn: [
-]
+dependsOn: []
 tags: [cpp]
-attribution: 
-    - citation: This material was adapted from an "Introduction to C++" course developed by the Oxford RSE group.
-      url: https://www.rse.ox.ac.uk
-      image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
+attribution:
+  - citation: This material was adapted from an "Introduction to C++" course developed by the Oxford RSE group.
+    url: https://www.rse.ox.ac.uk
+    image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Program state
@@ -76,7 +75,7 @@ std::getline(myfile, line); // Same call to getline, but result is different!
 ```
 
 The main downside of having a state that is constantly updated is that it makes
-it harder for us to *reason* about our code, to work out what it is doing.
+it harder for us to _reason_ about our code, to work out what it is doing.
 However, the main upside is that we can use state to make calculations more
 efficient, for example to sum up the values in a vector we use a single variable
 `sum` to hold the state of the computation
@@ -94,15 +93,15 @@ for (const auto& x: data) {
 Functional computations only rely on the values that are provided as inputs to a
 function and not on the state of the program that precedes the function call.
 They do not modify data that exists outside the current function, including the
-input data - this property is referred to as the *immutability of data*. This
-means that such functions do not create any *side effects*, i.e. do not perform
+input data - this property is referred to as the _immutability of data_. This
+means that such functions do not create any _side effects_, i.e. do not perform
 any action that affects anything other than the value they return. A pure function is therefore the
 computational version of a mathematical function.
 
 For example: printing text, writing to a file, modifying the value of an input argument, or
 changing the value of a global variable. Functions without side affects that
 return the same data each time the same input arguments are provided are called
-*pure functions*.
+_pure functions_.
 
 ::::challenge{id="pure-functions" title="Pure Functions"}
 
@@ -129,6 +128,7 @@ void increment_x(int& x) {
 ```
 
 :::solution
+
 ```cpp
 // a pure function, no side effects :)
 int increment_and_return_x(const int& x) {
@@ -156,6 +156,7 @@ void increment_x(int& x) {
   x += one;
 }
 ```
+
 :::
 ::::
 
@@ -327,11 +328,9 @@ int main() {
     return 0;
 }
 ```
+
 :::
 ::::
-
-
-
 
 ## Benefits of Functional Code
 
@@ -352,7 +351,7 @@ will be, or how to measure them.
 
 **Composability** refers to the ability to make a new function from a chain of
 other functions by piping the output of one as the input to the next. If a
-function does not  have side effects or non-deterministic behaviour, then all
+function does not have side effects or non-deterministic behaviour, then all
 of its behaviour is reflected in the value it returns. As a consequence of
 this, any chain of combined pure functions is itself pure, so we keep all these
 benefits when we are combining functions into a larger program.
@@ -362,20 +361,20 @@ benefits when we are combining functions into a larger program.
 *a lot of data, we can often improve performance by splitting data and
 *distributing the computation across multiple processors. The output of a pure
 *function depends only on its input, so we will get the right result regardless
-*of when or where the code runs.
+\*of when or where the code runs.
 
 There are other advantageous properties that can be derived from the functional
 approach to coding. In languages which support functional programming, a
-function is a *first-class object* like any other object - not only can you
+function is a _first-class object_ like any other object - not only can you
 compose/chain functions together, but functions can be used as inputs to, passed
 around or returned as results from other functions (remember, in functional
-programming *code is data*). This is why functional programming is suitable for
+programming _code is data_). This is why functional programming is suitable for
 processing data efficiently - in particular in the world of Big Data, where code
 is much smaller than the data, sending the code to where data is located is
 cheaper and faster than the other way round. Let's see how we can do data
 processing using functional programming.
 
-## Key Points:
+## Key Points
 
 - Program state is composed of variables' values, including those modified by functions and interactions with the Operating System.
 - Functional computations rely only on input values, are immutable, and do not create side effects. Pure functions are testable, composable, and parallelizable.

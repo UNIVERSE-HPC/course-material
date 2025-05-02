@@ -1,23 +1,29 @@
 ---
 name: Systems of differential equations 2
-dependsOn: [
-  scientific_computing.essential_maths.14_system_1
-]
+dependsOn: [scientific_computing.essential_maths.14_system_1]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
+learningOutcomes:
+  - Be able to analyse non-linear systems in multiple dimensions
+  - Understand how to simplify the form of a system using parameter re-scaling
+  - Understand how to use properties of a system to simplify the set of equations
+  - Understand the concept of a phase plane
+  - Be able to identify nullclines of a non-linear system
+  - Be able to plot the phase plane of a non-linear system
+  - Be able to plot the phase plane of a non-linear system using matplotlib in Python
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
+    url: https://www.dtc.ox.ac.uk/
+    image: fig/dtc_hex.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## System Simplification
 
---- 
+---
 
 ## YouTube lecture recording from October 2020
 
@@ -33,16 +39,17 @@ Recap
 - So far we have looked at systems of **first order**, **linear** ODEs in **two dimensions**
 
 - These systems can be solved analytically
-    - 3 methods of solving systems of first order ODEs
-    - Diagonalisation extends to $N$-dimensional systems
+  - 3 methods of solving systems of first order ODEs
+  - Diagonalisation extends to $N$-dimensional systems
 
 Plan
 
 - Aim to look at systems of **first order**, **nonlinear** ODEs in **more dimensions**
 - How we go about modelling a problem
 - Simplifying systems of ODEs
-    - Reducing number of parameters
-    - Reducing number of equations
+
+  - Reducing number of parameters
+  - Reducing number of equations
 
 - Phase plane analysis
 
@@ -93,7 +100,7 @@ $$
 \end{align*}
 $$
 
-Note that $\theta$, $\phi$ and $\tau$  are arbitrary values for scaling $N$, $P$, and $T$.
+Note that $\theta$, $\phi$ and $\tau$ are arbitrary values for scaling $N$, $P$, and $T$.
 
 $$
 \begin{align*}
@@ -150,8 +157,7 @@ $$
 \end{align*}
 $$
 
-
-However, the enzyme is recycled: it is used in the complex and then released.  This means that $e + c = e_{tot}$ where $e_{tot}$ is constant.
+However, the enzyme is recycled: it is used in the complex and then released. This means that $e + c = e_{tot}$ where $e_{tot}$ is constant.
 
 Making the substitution $e =  e_{tot} - c$ to eliminate $e$ we arrive at the 3 ODE system:
 
@@ -190,14 +196,13 @@ $$
 \end{align*}
 $$
 
-
 This means that we have used conservation and quasi-steady state to go from a 4-dimensional system $(s,e,c,p)$ to a two-dimensional approximation which captures some of the behaviour.
 
 Two dimensions are good because we can plot their behaviour on a phase plane diagram.
 
 ## Phase planes and nullclines
 
-A system of **nonlinear** ODEs may have more than one  fixed point (or may have none).
+A system of **nonlinear** ODEs may have more than one fixed point (or may have none).
 Finding fixed points in two-dimensional systems is aided by **nullclines**.
 
 An $x$-nullcline is a line where $\dot{x}=0$ and a $y$-nullcline is a line where $\dot{y}=0$.
@@ -217,11 +222,9 @@ has $x$-nullclines at $x=0$ and $1-x-y=0$; and $y$-nullclines at $y=0$ and $2-3x
 Nullcline intersections give us the fixed points.
 Nullclines can be annotated to give the direction (and magnitude) of the non-zero derivative.
 
-
 ### Plot of the nullclines
 
 ![Plot of the nullclines of the ODE system](fig/15_01_nullclines.svg)
-
 
 ### Plot of the phase plane
 
@@ -230,45 +233,47 @@ Nullclines can be annotated to give the direction (and magnitude) of the non-zer
 The nullclines allow us to add arrows demonstrating the flow direction, and by following the arrows we can sketch the behaviour of solutions (green lines).
 The arrows can only cross the $x$-nullclines vertically, and the $y$-nullclines horizontally.
 
-
 ### Python code to plot the phase plane
 
 ```python
+import numpy as np
+from matplotlib import pyplot as plt
+import scipy
 def dX_dt(X, t):
     return np.array([ X[0]*(1. - X[0]) - X[0]*X[1],
                      2.*X[1]*(1.-X[1]/2.) -3*X[0]*X[1]])
 
 def plot_phase_plane():
-    
+
     plt.figure(figsize=(10,10))
-    
+
     init_x = [1.05, 0.9, 0.7, 0.5, 0.5, 0.32, 0.1]
     init_y = [1.0, 1.3, 1.6, 1.8, 0.2, 0.2, 0.2]
-    
+
     plt.plot(init_x, init_y, 'g*', markersize=20)
-    
+
     for v in zip(init_x,init_y):
         X0 = v                              # starting point
         X = scipy.integrate.odeint( dX_dt, X0, np.linspace(0,10,100))
         plt.plot( X[:,0], X[:,1], lw=3, color='green')
-    
-    
-    
+
+
+
     # plot nullclines
     x = np.linspace(-0.1,1.1,24)
     y = np.linspace(-0.1,2.1,24)
-    
+
     plt.hlines(0,-1,15, color='#F39200', lw=4, label='y-nullcline 1')
     plt.plot(x,1 - x, color='#0072bd', lw=4, label='x-nullcline 2')
     plt.vlines(0,-1,15, color='#0072bd', lw=4, label='x-nullcline 1')
     plt.plot(x,2 - 3*x, color='#F39200', lw=4, label='y-nullcline 2')
 
     # quiverplot - define a grid and compute direction at each point
-    X , Y  = np.meshgrid(x, y)                  # create a grid
+    X, Y = np.meshgrid(x, y)                  # create a grid
     DX = X*(1-X) - X*Y                          # evaluate dx/dt
-    DY = 2*Y*(1 - Y/2.0) - 3*X*Y                # evaluate dy/dt               
-    M = (np.hypot(DX, DY))                      # norm growth rate 
-    M[ M == 0] = 1.                             # avoid zero division errors 
+    DY = 2*Y*(1 - Y/2.0) - 3*X*Y                # evaluate dy/dt
+    M = (np.hypot(DX, DY))                      # norm growth rate
+    M[ M == 0] = 1.                             # avoid zero division errors
 
     plt.quiver(X, Y, DX/M, DY/M, M)
     plt.xlim(-0.05,1.1)
@@ -280,13 +285,12 @@ def plot_phase_plane():
 ## Summary
 
 - Simplification
-    - Rescaling to dimensionless quantities
-    - Conservation
-    - Quasi-steady state approximation
+
+  - Rescaling to dimensionless quantities
+  - Conservation
+  - Quasi-steady state approximation
 
 - Nullclines are a powerful way of finding steady states and phase flow
-
-
 
 ### Introductory problems
 
@@ -296,20 +300,18 @@ Find the fixed points of the following linear systems:
 1. $\displaystyle \dot{x} = x+3y,   \qquad \dot{y}=-6x+5y;$
 1. $\displaystyle \dot{x} = x+3y+4, \qquad \dot{y}=-6x+5y-1;$
 1. $\displaystyle \dot{x} = x+3y+1, \qquad \dot{y}=-6x+5y.$
+
 ::::
-
-
 
 ::::challenge{id="15_intro_02" title="Introductory problems 2"}
 Find the fixed points of the following nonlinear systems:
 
 1. $\displaystyle \dot{x} = -4y+2xy-8   \qquad \dot{y}=4y^2-x^2;$
 1. $\displaystyle \dot{x} = y-x^2+2, \qquad \dot{y}=2(x^2-y^2).$
+
 ::::
 
 ### Main problems
-
-
 
 ::::challenge{id="15_main_01" title="Main problems 1"}
 Consider the chemical reaction network:
@@ -318,8 +320,8 @@ Consider the chemical reaction network:
 
 1. Write down the system of two linear ODEs which describe the evolution of the concentrations of A and B in this system under the law of mass action.
 1. Find the ratio of concentrations of A and B for which this system is in steady state: that is the concentrations do not change over time.
-::::
 
+::::
 
 ::::challenge{id="15_main_02" title="Main problems 2"}
 Consider the reversible enzyme reaction:
@@ -332,7 +334,6 @@ Verify the Haldane relation, which states that when the reaction is in equilibri
 
 where $p$ and $s$ are the concentrations of $P$ and $S$, respectively.
 ::::
-
 
 ::::challenge{id="15_main_03" title="Main problems 3"}
 The population of a host, $H(t)$, and a parasite, $P(t)$, are described approximately by the equations:
@@ -357,8 +358,6 @@ Sketch the phase flow across the following lines:
 
 ::::
 
-
-
 ::::challenge{id="15_main_04" title="Main problems 4"}
 Consider a lake with some fish attractive to anglers.
 We wish to model the fish-angler interaction under the following assumptions:
@@ -373,4 +372,3 @@ We wish to model the fish-angler interaction under the following assumptions:
    > $$ \dot{x} = rx(1 - x) - xy,\qquad \dot{y} = \beta x - y $$
 
 ::::
-

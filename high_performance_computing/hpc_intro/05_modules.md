@@ -4,6 +4,9 @@ dependsOn: [
   high_performance_computing.hpc_intro.04_scheduler
 ]
 tags: [ARC]
+learningOutcomes:
+  - Load and use a software package.
+  - Explain how the shell environment changes when the module mechanism loads or unloads packages.
 attribution: 
     - citation: >
         "Introduction to High-Performance Computing" course by the HPC-carpentries
@@ -73,7 +76,7 @@ To see available software modules, use `module avail`:
 remote$ module avail
 ```
 
-```
+```text
 ---------------- MPI-dependent avx2 modules -----------------
  abinit/8.2.2     (chem)           ncl/6.4.0
  abyss/1.9.0      (bio)            ncview/2.1.7        (vis)
@@ -109,7 +112,7 @@ message telling you so
 remote$ module list
 ```
 
-```
+```text
 No Modulefiles Currently Loaded.
 ```
 
@@ -126,7 +129,7 @@ it to tell us where a particular piece of software is stored.
 remote$ which python3
 ```
 
-```
+```text
 python3 not found
 ```
 
@@ -137,7 +140,7 @@ remote$ module load python
 remote$ which python3
 ```
 
-```
+```text
 /path/to/python/python3
 ```
 
@@ -156,21 +159,20 @@ variables we can print it out using `echo`.
 remote$ echo $PATH
 ```
 
-```
+```text
 /path/to/python:/another/path:/some/other/path:/yet/another/path
 ```
 
-You'll notice a similarity to the output of the `which` command. 
-In this case, there's only one difference: the different directory at the beginning. 
-When we ran the `module load` command, it added a directory to the beginning of our `$PATH`. 
+You'll notice a similarity to the output of the `which` command.
+In this case, there's only one difference: the different directory at the beginning.
+When we ran the `module load` command, it added a directory to the beginning of our `$PATH`.
 Let's examine what's there:
-
 
 ```bash
 remote$ ls /path/to/python
 ```
 
-```
+```text
 2to3              idle3.5  pydoc3.5          python3.5m         virtualenv
 2to3-3.5          pip      python            python3.5m-config  wheel
 easy_install      pip3     python3           python3-config
@@ -179,8 +181,8 @@ idle3             pydoc3   python3.5-config  pyvenv-3.5
 ```
 
 Taking this to its conclusion, `module load` will add software to your `$PATH`.
-It "loads" software. 
-A special note on this - depending on which version of the `module` program that is installed at your site, 
+It "loads" software.
+A special note on this - depending on which version of the `module` program that is installed at your site,
 `module load` will also load required software dependencies.
 
 To demonstrate, let’s use `module list`. `module list` shows all loaded software modules.
@@ -189,7 +191,7 @@ To demonstrate, let’s use `module list`. `module list` shows all loaded softwa
 remote$ module list
 ```
 
-```
+```text
 Currently Loaded Modules:
   1) nixpkgs/.16.09    (H,S)      5) intel/2016.4  (t)
   2) icc/.2016.4.258   (H)        6) openmpi/2.1.1 (m)
@@ -203,14 +205,15 @@ Currently Loaded Modules:
    H:             Hidden Module
 ```
 
-The list of modules available will vary widely by HPC system. 
+The list of modules available will vary widely by HPC system.
 If your system has the `beast` module available, then loading `beast` module (a bioinformatics software package) will do something like this:
 
 ```bash
 remote$ module load beast
 remote$ module list
 ```
-```
+
+```text
 Currently Loaded Modules:
   1) nixpkgs/.16.09    (H,S)  5) intel/2016.4  (t)   9) java/1.8.0_121   (t)
   2) icc/.2016.4.258   (H)    6) openmpi/2.1.1 (m)  10) beagle-lib/2.1.2 (bio)
@@ -226,14 +229,15 @@ Currently Loaded Modules:
    H:                Hidden Module
 ```
 
-So in this case, `beast` also loaded `java/1.8.0_121` and `beagle-lib/2.1.2` as well. 
+So in this case, `beast` also loaded `java/1.8.0_121` and `beagle-lib/2.1.2` as well.
 Let’s try unloading the `beast` package.
 
 ```bash
 remote$ module unload beast
 remote$ module list
 ```
-```
+
+```text
 Currently Loaded Modules:
   1) nixpkgs/.16.09    (H,S)      5) intel/2016.4  (t)
   2) icc/.2016.4.258   (H)        6) openmpi/2.1.1 (m)
@@ -247,7 +251,7 @@ Currently Loaded Modules:
    H:             Hidden Module
 ```
 
-So using `module unload` “un-loads” a module along with its dependencies. 
+So using `module unload` “un-loads” a module along with its dependencies.
 If we wanted to unload everything at once, we could run `module purge` (unloads everything).
 
 ```bash
@@ -264,24 +268,23 @@ The following modules were not unloaded:
   4) gcccore/.5.4.0               8) openmpi/2.1.1
 ```
 
-Note that `module purge` is informative. 
+Note that `module purge` is informative.
 It lets us know that all but a default set of packages have been unloaded (and how to actually unload these if we truly so desired).
 
 Note that this module loading process happens principally through the manipulation of environment variables like $PATH. There is usually little or no data transfer involved.
 
-The module loading process manipulates other special environment variables as well, 
-including variables that influence where the system looks for software libraries, 
+The module loading process manipulates other special environment variables as well,
+including variables that influence where the system looks for software libraries,
 and  sometimes variables which tell commercial software packages where to find license servers.
 
 The module command also restores these shell environment variables to their previous state when a module is unloaded.
 
-
 ## Software Versioning
 
-So far, we've learned how to load and unload software packages. 
-This is very useful. 
-However, we have not yet addressed the issue of software versioning. 
-At some point or other, you will run into issues where only one particular version of some software will be suitable. 
+So far, we've learned how to load and unload software packages.
+This is very useful.
+However, we have not yet addressed the issue of software versioning.
+At some point or other, you will run into issues where only one particular version of some software will be suitable.
 Perhaps a key bugfix only happened in a certain version, or version X broke compatibility with a file format you use.
 In either of these example cases, it helps to be very specific about what software is loaded.
 
@@ -291,7 +294,7 @@ Let's examine the output of `module avail` more closely.
 remote$ module avail
 ```
 
-```
+```text
 ---------------- MPI-dependent avx2 modules -----------------
  abinit/8.2.2     (chem)           ncl/6.4.0
  abyss/1.9.0      (bio)            ncview/2.1.7        (vis)
@@ -317,24 +320,28 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ```
 
-Let’s take a closer look at the gcc module. 
-GCC is an extremely widely used  C/C++/Fortran compiler. 
-Tons of software is dependent on the GCC version, and might not compile or run if the wrong version is loaded. 
-In this case, there are two different versions: `gcc/4.8.5` and `gcc/5.4.0`. 
+Let’s take a closer look at the gcc module.
+GCC is an extremely widely used  C/C++/Fortran compiler.
+Tons of software is dependent on the GCC version, and might not compile or run if the wrong version is loaded.
+In this case, there are two different versions: `gcc/4.8.5` and `gcc/5.4.0`.
 How do we load each copy, and which copy is the default?
 
-In this case, `gcc/5.4.0` has a `(D)` next to it. This indicates that it is the default 
+In this case, `gcc/5.4.0` has a `(D)` next to it. This indicates that it is the default
 — if we type `module load gcc`, this is the copy that will be loaded.
 
 ::::callout{variant="tip"}
+
 ## Filtering Lists
+
 A lot of HPC systems will have so many modules available that looking through the whole of `module avail` is just not practical.
 You can use `module avail gcc` to check out the versions of GCC available on yours.
 An example output from a different system might be:
+
 ```bash
 remote$ module avail gcc
 ```
-```
+
+```text
 ------------------------------------------------- /local/modules/apps --------------------------------------------------
 [removed for clarity]
 
@@ -351,6 +358,7 @@ remote$ module avail gcc
   Where:
    D:  Default Module
 ```
+
 ::::
 
 ```bash
@@ -358,7 +366,7 @@ remote$ module load gcc
 remote$ gcc --version
 ```
 
-```
+```text
 Lmod is automatically replacing "intel/2016.4" with "gcc/5.4.0".
 
 Due to MODULEPATH changes, the following have been reloaded:
@@ -370,22 +378,22 @@ This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
 
-Note that three things happened: the default copy of GCC was loaded (version 5.4.0), the 
-Intel compilers (which conflict with GCC) were unloaded, and software that is dependent 
-on compiler (OpenMPI) was reloaded. The module system turned what might be a 
+Note that three things happened: the default copy of GCC was loaded (version 5.4.0), the
+Intel compilers (which conflict with GCC) were unloaded, and software that is dependent
+on compiler (OpenMPI) was reloaded. The module system turned what might be a
 super-complex operation into a single command.
 
-So how do we load the non-default copy of a software package? In this case, the only 
-change we need to make is be more specific about the module we are loading. There are 
-two GCC modules: `gcc/5.4.0` and `gcc/4.8.5`. To load a non-default module, the only 
-change we need to make to our module load command is to leave in the version number 
+So how do we load the non-default copy of a software package? In this case, the only
+change we need to make is be more specific about the module we are loading. There are
+two GCC modules: `gcc/5.4.0` and `gcc/4.8.5`. To load a non-default module, the only
+change we need to make to our module load command is to leave in the version number
 after the `/`.
 
 ```bash
 remote$ module load gcc/4.8.5
 ```
 
-```
+```text
 Inactive Modules:
   1) openmpi
 
@@ -398,24 +406,23 @@ This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
 
-We now have successfully switched from GCC 5.4.0 to GCC 4.8.5. It is also important to 
-note that there was no compatible OpenMPI module available for GCC 4.8.5. Because of 
-this, the module program has “inactivated” the module. All this means for us is that if 
-we re-load GCC 5.4.0, module will remember OpenMPI used to be loaded and load that 
+We now have successfully switched from GCC 5.4.0 to GCC 4.8.5. It is also important to
+note that there was no compatible OpenMPI module available for GCC 4.8.5. Because of
+this, the module program has “inactivated” the module. All this means for us is that if
+we re-load GCC 5.4.0, module will remember OpenMPI used to be loaded and load that
 module as well.
 
 ```bash
 remote$ module load gcc/5.4.0
 ```
 
-```
+```text
 Activating Modules:
   1) openmpi/2.1.1
 
 The following have been reloaded with a version change:
   1) gcc/4.8.5 => gcc/5.4.0
 ```
-
 
 ::::challenge{id=module-script title="Using Software Modules in Scripts"}
 
@@ -431,7 +438,7 @@ remote$ nano python-module.sh
 remote$ cat python-module.sh
 ```
 
-```
+```text
 #!/usr/bin/env bash
 
 module load python3
@@ -442,5 +449,6 @@ python3 --version
 ```bash
 remote$ sbatch python-module.sh
 ```
+
 :::
 ::::

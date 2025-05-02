@@ -1,22 +1,22 @@
 ---
 name: Integration 2
-dependsOn: [
-  scientific_computing.essential_maths.06_integration_1
-]
+dependsOn: [scientific_computing.essential_maths.06_integration_1]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+learningOutcomes:
+  - Be able to use integration by parts to integrate a product of functions
+  - Be able to apply the method of partial fractions to integrate fractional functions
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
+    url: https://www.dtc.ox.ac.uk/
+    image: fig/dtc_hex.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
---- 
+---
 
 ## YouTube lecture recording from October 2020
 
@@ -31,7 +31,7 @@ The material is still very similar:
 
 ## Integration reverses the process of differentiation
 
-### In general:
+### In general
 
 > $$\displaystyle {d(a\thinspace x^{n+1})\over dx}=(n+1)a\thinspace~x^n~~~~~\Rightarrow ~~~~\int_{x_1}^{x_2} a\thinspace x^n~dx = \biggr[{a\over(n+1)} \thinspace x^{(n+1)}\biggl]_{x_1}^{x_2}$$
 
@@ -40,9 +40,7 @@ The material is still very similar:
 This method can be thought of as an integral version of the chain rule.
 Suppose we wish to integrate:
 
-> $$\displaystyle I=\int f(g(x))~dx= \int f(u)~dx$$
-
-> $$\displaystyle I =\int f(u){dx\over du}~du$$
+> $$\displaystyle I=\int f(g(x))~dx= \int f(u)~dx$$ > $$\displaystyle I =\int f(u){dx\over du}~du$$
 
 ## Integration Method 2: Integration by Parts
 
@@ -68,7 +66,6 @@ with $f(x) \equiv u$ and $g(x) \equiv v$.
 
 > $$\displaystyle \int\limits_a^b x~\sqrt{(x+1)}~dx=\int\limits_a^b x~(x+1)^{1/2}~dx$$
 
-
 Choose
 
 > $$\displaystyle u=x\qquad{\rm and}\qquad v'=\sqrt{(x+1)}$$
@@ -76,7 +73,6 @@ Choose
 so that:
 
 > $$\displaystyle u'=1\qquad{\rm and}\qquad v={2 \over 3}(x+1)^{3/2}$$.
-
 
 Choose
 
@@ -86,13 +82,9 @@ so that:
 
 > $$\displaystyle u'=1\qquad{\rm and}\qquad v={2 \over 3}(x+1)^{3/2}$$
 
-
 Then:
 
-> $$\displaystyle \int\limits_a^b x~\sqrt{(x+1)}~dx =\biggr[x~{2\over 3}(x+1)^{3/2}\biggl]_a^b - \int\limits_a^b 1 \times {2\over 3}(x+1)^{3/2}~dx$$
-
-> $$\displaystyle =\biggr[{2\over 3}~x~(x+1)^{3/2}\biggl]_a^b- \biggr[{2\over 3}\cdot {2\over 5}(x+1)^{5/2}\biggl]_a^b$$
-
+> $$\displaystyle \int\limits_a^b x~\sqrt{(x+1)}~dx =\biggr[x~{2\over 3}(x+1)^{3/2}\biggl]_a^b - \int\limits_a^b 1 \times {2\over 3}(x+1)^{3/2}~dx$$ > $$\displaystyle =\biggr[{2\over 3}~x~(x+1)^{3/2}\biggl]_a^b- \biggr[{2\over 3}\cdot {2\over 5}(x+1)^{5/2}\biggl]_a^b$$
 
 If we had chosen the other option for $u$ and $v'$ we would have got:
 
@@ -108,24 +100,23 @@ Let us calculate the indefinite integral,
 
 > $$\displaystyle \int \ln x~dx$$
 
-We can do a bit of a trick.  Let:
+We can do a bit of a trick. Let:
 
 > $$\displaystyle u=\ln x \quad\Longrightarrow\quad u'={1\over x}\qquad{\rm and}\qquad v'=1\Longrightarrow v=x$$
 
 Putting these into our equation:
 
-> $$\displaystyle \int \ln x~dx\quad=\quad\ln x~\cdot x - \int x~\frac{1}{x}dx$$
-
-> $$\displaystyle = \quad x \ln x - \int 1 dx\quad=\quad x \ln x - x + C$$
+> $$\displaystyle \int \ln x~dx\quad=\quad\ln x~\cdot x - \int x~\frac{1}{x}dx$$ > $$\displaystyle = \quad x \ln x - \int 1 dx\quad=\quad x \ln x - x + C$$
 
 We can also check this calculation using SymPy:
 
 ```python
+import sympy as sp
 x = sp.symbols('x')
 sp.integrate(sp.log(x),x)
 ```
-> $\displaystyle x \log{\left(x \right)} - x$
 
+> $\displaystyle x \log{\left(x \right)} - x$
 
 ### Integration by parts: Example 3
 
@@ -147,7 +138,6 @@ Then:
 
 > $$\displaystyle \int\limits^{\infty}_0 x^3~e^{-x}~dx=-\biggr[x^3~e^{-x}\biggl]^{\infty}_0 +\int\limits^{\infty}_0 3x^2~e^{-x}~dx$$
 
-
 Now apply integration by parts to the right-hand side:
 
 Choose
@@ -160,8 +150,7 @@ so that:
 
 Then:
 
-> $$\displaystyle \int\limits^{\infty}_0 3x^2~e^{-x}~dx=-\biggr[3x^2~e^{-x}\biggl]^{\infty}_0 +\int\limits^{\infty}_0 6x~e^{-x}~dx$$ 
-
+> $$\displaystyle \int\limits^{\infty}_0 3x^2~e^{-x}~dx=-\biggr[3x^2~e^{-x}\biggl]^{\infty}_0 +\int\limits^{\infty}_0 6x~e^{-x}~dx$$
 
 And, once more:
 
@@ -175,17 +164,13 @@ so that:
 
 Then:
 
-> $$\displaystyle \int\limits^{\infty}_0 6x~e^{-x}~dx =-\biggr[6x~e^{-x}\biggl]^{\infty}_0 +\int\limits^{\infty}_0 6~e^{-x}~dx$$
-
-> $$\displaystyle \Longrightarrow \int\limits^{\infty}_0 6~e^{-x}~dx=-\biggr[6~e^{-x}\biggl]^{\infty}_0=-6e^{-\infty}+6e^0=6$$
+> $$\displaystyle \int\limits^{\infty}_0 6x~e^{-x}~dx =-\biggr[6x~e^{-x}\biggl]^{\infty}_0 +\int\limits^{\infty}_0 6~e^{-x}~dx$$ > $$\displaystyle \Longrightarrow \int\limits^{\infty}_0 6~e^{-x}~dx=-\biggr[6~e^{-x}\biggl]^{\infty}_0=-6e^{-\infty}+6e^0=6$$
 
 (Since $e^{-\infty}=0$ and $e^0=1$)
 
 The other terms all go to zero:
 
-> $$\displaystyle -\bigr[x^3~e^{-x}\bigl]^{\infty}_0 =-{\infty}^3~e^{-\infty} + 0 =0$$
-
-> $$\displaystyle -\bigr[3x^2~e^{-x}\bigl]^{\infty}_0 =-3{\infty}^2~e^{-\infty} + 0 =0$$
+> $$\displaystyle -\bigr[x^3~e^{-x}\bigl]^{\infty}_0 =-{\infty}^3~e^{-\infty} + 0 =0$$ > $$\displaystyle -\bigr[3x^2~e^{-x}\bigl]^{\infty}_0 =-3{\infty}^2~e^{-\infty} + 0 =0$$
 
 So, to answer our original question:
 
@@ -196,6 +181,7 @@ Let's also check it with SymPy:
 ```python
 sp.integrate(x**3 * sp.exp(-x),(x,0,sp.oo))
 ```
+
 > $\displaystyle 6$
 
 This result actually generalises:
@@ -206,9 +192,7 @@ This result actually generalises:
 
 Recall that:
 
-> $$\displaystyle {d\over dx}(\sin x)=\cos x$$
-
-> $$\displaystyle {d\over dx}(\cos x)=-\sin x$$
+> $$\displaystyle {d\over dx}(\sin x)=\cos x$$ > $$\displaystyle {d\over dx}(\cos x)=-\sin x$$
 
 Let's try and calculate the following integral:
 
@@ -224,9 +208,7 @@ so that:
 
 Then:
 
-> $$\displaystyle I =\biggr[-\cos x~\; e^{-x}\biggl]^b_a -\int\limits^b_a ~(-)\sin x~(-)e^{-x}~dx$$
-
-> $$\displaystyle I =\biggr[-\cos x~\; e^{-x}\biggl]^b_a~~-~~\int\limits^b_a ~(-)\sin x~(-)e^{-x}~dx$$
+> $$\displaystyle I =\biggr[-\cos x~\; e^{-x}\biggl]^b_a -\int\limits^b_a ~(-)\sin x~(-)e^{-x}~dx$$ > $$\displaystyle I =\biggr[-\cos x~\; e^{-x}\biggl]^b_a~~-~~\int\limits^b_a ~(-)\sin x~(-)e^{-x}~dx$$
 
 Next, choose
 
@@ -243,7 +225,6 @@ Then:
 The last term is the integral we started with:
 
 > $$\displaystyle \Longrightarrow~~~2~\int\limits^b_a ~\cos x~e^{-x}~dx~ =~\biggr[\sin x~\; e^{-x}\biggl]^b_a~~ -~~\biggr[\cos x~\; e^{-x}\biggl]^b_a$$
-
 
 ## Integration Method 3: Partial Fractions
 
@@ -283,38 +264,38 @@ And on the second fraction:
 
 so $\displaystyle \frac{dw}{dx}=1$ and $\displaystyle \frac{dx}{dw}=1$
 
-> $$\displaystyle \int {2 du \over 2 \times 11 \times u} + \int {dw\over 11w}= -{\ln u\over 11} + {\ln w \over 11}$$
-
-> $$\displaystyle =-{\ln |2x+1|\over 11} + {\ln |x-5| \over 11}$$
+> $$\displaystyle \int {2 du \over 2 \times 11 \times u} + \int {dw\over 11w}= -{\ln u\over 11} + {\ln w \over 11}$$ > $$\displaystyle =-{\ln |2x+1|\over 11} + {\ln |x-5| \over 11}$$
 
 SymPy can also solve integrals requiring partial fractions:
 
 ```python
 sp.integrate(1/((2*x + 1)*(x - 5)),x)
 ```
+
 > $\displaystyle \frac{\log{\left(x - 5 \right)}}{11} - \frac{\log{\left(x + \frac{1}{2} \right)}}{11}$
 
 This answer seems different because of the arbitrary constant of integration.
-
 
 ### Introductory problems
 
 ::::challenge{id="07_intro_01" title="Introductory problems 1"}
 By using suitable substitutions, evaluate the following integrals:
 
-1.  $\displaystyle \def\d#1{{\rm d}#1} \int x^2(x^3+4)^2~~\d{x}$
-1.  $\displaystyle \def\d#1{{\rm d}#1} \int e^{-x}(5-4e^{-x})~\d{x}$
-1.  $\displaystyle \def\d#1{{\rm d}#1} \int (1+x)\sqrt{(4x^2+8x+3)}~\d{x}$
-1.  $\displaystyle \def\d#1{{\rm d}#1} \int 3x e^{(x^2+1)}~\d{x}$
+1. $\displaystyle \def\d#1{{\rm d}#1} \int x^2(x^3+4)^2~~\d{x}$
+1. $\displaystyle \def\d#1{{\rm d}#1} \int e^{-x}(5-4e^{-x})~\d{x}$
+1. $\displaystyle \def\d#1{{\rm d}#1} \int (1+x)\sqrt{(4x^2+8x+3)}~\d{x}$
+1. $\displaystyle \def\d#1{{\rm d}#1} \int 3x e^{(x^2+1)}~\d{x}$
+
 ::::
 
 ::::challenge{id="07_intro_02" title="Introductory problems 2"}
 Find the indefinite integrals, with respect to $x$, of the following functions:
 
-1.  $\displaystyle x\,e^{3bx}$
-1.  $\displaystyle x^3\,e^{-3x}$
-1.  $\displaystyle x \cos (x)$
-1.  $\displaystyle e^{bx} \sin(x)$
+1. $\displaystyle x\,e^{3bx}$
+1. $\displaystyle x^3\,e^{-3x}$
+1. $\displaystyle x \cos (x)$
+1. $\displaystyle e^{bx} \sin(x)$
+
 ::::
 
 ::::challenge{id="07_intro_03" title="Introductory problems 3"}
@@ -326,10 +307,11 @@ Sketch the curve $y=(x-2)(x-5)$ and calculate by integration the area under the 
 ::::challenge{id="07_main_01" title="Main problems 1"}
 Evaluate the following indefinite and definite integrals:
 
-1.  $\displaystyle \def\d#1{{\rm d}#1} \int \frac{6}{(7-x)^3}~\d{x}$
-1.  $\displaystyle \def\d#1{{\rm d}#1} \int 13x^3(9-x^4)^5~\d{x}$
-1.  $\displaystyle \def\d#1{{\rm d}#1} \int_2^5 5\log(x)~\d{x}$
-1.  $\displaystyle \def\d#1{{\rm d}#1} \int x^x\,(1 + \log(x))~\d{x}$
+1. $\displaystyle \def\d#1{{\rm d}#1} \int \frac{6}{(7-x)^3}~\d{x}$
+1. $\displaystyle \def\d#1{{\rm d}#1} \int 13x^3(9-x^4)^5~\d{x}$
+1. $\displaystyle \def\d#1{{\rm d}#1} \int_2^5 5\log(x)~\d{x}$
+1. $\displaystyle \def\d#1{{\rm d}#1} \int x^x\,(1 + \log(x))~\d{x}$
+
 ::::
 
 ::::challenge{id="07_main_02" title="Main problems 2"}
@@ -348,11 +330,11 @@ If it burns fuel at a constant rate $\rho\,{\rm kg/s}$, and if the exhaust veloc
 
 The rocket starts burning fuel at $t=0\,{\rm s}$ with total mass of $m_0\,{\rm kg}$, and runs out of fuel at a later time $t=t_f\,{\rm s}$, with a final mass of $m_f\,{\rm kg}$.
 
-1.  Newton's second law tells us that the instantaneous acceleration $a$ of the rocket at time $t$ is equal to the force propelling it at that time, divided by its mass at that time.
-Write down an expression for $a$ as a function of $t$.
-1.  By integrating this expression, show that the rocket's total change in velocity is given by $\displaystyle v_e \ln\left({m_0\over m_f}\right).$
-::::
+1. Newton's second law tells us that the instantaneous acceleration $a$ of the rocket at time $t$ is equal to the force propelling it at that time, divided by its mass at that time.
+   Write down an expression for $a$ as a function of $t$.
+1. By integrating this expression, show that the rocket's total change in velocity is given by $\displaystyle v_e \ln\left({m_0\over m_f}\right).$
 
+::::
 
 ::::challenge{id="07_main_03" title="Main problems 3"}
 The flow of water pumped upwards through the xylem of a tree, $F$, is given by:
@@ -362,23 +344,20 @@ The flow of water pumped upwards through the xylem of a tree, $F$, is given by:
 where $t$ is the tree's age in days, $p$ and $q$ are positive constants, and $M_0p^{3/4}$ is the mass of the tree when planted (i.e.\ at $t=0$).
 
 Determine the total volume of water pumped up the tree in its tenth year (ignoring leap years) if:
- - $p=10$,
- - $q=0.01\,$day$^{-1}$, and
- - $M_0=0.92\,$l$\,$day$^{-1}$.
+
+- $p=10$,
+- $q=0.01\,$day$^{-1}$, and
+- $M_0=0.92\,$l$\,$day$^{-1}$.
+
 ::::
 
-
 ### Extension problems
-
 
 ::::challenge{id="07_ext_01" title="Extension problems 1"}
 Express $\displaystyle \frac{1}{x(x^2-16)}\quad{\rm in~the~form}\quad\frac{A}{x} + \frac{B}{(x+4)} + \frac{C}{(x-4)}$.
 
-
 Hence calculate $\displaystyle \def\d#1{{\rm d}#1} \int\frac{1}{x(x^2-16)}\,\d{x}.$
 ::::
-
-
 
 ::::challenge{id="07_ext_02" title="Extension problems 2"}
 The probability that a molecule of mass $m$ in a gas at temperature $T$ has speed $v$ is given by the Maxwell-Boltzmann distribution:
@@ -391,26 +370,24 @@ where $k$ is Boltzmann's constant. Find the average speed:
 
 ::::
 
-
-
 ::::challenge{id="07_ext_03" title="Extension problems 3"}
 Baranov developed expressions for commercial yields of fish in terms of lengths, $L$, of the fish.
 His formula gave the total number of fish of length $L$ as $\displaystyle k\,e^{-cL}$, where $c$ and $k$ are constants ($k$ is positive).
 
-1.  Give a sketch of the graph $\displaystyle f(L)=k\,e^{-cL}$.
-(Something decreasing, concave upward and asymptotic to horizontal axis will do.)
-On your sketch, introduce marks on the horizontal axis that represent lengths $L=1, L=2, L=3, L=4 {\rm  and } L=5$.
-Now draw a rectangle on your sketch that represents the number of fish whose lengths are between $L=3$ and $L=4$.
-1.  Explain how we can represent the total number of fish $N$ as an area.
-Show that this number equals $k/c$.
-1.  Only fish longer than $L_0$ count as commercial. Hence, assuming that the fish are all similar in shape (i.e. their width and breadth scales with their length) and of equal density $\rho$, show that the weight, $W$, of the commercial fish population is
+1. Give a sketch of the graph $\displaystyle f(L)=k\,e^{-cL}$.
+   (Something decreasing, concave upward and asymptotic to horizontal axis will do.)
+   On your sketch, introduce marks on the horizontal axis that represent lengths $L=1, L=2, L=3, L=4 {\rm  and } L=5$.
+   Now draw a rectangle on your sketch that represents the number of fish whose lengths are between $L=3$ and $L=4$.
+1. Explain how we can represent the total number of fish $N$ as an area.
+   Show that this number equals $k/c$.
+1. Only fish longer than $L_0$ count as commercial. Hence, assuming that the fish are all similar in shape (i.e. their width and breadth scales with their length) and of equal density $\rho$, show that the weight, $W$, of the commercial fish population is
 
-    > $$\displaystyle \def\d#1{{\rm d}#1} W= \int_{L_0}^{+\infty} a\, k \rho\,L^3 e^{-cL}\,\d{L},$$
+   > $$\displaystyle \def\d#1{{\rm d}#1} W= \int_{L_0}^{+\infty} a\, k \rho\,L^3 e^{-cL}\,\d{L},$$
 
-    and hence that
-    
-    > $$\displaystyle W={N\, a\, \rho\, e^{-cL_0}\over c^3} \left((cL_0)^3 +3(cL_0)^2+ 6cL_0 +6\right),$$
-    
-    where $a$ is a constant.
+   and hence that
+
+   > $$\displaystyle W={N\, a\, \rho\, e^{-cL_0}\over c^3} \left((cL_0)^3 +3(cL_0)^2+ 6cL_0 +6\right),$$
+
+   where $a$ is a constant.
+
 ::::
-

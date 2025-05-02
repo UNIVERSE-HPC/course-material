@@ -1,23 +1,26 @@
 ---
 name: Pipes and Filters
-dependsOn: [
-    technology_and_tooling.bash_shell.03-create
-]
+dependsOn: [technology_and_tooling.bash_shell.03-create]
 tags: [bash]
+learningOutcomes:
+  - Explain the advantage of linking commands with pipes and filters.
+  - Combine sequences of commands to get new output.
+  - Redirect a command’s output to a file.
+  - Briefly describe how pipes channel input and output between piped commands.
+  - Explain what usually happens if a program or pipeline isn’t given any input to process.
 attribution:
-- citation: >
+  - citation: >
       This material was originally taken from training materials developed by the
       University of Southampton Research Software Group, which are based on
       the Software Carpentries course "Version Control with Git".
-  url: https://github.com/Southampton-RSG-Training/shell-novice/
-  image: https://southampton-rsg-training.github.io/shell-novice/assets/img/home-logo.png
-  license: CC-BY-4.0
+    url: https://github.com/Southampton-RSG-Training/shell-novice/
+    image: https://southampton-rsg-training.github.io/shell-novice/assets/img/home-logo.png
+    license: CC-BY-4.0
 ---
 
 Now that we know a few basic commands,
 we can finally look at the shell's most powerful feature:
 the ease with which it lets us combine existing programs in new ways.
-
 
 ## Joining commands together using files
 
@@ -27,29 +30,30 @@ in a file, and use that file as the input to another command.
 We'll start with a directory called `data`, which is in the `shell-novice/data`
 directory, one directory up from `test_directory`. i.e. from `test_directory`:
 
-~~~bash
-$ cd ../..
-$ cd data
-~~~
+```bash
+cd ../..
+cd data
+```
 
 Doing `ls` shows us three files in this directory:
 
-~~~
+```text
 sc_climate_data.csv      sc_climate_data_10.csv   sc_climate_data_1000.csv
-~~~
+```
 
 The data in these files is taken from a real climate science research project
 that is looking into woody biomass yields. The files are as follows:
 
-* sc_climate_data.csv: the entire 20MB data set.
-* sc_climate_data_1000.csv: a subset of the entire data, but only 1000 data rows.
-* sc_climate_data_10.csv: a much smaller subset with only 10 rows of data.
+- sc_climate_data.csv: the entire 20MB data set.
+- sc_climate_data_1000.csv: a subset of the entire data, but only 1000 data rows.
+- sc_climate_data_10.csv: a much smaller subset with only 10 rows of data.
 
 We'll largely be working on the 10-row version, since this allows us to more
 easily reason about the data in the file and the operations we're performing on
 it.
 
 :::callout
+
 ## Why not just use the entire 20MB data set?
 
 Running various commands over a 20MB data set could take some time.
@@ -68,19 +72,19 @@ with lines in the file equating to rows.
 
 Let's run the command `wc *.csv`:
 
-* `wc` is the "word count" command, it counts the number of lines, words, and characters in files.
-* The `*` in `*.csv` matches zero or more characters, so the shell turns `*.csv` into a complete list of `.csv` files:
+- `wc` is the "word count" command, it counts the number of lines, words, and characters in files.
+- The `*` in `*.csv` matches zero or more characters, so the shell turns `*.csv` into a complete list of `.csv` files:
 
-~~~bash
-$ wc *.csv
-~~~
+```bash
+wc *.csv
+```
 
-~~~
+```text
  1048576 1048577 21005037 sc_climate_data.csv
       11      12     487 sc_climate_data_10.csv
     1001    1002   42301 sc_climate_data_1000.csv
  1049588 1049591 21047825 total
-~~~
+```
 
 Sometimes we need to pass multiple filenames to a single command,
 or find or use filenames that match a given pattern,
@@ -102,7 +106,7 @@ with `p`) or `preferred.p` (there isn't at least one character after the
 `.p`).
 
 When the shell sees a wildcard, it expands the wildcard to create a
-list of matching filenames *before* running the command that was
+list of matching filenames _before_ running the command that was
 asked for. As an exception, if a wildcard expression does not match
 any file, Bash will pass the expression as a parameter to the command
 as it is. For example typing `ls *.pdf` in the data directory
@@ -115,16 +119,16 @@ themselves. It's the shell, not the other programs, that expands the wildcards.
 Going back to `wc`, if we run `wc -l` instead of just `wc`,
 the output shows only the number of lines per file:
 
-~~~bash
-$ wc -l *.csv
-~~~
+```bash
+wc -l *.csv
+```
 
-~~~
+```text
  1048576 sc_climate_data.csv
       11 sc_climate_data_10.csv
     1001 sc_climate_data_1000.csv
  1049588 total
-~~~
+```
 
 We can also use `-w` to get only the number of words,
 or `-c` to get only the number of characters.
@@ -134,9 +138,9 @@ It's an easy question to answer when there are only three files,
 but what if there were 6000?
 Our first step toward a solution is to run the command:
 
-~~~bash
-$ wc -l *.csv > lengths.txt
-~~~
+```bash
+wc -l *.csv > lengths.txt
+```
 
 The greater than symbol, `>`, tells the shell to **redirect** the command's output
 to a file instead of printing it to the screen.
@@ -147,46 +151,46 @@ everything that `wc` would have printed has gone into the file `lengths.txt` ins
 
 `ls lengths.txt` confirms that the file exists:
 
-~~~bash
-$ ls lengths.txt
-~~~
+```bash
+ls lengths.txt
+```
 
-~~~
+```text
 lengths.txt
-~~~
+```
 
 We can now send the content of `lengths.txt` to the screen using `cat lengths.txt`.
 `cat` is able to print the contents of files one after another.
 There's only one file in this case,
 so `cat` just shows us what it contains:
 
-~~~bash
-$ cat lengths.txt
-~~~
+```bash
+cat lengths.txt
+```
 
-~~~
+```text
  1048576 sc_climate_data.csv
       11 sc_climate_data_10.csv
     1001 sc_climate_data_1000.csv
  1049588 total
-~~~
+```
 
 Now let's use the `sort` command to sort its contents.
 We will also use the -n flag to specify that the sort is
 numerical instead of alphabetical.
-This does *not* change the file;
+This does _not_ change the file;
 instead, it sends the sorted result to the screen:
 
-~~~bash
-$ sort -n lengths.txt
-~~~
+```bash
+sort -n lengths.txt
+```
 
-~~~
+```text
       11 sc_climate_data_10.csv
     1001 sc_climate_data_1000.csv
  1048576 sc_climate_data.csv
  1049588 total
-~~~
+```
 
 We can put the sorted list of lines in another temporary file called `sorted-lengths.txt`
 by putting `> sorted-lengths.txt` after the command,
@@ -194,14 +198,14 @@ just as we used `> lengths.txt` to put the output of `wc` into `lengths.txt`.
 Once we've done that,
 we can run another command called `head` to get the first few lines in `sorted-lengths.txt`:
 
-~~~bash
-$ sort -n lengths.txt > sorted-lengths.txt
-$ head -1 sorted-lengths.txt
-~~~
+```bash
+sort -n lengths.txt > sorted-lengths.txt
+head -1 sorted-lengths.txt
+```
 
-~~~
+```text
       11 sc_climate_data_10.csv
-~~~
+```
 
 Using the parameter `-1` with `head` tells it that
 we only want the first line of the file;
@@ -216,18 +220,17 @@ even once you understand what `wc`, `sort`, and `head` do,
 all those intermediate files make it hard to follow what's going on.
 Fortunately, there's a way to make this much simpler.
 
-
 ## Using pipes to join commands together
 
 We can make it easier to understand by running `sort` and `head` together:
 
-~~~bash
-$ sort -n lengths.txt | head -1
-~~~
+```bash
+sort -n lengths.txt | head -1
+```
 
-~~~
-      11 sc_climate_data_10.csv
-~~~
+```text
+            11 sc_climate_data_10.csv
+```
 
 The vertical bar between the two commands is called a **pipe**.
 It tells the shell that we want to use
@@ -241,16 +244,16 @@ we don't have to know or care.
 We can even use another pipe to send the output of `wc` directly to `sort`,
 which then sends its output to `head`:
 
-~~~bash
-$ wc -l *.csv | sort -n | head -1
-~~~
+```bash
+wc -l *.csv | sort -n | head -1
+```
 
-~~~
+```text
       11 sc_climate_data_10.csv
-~~~
+```
 
-This is exactly like a mathematician nesting functions like *log(3x)*
-and saying "the log of three times *x*".
+This is exactly like a mathematician nesting functions like _log(3x)_
+and saying "the log of three times _x_".
 In our case,
 the calculation is "head of sort of line count of `*.csv`".
 
@@ -271,10 +274,11 @@ and write to standard output.
 The key is that any program that reads lines of text from standard input
 and writes lines of text to standard output
 can be combined with every other program that behaves this way as well.
-You can *and should* write your programs this way
+You can _and should_ write your programs this way
 so that you and other people can put those programs into pipes to multiply their power.
 
 :::callout
+
 ## Redirecting Input
 
 As well as using `>` to redirect a program's output, we can use `<` to
@@ -292,32 +296,34 @@ If you're interested in how pipes work in more technical detail, see the descrip
 ## Exercises
 
 ::::challenge{id=double-chevron-meaning title="What does Double Chevron Mean?"}
+
 ## What does `>>` mean?
 
 What is the difference between:
 
-~~~bash
+```bash
 echo hello > testfile01.txt
-~~~
+```
 
 And:
 
-~~~bash
+```bash
 echo hello >> testfile02.txt
-~~~
+```
 
 Hint: Try executing each command twice in a row and then examining the output files.
 
 :::solution
 If there isn't a file already there with the name `testfile01.txt`, both `>` and `>>` will create one.
 
-However, if there *is* a file, then `>` will *overwrite* the contents of the file, whilst `>>` will *append* to the existing contents.
+However, if there _is_ a file, then `>` will _overwrite_ the contents of the file, whilst `>>` will _append_ to the existing contents.
 :::
 ::::
 
 For those interested in the technical details of how pipes work:
 
 :::callout
+
 ## What's happening 'under the hood' - pipes in more detail
 
 Here's what actually happens behind the scenes when we create a pipe.

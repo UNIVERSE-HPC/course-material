@@ -1,114 +1,109 @@
 ---
 name: VSCode
-dependsOn: [
-]
+dependsOn: []
 tags: [cpp]
 attribution:
-  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk
     image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
     license: CC-BY-4.0
-
-
 ---
 
 ## Introduction to VSCode
 
-Microsoft's VSCode is a lightweight IDE which is great when starting out developing 
-programs. It not only supports Python, but also C++, C#, JavaScript, CSS, and Java, 
-amongst others. It's also available for Mac OS, Linux, and Windows. Whilst lightweight, 
-it's features can be readily extended for a variety of languages via installation of 
-plugins to suit your needs, and you can even develop your own plugins for VSCode. As 
-well as features like live debugging and context-sensitive code autocompletion, other 
+Microsoft's VSCode is a lightweight IDE which is great when starting out developing
+programs. It not only supports Python, but also C++, C#, JavaScript, CSS, and Java,
+amongst others. It's also available for Mac OS, Linux, and Windows. Whilst lightweight,
+it's features can be readily extended for a variety of languages via installation of
+plugins to suit your needs, and you can even develop your own plugins for VSCode. As
+well as features like live debugging and context-sensitive code autocompletion, other
 notable features include:
 
-- Revision/version control support: ability to work with Git source code repositories, 
-  uploading and synchronising changes to/from such repositories on e.g. GitHub. We'll be 
+- Revision/version control support: ability to work with Git source code repositories,
+  uploading and synchronising changes to/from such repositories on e.g. GitHub. We'll be
   covering Git version control later in the course
-- Live code development sharing: without exchanging changes using version control, you 
-  can view live changes being made by another team member collaboratively within your 
+- Live code development sharing: without exchanging changes using version control, you
+  can view live changes being made by another team member collaboratively within your
   own VSCode editor
-
 
 ## Running VSCode for the First Time
 
-If you haven't run VSCode yet, do this now. The first thing we need to do is open a 
-folder to work in. Select `Open Folder` from the bar on the left (or from the `File` 
-drop down menu at the top of VSCode), and a dialogue window will appear. Choose a new 
+If you haven't run VSCode yet, do this now. The first thing we need to do is open a
+folder to work in. Select `Open Folder` from the bar on the left (or from the `File`
+drop down menu at the top of VSCode), and a dialogue window will appear. Choose a new
 (empty) folder to work in.
 
 :::callout
+
 ## Trusting Code
 
-You may be asked whether you trust the authors of the files in this folder. Select the 
-checkbox, and click 'Yes, I trust the authors' (although in general use some caution is 
+You may be asked whether you trust the authors of the files in this folder. Select the
+checkbox, and click 'Yes, I trust the authors' (although in general use some caution is
 recommended!)
 :::
 
-This directory is now the current working directory for VSCode, so when we run scripts 
+This directory is now the current working directory for VSCode, so when we run scripts
 from VSCode, this will be the working directory they'll run from.
 
-If you'd like to explore VSCode in more depth than this course offers, see the [VSCode 
+If you'd like to explore VSCode in more depth than this course offers, see the [VSCode
 documentation](https://code.visualstudio.com/docs).
 
 ## Adding C++ VSCode extensions
 
-VSCode has a few C++ specific extensions to help us write and compile our C++ code. 
-Select the "Extensions" view icon on the Activity bar (far LHS of your screen, the 
-vertical list of icons), and search for "C++". Make sure that the "C/C++" and "C/C++ 
-Extension Pack" (by Microsoft) are installed and enabled before you proceed. There are a 
-number of other C++ extensions also available, feel free to look through the list and 
+VSCode has a few C++ specific extensions to help us write and compile our C++ code.
+Select the "Extensions" view icon on the Activity bar (far LHS of your screen, the
+vertical list of icons), and search for "C++". Make sure that the "C/C++" and "C/C++
+Extension Pack" (by Microsoft) are installed and enabled before you proceed. There are a
+number of other C++ extensions also available, feel free to look through the list and
 try out any that you might find useful.
 
-## Ensuring you have a compiler installed 
+## Ensuring you have a compiler installed
 
-
-C++ source code is converted into executables that you can run using a *compiler*. There 
-are a number of different C++ compilers available, and two of the most common are 
-[*Clang*](https://clang.llvm.org/), based on the [LLVM](https://llvm.org/) framework or 
-[*GCC*](https://gcc.gnu.org/), the GNU Compiler Collection.
+C++ source code is converted into executables that you can run using a _compiler_. There
+are a number of different C++ compilers available, and two of the most common are
+[_Clang_](https://clang.llvm.org/), based on the [LLVM](https://llvm.org/) framework or
+[_GCC_](https://gcc.gnu.org/), the GNU Compiler Collection.
 
 Ensure that you have either `clang` or `g++` (part of GCC) compiler installed using:
 
-~~~bash
+```bash
 clang++ --version
-~~~
+```
 
-or 
+or
 
-~~~bash
+```bash
 g++ --version
-~~~
+```
 
 You should see something like:
 
-~~~
+```text
 Homebrew clang version 15.0.3
 Target: x86_64-apple-darwin22.1.0
 Thread model: posix
 InstalledDir: /usr/local/opt/llvm/bin
-~~~
+```
 
 Check where the compiler executable is located on your machine
 
-~~~bash
+```bash
 which clang++
 which g++
-~~~
+```
 
 You should see something like:
 
-~~~
+```text
 /usr/local/opt/llvm/bin/clang++
-~~~
+```
 
 Make a note of the location of the compiler that you wish to use.
 
-
 ## Compiling and Running a C++ executable
 
-Let's create our first C++ program in VSCode. Select `File` -> `New Text File` from the 
-menu. A new file will appear. Copy or type in the following contents and save the file 
+Let's create our first C++ program in VSCode. Select `File` -> `New Text File` from the
+menu. A new file will appear. Copy or type in the following contents and save the file
 as `hello.cpp`.
 
 ```cpp
@@ -127,7 +122,6 @@ configuration used to build and run the currently active file
 The file should compile successfully and output the text "hello world" in the
 debug console.
 
-
 Open the `vscode/tasks.json` file created earlier, it should look something like this:
 
 ```json
@@ -137,19 +131,11 @@ Open the `vscode/tasks.json` file created earlier, it should look something like
       "type": "cppbuild",
       "label": "C/C++: g++ build active file",
       "command": "/usr/bin/g++",
-      "args": [
-        "-fdiagnostics-color=always",
-        "-g",
-        "${file}",
-        "-o",
-        "${fileDirname}/${fileBasenameNoExtension}"
-      ],
+      "args": ["-fdiagnostics-color=always", "-g", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}"],
       "options": {
         "cwd": "${fileDirname}"
       },
-      "problemMatcher": [
-        "$gcc"
-      ],
+      "problemMatcher": ["$gcc"],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -161,31 +147,31 @@ Open the `vscode/tasks.json` file created earlier, it should look something like
 }
 ```
 
-In "command" and "args, this file describes the command that VSCode runs to compile your 
-code. In this case `${file}` is the name of our source file `hello.cpp`, 
-`${fileDirname}` is the name of the directory that `hello.cpp` is contained in (this is 
-the root directory of our project), and `${fileBasenameNoextension}` is simply `hello`. 
+In "command" and "args, this file describes the command that VSCode runs to compile your
+code. In this case `${file}` is the name of our source file `hello.cpp`,
+`${fileDirname}` is the name of the directory that `hello.cpp` is contained in (this is
+the root directory of our project), and `${fileBasenameNoextension}` is simply `hello`.
 So the command that is run for the `tasks.json` above would be:
 
 ```bash
 /usr/bin/g++ -fdiagnostics-color=always -g hello.cpp -o hello
 ```
 
-This command uses the `g++` compiler to compile `hello.cpp` and writes the output 
-exectable program to the file `hello`. You can now run this executable via the 
-command-line and see the "Hello, world!" text written to the screen. This is just 
+This command uses the `g++` compiler to compile `hello.cpp` and writes the output
+exectable program to the file `hello`. You can now run this executable via the
+command-line and see the "Hello, world!" text written to the screen. This is just
 manually doing what VSCode does automatically via the `tasks.json` file.
 
-Note that this command also adds debug symbols to the executable using the `-g` flags. 
-This allows us to use a debugger (such as `gdb` or `lldb`) to step through our code on 
-execution. 
+Note that this command also adds debug symbols to the executable using the `-g` flags.
+This allows us to use a debugger (such as `gdb` or `lldb`) to step through our code on
+execution.
 
 ## C++ standards
 
-There are a number of different C++ standards with names based on the year in which they 
-were released: C++98, C++11, C++14, C++17, C++20, and C++22. Depending on your compiler 
-and its version, your compiler will by default use one of these. Lets make sure we are 
-using a certain standard (in this case we will choose C++20). We can tell either `g++` 
+There are a number of different C++ standards with names based on the year in which they
+were released: C++98, C++11, C++14, C++17, C++20, and C++22. Depending on your compiler
+and its version, your compiler will by default use one of these. Lets make sure we are
+using a certain standard (in this case we will choose C++20). We can tell either `g++`
 or `clang++` to use the C++20 standard using the `-std` flag:
 
 ```bash
@@ -212,9 +198,7 @@ And we can add this to the VSCode `tasks.json` file like so:
       "options": {
         "cwd": "${fileDirname}"
       },
-      "problemMatcher": [
-        "$gcc"
-      ],
+      "problemMatcher": ["$gcc"],
       "group": {
         "kind": "build",
         "isDefault": true

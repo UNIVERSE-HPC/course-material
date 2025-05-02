@@ -1,20 +1,23 @@
 ---
 name: PDE models in PyBaMM
-dependsOn: [
-    libraries.pybamm-developer.01_ode
-]
+dependsOn: [libraries.pybamm-developer.01_ode]
 tags: [pybamm]
-attribution: 
-    - citation: >
-        PyBaMM documentation by the PyBaMM Team
-      url: https://docs.pybamm.org
-      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
-      license: BSD-3
+learningOutcomes:
+  - Be able to set up a PyBaMM model to solve partial differential equations (PDEs)
+  - Understand how to define the boundary conditions of a PyBaMM model
+  - Understand how to define the domain on which a PyBaMM variable is defined
+  - Understand how to define a mesh to represent a discretised domain
+attribution:
+  - citation: >
+      PyBaMM documentation by the PyBaMM Team
+    url: https://docs.pybamm.org
+    image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
+    license: BSD-3
 ---
 
 # Creating a simple PDE model
 
-In the previous section, we showed how to create, and solve an ODE model in pybamm. In this section we show how to create and solve a partial differential equation (PDE) model. PDE models are more complex than ODEs as they include derivatives with respect two different variables (in our problems these will be a spatial variable and a time variable). Additional steps will be required to solve PDE models, like discretising the spatial domain.
+In the previous section, we showed how to create, and solve an ODE model in pybamm. In this section we show how to create and solve a partial differential equation (PDE) model. PDE models are more complex than ODEs as they include derivatives with respect to two different variables (in our problems these will be a spatial variable and a time variable). Additional steps will be required to solve PDE models, like discretising the spatial domain.
 
 As an example, we consider the problem of linear diffusion on a unit sphere,
 
@@ -28,7 +31,6 @@ $$
   \left.\frac{\partial c}{\partial r}\right\vert_{r=0} = 0, \quad \left.\frac{\partial c}{\partial r}\right\vert_{r=1} = 2, \quad \left.c\right\vert_{t=0} = 1.
 $$
 
-
 ## Setting up the model
 
 As in the previous example, we start with a
@@ -41,6 +43,7 @@ This argument is a string and we will later on define the geometry of
 the domain.
 
 ```python
+import pybamm
 model = pybamm.BaseModel()
 
 c = pybamm.Variable("Concentration", domain="negative particle")
@@ -48,7 +51,7 @@ c = pybamm.Variable("Concentration", domain="negative particle")
 
 Note that we have given our variable the (useful) name "Concentration", but the symbol representing this variable is simply `c`. As noted in the previous section, the name of the variable is arbitrary and you can choose any variable name that is most useful/meaningful to you.
 
-We then state out governing equations. Sometime it is useful to define
+We then state our governing equations. Sometime it is useful to define
 intermediate quantities in order to express the governing equations more easily.
 In this example we define the flux, then define the rhs to be minus the
 divergence of the flux. The equation is then added to the dictionary `model.rhs`
@@ -88,6 +91,7 @@ model.variables = {"Concentration": c, "Flux": N}
 ```
 
 ## Using the model
+
 Now the model is now completely defined all that remains is to discretise and solve. Since this model is a PDE we need to define the geometry on which it will be solved, and choose how to mesh the geometry and discretise in space.
 
 ### Defining a geometry
@@ -101,6 +105,7 @@ r = pybamm.SpatialVariable(
     "r", domain=["negative particle"], coord_sys="spherical polar"
 )
 ```
+
 As with the concentration variable, we give it the spatial variable an informative name `"r"` but the variable is represented by `r` in the code (in this case it is a bit more confusing as the names are more similar). The domain needs to match the domain we have defined in our concentration variable, and the coordinate system can be chosen from `"cartesian"`, `"cylindrical polar"` and `"spherical polar"`.
 
 The geometry on which we wish to solve the model is defined using a nested
@@ -129,7 +134,7 @@ mesh = pybamm.Mesh(geometry, submesh_types, var_pts)
 Here we have used the [`pybamm.Uniform1DSubMesh`](https://docs.pybamm.org/en/stable/source/api/meshes/one_dimensional_submeshes.html#pybamm.Uniform1DSubMesh) class to create a uniform mesh.
 This class does not require any parameters, and so we can pass it directly to
 the `submesh_types` dictionary. However, many other submesh types can take
-additional parameters.  Example of meshes that do require parameters include the
+additional parameters. Example of meshes that do require parameters include the
 [`pybamm.Exponential1DSubMesh`](https://docs.pybamm.org/en/stable/source/api/meshes/one_dimensional_submeshes.html#pybamm.Exponential1DSubMesh) which clusters points close to one or both
 boundaries using an exponential rule. It takes a parameter which sets how
 closely the points are clustered together, and also lets the users select the
@@ -137,7 +142,7 @@ side on which more points should be clustered. For example, to create a mesh
 with more nodes clustered to the right (i.e. the surface in the particle
 problem), using a stretch factor of 2, we pass an instance of the exponential
 submesh class and a dictionary of parameters into the `MeshGenerator` class as
-follows: 
+follows:
 
 ```python
 exp_mesh = pybamm.MeshGenerator(pybamm.Exponential1DSubMesh, submesh_params={"side": "right", "stretch": 2})
@@ -157,15 +162,19 @@ into matrix-vector multiplications.
 ```python
 spatial_methods = {"negative particle": pybamm.FiniteVolume()}
 disc = pybamm.Discretisation(mesh, spatial_methods)
-disc.process_model(model);
+disc.process_model(model)
 ```
 
-Now that the model has been discretised we are ready to solve. 
+Now that the model has been discretised we are ready to solve.
 
 ## Solving the model
+
 As before, we choose a solver and times at which we want the solution returned. We then solve, extract the variables we are interested in, and plot the result.
 
 ```python
+import matplotlib.pyplot as plt
+import numpy as np
+import pybamm
 # solve
 solver = pybamm.ScipySolver()
 t = np.linspace(0, 1, 100)
@@ -205,17 +214,17 @@ $$
 
 where $c$ is the concentration, $r$ the radial coordinate, $t$ time, $R$ the
 particle radius, $D$ the diffusion coefficient, $j$ the interfacial current
-density, $F$ Faraday's constant, and $c_0$ the initial concentration. 
+density, $F$ Faraday's constant, and $c_0$ the initial concentration.
 
 We use the following parameters:
 
-| Symbol | Units              | Value                                          |
-|:-------|:-------------------|:-----------------------------------------------|
-| $R$      | m                | $10 \times 10^{-6}$                            |
-| $D$      | m${^2}$ s$^{-1}$ | $3.9 \times 10^{-14}$                          |
-| $j$      | A m$^{-2}$       | $1.4$                                          |
-| $F$      | C mol$^{-1}$     | $96485$                                        |
-| $c_0$    | mol m$^{-3}$     | $2.5 \times 10^{4}$                            |
+| Symbol | Units            | Value                 |
+| :----- | :--------------- | :-------------------- |
+| $R$    | m                | $10 \times 10^{-6}$   |
+| $D$    | m${^2}$ s$^{-1}$ | $3.9 \times 10^{-14}$ |
+| $j$    | A m$^{-2}$       | $1.4$                 |
+| $F$    | C mol$^{-1}$     | $96485$               |
+| $c_0$  | mol m$^{-3}$     | $2.5 \times 10^{4}$   |
 
 Create a model for this problem, discretise it and solve it. Use a uniform mesh
 with 20 points, and discretise the domain using the Finite Volume Method. Solve
@@ -244,14 +253,14 @@ c = pybamm.Variable("Concentration [mol.m-3]", domain="negative particle")
 # governing equations
 N = -D * pybamm.grad(c)  # flux
 dcdt = -pybamm.div(N)
-model.rhs = {c: dcdt}  
+model.rhs = {c: dcdt}
 
-# boundary conditions 
+# boundary conditions
 lbc = pybamm.Scalar(0)
 rbc = -j / F / D
 model.boundary_conditions = {c: {"left": (lbc, "Neumann"), "right": (rbc, "Neumann")}}
 
-# initial conditions 
+# initial conditions
 model.initial_conditions = {c: c0}
 
 model.variables = {
@@ -311,6 +320,6 @@ ax2.legend()
 plt.tight_layout()
 plt.show()
 ```
+
 :::
 ::::
-

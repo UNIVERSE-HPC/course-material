@@ -1,22 +1,23 @@
 ---
 name: Single Particle Model
-dependsOn: [
-    libraries.pybamm-developer.02_pde
-]
+dependsOn: [libraries.pybamm-developer.02_pde]
 tags: [pybamm]
-attribution: 
-    - citation: >
-        PyBaMM documentation by the PyBaMM Team
-      url: https://docs.pybamm.org
-      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
-      license: BSD-3
+learningOutcomes:
+  - Understand how to define and set functions as parameter values
+  - Be able to create a single particle model of a battery using PyBaMM
+attribution:
+  - citation: >
+      PyBaMM documentation by the PyBaMM Team
+    url: https://docs.pybamm.org
+    image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
+    license: BSD-3
 ---
 
 # The Single Particle Model
 
 Now we will extend our PDE model to the full single particle model. The single
 particle model is a system of PDEs that describes the behaviour of a lithium-ion
-battery electrode particle. 
+battery electrode particle.
 
 ## The Single Particle Model state equations
 
@@ -50,7 +51,6 @@ j_p &= \frac{-I}{a_p \delta_p F \mathcal{A}},
 \end{align*}
 $$
 
-
 where $a_i = 3 \epsilon_i / R_i$ is the specific surface area of the electrode,
 $\epsilon_i$ is the volume fraction of active material, $\delta_i$ is the
 thickness of the electrode, $F$ is the Faraday constant, and
@@ -63,6 +63,7 @@ other parameters we have seen so far, it is a function of time. We can define
 this using `pybamm.FunctionParameter`:
 
 ```python
+import pybamm
 I = pybamm.FunctionParameter("Current function [A]", {"Time [s]": pybamm.t})
 ```
 
@@ -89,7 +90,6 @@ PyBaMM, we can specify the domain using the `domain` keyword argument:
 c_n = pybamm.Variable("Negative particle concentration [mol.m-3]", domain="negative particle")
 ```
 
-
 ::::challenge{id="spm-state-equations" title="SPM governing equations"}
 
 Copy your PDE model from the previous challenge to a new file, and modify it to
@@ -100,6 +100,7 @@ of new parameters. Define the applied current $I$ as a input parameter that is a
 function of time using `pybamm.FunctionParameter`.
 
 :::solution
+
 ```python
 import pybamm
 
@@ -137,6 +138,7 @@ model.boundary_conditions = {c_i[i]: {"left": (lbc, "Neumann"), "right": (rbc[i]
 # initial conditions
 model.initial_conditions = {c_i[i]: c0_i[i] for i in [0, 1]}
 ```
+
 :::
 ::::
 
@@ -153,8 +155,6 @@ $$
 where $U_i$ is the open circuit potential (OCP) of the electrode, $x_i^s =
 c_i(r=R_i) / c_i^{max}$ is the surface stoichiometry, and $\eta_i$ is the
 overpotential.
-
-
 
 Assuming Butler-Volmer kinetics and $\alpha_i = 0.5$, the overpotential is given by:
 
@@ -183,7 +183,7 @@ $c_i^{max}$ is the maximum concentration of lithium ions in the electrode, and
 is a parameter of the model. However, $c_i(r=R_i)$ is the concentration of
 lithium ions at the surface of the electrode particle. How can we express this
 in PyBaMM, given that we only have the concentration $c_i$ defined on the whole
-domain? 
+domain?
 
 To get the surface concentration, we can use the `pybamm.boundary_value` or
 `pybamm.surf` functions. The `pybamm.boundary_value` function returns the value
@@ -206,10 +206,11 @@ c_n_surf = pybamm.boundary_value(c_n, "right")
 The OCPs $U_i$ are functions of the surface stoichiometries $x_i^s$, and we can
 define them using `pybamm.FunctionParameter` in a similar way to the applied
 current $I$. For example, to define the OCP of the positive electrode as a
-function of the surface stoichiometry $x_p^s$:  
+function of the surface stoichiometry $x_p^s$:
 
 ```python
-U_p = pybamm.FunctionParameter("Positive electrode OCP [V]", {"stoichiometry": x_p_s})
+# replace "x_p_s" with the pybamm symbol for the stoichiometry of the positive electrode
+U_p = pybamm.FunctionParameter("Positive electrode OCP [V]", {"stoichiometry": "x_p_s"})
 ```
 
 ### PyBaMM's built-in functions
@@ -239,10 +240,12 @@ $x_p^s$. You can use `pybamm.FunctionParameter` to define the OCPs as functions
 of the surface stoichiometries.
 
 Define the following output variables for the model
+
 - Terminal voltage $V$
 - Surface concentration in negative particle $c_n^s$
 
 :::solution
+
 ```python
 # call universal constants (PyBaMM has them built in)
 R = pybamm.constants.R
@@ -266,10 +269,11 @@ U_i = [pybamm.FunctionParameter(f"{e.capitalize()} electrode OCP [V]", {"stoichi
 [U_n_plus_eta, U_p_plus_eta] = [U_i[i] + eta_i[i] for i in [0, 1]]
 V = U_p_plus_eta - U_n_plus_eta
 model.variables = {
-  "Voltage [V]": V,
-  "Negative particle surface concentration [mol.m-3]": c_i_s[0],
+    "Voltage [V]": V,
+    "Negative particle surface concentration [mol.m-3]": c_i_s[0],
 }
 ```
+
 :::
 ::::
 
@@ -285,7 +289,7 @@ spatial domains.
 Discretise and solve the SPM model using the same methods as in the previous
 section. The following parameter values object copies the parameters from the PyBaMM
 Chen2020 model, feel free to use this to define the parameters for the SPM model.
-    
+
 ```python
 param = pybamm.ParameterValues("Chen2020")
 # PyBaMM parameters provide the exchange current density directly, rather than the reaction rate, so define here
@@ -296,6 +300,7 @@ param.update({
 ```
 
 :::solution
+
 ```python
 
 import numpy as np
@@ -345,10 +350,6 @@ ax2.set_ylabel("Negative particle surface concentration [mol.m-3]")
 plt.tight_layout()
 plt.show()
 ```
+
 :::
 ::::
-
-
-
-
-

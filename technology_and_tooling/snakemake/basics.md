@@ -2,20 +2,18 @@
 name: "Basics: An example workflow"
 teaching: 30
 exercises: 30
-dependsOn: [
-  technology_and_tooling.snakemake.setup
-]
+dependsOn: [technology_and_tooling.snakemake.setup]
 tags: [snakemake]
-attribution: 
-    - citation: >
-        Mölder, F., Jablonski, K.P., Letcher, B., Hall, M.B., Tomkins-Tinch,
-        C.H., Sochat, V., Forster, J., Lee, S., Twardziok, S.O., Kanitz, A.,
-        Wilm, A., Holtgrewe, M., Rahmann, S., Nahnsen, S., Köster, J., 2021.
-        Sustainable data analysis with Snakemake. F1000Res 10, 33.
-        Revision c7ae161c.
-      url: https://snakemake.readthedocs.io/en/stable/tutorial/basics.html
-      image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
-      license: MIT license
+attribution:
+  - citation: >
+      Mölder, F., Jablonski, K.P., Letcher, B., Hall, M.B., Tomkins-Tinch,
+      C.H., Sochat, V., Forster, J., Lee, S., Twardziok, S.O., Kanitz, A.,
+      Wilm, A., Holtgrewe, M., Rahmann, S., Nahnsen, S., Köster, J., 2021.
+      Sustainable data analysis with Snakemake. F1000Res 10, 33.
+      Revision c7ae161c.
+    url: https://snakemake.readthedocs.io/en/stable/tutorial/basics.html
+    image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
+    license: MIT license
 ---
 
 # Basics: An example workflow
@@ -77,11 +75,12 @@ Our first Snakemake rule maps reads of a given sample to a given
 reference genome (see `tutorial-background`). For this, we will use the tool
 [bwa](http://bio-bwa.sourceforge.net), specifically the subcommand
 `bwa mem`. In the working directory, **create a new file** called
-`Snakefile` with an editor of your choice. We propose to use the
-[Atom](https://atom.io) editor, since it provides out-of-the-box syntax
-highlighting for Snakemake. In the Snakefile, define the following rule:
+`Snakefile` with an editor of your choice. We propose to use the integrated development
+environment (IDE) tool Visual Studio Code, since it provides a good syntax highlighting
+Snakemake extension and a remote extension for directly using the IDE on a remote
+server. In the Snakefile, define the following rule:
 
-``` python
+```snakemake
 rule bwa_map:
     input:
         "data/genome.fa",
@@ -132,8 +131,8 @@ When a workflow is executed, Snakemake tries to generate given
 **target** files. Target files can be specified via the command line. By
 executing
 
-``` console
-$ snakemake -np mapped_reads/A.bam
+```console
+snakemake -np mapped_reads/A.bam
 ```
 
 in the working directory containing the Snakefile, we tell Snakemake to
@@ -151,8 +150,8 @@ where the edges represent dependencies. So far, we only have a single
 rule, and the DAG of jobs consists of a single node. Nevertheless, we
 can **execute our workflow** with
 
-``` console
-$ snakemake --cores 1 mapped_reads/A.bam
+```console
+snakemake --cores 1 mapped_reads/A.bam
 ```
 
 Whenever executing a workflow, you need to specify the number of cores
@@ -171,7 +170,7 @@ rules by using named wildcards**. Simply replace the `A` in the second
 input file and in the output file with the wildcard `{sample}`, leading
 to
 
-``` python
+```snakemake
 rule bwa_map:
     input:
         "data/genome.fa",
@@ -202,8 +201,8 @@ wildcards**.
 
 When executing
 
-``` console
-$ snakemake -np mapped_reads/B.bam
+```console
+snakemake -np mapped_reads/B.bam
 ```
 
 Snakemake will determine that the rule `bwa_map` can be applied to
@@ -212,16 +211,16 @@ value `B`. In the output of the dry-run, you will see how the wildcard
 value is propagated to the input files and all filenames in the shell
 command. You can also **specify multiple targets**, for example:
 
-``` console
-$ snakemake -np mapped_reads/A.bam mapped_reads/B.bam
+```console
+snakemake -np mapped_reads/A.bam mapped_reads/B.bam
 ```
 
 Some [Bash](https://www.tldp.org/LDP/Bash-Beginners-Guide/html) magic
 can make this particularly handy. For example, you can alternatively
 compose our multiple targets in a single pass via
 
-``` console
-$ snakemake -np mapped_reads/{A,B}.bam
+```console
+snakemake -np mapped_reads/{A,B}.bam
 ```
 
 Note that this is not a special Snakemake syntax.
@@ -237,15 +236,15 @@ the workflow before (see the previous step) and no input file is newer
 than the output file `mapped_reads/A.bam`. You can update the file
 modification date of the input file `data/samples/A.fastq` via
 
-``` console
-$ touch data/samples/A.fastq
+```console
+touch data/samples/A.fastq
 ```
 
 and see how Snakemake wants to re-run the job to create the file
 `mapped_reads/A.bam` by executing
 
-``` console
-$ snakemake -np mapped_reads/A.bam mapped_reads/B.bam
+```console
+snakemake -np mapped_reads/A.bam mapped_reads/B.bam
 ```
 
 ## Step 3: Sorting read alignments
@@ -254,7 +253,7 @@ For later steps, we need the read alignments in the BAM files to be
 sorted. This can be achieved with the [samtools](https://www.htslib.org)
 `sort` command. We add the following rule beneath the `bwa_map` rule:
 
-``` python
+```snakemake
 rule samtools_sort:
     input:
         "mapped_reads/{sample}.bam"
@@ -285,8 +284,8 @@ object that has an attribute with the value for each wildcard.
 
 When issuing
 
-``` console
-$ snakemake -np sorted_reads/B.bam
+```console
+snakemake -np sorted_reads/B.bam
 ```
 
 you will see how Snakemake wants to run first the rule `bwa_map` and
@@ -312,7 +311,7 @@ the sorted read alignments so that we can quickly access reads by the
 genomic location they were mapped to. This can be done with the
 following rule:
 
-``` python
+```snakemake
 rule samtools_index:
     input:
         "sorted_reads/{sample}.bam"
@@ -325,8 +324,8 @@ rule samtools_index:
 Having three steps already, it is a good time to take a closer look at
 the resulting directed acyclic graph (DAG) of jobs. By executing
 
-``` console
-$ snakemake --dag sorted_reads/{A,B}.bam.bai | dot -Tsvg > dag.svg
+```console
+snakemake --dag sorted_reads/{A,B}.bam.bai | dot -Tsvg > dag.svg
 ```
 
 :::callout
@@ -371,7 +370,7 @@ calling, we will combine the two utilities
 function for collecting input files** that helps us to describe the
 aggregation in this step. With
 
-``` python
+```snakemake
 expand("sorted_reads/{sample}.bam", sample=SAMPLES)
 ```
 
@@ -379,21 +378,21 @@ we obtain a list of files where the given pattern
 `"sorted_reads/{sample}.bam"` was formatted with the values in a given
 list of samples `SAMPLES`, i.e.
 
-``` python
+```snakemake
 ["sorted_reads/A.bam", "sorted_reads/B.bam"]
 ```
 
 The function is particularly useful when the pattern contains multiple
 wildcards. For example,
 
-``` python
+```snakemake
 expand("sorted_reads/{sample}.{replicate}.bam", sample=SAMPLES, replicate=[0, 1])
 ```
 
 would create the product of all elements of `SAMPLES` and the list
 `[0, 1]`, yielding
 
-``` python
+```snakemake
 ["sorted_reads/A.0.bam", "sorted_reads/A.1.bam", "sorted_reads/B.0.bam", "sorted_reads/B.1.bam"]
 ```
 
@@ -406,7 +405,7 @@ principle Python code enhanced by some declarative statements to define
 workflows. Hence, we can define the list of samples ad-hoc in plain
 Python at the top of the Snakefile:
 
-``` python
+```yaml
 SAMPLES = ["A", "B"]
 ```
 
@@ -424,7 +423,7 @@ Later, we will learn about more sophisticated ways like **config
 files**. But for now, this is enough so that we can add the following
 rule to our Snakefile:
 
-``` python
+```snakemake
 rule bcftools_call:
     input:
         fa="data/genome.fa",
@@ -454,7 +453,7 @@ samples.
 obtain the updated DAG of jobs for the target file `calls/all.vcf`,
 it should look like this:
 
-![updated DAG](workflows/dag_call.png)
+![updated DAG](workflow/dag_call.png)
 
 ::::
 
@@ -467,7 +466,7 @@ write Python code inside a rule, it is usually reasonable to move such logic
 into separate scripts. For this purpose, Snakemake offers the `script` directive.
 Add the following rule to your Snakefile:
 
-``` python
+```snakemake
 rule plot_quals:
     input:
         "calls/all.vcf"
@@ -496,7 +495,7 @@ like `input`, `output`, `wildcards`, etc. are available as attributes of
 a global `snakemake` object. Create the file `scripts/plot-quals.py`,
 with the following content:
 
-``` python
+```snakemake
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -549,7 +548,7 @@ as input files.
 
 Here, this means that we add a rule
 
-``` python
+```snakemake
 rule all:
     input:
         "plots/quals.svg"
@@ -557,8 +556,8 @@ rule all:
 
 to the top of our workflow. When executing Snakemake with
 
-``` console
-$ snakemake -n
+```console
+snakemake -n
 ```
 
 :::callout
@@ -578,18 +577,20 @@ influence the DAG of jobs**.
 
 ::::challenge{id=dag_complete title="Exercise"}
 
--   Create the DAG of jobs for the complete workflow.
--   Execute the complete workflow and have a look at the resulting
-    `plots/quals.svg`.
--   Snakemake provides handy flags for forcing re-execution of parts of
-    the workflow. Have a look at the command line help with
-    `snakemake --help` and search for the flag `--forcerun`. Then, use
-    this flag to re-execute the rule `samtools_sort` and see what
-    happens.
--   Snakemake displays the reason for each job (under `reason:`).
-    Perform a dry-run that forces some rules to be reexecuted (using the
-    `--forcerun` flag in combination with some rulename) to understand
-    the decisions of Snakemake.
+- Create the DAG of jobs for the complete workflow.
+- Execute the complete workflow and have a look at the resulting
+  `plots/quals.svg`.
+- Snakemake provides handy flags for forcing re-execution of parts of
+  the workflow. Have a look at the command line help with
+  `snakemake --help` and search for the flag `--forcerun`. Then, use
+  this flag to re-execute the rule `samtools_sort` and see what
+  happens.
+- Snakemake displays the reason for each job (under `reason:`).
+  Perform a dry-run that forces some rules to be reexecuted (using the
+  `--forcerun` flag in combination with some rulename) to understand
+  the decisions of Snakemake.
+
+After having a look at the summary, please go on with the [advanced part of the tutorial](advanced).
 
 ::::
 
@@ -597,7 +598,7 @@ influence the DAG of jobs**.
 
 In total, the resulting workflow looks like this:
 
-``` python
+```snakemake
 SAMPLES = ["A", "B"]
 
 
@@ -655,3 +656,5 @@ rule plot_quals:
     script:
         "scripts/plot-quals.py"
 ```
+
+Now, please go on with the [advanced part of the tutorial](advanced).

@@ -1,19 +1,19 @@
 ---
 name: Differential equations 3
-dependsOn: [
-  scientific_computing.essential_maths.10_differential_equations_2
-]
+dependsOn: [scientific_computing.essential_maths.10_differential_equations_2]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+learningOutcomes:
+  - Be able to find the steady-state solution of a differential equation
+  - Be able to use Euler's method to numerically solve differential equations
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
+    url: https://www.dtc.ox.ac.uk/
+    image: fig/dtc_hex.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Steady State Solutions and Mass Action
@@ -90,8 +90,7 @@ We can see that it is stable by examining the graph:
 We can solve the differential equation by separation of variables.
 
 > $$\displaystyle  \int {1\over k_1 - k_2 s}~{\rm d}s = \int~{\rm d}t $$
-
-> $$\displaystyle  s(t) = Be^{-k_2 t} + {k_1\over k_2} $$
+> $$\displaystyle s(t) = Be^{-k_2 t} + {k_1\over k_2} $$
 
 Thus, the concentration of $S$ relaxes exponentially to the steady state, no matter the initial condition.
 
@@ -112,7 +111,6 @@ then:
 
 > $$\displaystyle \frac{{\rm d}s}{{\rm d}t} = k_1s - k_2 s^2$$
 
-
 This system will be at steady state when $\displaystyle k_1 s = k_2 s^2$, i.e.
 
 - $s=0$ or
@@ -125,7 +123,6 @@ Here, $k_1 = k_2 = 1$:
 
 - The local behaviour near the fixed point as $s=1$ is the same as in the previous plot, so we can immediately see that it is a stable steady state
 - The local behaviour near the fixed point at $s=0$ is the opposite: moving one way or the other, the gradient will take $s$ even further away
-
 
 ## Non-graphical method
 
@@ -147,10 +144,9 @@ The derivative (after substituting $s$ and $s^2$ into the original differential 
 
 It is, since $\varepsilon\gg\varepsilon^2$, negative, pushing $s$ back towards the steady state, hence it is a stable steady state.
 
-
 ## Example: the logistic equation
 
-The growth of a cell colony can be modelled by the *logistic* equation
+The growth of a cell colony can be modelled by the _logistic_ equation
 
 > $$\displaystyle \frac{{\rm d}N}{{\rm d}t} = rN\left(1 - {N\over K}\right) $$
 
@@ -164,11 +160,8 @@ Here is a plot, for $r=K=1$:
 
 ![Plot illustrating the steady states of the logistic equation](fig/11_04_logistic_ss.svg)
 
-
-
 - for small positive $N$, $rN>0$ and $N<K$ so $\displaystyle \frac{{\rm d}N}{{\rm d}t}>0$ and the population
   size will increase, meaning that $N=0$ is an unstable steady state.
-
 
 - In fact the growth rate is positive for $0<N<K$ and negative for $N>K$, making
   $N=K$ a stable steady state.
@@ -189,8 +182,8 @@ This can be solved using partial fractions on the left hand side:
 To solve a differential equation:
 
 1. Calculate the general solution
-    1. Try to write it as a separable equation first
-    2. Other methods (e.g. integrating factors) not covered in this course
+   1. Try to write it as a separable equation first
+   2. Other methods (e.g. integrating factors) not covered in this course
 2. This general solution will include an arbitrary constant this may be eliminated using initial conditions (if these are given)
 3. Can check your solution numerically using Python
 
@@ -223,17 +216,12 @@ Let us look at some examples:
 
    Then we get the following differential equations:
 
-   > $$\displaystyle \frac{{\rm d}[A]}{{\rm d}t} = -k[A] [B]$$
-
-   > $$\displaystyle \frac{{\rm d}[B]}{{\rm d}t} = -k[A] [B]$$
-
-   > $$\displaystyle \frac{{\rm d}[C]}{{\rm d}t} = k[A] [B]$$
-
+   > $$\displaystyle \frac{{\rm d}[A]}{{\rm d}t} = -k[A] [B]$$ > $$\displaystyle \frac{{\rm d}[B]}{{\rm d}t} = -k[A] [B]$$ > $$\displaystyle \frac{{\rm d}[C]}{{\rm d}t} = k[A] [B]$$
 
 2. Predation of R by W
 
    > $$\displaystyle R+W\underset{^k}{\rightarrow} W$$
-   
+
    Gives the following differential equation:
 
    > $$\displaystyle \frac{{\rm d}R}{{\rm d}t} = -kRW$$
@@ -254,7 +242,6 @@ Let us look at some examples:
 
    > $$\displaystyle \frac{{\rm d}[C]}{{\rm d}t} = -k[C]$$
 
-
 ## Numerically solving differential equations
 
 What if we can't solve the differential equation (or don't want to)?
@@ -267,7 +254,7 @@ Given a differential equation
 
 > $$\displaystyle  \frac{{\rm d}y}{{\rm d}t} = f(y, t)$$
 
-with initial state $\;y(t = t_0) = y_0,\;$ we can *approximate* the state at $t = t_0 + \delta{t}$ as:
+with initial state $\;y(t = t_0) = y_0,\;$ we can _approximate_ the state at $t = t_0 + \delta{t}$ as:
 
 > $$\displaystyle  y_1 = y(t + \delta{t}) \approx y_0 + f(y, t) \cdot \delta{t}$$
 
@@ -277,18 +264,14 @@ and the next state as
 
 and so on!
 
-This mean's we can estimate the *entire time course of $y(t)$*, provided:
+This mean's we can estimate the _entire time course of $y(t)$_, provided:
 
 1. We can calculate $f(y, t)$ (or approximate it with a computer)
 2. We're patient enough to take really tiny steps $\delta{t}$
 
 We have already seen examples of this, using SciPy's ODEInt function, although this uses more sophisticated methods than the one described here.
 
-
-
 ### Introductory problems
-
-
 
 ::::challenge{id="11_intro_01" title="Introductory problems 1"}
 Determine the steady states are their stabilities, for each of the following:
@@ -298,11 +281,10 @@ Determine the steady states are their stabilities, for each of the following:
 1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{x}{t} = e^{x}(x^{2}-1)$
 1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{N}{t} = \displaystyle r_{0}N\left(1-\frac{N}{K}\right)$, where $r_{0}<0$ and $r_{0},\;K$ are constants
 1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{x}{t} = \displaystyle \frac{Ax}{h+x}$, where $A$ and $h$ are negative constants
+
 ::::
 
 ### Main problems
-
-
 
 ::::challenge{id="11_main_01" title="Main problems 1"}
 Not all chemical systems relax exponentially to steady state.
@@ -315,22 +297,21 @@ Assuming $k$ is a mass action constant, form and solve a differential equation r
 If $a(0)=a_0$ you should get $\displaystyle \quad a(t) = \frac{1}{2kt + \frac{1}{a_0}}.$
 ::::
 
-
 ::::challenge{id="11_main_02" title="Main problems 2"}
 The $SIS$ model is an appropriate model for diseases that mutate quickly and can therefore infect people multiple times, such as the common cold or sexually transmitted infections like gonorrhea and chlamydia.
 
 In the model, individuals are 'susceptible' until they are 'infected', and then they return to being 'susceptible' again.
 Infection requires the interaction of susceptible individuals with infected individuals and therefore follows the law of mass action, whereas the rate at which an individual becomes susceptible again after infection is constant.
 
-1.  Let $S$ and $I$ be the proportions of the population that are susceptible and infected.
-If infection happens at rate $\beta$ and recovery happens at rate $\gamma$, write down differential equations for $S$ and $I$.
+1. Let $S$ and $I$ be the proportions of the population that are susceptible and infected.
+   If infection happens at rate $\beta$ and recovery happens at rate $\gamma$, write down differential equations for $S$ and $I$.
 1. Noting that $S$ and $I$ are proportions of the population, which is assumed constant, reduce the system to a single differential equation in terms of $I$.
-In other words, write down a single equation, involving just $I$ and its derivative.
+   In other words, write down a single equation, involving just $I$ and its derivative.
 1. Find both steady states of $I$. Under what conditions on $\beta$ and $\gamma$ are each attainable?
 1. Without solving the differential equation, sketch the behaviour of $S$ and $I$ over time, starting with a small quantity of infected individuals.
-Illustrate how both steady states may be achieved.
-::::
+   Illustrate how both steady states may be achieved.
 
+::::
 
 ::::challenge{id="11_main_03" title="Main problems 3"}
 Consider a closed reaction system consisting of a single reversible reaction:
@@ -343,13 +324,12 @@ where $k_f$ and $k_b$ are mass action coefficients.
 
 1. Formulate a pair of coupled differential equations for the change in concentration of $A$ and $B$.
 1. Noting that the total concentration $T$ of reactants is constant ($T = [A] + [B]$), reduce the system of equations to a single differential equation.
-In other words, write down a single equation, involving either just $A$ and its derivative, or just $B$ and its derivative.
+   In other words, write down a single equation, involving either just $A$ and its derivative, or just $B$ and its derivative.
 1. Find the steady-state concentrations of $A$ and $B$.
 1. Solve the single differential equation to reveal the transient behaviour.
-Sketch the behaviour for different illustrative initial conditions.
+   Sketch the behaviour for different illustrative initial conditions.
+
 ::::
-
-
 
 ::::challenge{id="11_main_04" title="Main problems 4"}
 Consider the simple model
@@ -357,11 +337,10 @@ Consider the simple model
 $$
 \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{s}{t} = k - {V_{\rm max}s\over K_M + s}
 $$
+
 in which species $s$ is produced at a fixed rate and consumed via Michaelis-Menten kinetics.
 Find the steady state of $s$, and verify that it is stable for any non-negative parameter values, provided $\displaystyle V_{\rm max} > k$.
 ::::
-
-
 
 ::::challenge{id="11_main_05" title="Main problems 5"}
 Recall the simple model of the production and degradation of a protein from the lecture, shown by the reaction chain
@@ -369,6 +348,7 @@ Recall the simple model of the production and degradation of a protein from the 
 $$
 \overset{v_1}{\longrightarrow} S \overset{v_2}{\longrightarrow}
 $$
+
 where $v_1$ and $v_2$ are reaction rates rather than mass action coefficients.
 
 1. Suppose $v_1 = k_1$ and $v_2 = k_2$.
@@ -380,14 +360,13 @@ where $v_1$ and $v_2$ are reaction rates rather than mass action coefficients.
    $$
    and take the parameter values to be $\displaystyle k_0=6/11,\;k_1=60/11,\;k_2=11,\;k_3=1$.
    Determine the number of steady states and the type of each.
+
 ::::
 
 ### Extension problems
 
-
-
 ::::challenge{id="11_ext_01" title="Extension problems 1"}
-Various mathematical models have been proposed for the initial growth of solid tumours, and some are summarised in [*The Model Muddle: In Search of Tumor Growth Laws*](https://doi.org/10.1158/0008-5472.can-12-4355).
+Various mathematical models have been proposed for the initial growth of solid tumours, and some are summarised in [_The Model Muddle: In Search of Tumor Growth Laws_](https://doi.org/10.1158/0008-5472.can-12-4355).
 They are differential equations describing the rate of change of tumour volume $V$ as a function of time $t$, for example:
 
 1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{V(t)}{t} = rV(t)$
@@ -400,8 +379,6 @@ Solve each equation both analytically and numerically, using Python.
 As was done in Figure 1A in the paper, compare the behaviours of the different growth laws over a suitable time interval for an initially small tumour, again using Python.
 ::::
 
-
-
 ::::challenge{id="11_ext_02" title="Extension problems 2"}
 Find the solution to the following differential equations subject to the specified boundary conditions, using integrating factors:
 
@@ -410,6 +387,7 @@ Find the solution to the following differential equations subject to the specifi
 1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} x^3\,\dd{y}{x} + 2y = e^{1/x^2} \quad\text{with}\quad y(1)=e$
 1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \sec(x)\,\dd{y}{x} + y = 1 \quad\text{with}\quad y(0) = 1$
 1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{y}{x} + y\tan(x) = \cos(x) \quad\text{with}\quad y(0)=1 \quad\text{for}\quad 0 \le x < \frac{\pi}{2}$
+
 ::::
 
 ::::challenge{id="11_ext_03" title="Extension problems 3"}
@@ -423,5 +401,5 @@ Show that $\displaystyle y = Ae^{z_1 x} + Be^{z_2 x}$ is a solution to this equa
 
 1. Recalling that any complex number $z$ can be written as $\displaystyle z = re^{i\theta} = r(\cos\theta + i\sin\theta)$, what does this tell you about the nature of the solution?
 1. If $y(0)=1$ and $y(\pi/2)=2$ what is the particular solution of the differential equation?
-::::
 
+::::

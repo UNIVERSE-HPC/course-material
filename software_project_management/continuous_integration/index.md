@@ -1,27 +1,24 @@
 ---
 name: Continuous Integration
 id: continuous_integration
-dependsOn: [
-    software_project_management.collaboration
-]
-files: [
-    github_actions.md,
-    code_coverage.md,
-    documentation.md
-]
+dependsOn: [software_project_management.collaboration]
+files: [github_actions.md, code_coverage.md, documentation.md]
+learningOutcomes:
+  - Use GitHub actions to build automated workflows running on multiple platforms.
+  - Explore code coverage tools for assessing the extent of software testing.
+  - Appreciate the benefits of having good documentation. 
+  - Use Sphinx to generate documentation for a project.
 summary: |
-    This course introduces the concept of continuous integration and how to set it up for a Python project using GitHub Actions.
-attribution: 
-    - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
-      url: https://www.sabsr3.ox.ac.uk
-      image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-      license: CC-BY-4.0
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-      url: https://www.universe-hpc.ac.uk
-      image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-      license: CC-BY-4.0
-
-
+  This course introduces the concept of continuous integration and how to set it up for a Python project using GitHub Actions.
+attribution:
+  - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## What is Continuous Integration?
@@ -60,7 +57,6 @@ Here are some key princples of CI:
 
 1. **Automate deployment**: The process of deploying the software should be automated, ensuring it's easily reproducible and reducing the chances of human error. This might include creating Python wheels and deploying them to [PyPI](https://pypi.org/), or building public documentation pages.
 
-
 ## How do we do it?
 
 There are many CI infrastructures and services, free and paid for, and subject to change as they evolve their features.
@@ -70,7 +66,6 @@ In this course you will be using [GitHub Actions](https://github.com/features/ac
 There are other free options, for instance [Travis CI](https://travis-ci.com/) and [AppVeyor](https://www.appveyor.com/).
 All three of these make use of common features across many CI implementations, and you are certainly advised to look at the options to see some of the commonalities and differences in how features are typically provided.
 
-
 ## This course
 
 In this course we aim to walk you through a hands-on session which will set up CI for a small Python project, and see some of its benefits in action.
@@ -79,7 +74,6 @@ We will go through:
 1. An introduction to GitHub actions ([link](./continuous_integration/github_actions))
 1. Generating code coverage information ([link](./continuous_integration/code_coverage))
 1. Generating and deploying documenation ([link](./continuous_integration/documentation))
-
 
 ## Getting started
 

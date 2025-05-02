@@ -1,24 +1,24 @@
 ---
 name: Systems of differential equations 3
-dependsOn: [
-  scientific_computing.essential_maths.15_system_2
-]
+dependsOn: [scientific_computing.essential_maths.15_system_2]
 tags: []
-attribution: 
-- citation: This material has been adapted from material by Fergus Cooper from the "Essential Mathematics" module of the SABS R³ Center for Doctoral Training.
-  url: https://www.sabsr3.ox.ac.uk
-  image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-  license: CC-BY-4.0
-- citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
-  url: https://www.universe-hpc.ac.uk
-  image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
-  license: CC-BY-4.0
-
+learningOutcomes:
+  - Be able to describe the behaviour of a system using eigenvalue analysis
+  - Understand the nature of a system's stability from its eigenvalues
+attribution:
+  - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
+    url: https://www.dtc.ox.ac.uk/
+    image: fig/dtc_hex.svg
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
+    license: CC-BY-4.0
 ---
 
 ## Phase Planes and Stability
 
---- 
+---
 
 ## YouTube lecture recording from October 2020
 
@@ -47,7 +47,6 @@ $$
 
 ![Plot of the phase plane](fig/16_01_phase_plane.svg)
 
-
 ## Linear ODEs for understanding nonlinear
 
 The decoupled ODE system
@@ -65,10 +64,10 @@ Solutions look like $\;x=Ae^{\lambda_1 t}\;$ and $\;y=Be^{\lambda_2 t}\;$ and th
 or shrink exponentially depending on the values of $\;\lambda_1\;$ and $\;\lambda_2.$
 
 If $\;\lambda_1 < 0\;$ and $\;\lambda_2 < 0\;$ then all the flow is towards the
-fixed point.  If $\;\lambda_1\;$ or $\;\lambda_2\;$ is positive then some flow will be driven away (towards infinity).
+fixed point. If $\;\lambda_1\;$ or $\;\lambda_2\;$ is positive then some flow will be driven away (towards infinity).
 
 Adding in a constant (inhomogeneous) component shifts the fixed point
-away from the origin.  Where is the fixed point of
+away from the origin. Where is the fixed point of
 
 $$
 \begin{align*}
@@ -89,7 +88,7 @@ $$
 \end{align*}
 $$
 
-has a fixed point at the origin.  The long-term growth or shrinkage of solutions over time is determined by the eigenvalues of the matrix
+has a fixed point at the origin. The long-term growth or shrinkage of solutions over time is determined by the eigenvalues of the matrix
 
 > $$\displaystyle A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$$
 
@@ -107,8 +106,7 @@ can be written
 $$
 \left(
 \begin{array}{c} \dot{x} \\ \dot{y} \end{array}
-\right)
-=
+\right) =
 \left(
 \begin{array}{cc} a & b \\ c& d \end{array}
 \right)
@@ -127,8 +125,7 @@ It has a fixed point at
 $$
 \left(
 \begin{array}{c} x \\ y \end{array}
-\right)
-=
+\right) =
 -\left(
 \begin{array}{cc} a & b \\ c& d \end{array}
 \right)^{-1}
@@ -182,7 +179,7 @@ $$
 $$
 
 This means that (really close to the fixed point) we can approximate
-with a linear system.   The eigenvalues $\;\lambda_1,\;\lambda_2\;$ of the matrix
+with a linear system. The eigenvalues $\;\lambda_1,\;\lambda_2\;$ of the matrix
 
 $$
 J = \left(
@@ -190,7 +187,7 @@ J = \left(
 \right)
 $$
 
-will determine if a small perturbation away from  $\;(x^*,\;y^*)\;$ will decay or grow.
+will determine if a small perturbation away from $\;(x^*,\;y^*)\;$ will decay or grow.
 
 ## Steady state classification
 
@@ -200,15 +197,13 @@ J = \left(
 \right)
 $$
 
-
 - $\lambda_1<\lambda_2<0$ Stable node
 - $\lambda_1=\lambda_2<0$ Stable star
 - $\lambda_1>\lambda_2>0$ Unstable node
 - $\lambda_1=\lambda_2>0$ Unstable star
-- $\lambda_1<0<\lambda_2$ Saddle (or hyperbolic) point:  unstable
+- $\lambda_1<0<\lambda_2$ Saddle (or hyperbolic) point: unstable
 - Complex $\lambda$: Spiral (with real part determining stability)
 - Imaginary $\lambda$: Neutral (solution cycles round fixed point)
-
 
 The presence of negative eigenvalues determines whether a steady state is physically viable.
 
@@ -297,16 +292,12 @@ $$
 
 If we now look again at the phase plane, after having calculated the stability of the fixed points, we can see that the arrows move towards the stable fixed points, and away from the unstable ones.
 
-
 ![Plot of the phase plane](fig/16_01_phase_plane.svg)
-
 
 ## Summary
 
-- Eigenvalues tell us about the behaviour of  linear systems
+- Eigenvalues tell us about the behaviour of linear systems
 - Eigenvalues tell us about the stability of nonlinear systems
-
-
 
 ### Main problems
 
@@ -318,6 +309,7 @@ Classify the fixed points and discuss stability of the following linear systems:
 1. $\displaystyle \dot{x} = x+3y,   \qquad \dot{y}=-6x+5y;$
 1. $\displaystyle \dot{x} = x+3y+4, \qquad \dot{y}=-6x+5y-1;$
 1. $\displaystyle \dot{x} = x+3y+1, \qquad \dot{y}=-6x+5y.$
+
 ::::
 
 ::::challenge{id="16_main_02" title="Main problems 2"}
@@ -325,6 +317,7 @@ Classify the fixed points and discuss stability of the following nonlinear syste
 
 1. $\displaystyle \dot{x} = -4y+2xy-8   \qquad \dot{y}=4y^2-x^2;$
 1. $\displaystyle \dot{x} = y-x^2+2, \qquad \dot{y}=2(x^2-y^2).$
+
 ::::
 
 ::::challenge{id="16_main_03" title="Main problems 3"}
@@ -365,6 +358,7 @@ The $\dot{x}$ notation represents the derivative with respect to non-dimensional
 1. Calculate the steady states of the system.
 1. Determine the stability of the fixed points in the case $\beta = r = 4$.
 1. Draw the phase plane, including the nullclines and phase trajectories.
+
 ::::
 
 ### Extension problems

@@ -1,15 +1,18 @@
 ---
 name: Making the most of PyBaMM outputs
-dependsOn: [
-    libraries.pybamm.03_parameter_values,
-]
+dependsOn: [libraries.pybamm.03_parameter_values]
 tags: [pybamm]
-attribution: 
-    - citation: >
-        PyBaMM documentation by the PyBaMM Team
-      url: https://docs.pybamm.org
-      image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
-      license: BSD-3
+learningOutcomes:
+  - Understand the data contained within a PyBaMM solution object
+  - Understand how to explore the solution variables of a PyBaMM simulation
+  - Be able to create plots of solution variables from a simulation
+  - Be able to save solutions to disk for later use
+attribution:
+  - citation: >
+      PyBaMM documentation by the PyBaMM Team
+    url: https://docs.pybamm.org
+    image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
+    license: BSD-3
 ---
 
 There is a large overlap between this exercise and [PyBaMM Tutorial notebook 6](https://docs.pybamm.org/en/latest/source/examples/notebooks/getting_started/tutorial-6-managing-simulation-outputs.html), so we recommended you read both.
@@ -19,6 +22,8 @@ There is a large overlap between this exercise and [PyBaMM Tutorial notebook 6](
 After solving a simulation, there are two says of accessing the solution:
 
 ```python
+import pybamm
+sim = pybamm.Simulation()
 sol = sim.solve()
 ```
 
@@ -95,7 +100,7 @@ experiment = pybamm.Experiment([
     "Hold at 4.0 V until C/100",
 ])
 simulation = pybamm.Simulation(
-    model, 
+    model,
     parameter_values=parameter_values,
     experiment=experiment,
 )
@@ -130,8 +135,9 @@ sol2 = pybamm.load(path + "my_pybamm_solution.pkl")
 ```
 
 PyBaMM has a lot of variables, so these `.pkl` files are huge! So why bother?
-* You can run another PyBaMM model, with the final results of the saved solution as the initial conditions for the next, by using `model.set_initial_conditions_from(sol2)`, as shown in [this example](https://docs.pybamm.org/en/latest/source/examples/notebooks/initialize-model-with-solution.html)
-* You can do the same post-processing on a solution loaded from disk as you can on a "fresh" solution.
+
+- You can run another PyBaMM model, with the final results of the saved solution as the initial conditions for the next, by using `model.set_initial_conditions_from(sol2)`, as shown in [this example](https://docs.pybamm.org/en/latest/source/examples/notebooks/initialize-model-with-solution.html)
+- You can do the same post-processing on a solution loaded from disk as you can on a "fresh" solution.
 
 If saving the entire solution would take up too much space, you can use `save_data` to only save the variables you need:
 
@@ -153,14 +159,16 @@ Can you think of three situations where you would save the entire solution, and 
 There is no right answer to this question, but some examples are the following.
 
 When to save entire solution?
-* If you might want to do additional post-processing later.
-* If you're likely to need the solution as an initial condition for anoher simulation.
-* If you're submitting the data to an archive.
+
+- If you might want to do additional post-processing later.
+- If you're likely to need the solution as an initial condition for anoher simulation.
+- If you're submitting the data to an archive.
 
 When to save selected data?
-* If the full `.pkl` file would take up too much space or take too long to upload.
-* To feed the data to another software package.
-* To share the data with non-PyBaMM users.
+
+- If the full `.pkl` file would take up too much space or take too long to upload.
+- To feed the data to another software package.
+- To share the data with non-PyBaMM users.
 
 :::
 
@@ -184,7 +192,7 @@ path = "/mnt/c/Users/sokane/pybamm_data/"
 sol.save_data(
     path + "tIVQ.csv",
     ["Time [s]", "Current [A]", "Voltage [V]", "Discharge capacity [A.h]"],
-    to_format="csv
+    to_format="csv"
 )
 ```
 
@@ -194,10 +202,8 @@ What does the above code do? What do you think the intended application was?
 
 :::solution
 
-This code simulates a GITT experiment. By exporting the parameters into a `.csv` file, you can use the simulated data to parameterize an equivalent circuit network in the same way as experimental GITT data. 
+This code simulates a GITT experiment. By exporting the parameters into a `.csv` file, you can use the simulated data to parameterize an equivalent circuit network in the same way as experimental GITT data.
 
 :::
 
 ::::
-
-## 

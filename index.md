@@ -9,5 +9,6 @@ themes: [
   introductory_courses,
   scientific_computing,
   libraries,
+  cloud_computing,
 ]
 ---

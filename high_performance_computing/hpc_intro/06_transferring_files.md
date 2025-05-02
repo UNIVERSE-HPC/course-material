@@ -4,6 +4,8 @@ dependsOn: [
   high_performance_computing.hpc_intro.05_modules
 ]
 tags: []
+learningOutcomes:
+  - Transfer files to and from a computing cluster.
 attribution: 
     - citation: >
         "Introduction to High-Performance Computing" course by the HPC-carpentries
@@ -52,6 +54,7 @@ in this case, `main`.
 Use one of the above commands to save the tarball as `amdahl.tar.gz`.
 
 :::solution
+
 ## `wget` and `curl` Commands
 
 ```bash
@@ -59,6 +62,7 @@ local$ wget -O amdahl.tar.gz https://github.com/hpc-carpentry/amdahl/tarball/mai
 # or
 local$ curl -o amdahl.tar.gz https://github.com/hpc-carpentry/amdahl/tarball/main
 ```
+
 :::
 ::::
 
@@ -140,7 +144,7 @@ directory named "amdahl" using `tar`.
 local$ tar -xvzf amdahl.tar.gz
 ```
 
-```
+```text
 hpc-carpentry-amdahl-46c9b4b/
 hpc-carpentry-amdahl-46c9b4b/.github/
 hpc-carpentry-amdahl-46c9b4b/.github/workflows/
@@ -191,7 +195,7 @@ then provide a directory to compress:
 local$ tar -cvzf compressed_code.tar.gz amdahl
 ```
 
-```
+```text
 amdahl/
 amdahl/.github/
 amdahl/.github/workflows/
@@ -214,6 +218,7 @@ That would mean adding the new `amdahl` folder to the _existing_ folder
 archive!
 
 :::callout
+
 ## Working with Windows
 
 When you transfer text files from a Windows system to a Unix system (Mac,
@@ -282,6 +287,7 @@ Try downloading the file directly. Note that it may well fail, and that's
 OK!
 
 :::solution
+
 ## Commands
 
 ```bash
@@ -290,6 +296,7 @@ remote$ wget -O amdahl.tar.gz https://github.com/hpc-carpentry/amdahl/tarball/ma
 # or
 remote$ curl -o amdahl.tar.gz https://github.com/hpc-carpentry/amdahl/tarball/main
 ```
+
 :::
 
 Did it work? If not, what does the terminal output tell you about what
@@ -308,6 +315,7 @@ local$ scp -r amdahl user@cluster.name:
 ```
 
 :::callout
+
 ## Caution
 
 For a large directory  either in size or number of files -
@@ -339,6 +347,7 @@ With `scp`, a trailing slash on the target directory is optional, and has
 no effect. It is important for other commands, like `rsync`.
 
 :::callout
+
 ## A Note on `rsync`
 
 As you gain experience with transferring files, you may find the `scp`
@@ -379,6 +388,7 @@ To download a file, we simply change the source and destination:
 ```bash
 local$ rsync -avP user@cluster.name:amdahl ./
 ```
+
 :::
 
 File transfers using both `scp` and `rsync` use SSH to encrypt data sent through

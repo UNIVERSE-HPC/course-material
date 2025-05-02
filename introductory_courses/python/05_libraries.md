@@ -1,40 +1,41 @@
 ---
 name: Libraries
-dependsOn: [
-    introductory_courses.python.04_built_in_functions_and_help
-]
+dependsOn: [introductory_courses.python.04_built_in_functions_and_help]
 tags: [python]
-attribution: 
-    - citation: >
-        "Programming with Python" course by the Carpentries
-      url: https://swcarpentry.github.io/python-novice-inflammation/
-      image: https://carpentries.org/assets/img/TheCarpentries.svg
-      license: CC-BY-4.0
+learningOutcomes:
+  - Understanding and importing libraries.
+attribution:
+  - citation: >
+      "Programming with Python" course by the Carpentries
+    url: https://swcarpentry.github.io/python-novice-inflammation/
+    image: https://carpentries.org/assets/img/TheCarpentries.svg
+    license: CC-BY-4.0
 ---
 
 ## The power of libraries
 
 Most of the power of a programming language lies in its libraries.
 
-A *library*, or a *package* is a collection of files (each called a *module*) that contains functions, types etc. for use in other programs.
+A _library_, or a _package_ is a collection of files (each called a _module_) that contains functions, types etc. for use in other programs.
 
-* May also contain data values (e.g., numerical constants) and other things.
-* A good libraries content will be related, but there's no way to enforce that.
+- May also contain data values (e.g., numerical constants) and other things.
+- A good libraries content will be related, but there's no way to enforce that.
 
 The [Python standard library](https://docs.python.org/3/library/) is an extensive suite of modules that comes with Python itself.
 
-* Many additional libraries are available from [PyPI](https://pypi.python.org/pypi/) (the Python Package Index) or elsewhere.
-* We will later see how to write our own libraries.
+- Many additional libraries are available from [PyPI](https://pypi.python.org/pypi/) (the Python Package Index) or elsewhere.
+- We will later see how to write our own libraries.
 
 Using libraries brings several benefits:
 
-* We don't have to write everything ourselves, often the task you are trying to accomplish has been done before.
-* Good libraries may also be documented, tested, optimised and continually maintained such that they are more reliable than our own code.
-* Our code is easier to understand to others, since they may be familiar with the library we are using.
-* We can learn good programming practices from libraries.
-  * How did they accomplish something?
+- We don't have to write everything ourselves, often the task you are trying to accomplish has been done before.
+- Good libraries may also be documented, tested, optimised and continually maintained such that they are more reliable than our own code.
+- Our code is easier to understand to others, since they may be familiar with the library we are using.
+- We can learn good programming practices from libraries.
+  - How did they accomplish something?
 
 :::callout
+
 ## Libraries and modules
 
 A library is a collection of modules, but the terms are often used
@@ -42,43 +43,42 @@ interchangeably, especially since many libraries only consist of a single
 module, so don't worry if you mix the terms.
 :::
 
-
 ## Importing modules
 
 A module must be imported before it can be used.
 
-* Use an `import` statement to load a library module into a program's memory.
-* Once imported, we refer to "things" from the module as `module_name.thing_name`.
-  * Python uses `.` to mean "part of".
-  * Modules can be nested within one another e.g. `module_name.submodule.function`.
+- Use an `import` statement to load a library module into a program's memory.
+- Once imported, we refer to "things" from the module as `module_name.thing_name`.
+  - Python uses `.` to mean "part of".
+  - Modules can be nested within one another e.g. `module_name.submodule.function`.
 
 Using `math`, one of the modules in the standard library:
 
-~~~python
+```python
 import math
 
 print('pi is', math.pi)
 print('cos(pi) is', math.cos(math.pi))
-~~~
+```
 
-~~~ text
+```text
 pi is 3.141592653589793
 cos(pi) is -1.0
-~~~
+```
 
 We always have to refer to each item with the module's name.
 
-* `math.cos(pi)` won't work: the reference to `pi` doesn't somehow "inherit" the function's reference to `math`.
+- `math.cos(pi)` won't work: the reference to `pi` doesn't somehow "inherit" the function's reference to `math`.
 
 ## Use `help` on modules
 
 We can find more out about a module with `help`, this works just like with a function.
 
-~~~ python
+```python
 help(math)
-~~~
+```
 
-~~~ text
+```text
 Help on module math:
 
 NAME
@@ -101,51 +101,51 @@ FUNCTIONS
     acos(x, /)
         Return the arc cosine (measured in radians) of x.
 ⋮ ⋮ ⋮
-~~~
+```
 
 ## Importing specific items
 
 We can simplify and speed up our programs by importing only what we need.
 
-* Use the form `from ... import ...` to load only specific items from a library module.
-* Then refer to them directly without library name as prefix.
+- Use the form `from ... import ...` to load only specific items from a library module.
+- Then refer to them directly without library name as prefix.
 
-~~~ python
+```python
 from math import cos, pi
 
 print('cos(pi) is', cos(pi))
-~~~
+```
 
-~~~ text
+```text
 cos(pi) is -1.0
-~~~
+```
 
 ## Creating aliases
 
 We can create an alias for a library module when importing it to make our programs clearer and shorter.
 
-* Use the form `import ... as ...` to give a library a short *alias* while importing it.
-* Then refer to items in the library using that shortened name.
+- Use the form `import ... as ...` to give a library a short _alias_ while importing it.
+- Then refer to items in the library using that shortened name.
 
-~~~ python
+```python
 import math as m
 
 print('cos(pi) is', m.cos(m.pi))
-~~~
+```
 
-~~~ text
+```text
 cos(pi) is -1.0
-~~~
+```
 
-* Commonly used for libraries that are frequently used or have long names.
-  * E.g., the `matplotlib` plotting library is often aliased as `mpl`.
-Overusing aliasing can make programs harder to understand, since readers must learn your program's aliases.
+- Commonly used for libraries that are frequently used or have long names.
+  - E.g., the `matplotlib` plotting library is often aliased as `mpl`.
+    Overusing aliasing can make programs harder to understand, since readers must learn your program's aliases.
 
 We can, of course, also combine both selective importing and aliasing using `from ... import ... as ...` to do both things at once.
 
-~~~ python
+```python
 from matplotlib import pyplot as plt
-~~~
+```
 
 Will alias just the matplotlib.pyplot module into `plt`.
 
@@ -153,11 +153,11 @@ Will alias just the matplotlib.pyplot module into `plt`.
 
 You want to select a random character from a string:
 
-~~~ python
+```python
 bases = 'ACTTGCTTGAC'
-~~~
+```
 
-1. Which [standard library][stdlib] module could help you?
+1. Which standard library [stdlib] module could help you?
 2. Which function would you select from that module? Are there alternatives?
 3. Try to write a program that uses the function.
 
@@ -170,28 +170,28 @@ You could use either `random.randrange` or `random.randint` functions
 to get a random integer between 0 and
 10, and then pick out the character at that position:
 
-~~~ python
+```python
 from random import randrange
 
 random_index = randrange(len(bases))
 print(bases[random_index])
-~~~
+```
 
 or more compactly:
 
-~~~ python
+```python
 from random import randrange
 
 print(bases[randrange(len(bases))])
-~~~
+```
 
 Perhaps you found the `random.sample` function? It allows for slightly less typing:
 
-~~~ python
+```python
 from random import sample
 
 print(sample(bases, 1)[0])
-~~~
+```
 
 Note that this function returns a list of values.
 We will learn about [lists](08_lists) later.
@@ -204,9 +204,9 @@ There's also other functions you could use, but with more convoluted code as a r
 
 When a colleague of yours types `help(math)`, Python reports an error:
 
-~~~
+```text
 NameError: name 'math' is not defined
-~~~
+```
 
 What has your colleague forgotten to do?
 
@@ -219,30 +219,30 @@ Importing the math module (`import math`)
 ::::challenge{id="importing_with_aliases" title="Importing With Aliases"}
 
 1. Fill in the blanks so that the program below prints `90.0`.
-2. Rewrite the program so that it uses `import` *without* `as`.
+2. Rewrite the program so that it uses `import` _without_ `as`.
 3. Which form do you find easier to read?
 
-~~~ python
+```python nolint
 import math as m
 angle = ____.degrees(____.pi / 2)
 print(____)
-~~~
+```
 
 :::solution
 
-~~~ python
+```python
 import math as m
 angle = m.degrees(m.pi / 2)
 print(angle)
-~~~
+```
 
 can be written as
 
-~~~ python
+```python
 import math
 angle = math.degrees(math.pi / 2)
 print(angle)
-~~~
+```
 
 Since you just wrote the code and are familiar with it, you might actually find the first version easier to read.
 But when trying to read a huge piece of code written by someone else, or when getting back to your own huge piece of code after several months, non-abbreviated names are often easier, except where there are clear abbreviation conventions.
@@ -279,7 +279,7 @@ Library calls:
 3. Library call 2. Here `sin` and `pi` are referred to with the regular library
    name `math`, so the regular `import ...` call suffices.
 
-__Note:__ although library call 4 works, importing all names from a module using a wildcard
+**Note:** although library call 4 works, importing all names from a module using a wildcard
 import is [not recommended](https://pep8.org/#imports) as it makes it unclear which names from the module
 are used in the code. In general it is best to make your imports as specific as possible and to
 only import what your code uses. In library call 1, the `import` statement explicitly tells us
@@ -292,21 +292,21 @@ convey this information.
 
 1. Fill in the blanks so that the program below prints `90.0`.
 2. Do you find this version easier to read than preceding ones?
-3. Why *wouldn't* programmers always use this form of `import`?
+3. Why _wouldn't_ programmers always use this form of `import`?
 
-~~~ python
+```python nolint
 ____ math import ____, ____
 angle = degrees(pi / 2)
 print(angle)
-~~~
+```
 
 :::solution
 
-~~~python
+```python
 from math import degrees, pi
 angle = degrees(pi / 2)
 print(angle)
-~~~
+```
 
 Most likely you find this version easier to read since it's less dense.
 The main reason not to use this form of import is to avoid name clashes.
@@ -320,14 +320,14 @@ Or if you were to also import a function named `degrees` from another library.
 1. Read the code below and try to identify what the errors are without running it.
 2. Run the code, and read the error message. What type of error is it?
 
-~~~python
+```python
 from math import log
 log(0)
-~~~
+```
 
 :::solution
 
-~~~ text
+```text
 ---------------------------------------------------------------------------
 ValueError                                Traceback (most recent call last)
 <ipython-input-1-d72e1d780babin <module>
@@ -335,7 +335,7 @@ ValueError                                Traceback (most recent call last)
 ----2 log(0)
 
 ValueError: math domain error
-~~~
+```
 
 1. The logarithm of `x` is only defined for `x > 0`, so 0 is outside the
    domain of the function.
@@ -348,7 +348,7 @@ ValueError: math domain error
 
 ## Useful links
 
-* [pypi](https://pypi.python.org/pypi/)
-* [stdlib](https://docs.python.org/3/library/)
-* [randommod](https://docs.python.org/3/library/random.html)
-* [pep8-imports](https://pep8.org/#imports)
+- [pypi](https://pypi.python.org/pypi/)
+- [stdlib](https://docs.python.org/3/library/)
+- [randommod](https://docs.python.org/3/library/random.html)
+- [pep8-imports](https://pep8.org/#imports)

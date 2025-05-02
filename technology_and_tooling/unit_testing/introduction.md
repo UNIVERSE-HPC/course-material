@@ -1,11 +1,8 @@
 ---
 name: Introduction to Unit Testing
-dependsOn: [
-  technology_and_tooling.unit_testing.setup
-]
+dependsOn: [technology_and_tooling.unit_testing.setup]
 tags: [python, unit-testing]
 ---
-
 
 ## Introduction
 
@@ -42,7 +39,6 @@ does it still behave the way you expect?
 
 :::
 
-
 ## What Is Software Testing?
 
 For the sake of argument, if each line we write has a 99% chance of being right,
@@ -67,4 +63,3 @@ There are three main types of automated tests:
 For the purposes of this course, we'll focus on unit tests. But the principles
 and practices we'll talk about can be built on and applied to the other types of
 tests too.
-
