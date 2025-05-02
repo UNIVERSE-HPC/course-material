@@ -10,7 +10,7 @@ files:
 summary: |
   Functional Programming is based around the idea that programs are constructed
   by applying and composing/chaining **functions**. This course will introduce
-  you to the basics of functional programming in either Python or C++.
+  you to the basics of functional programming in either Python, R or C++.
 attribution:
   - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
     url: https://www.sabsr3.ox.ac.uk
