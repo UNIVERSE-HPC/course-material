@@ -2,6 +2,8 @@
 name: For Loops
 dependsOn: [introductory_courses.python.08_lists]
 tags: [python]
+learningOutcomes:
+  - Defining and using for-loops to iterate operations.
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries

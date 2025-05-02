@@ -200,7 +200,7 @@ ssh-add -t 8h ~/.ssh/id_ed25519
 ```text
 Enter passphrase for .ssh/id_ed25519: 
 Identity added: .ssh/id_ed25519
-Lifetime set to 86400 seconds
+Lifetime set to 28800 seconds
 ```
 
 For the duration (8 hours), whenever you use that key, the SSH Agent will provide the key on your behalf without you having to type a single keystroke.

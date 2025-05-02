@@ -2,6 +2,10 @@
 name: Arrays
 dependsOn: [software_architecture_and_design.procedural.functions_python]
 tags: [python]
+learningOutcomes:
+  - Understand the differences between NumPy `array`s and Python's built-in `list` types.
+  - Be able to perform mathematical operations between NumPy arrays and other data types.
+  - Be able to explore complex datasets using NumPy arrays.
 attribution:
   - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
     url: https://www.sabsr3.ox.ac.uk

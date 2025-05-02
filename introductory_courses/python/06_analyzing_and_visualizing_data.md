@@ -2,6 +2,9 @@
 name: Analyzing and Visualizing Data
 dependsOn: [introductory_courses.python.05_libraries]
 tags: [python]
+learningOutcomes:
+  - Using the NumPy library to import and analyze data.
+  - Using the matplotlib library to visualize data and adjust plot format.
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries

@@ -2,6 +2,9 @@
 name: Looping Over Data Sets
 dependsOn: [introductory_courses.python.10_conditionals]
 tags: [python]
+learningOutcomes:
+  - Batch processing files with loops.
+  - Using glob and pathlib modules to work with files and paths.
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries

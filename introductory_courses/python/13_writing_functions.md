@@ -2,6 +2,8 @@
 name: Writing Functions
 dependsOn: [introductory_courses.python.12_errors_and_exceptions]
 tags: [python]
+learningOutcomes:
+  - Creating functions to encapsulate code and enable re-use.
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries

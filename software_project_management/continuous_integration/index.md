@@ -3,6 +3,11 @@ name: Continuous Integration
 id: continuous_integration
 dependsOn: [software_project_management.collaboration]
 files: [github_actions.md, code_coverage.md, documentation.md]
+learningOutcomes:
+  - Use GitHub actions to build automated workflows running on multiple platforms.
+  - Explore code coverage tools for assessing the extent of software testing.
+  - Appreciate the benefits of having good documentation. 
+  - Use Sphinx to generate documentation for a project.
 summary: |
   This course introduces the concept of continuous integration and how to set it up for a Python project using GitHub Actions.
 attribution:

@@ -2,6 +2,11 @@
 name: PDE models in PyBaMM
 dependsOn: [libraries.pybamm-developer.01_ode]
 tags: [pybamm]
+learningOutcomes:
+  - Be able to set up a PyBaMM model to solve partial differential equations (PDEs)
+  - Understand how to define the boundary conditions of a PyBaMM model
+  - Understand how to define the domain on which a PyBaMM variable is defined
+  - Understand how to define a mesh to represent a discretised domain
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team
@@ -12,7 +17,7 @@ attribution:
 
 # Creating a simple PDE model
 
-In the previous section, we showed how to create, and solve an ODE model in pybamm. In this section we show how to create and solve a partial differential equation (PDE) model. PDE models are more complex than ODEs as they include derivatives with respect two different variables (in our problems these will be a spatial variable and a time variable). Additional steps will be required to solve PDE models, like discretising the spatial domain.
+In the previous section, we showed how to create, and solve an ODE model in pybamm. In this section we show how to create and solve a partial differential equation (PDE) model. PDE models are more complex than ODEs as they include derivatives with respect to two different variables (in our problems these will be a spatial variable and a time variable). Additional steps will be required to solve PDE models, like discretising the spatial domain.
 
 As an example, we consider the problem of linear diffusion on a unit sphere,
 
@@ -46,7 +51,7 @@ c = pybamm.Variable("Concentration", domain="negative particle")
 
 Note that we have given our variable the (useful) name "Concentration", but the symbol representing this variable is simply `c`. As noted in the previous section, the name of the variable is arbitrary and you can choose any variable name that is most useful/meaningful to you.
 
-We then state out governing equations. Sometime it is useful to define
+We then state our governing equations. Sometime it is useful to define
 intermediate quantities in order to express the governing equations more easily.
 In this example we define the flux, then define the rhs to be minus the
 divergence of the flux. The equation is then added to the dictionary `model.rhs`

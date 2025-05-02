@@ -101,7 +101,11 @@ tstools-0.1/tstools.egg-info/requires.txt
 tstools-0.1/tstools.egg-info/top_level.txt
 ```
 
-Take a moment to explore the content of the archive.
+Take a moment to explore the content of the archive. Depending on your system, you might be able to simply double-click on the archive in your graphical file manager to open it. Otherwise, on the command-line you can use `tar` to extract the archive:
+
+```shell
+tar -xvf dist/tstools-0.1.tar.gz
+```
 
 As the name suggest a source distribution is nothing more than the source code of your package,
 along with the `setup.py` or `pyproject.toml` necessary to install it.

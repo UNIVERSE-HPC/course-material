@@ -86,7 +86,7 @@ line = myfile.readline() # Same call to readline, but result is different!
 The main downside of having a state that is constantly updated is that it makes
 it harder for us to _reason_ about our code, to work out what it is doing.
 However, the upside is that we can use state to store temporary data and make
-calculations more efficient. For example an iteration loop that keeps track of 
+calculations more efficient. For example an iteration loop that keeps track of
 a running total is a common pattern in procedural programming:
 
 ```python nolint
