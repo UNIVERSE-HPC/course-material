@@ -64,9 +64,6 @@ Lambda functions may also make it slightly harder to do debugging (coming in a f
 Anonymous functions, exist in many modern languages, though they may not be called 'lambda functions' and may be more or less complex to use.
 For example, see [Lambda Expressions](https://en.cppreference.com/w/cpp/language/lambda) in C++ with precise control over the visibility of variables inside the function scope, and the multiple methods available in Javascript such as [Function Expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions#the_function_expression_function_expression), which use syntax much more similar to named function definition.
 
-Finally, there's another common use case of lambda functions that we'll come back to later when we see **closures**.
-Due to their simplicity, it can be useful to have a lamdba function as the inner function in a closure.
-
 ## Higher-Order Functions
 
 Higher-order functions are functions that take another function as an argument
