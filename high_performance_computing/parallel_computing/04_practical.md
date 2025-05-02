@@ -1,16 +1,14 @@
 ---
 name: Parallelising Mandelbrot Set Generation
-dependsOn: [
-    high_performance_computing.parallel_computing.03_parallel_performance
-]
+dependsOn: [high_performance_computing.parallel_computing.03_parallel_performance]
 tags: [foundation]
-attribution: 
-    - citation: >
-        "Introduction to HPC" course by EPCC.
-        This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
-      url: https://epcced.github.io/Intro-to-HPC/
-      image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Introduction to HPC" course by EPCC.
+      This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
+    url: https://epcced.github.io/Intro-to-HPC/
+    image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
+    license: CC-BY-4.0
 ---
 
 ## Part 1: Introduction & Theory
@@ -33,7 +31,7 @@ The coordinates can be plotted as an image, where the color corresponds to the n
 The pseudo code for this is:
 
 ```python nolint
-for each x,y coordinate 
+for each x,y coordinate
     x0, y0 = x, y
     x = 0
     y = 0
@@ -51,7 +49,7 @@ for each x,y coordinate
 ```
 
 Note that for points within the Mandelbrot set
-the condition will never be met, hence the need to set the upper bound ``max_iterations``.
+the condition will never be met, hence the need to set the upper bound `max_iterations`.
 
 The Julia set is another example of a complex number set.
 
@@ -63,14 +61,14 @@ From the parallel programming point of view the useful feature of the Mandelbrot
 
 Task farming is one of the common approaches used to parallelise applications. Its main idea is to automatically create pools of calculations (called tasks), dispatch them to the processes and the to collect the results.
 
-The process responsible for creating this pool of jobs is known as a **source**, sometimes it is also called a *master* or *controller process*.
+The process responsible for creating this pool of jobs is known as a **source**, sometimes it is also called a _master_ or _controller process_.
 
 The process collecting the results is called a **sink**. Quite often one process plays both roles – it creates, distributes tasks and collects results. It is also possible to have a team of source and sink process. A ‘farm’ of one or more workers claims jobs from the source, executes them and returns results to the sink. The workers continually claim jobs (usually complete one task then ask for another) until the pool is exhausted.
 
 Figure 1 shows the basic concept of how a task farm is structured.
 
 ![Schematic representation of a simple task farm](images/task_farm.png)
-*Schematic representation of a simple task farm*
+_Schematic representation of a simple task farm_
 
 In summary processes can assume the following roles:
 
@@ -104,12 +102,13 @@ As mentioned before, to determine the points lying within the Mandelbrot set the
 Even knowing a task-farm is viable for a given job, we still need to consider how to use it in the most optimal way.
 
 :::callout{variant="discussion"}
+
 - How do you think the performance would be affected if you were to use
-more, equal and fewer tasks than workers?
+  more, equal and fewer tasks than workers?
 - In your opinion what would be the optimal combination of the number
-of workers and task? What would it depend on the most? Task size?
-Problem size? Computer architecture?
-:::
+  of workers and task? What would it depend on the most? Task size?
+  Problem size? Computer architecture?
+  :::
 
 ### Load Balancing
 
@@ -129,7 +128,7 @@ were used optimally.
 This can occur when load balancing is not considered, random scheduling is used (although this is not always bad), or poor decisions are made about the job sizes.
 
 ![Poor load balance](images/load_imbalance.png)
-*Poor load balance*
+_Poor load balance_
 
 #### Good Load Balancing
 
@@ -138,19 +137,17 @@ When a distribution strategy is chosen which optimises the use of resources, the
 This means that no one worker has been overloaded with tasks and dominated the running time of the overall calculation.
 This can be achieved by many different means.
 
-For example, if the task sizes and running times are known in advance, the
-jobs can be scheduled to allow best resource usage. The most common
-distribution is to distribute large jobs first and then distribute progressively
-smaller jobs to equal out the workload.
+For example, if the task sizes and running times are known in advance, the jobs can be scheduled to allow best resource usage.
+The most common strategy is to distribute large jobs first and then distribute progressively smaller jobs to equal out the workload.
+In general, the smaller the individual tasks there are the easier it is to balance the load between the workers, however, the more tasks there are to distribute the more load is generated for the source and sink processes.
 
-If the job sizes can change or the running times are unknown, then an
-adaptive system could be used which tries to infer future task lengths based
-upon observed runtimes.
+If the job sizes can change or the running times are unknown, then an adaptive system could be used which tries to infer future task lengths based upon observed runtimes.
 
 ![Good load balance](images/load_balance.png)
-*Good load balance*
+_Good load balance_
 
-The fractal program you will be using employs a queue strategy – tasks are queued waiting for workers, which completed their previous task, to claim them from the top of the queue. This ensures that workers that happen to get shorter tasks will complete more tasks, so that they finish roughly at the same time as workers with longer tasks.
+The fractal program you will be using employs a queue strategy – tasks are queued waiting for workers, which completed their previous task, to claim them from the top of the queue.
+This ensures that workers that are assigned shorter tasks will complete more tasks and finish roughly at the same time as workers with longer tasks.
 
 #### Quantifying the load imbalance
 
@@ -158,8 +155,10 @@ We can try to quantify how well balanced a task farm is by computing the load im
 
 $\text{load imbalance factor} = \frac{\text{Workload of most loaded worker}}{\text{average workload of workers}}$
 
-For a perfect load-balanced calculation this will be equal to 1.0, which is equivalent to all workers having exactly the same amount of work. In general, it will be greater than 1.0.
-It is a useful measure because it allows you to predict what the runtime would be for a perfectly balanced load on the same number of workers, assuming that no additional overheads are introduced due to load balancing. For example, if the load imbalance factor is 2.0 then this implies that, in principle, we could halve the runtime (reduce it by a factor of 2) if the load were perfectly balanced.
+For a perfect load-balanced calculation this will be equal to 1.0, which occurs when all workers have exactly the same amount of work.
+In practice, it will always be greater than 1.0.
+The load imbalance factor can be a useful measure; it allows you to predict what the runtime would be for a perfectly balanced load on the same number of workers - assuming that no additional overheads are introduced by the load balancing.
+For example, if the load imbalance factor is 2.0 we could reduce the runtime by up to a factor of 2 if the load were perfectly balanced.
 
 ---
 
@@ -189,7 +188,7 @@ ERROR: need at least two processes for the task farm!
 ```
 
 ::::challenge{id=parallel_prog_pr.1 title="Submitting a Fractal MPI job"}
-**To be able to run the job submission examples in this segment, you'll need to either have access to ARCHER2, or an HPC infrastructure running the Slurm job scheduler and knowledge of how to configure job scripts for submission.**
+**To be able to run the job submission examples in this segment, you'll need to either have access to ARCHER2, or similar HPC infrastructure running the Slurm job scheduler and knowledge of how to configure job scripts for submission.**
 
 So on an HPC infrastructure, we'll need (and should!) submit this as a job via Slurm.
 Write a script that executes the fractal MPI code that uses 16 worker processes on a single node.
@@ -244,11 +243,11 @@ Time taken by 16 workers was 0.772049 (secs)
 Load Imbalance Factor: 5.034134
 ```
 
-The ``fractal`` executable will take a number of parameters and produce a fractal image in a file called ``output.ppm``. By default the image will be
+The `fractal` executable will take a number of parameters and produce a fractal image in a file called `output.ppm`. By default the image will be
 overlaid with blocks in different shades, which correspond to the work done by different processors. This way we can see how the tasks were allocated. An example of this is presented in figure 1 – the image is divided into 16 tasks (squares) and a different shade of red corresponds to each of the workers. For example, running this on ARCHER2 with 16 workers will therefore yield 16 shades of red, and running this on your own machine with 4 workers will yield 4 shades instead.
 
-![Fractal output.ppm]( ./images/fractal_output.png)
-*Example output image created using 16 workers and 16 tasks.*
+![Fractal output.ppm](./images/fractal_output.png)
+_Example output image created using 16 workers and 16 tasks._
 
 So in our example script, the program created a task farm with one master process and 2 workers. The master divides the image up into tasks, where each task is a square of the size of 192 by 192 pixels (the default size of each square). The default image size is thus 768 x 768 pixels, which means there is exactly 1 task per worker.
 
@@ -271,15 +270,15 @@ It can be really helpful, particularly in more complex parallel programs, to hav
 
 The following options are recognised by the fractal program:
 
-- ``-S``  number of pixels in the x-axis of image
-- ``-I``  maximum number of iterations
-- ``-x`` the x-minimum coordinate
-- ``-y`` the y-minimum coordinate
-- ``-f <fractal function>`` set to J for Julia set
-- ``-c`` the real part of the parameter c+iC for the Julia set
-- ``-C`` the imaginary part of the parameter c+iC for the julia set
-- ``-t`` task size (pixels x pixels)
-- ``-n`` do not shade output image based on task allocation to workers
+- `-S` number of pixels in the x-axis of image
+- `-I` maximum number of iterations
+- `-x` the x-minimum coordinate
+- `-y` the y-minimum coordinate
+- `-f <fractal function>` set to J for Julia set
+- `-c` the real part of the parameter c+iC for the Julia set
+- `-C` the imaginary part of the parameter c+iC for the julia set
+- `-t` task size (pixels x pixels)
+- `-n` do not shade output image based on task allocation to workers
 
 ---
 
@@ -315,31 +314,31 @@ You can use `-t` as an argument to the `fractal` program to set the task/grid si
 
 Running this on ARCHER2 with 16 workers, you may find your answers look something like:
 
-| Grid size | Runtime(s) | Load imbalance factor
-|-----------|------------|----------------------
-| 192       | 0.772049   | 5.034134
-| 96        | 0.237510   | 1.545613
-| 48        | 0.170243   | 1.107278
-| 24        | 0.160345   | 1.041810
-| 12        | 0.155502   | 1.006157
-| 6         | 0.159350   | 1.003959
-| 3         | 0.176114   | 1.005451
-| 2         | 0.211402   | 1.004163
-| 1         | 0.417041   | 1.003397
+| Grid size | Runtime(s) | Load imbalance factor |
+| --------- | ---------- | --------------------- |
+| 192       | 0.772049   | 5.034134              |
+| 96        | 0.237510   | 1.545613              |
+| 48        | 0.170243   | 1.107278              |
+| 24        | 0.160345   | 1.041810              |
+| 12        | 0.155502   | 1.006157              |
+| 6         | 0.159350   | 1.003959              |
+| 3         | 0.176114   | 1.005451              |
+| 2         | 0.211402   | 1.004163              |
+| 1         | 0.417041   | 1.003397              |
 
 Running this on a local machine with 3 workers, you may find your answers look more like:
 
-| Grid size | Runtime(s) | Load imbalance factor
-|-----------|------------|----------------------
-| 192       | 1.298491   | 1.337907
-| 96        | 1.003863   | 1.015820
-| 48        | 0.955120   | 1.006782
-| 24        | 0.970588   | 1.007317
-| 12        | 0.983153   | 1.013827
-| 6         | 0.981687   | 0.990886
-| 3         | 1.024623   | 1.032792
-| 2         | 1.019592   | 1.003972
-| 1         | 1.132916   | 1.015426
+| Grid size | Runtime(s) | Load imbalance factor |
+| --------- | ---------- | --------------------- |
+| 192       | 1.298491   | 1.337907              |
+| 96        | 1.003863   | 1.015820              |
+| 48        | 0.955120   | 1.006782              |
+| 24        | 0.970588   | 1.007317              |
+| 12        | 0.983153   | 1.013827              |
+| 6         | 0.981687   | 0.990886              |
+| 3         | 1.024623   | 1.032792              |
+| 2         | 1.019592   | 1.003972              |
+| 1         | 1.132916   | 1.015426              |
 
 Of course, your figures may differ somewhat!
 :::

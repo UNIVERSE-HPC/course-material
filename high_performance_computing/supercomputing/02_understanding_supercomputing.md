@@ -18,18 +18,19 @@ attribution:
 
 ## Understanding Supercomputing - Processors
 
-So what are supercomputers made of? Are the building components really so different from personal computers? And what determines how fast a supercomputer is?
-
-In this step, we start to outline the answers to these questions. We will go into a lot more detail in a future module but for now we will cover enough of the basics for you to be able to understand the characteristics of the supercomputers in the [Top500](https://www.top500.org/lists/top500/2023/11/) list (the linked list is from November 2023).
+In this section we will cover the basics of how supercomputers are designed, enough for you to be able to understand the characteristics of the supercomputers in the [Top500](https://www.top500.org/lists/top500/2023/11/) list (the linked list is from November 2023).
 
 When we talk about a processor, we mean the central processing unit (CPU) in a computer which is sometimes considered to be the computer’s brain. The CPU carries out the instructions of computer programs, the terms CPU and processor are generally used interchangeably.
 A modern CPU is composed of a collection of several separate processing units, we call each independent processing unit a CPU-core - some people just use the term core.
 
-A modern domestic device (e.g. a laptop, mobile phone or iPad) will usually have a few CPU-cores (perhaps two or four), while a supercomputer has tens or hundreds of thousands of CPU-cores. As mentioned before, a supercomputer gets its power from all these CPU-cores working together at the same time - working in parallel. Conversely, the mode of operation you are familiar with from everyday computing, in which a single CPU-core is doing a single computation, is called serial computing.
+A modern domestic device (e.g. a laptop, mobile phone or iPad) will usually have a few CPU-cores (perhaps two or four), while a supercomputer has tens or hundreds of thousands of CPU-cores.
+As mentioned before, a supercomputer gets its power from all these CPU-cores working together at the same time - working in parallel.
+Conversely, the mode of operation you are familiar with from everyday computing, in which a single CPU-core is doing a single computation, is called serial computing.
 
 It may surprise you to learn that supercomputers are built using the same basic elements that you normally find in your desktop, such as processors, memory and disk. The difference is largely a matter of scale. The reason is quite simple: the cost of developing new hardware is measured in billions of euros, and the market for consumer products is vastly larger than that for supercomputing, so the most advanced technology you can find is actually what you find in general-purpose computers.
 
-Interestingly, the same approach is used for computer graphics - the graphics processor (or GPU) in a home games console will have hundreds of cores. Special-purpose processors like GPUs are now being used to increase the power of supercomputers - in this context they are called accelerators.
+The same approach is used for computer graphics - the graphics processor (or GPU) in a home desktop or games console will have hundreds or thousands of cores, though each core will not be as capable as those of the CPUs.
+Special-purpose processors like GPUs are now being used to increase the power of supercomputers - in this context they are called accelerators.
 
 ![Image denoting the more powerful, fewer cores of a CPU versus the smaller, more numerous cores of a GPU](images/large_hero_8408f33c-87f5-4061-aec7-42ef976e83fd.webp)
 *A typical CPU has a small number of powerful, general-purpose cores; a GPU has many more specialised cores. © NVIDIA*

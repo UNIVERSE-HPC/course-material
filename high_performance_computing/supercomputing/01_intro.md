@@ -1,19 +1,18 @@
 ---
 name: Introduction to Supercomputing
-dependsOn: [
-]
+dependsOn: []
 tags: [foundation]
-attribution: 
-    - citation: >
-        "Introduction to HPC" course by EPCC.
-        This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
-      url: https://epcced.github.io/Intro-to-HPC/
-      image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Introduction to HPC" course by EPCC.
+      This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
+    url: https://epcced.github.io/Intro-to-HPC/
+    image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
+    license: CC-BY-4.0
 ---
 
 ![Photo of a supercomputer](images/taylor-vick-M5tzZtFCOfs-unsplash.jpg)
-*Image courtesy of [Taylor Vick](https://unsplash.com/@tvick) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Taylor Vick](https://unsplash.com/@tvick) from [Unsplash](https://unsplash.com)_
 
 ## What are supercomputers?
 
@@ -27,15 +26,15 @@ To keep track of the state-of-the-art, the supercomputing community looks to the
 
 The main application of supercomputers is in large-scale numerical computations, also called number-crunching. For simple calculations such as:
 
-~~~math
+```math
 123 + 765 = 888
-~~~
+```
 
 or
 
-~~~math
+```math
 1542.38 x 2643.56 = 4077374.07
-~~~
+```
 
 You don’t need a supercomputer. In fact you don’t even need a personal computer, as pencil-and-paper or a simple calculator can do the job. If you want to calculate something more complex, such as the total of the salaries of every employee in a big company, you probably just need a general-purpose computer.
 
@@ -68,9 +67,8 @@ This UKRI video gives you an overview of why high performance computing is impor
 
 In the video Prof. Mark Parsons uses the term of High Performance Computing (HPC). When reading about supercomputing, you will encounter this term quite often. HPC is a general term that includes all the activities and components associated with supercomputers, including aspects such as software and data storage as well as the bare supercomputer hardware.
 
-
 ![Computer simulation example image](images/large_hero_e0df48e4-9b4d-422c-a18f-d7898b9578d8.jpg)
-*Computer simulation covering multiple physical phenomena and machine learning algorithms can predict how dinosaurs might have moved. The laws of physics apply for extinct animals exactly as they do for living ones. © 2016 ARCHER image competition*
+_Computer simulation covering multiple physical phenomena and machine learning algorithms can predict how dinosaurs might have moved. The laws of physics apply for extinct animals exactly as they do for living ones. © 2016 ARCHER image competition_
 
 ## Supercomputers - how are they used?
 
@@ -85,12 +83,12 @@ We'll be covering more examples of how supercomputers are used in science later 
 Are there any applications of supercomputers you know of, that made you interested in this course?
 :::
 
-
 This gives the modern scientist a powerful new tool to study the real world in a virtual environment. The process of running a virtual experiment is called computer simulation, and compared to disciplines such as chemistry, biology and physics it is a relatively new area of research which has been around for a matter of decades rather than centuries. This new area, which many view as a third pillar of science which extends the two traditional approaches of theory and experiment, is called computational science and its practitioners are computational scientists.
 
 ### Computational Science
 
 It’s important to be clear about the difference between computational science and computer science. Computer science is the scientific study of computers: it is through the work of computer scientists that we have the hardware and software required to build and operate today’s supercomputers. In computational science, however, we use these supercomputers to run computer simulations and make predictions about the real world. To make things even more confusing, if a computer scientist talks about a computer simulation then they would probably mean simulating a computer, i.e. running a simulation of a computer (not of the real world), which is something you might do to check that your design for a new microprocessor works correctly before going into production.
+
 It’s important to distinguish between computational science and computer science. Computer science is the scientific study of computers, and it is through the work of computer scientists that we have the hardware and software required to build and operate today’s supercomputers. Computational science, on the other hand, leverages these supercomputers to run simulations and make predictions about the real world. Adding to the potential confusion, when computer scientists refer to a "computer simulation," they may also mean simulating a computer itself—such as testing the design of a new microprocessor through simulation before production—rather than simulating real-world phenomena.
 
 Large-scale computer simulation has applications in industry, engineering, commerce, and academia. For instance, modern cars and airplanes are designed and tested virtually long before physical prototypes are built. A new car must pass crash safety tests before going to market, and virtual crash simulations enable engineers to identify and resolve potential issues early in the design process. This significantly reduces the costs of physical destructive testing and minimizes the risk of expensive redesigns. Such simulations ensure that new products are far more likely to work correctly on the first attempt, saving time and resources while driving innovation.
@@ -109,7 +107,7 @@ Nowadays you can actually produce a computer model in a supercomputer and spend 
 
 ## Introducing Wee Archie
 
-::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_vrq8zch9&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_jh4xeojf" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Introducing_Wee_Archie_hd"}
+::::iframe{id="kaltura*player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_vrq8zch9&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_jh4xeojf" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen \_; encrypted-media \*" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Introducing_Wee_Archie_hd"}
 ::::
 
 :::solution{title="Transcript"}
@@ -134,44 +132,10 @@ You can find instructions on how to configure your very own Raspberry Pi cluster
 
 ## Terminology Recap
 
-::::challenge{id=sc_intro.1 title="Supercomputing intro Q1"}
-Performing computations in _____
-means carrying out many calculations simultaneously.
-
-:::solution
-Parallel
-:::
-::::
-
-::::challenge{id=sc_intro.2 title="Supercomputing intro Q2"}
-The term HPC stands for ?
-
-:::solution
-High Performance Computing
-:::
-::::
-
-::::challenge{id=sc_intro.3 title="Supercomputing intro Q3"}
-The process of running a virtual experiment is called?
-
-:::solution
-Computer simulation
-:::
-::::
-
-::::challenge{id=sc_intro.4 title="Supercomputing intro Q4"}
-The term number-crunching refers to large-scale ____ ____.
-
-:::solution
-Numerical simulations
-:::
-::::
-
-::::challenge{id=sc_intro.5 title="Supercomputing intro Q5"}
-The typical power consumption of a supercomputer is in the order of several
-____.
-
-:::solution
-Megawatts
-:::
+::::callout{variant="keypoints"}
+-Performing computations in parallel means carrying out many calculations simultaneously.
+-HPC stands for High Performance Computing
+-Computer simulations are the process of running a virtual experiment
+-Supercomputers can be used to run large-scale numerical computations
+-Supercomputers can consume several megawatts of power
 ::::

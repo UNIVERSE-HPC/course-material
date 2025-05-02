@@ -125,9 +125,13 @@ We’ll revisit this problem in much more detail later but you know enough alrea
 
 We’ve motivated the need for many CPU-cores in terms of the need to build more powerful computers in an era when the CPU-cores themselves aren’t getting any faster. Although this argument makes sense for the world’s largest supercomputers, we now have multicore laptops and mobile phones - why do we need them?
 
-You might think the answer is obvious: surely two CPU-cores will run my computer program twice as fast as a single CPU-core? Well, it may not be apparent until we cover how to parallelise a calculation later, but it turns out that this is not the case. It usually requires manual intervention to enable a computer program to take advantage of multiple CPU-cores. Although this is possible to do, it certainly wouldn’t have been the case back in 2005 when multicore CPUs first became commonplace.
+It may not be apparent until we cover how to parallelise a calculation later on, but it is not usually the case that 2 CPU-cores are twice as fast as 1.
+Most computer programs require explicit changes to their code to take advantage of multiple CPU-cores, a process called parallelisation.
+This was especially true back in 2005, when multicore CPUs first became widely available and most programs were serial, designed for single-core processors.
 
-What advantages do multicore processors offer to users running programs that don’t utilize parallel computing? Such programs, operating on a single CPU-core, are called serial programs.
+:::callout{variant="discussion"}
+Do multi-core processors offer advantages to users running programs that don’t utilize parallel computing? Such programs, operating on a single CPU-core, are called serial programs.
+:::
 
 ### Operating Systems
 

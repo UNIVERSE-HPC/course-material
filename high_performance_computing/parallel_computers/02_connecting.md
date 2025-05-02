@@ -86,7 +86,8 @@ To minimise the communication-related costs, try to make as few phone calls as p
 
 ## Case study of a real machine
 
-To help you understand the general concepts we have introduced, we’ll now look at a specific supercomputer. I’m going to use the UK National Supercomputer, ARCHER2, as a concrete example. As well as being a machine I’m very familiar with, it has a relatively straightforward construction and is therefore a good illustration of supercomputer hardware in general.
+To reinforce the concepts we have introduced in this course, we’ll now look at a specific supercomputer, the UK National Supercomputer, ARCHER2, as a concrete example.
+This machine has a relatively straightforward construction and is therefore a good illustration of supercomputer hardware in general.
 
 ### General
 

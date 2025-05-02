@@ -1,20 +1,18 @@
 ---
 name: Parallel Computing Programming
-dependsOn: [
-    high_performance_computing.parallel_computing.01_intro
-]
+dependsOn: [high_performance_computing.parallel_computing.01_intro]
 tags: [foundation]
-attribution: 
-    - citation: >
-        "Introduction to HPC" course by EPCC.
-        This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
-      url: https://epcced.github.io/Intro-to-HPC/
-      image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Introduction to HPC" course by EPCC.
+      This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
+    url: https://epcced.github.io/Intro-to-HPC/
+    image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
+    license: CC-BY-4.0
 ---
 
 ![Blueprint](images/sigmund-_dJCBtdUu74-unsplash.jpg)
-*Image courtesy of [Sigmund](https://unsplash.com/@sigmund) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Sigmund](https://unsplash.com/@sigmund) from [Unsplash](https://unsplash.com)_
 
 ## Shared-Variables Model
 
@@ -58,14 +56,15 @@ One of our basic operations is to increment a variable, for example to add up th
 
 In the shared-variables model, the problem occurs if two or more workers try and do this at the same time: if one worker takes a copy of the variable while another worker is modifying it on their notepad, then you will not get the correct answer. Sometimes you might be lucky and no-one else modifies the variable while you are working on your notepad, but there is no guarantee.
 
-This situation is called a race condition and is a disaster for parallel programming: sometimes you get the right answer, but sometimes the wrong answer. To fix this you need to coordinate the actions of the workers, for example using locking as described above.
+This situation, where the outcome of a calculation depends on the order workers complete their tasks, is called a race condition and is a disaster for parallel programming: sometimes you get the right answer, but sometimes the wrong answer.
+To fix this you need to coordinate the actions of the workers, for example using locking.
 
 ---
 
 ![Someone using a calculator](images/towfiqu-barbhuiya-JhevWHCbVyw-unsplash.jpg)
-*Image courtesy of [Sigmund](https://unsplash.com/@towfiqu999999) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Sigmund](https://unsplash.com/@towfiqu999999) from [Unsplash](https://unsplash.com)_
 
-## How to parallelise the Income Calculation example?
+## Parallelising the traffic simulation
 
 Consider how to parallelise the salaries example using the shared-variables model, i.e. how could 4 office mates add up the numbers correctly on a shared whiteboard?
 
@@ -81,7 +80,7 @@ Can you think of any other aspects that should be taken into account?
 
 ## Solution to Income calculation in Shared-Variables
 
-::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_zqowj328&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_jaksyv3n" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Solution_income_shared_variables_hd"}
+::::iframe{id="kaltura*player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_zqowj328&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_jaksyv3n" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen \_; encrypted-media \*" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Solution_income_shared_variables_hd"}
 ::::
 
 :::solution{title="Transcript"}
@@ -114,12 +113,14 @@ In this video David outlines how to parallelise the income calculation on a shar
 
 Making sure that the workers cooperate correctly is the main issue - ensuring correct synchronisation can be surprisingly subtle.
 
+:::callout{variant="discussion"}
 Compare your answers from the last step with this solution. How did you do? Have you learned anything surprising? We are curious to know!
+:::
 
 ---
 
 ![Photo of many envelopes](images/joanna-kosinska-uGcDWKN91Fs-unsplash.jpg)
-*Image courtesy of [Joanna Kosinska](https://unsplash.com/@joannakosinska) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Joanna Kosinska](https://unsplash.com/@joannakosinska) from [Unsplash](https://unsplash.com)_
 
 ## Message-Passing Model
 
@@ -143,18 +144,20 @@ In this model, each worker is called a process rather than a thread as it is in 
 
 When parallelising a calculation in the message-passing model, the most important questions are:
 
-- how are the variables (e.g. the old and new roads) divided up among workers?
-- when do workers need to send messages to each other?
-- how do we minimise the number of messages that are sent?
+- How are the variables (e.g. the old and new roads) divided up among workers?
+- When do workers need to send messages to each other?
+- How do we minimise the number of messages that are sent?
 
 Because there are no shared variables (i.e. no shared whiteboard), you do not usually have to consider how the work is divided up. Since workers can only see the data on their own whiteboards, the distribution of the work is normally determined automatically from the distribution of the data: you work on the variables you have in front of you on your whiteboard.
 
-To communicate a lot of data we can send one big message or lots of small ones, what do you think is more efficient? Why?
+:::callout{variant="discussion"}
+To communicate a lot of data we can send one big message or lots of small ones, what is more efficient? Why?
+:::
 
 ---
 
 ![Overhead photo of traffic](images/chuttersnap-d271d_SOGR8-unsplash.jpg)
-*Image courtesy of [CHUTTERSNAP](https://unsplash.com/@chuttersnap) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [CHUTTERSNAP](https://unsplash.com/@chuttersnap) from [Unsplash](https://unsplash.com)_
 
 ## How to parallelise the traffic simulation?
 
@@ -164,31 +167,36 @@ Remember that the cars are on a roundabout (we are using periodic boundary condi
 
 To get you started:
 
-- think carefully about how the traffic model works; what are its basic rules?
-- think about the characteristics of the message-passing model;
-- how can you combine them?
-- which workers need to phone each other, when and how often?
+- Think carefully about how the traffic model works; what are its basic rules?
+- Think about the characteristics of the message-passing model;
+- How can you combine them?
+- Which workers need to phone each other, when and how often?
 
 You do not need to provide a clear-cut answer. Instead, list the things that you think need to be considered and why.
 
 ### Extra Exercises
 
-In fact, sending a message can be implemented in two different ways:
+Sending a message can be implemented in two different ways:
 
-- like making a phone call (synchronously) or
-- like sending an email (asynchronously).
+- Synchronously; like making a phone call.
+- Asynchronously; like sending an email.
 
-The difference is whether the sender waits until the receiver is actively taking part (a phone call) or carries on with their own work regardless (sending an email).
+The difference between these is whether the sender waits until the receiver is actively taking part in the transfer (synchronous) or carries on with their own work regardless (asynchronous).
 
-Do you think that solving the traffic model in parallel is simpler using synchronous or asynchronous messages? Which do you think might be faster? Do you think the boundary conditions are important here?
+:::callout{variant="discussion"}
+Do you think that solving the traffic model in parallel is simpler using synchronous or asynchronous messages?
+Which do you think might be faster?
+Do you think the boundary conditions are important here?
 
-Imagine that you want all workers to know the average speed of the cars at every iteration. How could you achieve this using as few phone calls as possible?
+Imagine that you want all workers to know the average speed of the cars at every iteration.
+How could you achieve this using as few phone calls as possible?
+:::
 
 ---
 
 ## Solution to Traffic simulation in Message-Passing
 
-::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_cy6y9hac&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_db2dyi95" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Solution_Traffic_Message_passing_hd"}
+::::iframe{id="kaltura*player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_cy6y9hac&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_db2dyi95" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen \_; encrypted-media \*" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Solution_Traffic_Message_passing_hd"}
 ::::
 
 :::solution{title="Transcript"}
@@ -220,7 +228,7 @@ Hopefully, you now have a better understanding of how both programming models wo
 ---
 
 ![Photo of pipes overlapping](images/t-k-9AxFJaNySB8-unsplash.jpg)
-*Image courtesy of [T K](https://unsplash.com/@realaxer) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [T K](https://unsplash.com/@realaxer) from [Unsplash](https://unsplash.com)_
 
 ## MPI and processes
 
@@ -298,7 +306,7 @@ srun ./sharpen
 ---
 
 ![Photo of sewing threads](images/stephane-gagnon-NLgqFA9Lg_E-unsplash.jpg)
-*Image courtesy of [Stephane Gagnon](https://unsplash.com/@metriics) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Stephane Gagnon](https://unsplash.com/@metriics) from [Unsplash](https://unsplash.com)_
 
 ## OpenMP and threads
 
@@ -310,9 +318,9 @@ The shared-variables approach is implemented using threads. Threads are just lik
 
 The sequence is:
 
-1) we run a single program which starts out running as a single process on a single CPU-core with its own block of memory;
-2) while it is running, the process creates many threads which act like separate programs except they can all share the memory belonging to their parent process;
-3) the operating system will notice that there are lots of threads running at the same time and ensure that, if possible, they are assigned to different CPU-cores.
+1. We run a single program which starts out running as a single process on a single CPU-core with its own block of memory;
+1. While it is running, the process creates many threads which act like separate programs except they can all share the memory belonging to their parent process;
+1. The operating system will notice that there are lots of threads running at the same time and ensure that, if possible, they are assigned to different CPU-cores.
 
 So, in the shared-variables model, we exploit the parallel nature of our shared-memory computer by running many threads, all created from a single program (the parent process). We rely on the operating system to do a good job of spreading the threads across the CPU-cores.
 
@@ -386,7 +394,7 @@ export OMP_NUM_THREADS=4
 ---
 
 ![Photo of apples and oranges](images/anastasiya-romanova-vGY31qO4518-unsplash.jpg)
-*Image courtesy of [Anastasiya Romanova](https://unsplash.com/@nanichkar) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Anastasiya Romanova](https://unsplash.com/@nanichkar) from [Unsplash](https://unsplash.com)_
 
 ## Comparing the Message-passing and Shared-Variables models
 
