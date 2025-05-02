@@ -52,7 +52,7 @@ experiment3 = pybamm.Experiment(
         "Discharge at 1C until 2.5 V",
         "Charge at 0.3C until 4.2 V",
         "Hold at 4.2 V until C/100",
-    )] * 10 +
+    )] * 10
     # Capacity check
     + [(
         "Discharge at C/10 until 2.5 V",
@@ -72,6 +72,7 @@ The above `experiment3` will not work with the default parameters, because it wa
 Like `Experiment` objects, `ParameterValues` objects are an optional argument to the `Simulation` class:
 
 ```python
+parameter_values = "OKane2022" 
 simulation3 = pybamm.Simulation(
     model,
     experiment=experiment3,
