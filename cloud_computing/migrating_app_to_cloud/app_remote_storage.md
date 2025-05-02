@@ -1,5 +1,5 @@
 ---
-name: Integrating AWS Services with the Local Application
+name: Integrating AWS Services with the Image Processing Application
 dependsOn: []
 tags: []
 learningOutcomes:
@@ -8,13 +8,11 @@ learningOutcomes:
   - Run the Image Processing Application using remote AWS services.
 ---
 
-## Image Processing Application Using S3 and DynamoDB
-
-This is a modified version of the image processing application. Instead of relying on local storage and databases, this version utilizes AWS services, specifically **S3** for image storage and **DynamoDB** for metadata management.
+In this section, we will run an enhanced version of our Image Processing Application that integrates remote AWS services, specifically **Amazon S3** for storage and **DynamoDB** for database management. By leveraging AWS resources, we'll demonstrate how cloud services can effectively replace local storage and databases, providing scalability, durability, and easy maintenance.
 
 ### Prerequisites
 
-In addition to the prerequisites covered in [Running the Image Processing Application Locally](app_local_storage.md) (e.g., Git, Python, Pip, Docker, etc.), we also need to install and configure the **AWS Command Line Interface (CLI)** to enable interaction with AWS services.
+In addition to the prerequisites covered in [Running the Image Processing Application](app_local_storage.md) (e.g., Git, Python, Pip, Docker, etc.), we also need to install and configure the **AWS Command Line Interface (CLI)** to enable interaction with AWS services.
 
 #### Step 1: Install the AWS CLI
 
