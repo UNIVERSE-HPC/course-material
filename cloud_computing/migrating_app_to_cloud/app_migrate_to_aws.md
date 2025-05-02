@@ -3,6 +3,9 @@ name: Application Migration to AWS with Elastic Beanstalk
 dependsOn: []
 tags: []
 learningOutcomes:
+  - Deploy an application to AWS Elastic Beanstalk.
+  - Configure Elastic Beanstalk using AWS CLI tools.
+  - Manage and monitor applications deployed on Elastic Beanstalk.
 ---
 
 To overcome the limitations of running a local application with cloud services, we will migrate the entire image processing application to AWS, where it will be deployed and managed using Elastic Beanstalk. Migrating the application to AWS allows you to fully leverage cloud scalability, performance, and automation. Elastic Beanstalk takes care of provisioning the required infrastructure and scaling your application as needed.
