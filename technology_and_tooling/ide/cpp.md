@@ -2,6 +2,8 @@
 name: VSCode
 dependsOn: []
 tags: [cpp]
+learningOutcomes:
+  - Understand how to use VSCode for C++ development.
 attribution:
   - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk

@@ -4,8 +4,8 @@ id: mocking
 dependsOn: [technology_and_tooling.testing.testable_code_fixtures]
 tags: [pytest]
 learningOutcomes:
-  - Understand the use cases for mocking objects when writing tests.
-  - Be able to use `unittest`'s `Mock` class for creating mock objects.
+  - Understand how to use mocking to support automated testing.
+  - Understand how to use `unittest`'s `Mock` class for creating mock objects.
   - Understand how to patch functionality of objects within a desired scope.
 attribution:
   - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
