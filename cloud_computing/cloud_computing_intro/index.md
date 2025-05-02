@@ -1,12 +1,13 @@
 ---
 name: Introduction to Cloud Computing
 id: intro_to_cloud_computing
-dependsOn: []
-files: []
+dependsOn: [
+]
+files: [
+]
 summary: |
-
-  This course covers the basics of cloud computing, including key concepts, service models, and major providers. 
-  It also highlights the primary benefits of cloud computing, while addressing common challenges faced in its adoption.
+    This course covers the basics of cloud computing, including key concepts, service models, and major cloud providers. 
+    It also highlights the primary benefits of cloud computing, while addressing common challenges faced in its adoption.
 ---
 
 ## Cloud Computing: A High-Level Overview
@@ -56,5 +57,6 @@ While cloud computing provides significant advantages, organizations should also
 
 Cloud computing is reshaping industries by enabling businesses to scale rapidly, optimize costs, and access innovative technologies worldwide. Despite these compelling benefits, companies must carefully evaluate and manage associated challenges like vendor lock-in and data security concerns. By clearly understanding both the opportunities and the potential pitfalls, organizations can confidently navigate cloud adoption and leverage its full potential.
 
-Next, we will dive into hands-on exercises where you'll apply these concepts and gain practical experience with real-world cloud solutions.
+In the next section, you'll engage in practical, hands-on exercises designed to reinforce these concepts and equip you with real-world experience in deploying and managing cloud solutions.
+
 
