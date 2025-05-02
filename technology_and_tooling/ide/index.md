@@ -10,7 +10,7 @@ summary: |
 learningOutcomes:
   - Find out how to install VSCode.
   - Learn how to set up VSCode for Python development and use virtual environments.
-  - Discover how to use VSCode to write and compile C++ code. 
+  - Discover how to use VSCode to write and compile C++ code.
 attribution:
   - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk
@@ -32,4 +32,3 @@ provided via third-party plugins.
 
 This course provides an introduction to the popular [VSCode](https://code.visualstudio.com) IDE, both for Python
 and C++ development.
-
