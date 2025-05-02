@@ -74,7 +74,7 @@ If you want, you can think of each cell representing about 5 metres of road and 
 Despite being such a simple simulation, it represents some of the basic features of real traffic flow quite well. We will talk you through some examples in the next few videos.
 
 The simplest way to characterise different simulations is the density and average velocity of the cars: The density is the number of cars divided by the number of cells. If all cells are occupied then the density is 1.0 (i.e. 100%), and if half of them are occupied then the density is 0.5 (50%).
-If we define the top speed of a car as 1.0 (i.e. it moves one cell in an iteration) then the average speed of the cars at each iteration is the number of cars that move divided by the total number of cars. 
+If we define the top speed of a car as 1.0 (i.e. it moves one cell in an iteration) then the average speed of the cars at each iteration is the number of cars that move divided by the total number of cars.
 For example, if we have 10 cars and, in a given iteration, all of them move then the average speed is 1.0.
 If only four of them move then the average speed is 0.4 and, if none of them move, then the average speed is zero (total gridlock).
 

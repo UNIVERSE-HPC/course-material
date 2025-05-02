@@ -1,20 +1,18 @@
 ---
 name: Supercomputing World
-dependsOn: [
-    high_performance_computing.supercomputing.02_understanding_supercomputing
-]
+dependsOn: [high_performance_computing.supercomputing.02_understanding_supercomputing]
 tags: [foundation]
-attribution: 
-    - citation: >
-        "Introduction to HPC" course by EPCC.
-        This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
-      url: https://epcced.github.io/Intro-to-HPC/
-      image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Introduction to HPC" course by EPCC.
+      This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
+    url: https://epcced.github.io/Intro-to-HPC/
+    image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
+    license: CC-BY-4.0
 ---
 
 ![Computer circuit board looking like a city](images/bert-b-rhNff6hB41s-unsplash.jpg)
-*Image courtesy of [bert b](https://unsplash.com/@bertsz) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [bert b](https://unsplash.com/@bertsz) from [Unsplash](https://unsplash.com)_
 
 ## Current Trends and Moore's Law
 
@@ -41,7 +39,7 @@ We saw clock speeds steadily increasing, finally breaking the GHz barrier (a bil
 The problem is that increasing clock frequency comes at a cost: it takes more power. Above a few GHz, our processors become too power hungry and too hot to use in everyday devices. But Moore’s law continues, so rather than increasing the frequency we put more processors on the same physical chip. We call these CPU-cores, and we now have multicore processors. The below image shows a schematic of a modern processor (Intel’s Core i7) with four CPU-cores (four pinkish rectangles).
 
 ![Rendering of Intel Core i7 CPU](images/large_hero_cafacb0d-898b-44b4-9290-5c25c211fc03.jpg)
-*Intel's Core i7 A modern quad-core CPU - Intel’s Core i7 © Intel*
+_Intel's Core i7 A modern quad-core CPU - Intel’s Core i7 © Intel_
 
 So for the past decade, Moore’s law has meant:
 
@@ -52,7 +50,7 @@ In the last few years the process of doubling transistors in integrated circuits
 The current trend in the supercomputing world is that supercomputers are getting bigger not faster. Since the speed of a single CPU-core cannot be increased any more, having more and more cores working together is the only way to meet our computational requirements.
 
 ![Graph of transistor count over time, ](images/Transistor-Count-over-time.png)
-*Image courtesy of Max Roser, Hannah Ritchie [OurWorldinData](https://ourworldindata.org/uploads/2020/11/Transistor-Count-over-time.png) ([CC-BY](https://creativecommons.org/licenses/by/4.0/deed.en))*
+_Image courtesy of Max Roser, Hannah Ritchie [OurWorldinData](https://ourworldindata.org/uploads/2020/11/Transistor-Count-over-time.png) ([CC-BY](https://creativecommons.org/licenses/by/4.0/deed.en))_
 
 :::callout{variant="discussion"}
 Your next mobile phone will probably have more CPU-cores than your current one. Do you think this is more useful than a faster CPU? Can you see any problems in making use of all these CPU-cores?
@@ -62,7 +60,7 @@ Your next mobile phone will probably have more CPU-cores than your current one. 
 
 ## How to calculate the world's yearly income?
 
-::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_tpqo25kw&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_1ms2y7b4" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="worlds_yearly_income_hd"}
+::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_tpqo25kw&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_1ms2y7b4" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay _; fullscreen _; encrypted-media \*" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="worlds_yearly_income_hd"}
 ::::
 
 :::solution{title="Transcript"}
@@ -89,7 +87,7 @@ We will use this example in other steps on this course to better illustrate some
 
 ## Moore's Law in practice
 
-::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_4zab4d0l&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_1mhy9m0z" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Moores_Law_hd"}
+::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_4zab4d0l&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_1mhy9m0z" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay _; fullscreen _; encrypted-media \*" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Moores_Law_hd"}
 ::::
 
 :::solution{title="Transcript"}
@@ -125,7 +123,7 @@ In this video David uses the income calculation example to illustrate what is th
 ---
 
 ![Podium with top three winners](images/winner-1019835_640.jpg)
-*Image courtesy of [Peggy_Marco](https://pixabay.com/users/peggy_marco-1553824/) from [Pixabay](https://pixabay.com)*
+_Image courtesy of [Peggy_Marco](https://pixabay.com/users/peggy_marco-1553824/) from [Pixabay](https://pixabay.com)_
 
 ## Top500 list: Supercomputing hit parade
 
@@ -144,6 +142,7 @@ Have a look at the most recent list and briefly comment on the following questio
 - What types of processors do they use?
 - What fraction of peak performance is typically achieved for the LINPACK benchmark?
 - Play with the statistics tool on top500.org and think about the trends in current HPC systems. For example, how many supercomputers in the Top500 are classed as being for use by industry?
+
 :::
 
 ---
@@ -151,37 +150,37 @@ Have a look at the most recent list and briefly comment on the following questio
 ## Terminology recap
 
 ::::challenge{id=sc_world.1 title="Supercomputing World Q1"}
-Historically, a ____ contained a single "brain" but nowadays it contains multiple ____.
+Historically, a \_**\_ contained a single "brain" but nowadays it contains multiple \_\_**.
 
 :::solution
 
-1) Processor
+1. Processor
 
-2) Cores
+2. Cores
 
 :::
 ::::
 
 ::::challenge{id=sc_world.2 title="Supercomputing World Q2"}
-The mode of computing in which a single CPU-core is doing a single computation is called ____ computing, as opposed to ____ computing, where all CPU-cores work together at the same time.
+The mode of computing in which a single CPU-core is doing a single computation is called \_**\_ computing, as opposed to \_\_** computing, where all CPU-cores work together at the same time.
 
 :::solution
 
-1) Serial
+1. Serial
 
-2) Parallel
+2. Parallel
 
 :::
 ::::
 
 ::::challenge{id=sc_world.3 title="Supercomputing World Q3"}
-The process of evaluating the performance of a supercomputer by running a standard program is called ____. The standard calculation used to compile the top500 list is called ____.
+The process of evaluating the performance of a supercomputer by running a standard program is called \_**\_. The standard calculation used to compile the top500 list is called \_\_**.
 
 :::solution
 
-1) Benchmarking
+1. Benchmarking
 
-2) LINPACK
+2. LINPACK
 
 :::
 ::::

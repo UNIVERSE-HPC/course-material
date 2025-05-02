@@ -1,20 +1,18 @@
 ---
 name: Parallel Computing Performance
-dependsOn: [
-    high_performance_computing.parallel_computing.02_programming
-]
+dependsOn: [high_performance_computing.parallel_computing.02_programming]
 tags: [foundation]
-attribution: 
-    - citation: >
-        "Introduction to HPC" course by EPCC.
-        This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
-      url: https://epcced.github.io/Intro-to-HPC/
-      image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Introduction to HPC" course by EPCC.
+      This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
+    url: https://epcced.github.io/Intro-to-HPC/
+    image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
+    license: CC-BY-4.0
 ---
 
 ![Photo of someone holding a stopwatch](images/veri-ivanova-p3Pj7jOYvnM-unsplash.jpg)
-*Image courtesy of [Veri Ivanova](https://unsplash.com/@veri_ivanova) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Veri Ivanova](https://unsplash.com/@veri_ivanova) from [Unsplash](https://unsplash.com)_
 
 ## Parallel Performance
 
@@ -36,7 +34,7 @@ $$
 S_{10} = \frac{T_1}{T_{10}} = \frac{100}{25} = 8
 $$
 
-Ideally, we would like our parallel program to run 10 times faster on 10 CPU-cores, but this is not normally possible due to the inevitable overheads. 
+Ideally, we would like our parallel program to run 10 times faster on 10 CPU-cores, but this is not normally possible due to the inevitable overheads.
 These overheads ensure $S_P$ is generally less than $P$.
 
 Another way of quantifying this is to compute the parallel efficiency:
@@ -64,7 +62,7 @@ For some problems a parallel efficiency of 80% would be considered to be very go
 ---
 
 ![Photo of very tall building](images/veri-ivanova-p3Pj7jOYvnM-unsplash.jpg)
-*Image courtesy of [Patrick Tomasso](https://unsplash.com/@impatrickt) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Patrick Tomasso](https://unsplash.com/@impatrickt) from [Unsplash](https://unsplash.com)_
 
 ## Scaling and Parallel Overheads
 
@@ -81,12 +79,12 @@ We will consider two possible aeroplanes: a Jumbo Jet (top speed 700 kph) and Co
 
 The important observation is that the total journey time is the flight time plus the additional overheads of travelling between the city centre and the airport, waiting at check-in, clearing security or passport control, collecting your luggage etc. For simplicity, let’s assume that travel to the airport takes an hour by bus each way, and that you spend an hour in the airport at each end.
 
-| Plane | Destination | Flight Time | Over-head | Total Journey | Speed-up S3 | Efficiency E3 |
-| --- | --- | --- | --- | --- | --- | --- |
-| Jumbo Jet | New York | 8:00 | 4:00 | 12:00 | | |
-| Concorde | New York | 2:40 | 4:00 | 6:40 | 1.8 | 60% |
-| Jumbo Jet | Sydney | 24:00 | 4:00 | 28:00 | | |
-| Concorde | Sydney | 8:00 | 4:00 | 12:00 | 2.3 | 78% |
+| Plane     | Destination | Flight Time | Over-head | Total Journey | Speed-up S3 | Efficiency E3 |
+| --------- | ----------- | ----------- | --------- | ------------- | ----------- | ------------- |
+| Jumbo Jet | New York    | 8:00        | 4:00      | 12:00         |             |               |
+| Concorde  | New York    | 2:40        | 4:00      | 6:40          | 1.8         | 60%           |
+| Jumbo Jet | Sydney      | 24:00       | 4:00      | 28:00         |             |               |
+| Concorde  | Sydney      | 8:00        | 4:00      | 12:00         | 2.3         | 78%           |
 
 Try to answer the following questions:
 
@@ -100,7 +98,7 @@ Try to answer the following questions:
 ---
 
 ![Photo of judge's gavel](images/wesley-tingey-TdNLjGXVH3s-unsplash.jpg)
-*Image courtesy of [Wesley Tingey](https://unsplash.com/@wesleyphotography) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Wesley Tingey](https://unsplash.com/@wesleyphotography) from [Unsplash](https://unsplash.com)_
 
 ## Parallel Performance Laws
 
@@ -142,7 +140,7 @@ If you are interested in more details (and more maths!) then you can visit Wikip
 ---
 
 ![Long exposure of many cars on highway at night](images/jake-givens-iR8m2RRo-z4-unsplash.jpg)
-*Image courtesy of [Jake Givens](https://unsplash.com/@jakegivens) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Jake Givens](https://unsplash.com/@jakegivens) from [Unsplash](https://unsplash.com)_
 
 ## Scaling Behaviour of the Traffic Simulation
 
@@ -171,9 +169,9 @@ These calculations, require you to make a number of assumptions so when comparin
 ## Terminology Recap
 
 ::::challenge{id=pcing_programming.1 title="Parallel Computing Programming Q1"}
-The standard measure of parallel performance is called the parallel ____ .
-For P CPU-cores it is calculated as the time taken to run a program on ____
-CPU-core divided by the time taken to run it on ____ CPU-cores.
+The standard measure of parallel performance is called the parallel \_**\_ .
+For P CPU-cores it is calculated as the time taken to run a program on \_\_**
+CPU-core divided by the time taken to run it on \_\_\_\_ CPU-cores.
 
 :::solution
 
@@ -187,7 +185,7 @@ C) P
 ::::
 
 ::::challenge{id=pcing_programming.2 title="Parallel Computing Programming Q2"}
-In parallel computing, the parallel ____ is used to measure how efficiently the CPU-cores are utilised. Although, we would like this to be as high as possible, it is typically less than ____.
+In parallel computing, the parallel \_**\_ is used to measure how efficiently the CPU-cores are utilised. Although, we would like this to be as high as possible, it is typically less than \_\_**.
 
 :::solution
 
@@ -199,7 +197,7 @@ B) 1.0
 ::::
 
 ::::challenge{id=pcing_programming.3 title="Parallel Computing Programming Q3"}
-The plot showing the performance of a parallel program with increasing number of CPU-cores is referred to as a ____ ____ . The fact that parallel programs do not scale perfectly (i.e. the speedup is not equal to the number of CPU-cores) is explained by an equation called ____ ____ .
+The plot showing the performance of a parallel program with increasing number of CPU-cores is referred to as a \_**\_ \_\_** . The fact that parallel programs do not scale perfectly (i.e. the speedup is not equal to the number of CPU-cores) is explained by an equation called \_**\_ \_\_** .
 
 :::solution
 

@@ -165,7 +165,7 @@ Quite often special software is required to allow post-processing and then visua
 
 ### Visualisations
 
-At any given moment in time, a weather state is represented by at least tens of thousands of data points. 
+At any given moment in time, a weather state is represented by at least tens of thousands of data points.
 The sheer volume of data is so vast that some visual form is needed to make sense of it.
 
 One of the earliest visualisations techniques used in weather science were maps. They usually focus on a few variables only (e.g. temperature and cloud/rain cover) and show how they will behave over the next hours or days. If you are interested in seeing how weather maps used in TV weather forecasts changed over time, visit the BBC article - [Presenting a warm front: 60 years of the British TV weather forecast](https://www.bbc.co.uk/news/magazine-25665340).

@@ -1,31 +1,29 @@
 ---
 name: Image Sharpening using HPC
-dependsOn: [
-    high_performance_computing.supercomputing.03_supercomputing_world
-]
+dependsOn: [high_performance_computing.supercomputing.03_supercomputing_world]
 tags: [foundation]
-attribution: 
-    - citation: >
-        "Introduction to HPC" course by EPCC.
-        This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
-      url: https://epcced.github.io/Intro-to-HPC/
-      image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Introduction to HPC" course by EPCC.
+      This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
+    url: https://epcced.github.io/Intro-to-HPC/
+    image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
+    license: CC-BY-4.0
 ---
 
 ## Part 1: Introduction & Theory
 
 Images can be fuzzy from random noise and blurrings.
 
-An image can be sharpened by:  
+An image can be sharpened by:
 
-  1. detecting the edges  
-  2. combining the edges with the original image  
+1. detecting the edges
+2. combining the edges with the original image
 
 These steps are shown in the figure below.
 
 ![Image sharpening steps](images/sharpening_diagram.png)
-*Image sharpening steps*
+_Image sharpening steps_
 
 ---
 
@@ -52,7 +50,7 @@ $$
 These two functions $G(x,y)$ and $L \circ G(x,y)$ are graphed below.
 
 !["Gaussian" and "Laplacian of Gaussian" filters](images/Laplacian_of_Gaussian.png)
-*"Gaussian" and "Laplacian of Gaussian" filters*
+_"Gaussian" and "Laplacian of Gaussian" filters_
 
 ---
 
@@ -61,7 +59,7 @@ These two functions $G(x,y)$ and $L \circ G(x,y)$ are graphed below.
 To apply the $L \circ G$ filter to an image the $L \circ G$ filter must be turned into a discrete mask, that is a matrix of size 2d+1 x 2d+1 where d is an integer. We use d=8, therefore the $L \circ G$ filter is a 17x17 square, it looks like this:
 
 ![Laplacian of Gaussian filter as a discrete mask](images/mask.png)
-*$L \circ G$ filter as a discrete mask*
+_$L \circ G$ filter as a discrete mask_
 
 To perform the convolution of this filter with the original image, the following operation is performed on each pixel,
 
@@ -98,8 +96,8 @@ Receiving objects: 100% (131/131), 366.62 KiB | 3.05 MiB/s, done.
 Resolving deltas: 100% (56/56), done.
 ```
 
-You will now have a folder called `foundation-exercises. Change directory into where the sharpening code is located and list the contents:
 You will now have a folder called `foundation-exercises`. Change directory into where the sharpening code is located and list the contents:
+
 ```bash
 cd foundation-exercises/sharpen
 ls
@@ -117,7 +115,7 @@ There are several version of the code, a serial version and a number of parallel
 
 We will compile the serial version of the source code using a Makefile.
 
-Move into the ``C-SER`` directory and list the contents.
+Move into the `C-SER` directory and list the contents.
 
 ```bash
 cd C-SER
@@ -130,7 +128,7 @@ Output:
 cio.c  dosharpen.c  filter.c  fuzzy.pgm  Makefile  sharpen.c  sharpen.h  sharpen.slurm  utilities.c  utilities.h
 ```
 
-You will see various code files. The Makefile includes the commands which compile them into an executable program. To use the Makefile, type the ``make`` command.
+You will see various code files. The Makefile includes the commands which compile them into an executable program. To use the Makefile, type the `make` command.
 
 ```bash
 make
@@ -178,7 +176,7 @@ cc -O3 -DC_SERIAL_PRACTICAL -c utilities.c
 cc -O3 -DC_SERIAL_PRACTICAL -o sharpen sharpen.o dosharpen.o filter.o cio.o utilities.o -lm
 ```
 
-This should produce an executable file called ``sharpen``.
+This should produce an executable file called `sharpen`.
 
 ### Running the serial program
 
@@ -239,7 +237,7 @@ Then you should be able to open and view the image file on your local machine.
 
 ::::callout
 
-## What about viewing the file *without* copying?
+## What about viewing the file _without_ copying?
 
 Another way to view this file directly on an HPC resource, without copying it, is by installing an X Window client on your local machine and then log into the remote machine with X forwarding enabled.
 Covering this in detail is beyond the scope of this course, although the ARCHER2 [documentation on connecting](https://docs.archer2.ac.uk/user-guide/connecting/#logging-in) has some information.

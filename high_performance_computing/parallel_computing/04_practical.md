@@ -108,7 +108,8 @@ Even knowing a task-farm is viable for a given job, we still need to consider ho
 - In your opinion what would be the optimal combination of the number
   of workers and task? What would it depend on the most? Task size?
   Problem size? Computer architecture?
-  :::
+
+:::
 
 ### Load Balancing
 

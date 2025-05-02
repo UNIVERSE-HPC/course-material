@@ -1,20 +1,18 @@
 ---
 name: Connecting Multiple Computers
-dependsOn: [
-    high_performance_computing.parallel_computers.01_basics
-]
+dependsOn: [high_performance_computing.parallel_computers.01_basics]
 tags: [foundation]
-attribution: 
-    - citation: >
-        "Introduction to HPC" course by EPCC.
-        This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
-      url: https://epcced.github.io/Intro-to-HPC/
-      image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Introduction to HPC" course by EPCC.
+      This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
+    url: https://epcced.github.io/Intro-to-HPC/
+    image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
+    license: CC-BY-4.0
 ---
 
 ![People on laptops sat around a desk](images/helena-lopes-2MBtXGq4Pfs-unsplash.jpg)
-*Image courtesy of [Helena Lopes](https://unsplash.com/@wildlittlethingsphoto) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Helena Lopes](https://unsplash.com/@wildlittlethingsphoto) from [Unsplash](https://unsplash.com)_
 
 ## Distributed Memory Architecture
 
@@ -33,16 +31,16 @@ For the moment, let’s ignore the complication that each computer is itself a s
 
 The office analogy can be further extended: a distributed-memory parallel computer has workers all in separate offices, each with their own personal whiteboard, who can only communicate by phoning each other.
 
-| Advantages |
-| --- |
-| The number of whiteboards (i.e. the total memory) grows as we add more offices. |
-| There is no overcrowding so every worker has easy access to a whiteboard. |
+| Advantages                                                                          |
+| ----------------------------------------------------------------------------------- |
+| The number of whiteboards (i.e. the total memory) grows as we add more offices.     |
+| There is no overcrowding so every worker has easy access to a whiteboard.           |
 | We can, in principle, add as many workers as we want provided the network can cope. |
 
-| Disadvantages |
-| --- |
-| If we have large amounts of data, we have to decide how to split it up across all the different offices. |
-| We need to have lots of separate copies of the operating system. |
+| Disadvantages                                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------------------------- |
+| If we have large amounts of data, we have to decide how to split it up across all the different offices.                        |
+| We need to have lots of separate copies of the operating system.                                                                |
 | It is more difficult to communicate with each other as you cannot see each others whiteboards so you have to make a phone call. |
 
 The second disadvantage on this list doesn’t have any direct cost implications as almost all supercomputers use some version of the Linux OS which is free but, it does mean thousands of copies of the OS, or other installed software, need to be upgraded when updates are required.
@@ -63,7 +61,7 @@ Why do you think the distributed memory architecture is common in supercomputing
 ---
 
 ![Two calculators](images/isawred-Mn4_KuFSpe4-unsplash.jpg)
-*Image courtesy of [iSawRed](https://unsplash.com/@isawred) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [iSawRed](https://unsplash.com/@isawred) from [Unsplash](https://unsplash.com)_
 
 ## Simple Parallel Calculation
 
@@ -82,7 +80,7 @@ To minimise the communication-related costs, try to make as few phone calls as p
 ---
 
 ![ARCHER2 banner](images/ARCHER2.jpg)
-*© ARCHER2*
+_© ARCHER2_
 
 ## Case study of a real machine
 
@@ -112,7 +110,7 @@ This gives a peak performance of 750,080 \* 2.25 \* 16 Gflop/s = 27,002,880 Glop
 ARCHER2 comprises 23 separate cabinets, each about the height and width of a standard door, with around 32,768 CPU-cores (256 nodes) or about 60,000 virtual cores (using multi-threading) in each cabinet.
 
 ![Photo of someone managing ARCHER2 system](images/hero_73afa9aa-74db-4ad2-893e-971956518bdf.jpg)
-*© EPCC*
+_© EPCC_
 
 ### Storage
 
@@ -130,16 +128,16 @@ The heated water is then cooled and re-circulated.
 When necessary the water is cooled by electrical chillers but, most of the time, ARCHER2 can take advantage of the mild Scottish climate and cool the water for free simply by pumping it through external cooling towers, so saving significant amounts of energy.
 
 ![Diagram of datacenter cooling](images/hero_87e2018b-86eb-4aa5-a7c4-efd271a505b2.webp)
-*© Mike Brown*
+_© Mike Brown_
 
 ![Photo of ARCHER's cooling towers](images/hero_a887d8cf-e9a0-4810-b7ab-b7a016dfc47f.webp)
-*ARCHER’s cooling towers © Mike Brown*
+_ARCHER’s cooling towers © Mike Brown_
 
 ---
 
 ## Wee ARCHIE case study
 
-::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_guapr85q&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_0dan4ubd" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Wee_Archie_case_study_hd"}
+::::iframe{id="kaltura*player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_guapr85q&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_0dan4ubd" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen \_; encrypted-media \*" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Wee_Archie_case_study_hd"}
 ::::
 
 :::solution{title="Transcript"}
@@ -183,7 +181,7 @@ For anyone interested in how Wee ARCHIE has been put together (and possibly want
 ---
 
 ![Photo of overly complex road junction](images/timo-volz-9Psb5Q1TLD4-unsplash.jpg)
-*Image courtesy of [Timo Volz](https://unsplash.com/@magict1911) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Timo Volz](https://unsplash.com/@magict1911) from [Unsplash](https://unsplash.com)_
 
 ## ARCHER2 - it's more complicated
 
@@ -195,7 +193,7 @@ This setup, known as Non-Uniform Memory Access (NUMA) architecture, is illustrat
 
 ![Diagram of NUMA architecture, with two sets of multicore CPUs/memory connected by a shared memory bus](images/hero_9f93cf41-f24d-4ab2-8a7e-d25a78a8089c.png)
 
-Every CPU-core can access all the memory regardless of which processor it is located on but, reading data from another CPU’s memory can involve going through an additional memory bus, making the process slower than reading from its own memory. 
+Every CPU-core can access all the memory regardless of which processor it is located on but, reading data from another CPU’s memory can involve going through an additional memory bus, making the process slower than reading from its own memory.
 Although this hardware arrangement introduces technical complexities, the key point is that the 128 CPU-cores function as a single shared-memory system, managed by one operating system.
 
 The details of the network are even more complicated with four separate levels ranging from direct connections between the nodes packaged together on the same blade, up to fibre-optic connections between separate cabinets. If you are interested in the details see the ARCHER2 website.

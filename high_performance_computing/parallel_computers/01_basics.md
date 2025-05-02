@@ -1,20 +1,18 @@
 ---
 name: Parallelism in Everyday Computers
-dependsOn: [
-    high_performance_computing.supercomputing.03_supercomputing_world
-]
+dependsOn: [high_performance_computing.supercomputing.03_supercomputing_world]
 tags: [foundation]
-attribution: 
-    - citation: >
-        "Introduction to HPC" course by EPCC.
-        This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
-      url: https://epcced.github.io/Intro-to-HPC/
-      image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Introduction to HPC" course by EPCC.
+      This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
+    url: https://epcced.github.io/Intro-to-HPC/
+    image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
+    license: CC-BY-4.0
 ---
 
 ![Photo of laptop motherboard](images/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg)
-*Image courtesy of [Alexandre Debieve](https://unsplash.com/@alexkixa) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Alexandre Debieve](https://unsplash.com/@alexkixa) from [Unsplash](https://unsplash.com)_
 
 ## Computer Basics
 
@@ -36,16 +34,19 @@ For our purposes, the configuration of memory is the most critical aspect, so we
 
 For three decades leading up to 2005, Moore’s Law ensured that processors became exponentially faster, primarily due to increasing CPU clock speeds. However, around 2005, clock speed growth plateaued at around 2 GHz.
 
-The reason was simple: the amount of electrical power required to run processors at these speeds had become so large that they were becoming too hot for the domestic market (could not be cooled by a simple fan) and too expensive to run for the commercial market (large electricity bills and expensive cooling infrastructure). So, around 2005, the application of Moore’s law changed: rather than using twice as many transistors to build a new, more complicated CPU with twice the frequency, manufacturers started to put two of the old CPUs on the same silicon chip - this is called a dual-core CPU.
+The reason was simple: the amount of electrical power required to run processors at these speeds had become so large that they were becoming too hot for the domestic market (could not be cooled by a simple fan) and too expensive to run for the commercial market (large electricity bills and expensive cooling infrastructure).
+So, around 2005, the application of Moore’s law changed: rather than using twice as many transistors to build a new, more complicated CPU with twice the frequency, manufacturers started to put two of the old CPUs on the same silicon chip - this is called a dual-core CPU.
 
 The trend continued with four CPUs on a chip, then more … Generically, they are called multicore CPUs, although for very large numbers the term manycore CPU is now commonplace.
 
 :::callout{variant="info"}
-With multicore processors, terminology can be confusing. When we refer to a "processor" or "CPU," it’s not always clear whether we mean the physical chip (which houses multiple processors) or the individual processing units within.
+With multicore processors, terminology can be confusing.
+When we refer to a "processor" or "CPU," it’s not always clear whether we mean the physical chip (which houses multiple processors) or the individual processing units within.
 
 To avoid confusion in this course:
+
 - CPU-core refers to each individual processing unit within a chip.
-- CPU or processor refers to the entire multicore chip.
+- CPU or processor refers to the entire multi-core chip.
 
 So, a quad-core CPU (or quad-core processor) has four CPU-cores.
 :::
@@ -58,13 +59,14 @@ We now have two complementary ways of building a parallel computer:
 We will now explore these approaches in detail.
 
 :::callout{variant="discussion"}
-What do you think the main differences between these two approaches are? Can you think of any advantages and/or disadvantages for both of them?
+What do you think the main differences between these two approaches are?
+Can you think of any advantages and/or disadvantages for both of them?
 :::
 
 ---
 
 ![Photo of two people writing on a small whiteboard](images/kaleidico-7lryofJ0H9s-unsplash.jpg)
-*Image courtesy of [Kaleidico](https://unsplash.com/@kaleidico) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Kaleidico](https://unsplash.com/@kaleidico) from [Unsplash](https://unsplash.com)_
 
 ## Shared Memory Architecture
 
@@ -74,18 +76,22 @@ The fundamental feature of a shared-memory computer is that all the CPU-cores ar
 
 This is achieved by having a memory bus that takes requests for data from multiple sources (here, each of the four separate CPU-cores) and fetches the data from a single piece of memory. The term bus apparently comes from the Latin omnibus meaning for all, indicating that it is a single resource shared by many CPU-cores.
 
-This is the basic architecture of a modern mobile phone, laptop or desktop PC. If you buy a system with a quad core processor and 4 GBytes of RAM, each of the 4 CPU-cores will be connected to the same 4 Gbytes of RAM, and they’ll therefore have to play nicely and share the memory fairly between each other.
+This is the basic architecture of a modern mobile phone, laptop or desktop PC.
+If you buy a system with a quad core processor and 4 GBytes of RAM, each of the 4 CPU-cores will be connected to the same 4 Gbytes of RAM, and they’ll therefore have to play nicely and share the memory fairly between each other.
 
-A good analogy here is to think of four office-mates or workers (the CPU-cores) sharing a single office (the computer) with a single whiteboard (the memory). Each worker has their own set of whiteboard pens and an eraser, but they are not allowed to talk to each other: they can only communicate by writing to and reading from the whiteboard.
+A good analogy here is to think of four office-mates or workers (the CPU-cores) sharing a single office (the computer) with a single whiteboard (the memory).
+Each worker has their own set of whiteboard pens and an eraser, but they are not allowed to talk to each other:
+they can only communicate by writing to and reading from the whiteboard.
 
-Later in this module, we’ll explore strategies for leveraging this shared whiteboard to enable efficient cooperation among the workers. However, this analogy already illustrates two key limitations of this approach:
+Later in this module, we’ll explore strategies for leveraging this shared whiteboard to enable efficient cooperation among the workers.
+However, this analogy already illustrates two key limitations of this approach:
 
 1. **memory capacity**: There is a limit to the size of the whiteboard that you can fit into an office, i.e. there is a limit to the amount of memory you can put into a single shared-memory computer;
 1. **memory access speed**: imagine that there were ten people in the same office - although they can in principle all read and write to the whiteboard, there’s simply not enough room for more than around four of them to do so at the same time as they start to get in each other’s way. Although you can fill the office full of more and more workers, their productivity will stall after about 4 workers, as contention for the shared memory bus increases a bottleneck is created.
 
 ### Limitations
 
-It turns out that memory access speed is a real issue in shared-memory machines. 
+It turns out that memory access speed is a real issue in shared-memory machines.
 If you look at the processor diagram above, you’ll see that all the CPU-cores share the same bus: the connection between the bus and the memory becomes a bottleneck, limiting the number of CPU-cores that can efficiently utilize the shared memory.
 Coupled with the fact that the variety of programs we run on supercomputers tend to read and write large quantities of data, memory access speed often becomes the primary factor limiting calculation speed, outweighing the importance of the CPU-cores' floating-point performance.
 
@@ -100,7 +106,7 @@ Think of owning one quad-core laptop compared to two dual-core laptops - which i
 ---
 
 ![Photo of abacus](images/oleksii-piekhov-IflQrze1wMM-unsplash.jpg)
-*Image courtesy of [Oleksii Piekhov](https://unsplash.com/@opiekhov) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Oleksii Piekhov](https://unsplash.com/@opiekhov) from [Unsplash](https://unsplash.com)_
 
 ## Simple Parallel Calculation
 
@@ -119,7 +125,7 @@ We’ll revisit this problem in much more detail later but you know enough alrea
 ---
 
 ![Photo of silicon wafer containing many processor chips](images/laura-ockel-qOx9KsvpqcM-unsplash.jpg)
-*Image courtesy of [Laura Ockel](https://unsplash.com/@viazavier) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Laura Ockel](https://unsplash.com/@viazavier) from [Unsplash](https://unsplash.com)_
 
 ## Who needs a multicore laptop?
 
@@ -147,18 +153,20 @@ Just like an animation made up of many individual frames, this gives the illusio
 
 ### How the OS exploits many CPU-cores
 
-On a shared-memory computer, the important point is that all the CPU-cores are under the control of a single OS (meaning you don’t need to buy 4 Windows licences for your quadcore laptop!). This means that your computer can genuinely run more than one program at the same time. It’s a bit more complicated for the OS - it has to decide not just which programs to run but also where to run them - but a good OS performs a juggling act to keep all the CPU-cores busy.
+On a shared-memory computer, the important point is that all the CPU-cores are under the control of a single OS (meaning you don’t need to buy 4 Windows licences for your quadcore laptop!).
+This means that your computer can genuinely run more than one program at the same time.
+It’s a bit more complicated for the OS - it has to decide not just which programs to run but also where to run them - but a good OS performs a juggling act to keep all the CPU-cores busy.
 
 ![User in relation to computer, containing operating system, multiple cores and memory](images/hero_4a65543e-9635-4624-9811-5da1a0ab431e.png)
 
-This means that you can run a web browser, listen to music, edit a document and run a spreadsheet all at the same time without these different programs slowing each other down. 
-With shared memory, the OS can pause a program on CPU-core 1 and resume it later on CPU-core 3, as all CPU-cores can access the same shared memory. 
+This means that you can run a web browser, listen to music, edit a document and run a spreadsheet all at the same time without these different programs slowing each other down.
+With shared memory, the OS can pause a program on CPU-core 1 and resume it later on CPU-core 3, as all CPU-cores can access the same shared memory.
 This allows seamless task switching.
 
 A shared-memory computer looks like a more powerful single-core computer: it operates like a single computer because it has a single OS, which fundamentally relies on all the CPU-cores being able to access the same memory. It is this flexibility that makes multicore shared-memory systems so useful.
 
-So, for home use, the Operating System does everything for us, running many separate programs at the same time. 
-In supercomputing, the goal is to accelerate a single program rather than running multiple tasks simultaneously. 
+So, for home use, the Operating System does everything for us, running many separate programs at the same time.
+In supercomputing, the goal is to accelerate a single program rather than running multiple tasks simultaneously.
 Achieving this requires effort beyond what the OS can provide.
 
 :::callout{variant="discussion"}
@@ -169,7 +177,7 @@ In your opinion what are the downsides of this more advanced ‘single-core comp
 
 ## How does your laptop use multiple CPU-cores?
 
-::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_3g4n1c0n&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_vf0ln82e" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Laptop_Multiple_CPU-cores_hd"}
+::::iframe{id="kaltura*player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_3g4n1c0n&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_vf0ln82e" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen \_; encrypted-media \*" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Laptop_Multiple_CPU-cores_hd"}
 ::::
 
 :::solution{title="Transcript"}
@@ -205,14 +213,14 @@ Watch what happens when David runs multiple copies of a simple income calculatio
 ![User in relation to computer, containing operating system, multiple cores and memory](images/hero_4a65543e-9635-4624-9811-5da1a0ab431e.png)
 
 Note that running multiple instances of our toy program simultaneously does not save time.
-Each instance runs independently, producing identical results in approximately the same duration. 
+Each instance runs independently, producing identical results in approximately the same duration.
 This demo illustrates how an operating system handles execution on multiple CPU-cores, but otherwise is a waste of resources.
 
 Can you think of a situation in which this kind of execution may be useful?
 
 We haven’t really explained what the concept of minimum interference is about - think of David closing down his browser before running his code - but can you think of a reason why it may be important to isolate your program as much as possible, especially when running on a supercomputer? What are the implications of not doing this?
 
-If you are interested, here is the function that David actually timed. 
+If you are interested, here is the function that David actually timed.
 The function is written in C and is provided purely for reference.
 It is not intended to be compiled or executed as it is.
 
@@ -247,7 +255,7 @@ David: I re-ran the same studies covered in the video but with almost all other 
 ---
 
 ![Person writing on whiteboard](images/jeswin-thomas-2Q3Ivd-HsaM-unsplash.jpg)
-*Image courtesy of [Jeswin Thomas](https://unsplash.com/@jeswinthomas) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Jeswin Thomas](https://unsplash.com/@jeswinthomas) from [Unsplash](https://unsplash.com)_
 
 ## Memory Caches
 
@@ -259,12 +267,12 @@ However, it is also quite small, well under a megabyte, representing less than a
 Think of the analogy with many workers sharing an office: The obvious solution to avoid always queueing up to access the shared whiteboard is to take a temporary copy of what you are working on.
 When you need to read data from the whiteboard, you copy the necessary data into your notebook and work independently, reducing contention for the shared resource.
 
-This works very well for a single worker: you can work entirely from your personal notebook for long periods, and then transfer any updated results to the whiteboard before moving on to the next piece of work. 
+This works very well for a single worker: you can work entirely from your personal notebook for long periods, and then transfer any updated results to the whiteboard before moving on to the next piece of work.
 It can also work very well for multiple workers as long as they only ever read data.
 
 ### Writing data
 
-Unfortunately, real programs also write data, meaning workers need to update the shared whiteboard. If two people are working on the same data at the same time, we have a problem: if one worker changes some numbers in their notebook then the other worker needs to know about it. Whenever you alter a number, you must inform the other workers, for example: 
+Unfortunately, real programs also write data, meaning workers need to update the shared whiteboard. If two people are working on the same data at the same time, we have a problem: if one worker changes some numbers in their notebook then the other worker needs to know about it. Whenever you alter a number, you must inform the other workers, for example:
 
 "I’ve just changed the entry for the 231st salary - if you have a copy of it then you’ll need to get the new value from me!"
 
@@ -289,7 +297,7 @@ What do you think is the current state-of-the-art? How many CPU-cores do high-en
 
 ## Resource Contention
 
-::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_s0oh0v7t&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_fhat1vsf" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Resource_Contention_hd"}
+::::iframe{id="kaltura*player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_s0oh0v7t&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_fhat1vsf" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen \_; encrypted-media \*" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Resource_Contention_hd"}
 ::::
 
 :::solution{title=Transcript}
@@ -324,7 +332,7 @@ For Step 2.6, the calculations are reran with the graphical monitor turned off, 
 Here are the timings for this large dataset with the small dataset results included for comparison.
 
 | dataset | #copies | runtime (seconds) |
-| ------  | ------- | ----------------- |
+| ------- | ------- | ----------------- |
 | small   | 1       | 9.7               |
 | small   | 4       | 11.1              |
 | small   | 8       | 22.2              |
@@ -337,44 +345,44 @@ Here are the timings for this large dataset with the small dataset results inclu
 ## Terminology Quiz
 
 ::::challenge{id=pc_basics.1 title="Parallel Computers Q1"}
-A system built from a single multicore processor (perhaps with a few tens of CPU-cores) is an example of the ____ ____
+A system built from a single multicore processor (perhaps with a few tens of CPU-cores) is an example of the \_**\_ \_\_**
 architecture, whereas a system composed of many separate processors connected via a high-speed network is referred to as the
-____ ____ architecture.
+\_**\_ \_\_** architecture.
 
 :::solution
 
-1) shared memory
+1. shared memory
 
-2) distributed memory
+2. distributed memory
 
 :::
 ::::
 
 ::::challenge{id=pc_basics.2 title="Parallel Computers Q2"}
-The two main limitations of the shared-memory architecture are: memory ____
-and memory ____ ____. The hierarchical memory structure is used to improve the memory access speeds.
-The smallest but also the fastest memory is called ____ memory.
-And keeping the data consistent and up-to-date on all the CPU-cores is called ____ ____.
+The two main limitations of the shared-memory architecture are: memory \_**\_
+and memory \_\_** \_**\_. The hierarchical memory structure is used to improve the memory access speeds.
+The smallest but also the fastest memory is called \_\_** memory.
+And keeping the data consistent and up-to-date on all the CPU-cores is called \_**\_ \_\_**.
 
 :::solution
 
-1) capacity
+1. capacity
 
-2) access speed
+2. access speed
 
-3) cache
+3. cache
 
-4) cache coherency
+4. cache coherency
 
 :::
 ::::
 
 ::::challenge{id=pc_basics.3 title="Parallel Computers Q3"}
-The situation when multiple CPU-cores try to use the same resources, e.g. memory, disk storage or network buses, is called ____ ____.
+The situation when multiple CPU-cores try to use the same resources, e.g. memory, disk storage or network buses, is called \_**\_ \_\_**.
 
 :::solution
 
-1) resource contention
+1. resource contention
 
 :::
 ::::

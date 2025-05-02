@@ -1,16 +1,14 @@
 ---
 name: Shared vs Distributed Hello World
-dependsOn: [
-    high_performance_computing.parallel_computers.03_comparison
-]
+dependsOn: [high_performance_computing.parallel_computers.03_comparison]
 tags: [foundation]
-attribution: 
-    - citation: >
-        "Introduction to HPC" course by EPCC.
-        This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
-      url: https://epcced.github.io/Intro-to-HPC/
-      image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Introduction to HPC" course by EPCC.
+      This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
+    url: https://epcced.github.io/Intro-to-HPC/
+    image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
+    license: CC-BY-4.0
 ---
 
 So far the code examples we've run have been limited to serial computation.
@@ -21,7 +19,7 @@ which are both heavily used in HPC applications and are covered in detail later 
 
 ## Part 1: Shared Memory Parallelism Using OpenMP
 
-OpenMP uses a shared memory approach to parallelism, allowing simultaneous computations to be spread over multiple threads. 
+OpenMP uses a shared memory approach to parallelism, allowing simultaneous computations to be spread over multiple threads.
 These threads can be run an any number of cpu-cores.
 
 You'll notice the code below is more complex than the original Hello world example, with the addition of compiler directives (`#pragma`) which openMP uses to inform the compiler how to parallelise sections of the code when it builds the executable.
@@ -59,13 +57,13 @@ int main(int argc, char* argv[])
         printf("Hello %s, this is node %s responding from thread %d\n", iname, hostname,
                omp_get_thread_num());
     }
-  
+
     // Release memory holding command line argument
     free(iname);
 }
 ```
 
-The code block indicated by the `#pragma omp parallel` statement will be executed by multiple threads. 
+The code block indicated by the `#pragma omp parallel` statement will be executed by multiple threads.
 By default, OpenMP creates one thread per hardware thread (logical core), which typically corresponds to one or two threads per physical core, depending on whether hyper-threading is enabled.
 OpenMP also allows users to manually define how many threads they want to be created.
 
@@ -176,7 +174,7 @@ export OMP_NUM_THREADS=4
 
 MPI is a message passing interface that uses a distributed memory approach to parallelism. This allows for messages to be sent by multiple instances of the program running within different processes to each other.
 
-In this MPI example, which we'll put in a file called `helloWorldMPI.c`, each process prints out a hello message which states which node it is running on and which process in the group it is, and includes a string (the command line argument) passed to it from process (or *rank*) 0.
+In this MPI example, which we'll put in a file called `helloWorldMPI.c`, each process prints out a hello message which states which node it is running on and which process in the group it is, and includes a string (the command line argument) passed to it from process (or _rank_) 0.
 Rank 0, on the other hand, prints out a slightly different message.
 
 ```c
@@ -243,7 +241,7 @@ int main(int argc, char *argv[])
     {
         printf("Hello, %s I am process %d of %d total processes executing and I am running on node %s.\n", buff, rank, size, name);
     }
-    
+
     free(buff);
     free(iname2);
     free(iname);
@@ -294,7 +292,7 @@ mpiexec -n 4 ./hello-MPI
 
 Write a Slurm submission script for our MPI job, so that it runs across 4 processes. Note that you'll need to:
 
-- Specify the number of processes to use as an `#SBATCH` parameter. Which one should you use? (*Hint:* look back at the material that introduced the first job we submitted via Slurm)
+- Specify the number of processes to use as an `#SBATCH` parameter. Which one should you use? (_Hint:_ look back at the material that introduced the first job we submitted via Slurm)
 - Use the Slurm `srun` command to run our MPI job, e.g. `srun ./hello-MPI yourname`
 
 :::solution
@@ -326,7 +324,7 @@ After you've submitted the job (or run it locally) and it's completed, you shoul
 Hello, yourname@nid001686 I am process 1 of 4 total processes executing and I am running on node nid001686.
 Hello, yourname@nid001686 I am process 2 of 4 total processes executing and I am running on node nid001686.
 Hello, yourname@nid001686 I am process 3 of 4 total processes executing and I am running on node nid001686.
-Hello world, my name is yourname, I am sending this message from process 0 of 4 total processes executing, which is running on node nid001686. 
+Hello world, my name is yourname, I am sending this message from process 0 of 4 total processes executing, which is running on node nid001686.
 ```
 
 ::::challenge{id=parallel_comp_pr.5 title="Increasing the number of nodes"}
@@ -341,7 +339,7 @@ Hello, yourname@nid003165 I am process 4 of 8 total processes executing and I am
 Hello, yourname@nid003165 I am process 5 of 8 total processes executing and I am running on node nid003174.
 Hello, yourname@nid003165 I am process 6 of 8 total processes executing and I am running on node nid003174.
 Hello, yourname@nid003165 I am process 7 of 8 total processes executing and I am running on node nid003174.
-Hello world, my name is yourname, I am sending this message from process 0 of 8 total processes executing, which is running on node nid003165. 
+Hello world, my name is yourname, I am sending this message from process 0 of 8 total processes executing, which is running on node nid003165.
 Hello, yourname@nid003165 I am process 2 of 8 total processes executing and I am running on node nid003165.
 Hello, yourname@nid003165 I am process 3 of 8 total processes executing and I am running on node nid003165.
 Hello, yourname@nid003165 I am process 1 of 8 total processes executing and I am running on node nid003165.
