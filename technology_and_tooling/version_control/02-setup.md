@@ -145,14 +145,16 @@ ls ~/.ssh
 id_ed25519  id_ed25519.pub  known_hosts
 ```
 
-You want to copy the contents of the `.pub` file, which you can display with:
+You will need to copy the contents of the `.pub` file, which you can display using the `cat` command:
 
 ```bash
 cat ~/.ssh/id_ed25519.pub
 ```
 
+This will print the contents of file to the terminal, which you can then copy to the clipboard. You will see that the the content of the file starts with a `ssh-ed25519` prefix, then a space followed by mix of 68 upper and lower case letters and numbers, then another space followed by your user name `@` the name of your computer:
+
 ```text
-ssh-ed25519 <SNIPPED FOR SECURITY> user-name@computer-name
+ssh-ed25519 <68-character public key> <user-name>@<computer-name>
 ```
 
 **Make sure you copy the `.pub` file and not the private key!** Your private key lives on your machine and is never shared with anyone else. Then click **Add key**, and you're done!

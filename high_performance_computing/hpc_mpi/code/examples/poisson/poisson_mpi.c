@@ -20,7 +20,6 @@ double poisson_step(
   int rank, int n_ranks
 ) {
   double unorm, global_unorm;
-  float sendbuf, recvbuf;
   MPI_Status mpi_status;
 
   // Calculate one timestep
@@ -51,11 +50,9 @@ double poisson_step(
     // Ranks with odd number send first
 
     // Send data down from rank to rank-1
-    sendbuf = unew[1];
-    MPI_Send(&sendbuf, 1, MPI_FLOAT, rank-1, 1, MPI_COMM_WORLD);
+    MPI_Send(&u[1], 1, MPI_FLOAT, rank-1, 1, MPI_COMM_WORLD);
     // Receive dat from rank-1
-    MPI_Recv(&recvbuf, 1, MPI_FLOAT, rank-1, 2, MPI_COMM_WORLD, &mpi_status);
-    u[0] = recvbuf;
+    MPI_Recv(&u[0], 1, MPI_FLOAT, rank-1, 2, MPI_COMM_WORLD, &mpi_status);
 
     if (rank != (n_ranks-1)) {
       // Send data up to rank+1 (if I'm not the last rank)

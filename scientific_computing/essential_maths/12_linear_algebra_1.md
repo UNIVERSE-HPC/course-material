@@ -2,6 +2,16 @@
 name: Linear algebra 1
 dependsOn: [scientific_computing.essential_maths.08_complex_numbers]
 tags: []
+learningOutcomes:
+  - Understand the concept of a matrix
+  - Be able to perform addition and subtraction of matrices
+  - Be able to multiply a matrix by a scalar
+  - Understand the associative, commutative and distributive laws of matrices
+  - Be able to find the determinant of a matrix
+  - Be able to invert a matrix
+  - Be able to find the transpose of a matrix
+  - Be able to express a set of simultaneous equations as a matrix equation
+  - Understand how to solve a matrix equation $Ax=b$
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/

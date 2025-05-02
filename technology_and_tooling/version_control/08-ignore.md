@@ -21,7 +21,7 @@ or **intermediate** files created during data analysis.
 Let's switch to our dev branch, and create a few dummy files:
 
 ```bash
-git checkout dev
+git switch dev
 mkdir results
 touch a.dat b.dat c.dat results/a.out results/b.out
 ```
@@ -53,7 +53,6 @@ We do this by creating a file in the root directory of our project called `.giti
 
 ```bash
 nano .gitignore
-cat .gitignore
 ```
 
 ```text

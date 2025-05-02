@@ -4,13 +4,13 @@ name: Object-Orientated Programming
 dependsOn: [software_architecture_and_design.procedural]
 files:
   [
-    classes.md,
-    classes_cpp.md,
-    inheritance_and_composition.md,
-    inheritance_and_composition_cpp.md,
-    polymorphism.md,
-    polymorphism_cpp.md,
+    [classes_cpp.md, inheritance_and_composition_cpp.md, polymorphism_cpp.md],
+    [classes.md, inheritance_and_composition.md, polymorphism.md]
   ]
+learningOutcomes:
+  - Be able to explain the Object-Orientated paradigm and to define a class.
+  - Define and explain the difference between composition and inheritance.
+  - Learn about polymorphism and how to apply it to class design.
 summary: |
   The Object Oriented Paradigm builds upon the Procedural Paradigm, but builds code around data.
   This course will introduce you to the basics of Object Oriented Programming in either Python or C++.

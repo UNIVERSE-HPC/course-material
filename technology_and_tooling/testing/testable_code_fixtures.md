@@ -4,8 +4,11 @@ id: testable_code_fixtures
 dependsOn: [technology_and_tooling.testing.diagnosing_issues]
 tags: [pytest]
 learningOutcomes:
-  - Understand how to design testable code.
-  – Understand how test pytest fixtures can help write tests.
+  - Understand how to design and write testable code.
+  - Understand how grouping tests into classes allows re-use of objects.
+  - Be aware of `pytest`'s built-in methods for setup and teardown of objects in tests.
+  - Understand the benefit and use of fixtures in test suites.
+  - Be able to define fixtures for use in `pytest` test suites.
 attribution:
   - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk

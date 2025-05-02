@@ -1,7 +1,13 @@
 ---
 name: Introduction to Parallelism
 dependsOn: []
-tags: []
+tags: [parallelisation, OMP, MPI]
+learningOutcomes:
+  - Understand the basic concepts of parallelization and parallel programming.
+  - Compare shared memory and distributed memory models.
+  - Describe different parallel paradigms, including data parallelism and message passing.
+  - Differentiate between sequential and parallel computing.
+  - Explain the roles of processes and threads in parallel programming.
 attribution: 
     - citation: >
         "Introduction to the Message Passing Interface" course by the Southampton RSG
@@ -9,10 +15,10 @@ attribution:
       image: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/assets/img/home-logo.png
       license: CC-BY-4.0
 ---
+
 Parallel programming has been important to scientific computing for decades as a way to decrease program run times, making more complex analyses possible (e.g. climate modeling, gene sequencing, pharmaceutical development, aircraft design).
 
-During this course you will learn to design parallel algorithms and write parallel programs using the **MPI** library. MPI stands for **Message Passing Interface**, and is a low level, minimal and extremely flexible set of commands for communicating between copies of a program.
-Before we dive into the details of MPI, let's first familiarize ourselves with key concepts that lay the groundwork for parallel programming.
+In this episode, we will cover the foundational concepts of parallelisation. Before we get into the details of parallel programming libraries and techniques, let's first familiarise ourselves with the key ideas that  underpin parallel computing.
 
 ## What is Parallelisation?
 
@@ -29,25 +35,23 @@ The “_processing units_” might include central processing units (**CPU**s), 
 
 Typical programming assumes that computers execute one operation at a time in the sequence specified by your program code. At any time step, the computer’s CPU core will be working on one particular operation from the sequence.
 In other words, a problem is broken into discrete series of instructions that are executed one for another.
-Therefore only one instruction can execute at any moment in time. We will call this traditional style of sequential computing.
+Therefore, only one instruction can execute at any moment in time. We will call this traditional style of sequential computing.
 
 In contrast, with parallel computing we will now be dealing with multiple CPU cores that each are independently and simultaneously working on a series of instructions.
 This can allow us to do much more at once, and therefore get results more quickly than if only running an equivalent sequential program. The act of changing sequential code to parallel code is called parallelisation.
 
-| **Sequential Computing** | **Parallel Computing** |
-| ---                      | ---                    |
+| **Sequential Computing**                  | **Parallel Computing**                       |
+|-------------------------------------------|----------------------------------------------|
 | ![Serial Computing](fig/serial2_prog.png) | ![Parallel Computing](fig/parallel_prog.png) |
 
-::::callout
-
-## Analogy
+::::callout{variant="tip"}
 
 The basic concept of parallel computing is simple to understand: we divide our job in tasks that can be executed at the same time so that we finish the job in a fraction of the time that it would have taken if the tasks are executed one by one.
 
 Suppose that we want to paint the four walls in a room. This is our **problem**. We can divide our **problem** into 4 different **tasks**: paint each of the walls.
-In principle, our 4 tasks are independent from each other in the sense that we don't need to finish one to start another.
+In principle, our 4 tasks are independent of each other in the sense that we don't need to finish one to start another.
 However, this does not mean that the tasks can be executed simultaneously or in parallel.
-It all depends on on the amount of resources that we have for the tasks.
+It all depends on the amount of resources that we have for the tasks.
 
 If there is only one painter, they could work for a while in one wall, then start painting another one, then work a little bit on the third one, and so on.
 The tasks are being executed concurrently **but not in parallel** and only one task is being performed at a time.
@@ -56,7 +60,7 @@ If we have 2 or more painters for the job, then the tasks can be performed in **
 
 ::::callout
 
-## Key idea
+## Key Idea
 
 In our analogy, the painters represent CPU cores in the computers.
 The number of CPU cores available determines the maximum number of tasks that can be performed in parallel.
@@ -84,11 +88,9 @@ To efficiently utilize multiple CPU cores, we need to understand the concepts of
 These concepts form the foundation of parallel computing and play a crucial role in achieving optimal parallel execution.
 
 To address the challenges that arise when parallelising programs across multiple cores and achieve efficient use of available resources, parallel programming frameworks like MPI and OpenMP (Open Multi-Processing) come into play.
-These frameworks provide tools, libraries, and methodologies to handle memory management, workload distribution, communication, and synchronization in parallel environments.
+These frameworks provide tools, libraries, and methodologies to handle memory management, workload distribution, communication, and synchronisation in parallel environments.
 
 Now, let's take a brief look at these fundamental concepts and explore the differences between MPI and OpenMP, setting the stage for a deeper understanding of MPI in the upcoming episodes.
-
-::::callout
 
 ## Processes
 
@@ -118,11 +120,8 @@ However, it's important to note that threads within a process are limited to a s
 While they provide an effective means of utilizing multiple CPU cores on a single machine, they cannot extend beyond the boundaries of that computer.
 
 ![Threads](fig/multithreading.svg)
-::::
 
-::::callout
-
-### Analogy
+::::callout{variant="tip"}
 
 Let's go back to our painting 4 walls analogy.
 Our example painters have two arms, and could potentially paint with both arms at the same time.
@@ -131,8 +130,6 @@ In this example, each painter would be a _**“process”**_ (an individual inst
 The painters’ arms represent a _**“thread”**_ of a program.
 Threads are separate points of execution within a single program, and can be executed either synchronously or asynchronously.
 ::::
-
-::::callout
 
 ## Shared vs Distributed Memory
 
@@ -144,25 +141,21 @@ Shared memory programming models, like OpenMP, simplify parallel programming by 
 Distributed memory, on the other hand, involves memory resources that are physically separated
 across different computers or nodes in a network.
 Each processor has its own private memory, and explicit communication is required to exchange data between processors.
-Distributed memory programming models, such as MPI, facilitate communication and synchronization in this memory model.
+Distributed memory programming models, such as MPI, facilitate communication and synchronisation in this memory model.
 ![Shared Memory and Distributed Memory](fig/memory-pattern.png)
 
 ## Differences/Advantages/Disadvantages of Shared and Distributed Memory
 
 - **Accessibility:** Shared memory allows direct access to the same memory space by all processors, while distributed memory requires explicit communication for data exchange between processors.
-- **Memory Scope:** Shared memory provides a global memory space, enabling easy data sharing and synchronization.
+- **Memory Scope:** Shared memory provides a global memory space, enabling easy data sharing and synchronisation.
   In distributed memory, each processor has its own private memory space, requiring explicit communication for data sharing.
 - **Memory Consistency:** Shared memory ensures immediate visibility of changes made by one processor to all other processors.
-  Distributed memory requires explicit communication and synchronization to maintain data consistency across processors.
+  Distributed memory requires explicit communication and synchronisation to maintain data consistency across processors.
 - **Scalability:** Shared memory systems are typically limited to a single computer or node, whereas distributed memory systems can scale to larger configurations with multiple computers and nodes.
 - **Programming Complexity:** Shared memory programming models offer simpler constructs and require less explicit communication compared to distributed memory models.
   Distributed memory programming involves explicit data communication and synchronization, adding complexity to the programming process.
-
-::::
-
-::::callout
-
-### Analogy
+  
+::::callout{variant="tip"}
 
 Imagine that all workers have to obtain their paint form a central dispenser located at the middle of the room.
 If each worker is using a different colour, then they can work asynchronously.
@@ -173,8 +166,11 @@ In this scenario, each worker can complete their task totally on their own.
 They don’t even have to be in the same room, they could be painting walls of different rooms in the house, in different houses in the city, and different cities in the country.
 We need, however, a communication system in place.
 Suppose that worker A, for some reason, needs a colour that is only available in the dispenser of worker B, they must then synchronise: worker A must request the paint of worker B and worker B must respond by sending the required colour.
+::::
 
-## Key Idea
+::::callout
+
+### Key Idea
 
 In our analogy, the paint dispenser represents access to the memory in your computer.
 Depending on how a program is written, access to data in memory can be synchronous or asynchronous.
@@ -185,13 +181,13 @@ For the different dispensers case for your workers, however, think of the memory
 
 ## MPI vs OpenMP: What is the difference?
 
-|   MPI   |  OpenMP   |
-|---------|-----------|
-|Defines an API, vendors provide an optimized (usually binary) library implementation that is linked using your choice of compiler.|OpenMP is integrated into the compiler (e.g., gcc) and does not offer much flexibility in terms of changing compilers or operating systems unless there is an OpenMP compiler available for the specific platform.|
-|Offers support for C, Fortran, and other languages, making it relatively easy to port code by developing a wrapper API interface for a pre-compiled MPI implementation in a different language.|Primarily supports C, C++, and Fortran, with limited options for other programming languages.|
-|Suitable for both distributed memory and shared memory (e.g., SMP) systems, allowing for parallelization across multiple nodes.|Designed for shared memory systems and cannot be used for parallelization across multiple computers.|
-|Enables parallelism through both processes and threads, providing flexibility for different parallel programming approaches.|Focuses solely on thread-based parallelism, limiting its scope to shared memory environments.|
-|Creation of process/thread instances and communication can result in higher costs and overhead.|Offers lower overhead, as inter-process communication is handled through shared memory, reducing the need for expensive process/thread creation.|
+| MPI                                                                                                                                                                                             | OpenMP                                                                                                                                                                                                             |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Defines an API, vendors provide an optimized (usually binary) library implementation that is linked using your choice of compiler.                                                              | OpenMP is integrated into the compiler (e.g., gcc) and does not offer much flexibility in terms of changing compilers or operating systems unless there is an OpenMP compiler available for the specific platform. |
+| Offers support for C, Fortran, and other languages, making it relatively easy to port code by developing a wrapper API interface for a pre-compiled MPI implementation in a different language. | Primarily supports C, C++, and Fortran, with limited options for other programming languages.                                                                                                                      |
+| Suitable for both distributed memory and shared memory (e.g., SMP) systems, allowing for parallelization across multiple nodes.                                                                 | Designed for shared memory systems and cannot be used for parallelization across multiple computers.                                                                                                               |
+| Enables parallelism through both processes and threads, providing flexibility for different parallel programming approaches.                                                                    | Focuses solely on thread-based parallelism, limiting its scope to shared memory environments.                                                                                                                      |
+| Creation of process/thread instances and communication can result in higher costs and overhead.                                                                                                 | Offers lower overhead, as inter-process communication is handled through shared memory, reducing the need for expensive process/thread creation.                                                                   |
 
 ::::
 
@@ -221,12 +217,10 @@ for(i=0; i<N; i++) {
 If we have `N` or more cores, each element of the loop can be computed in just one step (for a factor of $$N$$ speed-up).
 Let's look into both paradigms in a little more detail, and focus on key characteristics.
 
-::::callout
-
-## 1. Data Parallelism Paradigm
+### 1. Data Parallelism Paradigm
 
 One standard method for programming using data parallelism is called "OpenMP" (for "**O**pen **M**ulti**P**rocessing").
-To understand what data parallelism means, let's consider the following bit of OpenMP code which parallelizes the above loop:
+To understand what data parallelism means, let's consider the following bit of OpenMP code which parallelises the above loop:
 
 ```c
 #pragma omp parallel for
@@ -240,11 +234,8 @@ This approach provides a convenient abstraction, and hides the underlying parall
 
 Here, the catch word is _**shared memory**_ which allows all cores to access all the address space. We'll be looking into OpenMP later in this course.
 In Python, process-based parallelism is supported by the [multiprocessing](https://docs.python.org/dev/library/multiprocessing.html#module-multiprocessing) module.
-::::
 
-::::callout
-
-## 2. Message Passing Paradigm
+### 2. Message Passing Paradigm
 
 In the message passing paradigm, each processor runs its own program and works on its own data.
 To work on the same problem in parallel, they communicate by sending messages to each other.
@@ -263,7 +254,7 @@ for(i=0; i<m; i++) {
 - `m` is the reduced number of loops each core needs to do (if there are `N` cores, `m` is 1 (=`N`/`N`)).
   
 But the parallelization by message passing is not complete yet.
-In the message passing paradigm, each core operates independently from the other cores.
+In the message passing paradigm, each core operates independently of the other cores.
 So each core needs to be sent the correct data to compute, which then returns the output from that computation.
 However, we _also_ need a core to coordinate the splitting up of that data, send portions of that data to other cores, and to receive the resulting computations from those cores.
 
@@ -283,8 +274,6 @@ if(this_core==0) {
 }
 ```
 
-::::
-
 ::::callout
 
 ## Summary
@@ -303,11 +292,11 @@ In this case, _data parallelism_ is used for the portion of the problem containe
 Designing a parallel algorithm that determines which of the two paradigms above one should follow rests on the actual understanding of how the problem can be solved in parallel.
 This requires some thought and practice.
 
-To get used to "thinking in parallel", we discuss "Embarrassingly Parallel" (EP) problems first and then we consider problems which are not EP problems.
+To get used to "thinking in parallel", we discuss "Embarrassingly Parallel" (EP) problems first, and then we consider problems which are not EP problems.
 
 ### Embarrassingly Parallel Problems
 
-Problems which can be parallelized most easily are EP problems, which occur in many Monte Carlo simulation problems and in many big database search problems.
+Problems which can be parallelised most easily are EP problems, which occur in many Monte Carlo simulation problems and in many big database search problems.
 In Monte Carlo simulations, random initial conditions are used in order to sample a real situation. So, a random number is given and the computation follows using this random number.
 Depending on the random number, some computation may finish quicker and some computation may take longer to finish.
 And we need to sample a lot (like a billion times) to get a rough picture of the real situation.
@@ -318,7 +307,7 @@ To speed up the search, the big database is divided into smaller databases, and 
 
 ::::callout
 
-## Queue Method
+### Queue Method
 
 Each worker will get tasks from a predefined queue (a random number in a Monte Carlo problem and smaller databases in a big database search problem).
 The tasks can be very different and take different amounts of time, but when a worker has completed its tasks, it will pick the next one from the queue.
@@ -327,7 +316,7 @@ The tasks can be very different and take different amounts of time, but when a w
 
 In an MPI code, the queue approach requires the ranks to communicate what they are doing to all the other ranks, resulting in some communication overhead (but negligible compared to overall task time).
 
-## Manager/Worker Method
+### Manager/Worker Method
 
 The manager/worker approach is a more flexible version of the queue method.
 We hire a manager to distribute tasks to the workers.
@@ -350,12 +339,10 @@ Instead, it's better to have a parallel file system so that each worker rank can
 
 ### General Parallel Problems (Non-EP Problems)
 
-In general not all the parts of a serial code can be parallelized.
+In general not all the parts of a serial code can be parallelised.
 So, one needs to identify which part of a serial code is parallelizable.
 In science and technology, many numerical computations can be defined on a regular structured data (e.g., partial differential equations in a 3D space using a finite difference method).
 In this case, one needs to consider how to decompose the domain so that many cores can work in parallel.
-
-::::callout
 
 #### Domain Decomposition
 
@@ -376,9 +363,6 @@ $$ A \cdot B = \left[ \begin{array}{cc}A_{11} \cdot B_{11} + A_{12} \cdot B_{21}
 
 If the number of ranks is higher, each rank needs data from one row and one column to complete
 its operation.
-::::
-
-::::callout
 
 #### Load Balancing
 
@@ -387,7 +371,6 @@ be equal.
 For example, in weather forecasting, the 3D spatial domain can be decomposed in an equal portion. But when the sun moves across the domain, the amount of work is different in that domain since more
 complicated chemistry/physics is happening in that domain.
 Balancing this type of loads is a difficult problem and requires a careful thought before designing a parallel algorithm.
-::::
 
 :::::challenge{id=serial-and-parallel, title="Serial and Parallel Regions"}
 Identify the serial and parallel regions in the following algorithm:

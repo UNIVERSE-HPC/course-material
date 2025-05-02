@@ -5,7 +5,8 @@ dependsOn: [technology_and_tooling.testing.testable_code_fixtures]
 tags: [pytest]
 learningOutcomes:
   - Understand how to use mocking to support automated testing.
-  – Understand monkeypatching as an alternative to mocking.
+  - Understand how to use `unittest`'s `Mock` class for creating mock objects.
+  - Understand how to patch functionality of objects within a desired scope.
 attribution:
   - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk

@@ -17,6 +17,13 @@ files:
     reproducibility.md,
     setup.md,
   ]
+learningOutcomes:
+  - Learn what containers are.
+  - Learn about the Docker command line interface.
+  - Learn how to download, run and clean up containers.
+  - Find containers on Docker Hub.
+  - Be able to create your own containers.
+  - Use Docker with Github Actions.
 attribution:
   - citation: >
       D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".

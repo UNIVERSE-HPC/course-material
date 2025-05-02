@@ -2,6 +2,9 @@
 name: "Project: Snake Game"
 dependsOn: [introductory_courses.python.14_variable_scope]
 tags: [python]
+learningOutcomes:
+  - Project-based practice of Python coding.
+  - Structuring code to build incremental project features.  
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries

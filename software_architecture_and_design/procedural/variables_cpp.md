@@ -2,6 +2,10 @@
 name: Variables
 dependsOn: [technology_and_tooling.bash_shell.bash, technology_and_tooling.ide.cpp]
 tags: [cpp]
+learningOutcomes:
+  - Understand static typing, and the core variable types.
+  - Understand the concepts of code blocks and variable scope.
+  - Know how to use references and convert between types.
 attribution:
   - citation: >
       This material was adapted from an "Introduction to C++" course developed by the

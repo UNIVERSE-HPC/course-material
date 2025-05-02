@@ -225,8 +225,13 @@ git restore climate_analysis.py
 cat climate_analysis.py
 ```
 
+`cat` will output the contents of the file, starting with:
+
 ```text
-[SNIPPED - but changes rolled back]
+""" Climate Analysis Tools """
+import sys
+import temp_conversion
+...
 ```
 
 By default, `restore` replaces the file with the version of it in the _staging area_. If you haven't used `git add`, that should be the same as the version in the last commit. But what if we already used `git add` on our incorrect version of a file, or we broke the file more than one commit ago?
@@ -267,3 +272,11 @@ and you fixed a bug in one section but accidentally introduced one elsewhere.
 
 You can't just roll back to fix one bug without un-fixing the other.
 However, if each section is in its own file, you can just roll back the section you broke!
+
+## Resetting files
+
+A command that you may encounter in future is `git reset` which, unlike `git checkout`
+can move what `HEAD` is pointing to whilst not affecting the local files. This is not
+covered in detail in this course because misuse of `git reset` can get your local repo
+in a confusing state, and in particular that `git reset --hard` must be treated with
+caution because it's possible to lose your local work.

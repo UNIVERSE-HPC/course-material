@@ -2,6 +2,11 @@
 name: Differentiation 1
 dependsOn: [scientific_computing.essential_maths.02_indices_and_logs]
 tags: []
+learningOutcomes:
+  - Understand the concept of the rate of change of a quantity
+  - Be able to calculate the gradient of a curve at a point
+  - Understand the relationship between the derivative and gradient of a function
+  - Be able to calculate and interpret the derivative of a function
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/

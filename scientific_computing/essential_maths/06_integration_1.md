@@ -2,6 +2,12 @@
 name: Integration 1
 dependsOn: [scientific_computing.essential_maths.05_differentiation_3]
 tags: []
+learningOutcomes:
+  - Understand the concept of the area under a graph
+  - Be able to calculate the integral of a function
+  - Recognise integration as the inverse operation of differentiation
+  - Be able to use SymPy to integrate functions in Python
+  - Be able to use the substitution method to integrate a function of a function
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/

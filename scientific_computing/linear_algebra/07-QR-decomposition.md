@@ -2,6 +2,10 @@
 name: QR decomposition
 dependsOn: ["scientific_computing.linear_algebra.06-Cholesky-decomposition"]
 tags: []
+learningOutcomes:
+  - Understand how to solve a matrix equation using QR decomposition
+  - Understand how to build QR decomposition matrices using Householder reflections, Givens rotations and the Gram-Schmidt process
+  - Be able to use a QR decomposition to fit a model to data
 attribution:
   - citation: This material has been adapted from material by Martin Robinson from the "Scientific Computing" module of the SABS R³ Center for Doctoral Training.
     url: https://www.sabsr3.ox.ac.uk

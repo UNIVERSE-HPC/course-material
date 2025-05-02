@@ -2,6 +2,9 @@
 name: Built-in Functions and Help
 dependsOn: [introductory_courses.python.03_writing_and_running_ide]
 tags: [python]
+learningOutcomes:
+  - Using built-in Functions and Methods.
+  - Understanding syntax and runtime error messages.
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries

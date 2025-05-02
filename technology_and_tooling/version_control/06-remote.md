@@ -116,7 +116,16 @@ Pretending to be an existing collaborator, we'll go and add those installation i
 
 ![GitHub edit button](fig/06-remote/edit-button.png)
 
-And just expand it a little, making more use of GitHub's markdown formatting:
+And expand it a little, making more use of GitHub's markdown formatting by adding the following lines after the first:
+
+````text
+To install a copy of the toolkit, open a terminal and run:
+```
+    git clone git@github.com:smangham/climate-analysis.git
+```
+
+**This code is currently in development and not all features will work**
+````
 
 ![GitHub editing Readme](fig/06-remote/edit-readme.png)
 
@@ -206,21 +215,24 @@ We have created a conflict! Both us, and our remote collaborator, both edited `R
 cat README.md
 ```
 
-```text
+````text
 # Climate Analysis Toolkit
 
 This is a set of python scripts designed to analyse climate datafiles.
 
+<<<<<<< HEAD
 If you're interested in collaborating, email me at s.w.mangham@soton.ac.uk.
+=======
 To install a copy of the toolkit, open a terminal and run:
-
+```
     git clone git@github.com:smangham/climate-analysis.git
-
-
-**This code is currently in development and not all features will work**
 ```
 
-Git has tried to auto-merge the files, but unfortunately failed. It can handle most conflicts by itself, but if two commits edit the _exact same_ part of a file it will need you to help it.
+**This code is currently in development and not all features will work**
+>>>>>>> bdb1b62bffe12dc36eff3afc1a5d85ab69458c4a
+````
+
+Git has tried to auto-merge the files, but unfortunately failed. It can handle most conflicts by itself, but if two commits edit the _exact same_ part of a file it will need you to help it. (Note that your version will have a different SHA before `(Incoming Change)` at the end; this is the commit that git could not merge in automatically.)
 
 We can see the two different edits we made to the end of the `README.md` file, in a block defined by `<<<`, `===` and `>>>`. The top block is labelled `HEAD` (the changes in our latest local commit), whilst the bottom block is labelled with the commit ID of the commit we made on GitHub.
 
@@ -241,7 +253,6 @@ If you're interested in collaborating, email me at s.w.mangham@soton.ac.uk.
 To install a copy of the toolkit, open a terminal and run:
 
    git clone git@github.com:smangham/climate-analysis.git
-
 
 **This code is currently in development and not all features will work**
 ```
