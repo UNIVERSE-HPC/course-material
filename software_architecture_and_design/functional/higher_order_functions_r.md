@@ -15,36 +15,30 @@ attribution:
 
 ## First Class Functions
 
-Languages that treat functions as first-class citizens allow functions to be
-passed as arguments to other functions, returned from functions, or assigned to
-variables. This is a powerful feature of functional programming languages, and is also available in R.
+Languages that treat functions as first-class citizens allow functions to be passed as arguments to other functions, returned from functions, or assigned to variables. This is a powerful feature of functional programming languages, and is also available in R.
 
 In R, functions are first-class citizens, which means that they can be passed to other functions as arguments, for example:
 
-```r
+``` r
 add_one <- function(x) {
   return(x + 1)
 }
 
-apply_function <- function(f, x) {
+apply_function <- function(x, f) {
   return(f(x))
 }
-  
-print(apply_function(add_one, 1))
+
+apply_function(1:3, add_one)
+#> [1] 2 3 4
 ```
 
-```text
-[1] 2
-```
+We have used `return()` in the example above, but it is not necessary to do so: R automatically returns the value of the last evaluated expression in the function, so it is common practice to omit `return()` unless we want the function to return early (inside an `if` statement, for example). Furthermore, since R 4.1.0, there is a new shorthand syntax for defining functions, which uses the `\` character instead of spelling out `function`. Also since R 4.1.0, there is a base-R "pipe" operator (`|>`) that allows you to pass the result of the expression that is on the left side of the pipe as the first argument of the function that is on the right side of the pipe. It is a slightly simpler equivalent of the `%>%` pipe operator from the `magrittr` package, which is commonly with the `tidyverse` family of packages. Finally, the curly braces are optional when the function consists of a single expression, like the ones above. Taking advantage of these features, we can re-write our example as:
 
-We have used `return()` in the example above, but it is not necessary to do so: R will automatically return the value of the last evaluated expression in the function, so it is common practice to omit `return()` unless we want the function to return early (inside an `if` statement, for example). Furthermore, since R 4.1.0, there is a new shorthand syntax for defining function, which uses the `\` character instead of spelling out `function`. Finally, the curly braces are optional when the function consists of a single expression, like the ones above. Taking advantage of these features, we can re-write our example as:
-
-```r
+``` r
 add_one <- \(x) x + 1
-
-apply_function <- \(f, x) f(x)
-  
-print(apply_function(add_one, 1))
+apply_function <- \(x, f) f(x)
+1:3 |> apply_function(add_one)
+#> [1] 2 3 4
 ```
 
 This is the style we will use from now on.
@@ -57,8 +51,10 @@ Other languages, like Python or C++, often have a special syntax for defining la
 
 In the previous example, we have given names to the functions we were defining by assigning them to the `add_one` and `apply_function` variables, but functions are often used anonymously, especially when dealing with "higher-order" functions that accept other functions as arguments, as we will see in the next section. We could, for example, pass an anonymous function directly to `apply_function`:
 
-```r
-print(apply_function(\(x) x + 1, 1))
+``` r
+apply_function <- \(x, f) f(x)
+1:3 |> apply_function(\(x) x + 1)
+#> [1] 2 3 4
 ```
 
 Anonymous functions, exist in many modern languages, though they may not be called 'lambda functions' and may be more or less complex to use. For example, see [Lambda Expressions](https://en.cppreference.com/w/cpp/language/lambda) in C++ with precise control over the visibility of variables inside the function scope, and the multiple methods available in Javascript such as [Function Expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions#the_function_expression_function_expression), which use syntax much more similar to named function definition.
@@ -67,7 +63,7 @@ Anonymous functions, exist in many modern languages, though they may not be call
 
 Higher-order functions are functions that take another function as an argument or that return a function. One of the main uses of lambda functions is to create temporary functions to pass into higher-order functions.
 
-To illustrate the benefits of higher-order functions, let us define two functions, one that calculates the sum of a list of values, the other which calculates the maximum value of the list:
+To show the benefits of higher-order functions, let us define two functions, one that calculates the sum of a list of values, the other which calculates the maximum value of the list:
 
 ```r
 sum <- \(data) {
@@ -89,7 +85,7 @@ maximum <- \(data) {
 
 This is purely for illustrative purposes, or course, since R already has built-in `sum` and `max` functions that perform much better than what we have written here. But still, the thing to notice is that these are really exactly the same algorithm, except that we change the binary operation done on the RHS of the statement in the loop. We can therefore decide to combine these functions into one higher-order function:
 
-```r
+``` r
 reduce <- \(data, bin_op) {
   result <- 0
   for (x in data) {
@@ -98,18 +94,15 @@ reduce <- \(data, bin_op) {
   result
 }
 
-data = c(1, 2, 3, 4, -1)
-print(reduce(data, \(a, b) a + b))
-print(reduce(data, \(a, b) a * b))
-print(reduce(data, \(a, b) max(a, b)))
-print(reduce(data, \(a, b) min(a, b)))
-```
-
-```text
-[1] 9
-[1] 0
-[1] 4
-[1] -1
+data <- c(1, 2, 3, 4, -1)
+data |> reduce(\(a, b) a + b)
+#> [1] 9
+data |> reduce(\(a, b) a * b)
+#> [1] 0
+data |> reduce(\(a, b) max(a, b))
+#> [1] 4
+data |> reduce(\(a, b) min(a, b))
+#> [1] -1
 ```
 
 Excellent! We have reduced the amount of code we need to write, reducing the number of possible bugs and making the code easier to maintain in the future.
@@ -117,83 +110,148 @@ Excellent! We have reduced the amount of code we need to write, reducing the num
 Notice, though, that `max` and `min` are already binary functions, so we can pass them directly to `reduce` without having to wrap them in lambdas:
 
 ```r
-print(reduce(data, max))
-print(reduce(data, min))
+data |> reduce(max)
+data |> reduce(min)
 ```
 
 ## Mapping, filtering and reducing
 
 Mapping, filtering and reducing are three of the most commonly used higher-order functions. Base R has `Map`, `Filter` and `Reduce` (plus the `mapply`/`sapply`/`lapply` family for mapping) but, as is often the case in the R world, the tidyverse offers an alternative way of doing things: here, it's the `purrr` package, which we will be using in this lesson. 
 
-Python has a number of higher-order functions built in, including `map`,
-`filter` and `reduce`. Note that the `map` and `filter` functions in Python use
-**lazy evaluation**. This means that values in an iterable collection are not
-actually calculated until you need them. We'll explain some of the implications
-of this a little later, but for now, we'll just use `list()` to convert the
-results to a normal list. In these examples we also see the more typical usage
-of lambda functions.
+The `purrr::map` function, takes a function and applies it to each value in a list or a vector:
 
-The `map` function, takes a function and applies it to each value in an
-**iterable**. Here, 'iterable' means any object that can be iterated over - for
-more details see the [Iterable Abstract Base Class
-documentation](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable).
-The results of each of those applications become the values in the **iterable**
-that is returned.
-
-```python
-l = [1, 2, 3]
-
-def add_one(x):
-    return x + 1
-
-# Returns a <map object> so need to convert to list
-print(list(map(add_one, l)))
-print(list(map(lambda x: x + 1, l)))
+``` r
+library(purrr)
+data <- c(1, 2, 3, 4, -1)
+data |> map(\(x) x + 1)
+#> [[1]]
+#> [1] 2
+#> 
+#> [[2]]
+#> [1] 3
+#> 
+#> [[3]]
+#> [1] 4
+#> 
+#> [[4]]
+#> [1] 5
+#> 
+#> [[5]]
+#> [1] 0
 ```
 
-```text
-[2, 3, 4]
-[2, 3, 4]
+As you can see, every number in our `data` vector was incremented by one, but you might notice that `map` returned a list instead of a numeric vector. Lists in R can hold objects of any type, so the basic `map` function will work no matter what the lambda returns. Still, if your lambda always returns the same atomic type, storing the result in a vector instead of a list is faster and more memory efficient. The `purrr` package offers a series of `map` variants that can do just that: `map_lgl`, `map_int`, `map_dbl` and `map_chr` will respectively return vectors of logical, integer, double and character values.
+
+In our "plus one" example we are dealing with integers so `map_int` is the appropriate `map` variant to use:
+
+``` r
+library(purrr)
+data <- c(1, 2, 3, 4, -1)
+data |> map_int(\(x) x + 1)
+#> [1] 2 3 4 5 0
 ```
 
-Like `map`, `filter` takes a function and applies it to each value in an iterable, keeping the value if the result of the function application is `True`.
+There is also `map_vec`, which will attempt to automatically pick an appropriate vector type. This is especially useful if you are dealing with S3 classes like `Date` or `factor`:
 
-```python
-l = [1, 2, 3]
-
-def is_gt_one(x):
-    return x > 1
-
-# Returns a <filter object> so need to convert to list
-print(list(filter(is_gt_one, l)))
-print(list(filter(lambda x: x > 1, l)))
+``` r
+library(purrr)
+data <- c(1, 2, 3, 4, -1)
+data |> map_vec(\(x) as.Date("2000-01-01") + x)
+#> [1] "2000-01-02" "2000-01-03" "2000-01-04" "2000-01-05" "1999-12-31"
 ```
 
-```text
-[2, 3]
-[2, 3]
+Now one thing that is nice about R is that a lot of common operations are already "vectorised", meaning that they automatically apply to whole vectors without you having to use a mapping operation or (worse) writing a for loop. We used "add one" as a silly example, but in the real world, there is no reason you would ever write `data |> map_int(\(x) x + 1)` instead of `data + 1`. And it's not just for mathematical operations. A lot of base-R and package functions are vectorised over their inputs, e.g.:
+
+``` r
+weekdays(as.Date("2000-01-01") + 1:5)
+#> [1] "Sunday"    "Monday"    "Tuesday"   "Wednesday" "Thursday"
 ```
 
-The `reduce` function is different.
-This function uses a function which accepts two values to accumulate the values in the iterable.
-The simplest uses here are to calculate the sum or product of a sequence.
+Still, there are plenty of cases where `map` (or one of its variants) is the tool to reach for. Take this example:
 
-```python
-from functools import reduce
-
-l = [1, 2, 3]
-
-def add(a, b):
-    return a + b
-
-print(reduce(add, l))
-print(reduce(lambda a, b: a + b, l))
+``` r
+library(purrr)
+data <- list(c("a", "b"), c("c", "d", "e"), c("f"))
+data |> map_int(length)
+#> [1] 2 3 1
 ```
 
-```text
-6
-6
+The `length` function, like most summary-type functions, is not vectorised over its input. If we tried to apply it directly to our list of vectors, it would give the length of the list itself, not the length of its constituent vectors:
+
+``` r
+length(list(c("a", "b"), c("c", "d", "e"), c("f")))
+#> [1] 3
 ```
+
+There would be a lot more to say about mapping functions in R. The `purrr` package has pretty extensive functionalities and there is only so much ground we can cover in this lesson. Still a few more things are worth mentioning.
+
+Higher-order functions in `purrr` will accept an R formula instead of a function definition, so instead of writing:
+
+``` r
+1:5 |> map_int(\(x) x + 1)
+```
+
+you can write:
+
+``` r
+1:5 |> map_int(~ . + 1)
+```
+
+where the dot (`.`) is a placeholder for a formula's single argument. This used to save a lot of typing back when had to spell out `function (x)` but is less relevant now that we have the concise `\(x)` syntax. Still, you will commonly see that syntax in legacy code.
+
+You should also know that there are functions that allow you to map over two inputs at once (the `map2` family of variants), over more than two inputs at once (the `pmap` family of variant) and over an input and its names or indices (the `imap` family). I would particularly recommand getting acquainted with the `pmap` variants, which are especially useful when trying to map over multiple columns of a data frame.
+
+Let us now move on to the filtering operation, which in `purrr` is called `keep` (as `filter` is already used by the `dplyr` package, where it operates on the rows of a data frame). Like `map`, `keep` is a higher-order function that can operate on a list or a vector. The function that you have to pass to it acts as a predicate: it is applied to each element of the input and must return a logical value. If it return `TRUE`, the element is kept. If it returns `FALSE`, the element is discarded.
+
+``` r
+library(purrr)
+1:10 |> keep(\(x) x > 5)
+#> [1]  6  7  8  9 10
+c("a", "B", "c", "1", "&", "z") |> keep(\(x) x %in% letters)
+#> [1] "a" "c" "z"
+c(TRUE, FALSE, TRUE) |> keep(\(x) x)
+#> [1] TRUE TRUE
+list(1, "x", pi, TRUE, date()) |> keep(is.numeric)
+#> [[1]]
+#> [1] 1
+#> 
+#> [[2]]
+#> [1] 3.141593
+```
+
+Notice how there are no specialized variants of `keep` for producing atomic vectors like there is for `map`. That is because `keep` always preserves the type of its input, which is usually what's needed. If you are filtering a vector of integers, you want the output to also be a vector of integers. Sometimes, though, when filtering a list, you might want to convert the result to an atomic vector. The `purrr` package provides the handy `list_simplify` function for those case:
+
+``` r
+library(purrr)
+list(1, "x", pi, TRUE, date()) |> 
+  keep(is.numeric) |> 
+  list_simplify()
+#> [1] 1.000000 3.141593
+```
+
+Now that we have seen mapping and filtering, it is time to turn our attention to reducing. We have already written our own version of the `reduce` function when we introduced higher-order functions above, but `purrr` provides its own `reduce` function with a few more bells and whistles. The `reduce` function differs from `map` and `keep` in that it usually returns a single object instead of returning a list or a vector.
+
+The simplest uses here are things like sums and products:
+
+``` r
+library(purrr)
+1:10 |> reduce(\(a, b) a + b)
+#> [1] 55
+1:10 |> reduce(`+`)
+#> [1] 55
+1:10 |> reduce(\(a, b) a * b)
+#> [1] 3628800
+1:10 |> reduce(`*`)
+#> [1] 3628800
+```
+
+Notice how you can surround operators with backticks to refer to them as functions without having to wrap them in lambdas. In R, operators are just standard functions with a special syntax. You can even use them like this:
+
+``` r
+`+`(2, 3)
+#> [1] 5
+```
+
 
 These are the fundamental components of the MapReduce style, and can be combined to perform much more complex data processing operations.
 
@@ -202,34 +260,35 @@ These are the fundamental components of the MapReduce style, and can be combined
 Using `map` and `reduce`, write a function that calculates the sum of the squares of the values in a list.
 Your function should behave as below:
 
-```python
-def sum_of_squares(l):
-    # Your code here
-    return
+``` r
+library(purrr)
+sum_of_squares <- \(xs) {
+  # your code here
+}
 
-print(sum_of_squares([0]))
-print(sum_of_squares([1]))
-print(sum_of_squares([1, 2, 3]))
-print(sum_of_squares([-1]))
-print(sum_of_squares([-1, -2, -3]))
+sum_of_squares(0)
+#> [1] 0
+sum_of_squares(1)
+#> [1] 1
+sum_of_squares(1:3)
+#> [1] 14
+sum_of_squares(-1)
+#> [1] 1
+sum_of_squares(c(-1, -2, -3))
+#> [1] 14
 ```
 
-```text
-0
-1
-14
-1
-14
-```
+Try to write it as a combination of `map` and `reduce` even if you know that `sum(xs^2)` would work just as well in R.
 
 :::solution
 
-```python
-from functools import reduce
-
-def sum_of_squares(l):
-    squares = map(lambda x: x * x, l)
-    return reduce(lambda a, b: a + b, squares)
+```r
+library(purrr)
+sum_of_squares <- \(xs) {
+  xs |>
+    map(\(x) x^2) |>
+    reduce(`+`)
+}
 ```
 
 :::
