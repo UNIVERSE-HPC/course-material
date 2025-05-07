@@ -1,21 +1,22 @@
 ---
-name: Drawbacks of Running a Local Application with Remote AWS Services
+name: Drawbacks of Running the Image Processing Application with Remote AWS Services
 dependsOn: []
 tags: []
 learningOutcomes:
+  - Identify limitations of using remote AWS services with local applications.
+  - Understand how latency and connectivity affect application performance.
+  - Describe benefits of migrating applications to AWS Elastic Beanstalk.
 ---
 
-While integrating AWS services like S3 and DynamoDB with a locally running application provides access to the power of the cloud, there are several significant drawbacks that can impact performance, reliability, and scalability:
+While using remote AWS services like Amazon S3 for storage and DynamoDB for databases enhances your application's capabilities, running the application itself on a local machine introduces several notable challenges. These limitations can negatively impact performance, reliability, and scalability:
 
-- **Increased Latency**
+- **Increased Latency**  
 
-When running the application locally, every request to cloud-based services like S3 (for storage) or DynamoDB (for databases) must travel over the Internet.
-This introduces **network latency**, which can significantly slow down response times, especially if the cloud resources are hosted in regions far from the local machine.
+When running the application locally, every request to cloud-based services like S3 (for storage) or DynamoDB (for databases) must travel over the Internet. This introduces **network latency**, which can significantly slow down response times, especially if the cloud resources are hosted in regions far from the local machine. 
 
 - **Dependence on Internet Connectivity**
 
-The local application depends entirely on a **stable and fast Internet connection** to communicate with AWS services.
-Any disruption in connectivity, slow network speeds, or outages can cause the application to fail to access essential resources like files in S3 or data in DynamoDB.
+The local application depends entirely on a **stable and fast Internet connection** to communicate with AWS services. Any disruption in connectivity, slow network speeds, or outages can cause the application to fail to access essential resources like files in S3 or data in DynamoDB. 
 
 - **Limited Scalability**
 
@@ -27,7 +28,7 @@ Running an application locally means that you are responsible for maintaining th
 
 - **Lack of Automatic Failover and High Availability**
 
-When running an application locally, you miss out on the **high availability** and **automatic failover** features offered by cloud platforms. If your local machine crashes or encounters hardware issues, the application will be completely unavailable until the problem is resolved.
+When running an application locally, you miss out on the **high availability** and **automatic failover** features offered by cloud platforms. If your local machine crashes or encounters hardware issues, the application will be completely unavailable until the problem is resolved. 
 
 ### Motivation for Migrating to AWS Elastic Beanstalk
 

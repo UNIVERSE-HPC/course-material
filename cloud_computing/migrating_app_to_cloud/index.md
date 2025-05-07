@@ -13,13 +13,14 @@ files:
     conclusion.md,
   ]
 summary: |
-  This course covers the basics of AWS with a focus on services like EC2, S3, DynamoDB, and Elastic Beanstalk. These services are utilized to build a scalable, resilient, and high-performance cloud application.
----
+
+  This course introduces fundamental AWS concepts, emphasizing core services such as EC2, S3, DynamoDB, and Elastic Beanstalk. Through these services, participants will learn how to design and deploy scalable, resilient, and high-performance cloud-based applications.
+
 
 This course covers the basics of AWS with a focus on services like EC2, S3, DynamoDB, and Elastic Beanstalk. These services are utilized to build a scalable, resilient, and high-performance cloud application.
 
 The course is structured into three main parts:
 
 1. **Local Application Setup**: Introduces you to fundamental processes like file handling, image processing, and metadata management in a Python-based application.
-1. **Integrating AWS Services with a Local Application**: Adds AWS services for remote data storage and management, allowing the local application to leverage cloud resources.
-1. **Migrating the Application to AWS with Elastic Beanstalk**: Walks you through fully migrating the application to AWS, creating a cloud-native, fully managed environment.
+2. **Integrating AWS Services with a Local Application**: Adds AWS services for remote data storage and management, allowing the local application to leverage cloud resources.
+3. **Migrating the Application to AWS with Elastic Beanstalk**: Walks you through fully migrating the application to AWS, creating a cloud-native, fully managed environment.
