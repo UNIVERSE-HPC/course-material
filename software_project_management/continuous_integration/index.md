@@ -71,9 +71,9 @@ All three of these make use of common features across many CI implementations, a
 In this course we aim to walk you through a hands-on session which will set up CI for a small Python project, and see some of its benefits in action.
 We will go through:
 
-1. An introduction to GitHub actions ([link](./continuous_integration/github_actions))
-1. Generating code coverage information ([link](./continuous_integration/code_coverage))
-1. Generating and deploying documenation ([link](./continuous_integration/documentation))
+1. [An introduction to GitHub actions](/software_project_management/continuous_integration/github_actions)
+1. [Generating code coverage information](/software_project_management/continuous_integration/code_coverage)
+1. [Generating and deploying documenation](/software_project_management/continuous_integration/documentation)
 
 ## Getting started
 
@@ -82,4 +82,4 @@ Go to [https://github.com/OxfordRSE/ci_course_start](https://github.com/OxfordRS
 This will set up a repository in your own GitHub account with the same files as the template.
 
 You can name it anything you like.
-Clone your new repository, and you're ready for the next lesson.
+Clone your new repository, and you're ready for [the next lesson](/software_project_management/continuous_integration/github_actions).
