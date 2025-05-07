@@ -73,7 +73,7 @@ We will go through:
 
 1. [An introduction to GitHub actions](/software_project_management/continuous_integration/github_actions)
 1. [Generating code coverage information](/software_project_management/continuous_integration/code_coverage)
-1. [Generating and deploying documenation](/software_project_management/continuous_integration/documentation)
+1. [Generating and deploying documentation](/software_project_management/continuous_integration/documentation)
 
 ## Getting started
 
