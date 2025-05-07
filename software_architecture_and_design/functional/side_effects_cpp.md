@@ -166,9 +166,10 @@ Conway's Game of Life is a popular cellular automaton that simulates the
 evolution of a two-dimensional grid of cells. In this exercise, you will
 refactor a Python program that implements Conway's Game of Life. The basic rules of the game of life are:
 
-1. Any live cell with fewer than two live neighbors dies, as if caused by underpopulation.
-2. Any live cell with two or three live neighbors lives on to the next generation.
-3. Any live cell with more than three live neighbors dies, as if by overpopulation.
+1. Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+2. Any live cell with two or three live neighbours lives on to the next generation.
+3. Any live cell with more than three live neighbours dies, as if by overpopulation.
+4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
 The code has a bug related to the improper management of the program
 state, which you will fix. Refactor the code so that the `step`
@@ -177,6 +178,26 @@ function is a pure function.
 ```cpp
 #include <iostream>
 #include <vector>
+#include <cassert>
+
+std::vector<int> get_neighbours(const std::vector<std::vector<int>>& grid, int i, int j) {
+    int rows = grid.size();
+    int cols = grid[0].size();
+    std::vector<std::pair<int, int>> indices = {{i - 1, j - 1}, {i - 1, j}, {i - 1, j + 1},
+                                                {i, j - 1},                 {i, j + 1},
+                                                {i + 1, j - 1}, {i + 1, j}, {i + 1, j + 1}};
+    std::vector<int> neighbours;
+
+    for (const auto& idx : indices) {
+        int row = idx.first;
+        int col = idx.second;
+        if (row >= 0 && row < rows && col >= 0 && col < cols) {
+            neighbours.push_back(grid[row][col]);
+        }
+    }
+
+    return neighbours;
+}
 
 void step(std::vector<std::vector<int>>& grid) {
     int rows = grid.size();
@@ -184,15 +205,16 @@ void step(std::vector<std::vector<int>>& grid) {
 
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            std::vector<int> neighbors = get_neighbors(grid, i, j);
+            std::vector<int> neighbours = get_neighbours(grid, i, j);
             int count = 0;
-            for (int neighbor : neighbors) {
-                count += neighbor;
+            for (int neighbour : neighbours) {
+                count += neighbour;
             }
-            if (grid[i][j] == 1) {
-                if (count == 2 || count == 3) {
-                    grid[i][j] = 1;
-                }
+            // cells are unaffected unless they:
+            // - die of under- or overpopulation, or
+            // - become alive if they have exactly three neighbours
+            if (count < 2 || count > 3) {
+                grid[i][j] = 0;
             } else if (count == 3) {
                 grid[i][j] = 1;
             }
@@ -200,31 +222,15 @@ void step(std::vector<std::vector<int>>& grid) {
     }
 }
 
-std::vector<int> get_neighbors(const std::vector<std::vector<int>>& grid, int i, int j) {
-    int rows = grid.size();
-    int cols = grid[0].size();
-    std::vector<std::pair<int, int>> indices = {{i - 1, j - 1}, {i - 1, j}, {i - 1, j + 1},
-                                                {i, j - 1},                 {i, j + 1},
-                                                {i + 1, j - 1}, {i + 1, j}, {i + 1, j + 1}};
-    std::vector<int> neighbors;
-
-    for (const auto& idx : indices) {
-        int row = idx.first;
-        int col = idx.second;
-        if (row >= 0 && row < rows && col >= 0 && col < cols) {
-            neighbors.push_back(grid[row][col]);
-        }
-    }
-
-    return neighbors;
-}
-
 int main() {
-    std::vector<std::vector<int>> grid = {{0, 0, 0, 0, 0},
-                                          {0, 0, 1, 0, 0},
-                                          {0, 1, 0, 1, 0},
-                                          {0, 0, 1, 0, 0},
-                                          {0, 0, 0, 0, 0}};
+
+    std::vector<std::vector<int>> grid = 
+        {{0, 0, 0, 0, 0},
+         {0, 0, 1, 0, 0},
+         {0, 1, 1, 1, 0},
+         {0, 0, 1, 0, 0},
+         {0, 0, 0, 0, 0}};
+
     step(grid);
 
     // Print the grid
@@ -234,6 +240,15 @@ int main() {
         }
         std::cout << std::endl;
     }
+
+    // our grid should show a square pattern, but doesn't
+    std::vector<std::vector<int>> expected_grid = 
+        {{0, 0, 0, 0, 0},
+         {0, 1, 1, 1, 0},
+         {0, 1, 0, 1, 0},
+         {0, 1, 1, 1, 0},
+         {0, 0, 0, 0, 0}};
+    assert(grid == expected_grid);
 
     return 0;
 }
@@ -255,6 +270,26 @@ easily, we should strive for purity.
 ```cpp
 #include <iostream>
 #include <vector>
+#include <cassert>
+
+std::vector<int> get_neighbours(const std::vector<std::vector<int>>& grid, int i, int j) {
+    int rows = grid.size();
+    int cols = grid[0].size();
+    std::vector<std::pair<int, int>> indices = {{i - 1, j - 1}, {i - 1, j}, {i - 1, j + 1},
+                                                {i, j - 1},                {i, j + 1},
+                                                {i + 1, j - 1}, {i + 1, j}, {i + 1, j + 1}};
+    std::vector<int> neighbours;
+
+    for (const auto& idx : indices) {
+        int row = idx.first;
+        int col = idx.second;
+        if (row >= 0 && row < rows && col >= 0 && col < cols) {
+            neighbours.push_back(grid[row][col]);
+        }
+    }
+
+    return neighbours;
+}
 
 std::vector<std::vector<int>> step(const std::vector<std::vector<int>>& grid) {
     int rows = grid.size();
@@ -263,14 +298,15 @@ std::vector<std::vector<int>> step(const std::vector<std::vector<int>>& grid) {
 
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            std::vector<int> neighbors = get_neighbors(grid, i, j);
+            std::vector<int> neighbours = get_neighbours(grid, i, j);
             int count = 0;
-            for (int neighbor : neighbors) {
-                count += neighbor;
+            for (int neighbour : neighbours) {
+                count += neighbour;
             }
-            if (grid[i][j] == 1 && (count == 2 || count == 3)) {
-                new_grid[i][j] = 1;
-            } else if (grid[i][j] == 0 && count == 3) {
+            // all cells in the new grid are zeros, except:
+            // - cells with two neighbours, that survive if they were already alive, or
+            // - cells with three neighbours, that either survive or become alive
+            if ((count == 2 && grid[i][j] == 1) || count == 3) {
                 new_grid[i][j] = 1;
             }
         }
@@ -279,51 +315,33 @@ std::vector<std::vector<int>> step(const std::vector<std::vector<int>>& grid) {
     return new_grid;
 }
 
-std::vector<int> get_neighbors(const std::vector<std::vector<int>>& grid, int i, int j) {
-    int rows = grid.size();
-    int cols = grid[0].size();
-    std::vector<std::pair<int, int>> indices = {{i - 1, j - 1}, {i - 1, j}, {i - 1, j + 1},
-                                                {i, j - 1},                {i, j + 1},
-                                                {i + 1, j - 1}, {i + 1, j}, {i + 1, j + 1}};
-    std::vector<int> neighbors;
-
-    for (const auto& idx : indices) {
-        int row = idx.first;
-        int col = idx.second;
-        if (row >= 0 && row < rows && col >= 0 && col < cols) {
-            neighbors.push_back(grid[row][col]);
-        }
-    }
-
-    return neighbors;
-}
-
 int main() {
-    std::vector<std::vector<int>> grid = {{0, 0, 0, 0, 0},
-                                          {0, 0, 1, 0, 0},
-                                          {0, 1, 0, 1, 0},
-                                          {0, 0, 1, 0, 0},
-                                          {0, 0, 0, 0, 0}};
+
+    std::vector<std::vector<int>> grid = 
+        {{0, 0, 0, 0, 0},
+         {0, 0, 1, 0, 0},
+         {0, 1, 1, 1, 0},
+         {0, 0, 1, 0, 0},
+         {0, 0, 0, 0, 0}};
+
     std::vector<std::vector<int>> new_grid = step(grid);
 
-    // Check if the grid is unchanged
-    bool unchanged = true;
-    for (size_t i = 0; i < grid.size(); ++i) {
-        for (size_t j = 0; j < grid[0].size(); ++j) {
-            if (grid[i][j] != new_grid[i][j]) {
-                unchanged = false;
-                break;
-            }
+    // Print the new grid
+    for (const auto& row : new_grid) {
+        for (int cell : row) {
+            std::cout << cell << " ";
         }
-        if (!unchanged) {
-            break;
-        }
+        std::cout << std::endl;
     }
-    if (unchanged) {
-        std::cout << "Grid is unchanged" << std::endl;
-    } else {
-        std::cout << "Grid has changed" << std::endl;
-    }
+
+    std::vector<std::vector<int>> expected_grid = 
+        {{0, 0, 0, 0, 0},
+         {0, 1, 1, 1, 0},
+         {0, 1, 0, 1, 0},
+         {0, 1, 1, 1, 0},
+         {0, 0, 0, 0, 0}};
+
+    assert(new_grid == expected_grid);
 
     return 0;
 }

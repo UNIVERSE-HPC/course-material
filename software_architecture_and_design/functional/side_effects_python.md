@@ -155,9 +155,10 @@ Conway's Game of Life is a popular cellular automaton that simulates the
 evolution of a two-dimensional grid of cells. In this exercise, you will
 refactor a Python program that implements Conway's Game of Life. The basic rules of the game of life are:
 
-1. Any live cell with fewer than two live neighbors dies, as if caused by underpopulation.
-2. Any live cell with two or three live neighbors lives on to the next generation.
-3. Any live cell with more than three live neighbors dies, as if by overpopulation.
+1. Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+2. Any live cell with two or three live neighbours lives on to the next generation.
+3. Any live cell with more than three live neighbours dies, as if by overpopulation.
+4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
 The code has a bug related to the improper management of the program
 state, which you will fix. Refactor the code so that the `step`
@@ -170,16 +171,17 @@ def step(grid):
     rows, cols = grid.shape
     for i in range(rows):
         for j in range(cols):
-            neighbors = get_neighbors(grid, i, j)
-            count = sum(neighbors)
-            if grid[i, j] == 1:
-                if count in [2, 3]:
-                    grid[i, j] = 1
+            neighbours = get_neighbours(grid, i, j)
+            count = sum(neighbours)            
+            # cells are unaffected unless they:
+            # - die of under- or overpopulation, or
+            # - become alive if they have exactly three neighbours
+            if count < 2 or count > 3:
+                grid[i, j] = 0
             elif count == 3:
                 grid[i, j] = 1
-
-
-def get_neighbors(grid, i, j):
+                 
+def get_neighbours(grid, i, j):
     rows, cols = grid.shape
     indices = np.array([(i-1, j-1), (i-1, j), (i-1, j+1),
                         (i, j-1),             (i, j+1),
@@ -191,11 +193,19 @@ def get_neighbors(grid, i, j):
 # Test
 grid = np.array([[0, 0, 0, 0, 0],
                  [0, 0, 1, 0, 0],
-                 [0, 1, 0, 1, 0],
+                 [0, 1, 1, 1, 0],
                  [0, 0, 1, 0, 0],
                  [0, 0, 0, 0, 0]], dtype=np.int8)
 step(grid)
-print(grid)  # should be unchanged, but may change due to the bug
+print(grid)
+
+# our grid should show a square pattern, but doesn't
+expected_grid = np.array([[0, 0, 0, 0, 0],
+                          [0, 1, 1, 1, 0],
+                          [0, 1, 0, 1, 0],
+                          [0, 1, 1, 1, 0],
+                          [0, 0, 0, 0, 0]], dtype=np.int8)
+assert np.array_equal(grid, expected_grid)
 ```
 
 :::solution
@@ -219,16 +229,16 @@ def step(grid):
     new_grid = np.zeros((rows, cols), dtype=np.int8)
     for i in range(rows):
         for j in range(cols):
-            neighbors = get_neighbors(grid, i, j)
-            count = np.sum(neighbors)
-            if grid[i, j] == 1 and count in [2, 3]:
-                new_grid[i, j] = 1
-            elif grid[i, j] == 0 and count == 3:
+            neighbours = get_neighbours(grid, i, j)
+            count = np.sum(neighbours)
+            # all cells in the new grid are zeros, except:
+            # - cells with two neighbours, that survive if they were already alive, or
+            # - cells with three neighbours, that either survive or become alive
+            if (count == 2 and grid[i][j] == 1) or count == 3:
                 new_grid[i, j] = 1
     return new_grid
 
-
-def get_neighbors(grid, i, j):
+def get_neighbours(grid, i, j):
     rows, cols = grid.shape
     indices = np.array([(i-1, j-1), (i-1, j), (i-1, j+1),
                         (i, j-1),             (i, j+1),
@@ -240,12 +250,23 @@ def get_neighbors(grid, i, j):
 # Test
 grid = np.array([[0, 0, 0, 0, 0],
                  [0, 0, 1, 0, 0],
-                 [0, 1, 0, 1, 0],
+                 [0, 1, 1, 1, 0],
                  [0, 0, 1, 0, 0],
                  [0, 0, 0, 0, 0]], dtype=np.int8)
 
 new_grid = step(grid)
-assert np.array_equal(new_grid, grid), "Grid should be unchanged"
+print(new_grid)
+
+# our new grid should now correctly show a square pattern
+# our grid should show a square pattern, but doesn't
+expected_grid = np.array([[0, 0, 0, 0, 0],
+                          [0, 1, 1, 1, 0],
+                          [0, 1, 0, 1, 0],
+                          [0, 1, 1, 1, 0],
+                          [0, 0, 0, 0, 0]], dtype=np.int8)
+assert np.array_equal(new_grid, expected_grid)
+
+print(step(new_grid))
 ```
 
 :::
