@@ -355,6 +355,7 @@ Here we give some example tests using the `mocker` fixture from `pytest-mock` as
 
 ```python
 import numpy as np
+import numpy.testing as npt
 import pytest
 from inflammation.models import Trial
 from sql_example import connect_to_database, query_database
@@ -407,7 +408,7 @@ def test_trial_from_database(database_fn_fixture, setup_database):
     trial = Trial.from_database(database_fn_fixture, "t02")
     assert isinstance(trial.data, np.ndarray)
     # Check that the data attribute is correct (the first three columns should be skipped)
-    np.assert_array_equal(trial.data, np.array([[4, 5], [2, 1]]))
+    npt.assert_array_equal(trial.data, np.array([[4, 5], [2, 1]]))
     assert trial.id == "t02"
 
 def test_trial_from_database_no_data(database_fn_fixture, setup_database):
@@ -437,7 +438,7 @@ def test_trial_from_mock_database(mocker):
     trial = Trial.from_database('test_db.db', 1)
     assert isinstance(trial.data, np.ndarray)
     # Check that the data attribute is correct (the first three columns should be skipped)
-    np.assert_array_equal(trial.data, np.array([[4, 5], [2, 1]]))
+    npt.assert_array_equal(trial.data, np.array([[4, 5], [2, 1]]))
     assert trial.id == 1
 
 ```

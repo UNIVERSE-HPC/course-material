@@ -300,6 +300,8 @@ Write some tests for the `Trial` class and the associated methods. You can adapt
 Here is the solution for the first three of the tests, the others should have been refactored in a similar fashion.
 
 ```python
+import numpy.testing as npt
+
 @pytest.fixture()
 def trial_instance():
     return Trial("test_data.csv", 1)
@@ -315,7 +317,7 @@ class TestTrial:
         test_result = np.array([0, 0])
 
         # Need to use Numpy testing functions to compare arrays
-        np.assert_array_equal(trial_instance.daily_mean(), test_result)
+        npt.assert_array_equal(trial_instance.daily_mean(), test_result)
 
 
     def test_daily_mean_integers(self, trial_instance):
@@ -328,7 +330,7 @@ class TestTrial:
         test_result = np.array([3, 4])
 
         # Need to use Numpy testing functions to compare arrays
-        np.assert_array_equal(trial_instance.daily_mean(), test_result)
+        npt.assert_array_equal(trial_instance.daily_mean(), test_result)
 
 
     @pytest.mark.parametrize(
@@ -341,7 +343,7 @@ class TestTrial:
     def test_daily_max(self, test, expected, trial_instance):
         """Test max function works for zeroes, positive integers, mix of positive/negative integers."""
         trial_instance.data = np.array(test)
-        np.assert_array_equal(trial_instance.daily_max(), np.array(expected))
+        npt.assert_array_equal(trial_instance.daily_max(), np.array(expected))
 
     ...
 ```
@@ -425,7 +427,7 @@ class TestTrial:
         test_result = np.array([0, 0])
 
         # Need to use Numpy testing functions to compare arrays
-        np.assert_array_equal(trial_instance.daily_mean(), test_result)
+        npt.assert_array_equal(trial_instance.daily_mean(), test_result)
 
     ...
 ```

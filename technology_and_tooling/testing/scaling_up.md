@@ -42,6 +42,7 @@ So instead of writing a separate function for each different test, we can
 ```python
 import pytest
 import numpy as np
+import numpy.testing as npt
 @pytest.mark.parametrize(
     "test, expected",
     [
@@ -51,7 +52,7 @@ import numpy as np
 def test_daily_mean(test, expected):
     """Test mean function works for array of zeroes and positive integers."""
     from inflammation.models import daily_mean
-    np.assert_array_equal(daily_mean(np.array(test)), np.array(expected))
+    npt.assert_array_equal(daily_mean(np.array(test)), np.array(expected))
 ```
 
 Here, we use Pytest's **mark** capability to add metadata to this specific test - in this case, marking that it's a parameterised test. `parameterize()`
@@ -95,7 +96,7 @@ Rewrite your test functions for `daily_max()` and `daily_min()` to be parameteri
 def test_daily_max(test, expected):
     """Test max function works for zeroes, positive integers, mix of positive/negative integers."""
     from inflammation.models import daily_max
-    np.assert_array_equal(daily_max(np.array(test)), np.array(expected))
+    npt.assert_array_equal(daily_max(np.array(test)), np.array(expected))
 
 
 @pytest.mark.parametrize(
@@ -108,7 +109,7 @@ def test_daily_max(test, expected):
 def test_daily_min(test, expected):
     """Test min function works for zeroes, positive integers, mix of positive/negative integers."""
     from inflammation.models import daily_min
-    np.assert_array_equal(daily_min(np.array(test)), np.array(expected))
+    npt.assert_array_equal(daily_min(np.array(test)), np.array(expected))
 ...
 ```
 
