@@ -78,6 +78,8 @@ Let’s add some tests for our library function, `daily_mean`:
 
 ```python
 import numpy as np
+import numpy.testing as npt
+
 def test_daily_mean_zeros():
     """Test that mean function works for an array of zeros."""
     from inflammation.models import daily_mean
@@ -87,7 +89,7 @@ def test_daily_mean_zeros():
                             [0, 0]])
 
     # Need to use Numpy testing functions to compare arrays
-    np.assert_array_equal(np.array([0, 0]), daily_mean(test_array))
+    npt.assert_array_equal(np.array([0, 0]), daily_mean(test_array))
 ```
 
 Run `pytest tests/test_models.py`
@@ -140,6 +142,8 @@ example, we could rewrite the `test_daily_mean_zeros()` and
 `test_daily_mean_integers()` into a single test function:
 
 ```python
+import numpy.testing as npt
+
 @pytest.mark.parametrize(
     "test, expected",
     [
@@ -149,7 +153,7 @@ example, we could rewrite the `test_daily_mean_zeros()` and
 def test_daily_mean(test, expected):
     """Test mean function works for array of zeroes and positive integers."""
     from inflammation.models import daily_mean
-    np.assert_array_equal(np.array(expected), daily_mean(np.array(test)))
+    npt.assert_array_equal(np.array(expected), daily_mean(np.array(test)))
 ```
 
 ::: exercise

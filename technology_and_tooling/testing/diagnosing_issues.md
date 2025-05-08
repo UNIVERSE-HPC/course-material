@@ -102,6 +102,7 @@ Let us now add a new test in `tests/test_models.py` to check that the
 normalisation function is correct for some test data.
 
 ```python
+import numpy.testing as npt
 @pytest.mark.parametrize(
     "test, expected",
     [
@@ -111,7 +112,7 @@ def test_patient_normalise(test, expected):
     """Test normalisation works for arrays of one and positive integers.
        Assumption that test accuracy of two decimal places is sufficient."""
     from inflammation.models import patient_normalise
-    np.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
+    npt.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
 ```
 
 Note that we are using the `assert_almost_equal()` Numpy testing function
@@ -347,7 +348,7 @@ Think of some more suitable edge cases to test our `patient_normalise()` functio
 def test_patient_normalise(test, expected):
     """Test normalisation works for arrays of one and positive integers."""
     from inflammation.models import patient_normalise
-    np.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
+    npt.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
 ...
 ```
 
@@ -388,6 +389,7 @@ The [`ValueError`](https://docs.python.org/3/library/exceptions.html#ValueError)
 library and is used to indicate that the function received an argument of the right type, but of an inappropriate value.
 
 ```python
+import numpy.testing as npt
 @pytest.mark.parametrize(
     "test, expected, expect_raises",
     [
@@ -409,9 +411,9 @@ def test_patient_normalise(test, expected, expect_raises):
     from inflammation.models import patient_normalise
     if expect_raises is not None:
         with pytest.raises(expect_raises):
-            np.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
+            npt.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
     else:
-        np.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
+        npt.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
 ```
 
 Be sure to commit your changes so far and push them to GitHub.
@@ -484,13 +486,13 @@ def test_patient_normalise(test, expected, expect_raises):
         test = np.array(test)
     if expect_raises is not None:
         with pytest.raises(expect_raises):
-            np.assert_almost_equal(patient_normalise(test), np.array(expected), decimal=2)
+            npt.assert_almost_equal(patient_normalise(test), np.array(expected), decimal=2)
     else:
-        np.assert_almost_equal(patient_normalise(test), np.array(expected), decimal=2)
+        npt.assert_almost_equal(patient_normalise(test), np.array(expected), decimal=2)
 ...
 ```
 
-Note the conversion from `list` to `np.array` has been moved out of the call to `np.assert_almost_equal()` within the test function, and is now only applied to list items (rather than all items). This allows for greater flexibility with our test inputs, since this wouldn't work in the test case that uses a string.
+Note the conversion from `list` to `np.array` has been moved out of the call to `npt.assert_almost_equal()` within the test function, and is now only applied to list items (rather than all items). This allows for greater flexibility with our test inputs, since this wouldn't work in the test case that uses a string.
 
 :::
 ::::
