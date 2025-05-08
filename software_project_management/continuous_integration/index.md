@@ -23,7 +23,7 @@ attribution:
 
 ## What is Continuous Integration?
 
-Whenever we write software, we want to be ceratin that the changes we make are not introducing unexpected problems.
+Whenever we write software, we want to be certain that the changes we make are not introducing unexpected problems.
 We should always write tests to verify new functionality works as we intend, but there are plenty of pitfalls:
 
 1. Does the change work on different operating systems?
@@ -39,7 +39,7 @@ CI is a software development practice where developers integrate code into a sha
 Each time this happens, the software is automatically verified to detect integration errors as quickly as possible.
 The primary goal of CI is to catch and address bugs, integration problems, and other issues early, when they are easier to fix.
 
-Here are some key princples of CI:
+Here are some key principles of CI:
 
 1. **Maintain a single source repository:** All code and dependencies should be versioned and stored in a single, shared, and reliable repository. This is the primary source of all truth for the project, and everyone has access to it.
 
