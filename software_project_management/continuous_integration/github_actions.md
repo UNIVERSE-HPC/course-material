@@ -40,7 +40,7 @@ In this section you will create several workflows by using the wizard and built-
 ## Creating a basic workflow
 
 We will start with a minimal example to demonstrate various features of a GitHub Actions workflow.
-Createa file in your repository called:
+Create a file in your repository called:
 
 ```text
 .github/workflows/basic.yml
