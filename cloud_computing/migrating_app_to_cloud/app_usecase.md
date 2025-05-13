@@ -9,7 +9,7 @@ For this course, we will use a running application as a practical example to dem
 
 ## Image Processing Application
 
-Our example applicaiton, the image processing application, is built using [Flask](https://flask.palletsprojects.com/en/stable/), a lightweight web framework that simplifies the development of web applications by providing essential tools for routing, request handling, and templating. The application allows users to upload images, after which the image processing component kicks in to perform necessary transformations on the images. Both the original and processed versions are then stored. Additionally, the application saves metadata—such as filenames, sizes, and upload dates—in a [SQLite](https://www.sqlite.org/) database, showcasing file handling and database interaction. 
+Our example applicaiton, the image processing application, is built using [Flask](https://flask.palletsprojects.com/en/stable/), a lightweight web framework that simplifies the development of web applications by providing essential tools for routing, request handling, and templating. The application allows users to upload images, after which the image processing component kicks in to perform necessary transformations on the images. Both the original and processed versions are then stored. Additionally, the application saves metadata—such as filenames, sizes, and upload dates—in a [SQLite](https://www.sqlite.org/) database, showcasing file handling and database interaction.
 
 ### Application Features and Workflow
 
