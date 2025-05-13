@@ -1,5 +1,5 @@
 ---
-name: Drawbacks of Running a Local Application with Remote AWS Services
+name: Drawbacks of Running the Image Processing Application with Remote AWS Services
 dependsOn: []
 tags: []
 learningOutcomes:
