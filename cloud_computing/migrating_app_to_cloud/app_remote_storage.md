@@ -3,6 +3,9 @@ name: Integrating AWS Services with the Local Application
 dependsOn: []
 tags: []
 learningOutcomes:
+  - Configure and use AWS CLI to interact with AWS services.
+  - Create and manage AWS services such as S3 buckets and DynamoDB tables.
+  - Run the Image Processing Application using remote AWS services.
 ---
 
 ## Image Processing Application Using S3 and DynamoDB
