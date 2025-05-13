@@ -8,7 +8,7 @@ learningOutcomes:
   - Describe benefits of migrating applications to AWS Elastic Beanstalk.
 ---
 
-While integrating AWS services like S3 and DynamoDB with a locally running application provides access to the power of the cloud, there are several significant drawbacks that can impact performance, reliability, and scalability:
+While using remote AWS services like Amazon S3 for storage and DynamoDB for databases enhances your application's capabilities, running the application itself on a local machine introduces several notable challenges. These limitations can negatively impact performance, reliability, and scalability:
 
 - **Increased Latency**
 
