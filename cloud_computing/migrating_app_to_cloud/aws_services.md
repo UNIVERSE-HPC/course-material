@@ -4,8 +4,9 @@ dependsOn: []
 tags: []
 learningOutcomes:
   - Identify the core AWS services and their purposes.
-  - Explain the key features and benefits of AWS services.
-  - Understand how these services enable scalable applications.
+  - Explain essential features and benefits of core AWS services.
+  - Understand how AWS services enable scalable cloud applications.
+  - Describe how AWS reduces infrastructure management complexity.
 ---
 
 This section covers the fundamentals of AWS services like EC2, S3, DynamoDB, and Elastic Beanstalk. These services are the foundation of many modern cloud applications, allowing organizations to build scalable, resilient, and high-performance applications.
