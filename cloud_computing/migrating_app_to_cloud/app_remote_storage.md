@@ -8,9 +8,7 @@ learningOutcomes:
   - Run the Image Processing Application using remote AWS services.
 ---
 
-## Image Processing Application Using S3 and DynamoDB
-
-This is a modified version of the image processing application. Instead of relying on local storage and databases, this version utilizes AWS services, specifically **S3** for image storage and **DynamoDB** for metadata management.
+In this section, we will run an enhanced version of our Image Processing Application that integrates remote AWS services, specifically **Amazon S3** for storage and **DynamoDB** for database management. By leveraging AWS resources, we'll demonstrate how cloud services can effectively replace local storage and databases, providing scalability, durability, and easy maintenance.
 
 ### Prerequisites
 
