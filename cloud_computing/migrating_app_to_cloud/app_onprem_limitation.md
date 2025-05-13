@@ -3,6 +3,9 @@ name: Drawbacks of Running a Local Application with Remote AWS Services
 dependsOn: []
 tags: []
 learningOutcomes:
+  - Identify limitations of using remote AWS services with local applications.
+  - Understand how latency and connectivity affect application performance.
+  - Describe benefits of migrating applications to AWS Elastic Beanstalk.
 ---
 
 While integrating AWS services like S3 and DynamoDB with a locally running application provides access to the power of the cloud, there are several significant drawbacks that can impact performance, reliability, and scalability:
