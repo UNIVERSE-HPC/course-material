@@ -1,5 +1,5 @@
 ---
-name: Integrating AWS Services with the Local Application
+name: Integrating AWS Services with the Image Processing Application
 dependsOn: []
 tags: []
 learningOutcomes:
