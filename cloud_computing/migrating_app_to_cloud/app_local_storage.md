@@ -1,5 +1,5 @@
 ---
-name: Running the Image Processing Application Locally
+name: Running the Image Processing Application
 dependsOn: []
 tags: []
 learningOutcomes:
