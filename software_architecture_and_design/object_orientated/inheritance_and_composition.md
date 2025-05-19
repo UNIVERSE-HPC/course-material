@@ -215,12 +215,13 @@ For much more detail on this see the [Python Design Patterns guide](https://pyth
 
 **Multiple Inheritance** is when a class inherits from more than one direct parent class.
 It exists in Python, but is often not present in other Object Oriented languages.
-Although this might seem useful, like in our inheritance-based model of the photocopier above, it's best to avoid it unless you're sure it's the right thing to do, due to the complexity of the inheritance heirarchy.
+Although this might seem useful, like in our inheritance-based model of the photocopier above, it's best to avoid it unless you're sure it's the right thing to do, due to the complexity of the inheritance hierarchy.
 Often using multiple inheritance is a sign you should instead be using composition - again like the photocopier model above.
 
 ::::challenge{id="a-model-patient" title="A Model Patient"}
 
-Above we gave an example of a `Patient` class which inherits from `Person`. Let's can start with extending the system such that there must be a `Doctor` class to hold the data representing a single doctor, which:
+Above we gave an example of a `Patient` class which inherits from `Person`.
+Let's start by extending the system to have a `Doctor` class holding the data representing a single doctor, which:
 
 - must have a `name` attribute
 - must have a list of patients that this doctor is responsible for.
