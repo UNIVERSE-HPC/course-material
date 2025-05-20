@@ -158,7 +158,7 @@ Below are the required entries for the `.env` file:
 REGION_NAME = 'YOUR_AWS_REGION'
 S3_BUCKET = 'YOUR_AWS_S3_BUCKET_NAME'
 IMAGE_METADATA_TABLE = 'YOUR_AWS_DYNAMODB_TABLE_NAME'
-AWS_PROFILE = '126197568295_CCRCC-IntroToCloud-Student'
+AWS_PROFILE = 'YOUR_AWS_PROFILE_NAME'
 ```
 
 > **Note:** Please replace the values above with those specific to your AWS resources. Ensure you use the correct region, S3 bucket name, and DynamoDB table name that you created. If you omit AWS_PROFILE and your default profile does not have access, your application will fail to authenticate with AWS services.
