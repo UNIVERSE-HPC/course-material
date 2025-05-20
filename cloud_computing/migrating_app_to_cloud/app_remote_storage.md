@@ -150,15 +150,18 @@ To get started with the image processing application, follow these steps to clon
    cd image-processing-hybrid-app
    ```
 
-Once cloned, and before running the application, you need to create a `.env` file in the root directory of the project. This file will store environment variables such as the AWS region, S3 bucket name, and DynamoDB table name. These variables will be used by the application to connect to the appropriate AWS resources and manage image storage and metadata effectively. Below are the required entries for the `.env` file:
+Once cloned, and before running the application, you need to create a `.env` file in the root directory of the project. This file will store environment variables such as the AWS region, S3 bucket name, and DynamoDB table name. These variables will be used by the application to connect to the appropriate AWS resources and manage image storage and metadata effectively. In many setups, especially in shared environments, you will be provided with AWS credentials associated with a named profile. This is configured in your ~/.aws/credentials file and allows you to switch between different AWS accounts or roles.
+
+Below are the required entries for the `.env` file:
 
 ```plaintext
 REGION_NAME = 'YOUR_AWS_REGION'
 S3_BUCKET = 'YOUR_AWS_S3_BUCKET_NAME'
 IMAGE_METADATA_TABLE = 'YOUR_AWS_DYNAMODB_TABLE_NAME'
+AWS_PROFILE = '126197568295_CCRCC-IntroToCloud-Student'
 ```
 
-> **Note:** Please replace the values above with those specific to your AWS resources. Ensure you use the correct region, S3 bucket name, and DynamoDB table name that you created.
+> **Note:** Please replace the values above with those specific to your AWS resources. Ensure you use the correct region, S3 bucket name, and DynamoDB table name that you created. If you omit AWS_PROFILE and your default profile does not have access, your application will fail to authenticate with AWS services.
 
 ### Running the Application
 
