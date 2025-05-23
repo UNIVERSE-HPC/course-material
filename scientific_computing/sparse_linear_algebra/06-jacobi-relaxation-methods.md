@@ -103,7 +103,7 @@ $$
 For the SOR method, the relaxation parameter $\omega$ is generally chosen to minimise
 $\rho(M^{-1}N)$, so that the speed of convergence is maximised. In some cases this
 optimal $\omega$ is known, for example for finite difference discretisation of the
-[Poisson equation](https://www.sciencedirect.com/science/article/pii/S0893965908001523).
+[Poisson equation](https://doi.org/10.1016/j.aml.2008.03.028).
 However, in many cases sophisticated eigenvalue analysis is required to determine the
 optimal $\omega$.
 

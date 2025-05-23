@@ -9,7 +9,7 @@ attribution:
       D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
       Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator.
     url: https://github.com/carpentries-incubator/docker-introduction
-    image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
+    image: https://carpentries-incubator.org/assets/img/carpentries-incubator.svg
     license: CC-BY-4.0
 ---
 
@@ -199,7 +199,7 @@ Notice that the final input to `docker image build` isn't the Dockerfile -- it's
 a directory! In the command above, we've used the current working directory (`.`) of
 the shell as the final input to the `docker image build` command. This option provides
 what is called the _build context_ to Docker -- if there are files being copied
-into the built container image [more details in the next episode](/advanced-containers)
+into the built container image [more details in the next episode](advanced-containers)
 they're assumed to be in this location. Docker expects to see a Dockerfile in the
 build context also (unless you tell it to look elsewhere).
 

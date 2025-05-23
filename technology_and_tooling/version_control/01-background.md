@@ -1,8 +1,8 @@
 ---
 name: Automated Version Control
 dependsOn: [
-technology_and_tooling.bash_shell.bash
-]
+  technology_and_tooling.bash_shell
+] 
 tags: [git]
 learningOutcomes:
   - Describe the benefits of an automated version control system.
@@ -18,7 +18,7 @@ attribution:
   license: CC-BY-4.0
 ---
 
-The slides for this material [are located here](slides/index.html).
+The slides for this material [are located here](./slides/index.html).
 
 ## What is Version Control?
 

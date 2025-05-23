@@ -7,7 +7,7 @@ attribution:
       "Python Packaging" course developed by Thibault Lestang and the Oxford Research 
       Software Engineering group
     url: https://github.com/OxfordRSE/python-packaging-course
-    image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
+    image: https://www.rse.ox.ac.uk/sites/default/files/styles/listing_tile_text_displayed_image/public/rse/images/media/oxrse_banner_2.png
     license: CC-BY-4.0
   - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk
@@ -140,13 +140,12 @@ for wheels. Instead, the contents of wheels are directly unpacked into the
 appropriate location, typically the current environment's `site-packages/`
 directory. This procedure enhances the safety and speed of wheel installation.
 
-A noteworthy feature of Python wheels is their ability to embed compiled code,
-thereby eliminating the need for recipients to undertake any compilation. As a
-result, while the wheel becomes platform-dependent, it greatly simplifies and
-accelerates the installation process. Hence, wheels fall under the category of
-_built distributions_. Another example of a built distribution is the Python _egg_.
-However, the wheel format was devised to address the limitations of Python eggs,
-rendering the latter format obsolete. For more information, refer to [Wheel vs Egg](https://packaging.python.org/discussions/wheel-vs-egg/) on the Python Packaging User Guide.
+A noteworthy feature of Python wheels is their ability to embed compiled code, thereby eliminating the need for recipients to undertake any compilation.
+As a result, while the wheel becomes platform-dependent, it greatly simplifies and accelerates the installation process.
+Hence, wheels fall under the category of _built distributions_.
+Another example of a built distribution is the Python _egg_.
+However, the wheel format was devised to address the limitations of Python eggs, rendering the latter format obsolete.
+For more information, refer to [Wheel vs Egg](https://packaging.python.org/en/latest/discussions/package-formats/) on the Python Packaging User Guide.
 
 ::::challenge{id=python-wheel title="Building a Python wheel"}
 

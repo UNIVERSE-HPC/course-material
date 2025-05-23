@@ -367,7 +367,7 @@ for (int n = rank_start; n <= rank_end; ++n) {
 printf("Rank %d - primes between %d-%d is: %d\n", my_rank, rank_start, rank_end, prime_count);
 ```
 
-To try this out, copy the full [example code](code/examples/02-count-primes.c), compile and then run it:
+To try this out, copy the full [example code](./code/examples/02-count-primes.c), compile and then run it:
 
 ```c
 mpicc -o count_primes count_primes.c

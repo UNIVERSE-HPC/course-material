@@ -53,12 +53,13 @@ sometimes style guide recommendations are just not applicable. When in doubt, us
 Look at other examples and decide what looks best. And don't hesitate to ask!
 :::
 
-As we have already covered in the [episode on PyCharm IDE](../13-ides/index.html), PyCharm highlights the language constructs
-(reserved words) and syntax errors to help us with coding. PyCharm also gives us recommendations for formatting the code - these recommendations
-are mostly taken from the PEP8 style guide.
+Static analysis tools, such as [Pylint](https://pylint.pycqa.org/) or flake8
+([flake8](https://flake8.pycqa.org/en/latest/)) can help us to check our code for style guide compliance.
+These tools highlight the language constructs (reserved words) and syntax errors automatically.
+They also gives us recommendations for formatting the code - these recommendations are mostly taken from the PEP8 style guide.
+Such tools are often built into modern IDEs such as vscode, or PyCharm.
 
-A full list of style guidelines for this style
-is available from the [PEP8 website](https://www.python.org/dev/peps/pep-0008/); here we highlight a few.
+A full list of rules for PEP8 style is available from the [PEP8 website](https://www.python.org/dev/peps/pep-0008/); here we highlight a few.
 
 ### Indentation
 
@@ -84,12 +85,12 @@ the amount of spaces that PyCharm uses to replace one tab character or you can d
 altogether and prevent automatic conversion. You can modify these settings in PyCharm's
 `Preferences`>`Editor`>`Code Style`>`Python` (MacOS/Linux) or `Settings`>`Editor`>`Code Style`>`Python` (Windows).
 
-![Python code indentation settings in PyCharm](../fig/pycharm-indentation.png){: .image-with-shadow width="800px"}
+![Python code indentation settings in PyCharm](./fig/pycharm-indentation.png){: .image-with-shadow width="800px"}
 
 You can also tell the editor to show non-printable characters if you are ever unsure what character exactly is
 being used by selecting `View`>`Active Editor`>`Show whitespace`.
 
-![Python code whitespace settings in PyCharm](../fig/pycharm-whitespace.png){: .image-with-shadow width="1000px"}
+![Python code whitespace settings in PyCharm](./fig/pycharm-whitespace.png){: .image-with-shadow width="1000px"}
 
 There are more complex rules on indenting single units of code that continue over several lines, e.g. function,
 list or dictionary definitions can all take more than one line. The preferred way of wrapping such long lines is by
@@ -327,7 +328,7 @@ by people who don't speak your language.
 
 ## The Good, the Bad, and the Ugly Comments
 
-As a side reading, check out the ['Putting comments in code: the good, the bad, and the ugly' blogpost](https://www.freecodecamp.org/news/code-comments-the-good-the-bad-and-the-ugly-be9cc65fbf83/).
+As a side reading, check out the ['Putting comments in code: the good, the bad, and the ugly' blogpost](https://medium.com/free-code-camp/code-comments-the-good-the-bad-and-the-ugly-be9cc65fbf83).
 Remember - a comment should answer the ‘why’ question”. Occasionally the “what” question.
 The “how” question should be answered by the code itself.
 :::

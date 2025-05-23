@@ -10,7 +10,7 @@ attribution:
       Sustainable data analysis with Snakemake. F1000Res 10, 33.
       Revision c7ae161c.
     url: https://snakemake.readthedocs.io/en/stable/tutorial/setup.html
-    image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
+    image: https://snakemake.readthedocs.io/en/stable/_static/logo-snake.svg
     license: MIT license
 ---
 
@@ -93,9 +93,9 @@ Linux environment in the WSL.
 
 If you are using a version of Windows older than 10 or if you do not
 wish to install the WSL, you can instead setup a Linux virtual machine
-(VM) with [Vagrant](https://www.vagrantup.com). First, install Vagrant
+(VM) with [Vagrant](https://developer.hashicorp.com/vagrant). First, install Vagrant
 following the installation instructions in the [Vagrant
-Documentation](https://docs.vagrantup.com). Then, create a new directory
+Documentation](https://developer.hashicorp.com/vagrant/docs). Then, create a new directory
 you want to share with your Linux VM, for example, create a folder named
 `vagrant-linux` somewhere. Open a command line prompt, and change into
 that directory. Here, you create a 64-bit Ubuntu Linux environment with
@@ -114,9 +114,7 @@ set up by vagrant. You can log into the virtual machine via
 > vagrant ssh
 ```
 
-If this command tells you to install an SSH client, you can follow the
-instructions in this
-[Blogpost](https://blog.osteel.me/posts/2015/01/25/how-to-use-vagrant-on-windows.html).
+If this command tells you to install an SSH client, you can follow the instructions in this [Blogpost](https://www.sitepoint.com/getting-started-vagrant-windows/).
 Now, you can follow the steps of our tutorial from within your Linux VM.
 
 ## Step 1: Installing Miniforge
@@ -193,7 +191,7 @@ working directory.
 
 ## Step 3: Creating an environment with the required software
 
-All interactions with Conda package management below can be conducted with either conda, mamba or micromamba. For the steps in the [advanced](advanced.md) part of the tutorial, you have to install mamba though in case you don’t have it.
+All interactions with Conda package management below can be conducted with either conda, mamba or micromamba. For the steps in the [advanced](advanced) part of the tutorial, you have to install mamba though in case you don’t have it.
 
 First, make sure to activate the conda base environment with
 

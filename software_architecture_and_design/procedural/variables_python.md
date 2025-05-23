@@ -1,6 +1,6 @@
 ---
 name: Variables
-dependsOn: [technology_and_tooling.bash_shell.bash, technology_and_tooling.ide.cpp]
+dependsOn: [technology_and_tooling.bash_shell, technology_and_tooling.ide.cpp]
 tags: [python]
 learningOutcomes:
   - Describe the fundamental types of variables.

@@ -17,7 +17,7 @@ attribution:
     license: BSD-3
 ---
 
-Before starting this course, you should be comfortable with the basics of Python and have PyBaMM installed in your machine. If you need a refresher about Python you can check the [Intro to Python](/material/introductory_courses/python) course. The instructions on how to install PyBaMM are available in the [PyBaMM docs](https://docs.pybamm.org/en/latest/).
+Before starting this course, you should be comfortable with the basics of Python and have PyBaMM installed in your machine. If you need a refresher about Python you can check the [Intro to Python](/introductory_courses/python) course. The instructions on how to install PyBaMM are available in the [PyBaMM docs](https://docs.pybamm.org/en/latest/).
 
 PyBaMM (Python Battery Mathematical Modelling) is an open-source battery simulation package written in Python. Our mission is to accelerate battery modelling research by providing open-source tools for multi-institutional, interdisciplinary collaboration. Broadly, PyBaMM consists of
 

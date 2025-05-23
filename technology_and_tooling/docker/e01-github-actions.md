@@ -10,7 +10,7 @@ attribution:
       D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
       Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator.
     url: https://github.com/carpentries-incubator/docker-introduction
-    image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
+    image: https://carpentries-incubator.org/assets/img/carpentries-incubator.svg
     license: CC-BY-4.0
 ---
 
@@ -99,9 +99,7 @@ Create a github project with a short `README.md`. To do this:
 - go to `github.com` and make sure you're logged in
 - click the green "New" button at the top right
 - clone the new project to your computer. The instructions for
-  doing so will be shown in the dialog on Github, or you can also see [Software Carpentry lesson on Version
-  Control with Git](http://swcarpentry.github.io/git-novice/07-github/index.html), or
-  the example below:
+  doing so will be shown in the dialog on Github, or you can also see [this section on creating a git repo](/technology_and_tooling/version_control/03-create), or use the following commands:
 
 ```bash
 git clone <your-repo-url>

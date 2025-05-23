@@ -22,11 +22,11 @@ TThis episode is based on a code that solves the Poisson's equation using an ite
 
 In the simulation the stick is split into a given number of slices, each with a constant temperature.
 
-![Stick divided into separate slices with touching boundaries at each end](fig/poisson_stick.png)
+![Stick divided into separate slices with touching boundaries at each end](./fig/poisson_stick.png)
 
 The temperature of the stick itself across each slice is initially set to zero, whilst at one boundary of the stick the amount of heat is set to 10. The code applies steps that simulates heat transfer along it, bringing each slice of the stick closer to a solution until it reaches a desired equilibrium in temperature along the whole stick.
 
-Let's download the code, which can be found [here](code/examples/poisson/poisson.c), and take a look at it now.
+Let's download the code, which can be found [here](./code/examples/poisson/poisson.c), and take a look at it now.
 
 ### At a High Level - `main()`
 
@@ -458,7 +458,7 @@ Once complete across all ranks, every rank will then have the slice boundary dat
 
 ### Running our Parallel Code
 
-You can obtain a full version of the parallelised Poisson code from [here](code/examples/poisson/poisson_mpi.c). Now we have the parallelised code in place, we can compile and run it, e.g.:
+You can obtain a full version of the parallelised Poisson code from [here](./code/examples/poisson/poisson_mpi.c). Now we have the parallelised code in place, we can compile and run it, e.g.:
 
 ```bash
 mpicc poisson_mpi.c -o poisson_mpi

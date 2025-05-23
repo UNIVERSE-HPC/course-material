@@ -12,7 +12,7 @@ attribution:
 ---
 
 ![People on laptops sat around a desk](images/helena-lopes-2MBtXGq4Pfs-unsplash.jpg)
-_Image courtesy of [Helena Lopes](https://unsplash.com/@wildlittlethingsphoto) from [Unsplash](https://unsplash.com)_
+_Image courtesy of Helena Lopes from [Unsplash](https://unsplash.com)_
 
 ## Distributed Memory Architecture
 

@@ -165,5 +165,5 @@ If you have a Python project you are working on or you worked on in the past, ru
 with your code are detected, if any.
 ::::
 
-It is possible to automate these kind of code checks with GitHub's Continuous Integration service GitHub Actions -
-we will come back to automated linting in the episode on ["Diagnosing Issues and Improving Robustness"](../24-diagnosing-issues-improving-robustness/index.html).
+It is possible, and desirable, to automate these kind of code checks with GitHub's Continuous Integration service GitHub Actions.
+See our section on [GitHub Actions](/software_project_management/continuous_integration/github_actions) for details.

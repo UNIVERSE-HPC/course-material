@@ -12,7 +12,7 @@ attribution:
   - citation: >
       "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
     url: https://doi.org/10.5281/zenodo.6532057
-    image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
+    image: https://carpentries-incubator.org/assets/img/carpentries-incubator.svg
     license: CC-BY-4.0
   - citation: >
       Matt Jaquiery, Abhishek Dasgupta (2022) "Intermediate Git Collaboration"
@@ -333,45 +333,29 @@ that the team decides on this process and sticks to it. Here are some examples o
    - comments and documentation - are there clear and useful comments that explain
      complex designs well and focus on the "why/because" rather than the "what/how"?
 1. Do not review code too quickly and do not review for too long in one sitting. According to
-   [“Best Kept Secrets of Peer Code Review” (Cohen, 2006)](https://www.amazon.co.uk/Best-Kept-Secrets-Peer-Review/dp/1599160676) - the
-   first hour of review matters the most as detection of defects significantly drops
-   after this period.
-   [Studies into code
-   review](https://smartbear.com/resources/ebooks/the-state-of-code-review-2020-report/)
-   also show that you should not review more than 400 lines of code at a time.
+   “Best Kept Secrets of Peer Code Review” (Cohen, 2006) - the first hour of review matters the most as detection of defects significantly drops after this period.
+   [Studies into code review](https://smartbear.com/resources/ebooks/the-state-of-code-review-2020-report/) also show that you should not review more than 400 lines of code at a time.
    Conducting more frequent shorter reviews seems to be more effective.
-1. Decide on the level of depth for code reviews to maintain the balance between the creation time
-   and time spent reviewing code - e.g. reserve them for critical portions of code and
-   avoid nit-picking on small details. Try using automated checks and linters when
-   possible, e.g. for consistent usage of certain terminology across the code and code
-   styles.
+1. Decide on the level of depth for code reviews to maintain the balance between the creation time and time spent reviewing code - e.g. reserve them for critical portions of code and avoid nit-picking on small details.
+Try using automated checks and linters when possible, e.g. for consistent usage of certain terminology across the code and code styles.
 1. Communicate clearly and effectively - when reviewing code, be explicit about the action you request from the author.
 1. Foster a positive feedback culture:
-
    - give feedback about the code, not about the author
    - accept that there are multiple correct solutions to a problem
    - sandwich criticism with positive comments and praise
-
-1. Utilise multiple code review techniques - use email, pair programming,
-   over-the-shoulder, team discussions and tool-assisted or any combination that works
-   for your team. However, for the most effective and efficient code reviews,
-   tool-assisted process is recommended.
+1. Utilise multiple code review techniques - use email, pair programming, over-the-shoulder, team discussions and tool-assisted or any combination that works for your team.
+   However, for the most effective and efficient code reviews, tool-assisted process is recommended.
 1. From a more technical perspective:
-   - use a feature branch for pull requests as you can push follow-up commits if you need to update
-     your proposed changes
-   - avoid large pull requests as they are more difficult to review. You can refer to
-     some [studies](https://jserd.springeropen.com/articles/10.1186/s40411-018-0058-0)
-     and [Google
-     recommendations](https://google.github.io/eng-practices/review/developer/small-cls.html)
-     as to what a "large pull request" is but be aware that it is not exact science.
-   - don't force push to a pull request as it changes the repository history
+   - Use a feature branch for pull requests as you can push follow-up commits if you need to update your proposed changes
+   - Avoid large pull requests as they are more difficult to review.
+     You can refer to some [studies](https://jserd.springeropen.com/articles/10.1186/s40411-018-0058-0) and [Google recommendations](https://google.github.io/eng-practices/review/developer/small-cls.html) as to what a "large pull request" is but be aware that it is not exact science.
+   - Don't force push to a pull request as it changes the repository history
      and can corrupt your pull request for other collaborators
-   - use pull request states in GitHub effectively (based on your team's code review
-     process) - e.g. in GitHub you can open a pull request in a `DRAFT` state to show
-     progress or request early feedback; `READY FOR REVIEW` when you are ready for
-     feedback; `CHANGES REQUESTED` to let the author know they need to fix the requested
-     changes or discuss more; `APPROVED` to let the author they can merge their pull
-     request.
+   - Use pull request states in GitHub effectively (based on your team's code review process) - e.g. in GitHub you can open a pull request in:
+   `DRAFT` state to show progress or request early feedback;
+   `READY FOR REVIEW` when you are ready for feedback;
+   `CHANGES REQUESTED` to let the author know they need to fix the requested changes or discuss more;
+   `APPROVED` to let the author they can merge their pull request.
 
 :::challenge{id=own-environment title="Code Review in Your Own Working Environment"}
 

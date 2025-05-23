@@ -41,7 +41,7 @@ However, all the `scipy.sparse` formats also have special methods
 [`setdiag`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.lil_matrix.setdiag.html)
 which provide a more object-orientated method of doing the same thing.
 
-Scipy has a few different direct solvers for sparse matrics, given below:
+Scipy has a few different direct solvers for sparse matrices, given below:
 
 [`spsolve`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.spsolve.html#scipy.sparse.linalg.spsolve):
 This solves $Ax=b$ where $A$ is converted into CSC or CSR form

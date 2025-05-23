@@ -26,14 +26,14 @@ a finite difference approximation to approximate the derivative, and the [Nelder
 algorithm](https://doi.org/10.1093/comjnl/7.4.308), which is a Simplex search method.
 However, there are a large number of derivative-free methods, ranging from the classical  
 [_Direct Search
-methods_](https://www.sciencedirect.com/science/article/pii/S0377042700004234) like
+methods_](https://doi.org/10.1016/S0377-0427(00)00423-4) like
 _Pattern search_, _Simplex search_, _Rosenbrock'_ or _Powell's_ methods. Then there are
 emulator or model -based methods that build up a model of the function $f$ and minimise
 that using a gradient-based method, a powerful example of this class of methods is
 [Bayesian
 Optimisation](http://papers.nips.cc/paper/4522-practical-bayesian-optimization). Many
 global optimsiation algorithms are derivative-free, including _randomised algorithms_
-such as [Simulated Annealing](https://science.sciencemag.org/content/220/4598/671), and
+such as [Simulated Annealing](https://doi.org/10.1126/science.220.4598.671), and
 _evolution-based_ strategies such as the popular [Covariance matrix adaptation evolution
 strategy (CMA-ES)](https://arxiv.org/abs/1604.00772), or _swarm algorithms_ inspired
 from bees/ants like [Particle Swarm

@@ -100,11 +100,9 @@ a blank line between the summary line and your additional notes.
 ```
 
 When we run `git commit`,
-Git takes everything we have told it to save by using `git add`
-and stores a copy permanently inside the special `.git` directory.
-This permanent copy is called a **[revision](reference.html#revision)**
-and its short **identifier** is `fa90884`.
-(Your revision will have different identifier.)
+Git takes everything we have told it to save by using `git add` and stores a copy permanently inside the special `.git` directory.
+This permanent copy is called a **[revision](https://git-scm.com/docs/revisions)** and its short **identifier** (or short `SHA`) is `fa90884`.
+Your revision will have different identifier.
 
 If we run `git status` now:
 
@@ -120,33 +118,28 @@ git status
 nothing to commit, working directory clean
 ```
 
-it tells us our local repository is up-to-date, although now we have edits to it that the remote version of it doesn't (we'll get to that later!).
+Git tells us our local repository is up-to-date, but indicates we have changes that the remote version does not (we'll get to that later!).
 
 ![Add and Commit](fig/04-changes/add.svg)
 
-Git has a special **staging** area
-where it keeps track of things that have been **added** to
-the current [change set](reference.html#change-set)
+Git has a special [**staging** area](https://git-scm.com/about/staging-area) where it keeps track of things that have been **added** to the current change set
 but **not yet committed**.
-`git add` puts things in this area,
-and `git commit` then copies them to long-term storage (as a commit)
+`git add` adds changes to staging, and `git commit` copies them to long-term storage (as a commit).
 
-:::callout
-
-## What's the Point of the Staging Area?
+:::callout{variant="info", title="The Staging Area"}
 
 Why do we have this two-stage process, where we **add** files to the staging area, then create a **commit** from them?
 
 Among other reasons, it allows you to easily bundle together a lot of changes in one go. If you changed the name of a variable used in multiple files (e.g. from `t` to `temperature`), you'd need to change it in all your files in one go in order for it to make sense.
-If you stored a copy of each file one-by-one you'd end up with a lot of versions of the code that didn't work - variables with different names everywhere. The **staging area** lets you bundle together all those small changes that don't work in isolation into one big change that's coherent.
+If you stored a copy of each file one-by-one you'd end up with a lot of versions of the code that don't work - variables with inconsistent names.
+The **staging area** lets you bundle together all those small changes that don't work in isolation into one coherent commit.
 
 Git does give you shortcuts to reduce **add -> commit** to a single step, but when you're starting out it's always better to make sure you know what's going in to each commit!
 :::
 
 ### Review the Log
 
-If we want to know what we've done recently,
-we can ask Git to show us the **project's history** using `git log`:
+If we want to know what we've done recently, we can ask Git to show us the **repository's history** using `git log`:
 
 ```bash
 git log
