@@ -103,7 +103,7 @@ There is one problem though. `malloc()` does not guarantee that subsequently all
 int index_for_2_4 = matrix1d[5 * 2 + 4];  // num_cols * row + col
 ```
 
-Another solution is to move memory around so that it is contiguous, such as in [this example](code/examples/07-malloc-trick.c) or by using a more sophisticated function such as [`arralloc()` function](code/arralloc.c) (not part of the standard library) which can allocate arbitrary n-dimensional arrays into a contiguous block.
+Another solution is to move memory around so that it is contiguous, such as in [this example](./code/examples/07-malloc-trick.c) or by using a more sophisticated function such as [`arralloc()` function](./code/arralloc.c) (not part of the standard library) which can allocate arbitrary n-dimensional arrays into a contiguous block.
 ::::
 
 For a row-major array, we can send the elements of a single row (for a 4 x 4 matrix) easily,
@@ -226,7 +226,7 @@ int matrix[2][3] = {
  };
 ```
 
-With that vector type, send the middle column of the matrix (elements `matrix[0][1]` and `matrix[1][1]`) from rank 0 to rank 1 and print the results. You may want to use [this code](code/solutions/skeleton-example.c) as your starting point.
+With that vector type, send the middle column of the matrix (elements `matrix[0][1]` and `matrix[1][1]`) from rank 0 to rank 1 and print the results. You may want to use [this code](./code/solutions/skeleton-example.c) as your starting point.
 
 :::solution
 

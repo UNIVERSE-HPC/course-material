@@ -2,7 +2,7 @@
 name: "Snakemake"
 id: snakemake
 dependsOn: [technology_and_tooling.bash_shell]
-files: [setup.md, basics.md, advanced.md, additional_features.md, short.md]
+files: [[setup.md, basics.md, advanced.md, additional_features.md], [short.md]]
 learningOutcomes:
   - Learn how to install and setup Snakemake.
   - Run a workflow by specifying rules in a Snakefile.
@@ -17,7 +17,7 @@ attribution:
       Sustainable data analysis with Snakemake. F1000Res 10, 33.
       Revision c7ae161c.
     url: https://snakemake.readthedocs.io/en/stable/tutorial/basics.html
-    image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
+    image: https://snakemake.readthedocs.io/en/stable/_static/logo-snake.svg
     license: MIT license
 summary: |
   This course introduces the text-based workflow system Snakemake. Snakemake is a general-purpose workflow management system for any discipline.

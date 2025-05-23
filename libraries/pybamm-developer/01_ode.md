@@ -226,7 +226,7 @@ This is extremely useful to debug the expression tree as it allows you to access
 
 An event is a condition that can be used to stop the solver, for example when
 the voltage reaches a certain value. In PyBaMM an event can be defined using the
-[`pybamm.Event`](https://docs.pybamm.org/en/stable/source/api/events/event.html)
+[`pybamm.Event`](https://docs.pybamm.org/en/stable/source/api/models/base_models/event.html)
 class. For example, if you wanted to define an event that stops the solver when
 the time reaches 3, you would write
 

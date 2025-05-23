@@ -8,7 +8,7 @@ attribution:
   - citation: >
       "Programming with Python" course by the Carpentries
     url: https://swcarpentry.github.io/python-novice-inflammation/
-    image: https://carpentries.org/assets/img/TheCarpentries.svg
+    image: https://carpentries.org/carpentries-logo.svg
     license: CC-BY-4.0
 ---
 
@@ -148,7 +148,7 @@ x = [['pepper', 'zucchini', 'onion'],
 
 Here is a visual example of how indexing a list of lists `x` works:
 
-[![x is represented as a pepper shaker containing several packets of pepper. [x[0]] is represented as a pepper shaker containing a single packet of pepper. x[0] is represented as a single packet of pepper. x\[0]\[0] is represented as single grain of pepper. Adapted from @hadleywickham.](fig/indexing_lists_python.png)](<https://twitter.com/hadleywickham/status/643381054758363136>)
+x is represented as a pepper shaker containing several packets of pepper. `[x[0]]` is represented as a pepper shaker containing a single packet of pepper. `x[0]` is represented as a single packet of pepper. `x[0][0]` is represented as single grain of pepper. [Adapted from @hadleywickham: indexing lists in python](./fig/indexing_lists_python.png)
 
 Using the previously declared list `x`, these would be the results of the
 index operations shown in the image:
@@ -177,8 +177,6 @@ print(x[0][0])
 'pepper'
 ```
 
-Thanks to [Hadley Wickham](https://twitter.com/hadleywickham/status/643381054758363136)
-for the image above.
 :::
 
 :::callout

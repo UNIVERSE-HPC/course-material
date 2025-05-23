@@ -7,7 +7,7 @@ attribution:
       "Python Packaging" course developed by Thibault Lestang and the Oxford Research 
       Software Engineering group
     url: https://github.com/OxfordRSE/python-packaging-course
-    image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
+    image: https://www.rse.ox.ac.uk/sites/default/files/styles/listing_tile_text_displayed_image/public/rse/images/media/oxrse_banner_2.png
     license: CC-BY-4.0
   - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk

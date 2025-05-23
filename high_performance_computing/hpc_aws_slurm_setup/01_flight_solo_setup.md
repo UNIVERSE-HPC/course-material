@@ -19,7 +19,7 @@ is not relevant to you then please ignore!
 The following is a tutorial for setting up a minimal Slurm cluster, using AWS
 and the Flight Solo image from OpenFightHPC, for trainees to use in the rest of
 the High Performance Computing (HPC) theme. In particular this is aimed at
-getting trainees an environment for running the [Intro to HPC][hpcintro] course
+getting trainees an environment for running the [Intro to HPC](/high_performance_computing/hpc_intro) course
 and should be **followed by the trainers** before the course is taught if the
 trainees have no other access to a HPC environment on which to run simple
 commands.
@@ -42,7 +42,7 @@ was the smallest available in our region.
 Fortunately, Flight Solo comes with good tutorials for setting up the image/images
 on AWS (and other cloud platforms) with detailed, step-by-step instructions for
 getting the machines spun up. Therefore, the first advice is to just follow the
-instructions [here](flightsolotutorial).
+instructions [here][flightsolotutorial].
 
 If that works, **great!** You can carry on to the next step: [setting up pacakges with `spack`](#spack-and-modules).
 However if, like for us, this did not work first time, you can try the following
@@ -221,7 +221,7 @@ to activate the flight environment.
 
 One final bit of sys-admin involved activating password authentication for sshd
 so that users could login with a password and then add their own ssh file, as
-per the [course][hpcintro]. This just involves uncommenting the line
+per the [course](/high_performance_computing/hpc_intro). This just involves uncommenting the line
 `PasswordAuthentication yes` in `/etc/ssh/sshd_config`, removing any overriding
 references to this option in `/etc/ssh/sshd_config.d`, and then restarting the
 `sshd` service with
@@ -252,11 +252,11 @@ production install, but for our training purposes having them is preferable.
 At this point we should now have a working SLURM cluster on AWS which we can ssh
 into, submit jobs on with `sbatch`, and generally treat like a proper HPC
 environment. Feel free at this point to take it for a spin – we ran through the
-[HPC introduction course][hpcintro] but you may wish to try something a bit more
+[HPC introduction course](/high_performance_computing/hpc_intro) but you may wish to try something a bit more
 involved.
 
-[hpcintro]: ../hpc_intro
 [flightsolopage]: https://www.openflighthpc.org/latest/solo/
+[flightsolotutorial]: https://openflighthpc.org/latest/docs/flight-solo/quickstart-guide/
 [flightsolotutorialslurm]: https://www.openflighthpc.org/latest/docs/flight-solo/cluster-build-methods/slurm-multinode-aws#slurm-multinode-configuration
 [flightenv]: https://www.openflighthpc.org/latest/docs/flight-environment/use-flight/flight-user-suite/flight-env/usage/
 [flightenvspack]: https://www.openflighthpc.org/latest/docs/flight-environment/use-flight/flight-user-suite/flight-env/ecosystems/spack/

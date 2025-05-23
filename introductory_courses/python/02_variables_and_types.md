@@ -10,7 +10,7 @@ attribution:
   - citation: >
       "Programming with Python" course by the Carpentries
     url: https://swcarpentry.github.io/python-novice-inflammation/
-    image: https://carpentries.org/assets/img/TheCarpentries.svg
+    image: https://carpentries.org/carpentries-logo.svg
     license: CC-BY-4.0
 ---
 
