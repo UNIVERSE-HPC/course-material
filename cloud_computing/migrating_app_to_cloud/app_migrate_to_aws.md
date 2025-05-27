@@ -3,6 +3,9 @@ name: Application Migration to AWS with Elastic Beanstalk
 dependsOn: []
 tags: []
 learningOutcomes:
+  - Deploy an application to AWS Elastic Beanstalk.
+  - Configure Elastic Beanstalk using AWS CLI tools.
+  - Manage and monitor applications deployed on Elastic Beanstalk.
 ---
 
 To overcome the limitations of running a local application with cloud services, we will migrate the entire image processing application to AWS, where it will be deployed and managed using Elastic Beanstalk. Migrating the application to AWS allows you to fully leverage cloud scalability, performance, and automation. Elastic Beanstalk takes care of provisioning the required infrastructure and scaling your application as needed.
@@ -113,7 +116,7 @@ Please replace the values above with those specific to your AWS resources. Ensur
 
 ## Deploying the Application to AWS Elastic Beanstalk
 
-After cloning the repository and navigating to the project directory, follow these steps to deploy the application using Elastic Beanstalk, leveraging the existing configuration files.
+After cloning the repository and navigating to the project directory, you must first remove Git tracking. This is necessary because the Elastic Beanstalk CLI only includes committed files when a Git repository is present. Removing Git ensures that all local files (e.g., `.env`), including uncommitted changes and environment configuration, are packaged correctly for deployment. Run `rm -rf .git` to remove Git tracking. After that follow these steps to deploy the application using Elastic Beanstalk, leveraging the existing configuration files.
 
 ### Step 1: Verify Configuration Files
 
@@ -154,7 +157,7 @@ When deploying a Flask application to AWS Elastic Beanstalk, you need certain co
        branch: null
        repository: null
    global:
-     application_name: image-processing-cloud-app
+     application_name: ar-image-processing-cloud-app
      default_ec2_keyname: ar-fsl-keypair
      default_platform: Python 3.11 running on 64bit Amazon Linux 2023
      default_region: eu-west-2
@@ -172,7 +175,7 @@ When deploying a Flask application to AWS Elastic Beanstalk, you need certain co
    - **`environment-defaults`**: Holds configurations for specific environment names. In this example, `Image-processing-cloud-app-env` is set, which is the name of the environment Elastic Beanstalk will deploy.
 
    - **`global`**: Contains general settings for the application:
-     - **`application_name`**: Specifies the name of the Elastic Beanstalk application (e.g., `image-processing-cloud-app`). This helps identify the app in the AWS Console.
+     - **`application_name`**: Specifies the name of the Elastic Beanstalk application (e.g., `ar-image-processing-cloud-app`). This helps identify the app in the AWS Console. Since this cloud infrastructure is currently used in a shared environment, the application name must be unique to avoid conflicts and ensure clear identification across different teams or projects.
      - **`default_ec2_keyname`**: The name of the EC2 key pair used for SSH access to application instances, here set to `ar-fsl-keypair`. You will learn to create this key pair in the next section.
      - **`default_platform`**: Defines the platform and runtime environment (Python 3.11 on Amazon Linux 2023), ensuring compatibility with the Flask app.
      - **`default_region`**: Sets the AWS region (e.g., `eu-west-2` for London), determining the location of resources.
@@ -189,7 +192,7 @@ Create an EC2 key and use it to replace **ar-fsl-keypair** in **config.yml**
 
 ```yaml
 global:
-  application_name: image-processing-cloud-app
+  application_name: ar-image-processing-cloud-app
   default_ec2_keyname: ar-fsl-keypair
 ```
 
@@ -209,10 +212,10 @@ With your `.elasticbeanstalk/config.yml` file already configured, initializing t
 2. Run the following command to initialize the Elastic Beanstalk application:
 
    ```bash
-   eb init
+   eb init --profile <YOUR_AWS_PROFILE>
    ```
-
-During this step, Elastic Beanstalk reads the configuration settings from `config.yml` and sets up the necessary application properties. You may be prompted to confirm some details or make minor adjustments, but no additional setup is needed.
+   
+Replace <YOUR_AWS_PROFILE> with the AWS profile name provided to you along with your credentials. During this step, Elastic Beanstalk reads the configuration settings from `config.yml` and sets up the necessary application properties. You may be prompted to confirm some details or make minor adjustments, but no additional setup is needed.
 
 To verify the application creation, go to the [AWS Elastic Beanstalk Console](https://console.aws.amazon.com/elasticbeanstalk). Click on **Applications** in the left panel to see the list of applications. This will display the application you have just initialized. Refer to the image below, where **Applications** is highlighted in red for guidance:
 
@@ -227,10 +230,10 @@ This step only initializes the application. It does not yet create the environme
 Run the following command to create a new environment and deploy your application:
 
 ```bash
-eb create image-processing-cloud-app-env
+eb create ar-image-processing-cloud-app-env
 ```
 
-This command will:
+The environment name (e.g., `ar-image-processing-cloud-app-env`) should be unique, especially since this setup is part of a shared cloud infrastructure. A unique name helps prevent conflicts and makes it easier to identify your environment in the AWS Console. This command will:
 
 - Set up the necessary AWS resources based on your configuration, including:
   - **S3 bucket** for storing application versions.
