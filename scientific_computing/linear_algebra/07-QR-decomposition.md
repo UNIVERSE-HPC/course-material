@@ -203,8 +203,7 @@ Additional reading on the $QR$ decomposition can be found at:
 
 For this exercises we will be using some data on Oxford's weather which is hosted by
 [Saad Jbabdi](https://users.fmrib.ox.ac.uk/~saad/) from the Wellcome Centre for
-Integrative NeuroImaging (FMRIB), which can be obtained
-[here](http://www.fmrib.ox.ac.uk/~saad/ONBI/OxfordWeather.txt).
+Integrative NeuroImaging (FMRIB), which can be [obtained from FMRIB here](http://www.fmrib.ox.ac.uk/~saad/ONBI/OxfordWeather.txt).
 
 We wish to fit a quadratic model of the form $y = a x^2 + b x + c$ to the hours of
 sunlight observed in Oxford (7th column in `OxfordWeather.txt`) versus the month (2nd

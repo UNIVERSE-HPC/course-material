@@ -409,11 +409,8 @@ std::vector<int> map_str_to_int(const std::vector<std::string>& data) {
 }
 ```
 
-Here you can start to see a limitation of the algorithms in the standard
-library, in that it is difficult to efficiently compose together multiple
-elemental algorithms into more complex algorithm. The _ranges_ library is an
-C++20 addition to the standard library aims to solve this problem, you can read
-more about the ranges library [here](https://en.cppreference.com/w/cpp/ranges).
+Here you can start to see a limitation of the algorithms in the standard library, in that it is difficult to efficiently compose together multiple elemental algorithms into more complex algorithm.
+The _ranges_ library is an C++20 addition to the standard library aims to solve this problem, you can read more about the ranges library on [the cpp reference page for ranges](https://en.cppreference.com/w/cpp/ranges).
 
 :::
 ::::

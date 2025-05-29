@@ -30,7 +30,7 @@ repository changes: simply add a [.yml file](https://learnxinyminutes.com/docs/y
 
 Each file in this directory represents a _workflow_ and will, when triggered, spin up a virtual machine and run the sequence of commands in the file.
 
-Information about the specifications of these VMs can be found [here](https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners).
+[Information about the specifications of these VMs can be found here](https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners).
 At the time of writing, each VM will have a 2-core CPU, 7GB of RAM and 14 GB of SSD space available, and each workflow can run for up to 6 hours.
 
 These resources are all free for public repositories, and for private repositories you have a monthly quota of VM-minutes before any payment is required.

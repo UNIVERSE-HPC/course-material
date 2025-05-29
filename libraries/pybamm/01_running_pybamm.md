@@ -120,7 +120,7 @@ model.variables.search("electrolyte")
 
 ## Changing the parameters
 
-When running our simulations we have been using the default parameter values, which might not match the battery we want to simulate. PyBaMM has a number of in-built parameter sets (check the list [here](https://docs.pybamm.org/en/latest/source/api/parameters/parameter_sets.html)) that we can use. For example, to use the Chen et al (2020) parameter set we can do
+When running our simulations we have been using the default parameter values, which might not match the battery we want to simulate. PyBaMM has a number of in-built parameter sets ([the list of parameters are found here](https://docs.pybamm.org/en/latest/source/api/parameters/parameter_sets.html)) that we can use. For example, to use the Chen et al (2020) parameter set we can do
 
 ```python
 parameter_values = pybamm.ParameterValues("Chen2020")

@@ -6,7 +6,7 @@ If you are interested in working through the course materials **as a learner or 
 
 If you are interested in **contributing** material to this repository, please see the [contributing guidelines](CONTRIBUTING.md).
 
-If you are interested in contributing to the Gutenberg web application, please do so [here](https://github.com/OxfordRSE/gutenberg)
+If you are interested in contributing to the Gutenberg web application, please check out [our github page](https://github.com/OxfordRSE/gutenberg)
 
 ## License
 

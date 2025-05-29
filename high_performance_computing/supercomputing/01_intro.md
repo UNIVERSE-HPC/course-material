@@ -126,7 +126,7 @@ Wee ARCHIE is a suitcase-sized supercomputer designed and built to explain what 
 
 We will return to Wee ARCHIE, and its big brother ARCHER, later in the course to explain the hardware details of supercomputers.
 
-You can find instructions on how to configure your very own Raspberry Pi cluster [here](https://epcced.github.io/wee_archlet/).
+You can find instructions on how to [configure your very own Raspberry Pi cluster here](https://epcced.github.io/wee_archlet/).
 
 ---
 
