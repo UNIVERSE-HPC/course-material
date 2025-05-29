@@ -213,7 +213,6 @@ With your `.elasticbeanstalk/config.yml` file already configured, initializing t
    ```
 
 During this step, Elastic Beanstalk reads the configuration settings from `config.yml` and sets up the necessary application properties. You may be prompted to confirm some details or make minor adjustments, but no additional setup is needed.
-
 To verify the application creation, go to the [AWS Elastic Beanstalk Console](https://console.aws.amazon.com/elasticbeanstalk). Click on **Applications** in the left panel to see the list of applications. This will display the application you have just initialized. Refer to the image below, where **Applications** is highlighted in red for guidance:
 
 ![Elastic Beanstalk Applications](fig/EB_Applications.jpg)
