@@ -216,7 +216,7 @@ for (long i = 0; i <= N; ++i) {
 printf("Calculated using %d OMP threads\n", omp_get_max_threads());
 ```
 
-Once we have made these changes (you can find the completed implementation [here](code/examples/05-pi-omp.c)), compiled
+Once we have made these changes (you can find [the completed implementation here](code/examples/05-pi-omp.c)), compiled
 and run the program, we can see there is a big improvement to the performance of our program. It takes just 5 seconds to
 complete, instead of 35 seconds, to get our approximate value of $\pi$, e.g.:
 

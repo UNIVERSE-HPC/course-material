@@ -41,8 +41,7 @@ First, install Snakemake via Conda, as outlined in
 [`Installation via Conda/Mamba`](install). The minimal version of
 Snakemake is sufficient for this demo.
 
-Second, download and unpack the test data needed for this example from
-[here](https://github.com/snakemake/snakemake-tutorial-data), e.g., via
+Second, [download and unpack the test data needed for this example](https://github.com/snakemake/snakemake-tutorial-data), e.g., by:
 
 ```bash
 mkdir snakemake-demo
