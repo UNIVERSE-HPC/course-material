@@ -74,7 +74,7 @@ It's a **distributed** version control system, where every developer in a team h
 It's partly become such a success thanks to sites like **GitHub** and **GitLab**, which make it easy to collaborate on a Git repository,
 and provide all kinds of extra tools to manage software projects.
 Plus, GitHub offers free upgraded membership to academics, students and educators -
-you can apply [here](https://docs.github.com/en/education/explore-the-benefits-of-teaching-and-learning-with-github-education/apply-for-an-educator-or-researcher-discount).
+[you can apply here](https://docs.github.com/en/education/explore-the-benefits-of-teaching-and-learning-with-github-education/apply-for-an-educator-or-researcher-discount).
 
 If you're working on old projects, or ones with very specific needs, you might use **Mercurial**, another distributed system,
 or possibly **Subversion**, a **centralised** system where there's a single copy of the repository that everyone connects to.

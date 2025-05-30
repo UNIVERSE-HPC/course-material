@@ -283,18 +283,13 @@ std::cout << "Weight in lb " << weight_lb << std::endl;
 
 ## Strings
 
-Thus far we have been using only the _fundamental types_ in C++. And we've only
-touched on a couple of these, you can see a more thoughor list
-[here](https://en.cppreference.com/w/cpp/language/types).
+Thus far we have been using only the _fundamental types_ in C++, and have only touched on a couple of these, [you can see a more thorough list here](https://en.cppreference.com/w/cpp/language/types).
 
-Like in many languages, C++ allows you to define _classes_. These are
-user-defined types that contain data in the form of _member variables_ (in
-Python we call these "properties" or "attributes"), and functions that operate
-on that data in the form of _member functions_ (in Python these are called
-"methods"). This follows a different programming paradigm known as
-_object-orientated_ programming, or OO. We won't cover OO much in this course,
-but since many useful standard types in C++ are defined as classes in the C++
-standard library you need to be aware how to use classes in C++.
+Like in many languages, C++ allows you to define _classes_.
+These are user-defined types that contain data in the form of _member variables_ (inPython we call these "properties" or "attributes"), and functions that operate on that data in the form of _member functions_ (in Python these are called "methods").
+This follows a different programming paradigm known as _object-orientated_ programming, or OO.
+We won't cover OO much in this course, but since many useful standard types in C++ are defined as classes in the C++ standard library you need to be aware how to use classes in C++.
+If you wish to learn more about this paradigm; [we have a full course on using object-orientated programming in C++ here](../object_orientated/)
 
 A string in C++ typically uses the `std::string` class. Here `std::string`
 indicates the `string` class that is defined in the `std` namespace. Namespaces
@@ -496,12 +491,9 @@ if (y == x) {
 }
 ```
 
-In this case the value of x, represented by a `double` type, is close to the
-mathematical constant pi. The variable `y` is of type `float`, and so the assignment
-statement rounds the value held in `x` to the nearest available value that can
-be represented by a `float`, according to the rules dictated
-[here](https://en.cppreference.com/w/cpp/language/implicit_conversion). Since
-the value now in `y` is different to the value in `x`, the result is:
+In this case the value of x, represented by a `double` type, is close to the mathematical constant pi.
+The variable `y` is of type `float`, and so the assignment statement rounds the value held in `x` to the nearest available value that can be represented by a `float`, according to the [rules dictated on the cpp reference page for implicit conversion](https://en.cppreference.com/w/cpp/language/implicit_conversion).
+Since the value now in `y` is different to the value in `x`, the result is:
 
 ```text
 x != y
@@ -566,7 +558,7 @@ thumb is to discourage implicit casts and to _always_ be explicit.
 Create two `double` variables $x$ and $y$. Set $x=0.3$ and $y=0.4$ and
 calculate $r = \sqrt{x^2 + y^2}$. Write the result $r$ to the console using
 `std::cout`. Note that C++ has library functions `std::sqrt` and `std::pow` for
-square root and power. You can see the cpp-reference page for `std::sqrt` [here](https://en.cppreference.com/w/cpp/numeric/math/sqrt).
+square root and power. You can see the [cpp-reference page for `std::sqrt`](https://en.cppreference.com/w/cpp/numeric/math/sqrt).
 
 :::solution
 
@@ -582,11 +574,8 @@ std::cout << "r = "<< r << std::endl;
 :::
 
 Generate $N$ uniform random numbers $x_i$ and $y_i$ between -1 and 1 using
-`std::uniform_real_distribution` (see example of use
-[here](https://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution)).
-Count
-the number of points where $\sqrt{x_i^2 + y_i^2} < 1$, and use this to
-estimate the value of $\pi$.
+`std::uniform_real_distribution` ([see example of use here](https://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution)).
+Count the number of points where $\sqrt{x_i^2 + y_i^2} < 1$, and use this to estimate the value of $\pi$.
 
 :::solution
 

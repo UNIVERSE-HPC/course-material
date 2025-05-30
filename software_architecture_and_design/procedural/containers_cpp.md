@@ -53,9 +53,8 @@ template arguments must be know _at compile time_.
 
 Since `std::array` has more limited use compared with `std::vector`, we will focus the
 remainder of this section on `std::vector`. The interface to `std::array` is very
-similar, and you can read about this particular container
-[here](https://en.cppreference.com/w/cpp/container/array). We will also from here on
-refer to `std::vector` as a vector, rather than the more general term "array", to match
+similar, and you can read about this particular container on [its cpp reference page](https://en.cppreference.com/w/cpp/container/array).
+We will also from here on refer to `std::vector` as a vector, rather than the more general term "array", to match
 with the name of the class itself.
 
 ### Creating and Extracting Things from Vectors
@@ -540,7 +539,7 @@ the container.
 
 ::::challenge{id=data_analysis_containers title="Analysing the IRIS dataset"}
 
-Download the iris dataset hosted by the UCI Machine Learning Repository [here](https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data). This is a CSV file with the following columns:
+Download the [iris dataset hosted by the UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data). This is a CSV file with the following columns:
 
 1. sepal length in cm
 2. sepal width in cm
