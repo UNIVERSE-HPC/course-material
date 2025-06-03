@@ -113,7 +113,7 @@ Barriers are the most basic synchronisation mechanism. They are used to create a
 thread reaches a barrier, it waits until all other threads have reached the same barrier before continuing. To add a
 barrier, we use the `#pragma omp barrier` directive. In the example below, we have used a barrier to synchronise threads
 such that they don't start the main calculation of the program until a look-up table has been initialised (in parallel),
-as the calculation depends on this data ([See the full code here](code/examples/04-barriers.c)).
+as the calculation depends on this data ([See the full code here](./code/examples/04-barriers.c)).
 
 ```c
 #pragma omp parallel
@@ -131,11 +131,10 @@ as the calculation depends on this data ([See the full code here](code/examples/
 }
 ```
 
-Similarly, in iterative tasks like matrix calculations, barriers help coordinate threads so that all updates
-are completed before moving to the next step. For example, in the following snippet, each thread updates its assigned
-row of a matrix using data from its current row and the row above (except for the first row, which has no dependency;
-[see the full code here](code/examples/04-matrix-update.c)). A barrier ensures that all threads finish updating their rows in `next_matrix` before the values are
-copied back into `current_matrix`.  Without this barrier, threads might read outdated or partially updated data, causing inconsistencies.
+Similarly, in iterative tasks like matrix calculations, barriers help coordinate threads so that all updates are completed before moving to the next step.
+For example, in the following snippet, each thread updates its assigned row of a matrix using data from its current row and the row above (except for the first row, which has no dependency; [see the full code here](code/examples/04-matrix-update.c)).
+A barrier ensures that all threads finish updating their rows in `next_matrix` before the values are copied back into `current_matrix`.
+Without this barrier, threads might read outdated or partially updated data, causing inconsistencies.
 
 Here, the number of rows (`nx`) is dynamically determined at runtime using `omp_get_max_threads()`. This function provides
 the maximum number of threads OpenMP can use in a parallel region, based on the system's resources and runtime configuration.
@@ -227,9 +226,9 @@ table below shows the types of synchronisation region in OpenMP.
 | **single**   | Single regions are used for code which needs to be executed only by a single thread, such as for I/O operations. The first thread to reach the region will execute the code, whilst the other threads will behave as if they've reached a barrier until the executing thread is finished.      | `#pragma omp single`   |
 | **master**   | A master region is identical to the single region other than that execution is done by the designated master thread (usually thread 0).                                                                                                                                                        | `#pragma omp master`   |
 
-The next example builds on the previous example which included a lookup table. In the modified code, the lookup
-table is written to disk after it has been initialised. This happens in a single region, as only one thread needs to
-write the result to disk ([See the full code here](code/examples/04-single-region.c)).
+The next example builds on the previous example which included a lookup table.
+In the modified code, the lookup table is written to disk after it has been initialised.
+This happens in a single region, as only one thread needs to write the result to disk ([See the full code here](code/examples/04-single-region.c)).
 
 ```c
 #pragma omp parallel

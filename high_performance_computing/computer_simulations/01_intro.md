@@ -107,7 +107,9 @@ The second variation includes grass (green) in addition to wolves and sheep. The
 
 To play with the model, or to have a look at the code, go to the Modelling Commons page dedicated to the [wolf-sheep model](http://modelingcommons.org/browse/one_model/1390#model_tabs_browse_nlw) and first click on the SETUP button and then on the GO button. For more information on the model see the INFO tab.
 
-We know that the web version of the model works on Chrome and Safari browsers. If you cannot get it to work on your browser you can try downloading the [netlogo software](https://ccl.northwestern.edu/netlogo/s). It comes with a library full of interesting models and the wolf-sheep model can be found under the biology section.
+The web version of the model should work on Chrome and Safari browsers.
+If you cannot get it to work on your browser you can try downloading the [netlogo software](https://ccl.northwestern.edu/netlogo/).
+It comes with a library full of interesting models and the wolf-sheep model can be found under the biology section.
 
 ![Screenshot of wolf sheep predation model software](images/hero_b12d1403-058b-4971-9417-f188a1440b3a.png)
 

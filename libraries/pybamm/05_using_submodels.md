@@ -101,7 +101,7 @@ Let's now focus our attention to SEI growth models. These models capture the gro
 - **Interstitial-diffusion limited**: assumes that diffusion of lithium-ion intestitials is the limiting phenomenon, see Section 5.4 of Marquis (2020).
 - **EC reaction limited**: assumes the model is limited by both reaction and dissuions, see Yang et al (2017).
 
-See all the available options in [the docs](https://docs.pybamm.org/en/latest/source/api/models/base_models/base_battery_model.html#pybamm.BatteryModelOptions). For more information on these models, please see [Marquis (2020)](https://ora.ox.ac.uk/objects/uuid:8afdcc34-cc42-48ba-b316-96a6d0f33a45) and [Yang et al (2017)](https://www.sciencedirect.com/science/article/pii/S0378775317307619).
+See all the available options in [the docs](https://docs.pybamm.org/en/latest/source/api/models/base_models/base_battery_model.html#pybamm.BatteryModelOptions). For more information on these models, please see [Marquis (2020)](https://ora.ox.ac.uk/objects/uuid:8afdcc34-cc42-48ba-b316-96a6d0f33a45) and [Yang et al (2017)](https://doi.org/10.1016/j.jpowsour.2017.05.110).
 
 By default, the change in porosity due to the growth of SEI is not taken into account. To enable it, you need to use the option `"SEI porosity change": "true"`.
 

@@ -138,7 +138,7 @@ struct Node {
 struct Node node = { .id = 0, .name = "Dale Cooper", .temperature = 42};
 ```
 
-You may wish to use [this skeleton code](code/solutions/skeleton-example.c) as your stating point.
+You may wish to use [this skeleton code](./code/solutions/skeleton-example.c) as your stating point.
 
 ::::solution
 Your solution should look something like the code block below. When sending a *static* array (`name[16]`), we have to use a count of 16 in the `block_lengths` array for that member.
@@ -490,7 +490,7 @@ for (int i = 0; i < float_data_count; ++i) {
 Since the arrays are dynamically allocated, in rank 0, you should also pack the number of elements in each array.
 Rank 1 may also not know the size of the buffer. How would you deal with that?
 
-You can use this [skeleton code](code/solutions/08-pack-skeleton.c) to begin with.
+You can use this [skeleton code](./code/solutions/08-pack-skeleton.c) to begin with.
 
 ::::solution
 The additional restrictions for rank 1 not knowing the size of the arrays or packed buffer add some complexity to receiving the packed buffer from rank 0.

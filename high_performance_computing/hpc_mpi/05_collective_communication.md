@@ -328,7 +328,7 @@ MPI_Gather(rank_data, NUM_DATA_POINTS, MPI_INT, gathered_data, NUM_DATA_POINTS, 
 :::::challenge{id=gathering-greetings, title="Gathering Greetings"}
 In the previous episode, we used point-to-point communication to send a greeting message to rank 0 from every other rank.
 Instead of using point-to-point communication functions, re-implement your solution using `MPI_Gather()` instead.
-You can use [this code](code/solutions/05-hello-gather-skeleton.c) as your starting point.
+You can use [this code](./code/solutions/05-hello-gather-skeleton.c) as your starting point.
 
 ::::solution
 

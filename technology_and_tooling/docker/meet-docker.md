@@ -9,7 +9,7 @@ attribution:
       D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
       Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator.
     url: https://github.com/carpentries-incubator/docker-introduction
-    image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
+    image: https://carpentries-incubator.org/assets/img/carpentries-incubator.svg
     license: CC-BY-4.0
 ---
 

@@ -12,7 +12,7 @@ To overcome the limitations of running a local application with cloud services, 
 
 ## Prerequisites
 
-In addition to the prerequisites covered in [Integrating AWS Services with the Local Application](app_remote_storage.md) (e.g., Git, Python, Pip, Docker, AWS CLI), you will also need to install and configure the **AWS Elastic Beanstalk CLI** (`awsebcli`).
+In addition to the prerequisites covered in [Integrating AWS Services with the Local Application](app_remote_storage) (e.g., Git, Python, Pip, Docker, AWS CLI), you will also need to install and configure the **AWS Elastic Beanstalk CLI** (`awsebcli`).
 
 :::callout{variant="note"}
 Before setting up Elastic Beanstalk, make sure that the **AWS CLI** is installed and configured with valid credentials. This includes your **AWS Access Key ID**, **AWS Secret Access Key**, and **Default region name**. These credentials are essential for interacting with AWS services, including Elastic Beanstalk.
@@ -52,7 +52,7 @@ The S3 bucket will be used to store the images uploaded by the users and process
 
    ![S3 Bucket Name Input](fig/Create_S3_Bucket.jpg)
 
-4. Leave the other settings as default unless you have specific requirements. These settings have been covered in detail in [Creating an S3 Bucket](app_remote_storage.md)
+4. Leave the other settings as default unless you have specific requirements. These settings have been covered in detail in [Creating an S3 Bucket](app_remote_storage)
 
 5. Click **Create bucket** once you're comfortable with these settings. Refer to the image below for guidance, where the "Create bucket" button is highlighted with a red box:
 
@@ -68,7 +68,7 @@ To use DynamoDB, you need go through the following steps:
 
 1. Open the AWS Management Console and navigate to the [DynamoDB service](https://console.aws.amazon.com/dynamodb/home). Please make sure you are in the correct AWS region. You can select the region by clicking on the region dropdown in the top right corner of the console. Refer to the image below, where the region selection is highlighted with a red box for guidance on changing the region.
 
-   ![DynamoDB Region Selection](fig/DynamoDB_Region.jpg)
+   ![DynamoDB Region Selection](fig/DynamoDB_region.jpg)
 
 1. In the left panel, click on **Tables**. This will display the tables panel on the right-hand side, where you'll see a **Create table** button. Click on **Create table** to begin setting up your new table. Refer to the images below for guidance, with each relevant section highlighted in a red box:
 
@@ -315,9 +315,9 @@ There are two ways to access your application:
 
 1. **Directly from the Elastic Beanstalk Console**: Go to your application in the [AWS Elastic Beanstalk Console](https://console.aws.amazon.com/elasticbeanstalk) and click on the **Domain** link, highlighted in red in the image below. This link takes you directly to the URL of your environment.
 
-   ![Elastic Beanstalk Domain Link](fig/Eb_Application_Domain.jpg)
+   ![Elastic Beanstalk Domain Link](fig/EB_Application_Domain.jpg)
 
-1. **Using the EB CLI**: Run the following command in your console:
+2. **Using the EB CLI**: Run the following command in your console:
 
    ```bash
    eb open

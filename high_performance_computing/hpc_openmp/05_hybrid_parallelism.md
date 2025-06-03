@@ -216,7 +216,7 @@ for (long i = 0; i <= N; ++i) {
 printf("Calculated using %d OMP threads\n", omp_get_max_threads());
 ```
 
-Once we have made these changes (you can find [the completed implementation here](code/examples/05-pi-omp.c)), compiled
+Once we have made these changes (you can find [the completed implementation here](./code/examples/05-pi-omp.c)), compiled
 and run the program, we can see there is a big improvement to the performance of our program. It takes just 5 seconds to
 complete, instead of 35 seconds, to get our approximate value of $\pi$, e.g.:
 
@@ -364,7 +364,7 @@ int main(void)
 ```
 
 So you can see that it's much longer and more complicated; although not much more than a [pure MPI
-implementation](code/examples/05-pi-mpi.c). To compile our hybrid program, we use the MPI compiler command `mpicc` with
+implementation](./code/examples/05-pi-mpi.c). To compile our hybrid program, we use the MPI compiler command `mpicc` with
 the argument `-fopenmp`. We can then run our compiled program using `mpirun`.
 
 ```bash
@@ -434,8 +434,8 @@ MPI. As mentioned earlier, a hybrid implementation will typically be slower than
 ::::challenge{id=optimumcombo, title="Optimum combination of threads and ranks for approximating Pi"}
 
 Try various combinations of the number of OpenMP threads and number of MPI processes. For this program, what's faster?
-Only using [MPI](code/examples/05-pi-mpi.c), only using [OpenMP](code/examples/05-pi-omp.c) or a
-[hybrid](code/examples/05-pi-omp-mpi.c) implementation? Why do you think this is the fastest method of parallelisation?
+Only using [MPI](./code/examples/05-pi-mpi.c), only using [OpenMP](./code/examples/05-pi-omp.c) or a
+[hybrid](./code/examples/05-pi-omp-mpi.c) implementation? Why do you think this is the fastest method of parallelisation?
 
 Note that there will be some level of variance in the run time each time you run the program, due to factors such as
 other programs using your CPU at the same time. You should run each thread/rank combination multiple time to get an

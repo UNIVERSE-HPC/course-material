@@ -47,7 +47,7 @@ Extract common functionality into reusable functions and classes that can be tes
 
 ### Programming paradigms
 
-Using pure functions that have no side effects, can result in more testable software, this is because the outputs depend on the inputs alone. In this case, it can be ensured that the results are deterministic. For more information, see the [functional programming paradigm](https://train.oxrse.uk/material/HPCu/software_architecture_and_design/functional), pages in our training material.
+Using pure functions that have no side effects, can result in more testable software, this is because the outputs depend on the inputs alone. In this case, it can be ensured that the results are deterministic. For more information, see the [functional programming paradigm](/software_architecture_and_design/functional), pages in our training material.
 
 ### Test-driven development
 
@@ -55,7 +55,7 @@ Test-driven development (TDD) is a software development approach that consists o
 
 ## Refactoring our code and our tests
 
-We are going to refactor our code to incorporate some of the ideas above in order to make it more testable. Firstly, we are going to change our procedural inflammation project into an object-orientated version, let's start by creating classes to represent the different types of data in our study. This was already investigated in the [object-orientated programming](https://train.oxrse.uk/material/HPCu/software_architecture_and_design/object_orientated) part of the course, where we created different subclasses of the `Person` class and added them to a `Trial` object. We use similar concepts, but will doing things slightly differently here.
+We are going to refactor our code to incorporate some of the ideas above in order to make it more testable. Firstly, we are going to change our procedural inflammation project into an object-orientated version, let's start by creating classes to represent the different types of data in our study. This was already investigated in the [object-orientated programming](/software_architecture_and_design/object_orientated) part of the course, where we created different subclasses of the `Person` class and added them to a `Trial` object. We use similar concepts, but will doing things slightly differently here.
 
 We would ideally like to have models that represent individual patients and their associated data. It is going to be up to you to write them!
 
@@ -783,7 +783,7 @@ For more details on what you can do with fixtures, please refer to the [pytest f
 
 #### Next steps
 
-Now we know about testable code and fixtures. Before we add the functionality to create a `Trial` object using data stored in a database, we will look at how to mock objects for testing. This is covered in the [next lesson](mocking).
+Now we know about testable code and fixtures. Before we add the functionality to create a `Trial` object using data stored in a database, we will look at how to mock objects for testing. This is covered in the [next lesson](./mocking).
 
 :::callout{variant="keypoints"}
 
