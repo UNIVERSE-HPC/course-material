@@ -18,7 +18,9 @@ In this section we will look at converting a complete code from serial to parall
 
 ## An Example Iterative Poisson Solver
 
-TThis episode is based on a code that solves the Poisson's equation using an iterative method. Poisson's equation appears in almost every field in physics, and is frequently used to model many physical phenomena such as heat conduction, and applications of this equation exist for both two and three dimensions. In this case, the equation is used in a simplified form to describe how heat diffuses in a one dimensional metal stick.
+This lesson is based on a code that solves the Poisson's equation using an iterative method.
+Poisson's equation appears in almost every field in physics, and is frequently used to model many physical phenomena such as heat conduction, and applications of this equation exist for both two and three dimensions.
+In this case, the equation is used in a simplified form to describe how heat diffuses in a one dimensional metal stick.
 
 In the simulation the stick is split into a given number of slices, each with a constant temperature.
 
@@ -458,7 +460,8 @@ Once complete across all ranks, every rank will then have the slice boundary dat
 
 ### Running our Parallel Code
 
-You can obtain a full version of the parallelised Poisson code from [here](code/examples/poisson/poisson_mpi.c). Now we have the parallelised code in place, we can compile and run it, e.g.:
+You can obtain a [full version of the parallelised Poisson code](code/examples/poisson/poisson_mpi.c).
+Once we have the parallelised code in place, we can compile and run it, e.g.:
 
 ```bash
 mpicc poisson_mpi.c -o poisson_mpi
