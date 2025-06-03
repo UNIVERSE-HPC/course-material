@@ -250,16 +250,16 @@ yarn pullmat
 cd .material/HPCu
 git checkout <your-branch>
 cd ../..
-yarn build
-yarn start
 act -j check-links
 ```
 
 This will run the link checker on your branch, and report any broken links in the material.
 
-Alternatively, you can run the link checker using npm by doing the previous up to and including `yarn start`, then running the following command:
+Alternatively, you can run the link checker using npm by doing the previous up to the act command, then running the following command:
 
 ```bash
+yarn build
+yarn start &
 npm install -g broken-link-checker
 npx broken-link-checker http://localhost:3000/ -rof \
             --exclude "github.com" \
