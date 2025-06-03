@@ -107,7 +107,9 @@ The second variation includes grass (green) in addition to wolves and sheep. The
 
 To play with the model, or to have a look at the code, go to the Modelling Commons page dedicated to the [wolf-sheep model](http://modelingcommons.org/browse/one_model/1390#model_tabs_browse_nlw) and first click on the SETUP button and then on the GO button. For more information on the model see the INFO tab.
 
-We know that the web version of the model works on Chrome and Safari browsers. If you cannot get it to work on your browser you can try downloading the netlogo software from [here](https://ccl.northwestern.edu/netlogo/). It comes with a library full of interesting models and the wolf-sheep model can be found under the biology section.
+The web version of the model should work on Chrome and Safari browsers.
+If you cannot get it to work on your browser you can try downloading the [netlogo software](https://ccl.northwestern.edu/netlogo/).
+It comes with a library full of interesting models and the wolf-sheep model can be found under the biology section.
 
 ![Screenshot of wolf sheep predation model software](images/hero_b12d1403-058b-4971-9417-f188a1440b3a.png)
 
@@ -223,7 +225,7 @@ The excerpts below are from three different projects involving computer simulati
 
 ### Protein Folding
 
-(The Folding@Home Project page can be found [here](https://foldingathome.org/dig-deeper/?lng=en-UK)):
+([The Folding@Home Project](https://foldingathome.org/dig-deeper/?lng=en-UK)):
 
 “Proteins are necklaces of amino acids — long chain molecules. They come in many different shapes and sizes, and they are the basis of how biology gets things done. As enzymes, they are the driving force behind all of the biochemical reactions which make biology work. As structural elements, they are the main constituent of our bones, muscles, hair, skin and blood vessels. As antibodies, they recognize invading elements and allow the immune system to get rid of the unwanted invaders. They also help move muscles and process the signals from the sensory system. For these reasons, scientists have sequenced the human genome — the blueprint for all of the proteins in biology — but how can we understand what these proteins do and how they work?
 
@@ -233,13 +235,13 @@ The Folding@Home project is actually an example of a distributed computing proje
 
 ### Recreating the Big Bang
 
-(The Illustris project page can be found [here](http://www.illustris-project.org/)):
+([The Illustris project homepage](http://www.illustris-project.org/)):
 
 “The Illustris project is a set of large-scale cosmological simulations, including the most ambitious simulation of galaxy formation yet performed. The calculation tracks the expansion of the universe, the gravitational pull of matter onto itself, the motion or “hydrodynamics” of cosmic gas, as well as the formation of stars and black holes. These physical components and processes are all modeled starting from initial conditions resembling the very young universe 300,000 years after the Big Bang until the present day, spanning over 13.8 billion years of cosmic evolution. The simulated volume contains tens of thousands of galaxies captured in high-detail, covering a wide range of masses, rates of star formation, shapes, sizes, and with properties that agree well with the galaxy population observed in the real universe.”
 
 ### Weather modelling
 
-(More information about ensemble forecasting done by the UK Met Office can be found [here](https://www.metoffice.gov.uk/research/weather/ensemble-forecasting/what-is-an-ensemble-forecast)):
+(More information about [ensemble forecasting done by the UK Met Office](https://www.metoffice.gov.uk/research/weather/ensemble-forecasting/what-is-an-ensemble-forecast)):
 
 “A forecast is an estimate of the future state of the atmosphere. It is created by estimating the current state of the atmosphere using observations, and then calculating how this state will evolve in time using a numerical weather prediction computer model. As the atmosphere is a chaotic system, very small errors in its initial state can lead to large errors in the forecast.
 

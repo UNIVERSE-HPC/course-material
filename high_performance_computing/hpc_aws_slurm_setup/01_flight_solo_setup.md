@@ -41,8 +41,7 @@ was the smallest available in our region.
 
 Fortunately, Flight Solo comes with good tutorials for setting up the image/images
 on AWS (and other cloud platforms) with detailed, step-by-step instructions for
-getting the machines spun up. Therefore, the first advice is to just follow the
-instructions [here][flightsolotutorial].
+getting the machines spun up. Therefore, the first advice is to just follow the [tutorial instructions](flightsolotutorial).
 
 If that works, **great!** You can carry on to the next step: [setting up pacakges with `spack`](#spack-and-modules).
 However if, like for us, this did not work first time, you can try the following
