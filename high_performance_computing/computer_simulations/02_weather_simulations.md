@@ -172,7 +172,8 @@ One of the earliest visualisations techniques used in weather science were maps.
 
 More recently, emphasis is put on the use of interactive displays, especially on the web, giving users control over the type and form of the displayed information. Animations are also widely used because they are able to effectively condense vast amounts of data into memorable visual sequences.
 
-If you are interested in new cutting edge visualisation techniques developed for weather and environmental science, we invite you to watch the introduction to the [Informatics Lab](https://www.youtube.com/watch?v=s6ito6QxbH4) run by the Met Office (UK’s official weather service provider). On the [Lab’s website](http://www.informaticslab.co.uk/) you will also find different demos that you can play with. Especially interesting is [Fly Through Model Fields](https://archived.informaticslab.co.uk/projects/three-d-vis.html) project.
+If you are interested in new cutting edge visualisation techniques developed for weather and environmental science, we invite you to watch the introduction to the [Informatics Lab](https://www.youtube.com/watch?v=s6ito6QxbH4) run by the Met Office (UK’s official weather service provider).
+On the [Lab’s website](https://www.metoffice.gov.uk/research/foundation/informatics-lab/index) you will also find different demos that you can play with on [their github page](https://github.com/informatics-lab/)
 
 Can you imagine any of the Informatics Lab projects being used in real life situations? Would they be useful? Why do you think so?
 

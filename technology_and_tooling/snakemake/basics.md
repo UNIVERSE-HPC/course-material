@@ -12,7 +12,7 @@ attribution:
       Sustainable data analysis with Snakemake. F1000Res 10, 33.
       Revision c7ae161c.
     url: https://snakemake.readthedocs.io/en/stable/tutorial/basics.html
-    image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
+    image: https://snakemake.readthedocs.io/en/stable/_static/logo-snake.svg
     license: MIT license
 ---
 
@@ -215,7 +215,7 @@ command. You can also **specify multiple targets**, for example:
 snakemake -np mapped_reads/A.bam mapped_reads/B.bam
 ```
 
-Some [Bash](https://www.tldp.org/LDP/Bash-Beginners-Guide/html) magic
+Some [Bash](https://tldp.org/LDP/Bash-Beginners-Guide/html/) magic
 can make this particularly handy. For example, you can alternatively
 compose our multiple targets in a single pass via
 
@@ -224,7 +224,7 @@ snakemake -np mapped_reads/{A,B}.bam
 ```
 
 Note that this is not a special Snakemake syntax.
-[Bash](https://www.tldp.org/LDP/Bash-Beginners-Guide/html) is just
+[Bash](https://tldp.org/LDP/Bash-Beginners-Guide/html/) is just
 applying its [brace
 expansion](https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_04.html)
 to the set `{A,B}`, creating the given path for each element and

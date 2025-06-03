@@ -8,7 +8,7 @@ attribution:
   - citation: >
       "Programming with Python" course by the Carpentries
     url: https://swcarpentry.github.io/python-novice-inflammation/
-    image: https://carpentries.org/assets/img/TheCarpentries.svg
+    image: https://carpentries.org/carpentries-logo.svg
     license: CC-BY-4.0
 ---
 
@@ -85,9 +85,8 @@ print_date(month=3, day=19, year=1871)
 1871/3/19
 ```
 
-- Via [Twitter](https://twitter.com/minisciencegirl/status/693486088963272705):
-  `()` contains the ingredients for the function
-  while the body contains the recipe.
+- Arguments defined in the function call are called _positional arguments_ and are referred to collectively as `args`.
+- Arguments defined in the function definition are called _keyword arguments_ or `kwargs`.
 
 ## Functions may return a result to their caller using `return`
 

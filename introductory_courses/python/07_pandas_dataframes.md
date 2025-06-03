@@ -9,12 +9,12 @@ attribution:
   - citation: >
       "Programming with Python" course by the Carpentries
     url: https://swcarpentry.github.io/python-novice-inflammation/
-    image: https://carpentries.org/assets/img/TheCarpentries.svg
+    image: https://carpentries.org/carpentries-logo.svg
     license: CC-BY-4.0
 ---
 
 :::callout
-For this lesson, you will need to download and unzip [uniqplus_python_data.zip](uniqplus_python_data.zip).
+For this lesson, you will need to download and unzip [uniqplus_python_data.zip](./uniqplus_python_data.zip).
 :::
 
 ## Use the Pandas library to do statistics on tabular data

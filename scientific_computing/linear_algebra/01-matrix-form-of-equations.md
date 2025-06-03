@@ -228,8 +228,7 @@ numpy.linalg.LinAlgError: Singular matrix
 - Linear algebra and its applications by David C. Lay.
 - Strang, G. (2016). Introduction to linear algebra (Fifth ed.). Wellesley.
 - Linear algebra and its applications by Gilbert Strang
-  - lots of supplimentary material via MIT course page here:
-    <https://github.com/mitmath/1806/blob/master/summaries.md>
+  - lots of supplementary material via the MIT course: [Introduction to Numerical Methods](https://github.com/mitmath/18335/)
 - LA from an ODE perspective: Kapitula, T. (2015). Ordinary Differential Equations and
   Linear Algebra. Society for Industrial and Applied Mathematics.
 
