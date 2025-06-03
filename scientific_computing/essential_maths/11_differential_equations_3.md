@@ -366,7 +366,7 @@ where $v_1$ and $v_2$ are reaction rates rather than mass action coefficients.
 ### Extension problems
 
 ::::challenge{id="11_ext_01" title="Extension problems 1"}
-Various mathematical models have been proposed for the initial growth of solid tumours, and some are summarised in [_The Model Muddle: In Search of Tumor Growth Laws_](https://doi.org/10.1158/0008-5472.can-12-4355).
+Various mathematical models have been proposed for the initial growth of solid tumours, and some are summarised in [_The Model Muddle: In Search of Tumor Growth Laws_](https://doi.org/10.1158/0008-5472.CAN-12-4355).
 They are differential equations describing the rate of change of tumour volume $V$ as a function of time $t$, for example:
 
 1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{V(t)}{t} = rV(t)$

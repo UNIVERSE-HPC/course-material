@@ -92,13 +92,9 @@ human-friendly media. We use it in examples because almost anyone can
 drive it anywhere without training, but please use something more
 powerful for real work.
 
-On Windows, you may wish to use [Notepad++](http://notepad-plus-plus.org/).
-A more powerful example is Microsoft's [VSCode](https://code.visualstudio.com/).
-It's a fairly standard text editor that can be
-installed on Windows, Mac or Linux but also has some handy features like
-code highlighting that make it easy to write scripts and code. Similar
-editors exist like [Atom](https://atom.io/), a highly customisable text editor which
-also runs on these platforms.
+On Windows, you may wish to use the simple [Notepad++](https://notepad-plus-plus.org/), but it is preferable to use a more powerful tool, such as Microsoft's [VSCode](https://code.visualstudio.com/).
+It's a fairly standard text editor that can be installed on Windows, Mac or Linux but with broad features and extensions that make coding much easier.
+Similar editors exist such as [Sublime](https://www.sublimetext.com/) a highly customisable text editor which also runs on multi-platforms.
 
 Your choice of editor will depend on the size of project you're working on,
 and how comfortable you are with the terminal.

@@ -11,8 +11,8 @@ attribution:
       Wilm, A., Holtgrewe, M., Rahmann, S., Nahnsen, S., Köster, J., 2021.
       Sustainable data analysis with Snakemake. F1000Res 10, 33.
       Revision c7ae161c.
-    url: https://snakemake.readthedocs.io/en/stable/tutorial/short.html
-    image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
+    url: https://snakemake.readthedocs.io/en/v7.9.0/tutorial/short.html
+    image: https://snakemake.readthedocs.io/en/stable/_static/logo-snake.svg
     license: MIT license
 ---
 
@@ -22,7 +22,7 @@ Here we provide a short tutorial that guides you through the main
 features of Snakemake. Note that this is not suited to learn Snakemake
 from scratch, rather to give a first impression. To really learn
 Snakemake (starting from something simple, and extending towards
-[label](../index.md)advanced features), use the main [tutorial](index).
+advanced features), use the main [tutorial](../snakemake).
 
 This document shows all steps performed in the official [Snakemake live
 demo](https://youtu.be/hPrXcUUp70Y), such that it becomes possible to
@@ -32,13 +32,13 @@ bottom of this document.
 The examples presented in this tutorial come from Bioinformatics.
 However, Snakemake is a general-purpose workflow management system for
 any discipline. For an explanation of the steps you will perform here,
-have a look at [tutorial-background](background). More
-thorough explanations are provided in the full [tutorial](index).
+have a look at [tutorial-background](../snakemake).
+More thorough explanations are provided in the full tutorial, starting with [setting up](./setup).
 
 ## Prerequisites
 
 First, install Snakemake via Conda, as outlined in
-[`Installation via Conda/Mamba`](install). The minimal version of
+[`Installation via Conda/Mamba`](./setup). The minimal version of
 Snakemake is sufficient for this demo.
 
 Second, [download and unpack the test data needed for this example](https://github.com/snakemake/snakemake-tutorial-data), e.g., by:

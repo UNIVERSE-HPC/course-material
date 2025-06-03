@@ -26,9 +26,9 @@ attribution:
   - citation: >
         This material was originally taken from training materials developed by the
         University of Southampton Research Software Group, which are based on
-        the [software carpentries course "Version Control with Git".
+        the software carpentries course "Version Control with Git".
     url: https://github.com/Southampton-RSG-Training/git-novice/
-    image: https://swcarpentry.github.io/git-novice/assets/img/home-logo.png
+    image: https://i0.wp.com/rsgsoton.net/wp-content/uploads/2022/04/cropped-rsg_logo_orange_soton-4.webp
     license: CC-BY-4.0
 summary: |
     This course introduces the basics of version control using the Git version control system.

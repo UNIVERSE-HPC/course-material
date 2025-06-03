@@ -390,7 +390,7 @@ print({i: 2 * i for i in range(5)})
 
 ## Why No Tuple Comprehension
 
-Raymond Hettinger, one of the Python core developers, [said in 2013](https://x.com/raymondh/status/324664257004322817):
+Raymond Hettinger, one of the Python core developers, said in 2013:
 
 > Generally, lists are for looping; tuples for structs. Lists are homogeneous; tuples heterogeneous. Lists for variable length.
 

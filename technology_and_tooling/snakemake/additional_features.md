@@ -12,7 +12,7 @@ attribution:
       Sustainable data analysis with Snakemake. F1000Res 10, 33.
       Revision c7ae161c.
     url: https://snakemake.readthedocs.io/en/stable/tutorial/additional_features.html
-    image: https://raw.githubusercontent.com/snakemake/snakemake/main/snakemake/report/template/logo.svg
+    image: https://snakemake.readthedocs.io/en/stable/_static/logo-snake.svg
     license: MIT license
 ---
 

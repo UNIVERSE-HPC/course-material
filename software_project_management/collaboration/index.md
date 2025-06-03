@@ -12,7 +12,7 @@ attribution:
   - citation: >
       "Aleksandra Nenadic, Steve Crouch, James Graham, et al. (2022). carpentries-incubator/python-intermediate-development: beta (beta). Zenodo. https://doi.org/10.5281/zenodo.6532057"
     url: https://doi.org/10.5281/zenodo.6532057
-    image: https://carpentries-incubator.github.io/python-intermediate-development/assets/img/incubator-logo-blue.svg
+    image: https://carpentries-incubator.org/assets/img/carpentries-incubator.svg
     license: CC-BY-4.0
   - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk

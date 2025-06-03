@@ -11,7 +11,7 @@ attribution:
       This material was adapted from an "Introduction to C++" course developed by the
       Oxford RSE group.
     url: https://www.rse.ox.ac.uk
-    image: https://www.rse.ox.ac.uk/images/banner_ox_rse.svg
+    image: https://www.rse.ox.ac.uk/sites/default/files/styles/listing_tile_text_displayed_image/public/rse/images/media/oxrse_banner_2.png
     license: CC-BY-4.0
   - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk
@@ -20,7 +20,7 @@ attribution:
 ---
 
 _Container_ types are those that can hold other objects, and C++ supports a number of
-different [containers](https://en.cppreference.com/w/cpp/container) we can use to hold
+different [containers](https://cplusplus.com/reference/stl/) we can use to hold
 data of differing types in a multitude of ways.
 
 ## Vector and Arrays
@@ -88,7 +88,7 @@ that the `std::vector` is templated on.
 We can select individual elements from vectors by indexing them. Looking at our `odds`
 list:
 
-![index-list](../fig/05-index-list-odd.png)
+![index-list](./fig/05-index-list-odd.png)
 
 For example:
 

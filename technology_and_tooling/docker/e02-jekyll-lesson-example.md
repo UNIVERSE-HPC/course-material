@@ -9,7 +9,7 @@ attribution:
       D. M. Eyers, S. L. R. Stevens, A. Turner, C. Koch and J. Cohen. "Reproducible computational environments using containers: Introduction to Docker".
       Version 2020.09a (4a93bd67aa), September 2020. Carpentries Incubator.
     url: https://github.com/carpentries-incubator/docker-introduction
-    image: https://carpentries-incubator.github.io/docker-introduction/assets/img/incubator-logo-blue.svg
+    image: https://carpentries-incubator.org/assets/img/carpentries-incubator.svg
     license: CC-BY-4.0
 ---
 
@@ -110,7 +110,7 @@ runs within the Docker container instance. The output below that is from the
 Jekyll tool itself, highlighting that the website has been built, and indicating
 that there is a server running.
 
-Open a web browser window and visit the address [http://localhost:4000/](http://localhost:4000/). You
+Open a web browser window and visit the address `http://localhost:4000/`. You
 should see a site that looks very similar to that at
 [https://carpentries-incubator.github.io/docker-introduction/](https://carpentries-incubator.github.io/docker-introduction/).
 
