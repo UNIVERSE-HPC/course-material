@@ -238,3 +238,46 @@ Python code is checked using a custom action, this works by stitching all python
 There is no command line tool for this, so it can only be run locally with `act`.
 
 There are no corresponding tools for other languages, e.g. C++, due to difficulties in stitching together a non-interpreted language.
+
+## Link-checking
+
+To ensure that all links in the material are valid, we use a custom `link-check` action.
+This requires the fully built next.js app, so it is ran on the gutenberg platform rather than on this repo.
+To run the link checker manually first clone gutenberg then you can checkout your branch and run act locally with the following commands or via an equivalent action in your text editor:
+
+```bash
+yarn pullmat
+cd .material/HPCu
+git checkout <your-branch>
+cd ../..
+act -j check-links
+```
+
+This will run the link checker on your branch, and report any broken links in the material.
+
+Alternatively, you can run the link checker using npm by doing the previous up to the act command, then running the following command:
+
+```bash
+yarn build
+yarn start &
+npm install -g broken-link-checker
+npx broken-link-checker http://localhost:3000/ -rof \
+            --exclude "github.com" \
+            --exclude "intel.com" \
+            --exclude "visualstudio.com" \
+            --exclude "pixabay.com" \
+            --exclude "doi.org" \
+            --exclude "stackoverflow.com" \
+            --exclude "stackexchange.com" \
+            --exclude "mathworks.com" \
+            --exclude "shinyapps.io" \
+            --exclude "essential_maths/essential_maths/"
+```
+
+While it is not ideal that links are not checked in this repos CI, it is the best solution we have and mistakes should be caught in the gutenberg platform CI/CD before changes to the course material are deployed to production.
+
+>[!WARNING]
+>On the excluded sites: the sites excluded are those that will `403` when our robot tries to access them, with the exception of `github` which we hammer with so many requests (hundreds of links to gh) that we get `429` errors.
+>Therefore, links to these sites will not be checked, and you should ensure that they are valid yourself!
+>Lastly, if you use a relative url to point to a attribution image in your front-matters then you will need to add an exclusion for a duplicate of the course name, e.g. `essential_maths/essential_maths/` for the essential maths course.
+>This is due to the way that relative urls are handled on the `/diagram` page, don't worry the link will still be checked on the `/[course]` page.
