@@ -289,7 +289,7 @@ Like in many languages, C++ allows you to define _classes_.
 These are user-defined types that contain data in the form of _member variables_ (inPython we call these "properties" or "attributes"), and functions that operate on that data in the form of _member functions_ (in Python these are called "methods").
 This follows a different programming paradigm known as _object-orientated_ programming, or OO.
 We won't cover OO much in this course, but since many useful standard types in C++ are defined as classes in the C++ standard library you need to be aware how to use classes in C++.
-If you wish to learn more about this paradigm; [we have a full course on using object-orientated programming in C++ here](../object_orientated/)
+If you wish to learn more about this paradigm; [we have a full course on using object-orientated programming in C++ here](../object_orientated)
 
 A string in C++ typically uses the `std::string` class. Here `std::string`
 indicates the `string` class that is defined in the `std` namespace. Namespaces
