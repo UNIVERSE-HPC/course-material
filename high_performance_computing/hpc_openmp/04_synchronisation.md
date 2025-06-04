@@ -132,7 +132,7 @@ as the calculation depends on this data ([See the full code here](./code/example
 ```
 
 Similarly, in iterative tasks like matrix calculations, barriers help coordinate threads so that all updates are completed before moving to the next step.
-For example, in the following snippet, each thread updates its assigned row of a matrix using data from its current row and the row above (except for the first row, which has no dependency; [see the full code here](code/examples/04-matrix-update.c)).
+For example, in the following snippet, each thread updates its assigned row of a matrix using data from its current row and the row above (except for the first row, which has no dependency; [see the full code here](./code/examples/04-matrix-update.c)).
 A barrier ensures that all threads finish updating their rows in `next_matrix` before the values are copied back into `current_matrix`.
 Without this barrier, threads might read outdated or partially updated data, causing inconsistencies.
 
@@ -228,7 +228,7 @@ table below shows the types of synchronisation region in OpenMP.
 
 The next example builds on the previous example which included a lookup table.
 In the modified code, the lookup table is written to disk after it has been initialised.
-This happens in a single region, as only one thread needs to write the result to disk ([See the full code here](code/examples/04-single-region.c)).
+This happens in a single region, as only one thread needs to write the result to disk ([See the full code here](./code/examples/04-single-region.c)).
 
 ```c
 #pragma omp parallel
@@ -684,7 +684,7 @@ int main(int argc, char **argv) {
 ```
 
 Using a critical region or a lock would also work here. If the loop was more complicated than a single increment operation, then we would have to use a critical region or a lock.
-You can see [the solution using a lock in our example](code/solutions/04-race-condition-lock.c).
+You can see [the solution using a lock in our example](./code/solutions/04-race-condition-lock.c).
 If you have to spare time, you can play around with "forgetting" to unset a lock to see what happens.
 
 Of course in reality, we wouldn't bother doing this to the second loop. We'd just use a parallel reduction instead

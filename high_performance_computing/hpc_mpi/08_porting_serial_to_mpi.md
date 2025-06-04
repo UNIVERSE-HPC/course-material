@@ -460,7 +460,7 @@ Once complete across all ranks, every rank will then have the slice boundary dat
 
 ### Running our Parallel Code
 
-You can obtain a [full version of the parallelised Poisson code](code/examples/poisson/poisson_mpi.c).
+You can obtain a [full version of the parallelised Poisson code](./code/examples/poisson/poisson_mpi.c).
 Once we have the parallelised code in place, we can compile and run it, e.g.:
 
 ```bash
