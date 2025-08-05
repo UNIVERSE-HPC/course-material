@@ -400,7 +400,7 @@ Since tuples aren't intended to represent sequences, there's no need for them to
 comprehension (which don't exist) to look, and behaves a little differently
 from the other comprehensions.
 
-What happens if we try to use them in the same was as we did list
+What happens if we try to use them in the same way as we did list
 comprehensions?
 
 ```python
