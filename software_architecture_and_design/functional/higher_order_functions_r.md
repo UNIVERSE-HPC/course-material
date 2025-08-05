@@ -19,7 +19,7 @@ Languages that treat functions as first-class citizens allow functions to be pas
 
 In R, functions are first-class citizens, which means that they can be passed to other functions as arguments, for example:
 
-``` r
+```r
 add_one <- function(x) {
   return(x + 1)
 }
@@ -32,9 +32,9 @@ apply_function(1:3, add_one)
 #> [1] 2 3 4
 ```
 
-We have used `return()` in the example above, but it is not necessary to do so: R automatically returns the value of the last evaluated expression in the function, so it is common practice to omit `return()` unless we want the function to return early (inside an `if` statement, for example). Furthermore, since R 4.1.0, there is a new shorthand syntax for defining functions, which uses the `\` character instead of spelling out `function`. Also since R 4.1.0, there is a base-R "pipe" operator (`|>`) that allows you to pass the result of the expression that is on the left side of the pipe as the first argument of the function that is on the right side of the pipe. It is a slightly simpler equivalent of the `%>%` pipe operator from the `magrittr` package, which is commonly with the `tidyverse` family of packages. Finally, the curly braces are optional when the function consists of a single expression, like the ones above. Taking advantage of these features, we can re-write our example as:
+We have used `return()` in the example above, but it is not necessary to do so: R automatically returns the value of the last evaluated expression in the function, so it is common practice to omit `return()` unless we want the function to return early (inside an `if` statement, for example). Furthermore, since R 4.1.0, there is a new shorthand syntax for defining functions, which uses the `\` character instead of spelling out `function`. Also since R 4.1.0, there is a base-R "pipe" operator (`|>`) that allows you to pass the result of the expression that is on the left side of the pipe as the first argument of the function that is on the right side of the pipe. It is a slightly simpler equivalent of the `%>%` pipe operator from the `magrittr` package, which is commonly used with the `tidyverse` family of packages. Finally, the curly braces are optional when the function consists of a single expression, like the ones above. Taking advantage of these features, we can re-write our example as:
 
-``` r
+```r
 add_one <- \(x) x + 1
 apply_function <- \(x, f) f(x)
 1:3 |> apply_function(add_one)
@@ -51,13 +51,13 @@ Other languages, like Python or C++, often have a special syntax for defining la
 
 In the previous example, we have given names to the functions we were defining by assigning them to the `add_one` and `apply_function` variables, but functions are often used anonymously, especially when dealing with "higher-order" functions that accept other functions as arguments, as we will see in the next section. We could, for example, pass an anonymous function directly to `apply_function`:
 
-``` r
+```r
 apply_function <- \(x, f) f(x)
 1:3 |> apply_function(\(x) x + 1)
 #> [1] 2 3 4
 ```
 
-Anonymous functions, exist in many modern languages, though they may not be called 'lambda functions' and may be more or less complex to use. For example, see [Lambda Expressions](https://en.cppreference.com/w/cpp/language/lambda) in C++ with precise control over the visibility of variables inside the function scope, and the multiple methods available in Javascript such as [Function Expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions#the_function_expression_function_expression), which use syntax much more similar to named function definition.
+Anonymous functions exist in many modern languages, though they may not be called 'lambda functions' and may be more or less complex to use. For example, see [Lambda Expressions](https://en.cppreference.com/w/cpp/language/lambda) in C++ with precise control over the visibility of variables inside the function scope, and the multiple methods available in Javascript such as [Function Expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions#the_function_expression_function_expression), which use syntax much more similar to named function definition.
 
 ## Higher-Order Functions
 
@@ -85,7 +85,7 @@ maximum <- \(data) {
 
 This is purely for illustrative purposes, or course, since R already has built-in `sum` and `max` functions that perform much better than what we have written here. But still, the thing to notice is that these are really exactly the same algorithm, except that we change the binary operation done on the RHS of the statement in the loop. We can therefore decide to combine these functions into one higher-order function:
 
-``` r
+```r
 reduce <- \(data, bin_op) {
   result <- 0
   for (x in data) {
@@ -120,7 +120,7 @@ Mapping, filtering and reducing are three of the most commonly used higher-order
 
 The `purrr::map` function, takes a function and applies it to each value in a list or a vector:
 
-``` r
+```r
 library(purrr)
 data <- c(1, 2, 3, 4, -1)
 data |> map(\(x) x + 1)
@@ -144,7 +144,7 @@ As you can see, every number in our `data` vector was incremented by one, but yo
 
 In our "plus one" example we are dealing with integers so `map_int` is the appropriate `map` variant to use:
 
-``` r
+```r
 library(purrr)
 data <- c(1, 2, 3, 4, -1)
 data |> map_int(\(x) x + 1)
@@ -153,7 +153,7 @@ data |> map_int(\(x) x + 1)
 
 There is also `map_vec`, which will attempt to automatically pick an appropriate vector type. This is especially useful if you are dealing with S3 classes like `Date` or `factor`:
 
-``` r
+```r
 library(purrr)
 data <- c(1, 2, 3, 4, -1)
 data |> map_vec(\(x) as.Date("2000-01-01") + x)
@@ -162,14 +162,14 @@ data |> map_vec(\(x) as.Date("2000-01-01") + x)
 
 Now one thing that is nice about R is that a lot of common operations are already "vectorised", meaning that they automatically apply to whole vectors without you having to use a mapping operation or (worse) writing a for loop. We used "add one" as a silly example, but in the real world, there is no reason you would ever write `data |> map_int(\(x) x + 1)` instead of `data + 1`. And it's not just for mathematical operations. A lot of base-R and package functions are vectorised over their inputs, e.g.:
 
-``` r
+```r
 weekdays(as.Date("2000-01-01") + 1:5)
 #> [1] "Sunday"    "Monday"    "Tuesday"   "Wednesday" "Thursday"
 ```
 
 Still, there are plenty of cases where `map` (or one of its variants) is the tool to reach for. Take this example:
 
-``` r
+```r
 library(purrr)
 data <- list(c("a", "b"), c("c", "d", "e"), c("f"))
 data |> map_int(length)
@@ -178,7 +178,7 @@ data |> map_int(length)
 
 The `length` function, like most summary-type functions, is not vectorised over its input. If we tried to apply it directly to our list of vectors, it would give the length of the list itself, not the length of its constituent vectors:
 
-``` r
+```r
 length(list(c("a", "b"), c("c", "d", "e"), c("f")))
 #> [1] 3
 ```
@@ -187,13 +187,13 @@ There would be a lot more to say about mapping functions in R. The `purrr` packa
 
 Higher-order functions in `purrr` will accept an R formula instead of a function definition, so instead of writing:
 
-``` r
+```r
 1:5 |> map_int(\(x) x + 1)
 ```
 
 you can write:
 
-``` r
+```r
 1:5 |> map_int(~ . + 1)
 ```
 
@@ -201,9 +201,9 @@ where the dot (`.`) is a placeholder for a formula's single argument. This used 
 
 You should also know that there are functions that allow you to map over two inputs at once (the `map2` family of variants), over more than two inputs at once (the `pmap` family of variant) and over an input and its names or indices (the `imap` family). I would particularly recommand getting acquainted with the `pmap` variants, which are especially useful when trying to map over multiple columns of a data frame.
 
-Let us now move on to the filtering operation, which in `purrr` is called `keep` (as `filter` is already used by the `dplyr` package, where it operates on the rows of a data frame). Like `map`, `keep` is a higher-order function that can operate on a list or a vector. The function that you have to pass to it acts as a predicate: it is applied to each element of the input and must return a logical value. If it return `TRUE`, the element is kept. If it returns `FALSE`, the element is discarded.
+Let us now move on to the filtering operation, which in `purrr` is called `keep` (as `filter` is already used by the `dplyr` package, where it operates on the rows of a data frame). Like `map`, `keep` is a higher-order function that can operate on a list or a vector. The function that you have to pass to it acts as a predicate: it is applied to each element of the input and must return a logical value. If it returns `TRUE`, the element is kept. If it returns `FALSE`, the element is discarded.
 
-``` r
+```r
 library(purrr)
 1:10 |> keep(\(x) x > 5)
 #> [1]  6  7  8  9 10
@@ -219,9 +219,9 @@ list(1, "x", pi, TRUE, date()) |> keep(is.numeric)
 #> [1] 3.141593
 ```
 
-Notice how there are no specialized variants of `keep` for producing atomic vectors like there is for `map`. That is because `keep` always preserves the type of its input, which is usually what's needed. If you are filtering a vector of integers, you want the output to also be a vector of integers. Sometimes, though, when filtering a list, you might want to convert the result to an atomic vector. The `purrr` package provides the handy `list_simplify` function for those case:
+Notice how there are no specialized variants of `keep` for producing atomic vectors like there is for `map`. That is because `keep` always preserves the type of its input, which is usually what's needed. If you are filtering a vector of integers, you want the output to also be a vector of integers. Sometimes, though, when filtering a list, you might want to convert the result to an atomic vector. The `purrr` package provides the handy `list_simplify` function for those cases:
 
-``` r
+```r
 library(purrr)
 list(1, "x", pi, TRUE, date()) |> 
   keep(is.numeric) |> 
@@ -233,7 +233,7 @@ Now that we have seen mapping and filtering, it is time to turn our attention to
 
 The simplest uses here are things like sums and products:
 
-``` r
+```r
 library(purrr)
 1:10 |> reduce(\(a, b) a + b)
 #> [1] 55
@@ -247,20 +247,20 @@ library(purrr)
 
 Notice how you can surround operators with backticks to refer to them as functions without having to wrap them in lambdas. In R, operators are just standard functions with a special syntax. You can even use them like this:
 
-``` r
+```r
 `+`(2, 3)
 #> [1] 5
 ```
-
 
 These are the fundamental components of the MapReduce style, and can be combined to perform much more complex data processing operations.
 
 ::::challenge{id=sum_squares title="Sum of Squares"}
 
 Using `map` and `reduce`, write a function that calculates the sum of the squares of the values in a list.
+
 Your function should behave as below:
 
-``` r
+```r
 library(purrr)
 sum_of_squares <- \(xs) {
   # your code here
@@ -294,59 +294,56 @@ sum_of_squares <- \(xs) {
 :::
 
 Now let's assume we're reading in these numbers from an input file, so they arrive as a list of strings.
+
 Modify your function so that it passes the following tests:
 
-```python
-print(sum_of_squares(['1', '2', '3']))
-print(sum_of_squares(['-1', '-2', '-3']))
-```
-
-```text
-14
-14
+```r
+c("1", "2", "3") |> sum_of_squares()
+#> [1] 14
+c("-1", "-2", "-3") |> sum_of_squares()
+#> [1] 14
 ```
 
 :::solution
 
-```python
-from functools import reduce
-
-def sum_of_squares(l):
-    integers = map(int, l)
-    squares = map(lambda x: x * x, integers)
-    return reduce(lambda a, b: a + b, squares)
+```r
+library(purrr)
+sum_of_squares <- \(xs) {
+  xs |>
+    map(as.numeric) |>
+    map(\(x) x^2) |>
+    reduce(`+`)
+}
 ```
 
 :::
 
-Finally, like comments in Python, we'd like it to be possible for users to comment out numbers in the input file they give to our program.
-Extend your function so that the following tests pass (don't worry about passing the first set of tests with lists of integers):
+Finally, just like we can have comments in code, we'd like it to be possible for users to comment out numbers in the input file they give to our program. Extend your function so that the following tests pass (don't worry about passing the first set of tests with lists of integers):
 
-```python
-print(sum_of_squares(['1', '2', '3']))
-print(sum_of_squares(['-1', '-2', '-3']))
-print(sum_of_squares(['1', '2', '#100', '3']))
-```
-
-```text
-14
-14
-14
+```r
+c("1", "2", "3") |> sum_of_squares()
+#> [1] 14
+c("-1", "-2", "-3") |> sum_of_squares()
+#> [1] 14
+c("1", "2", "#100", "3") |> sum_of_squares()
+#> [1] 14
 ```
 
 :::solution
 
-```python
-from functools import reduce
-
-def sum_of_squares(l):
-    not_comments = filter(lambda x: x[0] != '#', l)
-    integers = map(int, not_comments)
-    squares = map(lambda x: x * x, integers)
-    return reduce(lambda a, b: a + b, squares)
+```r
+library(purrr)
+sum_of_squares <- \(xs) {
+  xs |>
+    keep(\(x) !(x |> startsWith("#"))) |>
+    map(as.numeric) |>
+    map(\(x) x^2) |>
+    reduce(`+`)
+}
 ```
 
 :::
+
 ::::
 
 ::::challenge{id=multiprocessing title="Multiprocessing (Optional)"}
