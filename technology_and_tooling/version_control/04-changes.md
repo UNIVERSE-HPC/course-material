@@ -126,7 +126,7 @@ Git has a special [**staging** area](https://git-scm.com/about/staging-area) whe
 but **not yet committed**.
 `git add` adds changes to staging, and `git commit` copies them to long-term storage (as a commit).
 
-:::callout{variant="info", title="The Staging Area"}
+:::callout{variant="info" title="The Staging Area"}
 
 Why do we have this two-stage process, where we **add** files to the staging area, then create a **commit** from them?
 
@@ -431,3 +431,4 @@ To recap, when we want to add changes to our repository,
 we first need to add the changed files to the staging area
 (`git add`) and then commit the staged changes to the
 repository (`git commit`).
+
