@@ -245,7 +245,7 @@ Often using multiple inheritance is a sign you should instead be using compositi
 
 ::::challenge{id="a-model-patient" title="A Model Patient"}
 
-Above we gave an example of a `Patient` class which inherits from `Person`. 
+Above we gave an example of a `Patient` class which inherits from `Person`.
 Let's start by extending the system such that there must be a `Doctor` class to hold the data representing a single doctor, which:
 
 - must have a `name` attribute
@@ -358,7 +358,9 @@ class Doctor(Person):
 ::::
 
 ::::callout{variant="keypoints"}
+
 - Relationships between concepts can be described using inheritance (_is a_) and composition (_has a_).
 - Inheritance is used to describe a relationship where one class is a more specific version of another.
 - Composition is used to describe a relationship where one class is made up of other classes.
+
 ::::
