@@ -96,36 +96,24 @@ not being shared among team members.
 ::::
 
 Code review is one of the most useful team code development practices - someone checks your design or code for errors,
-they get to learn from your solution, having to
-explain code to someone else clarifies your rationale and design decisions in your mind too, and collaboration
-helps to improve the overall team software development process. It is universally applicable throughout
-the software development cycle - from design to development to maintenance. According to Michael Fagan, the
-author of the [code inspection technique](https://en.wikipedia.org/wiki/Fagan_inspection), rigorous inspections can
-remove 60-90% of errors from the code even before the
-first tests are run ([Fagan, 1976](https://doi.org/10.1147%2Fsj.153.0182)).
+they get to learn from your solution, having to explain code to someone else clarifies your rationale and design decisions in your mind too, and collaboration helps to improve the overall team software development process.
+It is universally applicable throughout the software development cycle - from design to development to maintenance. According to Michael Fagan, the author of the [code inspection technique](https://en.wikipedia.org/wiki/Fagan_inspection), rigorous inspections can remove 60-90% of errors from the code even before the first tests are run ([Fagan, 1976](https://doi.org/10.1147%2Fsj.153.0182)).
 Furthermore, according to Fagan, the cost to remedy a defect in the early (design) stage is 10 to 100 times less
-compared to fixing the same defect in the development and maintenance
-stages, respectively. Since the cost of bug fixes grows in orders of magnitude throughout the software
-lifecycle, it is far more efficient to find and fix defects as close as possible to the point where they were introduced.
+compared to fixing the same defect in the development and maintenance stages, respectively.
+Since the cost of bug fixes grows in orders of magnitude throughout the software lifecycle, it is far more efficient to find and fix defects as close as possible to the point where they were introduced.
 
-There are several **code review techniques** with various degree of formality and the
-use of a technical infrastructure, here we will be using a **Tool-assisted code review**
-, using GitHub's Pull Requests. It is a lightweight tool, included with GitHub's core
-service for free and has gained popularity within the software development community in
-recent years. This tool helps with the following tasks: (1) collecting and displaying
-the updated files and highlighting what has changed, (2) facilitating a conversation
-between team members (reviewers and developers), and (3) allowing code administrators
-and product managers a certain control and overview of the code development workflow.
+There are several **code review techniques** with various degree of formality and the use of a technical infrastructure, here we will be using a **Tool-assisted code review**, using GitHub's Pull Requests.
+It is a lightweight tool, included with GitHub's core service for free and has gained popularity within the software development community in recent years.
+This tool helps with the following tasks:
+
+1. Collecting and displaying the updated files and highlighting what has changed.
+1. Facilitating a conversation between team members (reviewers and developers)
+1. Allowing code administrators and product managers a certain control and overview of the code development workflow.
 
 ## Adding code via GitHub's Pull Requests
 
-Pull requests are fundamental to how teams review and improve code on GitHub
-(and similar code sharing platforms) - they let you tell others about changes
-you've pushed to a branch in a repository on GitHub and that your code is ready
-for review. Once a pull request is opened, you can discuss and review the
-potential changes with others on the team and add follow-up commits based on the
-feedback before your changes are merged from your feature branch into the
-base branch.
+Pull requests are fundamental to how teams review and improve code on GitHub (and similar code sharing platforms) - they let you tell others about changes you've pushed to a branch in a repository on GitHub and that your code is ready for review.
+Once a pull request is opened, you can discuss and review the potential changes with others on the team and add follow-up commits based on the feedback before your changes are merged from your feature branch into the base branch.
 
 How you create your feature branches and open pull requests in GitHub will depend on your collaborative code
 development model:
@@ -137,45 +125,29 @@ development model:
 - In the fork and pull model, where you do not have write permissions to the source repository, you need to fork the
   repository first before you create a feature branch (in your fork) to base your pull request on.
 
-In both development models, it is recommended to create a feature branch for your work and
-the subsequent pull request, even though you can submit pull requests from any branch or commit. This is because,
-with a feature branch, you can push follow-up commits as a response to feedback and update your proposed changes within
-a self-contained bundle.
+In both development models, it is recommended to create a feature branch for your work and the subsequent pull request, even though you can submit pull requests from any branch or commit.
+This is because, with a feature branch, you can push follow-up commits as a response to feedback and update your proposed changes within a self-contained bundle.
 
-The only difference in creating a pull request between the two models is how you create
-the feature branch. In either model, once you are ready to merge your changes in - you
-will need to specify the base branch and the head
-branch.
+The only difference in creating a pull request between the two models is how you create the feature branch. In either model, once you are ready to merge your changes in - you will need to specify the base branch and the head branch.
 
 ## Issues, Pull Requests and Code Review In Action
 
-Let's see this in action - you and your fellow learners are going to be organised in small teams and assume to be
-collaborating in the shared repository model. You will be added as a collaborator to another team member's repository
-(which becomes the shared repository in this context) and, likewise, you will add other team members as collaborators
-on your repository. You can form teams of two and work on each other's repositories. If there are 3 members in
-your group you can go in a round robin fashion (the first team member does a pull request on the second member's
-repository and receives a pull request on their repository from the third team member). If you are going through the
-material on your own and do not have a collaborator, you can do pull requests on your own repository from one to
-another branch.
+Let's see this in action - you and your fellow learners are going to be organised in small teams and assume to be collaborating in the shared repository model.
+You will be added as a collaborator to another team member's repository (which becomes the shared repository in this context) and, likewise, you will add other team members as collaborators on your repository.
+You can form teams of two and work on each other's repositories.
+If there are 3 members in your group you can go in a round robin fashion (the first team member does a pull request on the second member's repository and receives a pull request on their repository from the third team member).
+If you are going through the material on your own and do not have a collaborator, you can do pull requests on your own repository from one to another branch.
 
-Recall the `oxrse_unit_conv` repo that you cloned previously ([https://github.com/OxfordRSE/oxrse_unit_conv](https://github.com/OxfordRSE/oxrse_unit_conv)). This is a small
-toy Python project that implements some classes for SI and non-SI units (you can
-read the `README.md` file for more information), and implements convertions
-between values of different units.
+Recall the `oxrse_unit_conv` repo that you cloned previously ([https://github.com/OxfordRSE/oxrse_unit_conv](https://github.com/OxfordRSE/oxrse_unit_conv)).
+This is a small toy Python project that implements some classes for SI and non-SI units (you can read the `README.md` file for more information), and implements conversions between values of different units.
 
-In the previous section you each implemented an issue to add a new feature (e.g. a new
-unit) or bugfix. Now your taks is to implement this feature or bugfix, along with tests
-to make sure your new code works correctly or that the bug is fixed. You can use the
-existing tests as a guide for how to write new tests. You can also use the existing
-tests to
-ensure that your changes do not break any existing functionality.
+In the previous section you each implemented an issue to add a new feature (e.g. a new unit) or bugfix.
+Now your task is to implement this feature or bugfix, along with tests to make sure your new code works correctly or that the bug is fixed.
+You can use the existing tests as a guide for how to write new tests.
+You can also use the existing tests to ensure that your changes do not break any existing functionality.
 
-You will propose changes to their repository (the shared repository in this context) via
-issues and pull requests
-(acting as the code author) and engage in code review with your team member (acting as a
-code reviewer). Similarly, you will receive a pull request on your repository from
-another team member, in which case the roles will be reversed. The following diagram
-depicts the branches that you should have in the repository.
+You will propose changes to their repository (the shared repository in this context) via issues and pull requests (acting as the code author) and engage in code review with your team member (acting as a code reviewer).
+Similarly, you will receive a pull request on your repository from another team member, in which case the roles will be reversed. The following diagram depicts the branches that you should have in the repository.
 
 ![Branches for a feature and its tests](fig/exercise-feature-branch.svg)
 _Adapted from [Git Tutorial by sillevl](https://sillevl.gitbooks.io/git/content/collaboration/workflows/gitflow/) (Creative Commons Attribution 4.0 International License)_

@@ -300,8 +300,10 @@ Both of these method types are created using **decorators** - for more informati
 Why is the `__init__` method not called `init`?
 There are a few special method names that we can use which Python will use to provide a few common behaviours, each of which begins and ends with a **d**ouble-**under**score, hence the name **dunder method**.
 
-When writing your own Python classes, you'll almost always want to write an `__init__` method, but there are a few other common ones you might need sometimes. You may have noticed in the code above that the method `print(alice)` returned `<__main__.Patient object at 0x7fd7e61b73d0>`, which is the string represenation of the `alice` object. We
-may want the print statement to display the object's name instead. We can achieve this by overriding the `__str__` method of our class.
+When writing your own Python classes, you'll almost always want to write an `__init__` method, but there are a few other common builtin methods you might wish to override.
+You may have noticed in the code above that the method `print(alice)` returned `<__main__.Patient object at 0x7fd7e61b73d0>`, which is the string represenation of the `alice` object.
+We may want the print statement to display the Patient's name instead.
+We can achieve this by overriding the `__str__` method of our class.
 
 ```python
 # file: inflammation/models.py

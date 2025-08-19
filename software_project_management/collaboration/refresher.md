@@ -424,7 +424,7 @@ We push the contents of the `develop` branch to GitHub in the same way as we pus
 just created this branch locally, it still does not exist in our remote repository. You can check that in GitHub by
 listing all branches.
 
-![Software project's main branch](fig/software-project-main-branch.png){: .image-with-shadow width="700px"}
+![Software project's main branch](fig/software-project-main-branch.png)
 
 To push a new local branch remotely for the first time, you could use the `-u` switch and the name of the branch you
 are creating and pushing to:
