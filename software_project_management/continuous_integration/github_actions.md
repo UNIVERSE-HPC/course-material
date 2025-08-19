@@ -116,6 +116,8 @@ We will make the following changes to the workflow:
 
 1. Change the "Lint with flake8" step to just run `flake8` (with no options at all)
 
+![Edit Workflow](fig/edit_workflow.png)
+
 Then use the web interface to commit the changes.
 Go over to the _Actions_ tab to see it running.
 

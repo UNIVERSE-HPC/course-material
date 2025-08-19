@@ -224,7 +224,12 @@ def test_patient_attributes():
 :::
 ::::
 
-In the exercise above, we found ourselves having to create the same or similar `Patient` objects multiple times. To prevent this repetition, we could encapsulate these tests in their own class, `TestPatient`. Writing tests in this manner helps to organise similar tests into groups and also allows sharing of data between tests. The `pytest` library defines methods that you can add to your class, such as `setup_class` which will be run before running all of the tests in that class or `setup_method` that will be run before each test within the class. This method can be used for creating data or opening files, for example. An additional method called `teardown_class` could be also be added, if needed, and `pytest` will run this method after the tests in the class have completed. Alternatively `teardown_method` will run after each test. These methods can be useful for cleaning up in cases where files were created on your system or an connections were opened. For more information you can [view the documentation here](https://docs.pytest.org/en/latest/how-to/xunit_setup.html).
+In the exercise above, we found ourselves having to create the same or similar `Patient` objects multiple times.
+To prevent this repetition, we could encapsulate these tests in their own class, `TestPatient`. Writing tests in this manner helps to organise similar tests into groups and also allows sharing of data between tests.
+The `pytest` library defines methods that you can add to your class, such as `setup_class` which will be run before running all of the tests in that class or `setup_method` that will be run before each test within the class.
+This method can be used for creating data or opening files, for example. An additional method called `teardown_class` could be also be added, if needed, and `pytest` will run this method after the tests in the class have completed.
+Alternatively `teardown_method` will run after each test. These methods can be useful for cleaning up in cases where files were created on your system or an connections were opened.
+For more information you can [view the documentation here](https://docs.pytest.org/en/latest/how-to/xunit_setup.html).
 
 ::::challenge{id=test-patient-class title="Grouping tests in a class."}
 
@@ -261,9 +266,11 @@ class TestPatient:
 
 ## Fixtures
 
-As an alternative to encapsulating test methods in a class and using `setup` and `teardown` methods, we can use _fixtures_. Fixtures are defined by using the `@pytest.fixture` decorator on a function. This function will then become available to be passed as an argument to your tests and used within them.
+As an alternative to encapsulating test methods in a class and using `setup` and `teardown` methods, we can use _fixtures_.
+Fixtures are defined by using the `@pytest.fixture` decorator on a function.
+This function will then become available to be passed as an argument to your tests and used within them.
 
-Here is how we can write our tests for the `Person` class using fixtures instead of a `setup_class` method:
+Here is how we can write our tests for the `Patient` class using fixtures instead of a `setup_class` method:
 
 ```python
 import pytest
@@ -557,13 +564,17 @@ As you can see, the tests are becoming complex, especially the one for `query_da
 
 ### More about Fixtures
 
-Our `test_query_database` function can be simplified by separating the processes of creating the database and populating it with data from the test itself. We can create a fixture to do this which can then be passed to the `test_query_database` function. The fixture can also be responsible for removing the database after the tests have run.
+Our `test_query_database` function can be simplified by separating the process of creating the database and of populating it with data from the test itself.
+We can create a fixture to do this which can then be passed to the `test_query_database` function.
+The fixture can also be responsible for removing the database after the tests have run.
 
-in order to In the example below, we can use a fixture named `setup_database` to create our test database, add data and also remove the database file once the tests have finished running. As a result, our `test_query_database` function can be simplified and if we want to use the test database in other tests, we simply need to add `setup_database` as an argument to those tests.
+In the example below, we can use a fixture named `setup_database` to create our test database, add data and also remove the database file once the tests have finished running.
+As a result, our `test_query_database` function can be simplified and, if we want to use the test database in other tests, we simply need to add `setup_database` as an argument to those tests.
 
 #### Using `yield` instead of `return`
 
-If there is a cleanup part to the fixture code, then the fixture function should use a `yield` statement rather than a `return` statement. Anything up to the `yield` statement is setup code, and anything after the statement will be run post-testing in order to clean up (teardown code).
+If the fixture needs to perform some cleanup after the test has run then the fixture function should use a `yield` statement rather than a `return` statement.
+Anything up to the `yield` statement is setup code, and anything after will be run post-testing in order to clean up (teardown code).
 
 ::::challenge{id=database-fixture title="Adding a fixture to setup the database."}
 
@@ -614,9 +625,11 @@ def test_query_database(setup_database):
 
 :::callout{variant="discussion"}
 
-### Should We Use Multiple `assert` statements in one test Function?
+### Using multiple `assert` statements
 
-According to the book, The Art of Unit Testing by Roy Osherove, a unit test, by definition, should test a _unit of work_. What this means exactly is itself a point for discussion, but generally it refers to actions that take place between an entry point (e.g. a declaration fo a function) and an exit point (e.g. the output of a function). It is also often said that each test should fail for only one reason alone.
+According to the book, The Art of Unit Testing by Roy Osherove, a unit test, by definition, should test a _unit of work_.
+What this means exactly is itself a point for discussion, but generally it refers to actions that take place between an entry point (e.g. a declaration fo a function) and an exit point (e.g. the output of a function).
+It is also often said that each test should fail for only one reason alone.
 
 Does using multiple `assert` statements in one test contravene these guidelines?
 
@@ -681,11 +694,13 @@ def test_query_database(setup_database):
 
 #### Using Built-in Fixtures
 
-As well as writing our own fixtures, we can use those that are [predefined/(built-in)](https://docs.pytest.org/en/latest/reference/fixtures.html). For example we may want to use a temporary directory for our files during testing, rather than creating files in the directory that we are working from (this is what currently happens when we run our database tests). The built-in fixture `temp_path_factory` allows us to to do this. We can refactor our code to add an extra fixture that uses feature and then it can be used by all the tests that we have written as well as by the `setup_database` fixture.
+As well as writing our own fixtures, we can use those that are [predefined/(built-in)](https://docs.pytest.org/en/latest/reference/fixtures.html).
+For example we may want to use a temporary directory for our files during testing, rather than creating files in the directory that we are working from (this is what currently happens when we run our database tests).
+The built-in fixture `temp_path_factory` allows us to to do this. We can refactor our code to add an extra fixture that uses this feature and then it can be used by all the tests that we have written as well as by the `setup_database` fixture.
 
 ::::challenge{id=builtin-fixtures title="Using built-in fixtures."}
 
-Add another fixture `database_filename` that uses the built-in `temp_path_factory` fixture to create a temporary directory for storing our `test.db` database file. This fixture can then be passed into the `database_connection` fixture.
+Add another fixture, `database_filename`, that uses the built-in `temp_path_factory` fixture to create a temporary directory for storing our `test.db` database file. This fixture can then be passed into the `database_connection` fixture.
 
 :::solution
 The contents of our `test_sqlite.py` is now:

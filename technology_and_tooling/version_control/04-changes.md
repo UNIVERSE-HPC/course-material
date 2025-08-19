@@ -124,21 +124,19 @@ it tells us our local repository is up-to-date, although now we have edits to it
 
 ![Add and Commit](fig/04-changes/add.svg)
 
-Git has a special **staging** area
-where it keeps track of things that have been **added** to
-the current [change set](reference.html#change-set)
-but **not yet committed**.
-`git add` puts things in this area,
-and `git commit` then copies them to long-term storage (as a commit)
+Git has a special **staging** area where it keeps track of things that have been **added** to the current [change set](reference.html#change-set) but **not yet committed**.
+`git add` puts things in this area, and `git commit` then copies them to long-term storage (as a commit).
 
-:::callout
+:::callout(variant="info")
 
-## What's the Point of the Staging Area?
+## The Staging Area
 
 Why do we have this two-stage process, where we **add** files to the staging area, then create a **commit** from them?
 
-Among other reasons, it allows you to easily bundle together a lot of changes in one go. If you changed the name of a variable used in multiple files (e.g. from `t` to `temperature`), you'd need to change it in all your files in one go in order for it to make sense.
-If you stored a copy of each file one-by-one you'd end up with a lot of versions of the code that didn't work - variables with different names everywhere. The **staging area** lets you bundle together all those small changes that don't work in isolation into one big change that's coherent.
+Among other reasons, it allows you to easily bundle together a lot of changes in one go.
+If you changed the name of a variable used in multiple files (e.g. from `t` to `temperature`), you'd need to change it in all your files in one go in order for it to make sense.
+If you stored a copy of each file one-by-one you'd end up with a lot of versions of the code that didn't work - variables with different names everywhere.
+The **staging area** lets you bundle together all those small changes that don't work in isolation into one big change that's coherent.
 
 Git does give you shortcuts to reduce **add -> commit** to a single step, but when you're starting out it's always better to make sure you know what's going in to each commit!
 :::
@@ -176,7 +174,7 @@ The listing for each revision includes
 - **when** it was created,
 - the **log message** Git was given when the revision was committed.
 
-:::callout
+:::callout(variant="tip")
 
 ## Compatibility Notice
 
@@ -227,7 +225,7 @@ but we haven't told Git we will want to save those changes
 much less actually saved them (which we do with `git commit`).
 
 ::::callout{variant="warning"}
-It's important to remember that git only stores changes when you make a commit
+It's important to remember that git only stores changes when you make a commit!
 ::::
 
 ### Review Changes and Commit
