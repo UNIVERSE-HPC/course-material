@@ -83,7 +83,7 @@ function evaluations is reached.
   Computer Journal. 7 (4): 308–313. doi:10.1093/comjnl/7.4.308.
 - [Gao, F., & Han, L. (2012). Implementing the Nelder-Mead simplex algorithm with
   adaptive parameters. Computational Optimization and Applications, 51(1),
-  259-277.](http://www.webpages.uidaho.edu/~fuchang/res/ANMS.pdf)
+  259-277.](https://link.springer.com/article/10.1007/s10589-010-9329-3)
 - Numerical optimization by Nocedal, Jorge; Wright, Stephen J., 1960-, Chapter 9
 
 ### Problems
