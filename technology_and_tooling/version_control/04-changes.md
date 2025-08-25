@@ -126,13 +126,16 @@ Git has a special [**staging** area](https://git-scm.com/about/staging-area) whe
 but **not yet committed**.
 `git add` adds changes to staging, and `git commit` copies them to long-term storage (as a commit).
 
-:::callout{variant="info" title="The Staging Area"}
+:::callout{variant="info"}
+
+## The Staging Area
 
 Why do we have this two-stage process, where we **add** files to the staging area, then create a **commit** from them?
 
-Among other reasons, it allows you to easily bundle together a lot of changes in one go. If you changed the name of a variable used in multiple files (e.g. from `t` to `temperature`), you'd need to change it in all your files in one go in order for it to make sense.
-If you stored a copy of each file one-by-one you'd end up with a lot of versions of the code that don't work - variables with inconsistent names.
-The **staging area** lets you bundle together all those small changes that don't work in isolation into one coherent commit.
+Among other reasons, it allows you to easily bundle together a lot of changes in one go.
+If you changed the name of a variable used in multiple files (e.g. from `t` to `temperature`), you'd need to change it in all your files in one go in order for it to make sense.
+If you stored a copy of each file one-by-one you'd end up with a lot of versions of the code that didn't work - due to inconsistent variable names.
+The **staging area** lets you bundle together all those small changes that don't work in isolation into one big change that's coherent.
 
 Git does give you shortcuts to reduce **add -> commit** to a single step, but when you're starting out it's always better to make sure you know what's going in to each commit!
 :::
@@ -169,7 +172,7 @@ The listing for each revision includes
 - **when** it was created,
 - the **log message** Git was given when the revision was committed.
 
-:::callout
+:::callout(variant="tip")
 
 ## Compatibility Notice
 
@@ -220,7 +223,7 @@ but we haven't told Git we will want to save those changes
 much less actually saved them (which we do with `git commit`).
 
 ::::callout{variant="warning"}
-It's important to remember that git only stores changes when you make a commit
+It's important to remember that git only stores changes when you make a commit!
 ::::
 
 ### Review Changes and Commit

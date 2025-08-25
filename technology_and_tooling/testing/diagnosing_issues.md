@@ -81,25 +81,20 @@ performed.
 
 ![NumPy arrays' shapes after broadcasting](fig/numpy-shapes-after-broadcasting.png)
 
-:::callout
+:::callout{variant="info"}
 
 ## Broadcasting
 
-The term broadcasting describes how NumPy treats arrays with different shapes
-during arithmetic operations. Subject to certain constraints, the smaller array
-is “broadcast” across the larger array so that they have compatible shapes. Be
-careful, though, to understand how the arrays get stretched to avoid getting
-unexpected results.
+The term broadcasting describes how NumPy treats arrays with different shapes during arithmetic operations.
+Subject to certain constraints, the smaller array is “broadcast” across the larger array so that they have compatible shapes.
+Be careful to understand how the arrays get stretched to avoid getting unexpected results.
 
 :::
 
-Note there is an assumption in this calculation that the minimum value we want
-is always zero. This is a sensible assumption for this particular application,
-since the zero value is a special case indicating that a patient experienced no
-inflammation on a particular day.
+Note there is an assumption in this calculation that the minimum value we want is always zero.
+This is a sensible assumption for this particular application, since the zero value is a special case indicating that a patient experienced no inflammation on a particular day.
 
-Let us now add a new test in `tests/test_models.py` to check that the
-normalisation function is correct for some test data.
+Let us now add a new test in `tests/test_models.py` to check that the normalisation function is correct for some test data.
 
 ```python
 import numpy.testing as npt
@@ -115,16 +110,10 @@ def test_patient_normalise(test, expected):
     npt.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
 ```
 
-Note that we are using the `assert_almost_equal()` Numpy testing function
-instead of `assert_array_equal()`, since it allows us to test against values
-that are _almost_ equal. This is very useful when we have numbers with arbitrary
-decimal places and are only concerned with a certain degree of precision, like
-the test case above, where we make the assumption that a test accuracy of two
-decimal places is sufficient.
+Note that we are using the `assert_almost_equal()` Numpy testing function instead of `assert_array_equal()`, since it allows us to test against values, as the method name implies, that are _almost_ equal.
+This is very useful when we have numbers with arbitrary decimal places and are only concerned with a certain degree of precision, like the test case above, where we make the assumption that a test accuracy of two decimal places is sufficient.
 
-Run the tests again using `python -m pytest tests/test_models.py` and you will
-note that the new test is failing, with an error message that does not give many
-clues as to what went wrong.
+Run the tests again using `python -m pytest tests/test_models.py` and you will note that the new test is failing, with an error message that does not give many clues as to what went wrong.
 
 ```text
 E       AssertionError:
@@ -143,27 +132,23 @@ E              [0.78, 0.89, 1.  ]])
 tests/test_models.py:53: AssertionError
 ```
 
-Let us use a debugger at this point to see what is going on and why the function
-failed.
+Let us use a debugger at this point to see what is going on and why the function failed.
 
 ## Pytest and debugging in VSCode
 
-Let's use a debugger to see what's going on and why the function failed. Think
-of it like performing exploratory surgery - on code! Debuggers allow us to peer
-at the internal workings of a program, such as variables and other state, as it
-performs its functions.
+Let's use a debugger to see what's going on and why the function failed.
+Think of it like performing exploratory surgery - on code!
+Debuggers allow us to peer at the internal workings of a program, such as variables and other state, as it performs its functions.
 
 ### Setup testing in VSCode
 
-First we will set up VSCode to run and debug our tests. If you haven't done so already,
-you will first need to enable the PyTest framework in VSCode. You can do this by
-selecting the `Python: Configure Tests` command in the Command Palette (Ctrl+Shift+P).
-This will then prompt you to select a test framework (`Pytest`), and a directory
-containing the tests (`tests`). You should then see the Test view, shown as a beaker, in
-the left hand activity sidebar. Select this and you should see the list of tests, along
-with our new test `test_patient_normalise`. If you select this test you should see some
-icons to the right that either run, debug or open the `test_patient_normalise` test. You
-can see what this looks like in the screenshot below.
+First we will set up VSCode to run and debug our tests.
+If you haven't done so already, you will first need to enable the PyTest framework in VSCode.
+You can do this by selecting the `Python: Configure Tests` command in the Command Palette (Ctrl+Shift+P).
+This will then prompt you to select a test framework (`Pytest`), and a directory containing the tests (`tests`).
+You should then see the Test view, shown as a beaker, in the left hand activity sidebar.
+Select this and you should see the list of tests, along with our new test `test_patient_normalise`.
+If you select this test you should see some icons to the right that either run, debug or open the `test_patient_normalise` test. You can see what this looks like in the screenshot below.
 
 ![Patient normalise tests in VSCode](fig/testsInVSCode.jpg)
 
