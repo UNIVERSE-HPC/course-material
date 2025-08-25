@@ -256,7 +256,7 @@ git switch dev
 
 :::
 
-:::callout(variant="tip")
+:::callout{variant="tip"}
 It is good practice to make sure your local repository is up-to-date before starting work. To do so simply run `git fetch` in the working directory to retrieve the latest remote changes.
 :::
 

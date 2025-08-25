@@ -44,12 +44,11 @@ There are two fundamental types of relationship between objects which we need to
 
 ### Composition
 
-You should hopefully have come across the term **composition** already - in the novice Software Carpentry, we use composition of functions to reduce code duplication.
-That time, we used a function which converted temperatures in Celsius to Kelvin as a **component** of another function which converted temperatures in Fahrenheit to Kelvin.
+In the real world, when something is composed of something else, there exists a relationship where one thing is made up of other things.
+In the same way, in object oriented programming, we can make classes which have components from other classes.
+This is known as **composition**.
 
-In the same way, in object oriented programming, we can make things components of other things.
-
-We often use composition where we can say 'x _has a_ y' - for example in our game, we might want to say that a character _has_ an inventory, and that an inventory _has_ items.
+We often use composition in circumstances where we can say 'x _has a_ y' - for example in our game, we might want to say that a character _has_ an inventory, and that an inventory _has_ items.
 
 In the case of our example, we're already saying that a character _has a_ position, so we're already using composition here.
 
