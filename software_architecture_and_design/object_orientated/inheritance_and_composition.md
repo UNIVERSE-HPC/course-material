@@ -252,7 +252,7 @@ Let's start by extending the system such that there must be a `Doctor` class to 
 - must have a list of patients that this doctor is responsible for.
 
 In addition to these, try to think of an extra feature you could add to the models which would be useful for managing a dataset like this - imagine we're running a clinical trial, what else might we want to know?
-If you are comfortable with the concepts of software testing [taught in our corresponding oourse on testing](/technology_and_tooling/testing/), you could try using `Test Driven Development` for the features you are going to add: write the tests first, then add the feature.
+If you are comfortable with the concepts of software testing [taught in our corresponding oourse on testing](/technology_and_tooling/testing), you could try using `Test Driven Development` for the features you are going to add: write the tests first, then add the feature.
 
 Once you've finished the initial implementation, do you have much duplicated code?
 Is there anywhere you could make better use of composition or inheritance to improve your implementation?
