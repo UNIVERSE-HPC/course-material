@@ -61,7 +61,7 @@ straightforward to see that $LDL^T$ = $GG^T$, where $G = L \text{diag}(\sqrt{d_1
 can be efficiently constructed in $n^3 / 3$ flops. There are a number of algorithms to
 construct this decomposition, and both the [wikipedia
 entry](https://en.wikipedia.org/wiki/Cholesky_decomposition) and Chapter 4.2 of the
-Matrix Computations textbook by Golub and Van Loan gives a number of different varients.
+Matrix Computations textbook by Golub and Van Loan gives a number of different variants.
 
 Note that a $LDL$ decomposition can also be used to calculate a cholesky decomposition,
 and this could be more efficient approach since (a) the SPD structure means that we can
