@@ -125,7 +125,7 @@ Patient: Bob
 ## Duck typing
 
 The dynamic typing system in Python is very flexible compared with many other
-langauges. Duck typing is a concept that is often used in Python, which is that
+languages. Duck typing is a concept that is often used in Python, which is that
 if an object has the right methods, it can be treated as if it is of a
 particular type. Using our example above, if an object has a `set_id` and
 `__str__` method, it can be treated as if it is a `Person` object. For example,
