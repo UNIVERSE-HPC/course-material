@@ -114,8 +114,7 @@ int count_nodes(const Node& t) {
 // or using std::accumulate
 int count_nodes2(const Node& t) {
   int count = 1;
-  std::accumulate(t.children.begin(), t.children.end(), 0, [](int a, const Node& b) { return a + count_nodes(b); }
-  return count;
+  return std::accumulate(t.children.begin(), t.children.end(), count, [](int a, const Node& b) { return a + count_nodes2(b); });
 }
 
 int evaluate(const Node& t) {
@@ -147,22 +146,28 @@ int evaluate2(const Node& t) {
   if (t.children.empty()) {
     return t.value;
   }
-  const std::function<int(const int, const int)> op;
+  std::function<int(const int, const int)> op;
+  // identity under the selected operation
+  int ident;
   switch (t.value) {
     case '+':
+      ident = 0;
       op = [](int a, int b) { return a + b; };
       break;
     case '-':
+      ident = 0;
       op = [](int a, int b) { return a - b; };
       break;
     case '*':
+      ident = 1;
       op = [](int a, int b) { return a * b; };
       break;
     case '/':
+      ident = 1;
       op = [](int a, int b) { return a / b; };
       break;
   }
-  return std::accumulate(t.children.begin() + 1, t.children.end(), evaluate(t.children[0]), op);
+  return std::accumulate(t.children.begin(), t.children.end(), ident, [&](int a, const Node& b) { return op(a, evaluate2(b)); });
 }
 ```
 
