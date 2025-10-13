@@ -99,7 +99,7 @@ any action that affects anything other than the value they return. A pure functi
 computational version of a mathematical function.
 
 For example: printing text, writing to a file, modifying the value of an input argument, or
-changing the value of a global variable. Functions without side affects that
+changing the value of a global variable. Functions without side effects that
 return the same data each time the same input arguments are provided are called
 _pure functions_.
 
