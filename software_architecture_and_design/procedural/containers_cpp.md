@@ -476,20 +476,20 @@ we can store and access the populations of various UK cities like so:
 
 //...
 
-std::map<std::string, size_t>> populations = {
-  {"Liverpool": 467995},
-  {"Edinburgh": 448850},
-  {"Manchester": 430818}
-}
+std::map<std::string, size_t> populations = {
+  {"Liverpool", 467995},
+  {"Edinburgh", 448850},
+  {"Manchester", 430818}
+};
 
 populations.insert({"Oxford", 137343});
 
-for (const auto& [key, value] : m) {
+for (const auto& [key, value] : populations) {
   std::cout << '[' << key << "] = " << value << "; ";
 }
 std::cout << std::endl;
 
-const auto key = "Liverpool"s;
+const auto key = "Liverpool";
 std::cout << "The population of " << key << " is " << populations[key] << std::endl;
 ```
 
