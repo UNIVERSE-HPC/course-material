@@ -131,7 +131,7 @@ over that container.
 ```cpp
 for (std::vector<double>::iterator i = x.begin();
      i != x.end(); ++i) {
-   std:cout << *i << std::endl;
+   std::cout << *i << std::endl;
 }
 ```
 
@@ -145,7 +145,7 @@ correct type (i.e. what is returned from `x.begin()`{.Cpp}:
 ```cpp
 for (auto i = x.begin(); i != x.end(); ++i)
 {
-   std:cout << *i << std::endl;
+   std::cout << *i << std::endl;
 }
 ```
 
@@ -156,7 +156,7 @@ syntax, and work with any container that has `begin` and `end` methods.
 std::vector<double> x = {1.0, 2.0, 3.0, 4.0};
 for (double i: x)
 {
-   std:cout << i << std::endl;
+   std::cout << i << std::endl;
 }
 ```
 
@@ -165,7 +165,7 @@ You can also use `auto`{.Cpp} here to simplify things...
 ```cpp
 for (auto i: x)
 {
-   std:cout << i << std::endl;
+   std::cout << i << std::endl;
 }
 ```
 
