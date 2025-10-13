@@ -42,7 +42,7 @@ In our example, we have warriors and mages that are both types of character.
 Our game might store all the characters in a vector, and we might want to loop over that vector and perform an action that might need to be specific to the type of character.
 Let's say we want warriors to attack and mages to cast a spell.
 
-In C++ we archive this with **method overriding**:
+In C++ we achieve this with **method overriding**:
 
 - We define a **virtual** method on the base class
 - We override this method on each derived class
