@@ -93,7 +93,7 @@ list:
 For example:
 
 ```cpp
-std::cout << odds[0] << ' ' << odds[-1] << std::end;
+std::cout << odds[0] << ' ' << odds[-1] << std::endl;
 ```
 
 This will print the first and last elements of a list:
