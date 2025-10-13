@@ -462,9 +462,9 @@ first element in water is hydrogen
 
 The standard map class in C++ is `std::map`{.cpp}
 
-This is also known as an "associative array", "dictionary" or "hash" in other
-languages. The `std::map`{.cpp} class implements an ordered map, if you wish to
-use an unordered map use `std::unordered_map`{.cpp}.
+This is also known as an "associative array", "dictionary" or "hashmap" in
+other languages. The `std::map`{.cpp} class implements an ordered map, if you
+wish to use an unordered map use `std::unordered_map`{.cpp}.
 
 A map is templated on two types, one is the key type that we use to index the
 map, the other is the value type that is stored in the map. The `std::map`
