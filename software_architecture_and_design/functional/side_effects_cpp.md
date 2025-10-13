@@ -375,11 +375,11 @@ this, any chain of combined pure functions is itself pure, so we keep all these
 benefits when we are combining functions into a larger program.
 
 **Parallelisability** is the ability for operations to be performed at the same
-*time (independently). If we know that a function is fully pure and we have got
-*a lot of data, we can often improve performance by splitting data and
-*distributing the computation across multiple processors. The output of a pure
-*function depends only on its input, so we will get the right result regardless
-\*of when or where the code runs.
+time (independently). If we know that a function is fully pure and we have got
+a lot of data, we can often improve performance by splitting data and
+distributing the computation across multiple processors. The output of a pure
+function depends only on its input, so we will get the right result regardless
+of when or where the code runs.
 
 There are other advantageous properties that can be derived from the functional
 approach to coding. In languages which support functional programming, a
