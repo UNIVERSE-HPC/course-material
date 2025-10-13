@@ -164,7 +164,7 @@ void increment_x(int& x) {
 
 Conway's Game of Life is a popular cellular automaton that simulates the
 evolution of a two-dimensional grid of cells. In this exercise, you will
-refactor a Python program that implements Conway's Game of Life. The basic rules of the game of life are:
+refactor a C++ program that implements Conway's Game of Life. The basic rules of the game of life are:
 
 1. Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
 1. Any live cell with two or three live neighbours lives on to the next generation.
