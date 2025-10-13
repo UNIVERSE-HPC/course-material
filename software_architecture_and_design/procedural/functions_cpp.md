@@ -22,7 +22,7 @@ attribution:
 
 # Functions
 
-The _function_ (aka _procedure_) is a one of the defining aspects of proceedural programming. It
+The _function_ (aka _procedure_) is a one of the defining aspects of procedural programming. It
 allows you to package up some code defining a particular operation into a
 re-useable _function_ can can take zero or more _arguments_ and (optionally)
 _return_ a value.
