@@ -96,7 +96,7 @@ Just now, we have used `vector` and `string`, both of which are classes.
 - [std::vector documentation on C++ reference](https://en.cppreference.com/w/cpp/container/vector)
 - [std::string documentation on C++ reference](https://en.cppreference.com/w/cpp/string/basic_string)
 
-Vecotrs and strings contain many of the attributes that are common to classes:
+Vectors and strings contain many of the attributes that are common to classes:
 
 - They each hold some data (**attributes** or **state**).
 - They also provide some methods used to interact with the data - what can the data do and what can we do to the data?
