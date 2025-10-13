@@ -509,8 +509,8 @@ is most useful for holding a collection of useful variables, or returning
 multiple values from a function.
 
 ```cpp
-std::tuple<std::string, int, std::string> y = {'Apple', 1, 'Cherry'};
-auto fruits = sdt::make_tuple(3.14, 2, 'Cherry');
+std::tuple<std::string, int, std::string> y = {"Apple", 1, "Cherry"};
+auto fruits = std::make_tuple(3.14, 2, "Cherry");
 ```
 
 Values can be obtained from a tuple via _destructuring_. For C++17 and onwards, the syntax is
