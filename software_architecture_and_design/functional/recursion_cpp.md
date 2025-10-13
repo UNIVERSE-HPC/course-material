@@ -85,9 +85,9 @@ int main() {
   //  1  *
   //    / \
   //   2   3
-  Node t = Node('+', { Node(1),
-                       Node('*', { Node(2),
-                                   Node(3)
+  Node t = Node('+', { Node(1, {}),
+                       Node('*', { Node(2, {}),
+                                   Node(3, {})
                                  })
                      }
                );
