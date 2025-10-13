@@ -212,7 +212,7 @@ public:
 ::::
 :::::
 
-After writing the three classes `Position`, `Character` and `Item`, we can re-write all of our data that we originally had has:
+After writing the three classes `Position`, `Character` and `Item`, we can re-write all of our data that we originally had as:
 
 ```cpp
 std::vector<Character> characters;
