@@ -86,7 +86,7 @@ Note that every value in a vector must be of the same type, and this must match 
 that the `std::vector` is templated on.
 
 We can select individual elements from vectors by indexing them. Looking at our `odds`
-list:
+vector:
 
 ![index-list](./fig/05-index-list-odd.png)
 
@@ -96,14 +96,14 @@ For example:
 std::cout << odds[0] << ' ' << odds[odds.size() - 1] << std::endl;
 ```
 
-This will print the first and last elements of a list:
+This will print the first and last elements of a vector:
 
 ```text
 1 15
 ```
 
-We can replace elements within a specific part of the list (note that in C++, indexes
-start at 0):
+We can replace elements within a specific part of the vector (note that in C++,
+indexes start at 0):
 
 ```cpp
 odds[6] = 13;
