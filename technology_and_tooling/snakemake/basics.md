@@ -325,7 +325,7 @@ Having three steps already, it is a good time to take a closer look at
 the resulting directed acyclic graph (DAG) of jobs. By executing
 
 ```console
-snakemake --dag sorted_reads/{A,B}.bam.bai | dot -Tsvg > dag.svg
+snakemake --dag dot sorted_reads/{A,B}.bam.bai | dot -Tsvg > dag.svg
 ```
 
 :::callout
