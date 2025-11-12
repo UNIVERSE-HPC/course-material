@@ -86,24 +86,24 @@ Note that every value in a vector must be of the same type, and this must match 
 that the `std::vector` is templated on.
 
 We can select individual elements from vectors by indexing them. Looking at our `odds`
-list:
+vector:
 
 ![index-list](./fig/05-index-list-odd.png)
 
 For example:
 
 ```cpp
-std::cout << odds[0] << ' ' << odds[-1] << std::end;
+std::cout << odds[0] << ' ' << odds[odds.size() - 1] << std::endl;
 ```
 
-This will print the first and last elements of a list:
+This will print the first and last elements of a vector:
 
 ```text
 1 15
 ```
 
-We can replace elements within a specific part of the list (note that in C++, indexes
-start at 0):
+We can replace elements within a specific part of the vector (note that in C++,
+indexes start at 0):
 
 ```cpp
 odds[6] = 13;
@@ -131,7 +131,7 @@ over that container.
 ```cpp
 for (std::vector<double>::iterator i = x.begin();
      i != x.end(); ++i) {
-   std:cout << *i << std::endl;
+   std::cout << *i << std::endl;
 }
 ```
 
@@ -145,7 +145,7 @@ correct type (i.e. what is returned from `x.begin()`{.Cpp}:
 ```cpp
 for (auto i = x.begin(); i != x.end(); ++i)
 {
-   std:cout << *i << std::endl;
+   std::cout << *i << std::endl;
 }
 ```
 
@@ -156,7 +156,7 @@ syntax, and work with any container that has `begin` and `end` methods.
 std::vector<double> x = {1.0, 2.0, 3.0, 4.0};
 for (double i: x)
 {
-   std:cout << i << std::endl;
+   std::cout << i << std::endl;
 }
 ```
 
@@ -165,7 +165,7 @@ You can also use `auto`{.Cpp} here to simplify things...
 ```cpp
 for (auto i: x)
 {
-   std:cout << i << std::endl;
+   std::cout << i << std::endl;
 }
 ```
 
@@ -462,9 +462,9 @@ first element in water is hydrogen
 
 The standard map class in C++ is `std::map`{.cpp}
 
-This is also known as an "associative array", "dictionary" or "hash" in other
-languages. The `std::map`{.cpp} class implements an ordered map, if you wish to
-use an unordered map use `std::unordered_map`{.cpp}.
+This is also known as an "associative array", "dictionary" or "hashmap" in
+other languages. The `std::map`{.cpp} class implements an ordered map, if you
+wish to use an unordered map use `std::unordered_map`{.cpp}.
 
 A map is templated on two types, one is the key type that we use to index the
 map, the other is the value type that is stored in the map. The `std::map`
@@ -476,20 +476,20 @@ we can store and access the populations of various UK cities like so:
 
 //...
 
-std::map<std::string, size_t>> populations = {
-  {"Liverpool": 467995},
-  {"Edinburgh": 448850},
-  {"Manchester": 430818}
-}
+std::map<std::string, size_t> populations = {
+  {"Liverpool", 467995},
+  {"Edinburgh", 448850},
+  {"Manchester", 430818}
+};
 
 populations.insert({"Oxford", 137343});
 
-for (const auto& [key, value] : m) {
+for (const auto& [key, value] : populations) {
   std::cout << '[' << key << "] = " << value << "; ";
 }
 std::cout << std::endl;
 
-const auto key = "Liverpool"s;
+const auto key = "Liverpool";
 std::cout << "The population of " << key << " is " << populations[key] << std::endl;
 ```
 
@@ -509,8 +509,8 @@ is most useful for holding a collection of useful variables, or returning
 multiple values from a function.
 
 ```cpp
-std::tuple<std::string, int, std::string> y = {'Apple', 1, 'Cherry'};
-auto fruits = sdt::make_tuple(3.14, 2, 'Cherry');
+std::tuple<std::string, int, std::string> y = {"Apple", 1, "Cherry"};
+auto fruits = std::make_tuple(3.14, 2, "Cherry");
 ```
 
 Values can be obtained from a tuple via _destructuring_. For C++17 and onwards, the syntax is
