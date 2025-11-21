@@ -1,23 +1,21 @@
 ---
 name: Comparing the Two Approaches
-dependsOn: [
-    high_performance_computing.parallel_computers.02_connecting
-]
+dependsOn: [high_performance_computing.parallel_computers.02_connecting]
 tags: [foundation]
-attribution: 
-    - citation: >
-        "Introduction to HPC" course by EPCC.
-        This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
-      url: https://epcced.github.io/Intro-to-HPC/
-      image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Introduction to HPC" course by EPCC.
+      This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
+    url: https://epcced.github.io/Intro-to-HPC/
+    image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
+    license: CC-BY-4.0
 ---
 
 # Comparing the two approaches
 
 ## Looking inside your laptop
 
-::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_n0hr4o3o&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_jmzabt32" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Inside_your_laptop_hd"}
+::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_n0hr4o3o&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_jmzabt32" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay _; fullscreen _; encrypted-media \*" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Inside_your_laptop_hd"}
 ::::
 
 :::solution{title="Transcript"}
@@ -45,7 +43,7 @@ In this video David deconstructs a laptop so that we can compare its packaging t
 
 ## How similar is your laptop to a node of a supercomputer?
 
-::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_6cbiby53&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_izkgvgep" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Laptop_V_node_hd"}
+::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_6cbiby53&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_izkgvgep" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay _; fullscreen _; encrypted-media \*" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Laptop_V_node_hd"}
 ::::
 
 :::solution{title="Transcript"}
@@ -75,15 +73,15 @@ Do you remember this diagram?
 Having watched the above video, how would you modify it to make it more accurate?
 
 ![HECToR Artist’s impression of the HECToR XT4 system ](images/hero_dcac5759-2efe-4f9f-a6a7-f439ef43840c.jpg)
-*© Cray Inc*
+_© Cray Inc_
 
 ![HECToR's compute blades](images/hero_cbe27959-b81d-41c1-8d00-9c7fc44d34e9.jpg)
-*HECToR's compute blades*
+_HECToR's compute blades_
 
 ---
 
 ![Photo of balancing scales](images/piret-ilver-98MbUldcDJY-unsplash.jpg)
-*Image courtesy of [Piret Llver](https://unsplash.com/@saltsup) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Piret Llver](https://unsplash.com/@saltsup) from [Unsplash](https://unsplash.com)_
 
 ## Shared memory vs Distributed memory
 
@@ -109,7 +107,7 @@ These are the two architectures used today. Do you think there is any alternativ
 ---
 
 ![Photo of car lights at night, long exposure](images/julian-hochgesang-3-y9vq8uoxk-unsplash.jpg)
-*Image courtesy of [Julian Hochgesang](https://unsplash.com/@julianhochgesang) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Julian Hochgesang](https://unsplash.com/@julianhochgesang) from [Unsplash](https://unsplash.com)_
 
 ## What limits the speed of a supercomputer?
 
@@ -172,7 +170,7 @@ Large internet companies like Amazon and Google also use distributed memory arch
 ---
 
 ![Photo of someone playing a modern computer game](images/florian-olivo-Mf23RF8xArY-unsplash.jpg)
-*Image courtesy of [Florian Olivo](https://unsplash.com/@florianolv) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Florian Olivo](https://unsplash.com/@florianolv) from [Unsplash](https://unsplash.com)_
 
 ## Graphics Processors
 
@@ -216,7 +214,7 @@ Earlier we asked you to look at Piz Daint, which is accelerated compared to ARCH
 
 ::::challenge{id=pc_comparison.1 title="Comparing the Two Approaches Q1"}
 One of the differences between the shared and distributed memory architectures is that shared-memory systems are managed by only one
-____ ____, whereas distributed memory systems have many of them (typically one per node).
+\_**\_ \_\_**, whereas distributed memory systems have many of them (typically one per node).
 
 :::solution
 operating system
@@ -224,10 +222,10 @@ operating system
 ::::
 
 ::::challenge{id=pc_comparison.2 title="Comparing the Two Approaches Q2"}
-The two basic measures characterising the memory and network performance are: ____
-and ____ .
-____ is the rate at which you transfer large amounts of data.
-____ is the minimum time taken to do anything at all, i.e. the time taken to transfer a single byte.
+The two basic measures characterising the memory and network performance are: \_**\_
+and \_\_** .
+\_**\_ is the rate at which you transfer large amounts of data.
+\_\_** is the minimum time taken to do anything at all, i.e. the time taken to transfer a single byte.
 
 :::solution
 A) bandwidth
@@ -239,7 +237,7 @@ D) latency
 
 ::::challenge{id=pc_comparison.3 title="Comparing the Two Approaches Q3"}
 In the distributed memory architecture, the only way that two nodes can interact with each other is by communicating over the
-____. In the shared memory architecture, different CPU-cores can communicate with each other by updating the same ____ location.
+\_**\_. In the shared memory architecture, different CPU-cores can communicate with each other by updating the same \_\_** location.
 
 :::solution
 A) network
@@ -250,7 +248,7 @@ B) memory
 ---
 
 ![Photo of child playing with building blocks](images/kelly-sikkema-JRVxgAkzIsM-unsplash.jpg)
-*Image courtesy of [Kelly Sikkema](https://unsplash.com/@kellysikkema) from [Unsplash](https://unsplash.com)*
+_Image courtesy of [Kelly Sikkema](https://unsplash.com/@kellysikkema) from [Unsplash](https://unsplash.com)_
 
 ## Game: Build your own supercomputer
 

@@ -8,17 +8,17 @@ learningOutcomes:
   - Describe different parallel paradigms, including data parallelism and message passing.
   - Differentiate between sequential and parallel computing.
   - Explain the roles of processes and threads in parallel programming.
-attribution: 
-    - citation: >
-        "Introduction to the Message Passing Interface" course by the Southampton RSG
-      url: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/
-      image: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/assets/img/home-logo.png
-      license: CC-BY-4.0
+attribution:
+  - citation: >
+      "Introduction to the Message Passing Interface" course by the Southampton RSG
+    url: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/
+    image: https://southampton-rsg-training.github.io/dirac-intro-to-mpi/assets/img/home-logo.png
+    license: CC-BY-4.0
 ---
 
 Parallel programming has been important to scientific computing for decades as a way to decrease program run times, making more complex analyses possible (e.g. climate modeling, gene sequencing, pharmaceutical development, aircraft design).
 
-In this episode, we will cover the foundational concepts of parallelisation. Before we get into the details of parallel programming libraries and techniques, let's first familiarise ourselves with the key ideas that  underpin parallel computing.
+In this episode, we will cover the foundational concepts of parallelisation. Before we get into the details of parallel programming libraries and techniques, let's first familiarise ourselves with the key ideas that underpin parallel computing.
 
 ## What is Parallelisation?
 
@@ -41,7 +41,7 @@ In contrast, with parallel computing we will now be dealing with multiple CPU co
 This can allow us to do much more at once, and therefore get results more quickly than if only running an equivalent sequential program. The act of changing sequential code to parallel code is called parallelisation.
 
 | **Sequential Computing**                  | **Parallel Computing**                       |
-|-------------------------------------------|----------------------------------------------|
+| ----------------------------------------- | -------------------------------------------- |
 | ![Serial Computing](fig/serial2_prog.png) | ![Parallel Computing](fig/parallel_prog.png) |
 
 ::::callout{variant="tip"}
@@ -81,7 +81,7 @@ Now, imagine having two or more CPU cores. Suddenly, you have several new factor
 3. How do we divide and distribute the computational tasks among these cores? Ensuring a balanced workload distribution is essential for optimal performance.
 4. Communication between cores becomes a crucial consideration. How will the cores exchange data and synchronize their operations? Effective communication mechanisms must be established.
 5. After completing the tasks, where should the final results be stored? Should they reside in the storage of Core 1, Core 2, or a central storage accessible to both? Additionally, which core
-  is responsible for displaying output on the screen?
+   is responsible for displaying output on the screen?
 
 These considerations highlight the interplay between parallel programming and memory.
 To efficiently utilize multiple CPU cores, we need to understand the concepts of processes and threads, as well as different memory models—shared memory and distributed memory.
@@ -101,7 +101,7 @@ As a result, data within one process remains isolated and cannot be directly acc
 In parallel programming, the objective is to achieve parallel execution by simultaneously running coordinated processes.
 This naturally introduces the need for communication and data sharing among them.
 To facilitate this, parallel programming models like MPI come into effect.
-MPI provides a comprehensive set of libraries, tools, and methodologies that enable processes to exchange messages, coordinate actions, and share data,  enabling parallel execution across a cluster or network of machines.
+MPI provides a comprehensive set of libraries, tools, and methodologies that enable processes to exchange messages, coordinate actions, and share data, enabling parallel execution across a cluster or network of machines.
 ![Processes](fig/multiprocess.svg)
 
 ## Threads
@@ -154,7 +154,7 @@ Distributed memory programming models, such as MPI, facilitate communication and
 - **Scalability:** Shared memory systems are typically limited to a single computer or node, whereas distributed memory systems can scale to larger configurations with multiple computers and nodes.
 - **Programming Complexity:** Shared memory programming models offer simpler constructs and require less explicit communication compared to distributed memory models.
   Distributed memory programming involves explicit data communication and synchronization, adding complexity to the programming process.
-  
+
 ::::callout{variant="tip"}
 
 Imagine that all workers have to obtain their paint form a central dispenser located at the middle of the room.
@@ -182,7 +182,7 @@ For the different dispensers case for your workers, however, think of the memory
 ## MPI vs OpenMP: What is the difference?
 
 | MPI                                                                                                                                                                                             | OpenMP                                                                                                                                                                                                             |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Defines an API, vendors provide an optimized (usually binary) library implementation that is linked using your choice of compiler.                                                              | OpenMP is integrated into the compiler (e.g., gcc) and does not offer much flexibility in terms of changing compilers or operating systems unless there is an OpenMP compiler available for the specific platform. |
 | Offers support for C, Fortran, and other languages, making it relatively easy to port code by developing a wrapper API interface for a pre-compiled MPI implementation in a different language. | Primarily supports C, C++, and Fortran, with limited options for other programming languages.                                                                                                                      |
 | Suitable for both distributed memory and shared memory (e.g., SMP) systems, allowing for parallelization across multiple nodes.                                                                 | Designed for shared memory systems and cannot be used for parallelization across multiple computers.                                                                                                               |
@@ -197,9 +197,9 @@ Thinking back to shared vs distributed memory models, how to achieve a parallel 
 Let's set both of these in context:
 
 1. In a shared memory model, a _**data parallelism**_ paradigm is typically used, as employed by OpenMP: the same operations are performed simultaneously on data that is _shared_ across each parallel operation.
-  Parallelism is achieved by how much of the data a single operation can act on.
+   Parallelism is achieved by how much of the data a single operation can act on.
 2. In a distributed memory model, a _**message passing**_ paradigm is used, as employed by MPI: each CPU (or core) runs an independent program.
-  Parallelism is achieved by _receiving data_ which it doesn't have, conducting some operations on this data, and _sending data_ which it has.
+   Parallelism is achieved by _receiving data_ which it doesn't have, conducting some operations on this data, and _sending data_ which it has.
 
 This division is mainly due to historical development of parallel architectures: the first one follows from shared memory architecture like SMP (Shared Memory Processors) and the second from distributed computer architecture.
 A familiar example of the shared memory architecture is GPU (or multi-core CPU) architecture, and an example of the distributed computing architecture is a cluster of distributed computers.
@@ -252,7 +252,7 @@ for(i=0; i<m; i++) {
 
 - Other than changing the number of loops from `N` to `m`, the code is exactly the same.
 - `m` is the reduced number of loops each core needs to do (if there are `N` cores, `m` is 1 (=`N`/`N`)).
-  
+
 But the parallelization by message passing is not complete yet.
 In the message passing paradigm, each core operates independently of the other cores.
 So each core needs to be sent the correct data to compute, which then returns the output from that computation.
@@ -278,7 +278,7 @@ if(this_core==0) {
 
 ## Summary
 
- In the end, both data parallelism and message passing logically achieve the following:
+In the end, both data parallelism and message passing logically achieve the following:
 
 ![Each rank has its own data](fig/dataparallel.png)
 

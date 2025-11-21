@@ -291,14 +291,10 @@ This follows a different programming paradigm known as _object-orientated_ progr
 We won't cover OO much in this course, but since many useful standard types in C++ are defined as classes in the C++ standard library you need to be aware how to use classes in C++.
 If you wish to learn more about this paradigm; [we have a full course on using object-orientated programming in C++ here](../object_orientated)
 
-A string in C++ typically uses the `std::string` class. Here `std::string`
-indicates the `string` class that is defined in the `std` namespace. Namespaces
-are a way to group together a number of related functions, types and classes in
-such a way that their names do not conflict with functions/types/classes in
-other namespaces. E.g. `std::string` refers to a different class than
-`my_namespace::string`. The `std::string` class is defined in the `string`
-header file, so before we use it we need to _include_ this header in our source
-file (at the top of the file above our `main` function):
+A string in C++ typically uses the `std::string` class. Here `std::string` indicates the `string` class that is defined in the `std` namespace.
+Namespaces are a way to group together a number of related functions, types and classes in such a way that their names do not conflict with functions/types/classes in other namespaces.
+E.g. `std::string` refers to a different class than `my_namespace::string`.
+The `std::string` class is defined in the `string` header file, so before we use it we need to _include_ this header in our source file (at the top of the file above our `main` function):
 
 ```cpp
 #include <iostream>
@@ -317,21 +313,17 @@ int main() {
 Joe Frederick 'Bloggs'
 ```
 
-As with strings in Python, we can use the `+` operator to concatenate two C++
-strings together. However, we can only use double quotes for strings in C++, as
-single quotes are reserved for characters. To include the single quotes in our
-string, we use the backslash to _escape_ the normal meaning of the single quote
-character.
+As with strings in Python, we can use the `+` operator to concatenate two C++ strings together.
+However, we can only use double quotes for strings in C++, as single quotes are reserved for characters.
+To include the single quotes in our string, we use the backslash to _escape_ the normal meaning of the single quote character.
 
 ## References
 
-Previously we explained that variables in Python are only labels for a "box", or
-section of memory, that holds a value. You can therefore have multiple labels
-for the same box. In C++ a variables is the box itself, each variables is
-assigned a given section of memory where the value is stored according to its
-type. You can obtain the address, or _pointer_, to the start of this section of
-memory by using the _address-of_ operator `&`. We can obtain the original
-variable by using the _dereferencing_ operator `*`.
+Previously we explained that variables in Python are only labels for a "box", or section of memory, that holds a value.
+You can therefore have multiple labels for the same box.
+In C++ a variables is the box itself, each variables is assigned a given section of memory where the value is stored according to its type.
+You can obtain the address, or _pointer_, to the start of this section of memory by using the _address-of_ operator `&`.
+We can obtain the original variable by using the _dereferencing_ operator `*`.
 
 ```cpp
 int *p_six = &six;
