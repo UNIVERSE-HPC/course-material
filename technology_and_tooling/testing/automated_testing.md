@@ -85,7 +85,7 @@ wget https://train.oxrse.uk/material/HPCu/software_architecture_and_design/proce
 Or, if on a Mac, do:
 
 ```bash
-curl -O https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation.zip
+curl -LO https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation.zip
 ```
 
 Once done, you can unzip this file using the `unzip` command in Bash, which will unpack all the files
