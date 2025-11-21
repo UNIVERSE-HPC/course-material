@@ -75,7 +75,9 @@ a = pybamm.Parameter("a")
 
 The name of the parameter is used to identify it in the model, the name of the Python variable you assign it to is arbitrary.
 
-You can also define a parameter that is defined as a function using the [`pybamm.FunctionParameter`](ihttps://docs.pybamm.org/en/stable/source/api/expression_tree/parameter.html#pybamm.FunctionParameter) class, which is useful for time varying parameters such as the current, or functions like the OCV function parameters $U_p(x_p)$ and $U_n(x_n)$, which are both functions of the stoichiometries $x_p$ and $x_n$. For example, to define a parameter that is a function of time, you would write
+You can also define a parameter that is defined as a function using the [`pybamm.FunctionParameter`](https://docs.pybamm.org/en/stable/source/api/expression_tree/parameter.html#pybamm.FunctionParameter) class.
+This is useful for time varying parameters such as the current, or functions like the OCV function parameters $U_p(x_p)$ and $U_n(x_n)$, which are both functions of the stoichiometries $x_p$ and $x_n$.
+For example, to define a parameter that is a function of time, you would write
 
 ```python
 P = pybamm.FunctionParameter("Your parameter name here", {"Time [s]": pybamm.t})

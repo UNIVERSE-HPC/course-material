@@ -26,10 +26,11 @@ Therefore, it's really helpful to understand how well our code *scales* in perfo
 
 ::::callout{variant="note"}
 
-## Prerequisite: [Intro to High Performance Computing](../hpc_intro/01_hpc_intro)
+## Prerequisite
 
-Whilst the previous episodes can be done on a laptop or desktop, this episode covers how to profile your code using tools
-that are only available on an HPC cluster.
+[Intro to High Performance Computing](../hpc_intro/01_hpc_intro)
+
+Whilst previous lessons can be done on a laptop or desktop, this episode covers how to profile your code using tools that are only available on an HPC cluster.
 ::::
 
 ## Characterising the Scalability of Code

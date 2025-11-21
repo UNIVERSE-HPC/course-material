@@ -25,7 +25,7 @@ summary: |
 
 This tutorial introduces the text-based workflow system
 [Snakemake](https://snakemake.readthedocs.io). Snakemake follows the
-[GNU Make](https://www.gnu.org/software/make) paradigm: workflows are
+[GNU Make](https://en.wikipedia.org/wiki/Make_(software)) paradigm: workflows are
 defined in terms of rules that define how to create output files from
 input files. Dependencies between the rules are determined
 automatically, creating a DAG (directed acyclic graph) of jobs that can

@@ -414,12 +414,12 @@ This is usually given by the library vendor.
 
 ## Breakout time
 
-Look at Checkpoint 3. A new file `src/functionality_eigen.cpp` depends on the [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) library for linear algebra.
+Look at Checkpoint 3. A new file `src/functionality_eigen.cpp` depends on the [Eigen](https://libeigen.gitlab.io/) library for linear algebra.
 
 Task: Using `find_package`{.cmake}, modify the `CMakeLists.txt` in directory `src/` to
 link target `cmake_course_lib`{.cmake} against Eigen.
 
-_Hint: Useful instructions can be found at [Using Eigen in CMake Projects](http://eigen.tuxfamily.org/dox/TopicCMakeGuide.html)._
+_Hint: Useful instructions can be found at [Using Eigen in CMake Projects](https://libeigen.gitlab.io/eigen/docs-5.0/TopicCMakeGuide.html)._
 
 Note that keyword `NO_MODULE`{.cmake} is equivalent to `CONFIG`{.cmake}.
 
