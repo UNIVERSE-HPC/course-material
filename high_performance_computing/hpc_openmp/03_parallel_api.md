@@ -12,10 +12,9 @@ learningOutcomes:
   - Assess the impact of scheduling behaviors on program execution.
 ---
 
-
 ## Using OpenMP in a Program
 
-As we introduced in the last episode,
+As we previously introduced:
 OpenMP directives are special comments indicated by `#pragma omp` statements that guide the compiler in creating parallel code.
 They mark sections of code to be executed concurrently by multiple threads.
 At a high level, the C/C++ syntax for pragma directives is as follows:
@@ -25,23 +24,21 @@ At a high level, the C/C++ syntax for pragma directives is as follows:
 ```
 
 Following a directive are multiple optional clauses, which are themselves C expressions and may contain other clauses,
-with any arguments to both directives and clauses enclosed in parentheses and separated by commas. For example:
+with any arguments to both directives and clauses enclosed in parentheses and separated by commas.
+For example:
 
 ```c
 #pragma omp a-directive a-clause(argument1, argument2)
 ```
 
-OpenMP offers a number of directives for parallelisation, although the two we'll focus on in this episode are:
+OpenMP offers a number of directives for parallelisation, although the two we'll focus on are:
 
 - The `#pragma omp parallel` directive specifies a block of code for concurrent execution.
 - The `#pragma omp for` directive parallelizes loops by distributing loop iterations among threads.
 
 ## Our First Parallelisation
 
-For example, amending our previous example,
-in the following we specify a specific block of code to run parallel threads,
-using the OpenMP runtime routine `omp_get_thread_num()` to return
-the unique identifier of the calling thread:
+For example, amending our previous example, in the following we specify a specific block of code to run parallel threads, using the OpenMP runtime routine, `omp_get_thread_num()`, to return the unique identifier of the calling thread:
 
 ```c
 #include <stdio.h>
@@ -76,7 +73,7 @@ and OpenMP has a number of mechanisms to indicate how they should be handled.
 Essentially, OpenMP provides two ways to do this for variables:
 
 - **Shared**: A single instance of the variable is shared among all threads, meaning every thread can access
-and modify the same data. This is useful for shared resources but requires careful management to prevent conflicts or unintended behavior.
+  and modify the same data. This is useful for shared resources but requires careful management to prevent conflicts or unintended behavior.
 - **Private**: Each thread gets its own isolated copy of the variable, similar to how variables are private in `if` statements or functions, where each thread’s version is independent and doesn't affect others.
 
 For example, what if we wanted to hold the thread ID and the total number of threads within variables in the code block?
@@ -125,13 +122,13 @@ But what about declarations outside of this block? For example:
 
 Which may seem on the surface to be correct.
 However, this illustrates a critical point about why we need to be careful.
-Now, since the variable declarations are outside the parallel block, they are, by default, *shared* across threads. This means any thread can modify these variables at any time,
+Now, since the variable declarations are outside the parallel block, they are, by default, _shared_ across threads. This means any thread can modify these variables at any time,
 which is potentially dangerous. So here, `thread_id` may hold the value for another thread identifier when it's printed,
 since there is an opportunity between its assignment and its access within `printf` to be changed in another thread.
 This could be particularly problematic with a much larger data set and complex processing of that data,
 where it might not be obvious that incorrect behaviour has happened at all,
 and lead to incorrect results.
-This is known as a *race condition*, and we'll look into them in more detail in the next episode.
+This is known as a _race condition_, and we'll look into them in more detail in the next episode.
 
 But there’s another common scenario to watch out for. What happens when we want to declare a variable outside the parallel region, make it private, and retain its initial value inside the block? Let’s consider the following example:
 
@@ -194,7 +191,7 @@ Hello from thread 2 out of 4
 
 ::::
 
-But with our code, this makes variables potentially *unsafe*, since within a single thread,
+But with our code, this makes variables potentially _unsafe_, since within a single thread,
 we are unable to guarantee their expected value.
 One approach to ensuring we don't do this accidentally is to specify that there is no default behaviour for variable
 classification.
@@ -206,7 +203,7 @@ We can do this by changing our directive to:
 
 Now if we recompile, we'll get an error mentioning that these variables aren't specified for use within the parallel region:
 
-```text
+``````````````````````text
 hello_world_omp.c: In function 'main':
 hello_world_omp.c:10:21: error: 'num_threads' not specified in enclosing 'parallel'
    10 |         num_threads = omp_get_num_threads();
@@ -220,7 +217,7 @@ hello_world_omp.c:11:19: error: 'thread_id' not specified in enclosing 'parallel
 hello_world_omp.c:8:13: note: enclosing 'parallel'
     8 |     #pragma omp parallel default(none)
       |             ^~~
-```
+``````````````````````
 
 So we now need to be explicit in every case for which variables are accessible within the block,
 and whether they're private or shared:
@@ -241,9 +238,9 @@ which builds on the use of directives we've learned so far.
 ```c
     ...
     int num_threads, thread_id;
-    
+
     omp_set_num_threads(4);
-    
+
     #pragma omp parallel for default(none) private(num_threads, thread_id)
     for (int i = 1; i <= 10; i++)
     {
@@ -264,7 +261,7 @@ and how to specify different scheduling behaviours.
 ## Nested Loops with `collapse`
 
 By default, OpenMP parallelises only the outermost loop in a nested structure. This works fine for many cases,
-but what if the outer loop doesn’t have enough iterations to keep all threads busy, or the inner loop does most of the work?  In these situations, we can use the `collapse` clause to combine the iteration
+but what if the outer loop doesn’t have enough iterations to keep all threads busy, or the inner loop does most of the work? In these situations, we can use the `collapse` clause to combine the iteration
 spaces of multiple loops into a single loop for parallel execution.
 
 For example, consider a nested loop structure:
@@ -308,7 +305,7 @@ For example:
 ```c
 #pragma omp parallel
 {
-    #pragma omp for     
+    #pragma omp for
     for (int i = 1; i <=10; i++)
     {
         ...
@@ -396,13 +393,13 @@ for (int i = 0; i < NUM_ITERATIONS; ++i) {
 
 `schedule` takes two arguments: the name of the scheduler and an optional argument.
 
-| Scheduler | Description | Argument |  Uses |
-| - | - | - | - |
-| **static** | The work is divided into equal-sized chunks, and each thread is assigned a chunk to work on at compile time. | The chunk size to use (default: divides iterations into chunks of approx. equal size). | Best used when the workload is balanced across threads, where each iteration takes roughly the same amount of time. |
-| **dynamic** | The work is divided into lots of small chunks, and each thread is dynamically assigned a new chunk with it finishes its current work. | The chunk size to use (default: 1). |  Useful for loops with a workload imbalance, or variable execution time per iteration. |
-| **guided** |  The chunk sizes start large and decreases in size gradually. | The smallest chunk size to use (default: 1). | Most useful when the workload is unpredictable, as the scheduler can adapt the chunk size to adjust for any imbalance. |
-| **auto** | The best choice of scheduling is chosen at run time. | - | Useful in all cases, but can introduce additional overheads whilst it decides which scheduler to use. |
-| **runtime** | Determined at runtime by the `OMP_SCHEDULE` environment variable or `omp_schedule` pragma. | - | - |
+| Scheduler   | Description                                                                                                                           | Argument                                                                               | Uses                                                                                                                   |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **static**  | The work is divided into equal-sized chunks, and each thread is assigned a chunk to work on at compile time.                          | The chunk size to use (default: divides iterations into chunks of approx. equal size). | Best used when the workload is balanced across threads, where each iteration takes roughly the same amount of time.    |
+| **dynamic** | The work is divided into lots of small chunks, and each thread is dynamically assigned a new chunk with it finishes its current work. | The chunk size to use (default: 1).                                                    | Useful for loops with a workload imbalance, or variable execution time per iteration.                                  |
+| **guided**  | The chunk sizes start large and decreases in size gradually.                                                                          | The smallest chunk size to use (default: 1).                                           | Most useful when the workload is unpredictable, as the scheduler can adapt the chunk size to adjust for any imbalance. |
+| **auto**    | The best choice of scheduling is chosen at run time.                                                                                  | -                                                                                      | Useful in all cases, but can introduce additional overheads whilst it decides which scheduler to use.                  |
+| **runtime** | Determined at runtime by the `OMP_SCHEDULE` environment variable or `omp_schedule` pragma.                                            | -                                                                                      | -                                                                                                                      |
 
 :::callout
 
