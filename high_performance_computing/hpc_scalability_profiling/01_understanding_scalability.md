@@ -33,12 +33,10 @@ Once we understand these scaling profiles for our code, we'll have an idea of th
 
 As a developer, if your code happens to take too long to run or scales badly it's tempting to dive in and try to optimise it straight away. But before you do, consider the following [rules of optimisation](https://hackernoon.com/the-rules-of-optimization-why-so-many-performance-efforts-fail-cf06aad89099):
 
-1.  Don't,
-1.  Don't... _yet_, and,
-
-        Another rule is sometimes added:
-
-1.  If you must optimise your code, _profile_ it first.
+1. Don't,
+1. Don't... _yet_, and,
+   Another rule is sometimes added:
+1. If you must optimise your code, _profile_ it first.
 
 In non-trivial cases premature optimisation is regarded as bad practice, since optimisation may lead to additional code complexity, incorrect results and reduced readability, making the code harder to understand and maintain. It is often effort-intensive, and difficult at a low level, particularly with modern compilers and interpreters, to improve on or anticipate the optimisations they already implement. A general maxim is to focus on writing understandable code and getting things working first - the former helps with the latter. Then, once strong and weak scaling profiles have been measured, if optimisation is justified you can _profile_ your code, and work out where the majority of time is being spent and how best to optimise it. If you want to take this philosophy further, consider the [Rules of Optimisation Club](https://wiki.c2.com/?RulesOfOptimizationClub).
 
