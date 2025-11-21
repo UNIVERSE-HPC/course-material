@@ -60,7 +60,7 @@ open and free tools:
 - Ruby: [ruby-prof](https://github.com/ruby-prof/ruby-prof)
 - C/C++: [xray](https://llvm.org/docs/XRay.html),
   [perf](https://perf.wiki.kernel.org/index.php/Main_Page),
-  [gprof](https://ftp.gnu.org/old-gnu/Manuals/gprof-2.9.1/html_mono/gprof.html)
+  [gprof](https://man7.org/linux/man-pages/man1/gprof.1.html)
 - R: [profvis](https://github.com/rstudio/profvis)
 
 ::::
