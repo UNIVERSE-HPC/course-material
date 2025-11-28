@@ -68,9 +68,9 @@ Next to your repository, you should see a 'Configure' button. Click this to set 
 
 You will see a token of the form `CODECOV_TOKEN=XXXXXXXXXX`.
 This token will allow your GitHub Actions workflow to communicate with Codecov.
-It is not strictly needed if your repository is public, but let's run through the process of setting it up anway.
+It is not strictly needed if your repository is public, but let's run through the process of setting it up anyway.
 
-1. To to your repository on GitHub
+1. Go to your repository on GitHub
 1. Go to _Settings_
 1. On the left, go to _Secrets and variables_ then to _Actions_
 1. Click _New repository secret_
