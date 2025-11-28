@@ -99,7 +99,7 @@ any action that affects anything other than the value they return. A pure functi
 computational version of a mathematical function.
 
 For example: printing text, writing to a file, modifying the value of an input argument, or
-changing the value of a global variable. Functions without side affects that
+changing the value of a global variable. Functions without side effects that
 return the same data each time the same input arguments are provided are called
 _pure functions_.
 
@@ -164,7 +164,7 @@ void increment_x(int& x) {
 
 Conway's Game of Life is a popular cellular automaton that simulates the
 evolution of a two-dimensional grid of cells. In this exercise, you will
-refactor a Python program that implements Conway's Game of Life. The basic rules of the game of life are:
+refactor a C++ program that implements Conway's Game of Life. The basic rules of the game of life are:
 
 1. Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
 1. Any live cell with two or three live neighbours lives on to the next generation.
@@ -375,11 +375,11 @@ this, any chain of combined pure functions is itself pure, so we keep all these
 benefits when we are combining functions into a larger program.
 
 **Parallelisability** is the ability for operations to be performed at the same
-*time (independently). If we know that a function is fully pure and we have got
-*a lot of data, we can often improve performance by splitting data and
-*distributing the computation across multiple processors. The output of a pure
-*function depends only on its input, so we will get the right result regardless
-\*of when or where the code runs.
+time (independently). If we know that a function is fully pure and we have got
+a lot of data, we can often improve performance by splitting data and
+distributing the computation across multiple processors. The output of a pure
+function depends only on its input, so we will get the right result regardless
+of when or where the code runs.
 
 There are other advantageous properties that can be derived from the functional
 approach to coding. In languages which support functional programming, a
