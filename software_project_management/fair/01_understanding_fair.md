@@ -1,3 +1,38 @@
+---
+name: Understanding FAIR
+dependsOn: []
+tags: []
+learningOutcomes:
+  - Understand the 4 foundational principles of FAIR
+  - Be able to identify actionable items to improve the FAIRness of a project
+attribution:
+  - citation: The FAIR Guiding Principles for scientific data management and
+    stewardship
+    url: https://doi.org/10.1038/sdata.2016.18
+    image: https://media.springernature.com/full/nature-cms/uploads/product/sdata/header-87021870c315c48063927b82055c12bc.svg
+    license: CC-BY-4.0
+  - citation: GO-FAIR
+    url: https://www.go-fair.org/fair-principles/
+    image: https://www.go-fair.org/wp-content/themes/go-fair/images/logo.svg
+    license: CC-BY-4.0
+  - citation: FAIRsharing
+    url: https://fairsharing.org
+    image: https://fairsharing.org/assets/fairsharing-logo.svg
+    license: CC-BY-4.0
+  - citation: OpenAIRE
+    url: https://www.openaire.eu/how-to-make-your-data-fair
+    image: https://www.openaire.eu/templates/yootheme/cache/19/Logo_Horizontal-1910c000.webp
+    license: CC-BY-4.0
+  - citation: FAIR toolkit
+    url: https://fairtoolkit.pistoiaalliance.org
+    image: https://fairtoolkit.pistoiaalliance.org/wp-content/uploads/2020/05/FAIR-Toolkit-logo.png
+    license: CC-BY-4.0
+  - citation: How to FAIR a Danish website to guide researchers on making
+    research data more FAIR
+    url: https://doi.org/10.5281/zenodo.3712065
+    image: https://www.howtofair.dk/media/e5md4otg/htfair_logo.svg
+    license: CC-BY-4.0
+---
 ## Introduction
 
 This module aims to give you an overview of the FAIR principles for scientific
