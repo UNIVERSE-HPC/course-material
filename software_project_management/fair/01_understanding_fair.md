@@ -121,6 +121,29 @@ in detail in an upcoming module.
 - Use metadata templates from data repository or domain-specific standard to
   maximise the information you could provide.
 
+#### Check your Understanding about Findable
+
+::::challenge{id=findable-q1 title="Findable Q1"}
+Who is the Findable principle designed to help discover data, and why does this
+matter?
+::::
+
+:::solution
+The Findable principle (in fact all the FAIR principles) aims to help both
+humans and computational agents to discover data so we can leverage their
+computational power to autonomously process the data and obtain reproducible
+results.
+:::
+
+::::challenge{id=findable-q2 title="Findable Q2"}
+Why is there no universal standard about the richness of metadata?
+::::
+
+:::solution
+How much metadata you should provide depends on your scientific domain, but you
+should aim to provide as much metadata as possible.
+:::
+
 ### To be Accessible
 
 This is to provide clear instructions on how to access the data, even the
@@ -194,6 +217,31 @@ some recommendations that you can explore to make your data more 'accessible':
 - For embargoed data, include the embargo period and use repositories that
   automatically update its permission.
 
+#### Check your Understanding about Accessible
+
+::::challenge{id=accessible-q1 title="Accessible Q1"}
+Is there any conflict between open and freely available data and data that is
+'Accessible' in the context of FAIR?
+::::
+
+:::solution
+No. Data that are not open and freely available can still be considered
+'Accessible' in FAIR: as long as the procedures to access the data are clearly
+documented and both humans and computational agents can act on it, it is
+'Accessible'.
+:::
+
+::::challenge{id=accessible-q2 title="Accessible Q2"}
+Why should metadata remain accessible even when the actual data is no longer
+available?
+::::
+
+:::solution
+Metadata provide valuable information such as who conducted the research, the
+methodologies and the analysis pipeline used, and these can be a tremendous
+help for future researchers.
+:::
+
 ### To be Interoperable
 
 This is to enable data to work with other data.
@@ -242,6 +290,30 @@ source, which is useful for literature reviews and provenance purposes.
 - Document relationship extensively among data using appropriate language
   specification.
 
+#### Check your Understanding about Interoperable
+
+::::challenge{id=interoperable-q1 title="Interoperable Q1"}
+Why is it important to use controlled vocabularies rather than free text to
+describe your data?
+::::
+
+:::solution
+Free text could vary among researchers while controlled vocabularies use
+standardised terms with predefined meanings, which allow computational agents
+to process and integrate data from different sources.
+:::
+
+::::challenge{id=interoperable-q2 title="Interoperable Q2"}
+What are 'qualified references' and why are they important?
+::::
+
+:::solution
+Qualified references are well-defined connections among (meta)data that
+describe the nature of their relationship, and they are essential for
+computational agents to automatically discover related resources and establish
+provenance.
+:::
+
 ### To be Reusable
 
 This is to provide comprehensive instructions on how to properly reuse the
@@ -286,6 +358,29 @@ your data for its suitability.
 - Include basic provenance information such as the researchers (e.g. by
   persistent identifiers) and funding sources (e.g. by grant numbers).
 - Use a widely-adopted standard in your domain.
+
+#### Check your Understanding about Reusable
+
+::::challenge{id=reusable-q1 title="Reusable Q1"}
+Why is it important to include metadata that may seem unnecessary to you as the
+data creator?
+::::
+
+:::solution
+You will never know how future researchers want to use your data, so it is
+essential to include as much metadata as possible, even though it seems
+unnecessary to you, to maximise the reusability of your data.
+:::
+
+::::challenge{id=reusable-q2 title="Reusable Q2"}
+Why is provenance important for data reusability?
+::::
+
+:::solution
+Provenance is the information about the origin and history of the data, and it
+allows future researchers to assess whether the data is fit for their specific
+purpose and evaluate its quality.
+:::
 
 ## Conclusion
 
