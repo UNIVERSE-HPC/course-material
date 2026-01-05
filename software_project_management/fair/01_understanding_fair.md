@@ -6,8 +6,7 @@ learningOutcomes:
   - Understand the 4 foundational principles of FAIR
   - Be able to identify actionable items to improve the FAIRness of a project
 attribution:
-  - citation: The FAIR Guiding Principles for scientific data management and
-    stewardship
+  - citation: The FAIR Guiding Principles for scientific data management and stewardship
     url: https://doi.org/10.1038/sdata.2016.18
     image: https://media.springernature.com/full/nature-cms/uploads/product/sdata/header-87021870c315c48063927b82055c12bc.svg
     license: CC-BY-4.0
@@ -27,8 +26,7 @@ attribution:
     url: https://fairtoolkit.pistoiaalliance.org
     image: https://fairtoolkit.pistoiaalliance.org/wp-content/uploads/2020/05/FAIR-Toolkit-logo.png
     license: CC-BY-4.0
-  - citation: How to FAIR a Danish website to guide researchers on making
-    research data more FAIR
+  - citation: How to FAIR a Danish website to guide researchers on making research data more FAIR
     url: https://doi.org/10.5281/zenodo.3712065
     image: https://www.howtofair.dk/media/e5md4otg/htfair_logo.svg
     license: CC-BY-4.0
