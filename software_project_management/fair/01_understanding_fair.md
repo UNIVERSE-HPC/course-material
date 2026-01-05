@@ -69,7 +69,7 @@ FAIR is composed of 4 foundational principles:
 3. To be Interoperable
 4. To be Reusable
 
-Modern scientific research often involve handling data that far exceed the
+Modern scientific research often involves handling data that far exceed the
 processing capacity of humans in terms of their volume, throughput and
 complexity. As a result, these principles emphasise on machine-actionability by
 requiring explicit structures, i.e. not only humans can find and interpret the
