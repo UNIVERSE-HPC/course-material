@@ -89,3 +89,60 @@ consider are:
 Thinking through the above questions will help you to anticipate potential
 issues, clarify the whole research project and plan ahead so you can adhere to
 the FAIR principles in a systematic way.
+
+## Metadata
+
+Metadata is data about data and it forms a core part in the FAIR principles as
+it is metadata that can make data machine-actionable. Without sufficient and
+accurate metadata, computational agents cannot understand the data
+characteristics correctly and make use of them automatically.
+
+The line between data and metadata is not clear and again depends on context,
+for instance, the energy used to acquire an image in electron microscopy is
+metadata if the research focuses on certain features present on the image;
+however, if the research is about how the signal-to-noise ratio varies with the
+energy used, then the energy itself becomes the data.
+
+### Dublin Core
+
+Dublin Core is a simple and universal collection of vocabularies for describing
+digital assets, i.e. metadata. The wide adaptation of Dublin Core is important
+for 'To be Interoperable' in the FAIR principles.
+
+There are 15 core elements in Dublin Core and they are very generic to allow
+description of data in a wide range of scientific domain. it is usually a good
+starting point to include them as metadata:
+
+- title
+- subject
+- description
+- type
+- source
+- relation
+- coverage
+- creator
+- publisher
+- contributor
+- rights
+- date
+- format
+- identifier
+- language
+
+You are recommended to look at [the specification](https://www.dublincore.org/specifications/dublin-core/dces/)
+for the above fields. All of the above fields are optional and repeatable, e.g.
+'language' is not applicable if the data is an image; 'contributor' can be
+repeated if there are more than one.
+
+### Choosing a Metadata Standard
+
+While Dublin Core is one of the most popular metadata standard, we often
+require some extensions for our research project. Across different domains,
+there are a lot of metadata standards in the community and it is important to
+select one that is appropriate to your scientific domain and the research
+project. Below are some places that could help you to explore metadata
+standards in your domain:
+
+- [Digital Curation Centre](https://www.dcc.ac.uk/guidance/standards/metadata)
+- [RDA Metadata Standards Catalog](https://rdamsc.bath.ac.uk)
+- [FAIRsharing](https://fairsharing.org/search?fairsharingRegistry=Standard)
