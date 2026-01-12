@@ -44,6 +44,24 @@ data while a geochemist only considers the chemical composition of the rock as
 data. It is thus crucial for researchers to identify precisely what entities
 should be considered as data in their project.
 
+::::challenge{id=data-q1 title="Data Q1"}
+You are starting a new research project studying bird migration patterns. What
+might count as 'data' in the project?
+::::
+
+:::solution
+- Date and time of sighting
+- Location records (e.g. GPS information from tracking devices)
+- Species identification
+- Photos at specific locations
+- Biological measurements (e.g. weights, age)
+
+It is important to remember what count as data depends on the context, for
+example, if you are studying how weather affects the migration route, the
+weather conditions (e.g. temperature, wind speed) should be considered as data
+but it could just be metadata if this is not the research focus.
+:::
+
 ### Data Management Plan
 
 A lot of funding agencies require a submission of a document called data
@@ -68,8 +86,7 @@ There are tools that help the creation of DMPs:
 - [DMP Tool](https://dmptool.org) (California Digital Library, US)
 
 This module will not go into detail about the creation of DMPs but you can
-browse some of the public plans available (
-[from DMPonline](https://dmponline.dcc.ac.uk/public_plans)
+browse some of the public plans available ([from DMPonline](https://dmponline.dcc.ac.uk/public_plans)
 or [from DMP Tool](https://dmptool.org/public_plans)) to get an idea about what
 information a DMP should be included. Some core questions that you should
 consider are:
@@ -89,6 +106,20 @@ consider are:
 Thinking through the above questions will help you to anticipate potential
 issues, clarify the whole research project and plan ahead so you can adhere to
 the FAIR principles in a systematic way.
+
+::::challenge{id=data-q2 title="Data Q2"}
+Why would it be a good idea to voluntarily create a DMP even if no one mandate
+you to do so?
+::::
+
+:::solution
+Even an informal and lightweight DMP is valuable, it helps you:
+
+- to anticipate problems early regarding data collection
+- to clarify the research project by systematically work out the entire
+  workflow
+- to plan for FAIR compliance early
+:::
 
 ## Metadata
 
@@ -110,7 +141,7 @@ digital assets, i.e. metadata. The wide adaptation of Dublin Core is important
 for 'To be Interoperable' in the FAIR principles.
 
 There are 15 core elements in Dublin Core and they are very generic to allow
-description of data in a wide range of scientific domain. it is usually a good
+description of data in a wide range of scientific domain. It is usually a good
 starting point to include them as metadata:
 
 - title
@@ -147,6 +178,39 @@ standards in your domain:
 - [RDA Metadata Standards Catalog](https://rdamsc.bath.ac.uk)
 - [FAIRsharing](https://fairsharing.org/search?fairsharingRegistry=Standard)
 
+::::challenge{id=metadata-q1 title="Metadata Q1"}
+It was stated earlier that without sufficient metadata, 'computational agents
+cannot understand the data characteristics correctly.' What does this mean in
+practical terms?
+::::
+
+:::solution
+Without sufficient metadata, scripts and workflows cannot reliably determine
+what the data actually represent, for instance, given a number that represent
+temperature but without unit, it is impossible for a computational agent to
+know this is in Celsius or Kelvin or Fahrenheit.
+
+In addition, other computational agents cannot translate the data into a
+different format because the structure and meaning are not completed without
+sufficient metadata. For example, given a column 'T' contains temperature in
+Celsius for a research project about bird migration pattern, it could mean
+ambient temperature or body temperature of birds. A human expert may be able to
+figure it out but to be FAIR compliance, we need to ensure a computational
+agent are provided with enough metadata.
+:::
+
+::::challenge{id=metadata-q2 title="Metadata Q2"}
+Is a README file containing a detailed description of the data be sufficient to
+adhere to the FAIR principles?
+::::
+
+:::solution
+No, README file is for humans and the FAIR principles emphasise on
+machine-actionability. No matter how many description/metadata you provide in a
+README file, it is not enough for FAIR compliance (although this is strongly
+encouraged!)
+:::
+
 ## Non-data Digital Assets
 
 Modern scientific research often generate outputs that are not traditionally
@@ -174,6 +238,18 @@ an extension to the FAIR principles for research software. Websites such as
 workflows, and registries like [Docker Hub](https://hub.docker.com) contains a
 lot of computational environment that allow researchers to reproduce analysis
 in a convenient way.
+
+::::challenge{id=nondata-q1 title="Nondata Q1"}
+Think about your own research (or a research project you are familiar with).
+What non-data digital assets does it produce that you might not have previously
+considered?
+::::
+
+:::solution
+Easily overlooked items may include software, scripts, protocols, computational
+environment, or analysis workflows. Remember a lot of research outputs that are
+not considered traditionally as data/metadata are worth sharing and preserving.
+:::
 
 ## Conclusion
 
