@@ -146,3 +146,40 @@ standards in your domain:
 - [Digital Curation Centre](https://www.dcc.ac.uk/guidance/standards/metadata)
 - [RDA Metadata Standards Catalog](https://rdamsc.bath.ac.uk)
 - [FAIRsharing](https://fairsharing.org/search?fairsharingRegistry=Standard)
+
+## Non-data Digital Assets
+
+Modern scientific research often generate outputs that are not traditionally
+considered as data but essential in the FAIR principles and for other
+researchers to validate the results, so it is important to recognise those
+research outputs and make them FAIR.
+
+Below is a list what non-data digital assets could mean:
+
+- software
+- computational workflows
+- algorithms
+- protocols
+- electronic lab notebooks
+- computational environment/containers
+- AI/ML models
+- research plans
+- API docs
+- preprints
+
+Extensions to the FAIR principles may exist for some of the above research
+outputs, for instance, [FAIR4RS](https://doi.org/10.1038/s41597-022-01710-x) is
+an extension to the FAIR principles for research software. Websites such as
+[protocols.io](https://www.protocols.io) supports sharing of methods and
+workflows, and registries like [Docker Hub](https://hub.docker.com) contains a
+lot of computational environment that allow researchers to reproduce analysis
+in a convenient way.
+
+## Conclusion
+
+There are many kinds of research digital assets and we can roughly divide them
+into 3 categories: data, metadata and non-data digital assets. This module
+explains what they are, how you can make them more FAIR and resources that are
+useful for further exploration. By identifying all the research outputs from
+your project, you can apply the FAIR principles to them early on in your
+project.
