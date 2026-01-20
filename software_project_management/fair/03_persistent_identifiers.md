@@ -108,3 +108,29 @@ Research and Innovation' was renamed to 'The Francis Crick Institute' in 2011).
 
 ROR was launched in 2019 and in 2026 it contains more than 116 thousands
 research organisations.
+
+### Others
+
+There are other kinds of persistent identifiers, such as [Archival Resource
+Keys](https://arks.org) which is similar to DOIs but are cheaper and adapted a
+more decentralised approach, and [RAiD](https://www.raid.org) which can be used
+to identify a research project and serves as a pointer to other persistent
+identifiers.
+
+There are also software-specific persistent identifiers such as
+[SoftWare Hash IDentifier (SWHID)](https://www.softwareheritage.org/software-hash-identifier-swhid/)
+(standardised as ISO 18670 in 2025) and [bio.tools](https://bio.tools) specific
+for software tools in bioinformatics and the life sciences.
+
+## Conclusion
+
+This module discussed what exactly persistent identifiers are and how they
+work, follows by the major types and other kinds of persistent identifiers for
+different use cases. Persistent identifiers are the foundation for the FAIR
+principles. Without them, (meta)data cannot be discovered in a reliable way,
+hence not findable. Persistent identifiers also enable access of (meta)data
+through standardised communication protocol (HTTP) and provide an
+inter-connected picture of your research outputs, such as linking the
+researcher (by ORCID) to a dataset (by DOI) which was analysed by a certain
+software (by DOI/SWHID). They also provide information for tracking its
+provenance reliably and autonomously.
