@@ -100,7 +100,7 @@ Shared-memory systems are difficult to build but easy to use, and are ideal for 
 Distributed-memory systems are easier to build but harder to use, comprising many shared-memory computers each with their own operating system and their own separate memory.
 However, this is the only feasible architecture for constructing a modern supercomputer.
 
-:::callout(variant="discussion")
+:::callout{variant="discussion"}
 These are the two architectures used today. Do you think there is any alternative? Will we keep using them for evermore?
 :::
 

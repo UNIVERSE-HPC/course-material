@@ -27,7 +27,7 @@ You will likely find on the first commit that many files that don't need to be i
 For example, say one of your scripts always generates a file in `out/log.txt`, then you
 could add `out/` to a new .gitignore.
 
-:::callout(variant="tip")
+:::callout{variant="tip"}
 If you are a Windows user and have followed this workshop using Windows Subsystem for
 Linux (WSL) as suggested, then bear in mind that the WSL is a sandboxed environment;
 today we have set up `git config` and SSH for Ubuntu running in WSL but not for your

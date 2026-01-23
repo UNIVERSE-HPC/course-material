@@ -54,7 +54,7 @@ print(add_one(1))
 2
 ```
 
-::::callout(variant="info")
+::::callout{variant="info"}
 The `# NOQA E731` comment is a [flake8](https://pypi.org/project/flake8/) directive to ignore the E731 error, which is raised when a lambda function is assigned to a variable.
 
 Most style guides, which you can learn about in the course on [software testing](/technology_and_tooling/testing), consider it bad style to assign a lambda to a variable as the purpose of a lambda is to avoid having to name the function.

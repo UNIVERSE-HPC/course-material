@@ -172,7 +172,7 @@ The listing for each revision includes
 - **when** it was created,
 - the **log message** Git was given when the revision was committed.
 
-:::callout(variant="tip")
+:::callout{variant="tip"}
 
 ## Compatibility Notice
 
