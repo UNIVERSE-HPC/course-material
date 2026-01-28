@@ -172,7 +172,7 @@ The listing for each revision includes
 - **when** it was created,
 - the **log message** Git was given when the revision was committed.
 
-:::callout(variant="tip")
+:::callout{variant="tip"}
 
 ## Compatibility Notice
 
@@ -434,3 +434,4 @@ To recap, when we want to add changes to our repository,
 we first need to add the changed files to the staging area
 (`git add`) and then commit the staged changes to the
 repository (`git commit`).
+
