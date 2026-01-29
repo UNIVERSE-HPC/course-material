@@ -166,7 +166,7 @@ _ARCHER’s cooling towers © Mike Brown_
 
 Finally, Wee ARCHIE makes its appearance again! This video uses Wee ARCHIE to explain the parallel computer architecture concepts we've introduced.
 
-:::callout(variant="discussion")
+:::callout{variant="discussion"}
 It is worth emphasising that the physical distance between the nodes does impact their communication time i.e. the further apart they are the longer it takes to send a message between them. Can you think of any reason why this behaviour may be problematic on large machines and any possible workarounds?
 
 As usual, share your thought with your fellow learners!
