@@ -145,7 +145,7 @@ Debuggers allow us to peer at the internal workings of a program, such as variab
 First we will set up VSCode to run and debug our tests.
 If you haven't done so already, you will first need to enable the PyTest framework in VSCode.
 You can do this by selecting the `Python: Configure Tests` command in the Command Palette (Ctrl+Shift+P).
-This will then prompt you to select a test framework (`Pytest`), and a directory containing the tests (`tests`).
+This will then prompt you to select a test framework (`Pytest`), and a directory containing the tests (`tests`). If `tests` is not listed, you may be in the wrong directory, select File - Open Folder in VSCode and select the project root directory (`inflammation`, which contains the `tests` folder), then try again.
 You should then see the Test view, shown as a beaker, in the left hand activity sidebar.
 Select this and you should see the list of tests, along with our new test `test_patient_normalise`.
 If you select this test you should see some icons to the right that either run, debug or open the `test_patient_normalise` test. You can see what this looks like in the screenshot below.

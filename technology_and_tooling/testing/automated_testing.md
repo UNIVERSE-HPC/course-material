@@ -69,6 +69,8 @@ tests too.
 
 ## Inflammation Data Analysis
 
+If on Windows, open Windows Subsystem for Linux (WSL). See the course prerequisites if this is not installed.
+
 We will be using a simple inflammation data analysis python package to demonstrate the use of automated testing. Let's download this now. First, create a new directory inflammation and `cd` to it:
 
 ```bash
@@ -76,7 +78,7 @@ mkdir inflammation
 cd inflammation
 ```
 
-If on WSL or Linux (e.g. Ubuntu or the Ubuntu VM), then do:
+From WSL or Linux (e.g. Ubuntu or the Ubuntu VM), do:
 
 ```bash
 wget https://train.oxrse.uk/material/HPCu/software_architecture_and_design/procedural/inflammation/inflammation.zip
