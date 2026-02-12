@@ -5,6 +5,7 @@ dependsOn: [technology_and_tooling.bash_shell]
 files:
   [
     introduction.md,
+    setup.md,
     meet-docker.md,
     managing-containers.md,
     running-containers.md,
@@ -15,7 +16,6 @@ files:
     e01-github-actions.md,
     e02-jekyll-lesson-example.md,
     reproducibility.md,
-    setup.md,
   ]
 learningOutcomes:
   - Learn what containers are.
