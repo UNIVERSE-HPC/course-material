@@ -8,6 +8,7 @@ themes: [
   high_performance_computing,
   introductory_courses,
   scientific_computing,
+  ai_tools_and_effective_practices,
   libraries,
   cloud_computing,
 ]
