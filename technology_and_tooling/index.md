@@ -10,9 +10,10 @@ courses: [
   testing,
   docker,
   snakemake,
+  chatbot_development,
 ]
 summary: |
-  Basic tools like bash, version control, containers, IDEs, and snakemake.
+  Basic tools like bash, version control, containers, IDEs, and snakemake; plus an applied AI course on building chatbots with Large Language Models.
 ---
 
-Basic tools like bash, version control, containers, IDEs, and snakemake.
+Basic tools like bash, version control, containers, IDEs, and snakemake; plus an applied AI course on building chatbots with Large Language Models.
