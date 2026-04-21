@@ -1,7 +1,7 @@
 ---
 name: Vector Databases
 dependsOn:
-  - technology_and_tooling.chatbot_development.m2-03-document-processing-and-chunking
+  - technology_and_tooling.chatbot_development.m2-01-the-rag-paradigm
 tags: [chatbots, rag, databases]
 learningOutcomes:
   - Explain why vector databases are needed for RAG at scale.

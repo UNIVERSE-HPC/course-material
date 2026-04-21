@@ -1,7 +1,7 @@
 ---
 name: Evaluating and Optimising Retrieval
 dependsOn:
-  - technology_and_tooling.chatbot_development.m3-04-semantic-caching
+  - technology_and_tooling.chatbot_development.m3-01-agentic-rag
 tags: [chatbots, rag, evaluation]
 learningOutcomes:
   - Calculate standard retrieval metrics (Precision@K, Recall@K, MRR).

@@ -1,7 +1,7 @@
 ---
 name: Building Stateless and Stateful Chatbots
 dependsOn:
-  - technology_and_tooling.chatbot_development.m1-03-api-integration-basics
+  - technology_and_tooling.chatbot_development.m1-01-introduction-to-modern-chatbots
 tags: [chatbots, python]
 learningOutcomes:
   - Build a stateless chatbot for FAQ-style interactions.

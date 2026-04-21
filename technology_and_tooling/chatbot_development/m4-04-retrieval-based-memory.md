@@ -1,7 +1,7 @@
 ---
 name: Retrieval-Based Memory
 dependsOn:
-  - technology_and_tooling.chatbot_development.m4-03-selective-memory
+  - technology_and_tooling.chatbot_development.m4-01-conversation-history-management
 tags: [chatbots, memory, retrieval, vector-search]
 learningOutcomes:
   - Store conversation turns as vector embeddings for long-term retrieval.

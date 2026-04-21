@@ -1,7 +1,7 @@
 ---
 name: Logging and Observability
 dependsOn:
-  - technology_and_tooling.chatbot_development.m6-03-performance-monitoring
+  - technology_and_tooling.chatbot_development.m6-01-user-engagement-metrics
 tags: [chatbots, analytics, logging, observability, tracing, optional]
 learningOutcomes:
   - Implement structured JSON logging with trace IDs for production chatbot systems.

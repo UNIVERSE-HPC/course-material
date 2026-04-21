@@ -1,7 +1,7 @@
 ---
 name: User Personalisation
 dependsOn:
-  - technology_and_tooling.chatbot_development.m4-04-retrieval-based-memory
+  - technology_and_tooling.chatbot_development.m4-01-conversation-history-management
 tags: [chatbots, memory, personalisation, user-profiles]
 learningOutcomes:
   - Extract user facts and preferences from conversation history using LLM-based analysis.

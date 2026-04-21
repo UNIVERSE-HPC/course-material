@@ -1,7 +1,7 @@
 ---
 name: Building a RAG Chatbot
 dependsOn:
-  - technology_and_tooling.chatbot_development.m2-04-vector-databases
+  - technology_and_tooling.chatbot_development.m2-01-the-rag-paradigm
 tags: [chatbots, rag, python]
 learningOutcomes:
   - Build a complete RAG chatbot that retrieves documents and generates grounded responses.

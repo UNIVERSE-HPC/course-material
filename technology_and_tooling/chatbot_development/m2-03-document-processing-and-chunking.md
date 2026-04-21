@@ -1,7 +1,7 @@
 ---
 name: Document Processing and Chunking
 dependsOn:
-  - technology_and_tooling.chatbot_development.m2-02-vector-embeddings
+  - technology_and_tooling.chatbot_development.m2-01-the-rag-paradigm
 tags: [chatbots, rag, chunking]
 learningOutcomes:
   - Explain why documents must be chunked before embedding.

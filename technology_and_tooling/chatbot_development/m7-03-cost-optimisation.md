@@ -1,7 +1,7 @@
 ---
 name: Cost Optimisation
 dependsOn:
-  - technology_and_tooling.chatbot_development.m7-02-safety-and-content-moderation
+  - technology_and_tooling.chatbot_development.m7-01-production-prompt-engineering
 tags: [chatbots, cost-optimisation, token-management, model-routing, optional]
 learningOutcomes:
   - Apply token reduction strategies including prompt compression and selective context.

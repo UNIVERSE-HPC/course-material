@@ -1,7 +1,7 @@
 ---
 name: Docker Containerisation
 dependsOn:
-  - technology_and_tooling.chatbot_development.m5-02-frontend-integration
+  - technology_and_tooling.chatbot_development.m5-01-backend-design-with-fastapi
 tags: [chatbots, deployment, docker, containerisation, optional]
 learningOutcomes:
   - Write a production-quality Dockerfile for a Python chatbot API.

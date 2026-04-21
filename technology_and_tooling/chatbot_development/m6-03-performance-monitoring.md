@@ -1,7 +1,7 @@
 ---
 name: Performance Monitoring
 dependsOn:
-  - technology_and_tooling.chatbot_development.m6-02-conversation-analytics
+  - technology_and_tooling.chatbot_development.m6-01-user-engagement-metrics
 tags: [chatbots, analytics, performance, latency, cost-tracking, optional]
 learningOutcomes:
   - Track response latency at the component level using percentile metrics.

@@ -1,7 +1,7 @@
 ---
 name: Scaling Strategies
 dependsOn:
-  - technology_and_tooling.chatbot_development.m7-03-cost-optimisation
+  - technology_and_tooling.chatbot_development.m7-01-production-prompt-engineering
 tags: [chatbots, scaling, redis, load-balancing, rate-limiting, optional]
 learningOutcomes:
   - Design stateless chatbot services that support horizontal scaling.

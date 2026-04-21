@@ -1,7 +1,7 @@
 ---
 name: Knowledge Graphs
 dependsOn:
-  - technology_and_tooling.chatbot_development.m3-02-reranking-and-hybrid-search
+  - technology_and_tooling.chatbot_development.m3-01-agentic-rag
 tags: [chatbots, rag, knowledge-graphs]
 learningOutcomes:
   - Explain what knowledge graphs are and when they complement vector search.

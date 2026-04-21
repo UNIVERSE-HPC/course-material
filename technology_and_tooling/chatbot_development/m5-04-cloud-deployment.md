@@ -1,7 +1,7 @@
 ---
 name: Cloud Deployment
 dependsOn:
-  - technology_and_tooling.chatbot_development.m5-03-docker-containerisation
+  - technology_and_tooling.chatbot_development.m5-01-backend-design-with-fastapi
 tags: [chatbots, deployment, cloud, google-cloud-run, optional]
 learningOutcomes:
   - Compare deployment platforms and choose the right one for your use case.

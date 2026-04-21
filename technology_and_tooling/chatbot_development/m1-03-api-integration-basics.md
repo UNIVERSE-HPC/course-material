@@ -1,7 +1,7 @@
 ---
 name: API Integration Basics
 dependsOn:
-  - technology_and_tooling.chatbot_development.m1-02-llm-fundamentals
+  - technology_and_tooling.chatbot_development.m1-01-introduction-to-modern-chatbots
 tags: [chatbots, python, api]
 learningOutcomes:
   - Set up OpenAI API credentials securely.

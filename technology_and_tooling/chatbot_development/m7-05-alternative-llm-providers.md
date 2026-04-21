@@ -1,7 +1,7 @@
 ---
 name: Alternative LLM Providers
 dependsOn:
-  - technology_and_tooling.chatbot_development.m7-04-scaling-strategies
+  - technology_and_tooling.chatbot_development.m7-01-production-prompt-engineering
 tags: [chatbots, llm-providers, open-source, production-checklist, optional]
 learningOutcomes:
   - Compare LLM providers across cost, quality, speed, and context length.

@@ -1,7 +1,7 @@
 ---
 name: Selective Memory
 dependsOn:
-  - technology_and_tooling.chatbot_development.m4-02-conversation-summarisation
+  - technology_and_tooling.chatbot_development.m4-01-conversation-history-management
 tags: [chatbots, memory, context-management]
 learningOutcomes:
   - Score message importance using both LLM-based and heuristic approaches.

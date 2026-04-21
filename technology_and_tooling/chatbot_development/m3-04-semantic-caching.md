@@ -1,7 +1,7 @@
 ---
 name: Semantic Caching
 dependsOn:
-  - technology_and_tooling.chatbot_development.m3-03-knowledge-graphs
+  - technology_and_tooling.chatbot_development.m3-01-agentic-rag
 tags: [chatbots, rag, caching, optimization]
 learningOutcomes:
   - Explain why traditional exact-match caching is insufficient for chatbot queries.

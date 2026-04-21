@@ -1,7 +1,7 @@
 ---
 name: A/B Testing and Experimentation
 dependsOn:
-  - technology_and_tooling.chatbot_development.m6-04-logging-and-observability
+  - technology_and_tooling.chatbot_development.m6-01-user-engagement-metrics
 tags: [chatbots, analytics, ab-testing, experimentation, optional]
 learningOutcomes:
   - Build a deterministic A/B testing framework for chatbot experiments.

@@ -1,7 +1,7 @@
 ---
 name: Authentication and Security
 dependsOn:
-  - technology_and_tooling.chatbot_development.m5-04-cloud-deployment
+  - technology_and_tooling.chatbot_development.m5-01-backend-design-with-fastapi
 tags: [chatbots, deployment, authentication, jwt, security, optional]
 learningOutcomes:
   - Implement JWT-based authentication for a FastAPI chatbot backend.
