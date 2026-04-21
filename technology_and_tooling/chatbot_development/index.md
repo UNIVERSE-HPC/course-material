@@ -51,6 +51,7 @@ attribution:
   - citation: >
       Oxford AI Competency Centre (2026). Chatbot Development Course.
     url: https://github.com/OxfordCompetencyCenters/aicc_chatbot_modules
+    image: https://github.com/OxfordCompetencyCenters.png
     license: CC-BY-4.0
 summary: |
   Hands-on training in building production-ready chatbots using Large Language Models (LLMs).
