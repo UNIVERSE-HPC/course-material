@@ -105,7 +105,7 @@ In the first variation, wolves and sheep wander randomly around the landscape, w
 
 The second variation includes grass (green) in addition to wolves and sheep. The behavior of the wolves is identical to the first variation, however this time the sheep must eat grass in order to maintain their energy - when they run out of energy they die. Once grass is eaten it will only regrow after a fixed amount of time. This variation is more complex than the first, but it is generally stable.
 
-To play with the model, or to have a look at the code, go to the Modelling Commons page dedicated to the [wolf-sheep model](http://modelingcommons.org/browse/one_model/1390#model_tabs_browse_nlw) and first click on the SETUP button and then on the GO button. For more information on the model see the INFO tab.
+To play with the model, or to have a look at the code, go to the NetLogo Models Library page for the [wolf-sheep model](https://ccl.northwestern.edu/netlogo/models/WolfSheepPredation) and first click on the SETUP button and then on the GO button. For more information on the model see the INFO tab.
 
 The web version of the model should work on Chrome and Safari browsers.
 If you cannot get it to work on your browser you can try downloading the [netlogo software](https://ccl.northwestern.edu/netlogo/).

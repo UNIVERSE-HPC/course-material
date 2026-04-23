@@ -336,7 +336,7 @@ might think that this pointer is similar to a label, or Python variable, but a
 raw pointer like this is much more low-level and potentially dangerous than
 this, and you should generally avoid creating them. Instead, C++ features a wide
 variety of [_smart
-pointers_](https://en.cppreference.com/book/intro/smart_pointers) that you
+pointers_](https://en.cppreference.com/w/cpp/memory) that you
 should use instead (a variable in Python is most closely related to a
 `std::shared_pointer`). However, all of these pointers share simliar semantics
 in that a pointer can point to nothing, otherwise known as a _null pointer_ and
