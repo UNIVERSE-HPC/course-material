@@ -6,7 +6,7 @@ attribution:
     - citation: >
         "SLURM Multinode on AWS" tutorial by OpenFlightHPC
       url: https://openflighthpc.github.io/docs.openflighthpc.org/latest/docs/flight-solo/cluster-build-methods/slurm-multinode-aws/
-      image: https://www.openflighthpc.org/latest/assets/images/openflighthpc_grey.svg
+      image: /openflight.png
       license: CC-BY-4.0
 ---
 
