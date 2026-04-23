@@ -223,7 +223,7 @@ Many different types of profiling tools exist, but for MPI application we need *
 Some examples of parallel profilers are:
 
 - [Scalasca](http://scalasca.org) - a free and open source parallel profiler developed by three German research centers.
-- [TAU](https://www.cs.uoregon.edu/research/tau/home.php)
+- [TAU](https://www.cs.uoregon.edu/research/tau/docs/html-docs/latest/newguide/introduction.html)
 - [VAMPIR](https://vampir.eu/)
 - [Paraver](https://tools.bsc.es/paraver)
 
