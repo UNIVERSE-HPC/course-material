@@ -9,12 +9,13 @@ learningOutcomes:
 
 # Fluorescence extraction
 
-The purpose of these functions are to 
+The purpose of these functions are to
+
 1. Get the location (i.e. pixel map) of each cell as a distinct entity
 2. Obtain these locations across time
 3. Record the average intensity in the cytoplasm and nucleus for each pixel map and timepoint
 
-N.B. I personally found the way that the LLM structured the code unhelpful for debugging, and rewrote the data structure to something that made more sense to me personally (this occurs in the worked solution after error 3) - you do not have to do this, but you might find it helps. It also probably helps to reduce the number of images analysed (at least to start with), as you don't need to analyse every timepoint if the error is thrown at the first timepoint. 
+N.B. I personally found the way that the LLM structured the code unhelpful for debugging, and rewrote the data structure to something that made more sense to me personally (this occurs in the worked solution after error 3) - you do not have to do this, but you might find it helps. It also probably helps to reduce the number of images analysed (at least to start with), as you don't need to analyse every timepoint if the error is thrown at the first timepoint.
 
 ## Getting started
 
@@ -36,16 +37,17 @@ Now we can make changes to the tests and `repressilator_analysis` module, and ca
 python fluorescence_extractor_test.py
 ```
 
-
 ## The Test Functions
 
 `test_track_cells()` calls three functions:
 
 ### `image_loader.load_timeseries()`
+
 - **Arguments:** Location of intensity and phase directories
 - **Returns:** Time of each image recording in minutes, list of extracted intensity images, list of extracted phase images
 
 ### `fluorescence_extraction.track_cells_across_time()`
+
 - **Arguments:**
   - List of phase images provided by `load_timeseries`
   - Minimum cell area in pixels (set at 5)
@@ -66,8 +68,8 @@ python fluorescence_extractor_test.py
     ...
 }
 ```
-The second is a list of images with each cell mask given their own label
 
+The second is a list of images with each cell mask given their own label
 
 ### `fluorescence_extraction.extract_nuclear_cytoplasmic()`
 
@@ -75,7 +77,6 @@ The second is a list of images with each cell mask given their own label
   - An intensity image provided by `load_timeseries`
   - A labelled image
 - **Returns:** A list of dictionaries. Each dictionary represents one cell/nucleus pair, with keys mapping to the average pixel value for that location. These cells do not need to be linked to an ID, as the test assigns each value to its closest neighbour in the true data.
-
 
 ## Debugging
 
@@ -87,6 +88,7 @@ You may find that running `test_track_cells()` without `pytest` gives a large nu
 What sequence of operations are being performed before the error happens at timepoint 0 in `segment_cells()` and `track_cells_across_time()`?
 
 :::solution
+
  1. The phase image is segmented using [Otsu's thresholding](https://scikit-image.org/docs/0.25.x/auto_examples/segmentation/plot_thresholding.html) (`segment_cells()`) which defines the image by two regions: light (background) and dark (cells)
  2. In `track_cells_across_time()` the non-connected dark regions are identified using `measure.label.regionprops`
  3. Each isolated region is given two unique IDs (track_id and cell_id), and passed into the `tracks` data structure, in the format [time, cell_id, (centre_x, centre_y)]
@@ -99,6 +101,7 @@ This approach assumes each connected dark region is a single cell, which breaks 
 Modify the code to plot the segmented image, showing the `cell_id` at each assigned cell
 :::solution
 Adding code like this
+
 ```python
 #You'll need to install and import pyplot (i.e. import matplotlib.pyplot as plt)
 #After the first assignment to `tracks` in `track_cells_across_time()`
@@ -114,6 +117,7 @@ ax_seg.set_title('Segmented cells at timepoint 0 (track IDs)')
 plt.tight_layout()
 plt.show()
 ```
+
 Immediately shows us the error, which is that cells that are touching are being treated as a single cell (e.g. number 8), undercounting the true number of cells
 ![Segmented cell masks with cell_ids](figs/poor_segmentation.png)
 :::
@@ -122,17 +126,20 @@ Immediately shows us the error, which is that cells that are touching are being 
 To resolve this we need two things: a way to count how many cells are in a merged region, and a way to draw boundaries between the cells once we know how many there are. You may find the [skimage regionprops documentation](https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.regionprops) and [watershed example](https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_watershed.html) useful for the steps below.
 
 ::::challenge{id=f_err_1_fix title="How can we resolve the error?"}
-Given the problem identified in the prior "diagnosis" section, identify what sequence of operations is required to obtain the desired behaviour. 
+Given the problem identified in the prior "diagnosis" section, identify what sequence of operations is required to obtain the desired behaviour.
 :::solution
 We need to identify connected regions that contain multiple cells, and additionally segment the merged cluster. In practice, this means:
+
  1. Determine how to assign regions to "merged" or "unmerged" cell labels and check how many cells are contained within each "merged" group
  2. Segment accordingly, and assign each segmented cell map to the existing data structure
+
 :::
-Write some code to resolve the issue. 
+Write some code to resolve the issue.
 :::solution
 The LLM implementation uses Otsu thresholding to distinguish the (dark) cells from the (light) background. Examining the diagnostic image from before
 ![Segmented cell masks with cell_ids](figs/poor_segmentation.png)
-we can see that the merged cells still have distinct nuclei. Therefore, if we could identify regions that contain multiple nuclei, we could determine which cells need to be split. As the nuclei are much darker than the surrounding cells, we could re-threshold each connected region. 
+we can see that the merged cells still have distinct nuclei. Therefore, if we could identify regions that contain multiple nuclei, we could determine which cells need to be split. As the nuclei are much darker than the surrounding cells, we could re-threshold each connected region.
+
 ```python
 #Modifying the code in the previous solution block (still in `track_cells_across_time()`)
  # Cast to greyscale
@@ -173,12 +180,14 @@ plt.tight_layout()
 plt.show()
 
 ```
-We can see that this has worked quite nicely! We've actually done steps 1 and 2 at the same time. 
+
+We can see that this has worked quite nicely! We've actually done steps 1 and 2 at the same time.
  ![Segmented cell masks with cell_ids, and number of nuclei in each section](figs/nuclei_assignment.png)
 :::
 We know how many cells are in a merged region, and we've already identified where their nuclei are. What information do we have that could help us draw a boundary between them? We can't use the same thresholding trick as before, as it isn't possible to distinguish merged cells based on colour.
 :::solution
-There are a number of segmentation algorithms - I've used the [watershed algorithm](https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_watershed.html). We update the above code to include pertinent information when n_nuclei>1. 
+There are a number of segmentation algorithms - I've used the [watershed algorithm](https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_watershed.html). We update the above code to include pertinent information when n_nuclei>1.
+
 ```python
 #Modifying the code in the previous solution block (still in `track_cells_across_time()`)
 #You'll need to import `feature` and `color` from skimage for this to work
@@ -230,18 +239,22 @@ for region in measure.regionprops(labeled):
     plt.tight_layout()
     plt.show()
 ```
+
 This gets us something like this, which doesn't look super helpful
  ![Segmented cell masks](figs/mad_watershed.png)
 :::
 If you looked in the previous solution block, you'll see the initial watershed segmentation isn't great. Let's try and diagnose the issue
 :::solution
 The first problem is that we have more segments than cells. However, we know the number of segments we want - it's n_nuclei. We can update the peak finding function call accordingly
+
 ```python
 coords = feature.peak_local_max(distance, footprint=np.ones((3, 3)), labels=binary2, num_peaks=n_nuclei)
 ```
+
 This gets us a result that's a bit better, but still not perfect
 ![Segmented cell masks](figs/better_watershed.png)
 Some of the segmentations are cutting the nuclei in half. Let's see what the watershed algorithm actually starts from
+
 ```python
 #In the segmentation loop
 fig, ax = plt.subplots()
@@ -250,16 +263,20 @@ ax.scatter(coords[:, 1], coords[:, 0], c='red', s=20, marker='+', linewidths=1)
 ax.set_title(f'Region {region_label} peaks')
 plt.show()
 ```
-We can see that the peak maximums are sometimes next to each other. 
+
+We can see that the peak maximums are sometimes next to each other.
 ![Peak locations](figs/peaklocs.png)
 Fortunately, we can pass another argument to `peak_local_max` to prevent this
+
 ```python
 coords = feature.peak_local_max(distance, footprint=np.ones((3, 3)), labels=binary2, num_peaks=n_nuclei, min_distance=3)
 ```
+
 :::
-Up to this point in the solution blocks, we've got a sequence of steps that does at least some of the job of segmentation. We'll move the logic into `segment_cells()`, and take the opportunity to create a new data structure `cell_atlas`, to make things easier to keep track of. 
+Up to this point in the solution blocks, we've got a sequence of steps that does at least some of the job of segmentation. We'll move the logic into `segment_cells()`, and take the opportunity to create a new data structure `cell_atlas`, to make things easier to keep track of.
 :::solution
  At this point, I've changed the data structure to make it easier for myself to understand
+
 ```python
 #Modifying code in the previous solution block#
 gray0 = np.mean(phase_images[0], axis=2) if phase_images[0].ndim == 3 else phase_images[0].astype(float)
@@ -331,14 +348,18 @@ for entry in cell_atlas:
 ax_phase.set_title('Phase image (timepoint 0)')
 plt.show()
 ```
+
  ![Segmented cell masks with cell_ids](figs/good_segmentation.png)
  Which looks like it's worked. Let's move all the processing code to `segment_cells`
+
  ```python
  def segment_cells(args):
     #Rest of the code in here
     return labeled, cell_atlas
 ```
+
 And update the calls to segement cells i.e
+
 ```python
 #In `track_cells_across_time()`
 #Timepoint 0
@@ -349,18 +370,21 @@ for i in range(0, len(cell_atlas)):
 #In the t loop, also update the call to `segment_cells()`. We'll make everything play nice together later. 
 curr_labels,cell_atlas = segment_cells(phase_images[t], min_cell_area)
 ```
-It hasn't completely fixed the issue, but we've got a different error message now. 
+
+It hasn't completely fixed the issue, but we've got a different error message now.
 :::
 ::::
 
 ### Error 2, at the first timepoint >0 cell centres have been assigned incorrectly
 
 This error appears in some implementations and not others, depending on how centroids are calculated. The diagnostic approach below is useful regardless of whether you encounter it. The error arises because, even if 80 cells have been correctly segmented from the first phase image, the location of some of those cells is incompatible with the actual known truth. Looking at the figure from the last solution block again. If you have your own implementation it's likely that the error is one of
+
 1. The segmentation code has produced 80 cells but they are improperly segmented
 2. Your calculation of the centre point is incorrect
 3. Your segmentation is completely wrong
+
 ::::challenge{id=f_err_2_diagnosis title="What is causing the error?"}
-Briefly modify the test code (i.e `test_track_cells()`) to diagnose the error. 
+Briefly modify the test code (i.e `test_track_cells()`) to diagnose the error.
 :::solution
 
 ```python
@@ -375,6 +399,7 @@ ax.legend()
 ax.set_title('Phase image t=0: correct (green) vs assigned (red)')                                                                                                 
 plt.show() 
 ```
+
 This is what the output should look like when the error isn't thrown
  ![Cells with assigned and correct centres](figs/centroid_debugging.png)
 :::
@@ -385,16 +410,19 @@ This is what the output should look like when the error isn't thrown
 ::::challenge{id=f_err_3_assess title="What is the code doing before the error?"}
 How does the `track_cells_across_time()` function track cells?
 :::solution
+
  1. Segments the image (at time t) using `segment_cells()`
  2. Uses `regionprops` to iterate through each segment
  3. Assesses the overlap between each segment at t, and each segment at t-1
  4. Finds the two segments with greatest overlap, gets the cell_id from t-1 and assigns the current segment to t using the same cell_id
  5. Handles any new cells (for the purposes of this exercise we know that there are no new cells appearing however)
+
 :::
 ::::
 ::::challenge{id=f_err_3_diag title="Diagnosing the error"}
 Briefly add some diagnostic plotting code to the test function to show the phase image and assigned cell_ids at time t and time t-1 when the error is raised
 :::solution
+
 ```python
 #This is in `fluorescence_extractor_test.py`
 #just after the `if mapping.get(cell_id) != true_idx` check
@@ -418,6 +446,7 @@ plt.tight_layout()
 plt.savefig(f"tracking_mismatch_t{i}_cell{cell_id}.png", dpi=150)
 plt.show()
 ```
+
 The assignments are completely different, and in t=1, a bunch of new cell_ids have been created!
  ![cells at t0 and t1 showing cell_id assignments](figs/init_tracking.png)
 :::
@@ -425,12 +454,14 @@ The assignments are completely different, and in t=1, a bunch of new cell_ids ha
 ::::challenge{id=f_err_3_fix title="How can we resolve the error?"}
 Personally I don't think the LLM solution to the tracking problem here is very good; using the cell segments and `regionprops` seems to provide very poor assignments. Are there any other features you could use to check distances between timepoints? There are two insights you need to get the code working (for the t0->t1 case at least), both of which are in the following solution block
 :::solution
-We'll be using the cell_atlas data structure from the previous solution blocks as well. 
+We'll be using the cell_atlas data structure from the previous solution blocks as well.
 The key insights are:
+
 1. You can track the cells using the centre of the cell mask (`cell_atlas["centre"]` here, but however you want to calculate and store it)
 2. For each "centre" at t-1, we want to find the closest "centre" at t.
 3. However, if we optimise this value individually for each "centre" (i.e. a greedy approach) there will be conflicts (e.g. a centre at t being close to two plausible centres at t-1)
 4. So we actually want to find the best compromise. This is also known as minimum weight bipartite matching, and is very nicely implemented in `scipy.optimize.linear_sum_assignment`, which you'll need to import. Each cell at t-1 must be paired with exactly one cell at t, and we want the pairing that minimises the total distance travelled across all cells, as opposed to greedily matching each cell to its nearest neighbour, which can cause conflicts.
+
 ```python
 #In the loop of `track_cells_across_time()`
 cell_id_to_track_id = {entry["cell_id"]: i for i, entry in enumerate(cell_atlas)}
@@ -467,6 +498,7 @@ for t in range(1, len(phase_images)):
     cell_id_to_track_id = new_cell_id_to_track_id #update map for next iteration
     prev_atlas = cell_atlas
 ```
+
 Moving the plotting code out of the error block shows that it's worked.
  ![cells at t0 and t1 showing cell_id assignments](figs/second_tracking.png)
 :::
@@ -474,11 +506,12 @@ Moving the plotting code out of the error block shows that it's worked.
 
 ### Error 4, at timepoint t, fluorescence value extraction in `cytoplasm/nuclear` over distance threshold to true value (mean difference x, s.d. y)
 
-So, we've successfully segmented the cells in t=0 and t=1, and have assigned the cells ids correctly, between t0 and t1. This error is about extracting the fluorescence value. The LLM implementation uses the labelled image, but, if you've been using the `cell_atlas` approach (the rewrite as defined in the previous solution blocks), we have a `bbox` key and two `mask` keys to provide the location of each cell in each image. I would recommend very slightly re-writing the test function to pass a data structure like this, rather than the labelled image itself. Alternatively, you can write your code so that the nuclei and cytoplasmic regions are given separate labels. 
+So, we've successfully segmented the cells in t=0 and t=1, and have assigned the cells ids correctly, between t0 and t1. This error is about extracting the fluorescence value. The LLM implementation uses the labelled image, but, if you've been using the `cell_atlas` approach (the rewrite as defined in the previous solution blocks), we have a `bbox` key and two `mask` keys to provide the location of each cell in each image. I would recommend very slightly re-writing the test function to pass a data structure like this, rather than the labelled image itself. Alternatively, you can write your code so that the nuclei and cytoplasmic regions are given separate labels.
 ::::challenge{id=f_err_4_diag title="Diagnosing and fixing the error"}
-Rewrite to use `cell_mask`, etc. keys from the previous solution. If you're not using the `cell_atlas` approach, you'll need to at least pass two labelled images, one with cell masks and one with the nuclei masks. 
+Rewrite to use `cell_mask`, etc. keys from the previous solution. If you're not using the `cell_atlas` approach, you'll need to at least pass two labelled images, one with cell masks and one with the nuclei masks.
 :::solution
 In `track_cells_across_time()`
+
 ```python
 #at t=0, we're now also passing the bounding box, nuclear mask and cell mask assigned to each cell
 tracks[i] = [(0, entry["cell_id"], (entry["centre"][0], entry["centre"][1]),
@@ -489,7 +522,9 @@ curr = cell_atlas[c]
 tracks[track_id].append((t, curr["cell_id"], tuple(curr["centre"]),
                             curr["bbox"], curr["nucleus_mask"], curr["cell_mask"]))
 ```
+
 In `test_track_cells()`
+
 ```python
 results = ra.fluorescence_extraction.extract_nuclear_cytoplasmic(
             intensity_images[i],
@@ -497,9 +532,11 @@ results = ra.fluorescence_extraction.extract_nuclear_cytoplasmic(
         )
 #we're now passing the `tracks` data structure rather than a series of labelled imaged, which we can now process in `extract_nuclear_cytoplasmic()`
 ```
+
 :::
 Modify `extract_nuclear_cytoplasmic()` to check which sections of the intensity image are having their fluorescence values extracted.
 :::solution
+
 ```python
 def extract_nuclear_cytoplasmic(
     intensity_image: np.ndarray,
@@ -580,6 +617,7 @@ def extract_nuclear_cytoplasmic(
 
     return results
 ```
+
  ![Intensity image at t=1, with nuclear and cytosolic extraction regions](figs/Extraction.png)
 The extraction looks good, but it's still throwing an error?
 :::
@@ -588,6 +626,7 @@ Really annoying LLM bug ahead:
 Looking at the diagnostic image from the previous solution block
 ![Intensity image at t=1, with nuclear and cytosolic extraction regions](figs/Extraction.png)
 The cells are clearly outlined in green, but in the definition of `extract_nuclear_cytoplasmic()`
+
 ```python
 def extract_nuclear_cytoplasmic(
     intensity_image: np.ndarray,
@@ -596,17 +635,19 @@ def extract_nuclear_cytoplasmic(
     cytoplasmic_channel: str = 'red',
 ) -> List[Dict[str, float]]:
 ```
-it's been assigned as a default argument the wrong way around. Swapping them fixes this error. 
+
+it's been assigned as a default argument the wrong way around. Swapping them fixes this error.
 :::
 ::::
 
 ### Error 5 at timepoint t the number of cells in the segmented image is >80, not 80
 
-We've gone the other way from the first error, and are now assigning too many cells rather than too few. 
+We've gone the other way from the first error, and are now assigning too many cells rather than too few.
 ::::challenge{id=f_err_5_diag title="Diagnosing and fixing the error"}
 As before, let's write some code to catch what's happening. This is occuring in the segmentation logic, so lets plot that first
 :::solution
 If following along from previous solution blocks, this goes in `segment_cells()`
+
 ```python
 if cell_id>80:#Only want this to fire when too many nuceli have been found
     fig,ax_phase=plt.subplots()
@@ -621,12 +662,14 @@ if cell_id>80:#Only want this to fire when too many nuceli have been found
     ax_phase.set_title('Phase image (timepoint 0)')
     plt.show()
 ```
+
 ![Segmented phase image](figs/improper_double_diag.png)
-One cell has been assigned twice (id 57/58). 
+One cell has been assigned twice (id 57/58).
 :::
-Write some code to determine what is happening before this error. 
+Write some code to determine what is happening before this error.
 :::solution
 You can place this in the segmentation loop
+
 ```python
 fig, axes = plt.subplots(1, n_nuclei + 1, figsize=(4 * (n_nuclei + 1), 4))
 axes[0].imshow(local_phase, cmap='gray') # local bbox region
@@ -639,22 +682,27 @@ for nuc_idx in range(1, n_nuclei + 1):
 plt.tight_layout()
 plt.show()
 ```
+
 If this is happening at later timepoints, you can control which timepoint you start on by reducing the range of the test_images["phase_images"] list (this can cause other errors, but it's fine for debugging the segmentation code)
 e.g.:
+
 ```python
 tracks=ra.fluorescence_extraction.track_cells_across_time(test_images["phase_images"][6:8], 5)
 ```
+
 If you keep on clicking through the cells, you'll eventually get something like this:
  ![cell_id 58 showing nucleus mask and two cell segments](figs/improper_double.png)
-We can see from this that some stray unconnected pixels have been assigned as a nucleus. 
+We can see from this that some stray unconnected pixels have been assigned as a nucleus.
 :::
 Create a fix for the error
 :::solution
 The fix is pretty easy:
+
 ```python
 nucleus_mask = morphology.remove_small_objects(nucleus_mask, max_size=min_cell_area)
 nucleus_mask = morphology.remove_small_holes(nucleus_mask, max_size=min_cell_area)
 ```
+
 :::
 ::::
 
@@ -663,6 +711,7 @@ nucleus_mask = morphology.remove_small_holes(nucleus_mask, max_size=min_cell_are
 We're still having segmentation problems!
 ::::challenge{id=f_err_6_diag title="Diagnosing and fixing the error"}
 Again, let's try and find which part of the segmentation code is breaking to cause this error. The initial diagnosis is identical to the previous solution:
+
 ```python
 if cell_id<80:#Only want this to fire when too many nuceli have been found
     fig,ax_phase=plt.subplots()
@@ -677,25 +726,29 @@ if cell_id<80:#Only want this to fire when too many nuceli have been found
     ax_phase.set_title('Phase image (timepoint 0)')
     plt.show()
 ```
+
 What is the source of the error this time?
 :::solution
 There are actually two errors here, one easier to fix than the other. The first is caused by cells being on the border of the image
  ![segmented_cells](figs/borders.png)
- and the second is two cells being improperly assigned as one cell. 
+ and the second is two cells being improperly assigned as one cell.
   ![segmented_cells](figs/improper_single_diag.png)
 :::
-Write some code to fix these errors. 
+Write some code to fix these errors.
 Error 1:
 :::solution
+
 ```python
 #Clear border objects (cells touching image edge)
 """We just comment out the below line to stop the border clear"""
 #labeled = segmentation.clear_border(labeled)
 ```
+
 :::
 Diagnose the source of the second error
 :::solution
-This one is a bit trickier. First, let's just catch why the two cells aren't being segmented properly. 
+This one is a bit trickier. First, let's just catch why the two cells aren't being segmented properly.
+
 ```python
 #after the segmentation code, under conditions where n_nuclei==1
 fig, axes = plt.subplots(1, 2, figsize=(8, 4))
@@ -707,12 +760,14 @@ axes[1].set_title(f'cell {cell_id}: nucleus mask')
 plt.tight_layout()
 plt.show()
 ```
+
 If you click through, you should eventually find:
 ![cell_id 3 showing nucleus mask and two cells](figs/improper_single.png)
 :::
 Write some code to catch this error
 :::solution
 Eccentricity measures how elongated a shape is (0 = perfect circle, 1 = a straight line). Two nuclei that are just touching will appear as a single elongated blob, so a high eccentricity can be used to detect two touching nuclei.
+
 ```python
 #as a check before deciding whether to segment or not
 labeled_nuclei = measure.label(nucleus_mask)
@@ -720,9 +775,11 @@ for nuc_prop in measure.regionprops(labeled_nuclei):
     if nuc_prop.eccentricity > 0.71:# Determined with a bit of trial and error!
         n_nuclei += 1 #This means the cell will be passed to the n_nuclei>1 branch, and is important for the num_peaks keyword
 ```
+
 (this is a little hacky, in that it doesn't account for what happens if you have three or more colliding nuclei, but it works for now!)
 :::
 ::::
+
 ## Wrapping up
 
 Once you're satisfied that all tests pass:
