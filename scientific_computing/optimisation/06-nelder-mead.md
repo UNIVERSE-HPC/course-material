@@ -142,7 +142,7 @@ def nelder_mead(f, x0, tol=1e-5, max_iter=1000):
             vertices[i, i-1] += 0.05
 
     saved_vertices = np.empty([n+1, n, max_iter], dtype=x0.dtype)
-    # Nelder–Mead algorithm from:
+    # Nelder-Mead algorithm from:
     #    Numerical optimization
     #    by Nocedal, Jorge; Wright, Stephen J., 1960-,
     #    Chapter 9

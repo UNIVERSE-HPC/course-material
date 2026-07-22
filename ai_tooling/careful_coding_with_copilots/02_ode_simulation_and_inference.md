@@ -391,7 +391,7 @@ for i in range(0, 3):
         score = best_error
         params = best_params
 
-return params  # outside the loop — returns the best result across all repeats
+return params  # outside the loop - returns the best result across all repeats
 ```
 
 :::

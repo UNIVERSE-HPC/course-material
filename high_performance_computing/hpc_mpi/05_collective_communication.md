@@ -433,7 +433,7 @@ int MPI_Allreduce(
     int count,              
     MPI_Datatype datatype,  
     MPI_Op op,              
-    MPI_Comm comm           
+    MPI_Comm comm           
 );
 ```
 

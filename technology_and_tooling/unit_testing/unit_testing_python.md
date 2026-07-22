@@ -168,7 +168,7 @@ At this point, commit the changes to your testing code:
 
 ```shell
 git add tests/test_models.py
-git commit -m “Added more tests”
+git commit -m "Added more tests"
 git push
 ```
 

@@ -93,7 +93,7 @@ Since each point generated and its position within the circle is completely inde
 the communication pattern is simple (this is also an example of an embarrassingly parallel problem) as we only need one reduction.
 To parallelise the problem, each rank generates a sub-set of the total number of points and a reduction is done at the end, to calculate the total number of points within the circle from the entire sample.
 
-```c
+```c allow-non-ascii
 // 1 billion points is a lot, so we should parallelise this calculation
 int total_num_points = (int)1e9;
 
