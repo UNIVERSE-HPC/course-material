@@ -216,7 +216,7 @@ Used to summarise the most essential or critical information in a topic. These c
 
 ## Linting
 
-There are 3 linting actions that are run on the material in this repo, these are:
+There are 4 linting actions that are run on the material in this repo, these are:
 
 ### Front matter
 
@@ -238,6 +238,20 @@ Python code is checked using a custom action, this works by stitching all python
 There is no command line tool for this, so it can only be run locally with `act`.
 
 There are no corresponding tools for other languages, e.g. C++, due to difficulties in stitching together a non-interpreted language.
+
+### Non-ASCII characters
+
+Fenced code blocks are checked for stray non-ASCII characters (e.g. curly quotes or invisible unicode pasted in by accident), since these can silently break example code. `text` and `output` blocks are exempt, as they usually hold captured terminal output rather than real code. If a block deliberately needs a non-ASCII character, add `allow-non-ascii` to its opening fence:
+
+```python allow-non-ascii
+name = "café"
+```
+
+Run the check manually with:
+
+```bash
+python3 .github/scripts/check_ascii_codeblocks.py
+```
 
 ## Link-checking
 
