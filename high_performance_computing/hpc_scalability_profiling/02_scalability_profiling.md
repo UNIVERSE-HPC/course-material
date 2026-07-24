@@ -13,7 +13,8 @@ Let's now look at how we can determine the scalability characteristics for our e
 
 ## Characterising our π Code's Performance
 
-When we ran our π code in a previous episode, we got some timing results for running our code over an increasing number of cores. An example run may look something like:
+In [Common Communication Patterns](high_performance_computing/hpc_mpi/10_communication_patterns), we used MPI's reduction operation to estimate π.
+Running that code over an increasing number of cores gives timing results like these:
 
 | Cores (n) | Run Time (s) | Result        | Error         | Speedup |
 | --------- | ------------ | ------------- | ------------- | ------- |
@@ -23,7 +24,8 @@ When we ran our π code in a previous episode, we got some timing results for ru
 | 8         | 0.687097     | 3.14159265459 | 0.00000003182 | 5.82    |
 | 16        | 0.349366     | 3.14159265459 | 0.00000003182 | 11.44   |
 
-As we saw, by using MPI we were able to reduce the run time of our code by using more cores without affecting the results. The new column `speedup` shown in the table above was calculated using, e.g. with 1 core:
+Using more cores reduced the run time without affecting the accuracy of the result.
+The new column `speedup` shown in the table above was calculated using, e.g. with 1 core:
 
 > _Speedup = T~1~ / T~n~_
 
@@ -36,7 +38,7 @@ The speedup efficiency, which measures how efficiently the additional resources 
 Which could be as high as 1, but probably will never reach that in practice.
 
 :::::challenge(id=calculate-speedup-1, title="Calculate using your Own Results I"}
-Submit your Pi job again, as you did in the previous episode. e.g. with a job script called `mpi-pi.sh`:
+Submit the π job from [Common Communication Patterns](high_performance_computing/hpc_mpi/10_communication_patterns) again, using a job script called `mpi-pi.sh`:
 
 ```bash
 remote$ sbatch mpi-pi.sh
@@ -45,7 +47,8 @@ remote$ sbatch mpi-pi.sh
 Make a copy of the SLURM output file (i.e. using the `cp` command) and add a `Speedup` column of your own, using the above Speedup formula, for each `np` result. We'll use these figures later!
 
 ::::solution
-You'll notice that your own result timings are different from the ones above, and a key reason is that these were run on a working system with other users, so the runtime will be affected depending on the load of the system.
+You'll notice that your own result timings are different from the ones above, runtimes are affected by the system specs as well as the load on the system at the time of your run.
+The speedup should be similar, as this is a relative measure.
 ::::
 :::::
 
@@ -61,7 +64,8 @@ When we plot the run time against the number of cores with the results from the 
 
 ![Time vs Cores for an implementation of Pi](fig/scalability-pi-time-vs-cores.png)
 
-So we can see that as the number of cores increases, the run time of our program decreases. This makes sense, since we are splitting the calculation into smaller pieces which are executed at the same time.
+So, we can see that as the number of cores increases, the run time of our program decreases.
+This makes sense, we are splitting the calculation into smaller pieces which are executed at the same time.
 
 ## Amdahl's Law
 
