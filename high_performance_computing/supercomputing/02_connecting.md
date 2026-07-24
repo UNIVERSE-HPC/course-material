@@ -1,6 +1,6 @@
 ---
 name: Connecting Multiple Computers
-dependsOn: [high_performance_computing.parallel_computers.01_basics]
+dependsOn: [high_performance_computing.supercomputing.01_basics]
 tags: [foundation]
 attribution:
   - citation: >

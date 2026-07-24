@@ -152,7 +152,7 @@ Although the compute nodes may have disks attached to them, they are only used f
 To undertake the practical sessions in this course you'll need one of the following:
 
 - A machine with OpenMP and MPI installed (see links to instructions below), although you won't be able to run the Slurm job scheduler examples unless you have access to ARCHER2 which these examples assume.
-- The Slurm job submission examples presented assume access to [ARCHER2](https://www.archer2.ac.uk/) which has OpenMP and MPI preinstalled. These examples can be made to work on other HPC infrastructures, such as [DiRAC](https://dirac.ac.uk/), but due to differences in how these systems are configured, prior knowledge of job scripts and the correct parameters to use for those systems will be required.
+- The Slurm job submission examples presented assume access to [ARCHER2](https://www.archer2.ac.uk/) which has OpenMP and MPI preinstalled. These examples can be made to work on other HPC infrastructures, such as [DiRAC](https://dirac.ac.uk/) or Oxford's ARC, but due to differences in how these systems are configured, prior knowledge of job scripts and the correct parameters to use for those systems will be required.
 
 ### Local machine installation
 
@@ -253,7 +253,7 @@ Some of the more common ones are:
 - `emacs`: also highly configurable and extensible, `emacs` has a less steep learning curve than `vim` but offers features common to many modern code editors. It readily integrates with debuggers, which is great if you need to find problems in your code as it runs.
 - `nano`: a lightweight editor that also uses the more common way of allowing the editing of text by default, but allows you to access extra editor functionality such as search/replace or saving files by using `Ctrl` with other keys.
 
-These are all text-based editors, in that they do not use a graphical user interface like Windows. They simply appear in the terminal, which has a key advantage, particularly for HPC systems like ARCHER2 or DiRAC: they can be used everywhere there is a terminal, such as via an SSH connection.
+These are all text-based editors, in that they do not use a graphical user interface like Windows. They simply appear in the terminal, which has a key advantage, particularly for HPC systems like ARCHER2, DiRAC, or Oxford's ARC: they can be used everywhere there is a terminal, such as via an SSH connection.
 
 One of the common pitfalls of using Linux is that the `vi` editor is commonly set as the default editor. If you find yourself in `vi`, you can exit using `Escape` to get into command mode, and then `:` to enter a new command followed by `q` + `!`, which means quit `vi` without saving the file.
 
@@ -337,11 +337,15 @@ The login node is shared with all other users and your actions could cause issue
 
 ### Submitting our First Job
 
-**To be able to run the job submission examples in this segment, you'll need to either have access to ARCHER2, or an HPC infrastructure running the Slurm job scheduler and knowledge of how to configure job scripts for submission.**
+::::callout{variant="note"}
 
-To take advantage of the compute nodes, we need the batch scheduler to queue our code to run on a compute node. The scheduler used in this lesson is Slurm. Although Slurm is not used everywhere, it's very popular and the process of specifying and running jobs is quite similar regardless of what scheduling software is being used.
+## Prerequisites
 
-Schedulers such as Slurm tend to make use of submission scripts, typically written in Bash, which define what to run but also, critically, define *what* the job is and *how* to run it.
+To be able to run the job submission examples in this segment, you'll need to either have access to ARCHER2, or an HPC infrastructure running the Slurm job scheduler and knowledge of how to configure job scripts for submission.
+::::
+
+[Introduction to High Performance Computing](high_performance_computing/hpc_intro/04_scheduler) covers what a job scheduler is, how Slurm submission scripts work, and what each `#SBATCH` directive means, in full.
+Here we'll just submit the program we compiled above on ARCHER2.
 
 Place this bash code into a file called `Hello_Serial_Slurm.sh` and replace `YOUR_NAME_HERE` with your own input and `[project code]` with your supplied project code.
 
@@ -362,14 +366,7 @@ Place this bash code into a file called `Hello_Serial_Slurm.sh` and replace `YOU
 ./hello-SER YOUR_NAME_HERE
 ```
 
-If you run this script (e.g. using `bash Hello_Serial_Slurm.sh` you should see the output as before.
-But we have also defined some scheduler directives as comments (prefixed by `#SBATCH`) in our script which are interpreted by the job scheduler, which indicate:
-
-- `--job-name` - a name for the job, which acn be anything
-- `--nodes`, `--tasks-per-node`, `--cpus-per-node` - the number of compute nodes we wish to request for the job, the number of tasks (or processes) we wish to run, and the number of cpus we wish to use (in this case, a single process on 1 CPU on 1 node)
-- `--time` - the expected overall run time (or *wall time*) for the job, in `minutes:hours:seconds`. If our job goes over this, the scheduler may terminate the job!
-- `--account`, `--partition` - the account we wish to charge for this job, and the partition, or queue, we wish to submit the job to. These vary from Slurm system-to-system, depending on how they are configured
-- `--qos` - the requested Quality of Service, or priority, for this job. Again, this may vary between different Slurm HPC systems
+ARCHER2 specifically requires the `--account`, `--partition`, and `--qos` directives above - these vary between Slurm systems, so check your own facility's documentation for the values it expects.
 
 To submit this job run,
 

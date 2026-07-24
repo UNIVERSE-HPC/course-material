@@ -1,6 +1,6 @@
 ---
 name: Shared vs Distributed Hello World
-dependsOn: [high_performance_computing.parallel_computers.03_comparison]
+dependsOn: [high_performance_computing.supercomputing.03_comparison]
 tags: [foundation]
 attribution:
   - citation: >
@@ -139,7 +139,12 @@ Since the threads are running in parallel, they are not guaranteed to run their 
 
 ::::challenge{id=parallel_comp_pr.3 title="Submitting an OpenMP job"}
 
-**To be able to run the job submission examples in this segment, you'll need to have access to a Slurm job scheduler for example on an HPC infrastructure such as ARCHER2 or DiRAC.**
+:::callout{variant="note"}
+
+## Prerequisites: Submitting an OpenMP Job
+
+To be able to run the job submission examples in this segment, you'll need to have access to a Slurm job scheduler for example on an HPC infrastructure such as ARCHER2, DiRAC, or Oxford's ARC.
+:::
 
 Write a job submission script that runs this OpenMP code.
 
@@ -288,7 +293,12 @@ mpiexec -n 4 ./hello-MPI
 
 ::::challenge{id=parallel_comp_pr.4 title="Submitting an MPI job"}
 
-**To be able to run the job submission examples in this segment, you'll need to either have access to ARCHER2, or an HPC infrastructure running the Slurm job scheduler and knowledge of how to configure job scripts for submission.**
+:::callout{variant="note"}
+
+## Prerequisites: Submitting an MPI Job
+
+To be able to run the job submission examples in this segment, you'll need to either have access to ARCHER2, or an HPC infrastructure running the Slurm job scheduler and knowledge of how to configure job scripts for submission.
+:::
 
 Write a Slurm submission script for our MPI job, so that it runs across 4 processes. Note that you'll need to:
 

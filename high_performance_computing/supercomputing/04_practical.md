@@ -247,7 +247,12 @@ Covering this in detail is beyond the scope of this course, although the ARCHER2
 
 ## Submitting to a compute node
 
-**To be able to run the job submission examples in this segment, you'll need to either have access to ARCHER2, or an HPC infrastructure running the Slurm job scheduler and knowledge of how to configure job scripts for submission.**
+:::callout{variant="note"}
+
+### Prerequisites
+
+To be able to run the job submission examples in this segment, you'll need to either have access to ARCHER2, or an HPC infrastructure running the Slurm job scheduler and knowledge of how to configure job scripts for submission.
+:::
 
 Write a Slurm script to run sharpen on a compute node, and submit it.
 
