@@ -1,8 +1,8 @@
 ---
 name: Introduction to Supercomputing
 id: supercomputing
-dependsOn: [technology_and_tooling.bash_shell]
-files: [01_intro.md, 02_understanding_supercomputing.md, 03_supercomputing_world.md, 04_practical.md]
+dependsOn: [high_performance_computing.hpc_intro]
+files: [01_intro.md, 02_understanding_supercomputing.md, 03_supercomputing_world.md, 04_practical.md, 01_basics.md, 02_connecting.md, 03_comparison.md, 05_shared_vs_distributed_hello_world.md]
 summary: |
   An introduction to supercomputing, including why we need them and how they are used.
 ---

@@ -1,6 +1,6 @@
 ---
 name: Comparing the Two Approaches
-dependsOn: [high_performance_computing.parallel_computers.02_connecting]
+dependsOn: [high_performance_computing.supercomputing.02_connecting]
 tags: [foundation]
 attribution:
   - citation: >
