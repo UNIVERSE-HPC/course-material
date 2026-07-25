@@ -37,7 +37,7 @@ We’ve explained that the hardware building blocks of supercomputers, memory an
 But ARCHER looks very different from your laptop!
 In this video David deconstructs a laptop so that we can compare its packaging to the specialist design of a supercomputer.
 
-![Diagram of user in relation to computer containing an operating system, multicore processor and memory](images/hero_4a65543e-9635-4624-9811-5da1a0ab431e.png)
+![Diagram of user in relation to computer containing an operating system, multicore processor and memory](images/user-os-cores-memory-bus-diagram.svg)
 
 ---
 
