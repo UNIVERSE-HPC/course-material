@@ -23,7 +23,7 @@ An image can be sharpened by:
 These steps are shown in the figure below.
 
 ![Image sharpening steps](images/sharpening_diagram.png)
-_Image sharpening steps_
+*Image sharpening steps*
 
 ---
 
@@ -50,7 +50,7 @@ $$
 These two functions $G(x,y)$ and $L \circ G(x,y)$ are graphed below.
 
 !["Gaussian" and "Laplacian of Gaussian" filters](images/Laplacian_of_Gaussian.png)
-_"Gaussian" and "Laplacian of Gaussian" filters_
+*"Gaussian" and "Laplacian of Gaussian" filters*
 
 ---
 
@@ -59,7 +59,7 @@ _"Gaussian" and "Laplacian of Gaussian" filters_
 To apply the $L \circ G$ filter to an image the $L \circ G$ filter must be turned into a discrete mask, that is a matrix of size 2d+1 x 2d+1 where d is an integer. We use d=8, therefore the $L \circ G$ filter is a 17x17 square, it looks like this:
 
 ![Laplacian of Gaussian filter as a discrete mask](images/mask.png)
-_$L \circ G$ filter as a discrete mask_
+*$L \circ G$ filter as a discrete mask*
 
 To perform the convolution of this filter with the original image, the following operation is performed on each pixel,
 
@@ -237,7 +237,7 @@ Then you should be able to open and view the image file on your local machine.
 
 ::::callout
 
-## What about viewing the file _without_ copying?
+## What about viewing the file *without* copying?
 
 Another way to view this file directly on an HPC resource, without copying it, is by installing an X Window client on your local machine and then log into the remote machine with X forwarding enabled.
 Covering this in detail is beyond the scope of this course, although the ARCHER2 [documentation on connecting](https://docs.archer2.ac.uk/user-guide/connecting/#logging-in) has some information.

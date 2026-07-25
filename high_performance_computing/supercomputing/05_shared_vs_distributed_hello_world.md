@@ -179,7 +179,7 @@ export OMP_NUM_THREADS=4
 
 MPI is a message passing interface that uses a distributed memory approach to parallelism. This allows for messages to be sent by multiple instances of the program running within different processes to each other.
 
-In this MPI example, which we'll put in a file called `helloWorldMPI.c`, each process prints out a hello message which states which node it is running on and which process in the group it is, and includes a string (the command line argument) passed to it from process (or _rank_) 0.
+In this MPI example, which we'll put in a file called `helloWorldMPI.c`, each process prints out a hello message which states which node it is running on and which process in the group it is, and includes a string (the command line argument) passed to it from process (or *rank*) 0.
 Rank 0, on the other hand, prints out a slightly different message.
 
 ```c
@@ -302,7 +302,7 @@ To be able to run the job submission examples in this segment, you'll need to ei
 
 Write a Slurm submission script for our MPI job, so that it runs across 4 processes. Note that you'll need to:
 
-- Specify the number of processes to use as an `#SBATCH` parameter. Which one should you use? (_Hint:_ look back at the material that introduced the first job we submitted via Slurm)
+- Specify the number of processes to use as an `#SBATCH` parameter. Which one should you use? (*Hint:* look back at the material that introduced the first job we submitted via Slurm)
 - Use the Slurm `srun` command to run our MPI job, e.g. `srun ./hello-MPI yourname`
 
 :::solution
