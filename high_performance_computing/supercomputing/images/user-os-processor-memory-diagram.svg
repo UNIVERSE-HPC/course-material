@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 460" width="400" height="460" role="img" aria-label="Diagram showing a user connected to a computer, which contains an operating system managing a processor connected to memory">
+  <style>
+    .computer { fill: none; stroke: #0891b2; stroke-width: 2; }
+    .user { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; }
+    .os { fill: #ecfeff; stroke: #0891b2; stroke-width: 2; }
+    .core { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; }
+    .mem { fill: #f5f3ff; stroke: #8b5cf6; stroke-width: 2; }
+    .line { stroke: #64748b; stroke-width: 2; }
+    .label { fill: #1e1b4b; font-family: system-ui, sans-serif; font-size: 16px; font-weight: 600; text-anchor: middle; }
+    @media (prefers-color-scheme: dark) {
+      .computer { stroke: #67e8f9; }
+      .user { fill: #78350f; stroke: #fbbf24; }
+      .os { fill: #164e63; stroke: #67e8f9; }
+      .core { fill: #1e3a5f; stroke: #60a5fa; }
+      .mem { fill: #3b1f6e; stroke: #c4b5fd; }
+      .line { stroke: #94a3b8; }
+      .label { fill: #eef2ff; }
+    }
+  </style>
+
+  <line class="line" x1="200" y1="63" x2="200" y2="105"/>
+  <ellipse class="computer" cx="200" cy="290" rx="185" ry="165"/>
+
+  <line class="line" x1="200" y1="197" x2="200" y2="230"/>
+  <line class="line" x1="200" y1="300" x2="200" y2="340"/>
+
+  <ellipse class="user" cx="200" cy="35" rx="75" ry="28"/>
+  <text class="label" x="200" y="41">User</text>
+
+  <ellipse class="os" cx="200" cy="165" rx="75" ry="32"/>
+  <text class="label" x="200" y="160">Operating</text>
+  <text class="label" x="200" y="179">System</text>
+
+  <rect class="core" x="155" y="230" width="90" height="70" rx="10"/>
+  <text class="label" x="200" y="270">Processor</text>
+
+  <rect class="mem" x="140" y="340" width="120" height="80" rx="12"/>
+  <text class="label" x="200" y="385">Memory</text>
+</svg>
