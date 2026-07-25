@@ -12,7 +12,7 @@ attribution:
 ---
 
 ![Photo of laptop motherboard](images/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg)
-_Image courtesy of [Alexandre Debieve](https://unsplash.com/@alexkixa) from [Unsplash](https://unsplash.com)_
+*Image courtesy of [Alexandre Debieve](https://unsplash.com/@alexkixa) from [Unsplash](https://unsplash.com)*
 
 ## Computer Basics
 
@@ -41,10 +41,10 @@ Higher frequencies and greater transistor density increased power consumption an
 
 Manufacturers therefore began using more of their transistor budget to place several complete processing cores on one chip.
 Dual-core processors were followed by processors with four, eight and eventually dozens of CPU-cores.
-Processors containing especially large numbers of cores are sometimes described as _many-core_ processors.
+Processors containing especially large numbers of cores are sometimes described as *many-core* processors.
 
 :::callout{variant="info"}
-With multi-core processors, the words _CPU_ and _processor_ can be ambiguous.
+With multi-core processors, the words *CPU* and *processor* can be ambiguous.
 
 In this course:
 
@@ -81,7 +81,7 @@ Windows, macOS, Linux and Android are different operating systems, but all inclu
 
 Even a single-core computer can appear to run many programs at once.
 The scheduler gives one program a short period on the CPU-core, pauses it and then gives another program a turn.
-This process is called _time-sharing_.
+This process is called *time-sharing*.
 By switching between programs quickly, the operating system keeps them all responsive.
 
 ### How the OS Uses Multiple CPU-cores
@@ -201,7 +201,7 @@ To understand the limits of this approach, we now need to look at how the CPU-co
 ---
 
 ![Photo of a silicon wafer containing many processor chips](images/laura-ockel-qOx9KsvpqcM-unsplash.jpg)
-_Image courtesy of [Laura Ockel](https://unsplash.com/@viazavier) from [Unsplash](https://unsplash.com)_
+*Image courtesy of [Laura Ockel](https://unsplash.com/@viazavier) from [Unsplash](https://unsplash.com)*
 
 ## Designing a Parallel Computer
 
@@ -221,7 +221,7 @@ Which arrangement makes it easier for four CPU-cores to work with the same data,
 ---
 
 ![Photo of two people writing on a small whiteboard](images/kaleidico-7lryofJ0H9s-unsplash.jpg)
-_Image courtesy of [Kaleidico](https://unsplash.com/@kaleidico) from [Unsplash](https://unsplash.com)_
+*Image courtesy of [Kaleidico](https://unsplash.com/@kaleidico) from [Unsplash](https://unsplash.com)*
 
 ## Shared-Memory Architecture
 
@@ -257,7 +257,7 @@ Large supercomputers therefore combine many shared-memory computers as nodes in 
 ---
 
 ![Person writing on a whiteboard](images/jeswin-thomas-2Q3Ivd-HsaM-unsplash.jpg)
-_Image courtesy of [Jeswin Thomas](https://unsplash.com/@jeswinthomas) from [Unsplash](https://unsplash.com)_
+*Image courtesy of [Jeswin Thomas](https://unsplash.com/@jeswinthomas) from [Unsplash](https://unsplash.com)*
 
 ## Memory Caches
 
@@ -286,7 +286,7 @@ In the office analogy, the worker making the change would need to announce:
 > If you copied it, your notebook is now out of date.
 
 Processor hardware coordinates these updates so that cores do not continue calculating with stale values.
-This process is called _cache coherence_ or _cache coherency_.
+This process is called *cache coherence* or *cache coherency*.
 The coordination creates additional communication between CPU-cores and can limit performance when many cores frequently update shared data.
 
 The benchmark in the next challenge gives each process its own private array, so it does not measure cache-coherence traffic.

@@ -12,7 +12,7 @@ attribution:
 ---
 
 ![Computer circuit board looking like a city](images/bert-b-rhNff6hB41s-unsplash.jpg)
-_Image courtesy of [bert b](https://unsplash.com/@bertsz) from [Unsplash](https://unsplash.com)_
+*Image courtesy of [bert b](https://unsplash.com/@bertsz) from [Unsplash](https://unsplash.com)*
 
 ## Current Trends and Moore's Law
 
@@ -39,7 +39,7 @@ We saw clock speeds steadily increasing, finally breaking the GHz barrier (a bil
 The problem is that increasing clock frequency comes at a cost: it takes more power. Above a few GHz, our processors become too power hungry and too hot to use in everyday devices. But Moore’s law continues, so rather than increasing the frequency we put more processors on the same physical chip. We call these CPU-cores, and we now have multicore processors. The below image shows a schematic of a modern processor (Intel’s Core i7) with four CPU-cores (four pinkish rectangles).
 
 ![Rendering of Intel Core i7 CPU](images/large_hero_cafacb0d-898b-44b4-9290-5c25c211fc03.jpg)
-_Intel's Core i7 A modern quad-core CPU - Intel’s Core i7 © Intel_
+*Intel's Core i7 A modern quad-core CPU - Intel’s Core i7 © Intel*
 
 So for the past decade, Moore’s law has meant:
 
@@ -50,7 +50,7 @@ In the last few years the process of doubling transistors in integrated circuits
 The current trend in the supercomputing world is that supercomputers are getting bigger not faster. Since the speed of a single CPU-core cannot be increased any more, having more and more cores working together is the only way to meet our computational requirements.
 
 ![Graph of transistor count over time, ](images/Transistor-Count-over-time.png)
-_Image courtesy of Max Roser, Hannah Ritchie [OurWorldinData](https://ourworldindata.org/uploads/2020/11/Transistor-Count-over-time.png) ([CC-BY](https://creativecommons.org/licenses/by/4.0/deed.en))_
+*Image courtesy of Max Roser, Hannah Ritchie [OurWorldinData](https://ourworldindata.org/uploads/2020/11/Transistor-Count-over-time.png) ([CC-BY](https://creativecommons.org/licenses/by/4.0/deed.en))*
 
 :::callout{variant="discussion"}
 Your next mobile phone will probably have more CPU-cores than your current one. Do you think this is more useful than a faster CPU? Can you see any problems in making use of all these CPU-cores?
@@ -123,7 +123,7 @@ In this video David uses the income calculation example to illustrate what is th
 ---
 
 ![Podium with top three winners](images/winner-1019835_640.jpg)
-_Image courtesy of [Peggy_Marco](https://pixabay.com/users/peggy_marco-1553824/) from [Pixabay](https://pixabay.com)_
+*Image courtesy of [Peggy_Marco](https://pixabay.com/users/peggy_marco-1553824/) from [Pixabay](https://pixabay.com)*
 
 ## Top500 list: Supercomputing hit parade
 

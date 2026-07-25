@@ -12,7 +12,7 @@ attribution:
 ---
 
 ![People on laptops sat around a desk](images/helena-lopes-2MBtXGq4Pfs-unsplash.jpg)
-_Image courtesy of Helena Lopes from [Unsplash](https://unsplash.com)_
+*Image courtesy of Helena Lopes from [Unsplash](https://unsplash.com)*
 
 ## Distributed Memory Architecture
 
@@ -61,7 +61,7 @@ Why do you think the distributed memory architecture is common in supercomputing
 ---
 
 ![Two calculators](images/isawred-Mn4_KuFSpe4-unsplash.jpg)
-_Image courtesy of [iSawRed](https://unsplash.com/@isawred) from [Unsplash](https://unsplash.com)_
+*Image courtesy of [iSawRed](https://unsplash.com/@isawred) from [Unsplash](https://unsplash.com)*
 
 ## Simple Parallel Calculation
 
@@ -80,7 +80,7 @@ To minimise the communication-related costs, try to make as few phone calls as p
 ---
 
 ![ARCHER2 banner](images/ARCHER2.jpg)
-_© ARCHER2_
+*© ARCHER2*
 
 ## Case study of a real machine
 
@@ -110,7 +110,7 @@ This gives a peak performance of 750,080 \* 2.25 \* 16 Gflop/s = 27,002,880 Glop
 ARCHER2 comprises 23 separate cabinets, each about the height and width of a standard door, with around 32,768 CPU-cores (256 nodes) or about 60,000 virtual cores (using multi-threading) in each cabinet.
 
 ![Photo of someone managing ARCHER2 system](images/hero_73afa9aa-74db-4ad2-893e-971956518bdf.jpg)
-_© EPCC_
+*© EPCC*
 
 ### Storage
 
@@ -128,10 +128,10 @@ The heated water is then cooled and re-circulated.
 When necessary the water is cooled by electrical chillers but, most of the time, ARCHER2 can take advantage of the mild Scottish climate and cool the water for free simply by pumping it through external cooling towers, so saving significant amounts of energy.
 
 ![Diagram of datacenter cooling](images/hero_87e2018b-86eb-4aa5-a7c4-efd271a505b2.webp)
-_© Mike Brown_
+*© Mike Brown*
 
 ![Photo of ARCHER's cooling towers](images/hero_a887d8cf-e9a0-4810-b7ab-b7a016dfc47f.webp)
-_ARCHER’s cooling towers © Mike Brown_
+*ARCHER’s cooling towers © Mike Brown*
 
 ---
 
@@ -181,7 +181,7 @@ For anyone interested in how Wee ARCHIE has been put together (and possibly want
 ---
 
 ![Photo of overly complex road junction](images/timo-volz-9Psb5Q1TLD4-unsplash.jpg)
-_Image courtesy of [Timo Volz](https://unsplash.com/@magict1911) from [Unsplash](https://unsplash.com)_
+*Image courtesy of [Timo Volz](https://unsplash.com/@magict1911) from [Unsplash](https://unsplash.com)*
 
 ## ARCHER2 - it's more complicated
 
