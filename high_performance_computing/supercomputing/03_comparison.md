@@ -73,15 +73,15 @@ Do you remember this diagram?
 Having watched the above video, how would you modify it to make it more accurate?
 
 ![HECToR Artist’s impression of the HECToR XT4 system ](images/hero_dcac5759-2efe-4f9f-a6a7-f439ef43840c.jpg)
-_© Cray Inc_
+*© Cray Inc*
 
 ![HECToR's compute blades](images/hero_cbe27959-b81d-41c1-8d00-9c7fc44d34e9.jpg)
-_HECToR's compute blades_
+*HECToR's compute blades*
 
 ---
 
 ![Photo of balancing scales](images/piret-ilver-98MbUldcDJY-unsplash.jpg)
-_Image courtesy of [Piret Llver](https://unsplash.com/@saltsup) from [Unsplash](https://unsplash.com)_
+*Image courtesy of [Piret Llver](https://unsplash.com/@saltsup) from [Unsplash](https://unsplash.com)*
 
 ## Shared memory vs Distributed memory
 
@@ -107,7 +107,7 @@ These are the two architectures used today. Do you think there is any alternativ
 ---
 
 ![Photo of car lights at night, long exposure](images/julian-hochgesang-3-y9vq8uoxk-unsplash.jpg)
-_Image courtesy of [Julian Hochgesang](https://unsplash.com/@julianhochgesang) from [Unsplash](https://unsplash.com)_
+*Image courtesy of [Julian Hochgesang](https://unsplash.com/@julianhochgesang) from [Unsplash](https://unsplash.com)*
 
 ## What limits the speed of a supercomputer?
 
@@ -170,7 +170,7 @@ Large internet companies like Amazon and Google also use distributed memory arch
 ---
 
 ![Photo of someone playing a modern computer game](images/florian-olivo-Mf23RF8xArY-unsplash.jpg)
-_Image courtesy of [Florian Olivo](https://unsplash.com/@florianolv) from [Unsplash](https://unsplash.com)_
+*Image courtesy of [Florian Olivo](https://unsplash.com/@florianolv) from [Unsplash](https://unsplash.com)*
 
 ## Graphics Processors
 
@@ -248,7 +248,7 @@ B) memory
 ---
 
 ![Photo of child playing with building blocks](images/kelly-sikkema-JRVxgAkzIsM-unsplash.jpg)
-_Image courtesy of [Kelly Sikkema](https://unsplash.com/@kellysikkema) from [Unsplash](https://unsplash.com)_
+*Image courtesy of [Kelly Sikkema](https://unsplash.com/@kellysikkema) from [Unsplash](https://unsplash.com)*
 
 ## Game: Build your own supercomputer
 
