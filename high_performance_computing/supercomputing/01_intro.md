@@ -4,8 +4,15 @@ dependsOn: []
 tags: [foundation]
 attribution:
   - citation: >
-      "Introduction to HPC" course by EPCC.
-      This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
+      This course was developed by Alasdair Wilson as part of the Oxford Research
+      Software Engineering group (OxRSE).
+    url: https://www.rse.ox.ac.uk/
+    image: ./supercomputing/images/2024_oxrse_square.svg
+    license: CC-BY-4.0
+  - citation: >
+      An earlier version of this material was produced for the "Introduction to
+      HPC" course by David Henty, Manos Farsarakis, Weronika Filinger, James
+      Richings, and Stephen Farr at EPCC, with funding from EuroCC.
     url: https://epcced.github.io/Intro-to-HPC/
     image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
     license: CC-BY-4.0
@@ -14,128 +21,91 @@ attribution:
 ![Photo of a supercomputer](images/taylor-vick-M5tzZtFCOfs-unsplash.jpg)
 *Image courtesy of [Taylor Vick](https://unsplash.com/@tvick) from [Unsplash](https://unsplash.com)*
 
-## What are supercomputers?
+## What Is a Supercomputer?
 
-A supercomputer is a computer with very high-level computational capacities, significantly surpassing a general-purpose computer such as a personal desktop or laptop.
+A supercomputer is a computing system designed to solve problems that would be impractical on an ordinary desktop or laptop.
+It can perform far more calculations, hold much larger datasets in memory and move data between its components at much higher rates.
 
-Supercomputers were first introduced in the 1960s by Seymour Roger Cray at Control Data Corporation (CDC), and have been used intensively in science and engineering ever since.
-Clearly the technology has improved since then - today’s laptop would have been a supercomputer only a couple of decades ago - but no matter how fast today’s general-purpose computers are, there will always be a need for much more powerful machines.
-To keep track of the state-of-the-art, the supercomputing community looks to the Top500 list, which ranks the fastest 500 supercomputers in the world every six months.
+There is no permanent threshold at which a computer becomes a supercomputer.
+As computing technology advances, capabilities that were once found only in supercomputers become available in everyday machines.
+The term therefore describes the most capable systems of their time rather than a fixed specification.
 
-### Number crunching
+Modern supercomputers do not achieve their performance through exceptionally fast processors.
+Instead, they combine many processors with large amounts of memory and storage, spread across compute nodes connected by high-speed networks.
+These components work together as one system to give performance that could not be achieved by a single system.
 
-The main application of supercomputers is in large-scale numerical computations, also called number-crunching. For simple calculations such as:
+*High-performance computing* (HPC) is the broader practice of using powerful computing systems to solve demanding problems.
+It includes the hardware, software, algorithms and operational expertise required to make effective use of a supercomputer.
 
-```math
-123 + 765 = 888
-```
+## Why Do We Need Supercomputers?
 
-or
+Large computations consist of familiar arithmetic and logical operations repeated many times.
+The challenge comes from the sheer number of these operations, the quantity of data and the time available to produce a result.
 
-```math
-1542.38 x 2643.56 = 4077374.07
-```
+Supercomputers are used to address three common requirements:
 
-You don’t need a supercomputer. In fact you don’t even need a personal computer, as pencil-and-paper or a simple calculator can do the job. If you want to calculate something more complex, such as the total of the salaries of every employee in a big company, you probably just need a general-purpose computer.
+1. **Time to solution:** A result may be useful only if it is produced before a deadline, as with operational weather forecasting.
+1. **Problem size:** A calculation may require more memory or storage than one computer can provide.
+1. **Throughput:** Researchers may need to complete many related calculations, such as testing thousands of candidate materials or model configurations.
 
-The types of large-scale computations that are done by supercomputers, such as weather-forecasting or simulating new materials at the atomic scale, are fundamentally based on simple numerical calculations that could each be done on a calculator. However, the sheer scale of these computations and the levels of accuracy these applications require mean that almost unimaginably large numbers of individual calculations are needed to do the job. To produce an accurate weather forecast, the total number of calculations required is measured in the quintillions, where a quintillion is one with 18 zeroes after it: 1 000 000 000 000 000 000 !
+Real world workloads often combine all three requirements.
+A climate study, for example, might use a large model, run it for many scenarios and need the complete set of results within a practical timescale.
 
-Imagine running a computation that takes several days or weeks to complete, one that you may need to repeat it many times with different input parameters. Such a task could monopolize your computer's resources, leaving you unable to use it for anything else. This is particularly problematic for time-sensitive applications, like predicting tomorrow's weather, where a delay would make the results irrelevant.
+Supercomputers meet these requirements primarily through *parallel computing*: dividing work such that many processing units can contribute at the same time.
+Parallelism can reduce the runtime of one calculation, allow parts of a large problem to be stored across several computers, and enable many independent calculations to run concurrently.
 
-This is where supercomputers excel. By leveraging thousands of processors working in parallel, they can finish jobs in hours or days that would take general-purpose computers many years to complete. Furthermore, they tackle problems that are too large or complex for everyday machines to store in their memory, such as modeling the Earth's climate, simulating molecular interactions, or processing massive datasets in astrophysics.
+Supercomputers are expensive to build and operate, requiring substantial electrical power, cooling, physical space and specialist support.
+They are therefore usually shared between many users.
+A central system which is highly utilised can be more cost-effective than provisioning separate local systems that spend much of their time idle.
+As a result, computationally demanding workloads are increasingly being run on shared, centralised systems rather than hardware dedicated to a single user or project.
 
-Supercomputers are indispensable tools for solving the most computationally demanding challenges.
+::::challenge{id=sc_intro.requirements title="Why Does This Workload Need HPC?"}
+Consider these three workloads:
 
-### Parallelism: the key to performance
+1. A flood-forecasting model must finish within 20 minutes so that its result can inform an emergency response.
+2. A turbulence simulation requires several terabytes of memory to hold its computational mesh.
+3. A materials team must evaluate 50,000 candidate structures by the end of the week.
 
-Supercomputers achieve this using parallel computing, carrying out many calculations simultaneously. Imagine thousands of general-purpose computers all working for you on the same problem at the same time. This analogy reflects how modern supercomputers work - you will learn more about the details of their architecture and operation later in the course.
+For each workload:
 
-Also keep in mind that although supercomputers provide enormous computational capacities, they are also very expensive to develop, purchase and even just to operate. For example, the typical power consumption of a supercomputer is of the order of several megawatts, where a megawatt (MW) is enough to power a small town of around 1000 people. That is why it’s important to use them as efficiently as possible.
+1. Identify whether its clearest requirement is time to solution, problem size or throughput.
+1. Explain how access to more computing resources could help.
+1. Identify one question you would ask before deciding that the workload could use those resources effectively.
 
-:::callout{variant="discussion"}
-Can you think of other examples of parallelism in everyday life, where many hands make light work?
+:::solution
+The flood forecast is primarily constrained by **time to solution**.
+Running different parts of the forecast calculation concurrently could produce the result sooner, but only if the program contains work that can be divided and coordinated efficiently.
+A useful first question is how much of the calculation can execute in parallel.
+
+The turbulence simulation is primarily constrained by **problem size**.
+The mesh could be divided between several computers so that their combined memory holds the complete dataset.
+A useful first question is how often those computers would need to exchange data, because communication can become a performance bottleneck.
+
+The materials study is primarily constrained by **throughput**.
+Independent candidates could be evaluated concurrently on different processing units or computers.
+A useful first question is whether the candidates really are independent, or whether any results must be shared between them.
+
+These classifications are not absolute.
+The forecast may also need a large amount of memory, while the turbulence simulation may also have a deadline.
+Identifying the main constraint is a starting point for choosing appropriate computing resources, not proof that adding more resources will solve the problem.
 :::
-
----
-
-## Supercomputers - why do we need them?
-
-This UKRI video gives you an overview of why high performance computing is important aspect of modern scientific research.
-
-::::iframe{width="100%" height="400" src="https://www.youtube.com/embed/NEgbVNIo560" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen}
 ::::
 
-In the video Prof. Mark Parsons uses the term of High Performance Computing (HPC). When reading about supercomputing, you will encounter this term quite often. HPC is a general term that includes all the activities and components associated with supercomputers, including aspects such as software and data storage as well as the bare supercomputer hardware.
+## How Are Supercomputers Used?
+
+Computer simulation is one of the most important uses of supercomputers.
+A simulation represents some aspect of the world as a mathematical model and uses computation to explore how that model behaves.
+It allows researchers to investigate systems that would be too large, distant, dangerous, slow or expensive to study through direct experiments alone.
 
 ![Computer simulation example image](images/large_hero_e0df48e4-9b4d-422c-a18f-d7898b9578d8.jpg)
-*Computer simulation covering multiple physical phenomena and machine learning algorithms can predict how dinosaurs might have moved. The laws of physics apply for extinct animals exactly as they do for living ones. © 2016 ARCHER image competition*
+*This simulation combines several physical models to investigate how dinosaurs might have moved. © 2016 ARCHER image competition*
 
-## Supercomputers - how are they used?
+Large-scale simulations are used to study weather and climate, galaxies, materials, molecular interactions and the behaviour of engineered structures.
+Engineers can also test designs virtually before building physical prototypes, reducing the cost of exploring alternatives and helping to identify problems earlier.
 
-To do science in the real world we have to build complicated instruments for each experiment: vast telescopes for astronomers to look deep into space, powerful particle accelerators so physicists can smash atoms together at almost the speed of light, or enormous wind tunnels where engineers can study how an aeroplane wing will operate in flight.
+Simulation is not the only use of a supercomputer.
+Supercomputers also analyse data from experiments and observations, train machine-learning models and process large collections of independent calculations.
+Applications span scientific research, medicine, engineering and industry.
 
-### Computer simulation
-
-However, some problems are actually too large, too distant or too dangerous to study directly: we cannot experiment on the earth’s weather to study climate change, we cannot travel thousands of light years into space to watch two galaxies collide, and we cannot dive into the centre of the sun to measure the nuclear reactions that generate its enormous heat. However, one supercomputer can run different computer programs that reproduce all of these experiments inside its own memory.
-
-:::callout{variant="discussion"}
-We'll be covering more examples of how supercomputers are used in science later in this course.
-Are there any applications of supercomputers you know of, that made you interested in this course?
-:::
-
-This gives the modern scientist a powerful new tool to study the real world in a virtual environment. The process of running a virtual experiment is called computer simulation, and compared to disciplines such as chemistry, biology and physics it is a relatively new area of research which has been around for a matter of decades rather than centuries. This new area, which many view as a third pillar of science which extends the two traditional approaches of theory and experiment, is called computational science and its practitioners are computational scientists.
-
-### Computational Science
-
-It’s important to be clear about the difference between computational science and computer science. Computer science is the scientific study of computers: it is through the work of computer scientists that we have the hardware and software required to build and operate today’s supercomputers. In computational science, however, we use these supercomputers to run computer simulations and make predictions about the real world. To make things even more confusing, if a computer scientist talks about a computer simulation then they would probably mean simulating a computer, i.e. running a simulation of a computer (not of the real world), which is something you might do to check that your design for a new microprocessor works correctly before going into production.
-
-It’s important to distinguish between computational science and computer science. Computer science is the scientific study of computers, and it is through the work of computer scientists that we have the hardware and software required to build and operate today’s supercomputers. Computational science, on the other hand, leverages these supercomputers to run simulations and make predictions about the real world. Adding to the potential confusion, when computer scientists refer to a "computer simulation," they may also mean simulating a computer itself—such as testing the design of a new microprocessor through simulation before production—rather than simulating real-world phenomena.
-
-Large-scale computer simulation has applications in industry, engineering, commerce, and academia. For instance, modern cars and airplanes are designed and tested virtually long before physical prototypes are built. A new car must pass crash safety tests before going to market, and virtual crash simulations enable engineers to identify and resolve potential issues early in the design process. This significantly reduces the costs of physical destructive testing and minimizes the risk of expensive redesigns. Such simulations ensure that new products are far more likely to work correctly on the first attempt, saving time and resources while driving innovation.
-
-### Breaking the world land speed record
-
-This point was well made by Andy Green, the driver of the Bloodhound LSR supersonic car which was aiming to break the world land speed record. In an interview on BBC’s 5 live Drive, broadcast on 4th January 2017, Adrian Goldberg asked Andy about the risks involved compared to the records set by the famous British driver Malcolm Campbell over 80 years ago:
-
-Adrian: “But if you’re travelling at supersonic speeds and you’re breaking records, so by definition doing something that hasn’t been done before, there must be a risk?
-
-Andy: “You’re missing the point between something that hasn’t been done before and something that is not fully understood. Back in the 1930’s, if you were doing something that hadn’t been done before, there was no other way of doing it apart from to go out and find out, to see what happens.
-
-Nowadays you can actually produce a computer model in a supercomputer and spend literally years researching a programme down to an extraordinarily fine level of detail so that when you actually go out to push back the boundary of human endeavour, to achieve something absolutely remarkable that will make everybody look round and go ‘wow, that was impressive!’, you can actually do it in a safe, step-by-step controlled way. You can actually understand the problem in advance and that’s all the difference.”
-
----
-
-## Introducing Wee Archie
-
-::::iframe{id="kaltura*player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_vrq8zch9&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_jh4xeojf" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen \_; encrypted-media \*" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Introducing_Wee_Archie_hd"}
-::::
-
-:::solution{title="Transcript"}
-0:31 - So ARCHER is the UK National Supercomputing Service that we house here in Edinburgh as part of the University. And it’s funded by the UK Research Councils. And it can do many, many calculations per second. Actually, if you took all the people on the planet, then it would be the equivalent of all these people doing many, many, many calculations per second.
-
-1:17 - It’s absolutely crucially important for simulation, things like simulation of weather, simulation of the cosmology, things like cancer analysis, cancer research, all sorts of different applications that maybe you wouldn’t have foreseen.
-
-1:47 - There’s a real keen push to encourage the next generation of scientists to get into science, and to get into computing in general.
-:::
-
-In your mind, you probably already have an image of a supercomputer as a massive black box. Well, they usually are just that - dull looking cabinets connected by a multitude of cables. To make things more interesting, we introduce Wee ARCHIE!
-
-Wee ARCHIE is a suitcase-sized supercomputer designed and built to explain what a supercomputer is.
-
-![Photo of Wee ARCHIE](images/181107_ARCHER_30.jpg)
-
-We will return to Wee ARCHIE, and its big brother ARCHER, later in the course to explain the hardware details of supercomputers.
-
-You can find instructions on how to [configure your very own Raspberry Pi cluster here](https://epcced.github.io/wee_archlet/).
-
----
-
-## Terminology Recap
-
-::::callout{variant="keypoints"}
--Performing computations in parallel means carrying out many calculations simultaneously.
--HPC stands for High Performance Computing
--Computer simulations are the process of running a virtual experiment
--Supercomputers can be used to run large-scale numerical computations
--Supercomputers can consume several megawatts of power
-::::
+This course examines the architecture of modern supercomputers and how their performance is measured.
+We will start with the multi-core processors found in everyday computers, then build towards shared-memory nodes, distributed systems and accelerators such as GPUs.
