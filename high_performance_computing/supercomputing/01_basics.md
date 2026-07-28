@@ -1,6 +1,6 @@
 ---
 name: Parallelism in Everyday Computers
-dependsOn: [high_performance_computing.supercomputing.03_supercomputing_world]
+dependsOn: [high_performance_computing.supercomputing.01_intro]
 tags: [foundation]
 attribution:
   - citation: >
