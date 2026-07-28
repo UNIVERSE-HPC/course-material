@@ -2,6 +2,11 @@
 name: Introduction to Supercomputing
 dependsOn: []
 tags: [foundation]
+learningOutcomes:
+  - Describe what distinguishes a supercomputer and the broader practice of high-performance computing.
+  - Identify whether a workload is primarily constrained by time to solution, problem size or throughput.
+  - Explain how parallel computing can help address each of these constraints.
+  - Describe why demanding computational workloads are often run on shared, centralised systems.
 attribution:
   - citation: >
       This course was developed by Alasdair Wilson as part of the Oxford Research

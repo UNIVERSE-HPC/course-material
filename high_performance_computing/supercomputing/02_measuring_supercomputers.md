@@ -2,6 +2,11 @@
 name: Measuring Supercomputers
 dependsOn: [high_performance_computing.supercomputing.03_comparison]
 tags: [foundation]
+learningOutcomes:
+  - Calculate and interpret theoretical peak and measured floating-point performance.
+  - Distinguish between hardware specifications, benchmark results and application performance.
+  - Interpret the TOP500 and Green500 rankings without treating either as a universal measure of performance.
+  - Relate performance, electrical power and energy consumption.
 attribution:
   - citation: >
       This course material was developed by Alasdair Wilson as part of the Oxford Research
