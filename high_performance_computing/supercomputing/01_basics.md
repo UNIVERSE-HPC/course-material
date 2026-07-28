@@ -2,6 +2,11 @@
 name: Parallelism in Everyday Computers
 dependsOn: [high_performance_computing.supercomputing.01_intro]
 tags: [foundation]
+learningOutcomes:
+  - Explain why modern processors use multiple CPU-cores.
+  - Distinguish between increasing throughput and reducing the runtime of one calculation.
+  - Describe how CPU-cores share memory and use caches.
+  - Investigate how processor availability and memory contention affect concurrent programs.
 attribution:
   - citation: >
       This course was developed by Alasdair Wilson as part of the Oxford Research
