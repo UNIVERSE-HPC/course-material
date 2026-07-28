@@ -1,6 +1,6 @@
 ---
 name: Measuring Supercomputers
-dependsOn: [high_performance_computing.supercomputing.02_connecting]
+dependsOn: [high_performance_computing.supercomputing.03_comparison]
 tags: [foundation]
 attribution:
   - citation: >

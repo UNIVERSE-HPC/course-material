@@ -174,7 +174,7 @@ Large internet companies like Amazon and Google also use distributed memory arch
 
 ## Graphics Processors
 
-When looking at the top500 list, you may have noticed that many of the world’s largest supercomputers use some kind of accelerator in addition to standard CPUs.
+Many of the world’s largest supercomputers use some kind of accelerator in addition to standard CPUs.
 A popular accelerator is a General Purpose Graphics Processing Unit, or GPGPU.
 Since we have sen how a modern multicore CPU works, we can also begin to understand the design of a GPGPU.
 
@@ -203,10 +203,6 @@ Using GPUs for applications other than graphics is called General Purpose or GPG
 The supercomputing community directly benefits from the multi-billion pound research and development investments in the games market.
 
 Programming a GPGPU isn’t quite as straightforward as a CPU, and not all applications are suitable for its specialised architecture, but one of the main areas of research in supercomputing at the moment is making GPGPUs easier to program for supercomputing applications.
-
-:::callout{variant="discussion"}
-Earlier we asked you to look at Piz Daint, which is accelerated compared to ARCHER2 by the addition of Nvidia’s GPGPUs. Use the sublist generator on the top500 page to check how many top500 systems use Nvidia accelerators. Do you see what you expected to see?
-:::
 
 ---
 

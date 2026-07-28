@@ -89,7 +89,7 @@ This machine has a relatively straightforward construction and is therefore a go
 
 ### General
 
-Archer2 is a HPE Cray EX machine, built by American supercomputer company Cray, a Hewlett Packard Enterprises company. It contains 750,080 CPU-cores and has a theoretical performance of 28 Pflop/s. It is operated by EPCC at the University of Edinburgh on behalf of EPSRC and NERC, and is the major HPC resource for UK research in engineering and in physical and environmental science.
+Archer2 is a HPE Cray EX machine, built by American supercomputer company Cray, a Hewlett Packard Enterprises company. It contains 750,080 CPU-cores. It is operated by EPCC at the University of Edinburgh on behalf of EPSRC and NERC, and is the major HPC resource for UK research in engineering and in physical and environmental science.
 
 ### Node design
 
@@ -99,13 +99,7 @@ The basic processor used in ARCHER2 is the AMD Zen2 (Rome) EPYC 7742 CPU, which 
 
 The complete ARCHER2 system contains 5,860 nodes, i.e. ARCHER2 is effectively 6,000 seperate computers each running their own copy of Linux. They are connected by the HPE Slingshot interconnect, which has a complicated hierarchical structure specifically designed for supercomputing applications. Each node has two 100 Gb/s network connections, this means each node has a network bandwidth 2048 times faster than what is possible over a 100 Mb/s fast broadband connection!
 
-### System performance
-
-ARCHER2 has a total of 750,080 CPU-cores: 5,860 nodes each with 128 CPU-cores. With a Clock frequency of 2.25 Ghz, the CPU-cores can execute 2.25 billion instructions per second. However, on a modern processor, a single instruction can perform more than one floating-point operation.
-
-For example, on ARCHER2 one instruction can perform up to four separate additions. In fact, the cores have separate units for doing additions and for doing multiplications that run in parallel. With the wind in the right direction and everything going to plan, a core can therefore perform 16 floating-point operations per cycle: eight additions and eight multiplications.
-
-This gives a peak performance of 750,080 \* 2.25 \* 16 Gflop/s = 27,002,880 Glop/s, agreeing with the 25.8 Pflop/s figure in the top500 list.
+### Cabinets
 
 ARCHER2 comprises 23 separate cabinets, each about the height and width of a standard door, with around 32,768 CPU-cores (256 nodes) or about 60,000 virtual cores (using multi-threading) in each cabinet.
 
