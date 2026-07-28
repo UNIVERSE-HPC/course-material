@@ -35,7 +35,7 @@ There is no permanent threshold at which a computer becomes a supercomputer.
 As computing technology advances, capabilities that were once found only in supercomputers become available in everyday machines.
 The term therefore describes the most capable systems of their time rather than a fixed specification.
 
-Modern supercomputers do not achieve their performance through exceptionally fast processors.
+Modern supercomputers are not simply faster versions of desktop computers.
 Instead, they combine many processors with large amounts of memory and storage, spread across compute nodes connected by high-speed networks.
 These components work together as one system to give performance that could not be achieved by a single system.
 
@@ -59,17 +59,29 @@ A climate study, for example, might use a large model, run it for many scenarios
 Supercomputers meet these requirements primarily through *parallel computing*: dividing work such that many processing units can contribute at the same time.
 Parallelism can reduce the runtime of one calculation, allow parts of a large problem to be stored across several computers, and enable many independent calculations to run concurrently.
 
-Supercomputers are expensive to build and operate, requiring substantial electrical power, cooling, physical space and specialist support.
-They are therefore usually shared between many users.
-A central system which is highly utilised can be more cost-effective than provisioning separate local systems that spend much of their time idle.
-As a result, computationally demanding workloads are increasingly being run on shared, centralised systems rather than hardware dedicated to a single user or project.
+### Why Are Supercomputers Shared?
+
+The computing demand of an individual project is often uneven.
+A research group might need 100 compute nodes for two days each month but very little computing power for the rest of the time.
+Hardware dedicated to that group would have to provide for its *peak demand* of 100 nodes, even though its average use would be fewer than seven nodes.
+Most of the system would therefore spend most of the month idle.
+
+A central facility can pool the demands of many projects whose peaks occur at different times.
+This allows each project to use substantial computing capacity when it needs it while keeping the system as a whole more highly utilised.
+It also spreads costs of electrical power, cooling, physical space, high-performance storage and specialist support across many users.
+For workloads with intermittent demand, a shared system can therefore be more cost-effective than separately provisioning enough local hardware for every project's peak.
+It is for these reasons that an increasing fraction of computationally intensive research work is being performed on these shared, centralised systems rather than on local hardware.
+
+Pooling demand does not remove capacity limits.
+If many users need the system at the same time, some work must wait, so access to a shared system must be managed.
+The balance between efficient overall utilisation and immediate availability is a fundamental trade-off of centralised computing facilities.
 
 ::::challenge{id=sc_intro.requirements title="Why Does This Workload Need HPC?"}
 Consider these three workloads:
 
 1. A flood-forecasting model must finish within 20 minutes so that its result can inform an emergency response.
-1. A turbulence simulation requires several terabytes of memory to hold its computational mesh.
-1. A materials team must evaluate 50,000 candidate structures by the end of the week.
+2. A turbulence simulation requires several terabytes of memory to hold its computational mesh.
+3. A materials team must evaluate 50,000 candidate structures by the end of the week.
 
 For each workload:
 
