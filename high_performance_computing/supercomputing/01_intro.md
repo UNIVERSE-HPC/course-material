@@ -63,8 +63,8 @@ As a result, computationally demanding workloads are increasingly being run on s
 Consider these three workloads:
 
 1. A flood-forecasting model must finish within 20 minutes so that its result can inform an emergency response.
-2. A turbulence simulation requires several terabytes of memory to hold its computational mesh.
-3. A materials team must evaluate 50,000 candidate structures by the end of the week.
+1. A turbulence simulation requires several terabytes of memory to hold its computational mesh.
+1. A materials team must evaluate 50,000 candidate structures by the end of the week.
 
 For each workload:
 
