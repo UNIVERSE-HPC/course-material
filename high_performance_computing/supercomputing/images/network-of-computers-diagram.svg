@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-label="Diagram depicting four separate computers, each connected to a central network switch">
+  <style>
+    .node { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; }
+    .hub { fill: #f8fafc; stroke: #64748b; stroke-width: 2.5; }
+    .line { stroke: #64748b; stroke-width: 2.5; }
+    .dot { fill: #64748b; }
+    .label { fill: #1e1b4b; font-family: system-ui, sans-serif; font-size: 17px; font-weight: 600; text-anchor: middle; }
+    .hub-label { fill: #334155; font-family: system-ui, sans-serif; font-size: 15px; font-weight: 700; text-anchor: middle; }
+    @media (prefers-color-scheme: dark) {
+      .node { fill: #1e3a5f; stroke: #60a5fa; }
+      .hub { fill: #1e293b; stroke: #94a3b8; }
+      .line { stroke: #94a3b8; }
+      .dot { fill: #94a3b8; }
+      .label { fill: #eef2ff; }
+      .hub-label { fill: #e2e8f0; }
+    }
+  </style>
+
+  <!-- connecting lines -->
+  <line class="line" x1="240" y1="190" x2="240" y2="115"/>
+  <line class="line" x1="290" y1="240" x2="345" y2="240"/>
+  <line class="line" x1="240" y1="290" x2="240" y2="365"/>
+  <line class="line" x1="190" y1="240" x2="135" y2="240"/>
+
+  <!-- connector dots -->
+  <circle class="dot" cx="240" cy="115" r="4"/>
+  <circle class="dot" cx="345" cy="240" r="4"/>
+  <circle class="dot" cx="240" cy="365" r="4"/>
+  <circle class="dot" cx="135" cy="240" r="4"/>
+  <circle class="dot" cx="240" cy="190" r="4"/>
+  <circle class="dot" cx="290" cy="240" r="4"/>
+  <circle class="dot" cx="240" cy="290" r="4"/>
+  <circle class="dot" cx="190" cy="240" r="4"/>
+
+  <!-- central network hub -->
+  <circle class="hub" cx="240" cy="240" r="50"/>
+  <text class="hub-label" x="240" y="236">Network</text>
+  <text class="hub-label" x="240" y="253">Switch</text>
+
+  <!-- four computer nodes -->
+  <rect class="node" x="185" y="45" width="110" height="70" rx="10"/>
+  <text class="label" x="240" y="86">Node 1</text>
+
+  <rect class="node" x="345" y="205" width="110" height="70" rx="10"/>
+  <text class="label" x="400" y="246">Node 2</text>
+
+  <rect class="node" x="185" y="365" width="110" height="70" rx="10"/>
+  <text class="label" x="240" y="406">Node 3</text>
+
+  <rect class="node" x="25" y="205" width="110" height="70" rx="10"/>
+  <text class="label" x="80" y="246">Node 4</text>
+</svg>

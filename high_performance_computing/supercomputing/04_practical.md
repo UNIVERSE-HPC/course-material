@@ -1,6 +1,6 @@
 ---
 name: Image Sharpening using HPC
-dependsOn: [high_performance_computing.supercomputing.02_measuring_supercomputers]
+dependsOn: [high_performance_computing.supercomputing.05_measuring_supercomputers]
 tags: [foundation]
 attribution:
   - citation: >

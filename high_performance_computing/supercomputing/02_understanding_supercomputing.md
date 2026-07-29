@@ -1,7 +1,7 @@
 ---
 name: Understanding Supercomputing
 dependsOn: [
-    high_performance_computing.supercomputing.01_intro
+    high_performance_computing.supercomputing.01_introduction
 ]
 tags: [foundation]
 attribution: 
