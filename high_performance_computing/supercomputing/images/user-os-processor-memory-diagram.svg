@@ -18,7 +18,7 @@
     }
   </style>
 
-  <line class="line" x1="200" y1="63" x2="200" y2="105"/>
+  <line class="line" x1="200" y1="63" x2="200" y2="125"/>
   <ellipse class="computer" cx="200" cy="290" rx="185" ry="165"/>
 
   <line class="line" x1="200" y1="197" x2="200" y2="230"/>
