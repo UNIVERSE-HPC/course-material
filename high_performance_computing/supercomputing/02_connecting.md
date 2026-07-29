@@ -1,6 +1,6 @@
 ---
 name: Connecting Multiple Computers
-dependsOn: [high_performance_computing.supercomputing.01_basics]
+dependsOn: [high_performance_computing.supercomputing.02_shared_memory]
 tags: [foundation]
 attribution:
   - citation: >
@@ -18,7 +18,7 @@ attribution:
 
 Because of the difficulty of having very large numbers of CPU-cores in a single shared-memory computer, all of today’s supercomputers use the same basic approach to build a very large system: take lots of separate computers and connect them together with a fast network.
 
-![Diagram depicting multiple computers connected by a network](images/hero_91d652a7-98f2-49d1-85ee-62d3ff46bac6.jpg)
+![Diagram depicting multiple computers connected by a network](images/network-of-computers-diagram.svg)
 
 The most important points are:
 
