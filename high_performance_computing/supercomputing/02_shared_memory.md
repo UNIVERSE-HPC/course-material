@@ -1,6 +1,6 @@
 ---
-name: Parallelism in Everyday Computers
-dependsOn: [high_performance_computing.supercomputing.01_intro]
+name: Shared-Memory Computers
+dependsOn: [high_performance_computing.supercomputing.01_introduction]
 tags: [foundation]
 learningOutcomes:
   - Explain why modern processors use multiple CPU-cores.

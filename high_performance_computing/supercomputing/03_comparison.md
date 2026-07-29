@@ -68,7 +68,7 @@ Next, in this video, David takes apart a compute blade from the [HECToR](http://
 
 Do you remember this diagram?
 
-![Diagram depicting multiple computers connected by a network](images/hero_91d652a7-98f2-49d1-85ee-62d3ff46bac6.jpg)
+![Diagram depicting multiple computers connected by a network](images/network-of-computers-diagram.svg)
 
 Having watched the above video, how would you modify it to make it more accurate?
 
