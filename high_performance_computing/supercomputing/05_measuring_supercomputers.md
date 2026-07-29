@@ -160,6 +160,12 @@ Power is the rate at which energy is used, while the energy consumed by a worklo
 A system drawing more power may still consume less energy if it completes a workload sufficiently quickly.
 Like the TOP500 rankings, a supercomputer's Green500 rank cannot replace measurements made with the workloads and constraints that matter to its users.
 
+:::callout{variant="warning"}
+Power measurements are specific to the workload and measurement conditions.
+The HPL power values reported for the Green500 cannot be used to estimate the energy consumed by a different application.
+Doing so requires measurements of average power and runtime while that application is running.
+:::
+
 ::::challenge{id=sc_measure.compare title="Comparing Performance Measurements"}
 Two fictional systems have produced the following results:
 
@@ -203,7 +209,6 @@ Cedar produced the higher HPL performance, while Rowan achieved a larger fractio
 
 Comparing the systems for a particular research workload would require a representative application benchmark.
 Relevant measurements could include time to solution, throughput, memory use, average power and total energy consumption while running that workload.
-The HPL power values cannot be used to calculate the energy consumed by a different application.
 :::
 ::::
 
