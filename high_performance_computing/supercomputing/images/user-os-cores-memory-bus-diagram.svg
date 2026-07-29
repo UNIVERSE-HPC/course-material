@@ -24,7 +24,7 @@
     }
   </style>
 
-  <line class="line" x1="240" y1="63" x2="240" y2="105"/>
+  <line class="line" x1="240" y1="63" x2="240" y2="115"/>
   <ellipse class="computer" cx="240" cy="330" rx="235" ry="215"/>
 
   <!-- OS fan-out to 4 cores -->
