@@ -223,7 +223,7 @@ There are two broad ways to build a parallel computer:
 - **Distributed-memory architecture:** Multiple computers, each with its own memory, communicate through a network.
 
 This section concentrates on shared memory.
-The next section, [Connecting Multiple Computers](high_performance_computing/supercomputing/02_connecting), examines distributed memory.
+The next section, [Distributed-Memory Computers](high_performance_computing/supercomputing/03_distributed_memory), examines distributed memory.
 
 :::callout{variant="discussion"}
 Compare one quad-core laptop with two dual-core laptops.
@@ -301,8 +301,10 @@ Processor hardware coordinates these updates so that cores do not continue calcu
 This process is called *cache coherence* or *cache coherency*.
 The coordination creates additional communication between CPU-cores and can limit performance when many cores frequently update shared data.
 
-The benchmark in the next challenge gives each process its own private array, so it does not measure cache-coherence traffic.
+:::callout{variant="info"}
+The benchmark in the next challenge gives each process its own private array, so it does **not** measure cache-coherence traffic.
 Instead, it demonstrates another consequence of sharing a memory system: competition for memory bandwidth.
+:::
 
 ---
 
@@ -368,4 +370,4 @@ Distinguish between throughput and the runtime of an individual calculation, and
 
 A shared-memory computer forms the basic building block of a modern supercomputer.
 To scale beyond the limits of one such computer, we must connect many of them and coordinate their work.
-The next section examines this [distributed-memory approach](high_performance_computing/supercomputing/02_connecting).
+The next section examines this [distributed-memory approach](high_performance_computing/supercomputing/03_distributed_memory).
