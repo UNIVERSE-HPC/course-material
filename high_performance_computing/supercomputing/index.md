@@ -1,20 +1,41 @@
 ---
 name: Introduction to Supercomputing
 id: supercomputing
-dependsOn: [high_performance_computing.hpc_intro]
-files: [01_introduction.md, 02_shared_memory.md, 03_distributed_memory.md, 04_accelerators.md, 05_measuring_supercomputers.md]
+dependsOn: []
+files: [
+  01_introduction.md,
+  02_shared_memory.md,
+  03_distributed_memory.md,
+  04_accelerators.md,
+  05_measuring_supercomputers.md
+]
+learningOutcomes:
+  - Explain why workloads constrained by time to solution, problem size or throughput are often run on shared, centralised systems.
+  - Describe how multi-core processors, shared-memory nodes and distributed-memory systems contribute to supercomputer performance.
+  - Reason about performance limits arising from caches, memory contention, network communication and host-device data movement.
+  - Explain how accelerators such as GPUs provide high computational throughput and assess which workloads can benefit from them.
+  - Distinguish between theoretical peak, benchmark and application performance, and interpret machine rankings in that context.
 summary: |
-  An introduction to supercomputing, including why we need them and how they are used.
+  An introduction to why supercomputers are needed and how their architecture
+  provides performance, covering shared and distributed memory, accelerators,
+  and the limits imposed by computation, memory and communication.
+attribution:
+  - citation: >
+      This course was developed by Alasdair Wilson as part of the Oxford Research
+      Software Engineering group (OxRSE).
+    url: https://www.rse.ox.ac.uk/
+    image: ./supercomputing/images/2024_oxrse_square.svg
+    license: CC-BY-4.0
 ---
 
-In this very short video Dr. David Henty introduces this module on supercomputing.
+Supercomputers are assembled from familiar computing components, but their usefulness arises from how computation, memory and communication are combined at scale.
+Concentrating those resources in shared, centralised systems makes demanding workloads practical while allowing expensive hardware to be kept well used.
 
-::::iframe{id="kaltura_player" width="700" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_lwezg5oi&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_1mgenjg0" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay _; fullscreen _; encrypted-media \*" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Welcome_to_Supercomputing"}
-::::
+Supercomputers obtain performance through massive parallelism at several levels:
+CPU-cores work concurrently while sharing memory, nodes exchange data over an interconnect, and accelerators trade some flexibility for high throughput.
+By tracing computation and data through this hierarchy, you will learn to recognise which workloads can exploit a system effectively and where performance is likely to be lost.
+Hardware specifications and benchmarks provide useful evidence, but only when interpreted in that context.
 
-:::solution{title="Transcript"}
-0:12 - In this first week after a brief introduction to the kinds of applications supercomputing has, we’ll largely concentrate on supercomputer hardware. Starting from how a modern computer processor works, we’ll explain where supercomputers get their enormous computing power from, why they’re also called parallel computers, and how we quantify and measure their speed. We’ll also cover some history to illustrate how far we’ve come since the birth of modern supercomputing in the early 90s, and show you some examples of current state-of-the-art machines. We’ll also introduce some key terminology that you’ll need to understand the rest of the course. So enjoy.
-:::
-
-The primary aim of this module is to provide a general understanding of supercomputers and their importance.
-It will also introduce key terminology to help you understand the fundamentals of supercomputing.
+The focus here is the architecture and performance of supercomputers.
+Practical use of a cluster, including job schedulers and file transfer, is covered in [Introduction to High Performance Computing](high_performance_computing/hpc_intro).
+The [Introduction to Parallelism](high_performance_computing/hpc_parallel_intro) provides a bridge from these architectural ideas to parallel programming, which is then developed in [Introduction to the Message Passing Interface](high_performance_computing/hpc_mpi) and [Parallel Programming with OpenMP](high_performance_computing/hpc_openmp).
