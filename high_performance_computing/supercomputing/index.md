@@ -2,7 +2,7 @@
 name: Introduction to Supercomputing
 id: supercomputing
 dependsOn: [high_performance_computing.hpc_intro]
-files: [01_introduction.md, 02_understanding_supercomputing.md, 02_shared_memory.md, 03_distributed_memory.md, 03_comparison.md, 05_measuring_supercomputers.md, 04_practical.md, 05_shared_vs_distributed_hello_world.md]
+files: [01_introduction.md, 02_shared_memory.md, 03_distributed_memory.md, 04_accelerators.md, 05_measuring_supercomputers.md, 04_practical.md, 05_shared_vs_distributed_hello_world.md]
 summary: |
   An introduction to supercomputing, including why we need them and how they are used.
 ---

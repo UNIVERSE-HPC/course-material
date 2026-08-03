@@ -1,6 +1,6 @@
 ---
 name: Shared vs Distributed Hello World
-dependsOn: [high_performance_computing.supercomputing.03_comparison]
+dependsOn: [high_performance_computing.supercomputing.03_distributed_memory]
 tags: [foundation]
 attribution:
   - citation: >
