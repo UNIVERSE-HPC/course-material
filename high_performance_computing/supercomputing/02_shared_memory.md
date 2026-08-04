@@ -23,9 +23,6 @@ attribution:
     license: CC-BY-4.0
 ---
 
-![Photo of laptop motherboard](images/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg)
-*Image courtesy of [Alexandre Debieve](https://unsplash.com/@alexkixa) from [Unsplash](https://unsplash.com)*
-
 ## Computer Basics
 
 Before looking at how supercomputers are built, it is useful to examine an ordinary desktop or laptop computer.
@@ -212,9 +209,6 @@ To understand the limits of this approach, we now need to look at how the CPU-co
 
 ---
 
-![Photo of a silicon wafer containing many processor chips](images/laura-ockel-qOx9KsvpqcM-unsplash.jpg)
-*Image courtesy of [Laura Ockel](https://unsplash.com/@viazavier) from [Unsplash](https://unsplash.com)*
-
 ## Designing a Parallel Computer
 
 There are two broad ways to build a parallel computer:
@@ -231,9 +225,6 @@ Which arrangement makes it easier for four CPU-cores to work with the same data,
 :::
 
 ---
-
-![Photo of two people writing on a small whiteboard](images/kaleidico-7lryofJ0H9s-unsplash.jpg)
-*Image courtesy of [Kaleidico](https://unsplash.com/@kaleidico) from [Unsplash](https://unsplash.com)*
 
 ## Shared-Memory Architecture
 
@@ -268,9 +259,6 @@ Large supercomputers therefore combine many shared-memory computers as nodes in 
 
 ---
 
-![Person writing on a whiteboard](images/jeswin-thomas-2Q3Ivd-HsaM-unsplash.jpg)
-*Image courtesy of [Jeswin Thomas](https://unsplash.com/@jeswinthomas) from [Unsplash](https://unsplash.com)*
-
 ## Memory Caches
 
 Main memory is much slower than a CPU-core.
@@ -280,9 +268,15 @@ Modern processors usually have several levels of cache.
 The caches nearest each CPU-core are the smallest and fastest, while later levels are larger but slower and may be shared between several cores.
 All these caches are much smaller than main memory.
 
+![Four CPU-cores with private caches connected to a shared last-level cache and main memory](images/cache-hierarchy-diagram.svg)
+*This is one common arrangement. The number of cache levels and which CPU-cores share them vary between processors.*
+
 Return to the office analogy.
 Instead of repeatedly queueing at the whiteboard, a worker can copy frequently used information into a notebook.
 The worker can then consult the nearby notebook much more quickly than the shared whiteboard.
+
+![Four workers using private notebooks while sharing one whiteboard, representing four CPU-cores with private caches connected to main memory](images/shared-memory-whiteboard-diagram.svg)
+*The notebook analogy represents private caches. Real processors may also have cache levels shared by several CPU-cores.*
 
 Caches work especially well when a CPU-core repeatedly uses the same data.
 Several cores can also hold their own copies of read-only data without coordinating updates.

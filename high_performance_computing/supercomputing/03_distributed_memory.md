@@ -73,6 +73,9 @@ For a calculation using a regular grid, neighbouring subdomains often exchange t
 These boundary regions are commonly called **halo** or **ghost** regions and can help avoid unnecessary communication.
 Exchanging a narrow boundary is much less expensive than moving the complete subdomain, but it still introduces communication and coordination that were unnecessary when all the data was contained in one shared address space.
 
+![A grid divided into three subdomains alongside the owned data and halo rows stored by the middle node](images/halo-exchange-diagram.svg)
+*The diagram shows one halo row on each side of a subdomain. Applications may exchange wider regions when an update depends on more distant values, and a program that overlaps communication with computation may update interior points while those rows are in flight.*
+
 ::::challenge{id=sc_distributed.partitioning title="Partitioning a Grid Across Nodes"}
 A program stores one \(131\,072 \times 131\,072\) grid of double-precision values.
 Each value occupies eight bytes.
@@ -225,6 +228,9 @@ A useful simplified hierarchy is therefore:
 1. NUMA regions form one shared address space within a compute node.
 1. Compute nodes exchange data through network interfaces and switches.
 
+![Four levels of communication from private caches through shared caches and NUMA memory to the interconnect between nodes](images/communication-hierarchy-diagram.svg)
+*The exact boundaries and relative costs depend on the hardware, but access generally becomes more expensive as data becomes less local.*
+
 Communication generally becomes more expensive as it moves through this hierarchy.
 A cache access is cheaper than an access to main memory, and transferring data to another node is substantially more expensive than either.
 Parallel software performs best when it retains data close to the processing units that use it and avoids unnecessary movement between levels.
@@ -236,6 +242,11 @@ Messages may travel through several switches, and simultaneous transfers may com
 A supercomputer interconnect is therefore designed for more than a high bandwidth on one connection.
 It must provide low latency, substantial aggregate bandwidth and enough alternative routes to support communication between many nodes at once.
 The topology and placement of an allocation can affect performance even when every node has the same processors and memory.
+
+At machine scale, even a carefully packaged network requires substantial switching and cabling infrastructure.
+
+![Close-up of blue network cables connected to switches used by the Pleiades supercomputer](images/pleiades-network-cabling.jpg)
+*Network-switch cabling for the Pleiades supercomputer at NASA Ames. Pleiades used two InfiniBand fabrics with more than 56 miles of cabling. Image: [NASA High-End Computing Capability](https://www.nas.nasa.gov/hecc/resources/networks.html), used under the [NASA media usage guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/).*
 
 ## The Complete System
 
