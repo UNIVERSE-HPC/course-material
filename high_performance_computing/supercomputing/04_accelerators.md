@@ -126,6 +126,9 @@ Threads in a group execute the same instruction together, but each operates on i
 However, when threads in one execution group take different branches, the hardware may have to execute each path separately while disabling threads that do not follow it.
 This **branch divergence** reduces the proportion of the GPU's arithmetic hardware doing useful work.
 
+![Comparison of a GPU thread group following one branch with a divergent group that must execute two paths while some lanes are inactive](images/simt-branch-divergence-diagram.svg)
+*Execution-group sizes and names vary between GPU architectures, but divergence causes the same underlying loss of active lanes.*
+
 Memory-access patterns matter for the same reason.
 The hardware can combine nearby requests from a group of threads into a smaller number of memory transactions.
 Scattered or unpredictable access prevents this **coalescing** and makes it harder to use the available memory bandwidth.
