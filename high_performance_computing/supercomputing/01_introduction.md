@@ -23,9 +23,6 @@ attribution:
     license: CC-BY-4.0
 ---
 
-![Photo of a supercomputer](images/taylor-vick-M5tzZtFCOfs-unsplash.jpg)
-*Image courtesy of [Taylor Vick](https://unsplash.com/@tvick) from [Unsplash](https://unsplash.com)*
-
 ## What Is a Supercomputer?
 
 A supercomputer is a computing system designed to solve problems that would be impractical on an ordinary desktop or laptop.
@@ -68,6 +65,10 @@ Most of the system would therefore spend most of the month idle.
 
 A central facility can pool the demands of many projects whose peaks occur at different times.
 This allows each project to use substantial computing capacity when it needs it while keeping the system as a whole more highly utilised.
+
+![Comparison of four separately provisioned systems with one shared system serving staggered peaks from four projects](images/pooled-demand-diagram.svg)
+*This simplified example assumes that the projects' peaks do not overlap. When they do overlap, demand may exceed the shared capacity and some work must wait.*
+
 It also spreads costs of electrical power, cooling, physical space, high-performance storage and specialist support across many users.
 For workloads with intermittent demand, a shared system can therefore be more cost-effective than separately provisioning enough local hardware for every project's peak.
 It is for these reasons that an increasing fraction of computationally intensive research work is being performed on these shared, centralised systems rather than on local hardware.
