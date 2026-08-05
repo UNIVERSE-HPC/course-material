@@ -1,5 +1,5 @@
 ---
-name: Introduction to Supercomputing
+name: Why Supercomputing?
 dependsOn: []
 tags: [foundation]
 learningOutcomes:
