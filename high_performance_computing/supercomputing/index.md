@@ -1,5 +1,5 @@
 ---
-name: Introduction to Supercomputing
+name: "Supercomputing: Architecture and Performance"
 id: supercomputing
 dependsOn: []
 files: [
