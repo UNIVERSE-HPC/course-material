@@ -1,7 +1,7 @@
 ---
 name: Connecting to Remote HPC systems
 dependsOn: [
-  high_performance_computing.hpc_intro.01_hpc_intro
+  high_performance_computing.hpc_intro.01_working_on_a_cluster
 ]
 tags: [ssh]
 learningOutcomes:
