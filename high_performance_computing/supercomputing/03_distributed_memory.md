@@ -9,15 +9,12 @@ learningOutcomes:
   - Identify the roles of compute nodes, interconnects, storage and service nodes in a supercomputer.
 attribution:
   - citation: >
-      This course was developed by Alasdair Wilson as part of the Oxford Research
-      Software Engineering group (OxRSE).
+      This course was developed by Alasdair Wilson as part of the Oxford Research Software Engineering group (OxRSE).
     url: https://www.rse.ox.ac.uk/
     image: ./supercomputing/images/2024_oxrse_square.svg
     license: CC-BY-4.0
   - citation: >
-      An earlier version of this material was produced for the "Introduction to
-      HPC" course by David Henty, Manos Farsarakis, Weronika Filinger, James
-      Richings, and Stephen Farr at EPCC, with funding from EuroCC.
+      A previous version of this material was adapted from the "Introduction to HPC" course by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC, with funding from EuroCC.
     url: https://epcced.github.io/Intro-to-HPC/
     image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
     license: CC-BY-4.0
