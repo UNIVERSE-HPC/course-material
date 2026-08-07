@@ -9,8 +9,7 @@ learningOutcomes:
   - Relate performance, electrical power and energy consumption.
 attribution:
   - citation: >
-      This course material was developed by Alasdair Wilson as part of the Oxford Research
-      Software Engineering group (OxRSE).
+      This course was developed by Alasdair Wilson as part of the Oxford Research Software Engineering group (OxRSE).
     url: https://www.rse.ox.ac.uk/
     image: ./supercomputing/images/2024_oxrse_square.svg
     license: CC-BY-4.0
