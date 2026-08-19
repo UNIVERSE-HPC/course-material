@@ -1,5 +1,7 @@
 # Contributing guidelines
 
+> This guide is retained for repository-specific background. The maintained author reference is the [Gutenberg course-material authoring guide](https://blog.oxrse.uk/gutenberg/authoring/), including the current metadata schema, track formats, directives, and CI checks.
+
 To contribute new material, or update existing material please:
 
 1. Create an issue on this repo with a description of the proposed change
