@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" width="720" height="360" role="img" aria-label="Diagram showing a host CPU and its memory connected to a GPU accelerator and its device memory">
+  <style>
+    .system { fill: #f8fafc; stroke: #64748b; stroke-width: 2.5; }
+    .processor { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; }
+    .memory { fill: #f0fdf4; stroke: #22c55e; stroke-width: 2; }
+    .unit { fill: #bfdbfe; stroke: #3b82f6; stroke-width: 1.5; }
+    .line { stroke: #64748b; stroke-width: 2.5; fill: none; }
+    .title { fill: #1e1b4b; font-family: system-ui, sans-serif; font-size: 19px; font-weight: 700; text-anchor: middle; }
+    .label { fill: #334155; font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; text-anchor: middle; }
+    .small { fill: #475569; font-family: system-ui, sans-serif; font-size: 13px; text-anchor: middle; }
+    @media (prefers-color-scheme: dark) {
+      .system { fill: #1e293b; stroke: #94a3b8; }
+      .processor { fill: #1e3a5f; stroke: #60a5fa; }
+      .memory { fill: #143d2b; stroke: #4ade80; }
+      .unit { fill: #254f7d; stroke: #60a5fa; }
+      .line { stroke: #94a3b8; }
+      .title { fill: #eef2ff; }
+      .label { fill: #e2e8f0; }
+      .small { fill: #cbd5e1; }
+    }
+  </style>
+
+  <rect class="system" x="30" y="35" width="275" height="290" rx="14"/>
+  <text class="title" x="167.5" y="68">Host</text>
+
+  <rect class="processor" x="65" y="90" width="205" height="100" rx="10"/>
+  <text class="label" x="167.5" y="116">CPU</text>
+  <rect class="unit" x="88" y="135" width="32" height="32" rx="4"/>
+  <rect class="unit" x="130" y="135" width="32" height="32" rx="4"/>
+  <rect class="unit" x="172" y="135" width="32" height="32" rx="4"/>
+  <rect class="unit" x="214" y="135" width="32" height="32" rx="4"/>
+
+  <line class="line" x1="167.5" y1="190" x2="167.5" y2="220"/>
+  <rect class="memory" x="65" y="220" width="205" height="70" rx="10"/>
+  <text class="label" x="167.5" y="250">Host memory</text>
+  <text class="small" x="167.5" y="273">General-purpose main memory</text>
+
+  <rect class="system" x="415" y="35" width="275" height="290" rx="14"/>
+  <text class="title" x="552.5" y="68">Device</text>
+
+  <rect class="processor" x="450" y="90" width="205" height="100" rx="10"/>
+  <text class="label" x="552.5" y="116">GPU accelerator</text>
+  <g>
+    <rect class="unit" x="469" y="135" width="20" height="20" rx="3"/>
+    <rect class="unit" x="498" y="135" width="20" height="20" rx="3"/>
+    <rect class="unit" x="527" y="135" width="20" height="20" rx="3"/>
+    <rect class="unit" x="556" y="135" width="20" height="20" rx="3"/>
+    <rect class="unit" x="585" y="135" width="20" height="20" rx="3"/>
+    <rect class="unit" x="614" y="135" width="20" height="20" rx="3"/>
+    <rect class="unit" x="469" y="163" width="20" height="20" rx="3"/>
+    <rect class="unit" x="498" y="163" width="20" height="20" rx="3"/>
+    <rect class="unit" x="527" y="163" width="20" height="20" rx="3"/>
+    <rect class="unit" x="556" y="163" width="20" height="20" rx="3"/>
+    <rect class="unit" x="585" y="163" width="20" height="20" rx="3"/>
+    <rect class="unit" x="614" y="163" width="20" height="20" rx="3"/>
+  </g>
+
+  <line class="line" x1="552.5" y1="190" x2="552.5" y2="220"/>
+  <rect class="memory" x="450" y="220" width="205" height="70" rx="10"/>
+  <text class="label" x="552.5" y="250">Device memory</text>
+  <text class="small" x="552.5" y="273">HBM or GDDR</text>
+
+  <path class="line" d="M 318 188 H 402 M 318 188 L 328 178 M 318 188 L 328 198 M 402 188 L 392 178 M 402 188 L 392 198"/>
+  <rect class="system" x="309" y="126" width="102" height="48" rx="8"/>
+  <text class="small" x="360" y="148">Control and</text>
+  <text class="small" x="360" y="165">data transfer</text>
+</svg>
