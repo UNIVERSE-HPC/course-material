@@ -6,9 +6,11 @@ on:
       - main
     paths:
       - "**/*.md"
+      - ".github/workflows/lint.yaml"
   pull_request:
     paths:
       - "**/*.md"
+      - ".github/workflows/lint.yaml"
 
 jobs:
   check-markdown-yaml:
@@ -16,10 +18,15 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - name: Run Front Matter Linting
         uses: alasdairwilson/front-matter-lint@main
+        with:
+          directory: "."
+
+      - name: Validate Gutenberg material schema
+        uses: alasdairwilson/course-material-front-matter@main
         with:
           directory: "."
 
@@ -28,7 +35,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
 
       - name: Lint Python Code Blocks in Markdown
         uses: OxfordRSE/lint-md-codeblocks@main
@@ -41,7 +48,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -56,12 +63,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: Install markdownlint-cli
         run: npm install -g markdownlint-cli
