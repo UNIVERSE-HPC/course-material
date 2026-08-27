@@ -6,7 +6,7 @@ dependsOn: [
 files: [
     01_working_on_a_cluster.md,
     02_connecting.md,
-    03_cluster.md,
+    03_storage.md,
     04_scheduler.md,
     05_modules.md,
     06_transferring_files.md,
