@@ -11,7 +11,7 @@ attribution:
   - citation: >
       This course was developed by Alasdair Wilson as part of the Oxford Research Software Engineering group (OxRSE).
     url: https://www.rse.ox.ac.uk
-    image: ./hpc_intro/fig/2024_oxrse_square.svg
+    image: ./fig/2024_oxrse_square.svg
   - citation: >
       A previous version of this material was adapted from "Introduction to High-Performance Computing" by The Carpentries.
     url: https://carpentries-incubator.github.io/hpc-intro/
@@ -317,4 +317,4 @@ The output can be lengthy, but it often distinguishes a network failure from a r
 If you contact your cluster's support for assistance, include the command used, the time of the attempt and the relevant error output, but remove unnecessary personal information and never include passwords, one-time codes or private keys.
 
 SSH also underpins several common file-transfer tools, which are introduced in [Transferring Files](high_performance_computing/hpc_intro/06_transferring_files).
-The next section, [Storage on an HPC Cluster](high_performance_computing/hpc_intro/03_cluster), examines the remote filesystems you encounter after logging in.
+The next section, [Storage on an HPC Cluster](high_performance_computing/hpc_intro/03_storage), examines the remote filesystems you encounter after logging in.

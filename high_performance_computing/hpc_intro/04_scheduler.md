@@ -1,7 +1,7 @@
 ---
 name: Introduction to Job Scheduling
 dependsOn: [
-  high_performance_computing.hpc_intro.03_cluster
+  high_performance_computing.hpc_intro.03_storage
 ]
 tags: [slurm, ARC]
 learningOutcomes:
