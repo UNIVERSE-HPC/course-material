@@ -1,21 +1,26 @@
 ---
 name: Prompt design
 dependsOn: []
-tags: []
+tags: [genai]
 learningOutcomes:
   - Be able to direct a coding agent by prompting appropriately when handling issues
   - Understand the context that should be provided to a coding agent based on examples
 attribution:
   - citation: The Astropy issue 19895 reported by maxnoe on 2026-06-10.
     url: https://github.com/astropy/astropy/issues/19895
+    license: BSD-3-Clause
   - citation: The Matplotlib issue 32178 reported by ArchangeGabriel on 2026-08-07.
     url: https://github.com/matplotlib/matplotlib/issues/32178
+    license: BSD-3-Clause
   - citation: The scikit-learn issue 34622 reported by PranavAchar01 on 2026-08-01.
     url: https://github.com/scikit-learn/scikit-learn/issues/34622
+    license: BSD-3-Clause
   - citation: The pytest issue 14720 reported by dprada on 2026-07-18.
     url: https://github.com/pytest-dev/pytest/issues/14720
+    license: MIT
   - citation: The SymPy issue 29731 reported by peteroupc on 2026-05-02.
     url: https://github.com/sympy/sympy/issues/29731
+    license: BSD-3-Clause
 ---
 
 ## Introduction
