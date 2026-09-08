@@ -1,7 +1,10 @@
 ---
 name: Specifying a problem
-dependsOn: []
-tags: []
+dependsOn: [
+  ai_tooling.directing_coding_agents.01_prompt_design,
+  software_project_management.collaboration.issues
+]
+tags: [genai, debugging]
 learningOutcomes:
   - Recognise what a coding agent needs from an issue in order to resolve it
   - Decide whether an issue is written good enough for a coding agent
