@@ -67,7 +67,7 @@ Their authorship of the above repositories should be respected throughout this
 module. Work in your own clone or fork and do not submit AI-generated pull
 requests, issues, or comments to the original repositories. If you maintain one
 of these repositories and would prefer it not to be included, please contact
-rse-training@dtc.ox.ac.uk.
+<rse-training@dtc.ox.ac.uk>.
 
 ::::
 
