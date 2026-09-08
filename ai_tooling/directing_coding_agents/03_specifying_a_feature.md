@@ -1,7 +1,7 @@
 ---
 name: Specifying a feature
-dependsOn: []
-tags: []
+dependsOn: [ai_tooling.directing_coding_agents.02_specifying_a_problem]
+tags: [genai]
 learningOutcomes:
   - Refrain from implementing every feature even with the power of coding agents
   - Specify a feature so a coding agent knows what must exist, what must not change, and what counts as done
