@@ -9,7 +9,7 @@ learningOutcomes:
   - Recognise what a coding agent needs from an issue in order to resolve it
   - Decide whether an issue is written good enough for a coding agent
 attribution:
-  - citation: "Introducing SWE-bench Verified" by OpenAI on 2024-08-13.
+  - citation: '"Introducing SWE-bench Verified" by OpenAI on 2024-08-13.'
     url: https://openai.com/index/introducing-swe-bench-verified/
     license: MIT
   - citation: The SymPy issue 19608 reported by ninely on 2020-06-21.
