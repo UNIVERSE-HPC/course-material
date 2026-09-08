@@ -408,7 +408,7 @@ documented sibling, guards the same degenerate case with an
 
 With one sample there is no variance to explain, so the numerator
 (`Var(y_true - y_pred)`) and the denominator (`Var(y_true)`) are both `0`, and
-`force_finite` maps `0/0` to `1.0` — documented as "perfect predictions" — even
+`force_finite` maps `0/0` to `1.0` - documented as "perfect predictions" - even
 when the prediction is plainly wrong.
 
 The practical consequence is that **`LeaveOneOut` cross-validation scored with
@@ -468,7 +468,7 @@ Python dependencies:
 
 I appreciate that ignoring a systematic offset is intentional for this metric
 (the docstring notes it), so the `n_samples >= 2` behaviour is not in question
-here — only the single-sample case, where there is no variance at all and the
+here - only the single-sample case, where there is no variance at all and the
 score is silently reported as perfect.
 
 I'm happy to open a PR adding the same `n_samples < 2` guard that `r2_score`
@@ -581,7 +581,7 @@ The result is that a plugin must choose between pytest printing a traceback it d
 
 We hit this in a reporting plugin and shipped a version that silently lost all frame information: setting `--tb=no` in `pytest_configure` looked like a clean way to suppress output, and the summaries kept rendering, just without any of the frames they were supposed to summarise. The workaround is to leave `--tb` alone and suppress the *rendering* through some other mechanism, which works, but which mechanism is available is not obvious.
 
-This may well be intentional — not building what will not be shown is a reasonable optimisation. If so, it would be worth documenting, since the flag reads as purely presentational. If not, separating "what representation to build" from "what to display" would let plugins summarise tracebacks without either fighting the terminal reporter or losing the data.
+This may well be intentional - not building what will not be shown is a reasonable optimisation. If so, it would be worth documenting, since the flag reads as purely presentational. If not, separating "what representation to build" from "what to display" would let plugins summarise tracebacks without either fighting the terminal reporter or losing the data.
 
 Happy to work on a patch if there is a direction the team would prefer.
 
