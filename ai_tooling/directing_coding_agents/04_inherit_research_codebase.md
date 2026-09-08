@@ -1,7 +1,10 @@
 ---
 name: Handling legacy research codebases
-dependsOn: []
-tags: []
+dependsOn: [
+  ai_tooling.directing_coding_agents.03_specifying_a_feature,
+  technology_and_tooling.docker
+]
+tags: [genai]
 learningOutcomes:
   - Understand how coding agents can be helpful in handling legacy research codebases
 ---
