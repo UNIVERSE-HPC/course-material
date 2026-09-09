@@ -2,7 +2,8 @@
 name: Handling legacy research codebases
 dependsOn: [
   ai_tooling.directing_coding_agents.03_specifying_a_feature,
-  technology_and_tooling.docker
+  technology_and_tooling.docker,
+  software_project_management.continuous_integration
 ]
 tags: [genai]
 learningOutcomes:
