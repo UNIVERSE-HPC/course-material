@@ -101,7 +101,9 @@ corresponding challenge.
 The [original issue](https://github.com/sympy/sympy/issues/19608) is included
 here (as of 2026-09-07).
 
-```markdown
+:::callout
+
+```text
 from sympy.core.sympify import kernS
 
 text = "(2*x)/(x-1)"
@@ -109,6 +111,8 @@ expr = kernS(text)
 // hit = kern in s
 // UnboundLocalError: local variable 'kern' referenced before assignment
 ```
+
+:::
 
 ::::challenge
 
@@ -143,8 +147,9 @@ can infer it, and the docstring of `kernS` provides enough information as well.
 The [original issue](https://github.com/sympy/sympy/issues/14461) is included
 here (as of 2026-09-07).
 
-````markdown
-```
+:::callout
+
+```text
 >>> from sympy import *
 >>> a = symbols('a')
 >>> l = Line((-a, 0), slope=oo)
@@ -160,7 +165,8 @@ Traceback (most recent call last):
     raise TypeError("cannot determine truth value of Relational")
 TypeError: cannot determine truth value of Relational
 ```
-````
+
+:::
 
 ::::challenge
 
@@ -233,13 +239,14 @@ room for ambiguity.
 The [original issue](https://github.com/scipy/scipy/issues/20797) is included
 here with system information omitted for brevity (as of 2026-09-07).
 
-````markdown
-### Describe your issue.
+:::callout
+
+**Describe your issue.**
 
 Since 1.10, the `scipy.special.hyp1f1` is computed by Boost. The change was
 introduced by #17302. However, the computations by Boost are wrong. Take:
 
-```python
+```python nolint
 scipy.special.hyp1f1(-0.25, 0.5, 1+2j)
 ```
 
@@ -248,24 +255,25 @@ I have tested it with SciPy 1.8.0 and 1.13.1. The results are:
 - 1.8.0: `(1.1814553180903438-1.2792130661292982j)`
 - 1.13.1: `(1+0j)`
 
-The latter one is obviously incorrect answer! Wolfram Alpha shows 1.18146 - 1.2792 _i_.
+The latter one is obviously incorrect answer! Wolfram Alpha shows 1.18146 - 1.2792 *i*.
 
 Please revert #17302!
 
-### Reproducing Code Example
+**Reproducing Code Example:**
 
-```python
+```python nolint
 import scipy.special
 
 print(scipy.special.hyp1f1(-0.25, 0.5, 1+2j))
 ```
 
-### Error message
+**Error message:**
 
 ```shell
 (1+0j)
 ```
-````
+
+:::
 
 ::::challenge
 

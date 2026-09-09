@@ -110,20 +110,21 @@ specifications and metadata.
 The [original issue](https://github.com/astropy/astropy/issues/19895) is
 included here (as of 2026-08-20).
 
-````markdown
-### Description
+:::callout
+
+**Description:**
 
 The new `format="ecsv"` raises an error when reading empty tables.
 
 The same code works fine with `format="ascii.ecsv`".
 
-### Expected behavior
+**Expected behavior:**
 
 Works
 
-### How to Reproduce
+**How to Reproduce:**
 
-```python
+```python nolint
 from astropy.table import Table
 
 t = Table()
@@ -134,7 +135,7 @@ t.write("test.ecsv", format="ecsv", overwrite=True)
 Table.read("test.ecsv", format="ecsv")
 ```
 
-```
+```text
 Raises:
 Traceback (most recent call last):
   File "/home/maxnoe/CTAO/astropy/test_empty_table.py", line 8, in <module>
@@ -153,13 +154,14 @@ Traceback (most recent call last):
 astropy.io.ascii.core.InconsistentTableError: column names from ECSV header [] do not match names from header line of CSV data ['#', 'schema:', 'astropy-2.0']
 ```
 
-### Versions
+**Versions:**
 
-```python
+```python nolint
 import astropy
 astropy.system_info()
 ```
-```
+
+```text
 platform
 --------
 platform.platform() = 'Linux-7.0.10-201.fc44.x86_64-x86_64-with-glibc2.43'
@@ -177,7 +179,8 @@ pyerfa               2.0.1.5
 ```
 
 Current main, but also e.g. 7.2.
-````
+
+:::
 
 #### The prompt to be evaluated
 
@@ -256,19 +259,22 @@ legend. The reporter stated that the older `legendHandles` route allowed this
 The [original issue](https://github.com/matplotlib/matplotlib/issues/32178) is
 included here (as of 2026-08-20).
 
-````markdown
-### Bug summary
+:::callout
+
+**Bug summary:**
 
 I had this code some years ago to changes the dot color in the legend of a scatter plot:
-```python
+
+```python nolint
 legend = plt.gca().get_legend()
 legend.legendHandles[0].set_color(plt.cm.viridis(.5))
 ```
+
 I have to redo these old figs, and after changing `legendHandles` to the new `legend_handles`, I find myself unable to change the `facecolor`. Neither `set_facecolor`, `set_color`, `set(facecolor=<>)` or `set(color=<>)` work.
 
-### Code for reproduction
+**Code for reproduction:**
 
-```Python
+```python nolint
 import matplotlib.pyplot as plt
 
 plt.scatter([0,1],[0,1],c=[0,1],label='test')
@@ -279,43 +285,45 @@ legend.legend_handles[0].set(color=plt.cm.viridis(.5))
 plt.show()
 ```
 
-### Actual outcome
+**Actual outcome:**
 
 Only the edge color is changed (or nothing if using `facecolor`).
-<img width="1920" height="1440" alt="Image" src="https://github.com/user-attachments/assets/5bbb03ca-2c45-4bb6-9be4-df5100dd8355" />
 
-### Expected outcome
+![Image](https://github.com/user-attachments/assets/5bbb03ca-2c45-4bb6-9be4-df5100dd8355)
+
+**Expected outcome:**
 
 Face color should be changed.
 
-### Additional information
+**Additional information:**
 
 It worked in 2022 (not sure of the matplotlib version back then).
 
-### Operating system
+**Operating system:**
 
 Arch
 
-### Matplotlib Version
+**Matplotlib Version:**
 
 3.11.0
 
-### Matplotlib Backend
+**Matplotlib Backend:**
 
 _No response_
 
-### Python version
+**Python version:**
 
 _No response_
 
-### Jupyter version
+**Jupyter version:**
 
 _No response_
 
-### Installation
+**Installation:**
 
 Linux package manager
-````
+
+:::
 
 #### The prompt to be evaluated
 
@@ -403,8 +411,9 @@ noise.
 The [original issue](https://github.com/scikit-learn/scikit-learn/issues/34622)
 is included here (as of 2026-08-20).
 
-````markdown
-### Describe the bug
+:::callout
+
+**Describe the bug:**
 
 `explained_variance_score` returns `1.0` (a perfect score) for a single sample no
 matter how wrong the prediction is, and emits no warning. `r2_score`, its
@@ -420,9 +429,9 @@ The practical consequence is that **`LeaveOneOut` cross-validation scored with
 `explained_variance` silently reports a perfect 1.0 for any model, including one
 fit on pure noise.**
 
-### Steps/Code to Reproduce
+**Steps/Code to Reproduce:**
 
-```python
+```python nolint
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import explained_variance_score, r2_score
@@ -443,16 +452,16 @@ print(ev.mean())  # 1.0   <- perfect score on noise, silently
 print(r2.mean())  # nan   <- correctly undefined
 ```
 
-### Expected Results
+**Expected Results:**
 
 Something that does not claim a perfect fit on a single sample. Matching
 `r2_score` seems most consistent: emit `UndefinedMetricWarning` and return `nan`
 when `n_samples < 2`, since the metric is not defined without variance to
 explain.
 
-### Actual Results
+**Actual Results:**
 
-```
+```text
 1.0        # explained_variance_score([1.0], [2.0]) -- no warning
 nan        # r2_score([1.0], [2.0]) -- UndefinedMetricWarning
 
@@ -460,16 +469,16 @@ nan        # r2_score([1.0], [2.0]) -- UndefinedMetricWarning
 nan        # LeaveOneOut + r2 on pure noise (12 UndefinedMetricWarnings)
 ```
 
-### Versions
+**Versions:**
 
-```
+```text
 System:
     python: 3.14
 Python dependencies:
     sklearn: 1.9.0
 ```
 
-### Notes
+**Notes:**
 
 I appreciate that ignoring a systematic offset is intentional for this metric
 (the docstring notes it), so the `n_samples >= 2` behaviour is not in question
@@ -479,7 +488,7 @@ score is silently reported as perfect.
 I'm happy to open a PR adding the same `n_samples < 2` guard that `r2_score`
 already uses, if that's the direction you'd prefer.
 
-````
+:::
 
 #### The prompt to be evaluated
 
@@ -550,19 +559,20 @@ therefore lose the data they need to build their own tracebacks.
 The [original issue](https://github.com/pytest-dev/pytest/issues/14720) is
 included here (as of 2026-08-20).
 
-````markdown
-A reporting plugin that wants to render its own compact traceback has to stop pytest printing the standard one. The obvious way is `--tb=no`. But `--tb` is consulted when the representation is *built*, not only when it is displayed, so this also removes the data the plugin wanted to read.
+:::callout
+
+A reporting plugin that wants to render its own compact traceback has to stop pytest printing the standard one. The obvious way is `--tb=no`. But `--tb` is consulted when the representation is _built_, not only when it is displayed, so this also removes the data the plugin wanted to read.
 
 Reproduced on 9.1.1 and 8.4.2.
 
-```python
+```python nolint
 # test_repro.py
 def inner(): raise ValueError("boom")
 def middle(): inner()
 def test_a(): middle()
 ```
 
-```python
+```python nolint
 # conftest.py
 def pytest_runtest_logreport(report):
     if report.failed:
@@ -573,7 +583,7 @@ def pytest_runtest_logreport(report):
               f"len(str(longrepr))={len(str(report.longrepr))}")
 ```
 
-```
+```text
 --tb=long    entries=3  located=3  len(str(longrepr))=441
 --tb=short   entries=3  located=3  len(str(longrepr))=290
 --tb=line    entries=3  located=0  len(str(longrepr))=20
@@ -584,13 +594,13 @@ The entry count survives, but `reprfileloc` is `None` under `line` and `no`, so 
 
 The result is that a plugin must choose between pytest printing a traceback it does not want, and having no traceback data to work with.
 
-We hit this in a reporting plugin and shipped a version that silently lost all frame information: setting `--tb=no` in `pytest_configure` looked like a clean way to suppress output, and the summaries kept rendering, just without any of the frames they were supposed to summarise. The workaround is to leave `--tb` alone and suppress the *rendering* through some other mechanism, which works, but which mechanism is available is not obvious.
+We hit this in a reporting plugin and shipped a version that silently lost all frame information: setting `--tb=no` in `pytest_configure` looked like a clean way to suppress output, and the summaries kept rendering, just without any of the frames they were supposed to summarise. The workaround is to leave `--tb` alone and suppress the _rendering_ through some other mechanism, which works, but which mechanism is available is not obvious.
 
 This may well be intentional - not building what will not be shown is a reasonable optimisation. If so, it would be worth documenting, since the flag reads as purely presentational. If not, separating "what representation to build" from "what to display" would let plugins summarise tracebacks without either fighting the terminal reporter or losing the data.
 
 Happy to work on a patch if there is a direction the team would prefer.
 
-````
+:::
 
 #### The prompt to be evaluated
 
@@ -693,10 +703,11 @@ symbol produces a non-zero result for the same expression.
 The [original issue](https://github.com/sympy/sympy/issues/29731) is included
 here (as of 2026-08-20).
 
-````markdown
+:::callout
+
 In the following example, a summation evaluates as 0 even though it can be nonzero depending on the variable:
 
-```
+```text
 In [1]: def stirling(k, j):
    ...:     # Stirling numbers of the second kind.
    ...:     i=symbols('stirling_i',integer=True)
@@ -711,7 +722,8 @@ Out[2]: 0
 In [3]: stirling(1,n).subs(n,1).doit()
 Out[3]: 1
 ```
-````
+
+:::
 
 #### The prompt to be evaluated
 

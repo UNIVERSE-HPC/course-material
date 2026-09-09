@@ -86,24 +86,25 @@ and all associated discussions until the end of this section.
 
 :::
 
-```markdown
-SLEP025: Losing Accuracy in Scikit-Learn Score
+:::callout
 
-Abstract
---------
+**SLEP025: Losing Accuracy in Scikit-Learn Score**
+
+**Abstract:**
+
 This SLEP proposes to rectify the default `score` method for scikit-learn
 classifiers. Currently, `classifier.score(X, y)` applies accuracy, which has
 well known deficiencies (it is not a strictly proper scoring rule, and
 hard-codes a 50% probability threshold). This SLEP changes the default.
 
-Motivation
-----------
+**Motivation:**
+
 Accuracy is the most used metric for classifiers via `score()`, largely
 through blind default use rather than a conscious choice, and it has misled
 users. The situation calls for a correction.
 
-Solution
---------
+**Solution:**
+
 1. Introduce a `scoring` keyword to `score()`. Default stays `"accuracy"`
    for classifiers, `"r2"` for regressors.
 2. Deprecate the default `"accuracy"` for classifiers.
@@ -113,17 +114,19 @@ Open questions: how long the deprecation period should be (proposal: 4 minor
 releases instead of the usual 2, given the impact), and whether the new
 default should be D2 Brier score or a model-specific objective.
 
-Backward compatibility
------------------------
+**Backward compatibility:**
+
 Feasible within scikit-learn's usual deprecation strategy.
 
-Alternatives
-------------
-*Remove `score` entirely*: forces an active choice, but is a disruptive,
+**Alternatives:**
+
+_Remove `score` entirely_: forces an active choice, but is a disruptive,
 unmarketable API break.
-*Keep status quo*: no disruption, but perpetuates a known bad default and
+
+_Keep status quo_: no disruption, but perpetuates a known bad default and
 signals the project cannot correct it.
-```
+
+:::
 
 ::::challenge
 
@@ -214,7 +217,8 @@ issues/PR links and related discussion online until the end of this section.
 The [issue](https://github.com/scipy/scipy/issues/11841) requested a feature to
 handle missing values in a fit:
 
-```markdown
+:::callout
+
 Occasionally I need to fit data that's incomplete (missing values) or perform
 a fitting task over a grid of 3-D data, i.e. fitting M points for every NxN
 element, where one of the elements needs to be masked out or ignored.
@@ -226,7 +230,8 @@ floats/data to fit (i.e. all nans).
 I've seen documented that when you drop the check for nan/infs in curve_fit
 you can silently get nonsensical results. It seems a flag here would provide
 a way to define the behavior you'd like when nans/inf are present.
-```
+
+:::
 
 It may be helpful to take a look at the documentation of
 [`curve_fit`](https://docs.scipy.org/doc/scipy-1.10.1/reference/generated/scipy.optimize.curve_fit.html)
@@ -353,7 +358,8 @@ netCDF is a file format for saving labelled and multi-dimensional data.
 `xarray` can write it via several backends, two of which matter here: `netcdf4`
 and `h5netcdf`.
 
-```markdown
+:::callout
+
 I want to be able to save datasets with byte attributes when using xarray's
 netCDF export functionality, while ensuring compatibility with different
 storage engines. Specifically, I need:
@@ -366,6 +372,7 @@ storage engines. Specifically, I need:
    clear error messages
 
 When I save datasets using the h5netcdf engine, I want the system to:
+
 - Check if any attribute values are bytes
 - Verify that these bytes can be decoded as UTF-8 strings without errors
 - Ensure the byte data contains no null characters (zero bytes)
@@ -386,7 +393,8 @@ The system should validate attributes throughout the entire dataset structure,
 including both dataset-level attributes and those on individual data arrays,
 providing consistent error messages that clearly identify which attribute name
 and value caused any validation failures.
-```
+
+:::
 
 ::::challenge
 
