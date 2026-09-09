@@ -133,8 +133,6 @@ signals the project cannot correct it.
 Read the above proposal and imagine you are one of the maintainers. Would you
 vote for or against the proposal? Why?
 
-::::
-
 :::solution
 
 The vote closed on 2026-02-24 with the proposal rejected by roughly 8 votes to
@@ -157,6 +155,8 @@ impacts a public interface with subtle behaviour change should be carefully
 considered before it is made.
 
 :::
+
+::::
 
 ## Interface, boundary and acceptance
 
@@ -248,8 +248,6 @@ request and based solely on the above text and its signature, identify the
 interface, boundary, acceptance and what **cannot** be known from the issue
 alone.
 
-::::
-
 :::solution
 
 - Interface: a flag that makes `curve_fit` ignore `NaN` instead of raising
@@ -274,6 +272,8 @@ as:
 - how should the new flag interact with `check_finite`?
 
 :::
+
+::::
 
 #### What actually happened
 
@@ -310,8 +310,6 @@ Now that we know much more with the benefit of hindsight, identify the
 interface, boundary and acceptance, imagining you would direct a coding agent
 to implement the feature.
 
-::::
-
 :::solution
 
 - Interface: a flag `nan_policy` that accepts `'omit'`, `'raise'` and `None`,
@@ -343,6 +341,8 @@ agent and prompt it with 'Implement this', you risk having a broken feature in
 your codebase.
 
 :::
+
+::::
 
 ### A case study with xarray PR 9407
 
@@ -396,12 +396,10 @@ and value caused any validation failures.
 
 :::
 
-::::challenge{id="xarray_bytes_attrs" title="Identify interface, boundary and acceptance"}
+:::::challenge{id="xarray_bytes_attrs" title="Identify interface, boundary and acceptance"}
 
 Identify its interface, boundary and acceptance, with a particular focus on
 boundary.
-
-::::
 
 ::::solution
 
@@ -437,6 +435,8 @@ which must decode as UTF-8 and cannot contain a null byte.
 :::
 
 ::::
+
+:::::
 
 ## Conclusion
 

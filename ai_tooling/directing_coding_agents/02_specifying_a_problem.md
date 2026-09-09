@@ -120,8 +120,6 @@ expr = kernS(text)
 autosimplication. Rate the issue with the above scale. If your rating is not
 **0** (well-specified), try to think about what can be improved.
 
-::::
-
 :::solution
 
 This issue was annotated by 3 professional software developers in [SWE-bench
@@ -141,6 +139,8 @@ is obvious enough what the expected output should be as modern coding agents
 can infer it, and the docstring of `kernS` provides enough information as well.
 
 :::
+
+::::
 
 ### SymPy issue 14461
 
@@ -168,7 +168,7 @@ TypeError: cannot determine truth value of Relational
 
 :::
 
-::::challenge{id="sympy_14461" title="Rate the above issue"}
+:::::challenge{id="sympy_14461" title="Rate the above issue"}
 
 The snippet tries to build a `Parabola` object with a point `(a, 0)` (the
 focus) and a vertical line (the directrix) which are both defined by a symbolic
@@ -176,8 +176,6 @@ coordinate `a`. It gives a `TypeError` when accessing the `vertex` attribute.
 
 Rate the issue with the above scale. If your rating is not **0**, try to think
 about what can be improved.
-
-::::
 
 ::::solution
 
@@ -234,6 +232,8 @@ room for ambiguity.
 
 ::::
 
+:::::
+
 ### SciPy issue 20797
 
 The [original issue](https://github.com/scipy/scipy/issues/20797) is included
@@ -275,7 +275,7 @@ print(scipy.special.hyp1f1(-0.25, 0.5, 1+2j))
 
 :::
 
-::::challenge{id="scipy_20797" title="Rate the above issue"}
+:::::challenge{id="scipy_20797" title="Rate the above issue"}
 
 The issue reports a clear mismatch of output between different versions of
 `scipy` from the same function `hyp1f1`. You do not need to know what `hyp1f1`
@@ -283,8 +283,6 @@ does (but of course you are welcome to look it up).
 
 Rate the issue with the above scale. If your rating is not **0**, try to think
 about what can be improved.
-
-::::
 
 ::::solution
 
@@ -321,6 +319,8 @@ absolutely trivial.
 :::
 
 ::::
+
+:::::
 
 ## Some more tips
 

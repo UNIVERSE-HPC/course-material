@@ -207,8 +207,6 @@ Keep the change within ECSV I/O operations and do not add any dependency or
 change how non-empty tables are read. After the fix, the added minimal test
 should pass.
 
-::::
-
 #### Comments of the above prompt
 
 :::solution
@@ -245,6 +243,8 @@ prompt claims to preserve, so a better prompt would also run more tests, at
 least every test that is related to ECSV-I/O behaviour.
 
 :::
+
+::::
 
 ### Matplotlib issue 32178
 
@@ -351,8 +351,6 @@ Add a test that checks the face colour of the legend handle after calling
 `set_facecolor`. Limit the fix to scatter plot and do not change the behaviour
 of other plots.
 
-::::
-
 #### Comments of the above prompt
 
 :::solution
@@ -396,6 +394,8 @@ autonomously in a reliable way. Any visual output should always be verified
 through a non-interactive route when working with a coding agent.
 
 :::
+
+::::
 
 ### scikit-learn issue 34622
 
@@ -510,8 +510,6 @@ unnecessary refactoring. After the fix, the added minimal test should be passed
 and the behaviour of `explained_variance_score` and `r2_score` should be the
 same when the input is one-sample.
 
-::::
-
 #### Comments of the above prompt
 
 :::solution
@@ -546,6 +544,8 @@ a wrong and perfect one-sample prediction, together with a normal `n >= 2`
 sample case.
 
 :::
+
+::::
 
 ### pytest issue 14720
 
@@ -644,8 +644,6 @@ the printing of the output.
 Preserve all the existing relevant behaviour and ask me for any clarification
 if needed.
 
-::::
-
 #### Comments of the above prompt
 
 :::solution
@@ -690,6 +688,8 @@ agent to investigate more about the impact and suggest appropriate verification
 tests if the prompter does not have a clear picture of this.
 
 :::
+
+::::
 
 ### SymPy issue 29731
 
@@ -757,8 +757,6 @@ operations that use this simplification as I suppose `Sum` is used in a lot of
 different places and I want to limit the scope of the change. Run the failed
 test and after the fix, the test should pass.
 
-::::
-
 #### Comments of the above prompt
 
 :::solution
@@ -790,6 +788,8 @@ failed test is certainly not enough as it is unclear whether the fix will
 impact other usages.
 
 :::
+
+::::
 
 ## Conclusion
 
