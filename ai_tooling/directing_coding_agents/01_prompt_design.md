@@ -187,7 +187,7 @@ Current main, but also e.g. 7.2.
 You can assume the above issue is saved in a file called `iss_astropy_19895.md`
 when evaluating the prompt.
 
-::::challenge
+::::challenge{id="astropy_19895" title="Evaluate this prompt"}
 
 Read the Astropy issue #19895, which is saved in the file
 `@iss_astropy_19895.md`.
@@ -330,7 +330,7 @@ Linux package manager
 You can assume the above issue is saved in a file called
 `iss_matplotlib_32178.md` when evaluating the prompt.
 
-::::challenge
+::::challenge{id="matplotlib_32178" title="Evaluate this prompt"}
 
 Read the matplotlib issue #32178 which is saved in the file
 `@iss_matplotlib_32178.md`.
@@ -495,7 +495,7 @@ already uses, if that's the direction you'd prefer.
 You can assume the above issue is saved in a file called `iss_sklearn_34622.md`
 when evaluating the prompt.
 
-::::challenge
+::::challenge{id="sklearn_34622" title="Evaluate this prompt"}
 
 Read the scikit-learn issue #34622 which is saved in the file
 `@iss_sklearn_34622.md`.
@@ -607,7 +607,7 @@ Happy to work on a patch if there is a direction the team would prefer.
 You can assume the above issue is saved in a file called `iss_pytest_14720.md`
 when evaluating the prompt.
 
-::::challenge
+::::challenge{id="pytest_14720" title="Evaluate this prompt"}
 
 Read the pytest issue #14720 which is saved in the file
 `@iss_pytest_14720.md`.
@@ -730,7 +730,7 @@ Out[3]: 1
 You can assume the above issue is saved in a file called `iss_sympy_29731.md`
 when evaluating the prompt.
 
-::::challenge
+::::challenge{id="sympy_29731" title="Evaluate this prompt"}
 
 Read the sympy issue #29731 which is saved in the file `@iss_sympy_29731.md`.
 

@@ -80,7 +80,7 @@ software is invoked and this is called the **entry point**. The best way is, of
 course, asking someone who knows but often, you are on your own to figure this
 out.
 
-::::challenge
+::::challenge{id="entry_points" title="Where are the entry points?"}
 
 For a Python codebase, how do you commonly locate the entry points? Be as
 exhaustive as possible.
@@ -117,7 +117,7 @@ Asking a coding agent 'Tell me the entry point of this codebase' will probably
 give you something like `main.py` or `run_me.sh`, which may or may not be true.
 A lot of codebases also have multiple entry points.
 
-::::challenge
+::::challenge{id="entry_point_prompt" title="Write the prompt"}
 
 You can always ask the coding agent to enumerate all the plausible entry points
 and **you** pick those that are relevant to you. Write such prompt, then
@@ -168,7 +168,7 @@ repository in this module.
 
 :::
 
-::::challenge
+::::challenge{id="dependencies" title="Where do the dependencies come from?"}
 
 What would you normally do to figure out the dependencies of the codebase or
 the steps of compilation?
@@ -205,7 +205,7 @@ virtual environment or a container with the dependencies and encountered an
 error after running something minimal or tests with it, give your coding agent
 the traceback and let it diagnose.
 
-::::challenge
+::::challenge{id="first_error_prompt" title="Write the prompt"}
 
 Assume you got an error after running something minimal using an entry point
 with your virtual environment or container for the first time, write a prompt
@@ -302,7 +302,7 @@ times to reproduce something trivial, you are going to need a clear picture of
 how different parts of the codebase connect with each other in order to
 implement a new feature or fix a bug.
 
-::::challenge
+::::challenge{id="understand_structure" title="How would you do it without an LLM?"}
 
 Outline some methods that will be helpful in understanding an unfamiliar
 codebase (without any LLM).
@@ -331,7 +331,7 @@ that looks plausible, however you have no idea whether the well-organised
 claims are true or not. They may silently infer some claims from its knowledge
 as it was trained with possibly thousands similar codebases.
 
-::::challenge
+::::challenge{id="structure_prompt" title="How to prevent this?"}
 
 How can we instruct the coding agents to avoid the above problem? Or at least
 decrease the likelihood of hallucinating false claims about the codebase.
@@ -370,7 +370,7 @@ of the most important insights to gain from understanding the structure of the
 codebase, and coding agents can be a powerful tool here as they possess some
 semantic understanding.
 
-::::challenge
+::::challenge{id="dead_code_prompt" title="Find the dead code"}
 
 After understanding the run paths from different entry points, you should have
 a better understanding of what functions are used and what they are for.
@@ -448,7 +448,7 @@ section), you should now know what functions/files are related to the
 production of such figure, or in the worst case, you can eliminate irrelevant
 code.
 
-::::challenge
+::::challenge{id="reproduce_figure_prompt" title="Write the prompt"}
 
 The powerful ability of coding agents to collect information and summarise them
 is very useful in this situation. Write a prompt that guide the coding agent to

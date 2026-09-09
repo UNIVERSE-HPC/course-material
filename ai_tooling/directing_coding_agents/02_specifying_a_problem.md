@@ -114,7 +114,7 @@ expr = kernS(text)
 
 :::
 
-::::challenge
+::::challenge{id="sympy_19608" title="Rate the above issue"}
 
 `kernS` parses a string into an expression while preventing SymPy from
 autosimplication. Rate the issue with the above scale. If your rating is not
@@ -168,7 +168,7 @@ TypeError: cannot determine truth value of Relational
 
 :::
 
-::::challenge
+::::challenge{id="sympy_14461" title="Rate the above issue"}
 
 The snippet tries to build a `Parabola` object with a point `(a, 0)` (the
 focus) and a vertical line (the directrix) which are both defined by a symbolic
@@ -275,7 +275,7 @@ print(scipy.special.hyp1f1(-0.25, 0.5, 1+2j))
 
 :::
 
-::::challenge
+::::challenge{id="scipy_20797" title="Rate the above issue"}
 
 The issue reports a clear mismatch of output between different versions of
 `scipy` from the same function `hyp1f1`. You do not need to know what `hyp1f1`

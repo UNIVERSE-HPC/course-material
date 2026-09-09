@@ -128,7 +128,7 @@ signals the project cannot correct it.
 
 :::
 
-::::challenge
+::::challenge{id="slep025_vote" title="Would you vote for it?"}
 
 Read the above proposal and imagine you are one of the maintainers. Would you
 vote for or against the proposal? Why?
@@ -241,7 +241,7 @@ is what data with missing values usually looks like.
 
 #### First attempt
 
-::::challenge
+::::challenge{id="curve_fit_first_attempt" title="Identify the interface, boundary and acceptance"}
 
 Imagine you are going to use a coding agent to implement the above feature
 request and based solely on the above text and its signature, identify the
@@ -304,7 +304,7 @@ one directed a coding agent to implement it.
 - **Nov to Dec 2024**: [PR 21918](https://github.com/scipy/scipy/pull/21918)
   fixes the above bug.
 
-::::challenge
+::::challenge{id="curve_fit_hindsight" title="Identify them again"}
 
 Now that we know much more with the benefit of hindsight, identify the
 interface, boundary and acceptance, imagining you would direct a coding agent
@@ -396,7 +396,7 @@ and value caused any validation failures.
 
 :::
 
-::::challenge
+::::challenge{id="xarray_bytes_attrs" title="Identify interface, boundary and acceptance"}
 
 Identify its interface, boundary and acceptance, with a particular focus on
 boundary.
