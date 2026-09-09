@@ -213,7 +213,7 @@ should pass.
 
 :::solution
 
-##### Strengths
+#### Strengths
 
 The prompt and the reported issue specify a clear failure and an observable
 success condition: an empty table with metadata should be able to be created
@@ -223,7 +223,7 @@ before the fix and pass after it. This is stronger than asking to make parsing
 before editing, and the ECSV-I/O scope together with the non-empty-table
 constraint limits unnecessary changes.
 
-##### Weaknesses
+#### Weaknesses
 
 Stating that the fix should reuse the working `ascii.ecsv` route prematurely
 chooses an implementation. The working route is something that should be
@@ -357,7 +357,7 @@ of other plots.
 
 :::solution
 
-##### Strengths
+#### Strengths
 
 The prompt first directs the coding agent to reproduce the issue, then trace
 from the reported interface, which is more efficient than searching the entire
@@ -365,7 +365,7 @@ codebases. The specified scope also limits the change to face colour of scatter
 plot itself, which prevents accidental change to other features of scatter
 plot.
 
-##### Weaknesses
+#### Weaknesses
 
 The prompt asserts the bug as a regression, but the issue only says an old API
 was used years ago, which does not guarantee this is about backwards
@@ -516,7 +516,7 @@ same when the input is one-sample.
 
 :::solution
 
-##### Strengths
+#### Strengths
 
 The prompt instructs the coding agent to write a failing test of the current
 one-sample behaviour, which is helpful as a signal of whether a patch actually
@@ -526,7 +526,7 @@ whole codebase, which may use more tokens than necessary. By looking only at
 the implementation of `explained_variance_score` and `r2_score`, it limits the
 scope of the work to avoid unnecessary refactoring.
 
-##### Weaknesses
+#### Weaknesses
 
 One key decision the prompter made is that it asserts the two metrics must be
 aligned 'for consistency', which settles a public behaviour that is not
@@ -650,7 +650,7 @@ if needed.
 
 :::solution
 
-##### Strengths
+#### Strengths
 
 Letting an LLM evaluate your own understanding about the issue not only
 allows it to correct any misconception or invalid assumption you might have,
@@ -669,7 +669,7 @@ be affected by the option passed to `--tb`, which is the current behaviour.
 Whether a downstream plugin needs all the data from the traceback is
 independent of the printed output.
 
-##### Weaknesses
+#### Weaknesses
 
 While the prompt makes it clear that the printed output and the information
 provided to plugins should be separated, the chosen implementation of always
@@ -763,7 +763,7 @@ test and after the fix, the test should pass.
 
 :::solution
 
-##### Strengths
+#### Strengths
 
 The prompt compares the general and the substituted result, stating that there
 is a lost condition and it asks for reduction and tracing before editing, which
@@ -772,7 +772,7 @@ isolating a problem and writing focused tests. Asking for an explanation of
 Stirling numbers of the second kind is also helpful to understand the context
 of the problem.
 
-##### Weaknesses
+#### Weaknesses
 
 'Do not investigate other operations that use this simplification'
 unnecessarily limits the analysis required. Limiting the scope of the change is
