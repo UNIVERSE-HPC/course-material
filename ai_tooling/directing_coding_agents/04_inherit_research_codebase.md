@@ -73,6 +73,9 @@ of these repositories and would prefer it not to be included, please contact
 
 ## Dealing with legacy codebases
 
+We will try to follow some steps which can help you to understand an unfamiliar
+research codebase and how coding agents can assist you in the process.
+
 ### The entry point
 
 When you inherited a codebase, the first thing you should find out is how the
