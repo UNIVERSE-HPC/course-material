@@ -11,15 +11,19 @@ learningOutcomes:
 attribution:
   - citation: '"Introducing SWE-bench Verified" by OpenAI on 2024-08-13.'
     url: https://openai.com/index/introducing-swe-bench-verified/
+    image: https://upload.wikimedia.org/wikipedia/commons/6/66/OpenAI_logo_2025_%28symbol%29.svg
     license: MIT
   - citation: The SymPy issue 19608 reported by ninely on 2020-06-21.
     url: https://github.com/sympy/sympy/issues/19608
+    image: https://raw.githubusercontent.com/sympy/sympy/master/doc/src/logo/sympy.svg
     license: BSD-3-Clause
   - citation: The SymPy issue 14461 reported by rushyam on 2018-03-10.
     url: https://github.com/sympy/sympy/issues/14461
+    image: https://raw.githubusercontent.com/sympy/sympy/master/doc/src/logo/sympy.svg
     license: BSD-3-Clause
   - citation: The SciPy issue 20797 reported by macdems on 2024-05-26.
     url: https://github.com/scipy/scipy/issues/20797
+    image: https://raw.githubusercontent.com/scipy/scipy/main/doc/source/_static/logo.svg
     license: BSD-3-Clause
 ---
 

@@ -8,18 +8,22 @@ learningOutcomes:
 attribution:
   - citation: scikit-learn SLEP025 proposed by Christian Lorentzen on 2025-12-07.
     url: https://github.com/scikit-learn/enhancement_proposals/pull/98
+    image: https://raw.githubusercontent.com/scikit-learn/scikit-learn/main/doc/logos/scikit-learn-logo.png
     license: BSD-3-Clause
   - citation: The SciPy issue 11841 reported by astrophysaxist on 2020-04-10.
     url: https://github.com/scipy/scipy/issues/11841
+    image: https://raw.githubusercontent.com/scipy/scipy/main/doc/source/_static/logo.svg
     license: BSD-3-Clause
   - citation: The SciPy issue 21772 reported by Vallastro on 2024-10-28.
     url: https://github.com/scipy/scipy/issues/21772
+    image: https://raw.githubusercontent.com/scipy/scipy/main/doc/source/_static/logo.svg
     license: BSD-3-Clause
   - citation: >-
       Requirement text for instance pydata__xarray-9407 reconstructed by
       FeatBench (Chen et al., 2025), "FeatBench: Towards More Realistic
       Evaluation of Feature-level Code Generation".
     url: https://github.com/THU-Agent/FeatBench
+    image: https://arxiv.org/static/base/1.0.1/images/arxiv-logo-primary-light.svg
     license: MIT
 ---
 

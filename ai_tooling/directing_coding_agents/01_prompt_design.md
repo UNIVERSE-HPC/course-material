@@ -8,18 +8,23 @@ learningOutcomes:
 attribution:
   - citation: The Astropy issue 19895 reported by maxnoe on 2026-06-10.
     url: https://github.com/astropy/astropy/issues/19895
+    image: https://raw.githubusercontent.com/astropy/astropy/main/docs/_static/astropy_banner.svg
     license: BSD-3-Clause
   - citation: The Matplotlib issue 32178 reported by ArchangeGabriel on 2026-08-07.
     url: https://github.com/matplotlib/matplotlib/issues/32178
+    image: https://raw.githubusercontent.com/matplotlib/matplotlib/main/doc/_static/logo2.svg
     license: BSD-3-Clause
   - citation: The scikit-learn issue 34622 reported by PranavAchar01 on 2026-08-01.
     url: https://github.com/scikit-learn/scikit-learn/issues/34622
+    image: https://raw.githubusercontent.com/scikit-learn/scikit-learn/main/doc/logos/scikit-learn-logo.png
     license: BSD-3-Clause
   - citation: The pytest issue 14720 reported by dprada on 2026-07-18.
     url: https://github.com/pytest-dev/pytest/issues/14720
+    image: https://raw.githubusercontent.com/pytest-dev/pytest/main/doc/en/img/pytest_logo_curves.svg
     license: MIT
   - citation: The SymPy issue 29731 reported by peteroupc on 2026-05-02.
     url: https://github.com/sympy/sympy/issues/29731
+    image: https://raw.githubusercontent.com/sympy/sympy/master/doc/src/logo/sympy.svg
     license: BSD-3-Clause
 ---
 
