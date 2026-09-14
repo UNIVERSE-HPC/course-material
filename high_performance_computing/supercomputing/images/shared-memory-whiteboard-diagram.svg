@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 770 410" width="770" height="410" role="img" aria-label="Diagram mapping four workers and their private notebooks to four CPU cores and their private caches, all connected to one shared whiteboard representing main memory">
+  <style>
+    .worker { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; }
+    .notebook { fill: #ecfeff; stroke: #06b6d4; stroke-width: 2; }
+    .route { fill: #f8fafc; stroke: #64748b; stroke-width: 2; }
+    .whiteboard { fill: #f5f3ff; stroke: #8b5cf6; stroke-width: 2; }
+    .line { stroke: #64748b; stroke-width: 2; }
+    .label { fill: #1e1b4b; font-family: system-ui, sans-serif; font-size: 16px; font-weight: 600; text-anchor: middle; }
+    .mapping { fill: #475569; font-family: system-ui, sans-serif; font-size: 13px; text-anchor: middle; }
+    .route-label { fill: #334155; font-family: system-ui, sans-serif; font-size: 14px; font-weight: 600; text-anchor: middle; }
+    @media (prefers-color-scheme: dark) {
+      .worker { fill: #1e3a5f; stroke: #60a5fa; stroke-width: 2; }
+      .notebook { fill: #164e63; stroke: #67e8f9; stroke-width: 2; }
+      .route { fill: #1e293b; stroke: #94a3b8; stroke-width: 2; }
+      .whiteboard { fill: #3b1f6e; stroke: #c4b5fd; stroke-width: 2; }
+      .line { stroke: #94a3b8; stroke-width: 2; }
+      .label { fill: #eef2ff; font-family: system-ui, sans-serif; font-size: 16px; font-weight: 600; text-anchor: middle; }
+      .mapping { fill: #cbd5e1; font-family: system-ui, sans-serif; font-size: 13px; text-anchor: middle; }
+      .route-label { fill: #e2e8f0; font-family: system-ui, sans-serif; font-size: 14px; font-weight: 600; text-anchor: middle; }
+    }
+  </style>
+
+  <!-- Connections are drawn first so that they sit behind the boxes. -->
+  <line class="line" x1="100" y1="100" x2="100" y2="140"/>
+  <line class="line" x1="290" y1="100" x2="290" y2="140"/>
+  <line class="line" x1="480" y1="100" x2="480" y2="140"/>
+  <line class="line" x1="670" y1="100" x2="670" y2="140"/>
+  <line class="line" x1="100" y1="220" x2="100" y2="260"/>
+  <line class="line" x1="290" y1="220" x2="290" y2="260"/>
+  <line class="line" x1="480" y1="220" x2="480" y2="260"/>
+  <line class="line" x1="670" y1="220" x2="670" y2="260"/>
+  <line class="line" x1="385" y1="300" x2="385" y2="325"/>
+
+  <!-- Workers represent CPU cores. -->
+  <rect class="worker" x="25" y="25" width="150" height="75" rx="12"/>
+  <text class="label" x="100" y="55">Worker 1</text>
+  <text class="mapping" x="100" y="79">CPU-core 1</text>
+
+  <rect class="worker" x="215" y="25" width="150" height="75" rx="12"/>
+  <text class="label" x="290" y="55">Worker 2</text>
+  <text class="mapping" x="290" y="79">CPU-core 2</text>
+
+  <rect class="worker" x="405" y="25" width="150" height="75" rx="12"/>
+  <text class="label" x="480" y="55">Worker 3</text>
+  <text class="mapping" x="480" y="79">CPU-core 3</text>
+
+  <rect class="worker" x="595" y="25" width="150" height="75" rx="12"/>
+  <text class="label" x="670" y="55">Worker 4</text>
+  <text class="mapping" x="670" y="79">CPU-core 4</text>
+
+  <!-- Private notebooks represent private caches. -->
+  <rect class="notebook" x="25" y="140" width="150" height="80" rx="12"/>
+  <text class="label" x="100" y="173">Private notebook</text>
+  <text class="mapping" x="100" y="198">Private cache</text>
+
+  <rect class="notebook" x="215" y="140" width="150" height="80" rx="12"/>
+  <text class="label" x="290" y="173">Private notebook</text>
+  <text class="mapping" x="290" y="198">Private cache</text>
+
+  <rect class="notebook" x="405" y="140" width="150" height="80" rx="12"/>
+  <text class="label" x="480" y="173">Private notebook</text>
+  <text class="mapping" x="480" y="198">Private cache</text>
+
+  <rect class="notebook" x="595" y="140" width="150" height="80" rx="12"/>
+  <text class="label" x="670" y="173">Private notebook</text>
+  <text class="mapping" x="670" y="198">Private cache</text>
+
+  <!-- The shared route leads to one shared memory. -->
+  <rect class="route" x="25" y="260" width="720" height="40" rx="8"/>
+  <text class="route-label" x="385" y="285">Shared route to memory</text>
+
+  <rect class="whiteboard" x="245" y="325" width="280" height="65" rx="12"/>
+  <text class="label" x="385" y="353">Shared whiteboard</text>
+  <text class="mapping" x="385" y="376">Main memory</text>
+</svg>

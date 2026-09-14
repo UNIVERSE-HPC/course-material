@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="480" height="320" role="img" aria-label="Diagram showing four CPU cores each connected to a shared memory bus, which connects to a single piece of memory">
+  <style>
+    .core { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; }
+    .bus { fill: #f8fafc; stroke: #64748b; stroke-width: 2; }
+    .mem { fill: #f5f3ff; stroke: #8b5cf6; stroke-width: 2; }
+    .line { stroke: #64748b; stroke-width: 2; }
+    .label { fill: #1e1b4b; font-family: system-ui, sans-serif; font-size: 16px; font-weight: 600; text-anchor: middle; }
+    .bus-label { fill: #334155; font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; text-anchor: middle; }
+    @media (prefers-color-scheme: dark) {
+      .core { fill: #1e3a5f; stroke: #60a5fa; }
+      .bus { fill: #1e293b; stroke: #94a3b8; }
+      .mem { fill: #3b1f6e; stroke: #c4b5fd; }
+      .line { stroke: #94a3b8; }
+      .label { fill: #eef2ff; }
+      .bus-label { fill: #e2e8f0; }
+    }
+  </style>
+
+  <!-- connecting lines: cores to bus -->
+  <line class="line" x1="75" y1="80" x2="75" y2="140"/>
+  <line class="line" x1="185" y1="80" x2="185" y2="140"/>
+  <line class="line" x1="295" y1="80" x2="295" y2="140"/>
+  <line class="line" x1="405" y1="80" x2="405" y2="140"/>
+  <!-- connecting line: bus to memory -->
+  <line class="line" x1="240" y1="180" x2="240" y2="220"/>
+
+  <!-- CPU cores -->
+  <rect class="core" x="30" y="20" width="90" height="60" rx="10"/>
+  <text class="label" x="75" y="55">Core 1</text>
+  <rect class="core" x="140" y="20" width="90" height="60" rx="10"/>
+  <text class="label" x="185" y="55">Core 2</text>
+  <rect class="core" x="250" y="20" width="90" height="60" rx="10"/>
+  <text class="label" x="295" y="55">Core 3</text>
+  <rect class="core" x="360" y="20" width="90" height="60" rx="10"/>
+  <text class="label" x="405" y="55">Core 4</text>
+
+  <!-- Memory bus -->
+  <rect class="bus" x="30" y="140" width="420" height="40" rx="8"/>
+  <text class="bus-label" x="240" y="165">Memory Bus</text>
+
+  <!-- Memory -->
+  <rect class="mem" x="140" y="220" width="200" height="70" rx="12"/>
+  <text class="label" x="240" y="262">Memory</text>
+</svg>
