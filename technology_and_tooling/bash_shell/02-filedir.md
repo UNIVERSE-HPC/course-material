@@ -9,9 +9,8 @@ learningOutcomes:
   - Demonstrate the use of tab completion and explain its advantages.
 attribution:
   - citation: >
-      This material was originally taken from training materials developed by the
-      University of Southampton Research Software Group, which are based on
-      the Software Carpentries course "Version Control with Git".
+      This material was originally taken from the training material "The Bash Shell"
+      developed by the University of Southampton Research Software Group.
     url: https://github.com/Southampton-RSG-Training/shell-novice/
     image: https://southampton-rsg-training.github.io/shell-novice/assets/img/home-logo.png
     license: CC-BY-4.0
