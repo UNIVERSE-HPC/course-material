@@ -49,11 +49,11 @@ to use the Bash shell.
 
 Some basic commands you might use in Bash include:
 
-- `ls`: Lists the files and directories in the current directory.
-- `cd`: Changes the current directory to a specified directory.
-- `mkdir`: Creates a new directory.
-- `rm`: Deletes a file or directory.
-- `echo`: Prints a message to the terminal.
+- `ls`: _l_i_s_ts the contents in a directory.
+- `cd`: _c_hanges the current _d_irectory to a specified directory.
+- `mkdir`: _m_a_k_es new _dir_ectories.
+- `rm`: _r_e_m_oves directory entries.
+- `echo`: prints a message to the terminal.
 
 In addition to these basic commands, you can use Bash to write scripts, which
 are collections of commands that can be executed together. Bash scripts can be
