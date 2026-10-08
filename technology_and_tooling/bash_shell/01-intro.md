@@ -13,7 +13,7 @@ attribution:
     license: CC-BY-4.0
 ---
 
-The Bash shell a text-based program that interactively allows you to run other programs.
+The Bash shell is a text-based program that allows you to run different programs interactively .
 
 You'll be familiar with the graphical way of dealing with computers, like the interfaces that Windows and Macs give you - sometimes called GUIs (graphical user interfaces).
 You run an application, it gives you windows and buttons and menus to interact with to access its functions and achieve a result.
@@ -30,7 +30,7 @@ Imagine the shell a little like working with a voice assistant like Siri or Alex
 You ask your computer questions, and your computer responds with an answer.
 :::
 
-The shell is called _the shell_ because it encloses the machine's **operating system** - which could be Windows, Mac OS X, or Linux - giving you a wrapper-like interface to interact with it. Another, more general way, of referring to the shell is the **command line**, since it provides an interface into which you type commands line-by-line.
+The shell is called _the shell_ because it encloses the machine's **operating system** - which could be Windows, macOS, or Linux - giving you a wrapper-like interface to interact with it. Another, more general way, of referring to the shell is the **command line**, since it provides an interface into which you type commands line-by-line.
 
 ## Why use it?
 
@@ -47,8 +47,8 @@ So why use the Bash shell?
   or running a program to generate a chart for every one of those output data files produced by that program.
 
 - **Availability:** Bash is available on different types of machines.
-  You can already use the Bash shell on computers like Macs and those that run Linux, where it's already installed, but you can also install and use it on Windows.
+  Bash is the default on most Linux systems. On macOS the default is now `zsh` and you can type `bash` to switch. On Windows you can use Git Bash or WSL.
 
 - **Using other computational resources:** if you need to use another computational resource, such as a supercomputer to run your programs even faster, they almost exclusively use the shell.
 
-Now on the flip side, it does have a steeper learning curve generally than using graphical programs. Applications and programs also need to work on the command line to be able to take advantage of it. But knowing just a little can be very useful, and in your careers you will very likely come across quite a few programs that have command line interfaces so it's helpful to have some experience with it.
+Now on the flip side, it does have a steeper learning curve generally than using graphical programs. Applications and programs also need to work on the command-line to be able to take advantage of it. But knowing just a little can be very useful, and in your careers you will very likely come across quite a few programs that have command-line interfaces so it's helpful to have some experience with it.
