@@ -22,8 +22,8 @@ summary: |
     The Bash shell is a command-line interface used in Unix-based operating systems
     such as Linux and macOS. This course will introduce you to the basics of using
     the Bash shell.
-attribution: 
-    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1 
+attribution:
+    - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
       url: https://www.universe-hpc.ac.uk
       image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
       license: CC-BY-4.0
@@ -36,6 +36,16 @@ The Bash shell is a command-line interface typically used in Unix-based
 operating systems such as Linux and macOS, but is also available for Windows.
 It provides a way for users to interact with the operating system using
 text-based commands instead of a graphical user interface.
+
+:::callout{variant="note"}
+
+Since macOS 10.15 (released in Oct 2019), [the default shell becomes
+`zsh`](https://support.apple.com/en-ca/102360) which is not the same as Bash.
+They are highly compatibile and you will be able to follow the materials of
+this course by using `zsh`. Simply type `bash` followed by 'Enter' if you want
+to use the Bash shell.
+
+:::
 
 Some basic commands you might use in Bash include:
 
