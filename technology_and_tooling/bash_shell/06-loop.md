@@ -6,7 +6,6 @@ learningOutcomes:
   - Write a loop that applies one or more commands separately to each file in a set of files.
   - Trace the values taken on by a loop variable during execution of the loop.
   - Explain the difference between the name and the value of a variable.
-  - Re-run recently executed commands without retyping them.
 attribution:
   - citation: >
       This material was originally taken from the training material "The Bash Shell"
@@ -52,7 +51,7 @@ Because as we learnt previously, with wildcards that would expand to:
 mv basilisk.dat minotaur.dat unicorn.dat original-*.dat
 ```
 
-This wouldn't back up our files, instead we would get an error. If on a Mac or Linux it would look like:
+This wouldn't back up our files, instead we would get an error. If on macOS or Linux it would look like:
 
 ```text
 mv: target `original-*.dat' is not a directory
@@ -88,7 +87,7 @@ In that file enter the following:
 ```bash
 for filename in basilisk.dat minotaur.dat unicorn.dat
 do
-    head -3 $filename
+    head -n 3 $filename
 done
 ```
 
@@ -177,7 +176,7 @@ if we wrote this loop as:
 ```bash
 for x in basilisk.dat minotaur.dat unicorn.dat
 do
-    head -3 $x
+    head -n 3 $x
 done
 ```
 
@@ -186,7 +185,7 @@ or:
 ```bash
 for temperature in basilisk.dat minotaur.dat unicorn.dat
 do
-    head -3 $temperature
+    head -n 3 $temperature
 done
 ```
 
@@ -268,20 +267,24 @@ Instead of running `mv`, this loop runs `echo`, which prints out:
 
 ```bash
 mv basilisk.dat original-basilisk.dat
+mv minotaur.dat original-minotaur.dat
 mv unicorn.dat original-unicorn.dat
 ```
 
-_without_ actually running those commands. We can then use up-arrow to
-redisplay the loop, back-arrow to get to the word `echo`, delete it, and
-then press "enter" to run the loop with the actual `mv` commands. This
-isn't foolproof, but it's a handy way to see what's going to happen when
-you're still learning how loops work.
+_without_ actually running those commands. This is a handy way to see what's
+going to happen when you're still learning how loops work.
 :::
 
 ## Exercises
 
 ::::challenge{id=save-to-file-1 title="Saving to a File in a Loop, Part 1"}
-In the same directory, what is the effect of this loop?
+Suppose you are in a directory where `ls` returns:
+
+```text
+fructose.dat    glucose.dat   sucrose.dat
+```
+
+What is the effect of this loop?
 
 ```bash
 for sugar in *.dat
@@ -354,7 +357,7 @@ do
 done
 ```
 
-What is the difference between the the two loops below, and which one would we
+What is the difference between the two loops below, and which one would we
 want to run?
 
 ```bash
