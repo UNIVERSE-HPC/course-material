@@ -58,7 +58,7 @@ So what's happening? When we type `whoami` the shell:
 4. Displays a new prompt to tell us that it's ready for more commands
 
 Next, let's find out where we are in our file system by running a command called `pwd`
-(which stands for "_p_rint _w_orking _d_irectory").
+(which stands for "print working directory").
 At any moment,
 our **current working directory**
 is the default directory
