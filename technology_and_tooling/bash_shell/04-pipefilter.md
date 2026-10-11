@@ -27,7 +27,7 @@ One way we can use programs together is to have the output of one command captur
 in a file, and use that file as the input to another command.
 
 We'll start with a directory called `data`, which is in the `shell-novice/data`
-directory, one directory up from `test_directory`. i.e. from `test_directory`:
+directory, two directories up from `test_directory`. i.e. from `test_directory`:
 
 ```bash
 cd ../..
@@ -107,7 +107,7 @@ with `p`) or `preferred.p` (there isn't at least one character after the
 When the shell sees a wildcard, it expands the wildcard to create a
 list of matching filenames _before_ running the command that was
 asked for. As an exception, if a wildcard expression does not match
-any file, Bash will pass the expression as a parameter to the command
+any file, Bash will pass the expression as an argument to the command
 as it is. For example typing `ls *.pdf` in the data directory
 (which contains only files with names ending with `.csv`) results in
 an error message that there is no file called `*.pdf`.
@@ -130,9 +130,9 @@ wc -l *.csv
 ```
 
 We can also use `-w` to get only the number of words,
-or `-c` to get only the number of characters.
+or `-m` to get only the number of characters.
 
-Which of these files is shortest?
+Which of these files is the shortest?
 It's an easy question to answer when there are only three files,
 but what if there were 6000?
 Our first step toward a solution is to run the command:
@@ -199,23 +199,23 @@ we can run another command called `head` to get the first few lines in `sorted-l
 
 ```bash
 sort -n lengths.txt > sorted-lengths.txt
-head -1 sorted-lengths.txt
+head -n 1 sorted-lengths.txt
 ```
 
 ```text
       11 sc_climate_data_10.csv
 ```
 
-Using the parameter `-1` with `head` tells it that
+Using the argument `-n 1` with `head` tells it that
 we only want the first line of the file;
-`-20` would get the first 20,
+`-n 20` would get the first 20,
 and so on.
 Since `sorted-lengths.txt` contains the lengths of our files ordered from least to greatest,
 the output of `head` must be the file with the fewest lines.
 
 If you think this is confusing,
 you're in good company:
-even once you understand what `wc`, `sort`, and `head` do,
+even you understand what `wc`, `sort`, and `head` do,
 all those intermediate files make it hard to follow what's going on.
 Fortunately, there's a way to make this much simpler.
 
@@ -224,11 +224,11 @@ Fortunately, there's a way to make this much simpler.
 We can make it easier to understand by running `sort` and `head` together:
 
 ```bash
-sort -n lengths.txt | head -1
+sort -n lengths.txt | head -n 1
 ```
 
 ```text
-            11 sc_climate_data_10.csv
+      11 sc_climate_data_10.csv
 ```
 
 The vertical bar between the two commands is called a **pipe**.
@@ -244,7 +244,7 @@ We can even use another pipe to send the output of `wc` directly to `sort`,
 which then sends its output to `head`:
 
 ```bash
-wc -l *.csv | sort -n | head -1
+wc -l *.csv | sort -n | head -n 1
 ```
 
 ```text
@@ -283,11 +283,16 @@ so that you and other people can put those programs into pipes to multiply their
 As well as using `>` to redirect a program's output, we can use `<` to
 redirect its input, i.e., to read from a file instead of from standard
 input. For example, instead of writing `wc sc_climate_data_10.csv`, we could write
-`wc < sc_climate_data_10.csv`. In the first case, `wc` gets a command line
-parameter telling it what file to open. In the second, `wc` doesn't have
-any command line parameters, so it reads from standard input, but we
+`wc < sc_climate_data_10.csv`. In the first case, `wc` gets a command-line
+argument telling it what file to open. In the second, `wc` doesn't have
+any command-line arguments, so it reads from standard input, but we
 have told the shell to send the contents of `sc_climate_data_10.csv` to `wc`'s
 standard input.
+
+If you type `wc` with neither filenames nor standard input redirection, `wc`
+waits from the standard input (e.g. your keyboard) and appears to be hang.
+You can press `Control-C` to cancel or type something and press `Control-D` when
+you are finished.
 :::
 
 If you're interested in how pipes work in more technical detail, see the description after the exercises.
@@ -345,19 +350,19 @@ and whatever the process sends to standard output to the screen.
 
 Here's what happens when we run `wc -l *.csv > lengths.txt`.
 The shell starts by telling the computer to create a new process to run the `wc` program.
-Since we've provided some filenames as parameters,
+Since we've provided some filenames as arguments,
 `wc` reads from them instead of from standard input.
 And since we've used `>` to redirect output to a file,
 the shell connects the process's standard output to that file.
 
 If we run `wc -l *.csv | sort -n` instead,
 the shell creates two processes
-(one for each process in the pipe)
+(one for each command in the pipe)
 so that `wc` and `sort` run simultaneously.
 The standard output of `wc` is fed directly to the standard input of `sort`;
 since there's no redirection with `>`,
 `sort`'s output goes to the screen.
-And if we run `wc -l *.csv | sort -n | head -1`,
+And if we run `wc -l *.csv | sort -n | head -n 1`,
 we get three processes with data flowing from the files,
 through `wc` to `sort`,
 and from `sort` through `head` to the screen.
