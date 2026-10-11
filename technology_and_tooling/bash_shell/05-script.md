@@ -32,12 +32,12 @@ cd ~/shell-novice/data
 nano middle.sh
 ```
 
-So why the .sh extension to the filename? Adding `.sh` is the convention to show that this is a Bash shell script.
+So why the `.sh` extension to the filename? Adding `.sh` is the convention to show that this is a Bash shell script.
 
 Enter the following line into our new file:
 
 ```bash
-head -15 sc_climate_data_1000.csv | tail -5
+head -n 15 sc_climate_data_1000.csv | tail -n 5
 ```
 
 Then save it and exit `nano` (using `Control-O` to save it and then `Control-X` to exit `nano`).
@@ -94,16 +94,18 @@ nano middle.sh
 ```
 
 ```text
-head -15 "$1" | tail -5
+head -n 15 "$1" | tail -n 5
 ```
 
 Inside a shell script,
-`$1` means the first filename (or other argument) passed to the script on the command line.
-We can now run our script like this:
+`$1` means the first argument passed to the script on the command line.
+If we run our script like this:
 
 ```bash
 bash middle.sh sc_climate_data_1000.csv
 ```
+
+`$1` becomes `sc_climate_data_1000.csv` inside the script and you will get:
 
 ```text
 299196.8188,972890.0521,48.07,61.41,0.78
@@ -113,7 +115,7 @@ bash middle.sh sc_climate_data_1000.csv
 248196.8188,961890.0521,46.22,58.98,1.43
 ```
 
-or on a different file like this (our full data set!):
+You can also run the script on a different file, e.g. our full dataset:
 
 ```bash
 bash middle.sh sc_climate_data.csv
@@ -127,7 +129,7 @@ bash middle.sh sc_climate_data.csv
 248196.8188,961890.0521,46.22,58.98,1.43
 ```
 
-Note the output is the same, since our full data set contains the same first 1000 lines as `sc_climate_data_1000.csv`.
+Note the output is the same, since our full dataset contains the same first 1000 lines as `sc_climate_data_1000.csv`.
 
 :::callout
 
@@ -141,7 +143,7 @@ If we left out these quotes, and `$1` expanded to a filename like
 the command in the script would effectively be:
 
 ```bash
-head -15 climate data.csv | tail -5
+head -n 15 climate data.csv | tail -n 5
 ```
 
 This would call `head` on two separate files, `climate` and `data.csv`,
@@ -151,55 +153,51 @@ which is probably not what we intended.
 ## Exercises
 
 ::::challenge{id=variables-shell-scripts title="Variables in Shell Scripts"}
-In the `test_directory/molecules` directory, you have a shell script called `script.sh` containing the
-following commands:
+In the `test_directory/molecules` directory, you have a shell script called `script.sh`.
+Use `nano` to modify its contents to:
 
 ```bash
-head $2 $1
+head -n $2 $1
 tail -n $3 $1
 ```
 
 The shell allows us to access arguments other than just the first. Here, we are using `$2` and `$3`
 to obtain and use the second and third arguments passed to the script (where arguments are separated by spaces, as with any other commands).
 
-Note that here, we use the explicit `-n` flag to pass the number of lines to `tail` that we want to extract,
-since we're passing in multiple `.pdb` files. Otherwise, `tail` can give us an error about incorrect options on
-certain machines if we don't.
-
 While you are in the molecules directory, you type the following command:
 
 ```bash
-bash script.sh '*.pdb' -1 -1
+bash script.sh '*.pdb' 1 1
 ```
 
 Which of the following outputs would you expect to see?
 
-1. All of the lines between the first and the last lines of each file ending in `*.pdb`
+1. All of the lines between the first and the last lines of each file ending in `.pdb`
    in the molecules directory
-2. The first and the last line of each file ending in `*.pdb` in the molecules directory
+2. The first and the last line of each file ending in `.pdb` in the molecules directory
 3. The first and the last line of each file in the molecules directory
 4. An error because of the quotes around `*.pdb`
 
 :::solution
-The answer is **2**. The quotes around the wildcard `'*.pdb'` mean it isn't expanded when we call the script - but it will get expanded _inside_ the script. There, it gets expanded to match every file in the directory that ends in `*.pdb`, and effectively the script calls:
+The answer is **2**. The quotes around the wildcard `'*.pdb'` mean it isn't expanded when we call the script - but it will get expanded _inside_ the script. There, it gets expanded to match every file in the directory that ends in `.pdb`, and effectively the script calls:
 
 ```bash
-head -1 *.pdb
-tail -n -1 *.pdb*
+head -n 1 *.pdb
+tail -n 1 *.pdb
 ```
 
-This prints out the first line (`head -1`) of each `.pdb` file, and then the last line of each `.pdb` file.
+This prints out the first line (`head -n 1`) of each `.pdb` file, and then the last line of each `.pdb` file.
 
 If we'd called the script as:
 
 ```bash
-bash script.sh *.pdb -1 -1
+bash script.sh *.pdb 1 1
 ```
 
 Then it wouldn't work as the wildcard would've expanded before the script started and we'd have effectively run it as:
 
 ```bash
-bash script.sh cubane.pdb ethane.pdb methane.pdb octane.pdb pentane.pdb propane.pdb -1 -1
+bash script.sh cubane.pdb ethane.pdb methane.pdb octane.pdb pentane.pdb propane.pdb 1 1
 ```
 
 This would have caused an error, as we expect the second and third arguments to be numbers for `head` and `tail`!
