@@ -351,19 +351,6 @@ And it doesn't begin with a slash because it's a **relative path** -
 it tells `ls` how to find something from where we are,
 rather than from the root of the file system.
 
-:::callout
-
-## Parameters vs. Arguments
-
-According to [Wikipedia](<https://en.wikipedia.org/wiki/Parameter_(computer_programming)#Parameters_and_arguments>),
-the terms argument and **parameter**
-mean slightly different things.
-In practice,
-however,
-most people use them interchangeably or inconsistently,
-so we will too.
-:::
-
 If we run `ls -F /test_directory` (_with_ a leading slash) we get a different response,
 because `/test_directory` is an **absolute path**:
 
