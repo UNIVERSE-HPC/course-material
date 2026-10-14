@@ -27,15 +27,18 @@ attribution:
 
 ## The Object Oriented Paradigm
 
-The Object Oriented Paradigm builds upon the Procedural Paradigm, but builds code around data.
+The Object-Oriented Paradigm (OOP) builds upon the Procedural Paradigm but shifts the focus from actions and processes to organising code around data.
 
-In this paradigm, we shift our focus from the process of computation, to the data with which the computation is being performed.
-The overarching idea here, is that data should be structured such that all data related to the same **object** should be stored together.
-This is easiest to understand when thinking about the data representing a real-world, physical object, but is also applicable to more abstract concepts.
+In OOP, we prioritise the data involved in computation rather than just the steps needed to perform that computation.
+The core idea is that data related to the same entity, or **object**, should be grouped together.
+This is intuitive when thinking about physical objects in the real world (a ball might have a size, a colour, and a position), but the concept also applies to more abstract entities.
 
-Since all of the data representing a single object is now stored together, it makes sense to store the code representing the **behaviour** of that object in the same place.
+By keeping all data related to an object together, it also makes sense to store the code (i.e., methods or functions) that define the **behaviour** of that object alongside the data.
 
-We need some way to describe the template for how an object's data should be structured, which we call a **class**.
-So, a class is a template describing the structure of some collection of data, along with the code necessary to describe the behaviour of that data.
+To define how an object's data and behaviour should be organised, we use a **class**.
+A class serves as a blueprint that specifies both the structure of the data and the behaviour associated with that data.
 
-You may wish to think of the Object Oriented Paradigm as focussing on the **nouns** of a computation.
+OOP also introduces key concepts such as **inheritance**, which allows new classes to build upon existing ones, promoting code reuse, and **encapsulation**, which allows the internal details of an object to be hidden from the outside.
+Additionally, **polymorphism** enables objects of different classes to be treated as instances of the same class through shared interfaces, allowing for more flexible and reusable code.
+
+You can think of OOP as focusing on the *nouns* of a computation (the objects themselves), while the procedural paradigm often emphasises the *verbs* (the actions).
