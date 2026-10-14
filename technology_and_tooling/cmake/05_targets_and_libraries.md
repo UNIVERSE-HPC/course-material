@@ -7,7 +7,7 @@ attribution:
       "Modern CMake" course developed by Fergus Cooper and the Oxford Research
       Software Engineering group
     url: https://www.rse.ox.ac.uk/
-    image: ./cmake/img/2024_oxrse_square.svg
+    image: ./img/2024_oxrse_square.svg
     license: CC-BY-4.0
 ---
 
