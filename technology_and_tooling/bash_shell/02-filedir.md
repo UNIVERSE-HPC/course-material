@@ -9,9 +9,8 @@ learningOutcomes:
   - Demonstrate the use of tab completion and explain its advantages.
 attribution:
   - citation: >
-      This material was originally taken from training materials developed by the
-      University of Southampton Research Software Group, which are based on
-      the Software Carpentries course "Version Control with Git".
+      This material was originally taken from the training material "The Bash Shell"
+      developed by the University of Southampton Research Software Group.
     url: https://github.com/Southampton-RSG-Training/shell-novice/
     image: https://southampton-rsg-training.github.io/shell-novice/assets/img/home-logo.png
     license: CC-BY-4.0
@@ -62,8 +61,8 @@ Next, let's find out where we are in our file system by running a command called
 (which stands for "print working directory").
 At any moment,
 our **current working directory**
-is our current default directory.
-This is the directory that the computer assumes we want to run commands in
+is the default directory
+that the computer assumes we want to run commands in
 unless we explicitly specify something else.
 Here,
 the computer's response is `/Users/nelle`,
@@ -107,8 +106,6 @@ speling, but we're stuck with it now.
 
 :::callout{variant="tip"}
 
-## Real typing timesavers
-
 Save yourself some unnecessary keypresses!
 
 Using the up and down arrow keys allow you to cycle through your previous
@@ -130,7 +127,7 @@ this is the leading slash in `/Users/nelle`.
 
 Let's continue looking at Nelle's hypothetical file system as an example. Inside the `/` directory are several other directories, for example:
 
-![1. The File System](fig/filesystem.png)
+![1. The File System](fig/filesystem.svg)
 
 So here we have the following directories:
 
@@ -152,7 +149,7 @@ we find one directory for each user with an account on this machine, e.g.:
 and ours in `/Users/nelle`,
 which is why `nelle` is the last part of the directory's name.
 
-![2. Home Directories](fig/home-directories.png)
+![2. Home Directories](fig/home-directories.svg)
 
 :::callout{variant="info"}
 
@@ -176,7 +173,7 @@ ls
 ```
 
 ```text
-shell-novice       Misc                   Solar.pdf
+shell-novice           Misc                   Solar.pdf
 Applications           Movies                 Teaching
 Desktop                Music                  ThunderbirdTemp
 Development            Notes.txt              VirtualBox VMs
@@ -189,7 +186,7 @@ Of course, this listing will depend on what you have in your own home directory.
 
 If you're using Git Bash on Windows, you'll find that it looks a little different, with characters such as `/` added to some names.
 This is because Git Bash automatically tries to highlight the type of thing it is. For example, `/` indicates that entry is a directory.
-There's a way to also highlight this on Mac and Linux machines which we'll see shortly!
+There's a way to also highlight this on macOS and Linux machines which we'll see shortly!
 
 We need to get into the repository directory `shell-novice`, so what if we want to change our current working directory?
 Before we do this,
@@ -210,10 +207,10 @@ If on WSL or Linux (e.g. Ubuntu or the Ubuntu VM), then do:
 wget https://train.oxrse.uk/material/HPCu/technology_and_tooling/bash_shell/shell-novice.zip
 ```
 
-Or, if on a Mac, do:
+Or, if on a macOS, do:
 
 ```bash
-curl -O https://train.oxrse.uk/material/HPCu/technology_and_tooling/bash_shell/shell-novice.zip
+curl -LO https://train.oxrse.uk/material/HPCu/technology_and_tooling/bash_shell/shell-novice.zip
 ```
 
 Once done, you can unzip this file using the `unzip` command in Bash, which will unpack all the files
@@ -255,10 +252,10 @@ ls
 ```
 
 ```text
-AUTHORS   Gemfile   _config.yml  _includes  bin   files   setup.md
-CITATION  LICENSE.md  _episodes  _layouts  code   index.md  shell
-CODE_OF_CONDUCT.md Makefile  _episodes_rmd  aio.md   data   reference.md  slides
-CONTRIBUTING.md  README.md  _extras   assets   fig   requirements.txt
+_config.yml       AUTHORS         code            Gemfile         requirements.txt
+_episodes         bin             data            LICENSE         shell
+_episodes_rmd     blurb.html      fig             README.md
+assets            CITATION        files           reference.md
 ```
 
 `ls` prints the names of the files and directories in the current directory in alphabetical order,
@@ -271,17 +268,17 @@ ls -F
 ```
 
 ```text
-AUTHORS   Gemfile   _config.yml  _includes/  bin/   files/   setup.md
-CITATION  LICENSE.md  _episodes/  _layouts/  code/   index.md  shell/
-CODE_OF_CONDUCT.md Makefile  _episodes_rmd/  aio.md   data/   reference.md  slides/
-CONTRIBUTING.md  README.md  _extras/  assets/   fig/   requirements.txt
+_config.yml        AUTHORS         code/            Gemfile         requirements.txt
+_episodes/         bin/            data/            LICENSE         shell/
+_episodes_rmd/     blurb.html      fig/             README.md
+assets/            CITATION        files/           reference.md
 ```
 
 Here,
 we can see that this directory contains a number of **sub-directories**.
 The names that don't have trailing slashes,
-like `reference.html`, `setup.md`, and `requirements.txt`,
-are plain old files.
+like `reference.md`, `_config.yml`, and `requirements.txt`,
+are plain text files.
 And note that there is a space between `ls` and `-F`:
 without it,
 the shell thinks we're trying to run a command called `ls-F`,
@@ -316,7 +313,8 @@ For this exercise, we need to change our working directory to `shell-novice`, an
 cd shell
 ```
 
-Note that we are able to add directories together by using `/`.
+Note that we are able to add directories together by using `/`, which means you
+could also `cd shell-novice/shell` if you are at your home directory.
 Now if we view the contents of that directory:
 
 ```bash
@@ -324,7 +322,7 @@ ls -F
 ```
 
 ```text
-shell-novice-data.zip tools/ test_directory/
+shell-novice-data.zip    test_directory/
 ```
 
 Note that under Git Bash in Windows, the `/` is appended automatically.
@@ -337,8 +335,8 @@ ls -F test_directory
 ```
 
 ```text
-creatures/          molecules/          notes.txt           solar.pdf
-data/               north-pacific-gyre/ pizza.cfg           writing/
+co2_data/       data/           north-pacific-gyre/    pizza.cfg       writing/
+creatures/      molecules/      notes.txt              solar.pdf
 ```
 
 The output shows us that there are some files and sub-directories.
@@ -352,19 +350,6 @@ That's added to directory names by `ls` when we use the `-F` flag to help us tel
 And it doesn't begin with a slash because it's a **relative path** -
 it tells `ls` how to find something from where we are,
 rather than from the root of the file system.
-
-:::callout
-
-## Parameters vs. Arguments
-
-According to [Wikipedia](<https://en.wikipedia.org/wiki/Parameter_(computer_programming)#Parameters_and_arguments>),
-the terms argument and **parameter**
-mean slightly different things.
-In practice,
-however,
-most people use them interchangeably or inconsistently,
-so we will too.
-:::
 
 If we run `ls -F /test_directory` (_with_ a leading slash) we get a different response,
 because `/test_directory` is an **absolute path**:
@@ -380,7 +365,7 @@ ls: /test_directory: No such file or directory
 The leading `/` tells the computer to follow the path from the root of the file system,
 so it always refers to exactly one directory,
 no matter where we are when we run the command.
-In this case, there is no `data` directory in the root of the file system.
+In this case, there is no `test_directory` directory in the root of the file system.
 
 Typing `ls -F test_directory` is a bit painful, so a handy shortcut is to type in the first few letters and press the _TAB_ key, for example:
 
@@ -405,7 +390,7 @@ cd test_directory
 
 We know how to go down the directory tree:
 but how do we go up?
-We could use an absolute path, e.g. `cd /Users/nelle/shell-novice/novice/shell`.
+We could use an absolute path, e.g. `cd /Users/nelle/shell-novice/shell`.
 
 but it's almost always simpler to use `cd ..` to go up one level:
 
@@ -414,7 +399,7 @@ pwd
 ```
 
 ```text
-/Users/nelle/shell-novice/novice/shell/test_directory
+/Users/nelle/shell-novice/shell/test_directory
 ```
 
 ```bash
@@ -431,7 +416,7 @@ pwd
 ```
 
 ```text
-/Users/nelle/shell-novice/novice/shell/
+/Users/nelle/shell-novice/shell/
 ```
 
 Let's go back into our test directory:
@@ -448,13 +433,13 @@ ls -F -a
 ```
 
 ```text
-./   creatures/  molecules/  notes.txt  solar.pdf
-../   data/   north-pacific-gyre/ pizza.cfg  writing/
+./    creatures/  molecules/           notes.txt  solar.pdf
+../   data/       north-pacific-gyre/  pizza.cfg  writing/
 ```
 
 `-a` stands for "show all";
 it forces `ls` to show us file and directory names that begin with `.`,
-such as `..` (which, if we're in `/Users/nelle/shell-novice/novice/shell/test_directory`, refers to the `/Users/nelle/shell-novice/novice/shell` directory).
+such as `..` (which, if we're in `/Users/nelle/shell-novice/shell/test_directory`, refers to the `/Users/nelle/shell-novice/shell` directory).
 As you can see,
 it also displays another special directory that's just called `.`,
 which means "the current working directory".
@@ -483,10 +468,10 @@ ls ~/shell-novice
 ```
 
 ```text
-AUTHORS   Gemfile   _config.yml  _includes  bin   files   setup.md
-CITATION  LICENSE.md  _episodes  _layouts  code   index.md  shell
-CODE_OF_CONDUCT.md Makefile  _episodes_rmd  aio.md   data   reference.md  slides
-CONTRIBUTING.md  README.md  _extras   assets   fig   requirements.txt
+_config.yml       AUTHORS         code            Gemfile         requirements.txt
+_episodes         bin             data            LICENSE         shell
+_episodes_rmd     blurb.html      fig             README.md
+assets            CITATION        files           reference.md
 ```
 
 Which again shows us our repository directory.
@@ -496,7 +481,7 @@ path: `here/there/~/elsewhere` is _not_ `/Users/nelle/elsewhere`.
 
 ## Exercises
 
-![3. File System for Challenge Questions](fig/filesystem-challenge.png)
+![3. File System for Challenge Questions](fig/filesystem_challenge_updated.png)
 
 ::::challenge{id=relative-path-resolution title="Relative Path Resolution"}
 If `pwd` displays `/Users/thing`, what will `ls ../backup` display?
@@ -518,7 +503,7 @@ and `-r` tells `ls` to display things in reverse order,
 what command will display:
 
 ```bash
-`pnas-sub/ pnas-final/ original/`
+pnas_sub/ pnas_final/ original/
 ```
 
 1. `ls pwd`
