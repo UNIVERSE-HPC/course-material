@@ -10,7 +10,7 @@ learningOutcomes:
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team
-    url: https://docs.pybamm.org
+    url: https://docs.pybamm.org/en/latest/
     image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
     license: BSD-3
 ---
@@ -34,7 +34,7 @@ $$
 ## Setting up the model
 
 As in the previous example, we start with a
-[`pybamm.BaseModel`](https://docs.pybamm.org/en/stable/source/api/models/base_models/base_model.html#pybamm.BaseModel)
+[`pybamm.BaseModel`](https://docs.pybamm.org/en/latest/source/api/models/base_models/base_model.html#pybamm.BaseModel)
 object and define our model variables. Since we are now solving a PDE we need to
 tell pybamm the domain each variable belongs to so that it can be discretised in
 space in the correct way. This is done by passing the keyword argument `domain`,
@@ -65,7 +65,7 @@ model.rhs = {c: dcdt}  # add the equation to rhs dictionary
 
 Unlike ODE models, PDE models require both initial and boundary conditions.
 Similar to initial conditions, boundary conditions can be added using the
-dictionary [`model.boundary_conditions`](https://docs.pybamm.org/en/stable/source/api/models/base_models/base_model.html#pybamm.BaseModel.boundary_conditions). Boundary conditions for each variable
+dictionary [`model.boundary_conditions`](https://docs.pybamm.org/en/latest/source/api/models/base_models/base_model.html#pybamm.BaseModel.boundary_conditions). Boundary conditions for each variable
 are provided as a dictionary of the form `{side: (value, type)}`, where, in 1D,
 side can be "left" or "right", value is the value of the boundary conditions,
 and type is the type of boundary condition (at present, this can be ["Dirichlet"](https://en.wikipedia.org/wiki/Dirichlet_boundary_condition)
@@ -84,7 +84,7 @@ model.boundary_conditions = {c: {"left": (lbc, "Neumann"), "right": (rbc, "Neuma
 Note that in our example the boundary conditions take constant values, but the
 value can be any valid pybamm expression.
 
-Finally, we add any variables of interest to the dictionary [`model.variables`](https://docs.pybamm.org/en/stable/source/api/models/base_models/base_model.html#pybamm.BaseModel.variables)
+Finally, we add any variables of interest to the dictionary [`model.variables`](https://docs.pybamm.org/en/latest/source/api/models/base_models/base_model.html#pybamm.BaseModel.variables)
 
 ```python
 model.variables = {"Concentration": c, "Flux": N}
@@ -97,7 +97,7 @@ Now the model is now completely defined all that remains is to discretise and so
 ### Defining a geometry
 
 We can define spatial variables in a similar way to how we defined model
-variables, providing a domain and a coordinate system. The relevent class to use here is [`pybamm.SpatialVariable`](https://docs.pybamm.org/en/stable/source/api/expression_tree/independent_variable.html#pybamm.SpatialVariable):
+variables, providing a domain and a coordinate system. The relevent class to use here is [`pybamm.SpatialVariable`](https://docs.pybamm.org/en/latest/source/api/expression_tree/independent_variable.html#pybamm.SpatialVariable):
 
 ```python
 # define geometry
@@ -119,7 +119,7 @@ geometry = {"negative particle": {r: {"min": pybamm.Scalar(0), "max": pybamm.Sca
 ### Defining a mesh
 
 We then create a uniform one-dimensional mesh with 20 points, using the
-[`pybamm.Mesh`](https://docs.pybamm.org/en/stable/source/api/meshes/meshes.html#pybamm.Mesh)
+[`pybamm.Mesh`](https://docs.pybamm.org/en/latest/source/api/meshes/meshes.html#pybamm.Mesh)
 class. The mesh determines at which points of our spatial domain we will compute the solution. As well as the geometry, the mesh class also takes a dictionary of
 submesh types (see below, for more details), and a dictionary specifying the number of mesh
 points for each spatial variable.
@@ -131,11 +131,11 @@ var_pts = {r: 20}
 mesh = pybamm.Mesh(geometry, submesh_types, var_pts)
 ```
 
-Here we have used the [`pybamm.Uniform1DSubMesh`](https://docs.pybamm.org/en/stable/source/api/meshes/one_dimensional_submeshes.html#pybamm.Uniform1DSubMesh) class to create a uniform mesh.
+Here we have used the [`pybamm.Uniform1DSubMesh`](https://docs.pybamm.org/en/latest/source/api/meshes/one_dimensional_submeshes.html#pybamm.Uniform1DSubMesh) class to create a uniform mesh.
 This class does not require any parameters, and so we can pass it directly to
 the `submesh_types` dictionary. However, many other submesh types can take
 additional parameters. Example of meshes that do require parameters include the
-[`pybamm.Exponential1DSubMesh`](https://docs.pybamm.org/en/stable/source/api/meshes/one_dimensional_submeshes.html#pybamm.Exponential1DSubMesh) which clusters points close to one or both
+[`pybamm.Exponential1DSubMesh`](https://docs.pybamm.org/en/latest/source/api/meshes/one_dimensional_submeshes.html#pybamm.Exponential1DSubMesh) which clusters points close to one or both
 boundaries using an exponential rule. It takes a parameter which sets how
 closely the points are clustered together, and also lets the users select the
 side on which more points should be clustered. For example, to create a mesh
@@ -148,14 +148,14 @@ follows:
 exp_mesh = pybamm.MeshGenerator(pybamm.Exponential1DSubMesh, submesh_params={"side": "right", "stretch": 2})
 ```
 
-The list of available submeshes is given in the [documentation](https://docs.pybamm.org/en/stable/source/api/meshes/index.html).
+The list of available submeshes is given in the [documentation](https://docs.pybamm.org/en/latest/source/api/meshes/index.html).
 
 ## Discretising the domains
 
 After defining a mesh we choose a spatial method to discretise the "negative
 particle" domain. Here we choose the Finite Volume Method. We then set up a
 discretisation by passing the mesh and spatial methods to the class
-[`pybamm.Discretisation`](https://docs.pybamm.org/en/stable/source/api/spatial_methods/discretisation.html#pybamm.Discretisation). The model is then processed, turning the variables into
+[`pybamm.Discretisation`](https://docs.pybamm.org/en/latest/source/api/spatial_methods/discretisation.html#pybamm.Discretisation). The model is then processed, turning the variables into
 (slices of) a statevector, spatial variables into vector and spatial operators
 into matrix-vector multiplications.
 

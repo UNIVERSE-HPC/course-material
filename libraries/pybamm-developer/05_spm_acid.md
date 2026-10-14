@@ -7,7 +7,7 @@ learningOutcomes:
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team
-    url: https://docs.pybamm.org
+    url: https://docs.pybamm.org/en/latest/
     image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
     license: BSD-3
 ---

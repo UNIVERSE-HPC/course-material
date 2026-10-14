@@ -8,7 +8,7 @@ learningOutcomes:
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team
-    url: https://docs.pybamm.org
+    url: https://docs.pybamm.org/en/latest/
     image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
     license: BSD-3
 ---
@@ -217,9 +217,9 @@ U_p = pybamm.FunctionParameter("Positive electrode OCP [V]", {"stoichiometry": "
 
 PyBaMM has a number of built-in functions that can be used in expressions. For
 the SPM model, you will need to use the
-[`pybamm.sqrt`](https://docs.pybamm.org/en/stable/source/api/expression_tree/functions.html#pybamm.sqrt)
+[`pybamm.sqrt`](https://docs.pybamm.org/en/latest/source/api/expression_tree/functions.html#pybamm.sqrt)
 and
-[`pybamm.arcsinh`](https://docs.pybamm.org/en/stable/source/api/expression_tree/functions.html#pybamm.arcsinh)
+[`pybamm.arcsinh`](https://docs.pybamm.org/en/latest/source/api/expression_tree/functions.html#pybamm.arcsinh)
 functions:
 
 ```python
@@ -228,7 +228,7 @@ two = pybamm.sqrt(four)
 arcsinh_four = pybamm.arcsinh(four)
 ```
 
-You can see a list of all the functions available in PyBaMM in the [documentation](https://docs.pybamm.org/en/stable/source/api/expression_tree/functions.html).
+You can see a list of all the functions available in PyBaMM in the [documentation](https://docs.pybamm.org/en/latest/source/api/expression_tree/functions.html).
 
 ::::challenge{id="spm-output-variables" title="SPM output variables"}
 

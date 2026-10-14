@@ -169,7 +169,7 @@ By a similar token, regularly exiting sessions to free up the context window (th
 Make sure you have installed
 
 - [git](https://git-scm.com/install/)
-- A GenAI command line interface tool such as [Codex](https://developers.openai.com/codex/cli) or [Claude Code](https://claude.com/product/claude-code), or integrated design environment such as [VSCode](https://code.visualstudio.com/) that can use these services as a plugin
+- A GenAI command line interface tool such as [Codex](https://learn.chatgpt.com/docs/codex/cli) or [Claude Code](https://claude.com/product/claude-code), or integrated design environment such as [VSCode](https://code.visualstudio.com/) that can use these services as a plugin
 - [Python >3.9](https://www.python.org/downloads/) (or VSCode which has a Python interepeter)
 
 To get started please navigate to the [Repressilator_analysis repo](https://github.com/HOLL95/Repressilator_analysis), create a template repository (the green `use this template` button)  to obtain your own copy of the repo (requires a github account).

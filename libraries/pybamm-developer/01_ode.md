@@ -10,7 +10,7 @@ learningOutcomes:
 attribution:
   - citation: >
       PyBaMM documentation by the PyBaMM Team
-    url: https://docs.pybamm.org
+    url: https://docs.pybamm.org/en/latest/
     image: https://raw.githubusercontent.com/pybamm-team/pybamm.org/main/static/images/pybamm_logo.svg
     license: BSD-3
 ---
@@ -38,7 +38,7 @@ variables $x_n$ and $x_p$ that are explicitly solved for, or derived variables
 such as the voltage $V(t)$.
 
 In PyBaMM a state variable can be defined using the
-[`pybamm.Variable`](https://docs.pybamm.org/en/stable/source/api/expression_tree/variable.html#variable)
+[`pybamm.Variable`](https://docs.pybamm.org/en/latest/source/api/expression_tree/variable.html#variable)
 class. For example, if you wanted to define a state variable with name "x", you
 would write
 
@@ -67,7 +67,7 @@ later once we have defined the expressions for the ODEs.
 
 ## PyBaMM parameters
 
-The reservoir model has a number of parameters that need to be defined. In PyBaMM a parameter can be defined using the [`pybamm.Parameter`](https://docs.pybamm.org/en/stable/source/api/expression_tree/parameter.html#parameter) class. For example, if you wanted to define a parameter with name "a", you would write
+The reservoir model has a number of parameters that need to be defined. In PyBaMM a parameter can be defined using the [`pybamm.Parameter`](https://docs.pybamm.org/en/latest/source/api/expression_tree/parameter.html#parameter) class. For example, if you wanted to define a parameter with name "a", you would write
 
 ```python
 a = pybamm.Parameter("a")
@@ -75,7 +75,7 @@ a = pybamm.Parameter("a")
 
 The name of the parameter is used to identify it in the model, the name of the Python variable you assign it to is arbitrary.
 
-You can also define a parameter that is defined as a function using the [`pybamm.FunctionParameter`](https://docs.pybamm.org/en/stable/source/api/expression_tree/parameter.html#pybamm.FunctionParameter) class.
+You can also define a parameter that is defined as a function using the [`pybamm.FunctionParameter`](https://docs.pybamm.org/en/latest/source/api/expression_tree/parameter.html#pybamm.FunctionParameter) class.
 This is useful for time varying parameters such as the current, or functions like the OCV function parameters $U_p(x_p)$ and $U_n(x_n)$, which are both functions of the stoichiometries $x_p$ and $x_n$.
 For example, to define a parameter that is a function of time, you would write
 
@@ -109,7 +109,7 @@ R = pybamm.Parameter("Electrode resistance [Ohm]")
 
 Now that we have defined the parameters and variables for the reservoir model,
 we can define the model itself. In PyBaMM a model can be defined using the
-[`pybamm.BaseModel`](https://docs.pybamm.org/en/stable/source/api/models/base_models/base_model.html)
+[`pybamm.BaseModel`](https://docs.pybamm.org/en/latest/source/api/models/base_models/base_model.html)
 class. For example, if you wanted to define a model with name "my model", you
 would write
 
@@ -228,7 +228,7 @@ This is extremely useful to debug the expression tree as it allows you to access
 
 An event is a condition that can be used to stop the solver, for example when
 the voltage reaches a certain value. In PyBaMM an event can be defined using the
-[`pybamm.Event`](https://docs.pybamm.org/en/stable/source/api/models/base_models/event.html)
+[`pybamm.Event`](https://docs.pybamm.org/en/latest/source/api/models/base_models/event.html)
 class. For example, if you wanted to define an event that stops the solver when
 the time reaches 3, you would write
 
@@ -271,7 +271,7 @@ model.events = [
 
 The final thing we need to do before we can solve the model is to define the
 values for all the parameters. You should already be familar with the PyBaMM
-[`pybamm.ParameterValues`](https://docs.pybamm.org/en/stable/source/api/parameters/parameter_values.html)
+[`pybamm.ParameterValues`](https://docs.pybamm.org/en/latest/source/api/parameters/parameter_values.html)
 class, which is used to define the values of the parameters in the model. For
 example, if you wanted to define a parameter value for the parameter "a" that we
 defined earlier, you would write
