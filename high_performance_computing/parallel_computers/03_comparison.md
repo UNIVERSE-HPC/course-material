@@ -64,7 +64,7 @@ In this video David deconstructs a laptop so that we can compare its packaging t
 3:58 - And here we have four complete computers all on the one board. And we’re able to do that because we can blow air through, with the external fans, to keep the whole thing cool. We can pack things much more densely than we could in the laptop. And so this entire setup has been designed specifically for the kind of things which supercomputers do, for doing numerical computations.
 :::
 
-Next, in this video, David takes apart a compute blade from the [HECToR](http://www.hector.ac.uk/) supercomputer.
+Next, in this video, David takes apart a compute blade from the [HECToR](https://www.hector.ac.uk/) supercomputer.
 
 Do you remember this diagram?
 
