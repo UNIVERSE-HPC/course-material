@@ -4,14 +4,15 @@ dependsOn: [software_project_management.continuous_integration.code_coverage]
 tags: [sphinx, readthedocs]
 learningOutcomes:
   - List benefits of having good documentation for software.
-  - Describe the key features of the Sphinx and Read the Docs documentation and hosting tools.
-  - Use Sphinx to generate documentation for a software project.
+  - Use Sphinx to generate API documentation from the docstrings in a project.
+  - Publish documentation automatically with GitHub Pages.
+  - Explain the difference between Continuous Delivery and Continuous Deployment.
 attribution:
   - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
     url: https://www.sabsr3.ox.ac.uk
     image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
     license: CC-BY-4.0
-  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+  - citation: This course material was developed as part of UNIVERSE-HPC, which was funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk
     image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
     license: CC-BY-4.0
@@ -59,60 +60,208 @@ Here are some key features:
 
 1. **Theming Support**: Sphinx supports themes for its HTML output, allowing documentation to match the aesthetic and branding of a project or organization.
 
-## Read the Docs
+## Where to put it
 
-Read the Docs is a free and open-source platform for hosting software documentation.
-It's popular among developers as it provides a user-friendly and convenient way to publish, maintain, and view software documentation online.
+Generated HTML has to be served from somewhere.
 
-Here are some of its key features:
+Most scientific Python projects use [Read the Docs](https://readthedocs.org/), which builds your documentation on its own servers whenever you push, hosts it for free, and gives you two things that are genuinely hard to arrange yourself: documentation versioned alongside your releases, so a user on an old version reads the right page, and preview builds on pull requests.
+It is worth knowing, and you will meet it constantly.
 
-1. **Versioning**: Read the Docs supports versioning of your documentation, similar to the way your source code is versioned. This means you can have separate documentation for different versions of your software and users can easily switch between them.
+We are going to use [GitHub Pages](https://pages.github.com/) instead, for two reasons.
 
-1. **Automatic Building**: When you push code to your repository, Read the Docs automatically builds and updates your online documentation. This reduces the manual effort involved in keeping your documentation up-to-date.
+The first is that the build happens where you can watch it.
+This course is about seeing your pipeline run, and Read the Docs does the interesting part somewhere else, behind a login on a different site.
 
-1. **Integration with Source Control Systems**: Read the Docs integrates well with popular source control systems like GitHub, GitLab, and Bitbucket. It simplifies the process of building documentation directly from these platforms.
+The second is that Pages is general.
+It serves static files out of a repository, and it does not care whether those files are API documentation, a coverage report, a project website, a set of benchmark results or a rendered notebook.
+Once you have built one thing and published it, you can publish anything.
 
-1. **Support for Sphinx and MkDocs**: Read the Docs is compatible with popular documentation generators like Sphinx (using reStructuredText) and MkDocs (using Markdown), offering a good deal of flexibility in how you generate your documentation.
+## Setting up Sphinx
 
-1. **PDF and EPUB Export**: Users can download a PDF or EPUB version of your documentation for offline reading.
-
-## Getting started
-
-From your repository, run:
+Make sure the documentation dependencies are installed:
 
 ```bash
-pip install -e ."[dev,docs]"
+pip install -e ".[dev,docs]"
 ```
 
-to ensure you have all development and documentation dependencies installed.
+Create a directory called `docs` at the top level of your project, and from inside it run:
 
-Next, create a directory at the top level of your project called `docs`.
-
-From the `docs` directory, run
-
-```shell
+```bash
 sphinx-quickstart
 ```
 
-Use the default values, but fill in a unique project name.
+Accept the defaults, but give the project a name.
 
-You should now have a number of files added to your repository.
-Let's add one more: an empty file called anything you like, in the `docs/_static` directory.
-This is just so the directory itself gets added to the repository, and this is needed for the next step.
+This generates `conf.py`, `index.rst` and a couple of build scripts.
 
-Add, commit, and push these new files GitHub.
+### Telling Sphinx about your code
 
-Next, go to [Read the Docs](https://readthedocs.org/).
+Out of the box, Sphinx will happily build a site containing nothing but the page you just made.
+To get it to read your code, you need two extensions.
 
-- Log in with GitHub
-- Import a Project, and select your repository
-- Follow the instructions, leaving everything as default
+In `docs/conf.py`, find the `extensions` list and make it:
 
-You should then see your documentation building!
-Wait for it to complete, and then click _View Docs_.
-This will take you to the website `https://<project_name>.readthedocs.io/en/latest/`.
+```python
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon"]
+```
 
-::::challenge{id="start-documenting" title="Start documenting"}
+`autodoc` imports your package and pulls out the docstrings.
+`napoleon` teaches it to read the numpydoc style those docstrings are written in; without it, the parameter and return sections render as an unformatted blob.
 
-Read through the [Sphinx documentation](https://www.sphinx-doc.org/en/master/) and start fleshing out the documentation for your repository.
+While you are in `conf.py`, delete this line:
+
+```python
+html_static_path = ['_static']
+```
+
+`sphinx-quickstart` creates an empty `docs/_static` directory for custom CSS and images.
+Git does not track empty directories, so the moment you commit, the directory does not exist for anyone else, and Sphinx warns about it.
+You have no static assets, so the simplest fix is to stop claiming you do.
+Put the line back if you ever add one.
+
+### Adding an API reference
+
+Create `docs/reference.rst`:
+
+```rst
+API reference
+=============
+
+.. automodule:: ci_course.io
+   :members:
+
+.. automodule:: ci_course.stats
+   :members:
+
+.. automodule:: ci_course.report
+   :members:
+```
+
+and add `reference` to the `toctree` in `docs/index.rst`.
+
+Build it:
+
+```bash
+sphinx-build -W -b html docs docs/_build/html
+```
+
+Open `docs/_build/html/index.html` in a browser and look at the API reference.
+
+The `-W` turns warnings into errors.
+Documentation warnings are easy to ignore for months, and they are usually telling you that something is not appearing on the page you think it is.
+
+::::challenge{id="find-the-missing-function" title="What is missing?"}
+
+Compare the API reference against `src/ci_course/stats.py`.
+If you skipped the previous section, one function is absent.
+
+:::solution
+
+`count_missing` only appears if it has a docstring, which is what the previous section was about.
+`automodule` documents members that have docstrings and silently passes over the ones that do not.
+
+Nothing warns you, not even with `-W`.
+The page simply does not mention the function, and looks perfectly finished.
+
+:::
 ::::
+
+## Publishing it
+
+Now automate the build and put the result online.
+
+First, turn Pages on: go to _Settings_, then _Pages_, and set the source to _GitHub Actions_ rather than a branch.
+This is why your repository needed to be public: Pages on a free account requires it.
+
+::::challenge{id="pages-workflow" title="Deploy the documentation"}
+
+Write a workflow, `pages.yml`, that builds the documentation on every push to `main` and publishes it.
+
+You will need three actions you have not used before: `actions/configure-pages`, `actions/upload-pages-artifact` and `actions/deploy-pages`.
+
+You will also need a `permissions` block. Deployment needs `pages: write` to publish, and `id-token: write` so the runner can prove to GitHub Pages which workflow it is, without you storing a secret anywhere.
+
+:::solution
+
+```yml
+name: Documentation
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install .[docs]
+
+      - name: Build documentation
+        run: |
+          sphinx-build -W -b html docs docs/_build/html
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: docs/_build/html
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+```
+
+:::
+::::
+
+Push it, watch it run, and follow the URL in the _deploy_ job summary.
+Your documentation is online, and it will stay current without anyone remembering to update it.
+
+## This is deployment
+
+Notice what just happened.
+You pushed a commit, and a change went live for real users, with no human deciding that it should.
+
+That is **Continuous Deployment**.
+
+The alternative is **Continuous Delivery**: every change that passes is built, tested and made ready to release, and then a person decides whether to release it.
+The pipeline is identical right up to the last step. The difference is entirely whether somebody has to approve.
+
+For documentation on a small project, deploying automatically is the right call.
+For something with real users, or where a bad release is expensive to undo, you usually want the approval.
+Later in the course you will add one.
+
+## Next steps
+
+::::challenge{id="start-documenting" title="Keep documenting"}
+
+The API reference is generated, but a reference is not a guide.
+Someone arriving at your project still needs to know what it is for and how to start.
+
+Add an `install` and a `quickstart` page to the `toctree`, with a worked example of loading the sample data, summarising it and writing a report.
+
+Push, and watch the site update itself.
+::::
+
+1. \[optional\] read the [Sphinx documentation](https://www.sphinx-doc.org/en/master/).
+
+1. \[optional\] read about [publishing with GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow).

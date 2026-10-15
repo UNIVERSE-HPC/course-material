@@ -2,20 +2,21 @@
 name: Continuous Integration
 id: continuous_integration
 dependsOn: [software_project_management.collaboration]
-files: [github_actions.md, code_coverage.md, documentation.md]
+files: [github_actions.md, code_coverage.md, docstrings.md, documentation.md]
 learningOutcomes:
-  - Use GitHub actions to build automated workflows running on multiple platforms.
-  - Explore code coverage tools for assessing the extent of software testing.
-  - Appreciate the benefits of having good documentation. 
-  - Use Sphinx to generate documentation for a project.
+  - Describe the principles of continuous integration, and how continuous delivery and deployment follow from them.
+  - Build GitHub Actions workflows that test a project across several Python versions and operating systems.
+  - Use static analysis and code coverage to find problems that the tests do not.
+  - Check that public functions are documented, and generate API documentation with Sphinx.
+  - Deploy documentation automatically with GitHub Pages.
 summary: |
-  This course introduces the concept of continuous integration and how to set it up for a Python project using GitHub Actions.
+  This course introduces continuous integration and how to set it up for a Python project using GitHub Actions, ending with documentation that publishes itself whenever the tests pass.
 attribution:
   - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
     url: https://www.sabsr3.ox.ac.uk
     image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
     license: CC-BY-4.0
-  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+  - citation: This course material was developed as part of UNIVERSE-HPC, which was funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
     url: https://www.universe-hpc.ac.uk
     image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
     license: CC-BY-4.0
@@ -43,11 +44,11 @@ Here are some key principles of CI:
 
 1. **Maintain a single source repository:** All code and dependencies should be versioned and stored in a single, shared, and reliable repository. This is the primary source of all truth for the project, and everyone has access to it.
 
-1. **Automate the build:** The process of building the project — compiling the source code into executable code, packaging that code, and creating installers — should be automated.
+1. **Automate the build:** The process of building the project, which means compiling the source code into executable code, packaging that code, and creating installers, should be automated.
 
 1. **Make your build self-testing:** Once the code is built, automated tests should run to check that the software behaves as expected. This can range from unit tests (which test individual components in isolation) to integration tests (which test how components work together) to testing code coverage.
 
-1. **Everyone commits to the maineline frequently:** Developers should integrate their work frequently. This prevents integration conflicts from becoming too complex and difficult to resolve.
+1. **Everyone commits to the mainline frequently:** Developers should integrate their work frequently. This prevents integration conflicts from becoming too complex and difficult to resolve.
 
 1. **Automated builds should happen on an integration machine:** Updated code should be built and tested on a separate integration machine, not a developer's local machine. This ensures that the build process works in a clean, standardized environment.
 
@@ -63,17 +64,24 @@ There are many CI infrastructures and services, free and paid for, and subject t
 
 In this course you will be using [GitHub Actions](https://github.com/features/actions), which unsurprisingly is available as part of GitHub.
 
-There are other free options, for instance [Travis CI](https://travis-ci.com/) and [AppVeyor](https://www.appveyor.com/).
-All three of these make use of common features across many CI implementations, and you are certainly advised to look at the options to see some of the commonalities and differences in how features are typically provided.
+Two others you are likely to meet are [GitLab CI/CD](https://docs.gitlab.com/ci/), which is the equivalent where an institution hosts its own GitLab, and [Jenkins](https://www.jenkins.io/), which is self-hosted, long established, and still common in secure data environments.
+You will also see [Travis CI](https://www.travis-ci.com/) and [AppVeyor](https://www.appveyor.com/) referenced in older projects and documentation.
+Both were once standard choices for open source work, and both have largely been displaced.
+
+The YAML differs between all of these, but the ideas do not: every one of them has triggers, jobs, runners and steps.
+Learning one makes the next much easier.
 
 ## This course
 
 In this course we aim to walk you through a hands-on session which will set up CI for a small Python project, and see some of its benefits in action.
 We will go through:
 
-1. [An introduction to GitHub actions](/software_project_management/continuous_integration/github_actions)
+1. [An introduction to GitHub Actions](/software_project_management/continuous_integration/github_actions)
 1. [Generating code coverage information](/software_project_management/continuous_integration/code_coverage)
+1. [Checking that your code is documented](/software_project_management/continuous_integration/docstrings)
 1. [Generating and deploying documentation](/software_project_management/continuous_integration/documentation)
+
+The last of these is your first taste of Continuous Deployment: once the tests pass, your documentation is published without anyone having to remember to do it.
 
 ## Getting started
 
@@ -81,5 +89,7 @@ Go to [https://github.com/OxfordRSE/ci_course_start](https://github.com/OxfordRS
 
 This will set up a repository in your own GitHub account with the same files as the template.
 
-You can name it anything you like.
+You can name it anything you like, but make it **public**.
+The free tiers of GitHub Pages and Codecov, both of which you will use later, require a public repository.
+
 Clone your new repository, and you're ready for [the next lesson](/software_project_management/continuous_integration/github_actions).
