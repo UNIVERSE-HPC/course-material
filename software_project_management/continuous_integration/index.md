@@ -8,6 +8,10 @@ files:
     02_code_coverage.md,
     03_docstrings.md,
     04_documentation.md,
+    05_enforcing_checks.md,
+    06_debugging_and_speed.md,
+    07_artifacts_and_deployment.md,
+    08_supply_chain.md,
   ]
 learningOutcomes:
   - Describe the principles of continuous integration, and how continuous delivery and deployment follow from them.
@@ -15,6 +19,10 @@ learningOutcomes:
   - Use static analysis and code coverage to find problems that the tests do not.
   - Check that public functions are documented, and generate API documentation with Sphinx.
   - Deploy documentation automatically with GitHub Pages.
+  - Require checks to pass before a change can be merged.
+  - Diagnose a failing workflow, and keep the build fast enough that people use it.
+  - Save and review the output of a build, and require a person to approve a deployment.
+  - Judge what your workflows are trusting, and audit them.
 summary: |
   This course introduces continuous integration and how to set it up for a Python project using GitHub Actions, ending with documentation that publishes itself whenever the tests pass.
 attribution:
@@ -86,8 +94,15 @@ We will go through:
 1. [Generating code coverage information](/software_project_management/continuous_integration/02_code_coverage)
 1. [Checking that your code is documented](/software_project_management/continuous_integration/03_docstrings)
 1. [Generating and deploying documentation](/software_project_management/continuous_integration/04_documentation)
+1. [Running checks before you commit and before you merge](/software_project_management/continuous_integration/05_enforcing_checks)
+1. [Diagnosing failures and keeping the build fast](/software_project_management/continuous_integration/06_debugging_and_speed)
+1. [Build artifacts and approving a deployment](/software_project_management/continuous_integration/07_artifacts_and_deployment)
+1. [Trusting the code your workflows run](/software_project_management/continuous_integration/08_supply_chain)
 
-The last of these is your first taste of Continuous Deployment: once the tests pass, your documentation is published without anyone having to remember to do it.
+The fourth of these is your first taste of Continuous Deployment: once the tests pass, your documentation is published without anyone having to remember to do it.
+
+This is more than fits comfortably into one session, and that is deliberate.
+Work through as much as you get to, and come back to the rest in your own time: the later sections are the ones you will want once you have a project of your own with CI on it.
 
 ## Getting started
 
