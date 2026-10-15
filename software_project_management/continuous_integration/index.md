@@ -2,7 +2,13 @@
 name: Continuous Integration
 id: continuous_integration
 dependsOn: [software_project_management.collaboration]
-files: [github_actions.md, code_coverage.md, docstrings.md, documentation.md]
+files:
+  [
+    01_github_actions.md,
+    02_code_coverage.md,
+    03_docstrings.md,
+    04_documentation.md,
+  ]
 learningOutcomes:
   - Describe the principles of continuous integration, and how continuous delivery and deployment follow from them.
   - Build GitHub Actions workflows that test a project across several Python versions and operating systems.
@@ -76,10 +82,10 @@ Learning one makes the next much easier.
 In this course we aim to walk you through a hands-on session which will set up CI for a small Python project, and see some of its benefits in action.
 We will go through:
 
-1. [An introduction to GitHub Actions](/software_project_management/continuous_integration/github_actions)
-1. [Generating code coverage information](/software_project_management/continuous_integration/code_coverage)
-1. [Checking that your code is documented](/software_project_management/continuous_integration/docstrings)
-1. [Generating and deploying documentation](/software_project_management/continuous_integration/documentation)
+1. [An introduction to GitHub Actions](/software_project_management/continuous_integration/01_github_actions)
+1. [Generating code coverage information](/software_project_management/continuous_integration/02_code_coverage)
+1. [Checking that your code is documented](/software_project_management/continuous_integration/03_docstrings)
+1. [Generating and deploying documentation](/software_project_management/continuous_integration/04_documentation)
 
 The last of these is your first taste of Continuous Deployment: once the tests pass, your documentation is published without anyone having to remember to do it.
 
@@ -92,4 +98,4 @@ This will set up a repository in your own GitHub account with the same files as 
 You can name it anything you like, but make it **public**.
 The free tiers of GitHub Pages and Codecov, both of which you will use later, require a public repository.
 
-Clone your new repository, and you're ready for [the next lesson](/software_project_management/continuous_integration/github_actions).
+Clone your new repository, and you're ready for [the next lesson](/software_project_management/continuous_integration/01_github_actions).

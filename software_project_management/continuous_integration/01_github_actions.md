@@ -30,7 +30,7 @@ With a GitHub repository there's a very easy way to set up CI that runs when you
 Each file in this directory represents a _workflow_ and will, when triggered, spin up a virtual machine and run the sequence of commands in the file.
 
 The machines are called _runners_, and GitHub hosts them for you.
-[The specifications are documented here](https://docs.github.com/en/actions/reference/runners/github-hosted-runners) and are increased from time to time, so it is worth looking rather than memorising.
+[The specifications are documented here](https://docs.github.com/en/actions/reference/runners/github-hosted-runners) and are increased from time to time, so it is worth checking back occasionally rather than memorising them.
 A single workflow run can last up to six hours.
 
 Runners are free for public repositories.
@@ -46,6 +46,12 @@ Create a file in your repository called:
 ```
 
 Copy the following code, then commit and push the changes to GitHub.
+
+:::callout{variant="warning"}
+If the push is rejected with a message about the `workflow` scope, your git credentials are not allowed to change workflow files.
+This happens with some tokens, including ones created by older versions of `gh auth login`.
+Either re-authenticate with that scope, use SSH instead of HTTPS, or create the file in GitHub's web editor, which is not affected.
+:::
 
 ```yml
 name: Basic GitHub Actions Workflow
@@ -94,10 +100,10 @@ Do not use the Python one.
 At the time of writing it pins Python 3.9 to 3.11, two of which are past end of life, uses old versions of the actions, installs `flake8` and `pytest` by hand rather than installing your project, and runs the linter twice.
 That is a useful lesson in itself: a starter template is a snapshot of what was sensible when somebody wrote it, and nobody is obliged to keep it current for you.
 
+![Edit Workflow](fig/edit_workflow.png)
+
 Instead, choose _set up a workflow yourself_.
 This opens GitHub's in-browser editor, which is a convenient way to add a workflow without leaving the site.
-
-![Edit Workflow](fig/edit_workflow.png)
 
 Name the file `python_versions.yml` and give it this content:
 
@@ -164,7 +170,7 @@ Then the steps:
 
 5. **Test with pytest.** Runs the test suite.
 
-Note the order. The linter runs before the tests, and a failing step stops the job, so if the linter is unhappy you will never see the test results. That matters in a moment.
+Note the order. The linter runs before the tests, and a failing step stops the job, so if the linter is unhappy you will never see the test results. That will matter in a moment.
 
 ## Your first failure: the linter
 
@@ -175,7 +181,7 @@ Ruff reports three problems, and none of them is a matter of taste.
 
 ::::challenge{id="fix-lint-failures" title="Fix the lint failures"}
 
-Read what ruff says, work out why each one is a real problem rather than a style preference, and fix all three.
+Read what ruff says, work out why each one is a real problem rather than someone's preference, and fix all three.
 
 You can run the same check locally, which is much quicker than pushing and waiting:
 
@@ -189,9 +195,9 @@ Push your fixes and confirm the step passes.
 
 Ruff reports:
 
-- `F401` in `src/ci_course/cli.py`: `import sys` is never used. Harmless in itself, but dead code accumulates and hides real dependencies. Delete the line.
+- `F401` in `src/ci_course/cli.py`: `import sys` is never used. Harmless in itself, but dead code accumulates. Delete the line.
 
-- `B006` in `src/ci_course/io.py`: `errors=[]` is a mutable default argument. The list is created once when the function is defined, not once per call, so errors accumulate across calls for the lifetime of the program. This is a genuine bug that the tests never trigger, because the sample data contains nothing unparseable. The fix is:
+- `B006` in `src/ci_course/io.py`: `errors=[]` is a mutable default argument. The list is created once when the function is defined, not once per call, so errors accumulate across calls for the lifetime of the program. This is a genuine bug that the tests never trigger, because the sample data contains nothing unparseable. A possible fix is:
 
   ```python
   def load_measurements(path=None, errors=None):
@@ -205,7 +211,7 @@ Ruff reports:
   except ValueError:
   ```
 
-The middle one is worth dwelling on: the linter found a bug that a passing test suite had hidden.
+The middle one is worth dwelling on: the linter found a bug that the test suite didn't. They're very useful tools!
 
 :::
 ::::
@@ -239,16 +245,17 @@ Declare the data file in `pyproject.toml`:
 ci_course = ["data/*.csv"]
 ```
 
-This is the single most useful thing CI does for you.
-Your own machine has your history on it: things you installed once, files you created and forgot about, environment variables you set last year.
+This is possibly the single most useful thing CI does for you.
+Your own machine has your history on it: things you installed once, files you created and forgot about, environment variables you set ages ago...
 A runner starts from nothing every time, so it tests what you actually committed rather than what happens to be lying around.
+This is usually much closer to the experience your colleague or your PI will have when they try to run your code!
 
 :::
 ::::
 
 ## Testing on multiple operating systems
 
-The matrix varied one thing, the Python version. It can vary anything.
+This workflow just varied one thing, the Python version. In principle, it can vary anything.
 
 ::::challenge{id="workflow-on-multiple-os" title="Workflow on multiple operating systems"}
 
@@ -317,7 +324,7 @@ On Linux and macOS, renaming onto a file that already exists silently replaces i
 On Windows it raises `FileExistsError`.
 Python documents this difference, and it has been true for decades.
 
-The fix is one word:
+One fix is simply to use a different method:
 
 ```python
 os.replace(tmp, path)
@@ -341,7 +348,7 @@ It declares the oldest version of Python this project claims to work on.
 
 Add a version below that floor to the matrix in `python_versions.yml`, push, and see what happens.
 
-Then decide what the right fix is. There is more than one defensible answer.
+Then decide what the right fix is. There is more than one sensible answer.
 
 :::solution
 
@@ -353,11 +360,13 @@ ERROR: Package 'ci-course' requires a different Python: 3.11.x not in '>=3.12'
 
 Two things to notice.
 
-First, the failure is clear and immediate, which is the system working. The alternative is a project that quietly claims support it has never tested.
+First, the failure is clear and immediate, which is the system working. The alternative is a project that quietly claims support that it might never have tested.
 
-Second, there is no single correct fix. Either you support that version, in which case lower `requires-python` and make the tests pass on it, or you do not, in which case take it out of the matrix. What you must not do is leave them disagreeing.
+Second, there is no single correct fix.
+Either you support that version, in which case lower `requires-python` and make the tests pass on it, or you do not, in which case take it out of the matrix.
+What you must not do is leave them disagreeing.
 
-Your test matrix is the evidence for whatever your packaging metadata claims. Keeping the two in step is a maintenance job that nobody does for you.
+Your test matrix can become evidence for whatever your packaging metadata claims.
 
 :::
 ::::

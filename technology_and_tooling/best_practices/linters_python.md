@@ -166,4 +166,4 @@ with your code are detected, if any.
 ::::
 
 It is possible, and desirable, to automate these kind of code checks with GitHub's Continuous Integration service GitHub Actions.
-See our section on [GitHub Actions](/software_project_management/continuous_integration/github_actions) for details.
+See our section on [GitHub Actions](/software_project_management/continuous_integration/01_github_actions) for details.

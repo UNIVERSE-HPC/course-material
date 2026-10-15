@@ -44,7 +44,7 @@ There are many benefits of testing code coverage:
 
 1. **Prevent regressions:** Coverage can help you prevent regressions, which are changes that break existing functionality, by making sure that all parts of the code are tested.
 
-1. **Confidence during Refactoring:** It allows developers to refactor code or add new features with the confidence that they haven't broken existing functionality.
+1. **Confidence during Refactoring:** It allows developers to refactor code or add new features with the confidence that they haven't accidentally broken existing functionality.
 
 While code coverage is a valuable tool in software testing, it's not a silver bullet.
 100% code coverage doesn't guarantee that your software is 100% bug-free or that it handles all possible use cases.
@@ -91,7 +91,7 @@ To install this locally, using pip, run:
 pip install pytest-cov
 ```
 
-We can now run pytest in the following way to generate an xml file containing coverage information for the whole project:
+We can now run pytest in the following way to generate an `xml` file containing coverage information for the whole project:
 
 ```bash
 pytest --cov=ci_course --cov-report=xml
@@ -104,7 +104,7 @@ Let's break that down:
 - `--cov-report=xml`: write the report as XML, which is the format Codecov expects. Leave this off and you get a summary in the terminal instead, which is more useful while you are working.
 
 The rest of the configuration lives under `[tool.coverage.run]` in `pyproject.toml`, alongside the settings for ruff and pytest.
-Keeping tool configuration in one file is worth doing: a project that scatters it across `.coveragerc`, `.flake8`, `setup.cfg` and `tox.ini` is a project where nobody is sure which file is in charge.
+Keeping tool configuration in one file is worth doing: a project that scatters it across individual files such as `.coveragerc`, `.flake8`, `setup.cfg` and `tox.ini` can get really messy!
 
 Try it without `--cov-report=xml` as well, and read the table it prints.
 The `Missing` column is the interesting one.
@@ -230,7 +230,7 @@ if present.size == 0:
     return {"n": 0, "mean": 0.0, "sd": 0.0, "min": 0.0, "max": 0.0}
 ```
 
-A test that reaches it looks like this:
+A test that uses that code might look something like:
 
 ```python
 def test_a_column_of_only_missing_values():
@@ -240,10 +240,10 @@ def test_a_column_of_only_missing_values():
     assert summary["mean"] == 0.0
 ```
 
-That test passes, and it should worry you.
+That test passes, and it should worry you!
 
 The function reports that a column with no measurements in it has a mean of zero.
-Zero is a measurement. If that summary reached a report, or a plot, or a paper, nothing anywhere would indicate that the number was invented.
+That doesn't make sense, and it would be dangerous to put results into a paper that might rely on that functionality!
 
 So the right fix is not to write a test that accepts the current behaviour, but to decide what the function should do and make it do that.
 Returning `nan` is reasonable, because that is what the rest of the code already uses for "no value here":
@@ -254,11 +254,11 @@ if present.size == 0:
             "min": float("nan"), "max": float("nan")}
 ```
 
-Raising an exception is also defensible. What is not defensible is quietly returning zero.
+Raising an exception is also a possible option.
 
 This is the real argument for measuring coverage.
 Nobody had written that branch down as a thing to think about, and nothing failed.
-Coverage did not find a bug; it pointed at the one piece of code that nobody had looked at, and a person found the bug.
+Coverage did not find a bug; it highlighted a piece of code that nobody had looked at, and a person found the bug.
 
 :::
 
@@ -290,7 +290,7 @@ def test_unparseable_values_are_recorded(tmp_path):
 
 Worth noticing: this is the code path that the mutable default argument bug was hiding in.
 The linter spotted it in the first section without any test reaching it, and only now does the test suite go anywhere near it.
-Static analysis and coverage are looking for different things, which is why the course runs both.
+Static analysis and coverage are looking for different things, which is why you should use both.
 
 :::
 
@@ -317,7 +317,11 @@ branch = true
 
 The percentage drops, because the denominator has got bigger: every branch now counts as something that can be missed.
 
-A falling number after a change like this is not a regression. It means you are now measuring something you previously were not, and the gap was always there.
+Do not expect much here: on a project this small the difference is about one percentage point.
+On a codebase full of conditionals the gap is far wider, and the branch figure is the more honest of the two.
+
+A falling number after a change like this is not a bad thing.
+It means you are now measuring something you previously were not; the gap was always there.
 
 :::
 

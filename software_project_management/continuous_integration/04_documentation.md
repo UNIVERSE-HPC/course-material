@@ -32,17 +32,13 @@ Writing documentation for software is crucial.
 
 1. **Facilitates Code Reusability**: With adequate documentation, code functions, libraries, and modules can be reused easily in different projects, saving time and effort.
 
-1. **Useful for Users and Stakeholders**: Besides developers, other stakeholders such as project managers, testers, end-users, and technical writers benefit from good documentation. It helps in using the software, testing it, and writing manuals or user guides.
-
 1. **Compliance and Auditing**: In some industries, documentation is a legal requirement for audits and regulatory compliance. It helps demonstrate that the software meets certain standards or regulations.
 
 1. **Supports Debugging**: When problems arise, good documentation can help developers understand the system better and assist in debugging.
 
-1. **Encourages Collaboration**: Documentation encourages team collaboration by ensuring everyone understands the project's direction and status.
+1. **Preserves Information**: Documentation helps to preserve the rationale and thought process behind the implementation. This is especially important when key decisions are made about how something was implemented and why.
 
-1. **Preserves Information**: Documentation helps to preserve the rationale and thought process behind the implementation. This is especially important when key decisions are made that will impact the software's future direction.
-
-We will be using [Sphinx](https://www.sphinx-doc.org/en/master/) and [Read the Docs](https://readthedocs.org/) to create and deploy documentation pages for our repository.
+We will be using [Sphinx](https://www.sphinx-doc.org/en/master/) to generate the documentation, and [GitHub Pages](https://pages.github.com/) to host it.
 
 ## Sphinx
 
@@ -52,13 +48,11 @@ Here are some key features:
 
 1. **Extensible Output Formats**: Sphinx can generate several output formats, including HTML, LaTeX (for printable PDF versions), manual pages, plain text, and more.
 
-1. **Structured and Semantic Documentation**: Sphinx uses reStructuredText as its markup language, which allows for structured and semantic documentation.
+2. **Cross-referencing Code**: Sphinx supports automatic generation of API documentation from Python modules, and allows linking to specific function definitions, classes, methods, and more from other parts of the documentation.
 
-1. **Cross-referencing Code**: Sphinx supports automatic generation of API documentation from Python modules, and allows linking to specific function definitions, classes, methods, and more from other parts of the documentation.
+3. **Indexing and Searching**: Sphinx provides robust indexing that is crucial for larger projects. It supports glossaries and can generate search pages for HTML output.
 
-1. **Indexing and Searching**: Sphinx provides robust indexing that is crucial for larger projects. It supports glossaries and can generate search pages for HTML output.
-
-1. **Theming Support**: Sphinx supports themes for its HTML output, allowing documentation to match the aesthetic and branding of a project or organization.
+4. **Theming Support**: Sphinx supports themes for its HTML output, allowing documentation to match the aesthetic and branding of a project or organization.
 
 ## Where to put it
 
@@ -72,9 +66,9 @@ We are going to use [GitHub Pages](https://pages.github.com/) instead, for two r
 The first is that the build happens where you can watch it.
 This course is about seeing your pipeline run, and Read the Docs does the interesting part somewhere else, behind a login on a different site.
 
-The second is that Pages is general.
-It serves static files out of a repository, and it does not care whether those files are API documentation, a coverage report, a project website, a set of benchmark results or a rendered notebook.
-Once you have built one thing and published it, you can publish anything.
+The second is that Pages is general and you will find it useful for all sorts of things.
+It serves static files out of a repository, and it does not care whether those files are API documentation, a coverage report, a project website, a set of benchmark results, a rendered notebook, or even an [interactive web app](https://ukancestrymap.github.io/).
+Once you have built one thing and published it, you will know how to publish anything.
 
 ## Setting up Sphinx
 
@@ -93,6 +87,7 @@ sphinx-quickstart
 Accept the defaults, but give the project a name.
 
 This generates `conf.py`, `index.rst` and a couple of build scripts.
+`rst` stands for `restructured text` and is a markup format similar to, but a little more sophisticated than markdown.
 
 ### Telling Sphinx about your code
 
@@ -106,7 +101,7 @@ extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon"]
 ```
 
 `autodoc` imports your package and pulls out the docstrings.
-`napoleon` teaches it to read the numpydoc style those docstrings are written in; without it, the parameter and return sections render as an unformatted blob.
+`napoleon` teaches it to read the numpydoc style those docstrings are written in; without it, the parameter and return sections render as an unformatted mess.
 
 While you are in `conf.py`, delete this line:
 
@@ -116,8 +111,8 @@ html_static_path = ['_static']
 
 `sphinx-quickstart` creates an empty `docs/_static` directory for custom CSS and images.
 Git does not track empty directories, so the moment you commit, the directory does not exist for anyone else, and Sphinx warns about it.
-You have no static assets, so the simplest fix is to stop claiming you do.
-Put the line back if you ever add one.
+You have no static assets, so the simplest fix is the one above.
+Put the line back if you ever add static assets (for instance, a project logo).
 
 ### Adding an API reference
 
@@ -157,10 +152,9 @@ If you skipped the previous section, one function is absent.
 
 :::solution
 
-`count_missing` only appears if it has a docstring, which is what the previous section was about.
-`automodule` documents members that have docstrings and silently passes over the ones that do not.
+Try briefly removing that docstring, and re-run the `sphinx-build` command above, and see how it looks instead.
 
-Nothing warns you, not even with `-W`.
+Unfortunately, nothing in Sphinx warns you, not even with `-W`.
 The page simply does not mention the function, and looks perfectly finished.
 
 :::
@@ -170,7 +164,7 @@ The page simply does not mention the function, and looks perfectly finished.
 
 Now automate the build and put the result online.
 
-First, turn Pages on: go to _Settings_, then _Pages_, and set the source to _GitHub Actions_ rather than a branch.
+First, turn GitHub Pages on: on your GitHub repository, go to _Settings_, then _Pages_, and set the source to _GitHub Actions_ rather than a branch.
 This is why your repository needed to be public: Pages on a free account requires it.
 
 ::::challenge{id="pages-workflow" title="Deploy the documentation"}
@@ -179,7 +173,8 @@ Write a workflow, `pages.yml`, that builds the documentation on every push to `m
 
 You will need three actions you have not used before: `actions/configure-pages`, `actions/upload-pages-artifact` and `actions/deploy-pages`.
 
-You will also need a `permissions` block. Deployment needs `pages: write` to publish, and `id-token: write` so the runner can prove to GitHub Pages which workflow it is, without you storing a secret anywhere.
+You will also need a `permissions` block.
+Deployment needs `pages: write` to publish, and `id-token: write` so the runner can prove to GitHub Pages which workflow it is, without you storing a secret anywhere.
 
 :::solution
 
@@ -234,12 +229,11 @@ jobs:
 ::::
 
 Push it, watch it run, and follow the URL in the _deploy_ job summary.
-Your documentation is online, and it will stay current without anyone remembering to update it.
+Your documentation is online, and it will now stay current without anyone remembering to update it!
 
 ## This is deployment
 
-Notice what just happened.
-You pushed a commit, and a change went live for real users, with no human deciding that it should.
+You pushed a commit, and a change went live on a website, with no human having to remember to do it.
 
 That is **Continuous Deployment**.
 

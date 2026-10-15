@@ -17,8 +17,8 @@ attribution:
 
 Code coverage asked: which lines do the tests run?
 
-There is a second question worth asking of the same codebase: which public functions has anybody bothered to describe?
-Nothing you have run so far will tell you.
+There is a second question worth asking of the same codebase: which functions has anybody bothered to document?
+Nothing we have run so far tells us.
 The tests pass whether or not a function is documented, and so does the coverage report.
 
 In the next section you will generate API documentation automatically from the docstrings in your code.
@@ -26,10 +26,12 @@ That only works for the functions that have one.
 
 ## Checking docstrings with ruff
 
-You already have the tool. Ruff's rule set includes `pydocstyle`, under the `D` prefix, which checks docstrings rather than code.
+Fortunately, we can use a tool we're already familiar with.
+Ruff's rule set includes `pydocstyle`, under the `D` prefix, which checks docstrings rather than code.
 
 These rules are deliberately not part of the lint step you wrote earlier.
-Linting the code and checking the documentation are different questions, asked at different points, and mixing them means a missing docstring blocks you while you are trying to fix a real bug.
+Linting the code and checking the documentation are deliberately done at different points.
+Mixing them means a missing docstring could block you while you are trying to fix a real bug.
 
 Run the check:
 
@@ -37,13 +39,12 @@ Run the check:
 ruff check --select D src/
 ```
 
-Two details matter.
+Two points to note.
 
 `--select D` picks the docstring rules instead of the default selection in `pyproject.toml`.
-This is the same tool you have already used, pointed at a different question.
 
 `src/` scopes the check to the package.
-Run it over the whole repository and it reports your tests as well, which do not need docstrings: a test's name is its description, and `"""Test that it works."""` above `test_that_it_works` helps nobody.
+Run it over the whole repository and it reports your tests as well, which do not necessarily need docstrings: a test's name is usually a good-enough description, and `"""Test that it works."""` above `test_that_it_works` doesn't add much.
 
 ## Configuring the rules
 
@@ -57,11 +58,11 @@ convention = "numpy"
 There are several common docstring styles, and the rules for one contradict the rules for another.
 `convention` tells ruff which one this project uses, and switches off the rules belonging to the others.
 
-This matters more than it sounds.
+This matters quite a bit.
 Without that line the same command reports 15 problems on this project, nearly all of them complaining that perfectly good docstrings are laid out in the wrong style.
 With it, you get the one that is real.
-
-A linter nobody has configured for the house style is a linter people learn to ignore, and a linter people ignore is worse than no linter at all, because it still costs time in CI.
+It's a good idea to pick a style and stick with it: don't spend ages agonising over which style you like the most.
+The most important thing is that you're running a tool that will tell you useful information about jobs you've forgotten to do.
 
 ## Automating it
 
@@ -144,19 +145,15 @@ def count_missing(values):
 :::
 ::::
 
-## Why this one mattered
+## Why this finding mattered
 
 `count_missing` was not dead code.
 It is exported from the package, it has a test, and that test passes.
 By every measure you have applied so far, it was fine.
 
-Keep that in mind during the next section, where Sphinx generates an API reference from these docstrings.
+Keep that in mind during the next section, where we will use a tool called Sphinx to generate an API reference from these docstrings.
 Sphinx documents the things that have a docstring.
 A function without one is not flagged, not marked incomplete, and not listed: it is simply absent, and the generated documentation looks complete.
-
-That is the failure mode worth remembering.
-A test suite tells you when something is broken.
-Documentation tooling, left alone, tells you nothing at all, and quietly produces a smaller result.
 
 ## Next steps
 
