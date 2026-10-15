@@ -326,7 +326,7 @@ Python documents this difference, and it has been true for decades.
 
 One fix is simply to use a different method:
 
-```python
+```python nolint
 os.replace(tmp, path)
 ```
 

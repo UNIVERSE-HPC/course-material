@@ -225,14 +225,14 @@ Write a test that covers the first of them, then look hard at what the test tell
 
 The uncovered branch is the one that handles a column where every value is missing:
 
-```python
+```python nolint
 if present.size == 0:
     return {"n": 0, "mean": 0.0, "sd": 0.0, "min": 0.0, "max": 0.0}
 ```
 
 A test that uses that code might look something like:
 
-```python
+```python nolint
 def test_a_column_of_only_missing_values():
     summary = ci_course.summarise(np.array([np.nan, np.nan]))
 
@@ -248,7 +248,7 @@ That doesn't make sense, and it would be dangerous to put results into a paper t
 So the right fix is not to write a test that accepts the current behaviour, but to decide what the function should do and make it do that.
 Returning `nan` is reasonable, because that is what the rest of the code already uses for "no value here":
 
-```python
+```python nolint
 if present.size == 0:
     return {"n": 0, "mean": float("nan"), "sd": float("nan"),
             "min": float("nan"), "max": float("nan")}
@@ -276,7 +276,7 @@ The sample data is clean, so nothing exercises it.
 
 A test needs a file with a bad value in it:
 
-```python
+```python nolint
 def test_unparseable_values_are_recorded(tmp_path):
     csv = tmp_path / "bad.csv"
     csv.write_text("sample_id,height_m\nA,1.5\nB,not-a-number\n", encoding="utf-8")
