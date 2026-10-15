@@ -100,12 +100,12 @@ You should now have a number of files added to your repository.
 Let's add one more: an empty file called anything you like, in the `docs/_static` directory.
 This is just so the directory itself gets added to the repository, and this is needed for the next step.
 
-Add, commit, and push these new files GitHub.
+Add, commit, and push these new files to GitHub.
 
 Next, go to [Read the Docs](https://readthedocs.org/).
 
-- Log in with GitHub
-- Import a Project, and select your repository
+- Log in with GitHub (use the option _Log in using GitHub App_)
+- Click _Add project_, and select your repository
 - Follow the instructions, leaving everything as default
 
 You should then see your documentation building!

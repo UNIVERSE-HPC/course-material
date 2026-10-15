@@ -114,7 +114,7 @@ We will make the following changes to the workflow:
            python -m pip install .[dev]
    ```
 
-1. Change the "Lint with flake8" step to just run `flake8` (with no options at all)
+1. Change the "Lint with flake8" step to just run `flake8` once (with no options at all)
 
 ![Edit Workflow](fig/edit_workflow.png)
 
