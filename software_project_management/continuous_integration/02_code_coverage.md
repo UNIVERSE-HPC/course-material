@@ -1,6 +1,6 @@
 ---
 name: Code Coverage
-dependsOn: [software_project_management.continuous_integration.github_actions]
+dependsOn: [software_project_management.continuous_integration.01_github_actions]
 tags: [codecov, github]
 learningOutcomes:
   - Describe the types of code coverage.
