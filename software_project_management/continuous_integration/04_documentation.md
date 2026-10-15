@@ -1,7 +1,7 @@
 ---
 name: Documentation
-dependsOn: [software_project_management.continuous_integration.code_coverage]
-tags: [sphinx, readthedocs]
+dependsOn: [software_project_management.continuous_integration.02_code_coverage]
+tags: [sphinx, github]
 learningOutcomes:
   - List benefits of having good documentation for software.
   - Use Sphinx to generate API documentation from the docstrings in a project.
