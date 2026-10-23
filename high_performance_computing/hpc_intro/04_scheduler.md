@@ -12,6 +12,7 @@ attribution:
       This course was developed by Alasdair Wilson as part of the Oxford Research Software Engineering group (OxRSE).
     url: https://www.rse.ox.ac.uk
     image: ./fig/2024_oxrse_square.svg
+    license: CC-BY-4.0
   - citation: >
       A previous version of this material was adapted from "Introduction to High-Performance Computing" by The Carpentries.
     url: https://carpentries-incubator.github.io/hpc-intro/
@@ -25,7 +26,7 @@ The next step is to run a command on those nodes without using the shared login 
 [Working on an HPC Cluster](high_performance_computing/hpc_intro/01_working_on_a_cluster) introduced how work moves from preparation and submission to execution and results.
 This section puts that outline into practice with Slurm: describe the required resources, submit the work, monitor it and retrieve its output.
 
-## From a Command to a Scheduled Job
+## A Scheduled Job
 
 A command entered at your remote shell runs on the login node unless it explicitly requests compute resources.
 For example, `hostname` reports the login node on which your shell is running:
@@ -35,13 +36,13 @@ remote$ hostname
 login01
 ```
 
-A *batch job* packages commands so that they can run unattended within resources assigned by the scheduler.
+A *batch job* packages together one or more commands so that they can run unattended using resources assigned by the scheduler.
 The `sbatch` command transfers a batch script to Slurm and returns a numeric job ID.
-The job may remain pending until Slurm can grant a suitable *allocation*, after which one copy of the script begins on an allocated node.
+The job may remain pending until Slurm can grant a suitable *allocation* of resources, after which a copy of the script begins on an allocated node.
 
 Slurm distinguishes the allocation from the work launched inside it.
 An allocation is a reservation of resources, while a *job step* is a command or set of processes launched within those resources.
-The batch script itself is one step, and parallel applications commonly use `srun` to launch additional steps.
+The batch script itself is one such step, and parallel applications commonly use `srun` to launch additional steps.
 
 ## Resolve the Local Requirements
 
@@ -55,14 +56,14 @@ The [Oxford ARC](https://arc-user-guide.readthedocs.io/en/latest/job-scheduling.
 
 :::callout{variant="warning"}
 
-## Commands Are Portable; Policy Is Local
+## Commands Are Portable; not Policy
 
 Do not copy an account, partition or quality-of-service value from another cluster merely because its submission script looks similar.
 An omitted setting may have a sensible default on one service and cause rejection or an unsuitable allocation on another.
 
 :::
 
-## Prepare a First Batch Script
+## Prepare Batch Script
 
 Return to the working directory prepared in [Storage on an HPC Cluster](high_performance_computing/hpc_intro/03_storage).
 Create `first-job.sh` there using your preferred text editor:
@@ -101,9 +102,9 @@ printf 'Finished: '
 date
 ```
 
-The shebang selects Bash as the program that interprets the script.
-Lines beginning with `#SBATCH` are comments to Bash but options to Slurm, and they must appear before the first executable line.
-The remaining lines are ordinary shell commands; `set -euo pipefail` makes Bash stop on an unhandled command failure, an unset variable or a failed command within a pipeline.
+The shebang `#!/bin/bash` selects Bash as the program that interprets the script.
+Lines beginning with `#SBATCH` are Slurm options, and they must appear before the first executable line.
+The remaining lines are ordinary shell commands; `set -euo pipefail` enables stricter error handling: a failed command terminates the script in most contexts, references to unset variables are errors, and a pipeline fails if any command within it fails.
 
 The short `sleep` keeps this demonstration alive long enough to appear in the queue and should not be copied into a real workload.
 The `%j` in the output filename is replaced by the job ID, keeping the output from separate submissions distinct.
@@ -120,8 +121,8 @@ Use command-line options to `sbatch` or construct the required path before submi
 
 ## Understand the Resource Request
 
-The script asks Slurm for a maximum elapsed time and a small CPU allocation.
-These options describe resources made available to the job; they do not change the behaviour of its commands.
+The script asks Slurm for small amount of time with asmall CPU allocation.
+These options describe resources made available to the job, they do not change the behaviour of its commands.
 
 | Directive | Meaning |
 | --- | --- |
@@ -152,8 +153,8 @@ The intended application determines how nodes, tasks and CPUs per task should be
 ## An Allocation Does Not Parallelise an Application
 
 Requesting four tasks does not automatically start four copies of a command, and requesting four CPUs per task does not make a serial program use four CPU-cores.
-The application or its launcher must create the corresponding processes or threads.
-Later sections apply this distinction to serial and parallel programs; for now, the first job deliberately uses one task and one CPU.
+The commands in the job script must launch the required processes, while the application itself must create any threads it uses.
+Later sections will show how this distinction is applied to serial and parallel programs; this first job deliberately uses one task and one CPU.
 
 :::
 
@@ -180,7 +181,7 @@ The final column reports the allocated nodes for a running job or the reason why
 `Resources` and `Priority` are normal pending reasons rather than errors.
 
 If the demonstration finishes before you see it in `squeue`, that simply means it moved through the queue quickly.
-Use its accounting record to inspect it after completion:
+You can use the job ID to look it up after completion:
 
 ```bash
 remote$ sacct --jobs=12345 --format=JobID,JobName,State,Elapsed,ExitCode
@@ -188,8 +189,8 @@ remote$ sacct --jobs=12345 --format=JobID,JobName,State,Elapsed,ExitCode
 
 Replace `12345` with your job ID.
 [`sacct`](https://slurm.schedmd.com/sacct.html) can distinguish outcomes such as `COMPLETED`, `FAILED`, `TIMEOUT`, `CANCELLED` and `OUT_OF_MEMORY` after the job has left the live queue.
-Accounting data and available fields depend on the service configuration and may take a short time to appear.
-The output may contain separate `.batch` and `.extern` job-step records in addition to the row for the allocation as a whole.
+The available fields returned by `sacct` depend on the service configuration and may take a short time to appear.
+The output may contain separate `.batch` and `.extern` job-step records in addition to the output for the allocation as a whole.
 
 For a pending or running job, `scontrol show job 12345` provides the complete request and its current state.
 The information is verbose, but it is useful when a job is waiting for an unexpected reason or appears to have received the wrong resources.
@@ -197,7 +198,7 @@ The information is verbose, but it is useful when a job is waiting for an unexpe
 ## Inspect the Output
 
 The batch script is not attached to your terminal, so its output is written to the file specified by `--output`.
-After the job starts, list and inspect that file:
+After the job starts, you can inspect that file:
 
 ```bash
 remote$ ls -l slurm-12345.out
@@ -214,7 +215,8 @@ The `--chdir` option can select a different starting directory when required.
 
 ## Slurm Does Not Transfer Application Data
 
-Slurm transfers the batch script to the controller, but it does not copy the script's input files to the compute node or return its results elsewhere.
+Slurm transfers the batch script to the controller, broadly you will only see the same output as if you ran the script directly in a bash terminal in the output file.
+Slurm does not copy the script's input files to the compute node or return its results elsewhere.
 The paths used by the job must refer to suitable storage visible from the allocated nodes, and important output must ultimately be retained in an appropriate storage space.
 
 :::
@@ -227,6 +229,7 @@ A pending or running job can be cancelled with [`scancel`](https://slurm.schedmd
 remote$ scancel 12345
 ```
 
+While you should strive to make sure your jobs, especially long-running jobs, are correct before submission, jobs can be cancelled.
 Cancellation is appropriate when the request is wrong, the application is not making useful progress or its results are no longer needed.
 The request may take a moment to propagate, after which the job disappears from `squeue` and normally appears as `CANCELLED` in `sacct`.
 
@@ -237,7 +240,7 @@ Avoid cancelling by username unless you genuinely intend to terminate every job 
 Batch submission is appropriate when commands can run unattended.
 Development, debugging and exploratory analysis sometimes require an interactive shell on a compute node, but that shell must still run inside an allocation.
 
-On many Slurm services, a command of the following form requests a small allocation and starts Bash within it:
+A basic Slurm request for an interactive shell looks like this:
 
 ```bash
 remote$ srun \
@@ -245,11 +248,22 @@ remote$ srun \
   --ntasks=1 \
   --cpus-per-task=1 \
   --time=00:15:00 \
-  --pty bash --login
+  --pty /bin/bash --login
 ```
 
-Add the account, partition, quality-of-service or reservation options required by your service.
-Some services instead document `salloc` followed by `srun`, provide dedicated interactive nodes, or require a local wrapper, so their documented method takes precedence over this generic form.
+This asks for one CPU on one node for fifteen minutes and starts a login shell once the allocation is available.
+As with a batch job, the request may also need an account, partition, quality of service or reservation defined by the service.
+Many services provide a dedicated partition or reservation for short interactive work, although this is down to local configuration rather than a feature required by Slurm.
+Use the locally documented command if the service provides a different route to an interactive allocation.
+
+:::callout
+
+## Running This on ARC
+
+ARC directs interactive work to dedicated nodes through a partition named `interactive`.
+Add `--partition=interactive` to the request above when running it on ARC.
+
+:::
 
 Once the allocation begins, inspect the environment:
 
@@ -259,7 +273,7 @@ remote-compute$ printf '%s\n' "$SLURM_JOB_ID"
 remote-compute$ exit
 ```
 
-Exiting the shell ends the interactive job and releases its resources.
+Exiting the shell will end the interactive job and release the allocated resources.
 Closing the network connection also normally ends a directly attached interactive job, which makes batch submission preferable for work that must survive disconnection.
 
 ## Run the Complete Workflow
@@ -289,13 +303,13 @@ remote$ cat slurm-12345.out
 ```
 
 Replace `12345` with the ID returned by your submission.
-It is normal for `squeue` to show no row if the job has already finished; `sacct` and the output file then provide the relevant evidence.
+It is normal for `squeue` to show no row if the job has already finished; running `sacct` with the job ID and checking the output file will then provide the relevant evidence.
 
 A completed output file should contain the assigned job ID, a compute-node hostname, the selected working directory, one task and one CPU per task.
-If `sbatch` rejects the submission, its error usually identifies a missing or invalid local policy setting.
-If Slurm accepts the job but it later fails, inspect both the accounting state and the output file before changing the request.
+If `sbatch` rejects your submission, its error can help to identify where you went wrong with perhaps a missing configuration setting or an invalid option.
+If Slurm accepts the job but it later fails, inspect both the accounting state and the output file before adjusting the request.
 
-The interactive command is service-specific, but a successful allocation changes the hostname or prompt to identify a compute node and defines `SLURM_JOB_ID` until the shell exits.
+The interactive command is service-specific, but a successful allocation changes the hostname or prompt to identify a compute node and defines the `SLURM_JOB_ID` environment variable until the shell exits.
 
 :::
 ::::
