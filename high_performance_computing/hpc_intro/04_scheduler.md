@@ -1,461 +1,318 @@
 ---
-name: Introduction to Job Scheduling
-dependsOn: [
-  high_performance_computing.hpc_intro.03_cluster
-]
-tags: [slurm, ARC]
+name: Running Jobs with Slurm
+dependsOn: [high_performance_computing.hpc_intro.03_storage]
+tags: [slurm]
 learningOutcomes:
-  - Submit a simple script to the cluster.
-  - Monitor the execution of jobs using command line tools.
-  - Inspect the output and error files of your jobs.
-  - Find the right place to put large datasets on the cluster.
-attribution: 
-    - citation: >
-        "Introduction to High-Performance Computing" course by the HPC-carpentries
-      url: https://carpentries-incubator.github.io/hpc-intro/
-      image: /carpentries-incubator.svg
-      license: CC-BY-4.0
+  - Prepare and submit a Slurm batch job using appropriate resource requests and site-specific settings.
+  - Relate Slurm's nodes, tasks and CPUs per task to serial, multithreaded and multiprocess applications.
+  - Monitor pending and running jobs, inspect completed jobs and locate their output.
+  - Cancel a job and start an interactive allocation on a compute node.
+attribution:
+  - citation: >
+      This course was developed by Alasdair Wilson as part of the Oxford Research Software Engineering group (OxRSE).
+    url: https://www.rse.ox.ac.uk
+    image: ./fig/2024_oxrse_square.svg
+    license: CC-BY-4.0
+  - citation: >
+      A previous version of this material was adapted from "Introduction to High-Performance Computing" by The Carpentries.
+    url: https://carpentries-incubator.github.io/hpc-intro/
+    image: /carpentries-incubator.svg
+    license: CC-BY-4.0
 ---
 
-## Job Scheduler
+You have connected to a cluster and prepared a working directory on storage visible to its compute nodes.
+The next step is to run a command on those nodes without using the shared login node for the computation itself.
 
-An HPC system might have thousands of nodes and thousands of users. How do we
-decide who gets what and when? How do we ensure that a task is run with the
-resources it needs? This job is handled by a special piece of software called
-the _scheduler_. On an HPC system, the scheduler manages which jobs run where
-and when.
+[Working on an HPC Cluster](high_performance_computing/hpc_intro/01_working_on_a_cluster) introduced how work moves from preparation and submission to execution and results.
+This section puts that outline into practice with Slurm: describe the required resources, submit the work, monitor it and retrieve its output.
 
-The following illustration compares these tasks of a job scheduler to a waiter
-in a restaurant. If you can relate to an instance where you had to wait for a
-while in a queue to get in to a popular restaurant, then you may now understand
-why sometimes your job do not start instantly as in your laptop.
+## A Scheduled Job
 
-![Compare a job scheduler to a waiter in a restaurant](fig/restaurant_queue_manager.svg)
-
-The scheduler used in this lesson is Slurm. Although
-Slurm is not used everywhere, running jobs is quite similar
-regardless of what software is being used. The exact syntax might change, but
-the concepts remain the same.
-
-## Running a Batch Job
-
-The most basic use of the scheduler is to run a command non-interactively. Any
-command (or series of commands) that you want to run on the cluster is called a
-_job_, and the process of using a scheduler to run the job is called _batch job
-submission_.
-
-In this case, the job we want to run is a shell script - essentially a
-text file containing a list of UNIX commands to be executed in a sequential
-manner. Our shell script will have three parts:
-
-* On the very first line, add `#!/bin/bash`. The `#!`
-  (pronounced "hash-bang" or "shebang") tells the computer what program is
-  meant to process the contents of this file. In this case, we are telling it
-  that the commands that follow are written for the bash command-line shell (what
-  we've been doing everything in so far).
-* Anywhere below the first line, we'll add an `echo` command with a friendly
-  greeting. When run, the shell script will print whatever comes after `echo`
-  in the terminal.
-  * `echo -n` will print everything that follows, _without_ ending
-    the line by printing the new-line character.
-* On the last line, we'll invoke the `hostname` command, which will print the
-  name of the machine the script is run on.
+A command entered at your remote shell runs on the login node unless it explicitly requests compute resources.
+For example, `hostname` reports the login node on which your shell is running:
 
 ```bash
-remote$ nano example-job.sh
+remote$ hostname
+login01
 ```
 
-```text
+A *batch job* packages together one or more commands so that they can run unattended using resources assigned by the scheduler.
+The `sbatch` command transfers a batch script to Slurm and returns a numeric job ID.
+The job may remain pending until Slurm can grant a suitable *allocation* of resources, after which a copy of the script begins on an allocated node.
+
+Slurm distinguishes the allocation from the work launched inside it.
+An allocation is a reservation of resources, while a *job step* is a command or set of processes launched within those resources.
+The batch script itself is one such step, and parallel applications commonly use `srun` to launch additional steps.
+
+## Resolve the Local Requirements
+
+Slurm commands are portable, but the policy values supplied to them are not.
+A service may require an account or project code, a partition, a quality of service, a reservation, or a particular accelerator request.
+The names and permitted combinations of those settings are defined by the service rather than by Slurm.
+
+The details collected in the first section should tell you which settings your cluster requires.
+If they do not, consult its job-submission documentation before continuing.
+The [Oxford ARC](https://arc-user-guide.readthedocs.io/en/latest/job-scheduling.html), [ARCHER2](https://docs.archer2.ac.uk/user-guide/scheduler/) and [Isambard](https://docs.isambard.ac.uk/user-documentation/guides/slurm/) guides illustrate how three Slurm services expose the same workflow through different local policies.
+
+:::callout{variant="warning"}
+
+## Commands Are Portable; not Policy
+
+Do not copy an account, partition or quality-of-service value from another cluster merely because its submission script looks similar.
+An omitted setting may have a sensible default on one service and cause rejection or an unsuitable allocation on another.
+
+:::
+
+## Prepare Batch Script
+
+Return to the working directory prepared in [Storage on an HPC Cluster](high_performance_computing/hpc_intro/03_storage).
+Create `first-job.sh` there using your preferred text editor:
+
+```bash
+remote$ cd /path/to/your/hpc-intro/directory
+remote$ nano first-job.sh
+```
+
+Enter the following script, then add any account, partition, quality-of-service or other directives required by your service:
+
+```bash
 #!/bin/bash
+#SBATCH --job-name=hpc-intro
+#SBATCH --time=00:02:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --output=slurm-%j.out
 
-echo -n "This script is running on "
+# Add any other #SBATCH directives required by your service above this line.
+
+set -euo pipefail
+
+printf 'Job ID: %s\n' "$SLURM_JOB_ID"
+printf 'Host: '
 hostname
+printf 'Working directory: %s\n' "$(pwd)"
+printf 'Submitted from: %s\n' "$SLURM_SUBMIT_DIR"
+printf 'Tasks: %s\n' "$SLURM_NTASKS"
+printf 'CPUs per task: %s\n' "$SLURM_CPUS_PER_TASK"
+printf 'Started: '
+date
+sleep 30
+printf 'Finished: '
+date
 ```
 
-::::challenge{id=creating-job title="Creating Our Test Job"}
+The shebang `#!/bin/bash` selects Bash as the program that interprets the script.
+Lines beginning with `#SBATCH` are Slurm options, and they must appear before the first executable line.
+The remaining lines are ordinary shell commands; `set -euo pipefail` enables stricter error handling: a failed command terminates the script in most contexts, references to unset variables are errors, and a pipeline fails if any command within it fails.
 
-Run the script. Does it execute on the cluster or just our login node?
+The short `sleep` keeps this demonstration alive long enough to appear in the queue and should not be copied into a real workload.
+The `%j` in the output filename is replaced by the job ID, keeping the output from separate submissions distinct.
 
-:::solution
+:::callout{variant="note"}
 
-```bash
-remote$ bash example-job.sh
-```
+## Slurm Directives Are Not Shell Commands
 
-```text
-This script is running on <<cluster.name>>
-```
+Slurm reads `#SBATCH` directives before Bash executes the script.
+Shell expressions and variables in a directive are therefore treated as literal text rather than expanded by Bash.
+Use command-line options to `sbatch` or construct the required path before submission if an option must vary dynamically.
 
 :::
-::::
 
-This script ran on the login node, but we want to take advantage of
-the compute nodes: we need the scheduler to queue up `example-job.sh`
-to run on a compute node.
+## Understand the Resource Request
 
-To submit this task to the scheduler, we use the
-`sbatch` command.
-This creates a _job_ which will run the _script_ when _dispatched_ to
-a compute node which the queuing system has identified as being
-available to perform the work.
+The script asks Slurm for small amount of time with asmall CPU allocation.
+These options describe resources made available to the job, they do not change the behaviour of its commands.
+
+| Directive | Meaning |
+| --- | --- |
+| `--time=00:02:00` | Terminate the job if it has not finished within two minutes of starting. |
+| `--nodes=1` | Place the allocation on one compute node. |
+| `--ntasks=1` | Provide resources for one task, normally one application process. |
+| `--cpus-per-task=1` | Allocate one Slurm CPU to that task. |
+| `--output=slurm-%j.out` | Write standard output and standard error to a job-specific file. |
+
+In Slurm, a *CPU* is the smallest processing unit that the service has configured as allocatable.
+It commonly corresponds to one physical CPU-core, but a service may instead expose hardware threads, so consult its documentation when the distinction matters.
+
+Memory also belongs in a real resource request.
+Slurm provides `--mem` for memory per node and `--mem-per-cpu` for memory per allocated CPU, but service defaults, limits and charging models vary enough that the appropriate form and value must be chosen locally.
+Accelerators likewise require service-specific requests, commonly through options such as `--gpus` or `--gres`.
+
+The intended application determines how nodes, tasks and CPUs per task should be combined:
+
+| Application model | Typical relationship to a Slurm request |
+| --- | --- |
+| Serial program | One task using one CPU on one node. |
+| [Multithreaded program](high_performance_computing/hpc_openmp) | Usually one task with several CPUs per task on one node. |
+| [Distributed-memory program](high_performance_computing/hpc_mpi) | Several tasks representing processes, potentially distributed across several nodes. |
+| [Hybrid program](high_performance_computing/hpc_openmp/05_hybrid_parallelism) | Several tasks with multiple CPUs per task, combining processes and threads. |
+
+:::callout{variant="warning"}
+
+## An Allocation Does Not Parallelise an Application
+
+Requesting four tasks does not automatically start four copies of a command, and requesting four CPUs per task does not make a serial program use four CPU-cores.
+The commands in the job script must launch the required processes, while the application itself must create any threads it uses.
+Later sections will show how this distinction is applied to serial and parallel programs; this first job deliberately uses one task and one CPU.
+
+:::
+
+## Submit and Monitor the Job
+
+Submit the script with [`sbatch`](https://slurm.schedmd.com/sbatch.html):
 
 ```bash
-remote$ sbatch example-job.sh
+remote$ sbatch first-job.sh
+Submitted batch job 12345
 ```
 
-```text
-Submitted batch job 36855
-```
+Your job ID will differ from `12345` and uniquely identifies this submission on the cluster.
+Successful submission means that Slurm accepted the request, not that the job has started or will complete successfully.
 
-And that's all we need to do to submit a job. Our work is done - now the
-scheduler takes over and tries to run the job for us. While the job is waiting
-to run, it goes into a list of jobs called the _queue_. To check on our job's
-status, we check the queue using the command `squeue -u yourUsername`
+Use [`squeue`](https://slurm.schedmd.com/squeue.html) to view your pending and running jobs:
 
 ```bash
-remote$ squeue -u yourUsername
+remote$ squeue --user="$USER"
 ```
 
-```text
-JOBID USER         ACCOUNT     NAME           ST REASON START_TIME         T...
-36856 yourUsername yourAccount example-job.sh R  None   2017-07-01T16:47:02 ...
+A job typically moves from `PENDING` (`PD`) to `RUNNING` (`R`) and may briefly enter `COMPLETING` (`CG`) before leaving the queue.
+The final column reports the allocated nodes for a running job or the reason why a pending job has not started.
+`Resources` and `Priority` are normal pending reasons rather than errors.
+
+If the demonstration finishes before you see it in `squeue`, that simply means it moved through the queue quickly.
+You can use the job ID to look it up after completion:
+
+```bash
+remote$ sacct --jobs=12345 --format=JobID,JobName,State,Elapsed,ExitCode
 ```
 
-We can see all the details of our job, most importantly that it is in the R or RUNNING
-state. Sometimes our jobs might need to wait in a queue (PENDING) or have an error (E).
+Replace `12345` with your job ID.
+[`sacct`](https://slurm.schedmd.com/sacct.html) can distinguish outcomes such as `COMPLETED`, `FAILED`, `TIMEOUT`, `CANCELLED` and `OUT_OF_MEMORY` after the job has left the live queue.
+The available fields returned by `sacct` depend on the service configuration and may take a short time to appear.
+The output may contain separate `.batch` and `.extern` job-step records in addition to the output for the allocation as a whole.
+
+For a pending or running job, `scontrol show job 12345` provides the complete request and its current state.
+The information is verbose, but it is useful when a job is waiting for an unexpected reason or appears to have received the wrong resources.
+
+## Inspect the Output
+
+The batch script is not attached to your terminal, so its output is written to the file specified by `--output`.
+After the job starts, you can inspect that file:
+
+```bash
+remote$ ls -l slurm-12345.out
+remote$ cat slurm-12345.out
+```
+
+A successful run reports the same job ID, one compute-node hostname, the working directory and the resources requested by the script.
+The compute-node hostname should normally differ from the login-node hostname recorded earlier.
+
+By default, a batch job starts in the directory from which `sbatch` was called, and Slurm records that path in `SLURM_SUBMIT_DIR`.
+The `--chdir` option can select a different starting directory when required.
+
+:::callout{variant="warning"}
+
+## Slurm Does Not Transfer Application Data
+
+Slurm transfers the batch script to the controller, broadly you will only see the same output as if you ran the script directly in a bash terminal in the output file.
+Slurm does not copy the script's input files to the compute node or return its results elsewhere.
+The paths used by the job must refer to suitable storage visible from the allocated nodes, and important output must ultimately be retained in an appropriate storage space.
+
+:::
+
+## Cancel a Job
+
+A pending or running job can be cancelled with [`scancel`](https://slurm.schedmd.com/scancel.html) and its job ID:
+
+```bash
+remote$ scancel 12345
+```
+
+While you should strive to make sure your jobs, especially long-running jobs, are correct before submission, jobs can be cancelled.
+Cancellation is appropriate when the request is wrong, the application is not making useful progress or its results are no longer needed.
+The request may take a moment to propagate, after which the job disappears from `squeue` and normally appears as `CANCELLED` in `sacct`.
+
+Avoid cancelling by username unless you genuinely intend to terminate every job belonging to your account.
+
+## Interactive Jobs
+
+Batch submission is appropriate when commands can run unattended.
+Development, debugging and exploratory analysis sometimes require an interactive shell on a compute node, but that shell must still run inside an allocation.
+
+A basic Slurm request for an interactive shell looks like this:
+
+```bash
+remote$ srun \
+  --nodes=1 \
+  --ntasks=1 \
+  --cpus-per-task=1 \
+  --time=00:15:00 \
+  --pty /bin/bash --login
+```
+
+This asks for one CPU on one node for fifteen minutes and starts a login shell once the allocation is available.
+As with a batch job, the request may also need an account, partition, quality of service or reservation defined by the service.
+Many services provide a dedicated partition or reservation for short interactive work, although this is down to local configuration rather than a feature required by Slurm.
+Use the locally documented command if the service provides a different route to an interactive allocation.
 
 :::callout
 
-## Where's the Output?
+## Running This on ARC
 
-On the login node, this script printed output to the terminal - but
-now, when `squeue` shows the job has finished,
-nothing was printed to the terminal.
+ARC directs interactive work to dedicated nodes through a partition named `interactive`.
+Add `--partition=interactive` to the request above when running it on ARC.
 
-Cluster job output is typically redirected to a file in the directory you
-launched it from. Use `ls` to find and `cat` to read the file.
 :::
 
-## Customising a Job
-
-The job we just ran used all of the scheduler's default options. In a
-real-world scenario, that's probably not what we want. The default options
-represent a reasonable minimum. Chances are, we will need more cores, more
-memory, more time, among other special considerations. To get access to these
-resources we must customize our job script.
-
-Comments in UNIX shell scripts (denoted by `#`) are typically ignored, but
-there are exceptions. For instance the special `#!` comment at the beginning of
-scripts specifies what program should be used to run it (you'll typically see
-`#!/bin/bash`). Schedulers like Slurm also
-have a special comment used to denote special scheduler-specific options.
-Though these comments differ from scheduler to scheduler,
-Slurm's special comment is `#SBATCH`. Anything
-following the `#SBATCH` comment is interpreted as an
-instruction to the scheduler.
-
-Let's illustrate this by example. By default, a job's name is the name of the
-script, but the `-J` option can be used to change the
-name of a job. Add an option to the script:
+Once the allocation begins, inspect the environment:
 
 ```bash
-remote$ cat example-job.sh
+remote-compute$ hostname
+remote-compute$ printf '%s\n' "$SLURM_JOB_ID"
+remote-compute$ exit
 ```
 
-```text
-#!/usr/bin/env bash
-#SBATCH -J hello-world
+Exiting the shell will end the interactive job and release the allocated resources.
+Closing the network connection also normally ends a directly attached interactive job, which makes batch submission preferable for work that must survive disconnection.
 
-echo -n "This script is running on "
-hostname
-```
+## Run the Complete Workflow
 
-Submit the job and monitor its status:
+::::challenge{id=run-first-slurm-job title="Submit, Inspect and Complete a Job"}
 
-```bash
-remote$ sbatch example-job.sh
-remote$ squeue -u yourUsername
-```
+Use your cluster's documentation and the information gathered earlier in the course to adapt `first-job.sh` to the service.
+Keep the request to one node, one task, one CPU per task and no more than two minutes, adding only the locally required account, partition, quality-of-service, memory or other settings.
 
-```text
-JOBID USER         ACCOUNT     NAME     ST REASON   START_TIME TIME TIME_LEF...
-38191 yourUsername yourAccount hello-wo PD Priority N/A        0:00 1:00:00 ...
-```
+Submit the script and retain its job ID.
+Inspect it while it is pending or running, then use its accounting record and output file after it finishes.
+Confirm which compute node ran the script, which directory it used and whether the allocated task and CPU counts match the request.
 
-Fantastic, we've successfully changed the name of our job!
-
-### Resource Requests
-
-What about more important changes, such as the number of cores and memory for
-our jobs? One thing that is absolutely critical when working on an HPC system
-is specifying the resources required to run a job. This allows the scheduler to
-find the right time and place to schedule our job. If you do not specify
-requirements (such as the amount of time you need), you will likely be stuck
-with your site's default resources, which is probably not what you want.
-
-The following are several key resource requests:
-
-* `--ntasks=<ntasks>` or `-n <ntasks>`: How many CPU cores does your job need, in total?
-
-* `--time <days-hours:minutes:seconds>` or `-t <days-hours:minutes:seconds>`: How much
-  real-world time (walltime) will your job take to run? The `<days>` part can be omitted.
-
-* `--mem=<megabytes>`: How much memory on a node does your job need in megabytes? You can
-  also specify gigabytes using by adding a little “g” afterwards (example: `--mem=5g`)
-
-* `--nodes=<nnodes>` or `-N <nnodes>`: How many separate machines does your job need to run
-  on? Note that if you set ntasks to a number greater than what one machine can offer,
-  Slurm will set this value automatically.
-
-Note that just _requesting_ these resources does not make your job run faster,
-nor does it necessarily mean that you will consume all of these resources. It
-only means that these are made available to you. Your job may end up using less
-memory, or less time, or fewer nodes than you have requested, and it will still
-run.
-
-It's best if your requests accurately reflect your job's requirements. We'll
-talk more about how to make sure that you're using resources effectively in a
-later episode of this lesson.
-
-::::challenge{id=submit-request title="Submitting Resource Requests"}
-
-Modify our `hostname` script so that it runs for a minute, then submit a job
-for it on the cluster.
+Finally, request a short interactive shell using the method documented for the service, compare its hostname with the login-node hostname and exit cleanly.
 
 :::solution
 
-```bash
-remote$ cat example-job.sh
-```
-
-```text
-#!/usr/bin/env bash
-#SBATCH -t 00:01 # timeout in HH:MM
-
-echo -n "This script is running on "
-sleep 20 # time in seconds
-hostname
-```
+There is no universal set of site-specific directives, but the batch part of a successful workflow has the following shape:
 
 ```bash
-remote$ sbatch example-job.sh
+remote$ sbatch first-job.sh
+Submitted batch job 12345
+
+remote$ squeue --job=12345
+remote$ sacct --jobs=12345 --format=JobID,JobName,State,Elapsed,ExitCode
+remote$ cat slurm-12345.out
 ```
 
-Why are the Slurm runtime and `sleep` time not identical?
-:::
-::::
+Replace `12345` with the ID returned by your submission.
+It is normal for `squeue` to show no row if the job has already finished; running `sacct` with the job ID and checking the output file will then provide the relevant evidence.
 
-::::challenge{id=env-var title="Job environment variables"}
+A completed output file should contain the assigned job ID, a compute-node hostname, the selected working directory, one task and one CPU per task.
+If `sbatch` rejects your submission, its error can help to identify where you went wrong with perhaps a missing configuration setting or an invalid option.
+If Slurm accepts the job but it later fails, inspect both the accounting state and the output file before adjusting the request.
 
-When Slurm runs a job, it sets a number of environment variables for the job. One of
-these will let us check what directory our job script was submitted from. The
-`SLURM_SUBMIT_DIR` variable is set to the directory from which our job was submitted.
-Using the `SLURM_SUBMIT_DIR` variable, modify your job so that it prints out the
-location from which the job was submitted
-
-:::solution
-
-```bash
-remote$ nano example-job.sh
-remote$ cat example-job.sh
-```
-
-```text
-#!/usr/bin/env bash
-#SBATCH -t 00:00:30
-
-echo -n "This script is running on "
-hostname
-
-echo "This job was launched in the following directory:"
-echo ${SLURM_SUBMIT_DIR}
-```
+The interactive command is service-specific, but a successful allocation changes the hostname or prompt to identify a compute node and defines the `SLURM_JOB_ID` environment variable until the shell exits.
 
 :::
 ::::
 
-Resource requests are typically binding. If you exceed them, your job will be
-killed. Let's use wall time as an example. We will request 1 minute of
-wall time, and attempt to run a job for two minutes.
-
-```bash
-remote$ cat example-job.sh
-```
-
-```text
-#!/usr/bin/env bash
-#SBATCH -J long_job
-#SBATCH -t 00:01 # timeout in HH:MM
-
-echo "This script is running on ... "
-sleep 240 # time in seconds
-hostname
-```
-
-Submit the job and wait for it to finish. Once it is has finished, check the
-log file.
-
-```bash
-remote$ sbatch example-job.sh
-remote$ squeue -u yourUsername
-```
-
-```bash
-remote$ cat slurm-38193.out
-```
-
-```text
-This job is running on:
-gra533
-slurmstepd: error: *** JOB 38193 ON gra533 CANCELLED AT 2017-07-02T16:35:48
-DUE TO TIME LIMIT ***
-```
-
-Our job was killed for exceeding the amount of resources it requested. Although
-this appears harsh, this is actually a feature. Strict adherence to resource
-requests allows the scheduler to find the best possible place for your jobs.
-Even more importantly, it ensures that another user cannot use more resources
-than they've been given. If another user messes up and accidentally attempts to
-use all of the cores or memory on a node, {{ site.sched.name }} will either
-restrain their job to the requested resources or kill the job outright. Other
-jobs on the node will be unaffected. This means that one user cannot mess up
-the experience of others, the only jobs affected by a mistake in scheduling
-will be their own.
-
-## Cancelling a Job
-
-Sometimes we'll make a mistake and need to cancel a job. This can be done with
-the `scancel` command. Let's submit a job and then cancel it using
-its job number (remember to change the walltime so that it runs long enough for
-you to cancel it before it is killed!).
-
-```bash
-remote$ sbatch example-job.sh
-remote$ squeue -u yourUsername
-```
-
-```text
-Submitted batch job 38759
-
-JOBID USER         ACCOUNT     NAME           ST REASON   TIME TIME_LEFT NOD...
-38759 yourUsername yourAccount example-job.sh PD Priority 0:00 1:00      1  ...
-```
-
-Now cancel the job with its job number (printed in your terminal). A clean
-return of your command prompt indicates that the request to cancel the job was
-successful.
-
-```bash
-remote$ scancel 38759
-# It might take a minute for the job to disappear from the queue...
-remote$ squeue -u yourUsername
-```
-
-```text
-JOBID  USER  ACCOUNT  NAME  ST  REASON  START_TIME  TIME  TIME_LEFT  NODES CPUS
-```
-
-::::challenge{id=cancel-multiple title="Cancelling multiple jobs"}
-
-We can also cancel all of our jobs at once using the -u option. This will delete all
-jobs for a specific user (in this case, yourself). Note that you can only delete your
-own jobs.
-
-Try submitting multiple jobs and then cancelling them all.
-
-:::solution
-First, submit a trio of jobs:
-
-```bash
-remote$ sbatch example-job.sh
-remote$ sbatch example-job.sh
-remote$ sbatch example-job.sh
-```
-
-Then, cancel them all:
-
-```bash
-remote$ scancel -u yourUsername
-```
-
-:::
-::::
-
-## Other Types of Jobs
-
-Up to this point, we've focused on running jobs in batch mode.
-Slurm also provides the ability to start an interactive session.
-
-There are very frequently tasks that need to be done interactively. Creating an
-entire job script might be overkill, but the amount of resources required is
-too much for a login node to handle. A good example of this might be building a
-genome index for alignment with a tool like [HISAT2][hisat]. Fortunately, we
-can run these types of tasks as a one-off with `srun`.
-
-`srun` runs a single command on the cluster and then exits. Let’s demonstrate this by
-running the hostname command with `srun`. (We can cancel an `srun` job with `Ctrl-c`.)
-
-```bash
-remote$ srun hostname
-```
-
-```text
-gra752
-```
-
-`srun` accepts all of the same options as `sbatch`. However, instead of specifying these in
-a script, these options are specified on the command-line when starting a job. To submit
-a job that uses 2 CPUs for instance, we could use the following command:
-
-```bash
-remote$ srun -n 2 echo "This job will use 2 CPUs."
-```
-
-```text
-This job will use 2 CPUs.
-This job will use 2 CPUs.
-```
-
-Typically, the resulting shell environment will be the same as that for `sbatch`.
-
-## Interactive jobs
-
-Sometimes, you will need a lot of resource for interactive use. Perhaps it’s our first
-time running an analysis or we are attempting to debug something that went wrong with a
-previous job. Fortunately, Slurm makes it easy to start an interactive job with `srun`:
-
-```bash
-remote$ srun --pty bash
-```
-
-You should be presented with a bash prompt. Note that the prompt will likely change to
-reflect your new location, in this case the compute node we are logged on. You can also
-verify this with hostname.
-
-:::callout
-
-### Creating remote graphics
-
-To see graphical output inside your jobs, you need to use X11 forwarding. To connect
-with this feature enabled, use the -Y option when you login with the ssh command, e.g.,
-`ssh -Y user@cluster.name`.
-
-To demonstrate what happens when you create a graphics window on the remote node, use
-the `xeyes` command. A relatively adorable pair of eyes should pop up (press `Ctrl-C` to
-stop). If you are using a Mac, you must have installed XQuartz (and restarted your
-computer) for this to work.
-
-If your cluster has the `slurm-spank-x11` plugin installed, you can ensure X11
-forwarding within interactive jobs by using the `--x11` option for `srun` with the command
-`srun --x11 --pty bash`.
-:::
-
-When you are done with the interactive job, type `exit` to quit your session.
-
-## Key Points
-
-* The scheduler handles how compute resources are shared between users.
-* A job is just a shell script.
-* Request slightly more resources than you will need.
-
-[hisat]: https://ccb.jhu.edu/software/hisat2/index.shtml
+The scheduler has now carried one job from submission through allocation, execution and accounting.
+[Using Software Modules](high_performance_computing/hpc_intro/05_modules) next examines how to make application software available in both interactive and batch environments.
