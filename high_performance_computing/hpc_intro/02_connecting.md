@@ -12,6 +12,7 @@ attribution:
       This course was developed by Alasdair Wilson as part of the Oxford Research Software Engineering group (OxRSE).
     url: https://www.rse.ox.ac.uk
     image: ./fig/2024_oxrse_square.svg
+    license: CC-BY-4.0
   - citation: >
       A previous version of this material was adapted from "Introduction to High-Performance Computing" by The Carpentries.
     url: https://carpentries-incubator.github.io/hpc-intro/
