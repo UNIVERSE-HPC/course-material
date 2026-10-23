@@ -1,7 +1,7 @@
 ---
 name: Parallelising Mandelbrot Set Generation
 dependsOn: [high_performance_computing.parallel_computing.03_parallel_performance]
-tags: [foundation]
+tags: []
 attribution:
   - citation: >
       "Introduction to HPC" course by EPCC.

@@ -1,7 +1,7 @@
 ---
 name: Connecting to an HPC Cluster
 dependsOn: [high_performance_computing.hpc_intro.01_working_on_a_cluster]
-tags: [foundation, ssh]
+tags: [ssh]
 learningOutcomes:
   - Identify the local access requirements that must be established before connecting to an HPC cluster.
   - Explain how SSH protects a connection and how host-key verification establishes the identity of the remote system.

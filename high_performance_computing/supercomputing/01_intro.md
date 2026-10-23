@@ -1,7 +1,7 @@
 ---
 name: Why Supercomputing?
 dependsOn: []
-tags: [foundation]
+tags: []
 learningOutcomes:
   - Describe what distinguishes a supercomputer and the broader practice of high-performance computing.
   - Identify whether a workload is primarily constrained by time to solution, problem size or throughput.
