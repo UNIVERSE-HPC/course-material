@@ -8,9 +8,8 @@ learningOutcomes:
   - Delete, copy and move specified files and/or directories.
 attribution:
   - citation: >
-      This material was originally taken from training materials developed by the
-      University of Southampton Research Software Group, which are based on
-      the Software Carpentries course "Version Control with Git".
+      This material was originally taken from the training material "The Bash Shell"
+      developed by the University of Southampton Research Software Group.
     url: https://github.com/Southampton-RSG-Training/shell-novice/
     image: https://southampton-rsg-training.github.io/shell-novice/assets/img/home-logo.png
     license: CC-BY-4.0
@@ -44,8 +43,9 @@ ls -F
 ```
 
 ```text
-creatures/          molecules/          notes.txt           solar.pdf
-data/               north-pacific-gyre/ pizza.cfg           writing/
+co2_data/     data/         north-pacific-gyre/   pizza.cfg    writing/
+creatures/    molecules/    notes.txt             solar.pdf
+
 ```
 
 Let's create a new directory called `thesis` using the command `mkdir thesis`
@@ -66,10 +66,9 @@ ls -F
 ```
 
 ```text
-creatures/  north-pacific-gyre/  thesis/
-data/       notes.txt            writing/
-Desktop/    pizza.cfg
-molecules/  solar.pdf
+co2_data/     data/         north-pacific-gyre/   pizza.cfg       thesis/
+creatures/    molecules/    notes.txt             solar.pdf       writing/
+
 ```
 
 However, there's nothing in it yet - this will show no output:
@@ -92,16 +91,16 @@ human-friendly media. We use it in examples because almost anyone can
 drive it anywhere without training, but please use something more
 powerful for real work.
 
-On Windows, you may wish to use the simple [Notepad++](https://notepad-plus-plus.org/), but it is preferable to use a more powerful tool, such as Microsoft's [VSCode](https://code.visualstudio.com/).
-It's a fairly standard text editor that can be installed on Windows, Mac or Linux but with broad features and extensions that make coding much easier.
-Similar editors exist such as [Sublime](https://www.sublimetext.com/) a highly customisable text editor which also runs on multi-platforms.
+On Windows, you may wish to use the simple [Notepad++](https://notepad-plus-plus.org/), but it is preferable to use a more powerful tool, such as Microsoft's [VS Code](https://code.visualstudio.com/).
+It's a fairly standard text editor that can be installed on Windows, macOS or Linux but with broad features and extensions that make coding much easier.
+Similar editors exist such as [Sublime](https://www.sublimetext.com/), a highly customisable text editor which also runs on multi-platforms.
 
 Your choice of editor will depend on the size of project you're working on,
 and how comfortable you are with the terminal.
 :::
 
 Let's first change our working directory to `thesis` using `cd`,
-and then we'll use the `Nano` editor to create a text file called `draft.txt`, and then save it in that directory.
+and then we'll use the `nano` editor to create a text file called `draft.txt`, and then save it in that directory.
 
 ```bash
 cd thesis
@@ -121,8 +120,6 @@ Once our file is saved,
 we can use `Control-X` to quit the editor and return to the shell.
 `nano` doesn't leave any output on the screen after it exits,
 but `ls` now shows that we have created a file called `draft.txt`:
-
-Now we've saved the file, we can use `ls` to see that there is a new file in the directory called `draft.txt`:
 
 ```bash
 ls
@@ -181,7 +178,7 @@ pwd
 ```
 
 ```text
-/Users/nelle/shell-novice/test_directory/thesis
+/Users/nelle/shell-novice/shell/test_directory/thesis
 ```
 
 ```bash
@@ -210,10 +207,10 @@ rm thesis
 ```
 
 ```text
-rm: cannot remove `thesis': Is a directory
+rm: cannot remove 'thesis': Is a directory
 ```
 
-On a Mac, it may look a bit different (`rm: thesis: is a directory`), but means the same thing.
+On macOS, it may look a bit different (`rm: thesis: is a directory`), but means the same thing.
 
 This happens because `rm` only works on files, not directories.
 The right command is `rmdir`,
@@ -226,7 +223,7 @@ rmdir thesis
 ```
 
 ```text
-rmdir: failed to remove `thesis': Directory not empty
+rmdir: failed to remove 'thesis': Directory not empty
 ```
 
 This little safety feature can save you a lot of grief,
@@ -270,7 +267,7 @@ pwd
 ```
 
 ```text
-/Users/user/shell-novice/shell/test_directory
+/Users/nelle/shell-novice/shell/test_directory
 ```
 
 ```bash
@@ -296,7 +293,7 @@ which is short for "move":
 mv thesis/draft.txt thesis/quotes.txt
 ```
 
-The first parameter tells `mv` what we're "moving",
+The first argument tells `mv` what we're "moving",
 while the second is where it's to go.
 In this case,
 we're moving `thesis/draft.txt` (the file `draft.txt` in the `thesis` directory) to `thesis/quotes.txt` (the `quotes.txt` again in the `thesis` directory),
@@ -317,7 +314,7 @@ Just for the sake of inconsistency,
 
 Let's move `quotes.txt` into the current working directory.
 We use `mv` once again,
-but this time we'll just use the name of a directory as the second parameter
+but this time we'll just use the name of a directory as the second argument
 to tell `mv` that we want to keep the filename,
 but put the file somewhere new.
 (This is why the command is called "move".)
@@ -336,7 +333,7 @@ ls thesis
 ```
 
 Further,
-`ls` with a filename or directory name as a parameter only lists that file or directory.
+`ls` with a filename or directory name as an argument only lists that file or directory.
 We can use this to see that `quotes.txt` is still in our current directory:
 
 ```bash
@@ -352,7 +349,7 @@ quotes.txt
 The `cp` command works very much like `mv`,
 except it copies a file instead of moving it.
 We can check that it did the right thing using `ls`
-with two paths as parameters --- like most Unix commands,
+with two paths as arguments --- like most Unix commands,
 `ls` can be given thousands of paths at once:
 
 ```bash
@@ -374,7 +371,7 @@ ls quotes.txt thesis/quotations.txt
 ```
 
 ```text
-ls: cannot access quotes.txt: No such file or directory
+ls: cannot access 'quotes.txt': No such file or directory
 thesis/quotations.txt
 ```
 
