@@ -3,7 +3,7 @@ name: Introduction to Computer Simulations
 dependsOn: [
     high_performance_computing.computer_simulations.00_practical
 ]
-tags: [foundation]
+tags: []
 attribution: 
     - citation: >
         "Introduction to HPC" course by EPCC.

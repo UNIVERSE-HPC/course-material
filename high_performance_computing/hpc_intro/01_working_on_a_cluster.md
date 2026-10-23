@@ -1,7 +1,7 @@
 ---
 name: Working on an HPC Cluster
 dependsOn: []
-tags: [foundation, slurm]
+tags: [slurm]
 learningOutcomes:
   - Describe the roles of login nodes, compute nodes, shared storage and the job scheduler in an HPC service.
   - Trace a computational job from preparation and submission to execution and retrieval of its results.
@@ -102,7 +102,7 @@ The service may also provide storage intended for particular purposes, such as b
 Names such as *home*, *work* and *scratch* are common, but they do not guarantee particular performance, backup or retention policies.
 [Storage on an HPC Cluster](high_performance_computing/hpc_intro/03_storage) will examine how to choose between the filesystems available on a particular system.
 
-## The Lifecycle of a Job
+## How a Job Runs
 
 A typical piece of work passes through the cluster as follows:
 

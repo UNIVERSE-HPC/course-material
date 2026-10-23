@@ -1,7 +1,7 @@
 ---
 name: Accelerators
 dependsOn: [high_performance_computing.supercomputing.03_distributed_memory]
-tags: [foundation]
+tags: []
 learningOutcomes:
   - Explain the different roles of CPUs and accelerators in a heterogeneous compute node.
   - Describe how a GPU uses data parallelism to provide high computational throughput.

@@ -1,7 +1,7 @@
 ---
 name: Measuring Supercomputers
 dependsOn: [high_performance_computing.supercomputing.04_accelerators]
-tags: [foundation]
+tags: []
 learningOutcomes:
   - Calculate and interpret theoretical peak and measured floating-point performance.
   - Distinguish between hardware specifications, benchmark results and application performance.

@@ -1,7 +1,7 @@
 ---
 name: Shared-Memory Computers
 dependsOn: [high_performance_computing.supercomputing.01_introduction]
-tags: [foundation]
+tags: []
 learningOutcomes:
   - Explain why modern processors use multiple CPU-cores.
   - Distinguish between increasing throughput and reducing the runtime of one calculation.

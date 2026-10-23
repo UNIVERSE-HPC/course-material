@@ -1,7 +1,7 @@
 ---
 name: Storage on an HPC Cluster
 dependsOn: [high_performance_computing.hpc_intro.02_connecting]
-tags: [foundation, storage]
+tags: [storage]
 learningOutcomes:
   - Distinguish storage spaces by their visibility, intended use, capacity, performance, backup and retention policies.
   - Explain the difference between shared and node-local storage and how that distinction affects computational jobs.
