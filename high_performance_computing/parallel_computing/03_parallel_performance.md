@@ -1,7 +1,7 @@
 ---
 name: Parallel Computing Performance
 dependsOn: [high_performance_computing.parallel_computing.02_programming]
-tags: [foundation]
+tags: []
 attribution:
   - citation: >
       "Introduction to HPC" course by EPCC.

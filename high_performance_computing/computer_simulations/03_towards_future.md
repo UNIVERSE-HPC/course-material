@@ -3,7 +3,7 @@ name: Towards the Future
 dependsOn: [
     high_performance_computing.computer_simulations.02_weather_simulations
 ]
-tags: [foundation]
+tags: []
 attribution: 
     - citation: >
         "Introduction to HPC" course by EPCC.
