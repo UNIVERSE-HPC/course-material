@@ -6,7 +6,6 @@ dependsOn: [
 ]
 courses: [
   supercomputing,
-  parallel_computers,
   parallel_computing,
   computer_simulations,
   hpc_aws_slurm_setup,
