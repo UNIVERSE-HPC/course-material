@@ -27,8 +27,7 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube12.jpg)](https://youtu.be/L2K3dnZ8Mk8)
 
@@ -389,7 +388,7 @@ $$
 \def\arraystretch{1.8}\left[\begin{matrix}- \frac{107}{18}\\- \frac{46}{9}\\\frac{199}{18}\\- \frac{10}{3}\end{matrix}\right]
 $$
 
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="12_intro_01" title="Introductory problems 1"}
 Write the following system of equations:
@@ -440,7 +439,7 @@ $$
 
 ::::
 
-### Main problems
+## Main problems
 
 ::::challenge{id="12_main_01" title="Main problems 1"}
 If
@@ -547,7 +546,7 @@ Calculate:
 Comment on your results.
 ::::
 
-### Extension problems
+## Extension problems
 
 ::::challenge{id="12_ext_01" title="Extension problems 1"}
 Show that

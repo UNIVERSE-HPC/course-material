@@ -23,8 +23,7 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube02.jpg)](https://youtu.be/gbZtu0mAq2I)
 
@@ -429,7 +428,7 @@ Note that examples (d) and (e) confirm the property that
 the functions "$\exp$" and "$\ln$" are _functional
 inverses_ of one another.
 
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="02_intro_01" title="Introductory problems 1"}
 Simplify:
@@ -491,7 +490,7 @@ Simplify:
 
 ::::
 
-### Main problems
+## Main problems
 
 ::::challenge{id="02_main_01" title="Main problems 1"}
 In an experiment, the mass, $m$ grams, of a reaction product is measured at various times, $t$ minutes. It is believed that $m$ and $t$ are related by a law of the form:

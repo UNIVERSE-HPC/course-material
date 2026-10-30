@@ -20,8 +20,7 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube07.jpg)](https://youtu.be/-9uaN3ZSwi0)
 
@@ -357,7 +356,7 @@ $$
 
 This answer seems different because of the arbitrary constant of integration.
 
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="07_intro_01" title="Introductory problems 1"}
 By using suitable substitutions, evaluate the following integrals:
@@ -383,7 +382,7 @@ Find the indefinite integrals, with respect to $x$, of the following functions:
 Sketch the curve $y=(x-2)(x-5)$ and calculate by integration the area under the curve bounded by $x=2$ and $x=5$.
 ::::
 
-### Main problems
+## Main problems
 
 ::::challenge{id="07_main_01" title="Main problems 1"}
 Evaluate the following indefinite and definite integrals:
@@ -440,7 +439,7 @@ Determine the total volume of water pumped up the tree in its tenth year (ignori
 
 ::::
 
-### Extension problems
+## Extension problems
 
 ::::challenge{id="07_ext_01" title="Extension problems 1"}
 Express

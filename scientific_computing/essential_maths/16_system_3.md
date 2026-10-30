@@ -20,8 +20,7 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube16.jpg)](https://youtu.be/SO6TmCadkf4)
 
@@ -272,7 +271,7 @@ If we now look again at the phase plane, after having calculated the stability o
 - Eigenvalues tell us about the behaviour of linear systems
 - Eigenvalues tell us about the stability of nonlinear systems
 
-### Main problems
+## Main problems
 
 :::callout{variant="note"}
 These questions are extensions of questions on the previous page.
@@ -342,7 +341,7 @@ The $\dot{x}$ notation represents the derivative with respect to non-dimensional
 
 ::::
 
-### Extension problems
+## Extension problems
 
 ::::challenge{id="16_ext_01" title="Extension problems 1"}
 

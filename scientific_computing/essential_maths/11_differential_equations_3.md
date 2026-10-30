@@ -20,8 +20,7 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube11.jpg)](https://youtu.be/zAZ-FPnLvCg)
 
@@ -329,7 +328,7 @@ This mean's we can estimate the _entire time course of $y(t)$_, provided:
 
 We have already seen examples of this, using SciPy's ODEInt function, although this uses more sophisticated methods than the one described here.
 
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="11_intro_01" title="Introductory problems 1"}
 Determine the steady states are their stabilities, for each of the following:
@@ -342,7 +341,7 @@ Determine the steady states are their stabilities, for each of the following:
 
 ::::
 
-### Main problems
+## Main problems
 
 ::::challenge{id="11_main_01" title="Main problems 1"}
 Not all chemical systems relax exponentially to steady state.
@@ -430,7 +429,7 @@ where $v_1$ and $v_2$ are reaction rates rather than mass action coefficients.
 
 ::::
 
-### Extension problems
+## Extension problems
 
 ::::challenge{id="11_ext_01" title="Extension problems 1"}
 Various mathematical models have been proposed for the initial growth of solid tumours, and some are summarised in [_The Model Muddle: In Search of Tumor Growth Laws_](https://doi.org/10.1158/0008-5472.CAN-12-4355).

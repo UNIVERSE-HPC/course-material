@@ -21,8 +21,7 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube09.jpg)](https://youtu.be/B8Kh7HzDYK0)
 
@@ -442,7 +441,7 @@ When $k=2.0$ the two different solutions look like this:
 
 ![s with K equal to 1.0](fig/09_05_k2.svg)
 
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="09_intro_01" title="Introductory problems 1"}
 Find the general solutions of the following differential equations:
@@ -490,7 +489,7 @@ y = odeint(dydx, y0, x)
 
 ::::
 
-### Main problems
+## Main problems
 
 ::::challenge{id="09_main_01" title="Main problems 1"}
 The number of bacteria present in a given culture increases at a rate proportional to the number present.
@@ -554,7 +553,7 @@ In 1977 a charcoal fragment found at Stonehenge on the Salisbury Plain recorded 
 Assuming that the charcoal was formed during the building of the site, use this information to estimate the date at which Stonehenge was built.
 ::::
 
-### Extension problems
+## Extension problems
 
 ::::challenge{id="09_ext_01" title="Extension problems 1"}
 The **absorbance** $A$ of a solution is given by the equation:

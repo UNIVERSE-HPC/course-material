@@ -22,8 +22,7 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube13.jpg)](https://youtu.be/D_aYtsfmBYo)
 
@@ -510,7 +509,7 @@ $$
 - Python for solving systems, finding inverse, null space and eigenvalues/vectors
 - Diagonalising matrices (we will use this for systems of differential equations)
 
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="13_intro_01" title="Introductory problems 1"}
 Given
@@ -546,7 +545,7 @@ Suppose that $ABA^{-1}=I$.
 Determine the matrix $B$ in terms of the matrix $A$.
 ::::
 
-### Main problems
+## Main problems
 
 ::::challenge{id="13_main_01" title="Main problems 1"}
 Let $A$ be the coefficient matrix of the system of linear equations
@@ -631,7 +630,7 @@ $$
 
 ::::
 
-### Extension problems
+## Extension problems
 
 ::::challenge{id="13_ext_01" title="Extension problems 1"}
 If there exists a matrix $M$ whose columns are those of normalised (unit length) and orthogonal vectors, prove that $M^TM=I$ which implies that $M^T=M^{-1}$.

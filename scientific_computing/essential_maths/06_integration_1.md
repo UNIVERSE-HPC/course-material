@@ -23,8 +23,7 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube06.jpg)](https://youtu.be/nEWqxSs6eLs)
 
@@ -411,7 +410,7 @@ $$
 \frac{1}{4096 b^{4} - 12288 b^{3} + 13824 b^{2} - 6912 b + 1296} - \frac{1}{4096 a^{4} - 12288 a^{3} + 13824 a^{2} - 6912 a + 1296}
 $$
 
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="06_intro_01" title="Introductory problems 1"}
 Integrate the following functions with respect to $x$. Remember that you can check your own answers by differentiating your results:
@@ -454,7 +453,7 @@ By making suitable substitutions, find the indefinite integrals of:
 
 ::::
 
-### Main problems
+## Main problems
 
 ::::challenge{id="06_main_01" title="Main problems 1"}
 Electrostatic work: the force acting between two electric charges $q_1$ and $q_2$ separated by distance $x$ in a vacuum is given by Coulomb's inverse square law:
@@ -534,7 +533,7 @@ Consider the function $y = 4x^3 +2x^2-8x + 2$.
 
 ::::
 
-### Extension problems
+## Extension problems
 
 ::::challenge{id="06_ext_01" title="Extension problems 1"}
 Evaluate the following definite integrals:

@@ -24,8 +24,7 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube04.jpg)](https://youtu.be/s3A-20YCAwE)
 
@@ -295,7 +294,7 @@ You can look at the documentation for Sympy to see many other possibilities (e.g
 
 Try out Sympy to verify your pen & paper answers to the problem sheets.
 
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="04_intro_01" title="Introductory problems 1"}
 Differentiate the following functions, using the stated rules where indicated:
@@ -321,7 +320,7 @@ Differentiate the following trigonometric functions with respect to $x$:
 
 ::::
 
-### Main problems
+## Main problems
 
 ::::challenge{id="04_main_01" title="Main problems 1"}
 Let $y=x^2$.
@@ -412,7 +411,7 @@ $$
 Differentiate these series term by term to verify the standard expressions for the derivatives of $\sin x$ and $\cos x$.
 ::::
 
-### Extension problems
+## Extension problems
 
 ::::challenge{id="04_ext_01" title="Extension problems 1"}
 The focal length of the lens of the eye, $f(t)$, can be controlled so that an object at distance $u(t)$ in front of the eye can be brought to perfect focus on the retina at a constant $v = 1.8\,\text{cm}$ behind the lens.

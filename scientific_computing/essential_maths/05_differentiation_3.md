@@ -21,8 +21,7 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube05.jpg)](https://youtu.be/zIgJF-4xu90)
 
@@ -378,7 +377,7 @@ $$
 \text{i.e.} \qquad \frac{\partial}{\partial x}\left(\frac{\partial z}{\partial y}\right) = \frac{\partial}{\partial y}\left(\frac{\partial z}{\partial x}\right)
 $$
 
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="05_intro_01" title="Introductory problems 1"}
 Differentiate the following functions with respect to $x$, using the stated rules where indicated:
@@ -412,7 +411,7 @@ $$
 
 ::::
 
-### Main problems
+## Main problems
 
 ::::challenge{id="05_main_01" title="Main problems 1"}
 The power, $W$, that a certain machine develops is given by the formula
@@ -479,7 +478,7 @@ is used to describe sediment thickness accumulating in an extensional basin thro
 What is the sedimentation rate?
 ::::
 
-### Extension problems
+## Extension problems
 
 ::::challenge{id="05_ext_01" title="Extension problems 1"}
 Let

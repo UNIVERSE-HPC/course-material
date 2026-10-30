@@ -25,8 +25,7 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube15.jpg)](https://youtu.be/Mi5gTeTYM30)
 
@@ -292,7 +291,7 @@ def plot_phase_plane():
   - Quasi-steady state approximation
 - Nullclines are a powerful way of finding steady states and phase flow
 
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="15_intro_01" title="Introductory problems 1"}
 Find the fixed points of the following linear systems:
@@ -311,7 +310,7 @@ Find the fixed points of the following nonlinear systems:
 
 ::::
 
-### Main problems
+## Main problems
 
 ::::challenge{id="15_main_01" title="Main problems 1"}
 Consider the chemical reaction network:

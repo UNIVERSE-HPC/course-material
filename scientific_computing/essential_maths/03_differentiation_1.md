@@ -22,8 +22,7 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube03.jpg)](https://youtu.be/WRIo01tVEbA)
 
@@ -391,7 +390,7 @@ For this example take the constants $k$ and $b$ as $k = 3.8$/hr, and $b = 0.01$/
 
    Since $R''(N) = -0.02 < 0$, we can be sure that this is a maximum.
 
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="03_intro_01" title="Introductory problems 1"}
 Use the formula
@@ -428,7 +427,7 @@ Find the $x$ and $y$ coordinates of the points on the given curves at which the 
 
 ::::
 
-### Main problems
+## Main problems
 
 ::::challenge{id="03_main_01" title="Main problems 1"}
 One hour after taking $x\,\text{mg}$ of a drug, the body temperature, $T$, in $^\circ$C of a patient is given by:
@@ -506,7 +505,7 @@ under mass action kinetics.
 
 ::::
 
-### Extension problems
+## Extension problems
 
 ::::challenge{id="03_ext_01" title="Extension problems 1"}
 Find the values of $x$ for which the following functions have stationary values and using your results, sketch a graph of each function:

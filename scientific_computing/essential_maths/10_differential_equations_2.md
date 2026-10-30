@@ -20,8 +20,7 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube10.jpg)](https://youtu.be/nU3SVyT3TY0)
 
@@ -217,7 +216,7 @@ $$
 
 where $d$ is a constant.
 
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="10_intro_01" title="Introductory problems 1"}
 Find the general solutions of the following differential equations:
@@ -230,7 +229,7 @@ Find the general solutions of the following differential equations:
 Check your answers by differentiating them.
 ::::
 
-### Main problems
+## Main problems
 
 ::::challenge{id="10_main_01" title="Main problems 1"}
 A circular patch of oil on the surface of some water has a radius $r$ metres at time $t$ minutes.
@@ -283,7 +282,7 @@ By Fick's law, if $c(t)$ and $k$ are unequal, solute moves across the cell wall 
 
 ::::
 
-### Extension problems
+## Extension problems
 
 ::::challenge{id="10_ext_01" title="Extension problems 1"}
 Consider a simple model of the production and degradation of a protein, shown by the reaction chain

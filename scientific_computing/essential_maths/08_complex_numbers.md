@@ -26,8 +26,7 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube08.jpg)](https://youtu.be/h8zbbLUnsMM)
 
@@ -488,7 +487,7 @@ $$
    e^{\pi i}+1=0
    $$
 
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="08_intro_01" title="Introductory problems 1"}
 Simplify:
@@ -508,7 +507,7 @@ Simplify:
 Find the sum, difference, product and quotient of the complex numbers $z_1=5+3i$ and $z_2=-4+2i$.
 ::::
 
-### Main problems
+## Main problems
 
 ::::challenge{id="08_main_01" title="Main problems 1"}
 Solve the following equations for $z$:
@@ -546,7 +545,7 @@ Find by calculation or from your diagram, the moduli and arguments of the comple
 Find the complex numbers represented by the vertices of a square if one vertex represents $3+3i$ and the centre of the square represents $1+2i$.
 ::::
 
-### Extension problems
+## Extension problems
 
 ::::challenge{id="08_ext_01" title="Extension problems 1"}
 Experiment with using Python to solve the problems and confirm your pen & paper solutions.

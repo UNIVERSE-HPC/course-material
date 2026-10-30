@@ -26,8 +26,7 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube14.jpg)](https://youtu.be/B9DWIGrRkLE)
 
@@ -280,7 +279,7 @@ $$
   order ODEs
 - Best method depends on the system and what you need to ask about it
 
-### Introductory problems
+## Introductory problems
 
 ::::challenge{id="14_intro_01" title="Introductory problems 1"}
 Find the general solution to the following system of ODEs:
@@ -311,7 +310,7 @@ $$
 
 ::::
 
-### Main problems
+## Main problems
 
 ::::challenge{id="14_main_01" title="Main problems 1"}
 By reformulating the following system as one first order equation (i.e eliminating $t$), find the general solution to:
@@ -357,7 +356,7 @@ $$
 
 ::::
 
-### Extension problems
+## Extension problems
 
 ::::challenge{id="14_ext_01" title="Extension problems 1"}
 The force on a damped harmonic oscillator is
