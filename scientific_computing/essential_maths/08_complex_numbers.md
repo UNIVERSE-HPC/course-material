@@ -32,6 +32,16 @@ A recording of this lecture from October 2020; the material has changed a little
 
 ---
 
+## Why complex numbers?
+
+Some equations, like $x^2+1=0$, have no solutions among the real numbers.
+Complex numbers give every polynomial a full set of roots.
+
+We will meet them again when we study systems of differential equations.
+There, complex roots tell us that the system oscillates (e.g. populations of predators and prey that rise and fall in turn).
+
+The link is $e^{i\theta}=\cos\theta+i\sin\theta$, which we show at the end of this lecture.
+
 ## Imaginary numbers
 
 **The imaginary number $i$:**
@@ -62,9 +72,9 @@ parts of $z$ to be $\Re(z) = a$ and $\Im(z)=b$.
 The imaginary number $i$ has no home on the real number line.
 Instead, we locate it on the **complex plane** at the point $(0,1)$.
 
-- we can represent any complex number $z=a+bi$ as the point $(a,b)$ in the complex plane.
-- The coordinates $(a,b)$ are usually called the _cartesian_ coordinates for $z$.
-  (Named after the mathematician and philosopher Rene Descartes).
+- We can represent any complex number $z=a+bi$ as the point $(a,b)$ in the complex plane.
+- The coordinates $(a,b)$ are usually called the _Cartesian_ coordinates for $z$.
+  (Named after the mathematician and philosopher René Descartes).
 - In this plane, the real numbers lie on the horizontal axis.
   We usually refer to the horizontal axis of $\mathbb{C}$ as the **real axis**.
 
@@ -80,7 +90,7 @@ E.g., let's look at a quadratic equation.
 Recall the quadratic formula:
 
 $$
-ax^2 +bx +c \iff x= \frac{-b \pm\sqrt{b^2-4ac}}{2a}
+ax^2 +bx +c = 0 \iff x= \frac{-b \pm\sqrt{b^2-4ac}}{2a}
 $$
 
 Now, let's consider this specific quadratic equation:
@@ -92,7 +102,7 @@ $$
 which we can solve using the quadratic formula:
 
 $$
-=\frac{8\pm\sqrt{64-100}}{2}=\frac{8\pm\sqrt{-36}}{2}=\frac{8\pm6i}{2}=4\pm3i
+x=\frac{8\pm\sqrt{64-100}}{2}=\frac{8\pm\sqrt{-36}}{2}=\frac{8\pm6i}{2}=4\pm3i
 $$
 
 - Note that these two roots are reflections of one another through the
@@ -101,7 +111,7 @@ $$
 - In general, let $z=a + bi$. The **conjugate** of $z$ is the complex number
   $\bar{z}=a-bi$.
 
-We can also use Sympy's `solve` method to solve polynomials:
+We can also use SymPy's `solve` method to solve polynomials:
 
 ```python
 import sympy as sp
@@ -145,7 +155,7 @@ print(f'x = {x}     Re(x) = {x.real}     Im(x) = {x.imag}     |x| = {abs(x)}')
 x = (1+2j)     Re(x) = 1.0     Im(x) = 2.0     |x| = 2.23606797749979
 ```
 
-In Sympy, the imaginary unit is `sp.I`:
+In SymPy, the imaginary unit is `sp.I`:
 
 ```python
 x = 1 + 2 * sp.I
@@ -192,7 +202,7 @@ print((5 + 6j) - (1 - 1j))
 
 ## Multiplication
 
-Multiplication is not quite so convenient in cartesian coordinates:
+Multiplication is not quite so convenient in Cartesian coordinates:
 
 $$
 \begin{aligned}
@@ -214,7 +224,7 @@ print((5 + 6j) * (1 - 1j))
 
 ## Division
 
-Division is even more awkward in cartesian coordinates: we have to multiply the numerator and the denominator by the complex conjugate of the denominator.
+Division is even more awkward in Cartesian coordinates: we have to multiply the numerator and the denominator by the complex conjugate of the denominator.
 
 $$
 \begin{aligned}
@@ -230,11 +240,11 @@ $$
 $$
 
 ```python
-print((-4 + 7*sp.I) / (2 + 3*sp.I))
+print(sp.simplify((-4 + 7*sp.I) / (2 + 3*sp.I)))
 ```
 
 ```text
-(-4 + 7*I)*(2 - 3*I)/13
+1 + 2*I
 ```
 
 ## Polar coordinates
@@ -247,10 +257,10 @@ It is often convenient to represent the complex number $z = a + bi$ in terms of 
 
 ![Representing a complex number in polar coordinates](fig/08_02_polar.svg)
 
-## Connection between cartesian and polar
+## Connection between Cartesian and polar
 
 Let $z=x+iy$.
-If we are given the polar coordinates of $z$ and want to express the cartesian coordinates use
+If we are given the polar coordinates of $z$ and want to express the Cartesian coordinates use
 
 $$
 \begin{gathered}
@@ -260,14 +270,14 @@ z=r\cos\theta + ri\sin\theta=r(\cos\theta + i\sin\theta)
 \end{gathered}
 $$
 
-If we are given the cartesian coordinates and want to find the polar coordinates, use:
+If we are given the Cartesian coordinates and want to find the polar coordinates, use:
 
 $$
 r=\text{mod}(z)=|z|=\sqrt{x^2+y^2}
 $$
 
 $$
-\theta=\text{arg}(z)=\tan^{-1}\frac{y}{x}=
+\theta=\text{arg}(z)=
 \begin{cases}\pi/2, & \text{if } x=0,y>0 \\
 -\pi/2, & \text{if } x=0,y<0 \\
 \arctan\left(\frac{y}{x}\right), & \text{if } x>0\\
@@ -276,7 +286,7 @@ $$
 \end{cases}
 $$
 
-Not: all of the fuss about the value of $\theta$ in the formula above is to make sure that $z$ gets into the proper quadrant.
+Note: all of the fuss about the value of $\theta$ in the formula above is to make sure that $z$ gets into the proper quadrant.
 Beware of the sign of this tangent: it depends on which quadrant you are in.
 
 The positive $x$ axis is defined as having $\theta=0$ and positive $\theta$ goes in an anticlockwise sense around the $x-y$ plane.
@@ -285,7 +295,7 @@ The positive $x$ axis is defined as having $\theta=0$ and positive $\theta$ goes
 
 ### Example 1
 
-Find the cartesian coordinates for the complex number $z$ with polar coordinates $r=2$ and $\theta=\pi/6$.
+Find the Cartesian coordinates for the complex number $z$ with polar coordinates $r=2$ and $\theta=\pi/6$.
 
 $$
 \begin{aligned}
@@ -313,7 +323,7 @@ Find the polar coordinates for the complex number $z= -3+4i$.
 $$
 \begin{aligned}
 |z|=r &= \sqrt{(-3)^2+4^2}=\sqrt{25}=5 \\
-\text{arg}(z)=\theta=\arctan\left(\frac{y}{x}\right) &= -0.93+\pi \text{ radians}\approx 127^\circ
+\text{arg}(z)=\theta=\arctan\left(\frac{y}{x}\right) &= \arctan(-4/3)+\pi = -0.93+\pi \approx 2.21 \text{ radians}\approx 127^\circ
 \end{aligned}
 $$
 
@@ -375,7 +385,7 @@ Now we compute the imaginary part of $z_1\cdot z_2$:
 $$
 \begin{aligned}
 \Im(z_1\cdot z_2) &= r_1\sin\theta_1\cdot r_2\cos\theta_2 + r_2\sin\theta_2\cdot r_1\cos\theta_1\\
-&=r_1r_2(\sin\theta_1\cos\theta_2 - \sin\theta_2\cos\theta_1)\\
+&=r_1r_2(\sin\theta_1\cos\theta_2 + \sin\theta_2\cos\theta_1)\\
 &=r_1r_2\sin(\theta_1 + \theta_2)
 \end{aligned}
 $$
@@ -392,7 +402,7 @@ It is **multiplicative** in the modulus and **additive** in the argument:
 
 $$
 \begin{aligned}
-|z_1z_2|&= |z_1\cdot |z_2|\\
+|z_1z_2|&= |z_1|\cdot |z_2|\\
 \arg(z_1z_2)&=\arg (z_1)+ \arg( z_2)
 \end{aligned}
 $$
@@ -475,7 +485,7 @@ $$
    \left(e^{i\theta}\right)^n = e^{i\theta n}=e^{i(n\theta)}
    $$
 
-5. This result is known as **DeMoivre's Theorem**. It is usually stated in its cartesian form:
+5. This result is known as **de Moivre's theorem**. It is usually stated in its Cartesian form:
 
    $$
    (\cos\theta + i\sin\theta)^n=\cos(n\theta) + i\sin(n\theta)
