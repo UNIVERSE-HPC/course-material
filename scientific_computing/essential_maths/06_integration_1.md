@@ -130,7 +130,7 @@ $$
 **In general:**
 
 $$
-\frac{d\left(a\, x^{n+1}\right)}{dx}=(n+1)a\, x^n \qquad \Rightarrow \qquad \int_{x_1}^{x_2} a\, x^n\,dx = \Big[\frac{a}{n+1}\, x^{n+1}\Big]_{x_1}^{x_2}
+\frac{d\left(a\, x^{n+1}\right)}{dx}=(n+1)a\, x^n \qquad \Rightarrow \qquad \int_{x_1}^{x_2} a\, x^n\,dx = \Big[\frac{a}{n+1}\, x^{n+1}\Big]_{x_1}^{x_2} \qquad (n\neq -1)
 $$
 
 ## SymPy examples
@@ -515,7 +515,7 @@ where $k$ and $p$ are positive constants.
 
 1. What are the units of $k$ and $p$?
 1. Given that, at the start of 1850, the global emission rate was 0.2 Gigatonnes per year, and that at the start of 2010 the global emission rate was 32 Gigatonnes per year, calculate $k$ and $p$.
-1. Calculate the total quantity of carbon emitted since the start of 1850.
+1. Calculate the total quantity of carbon emitted between the start of 1850 and the start of 2010.
 
 ::::
 

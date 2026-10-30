@@ -39,7 +39,7 @@ We will need both when we solve differential equations.
 ### In general
 
 $$
-\frac{d(a\, x^{n+1})}{dx}=(n+1)a\, x^n \qquad\Rightarrow\qquad \int_{x_1}^{x_2} a\, x^n\,dx = \Big[\frac{a}{n+1}\, x^{n+1}\Big]_{x_1}^{x_2}
+\frac{d(a\, x^{n+1})}{dx}=(n+1)a\, x^n \qquad\Rightarrow\qquad \int_{x_1}^{x_2} a\, x^n\,dx = \Big[\frac{a}{n+1}\, x^{n+1}\Big]_{x_1}^{x_2} \qquad (n\neq -1)
 $$
 
 ### Reminder, method 1: integration by substitution
@@ -242,7 +242,7 @@ $$
 This result actually generalises:
 
 $$
-\int\limits^{\infty}_0 x^n\,e^{-x}\,dx=n!
+\int\limits^{\infty}_0 x^n\,e^{-x}\,dx=n! \qquad \text{for } n = 0, 1, 2, \ldots
 $$
 
 ### Integration by parts: example 4, trigonometry
@@ -349,7 +349,7 @@ so $dw/dx=1$ and $dx/dw=1$
 $$
 \begin{aligned}
 -\int \frac{2\, du}{2 \times 11 \times u} + \int \frac{dw}{11w} &= -\frac{\ln |u|}{11} + \frac{\ln |w|}{11} \\
-&=-\frac{\ln |2x+1|}{11} + \frac{\ln |x-5|}{11}
+&=-\frac{\ln |2x+1|}{11} + \frac{\ln |x-5|}{11} + C
 \end{aligned}
 $$
 
@@ -388,7 +388,7 @@ Find the indefinite integrals, with respect to $x$, of the following functions:
 ::::
 
 ::::challenge{id="07_intro_03" title="Introductory problems 3"}
-Sketch the curve $y=(x-2)(x-5)$ and calculate by integration the area under the curve bounded by $x=2$ and $x=5$.
+Sketch the curve $y=(x-2)(x-5)$ and calculate by integration the area between the curve and the $x$-axis, bounded by $x=2$ and $x=5$.
 ::::
 
 ## Main problems
@@ -438,7 +438,7 @@ $$
 F = M_0(p+qt)^{3/4},
 $$
 
-where $t$ is the tree's age in days, $p$ and $q$ are positive constants, and $M_0p^{3/4}$ is the mass of the tree when planted (i.e. at $t=0$).
+where $t$ is the tree's age in days, $p$ and $q$ are positive constants, and $M_0p^{3/4}$ is the flow when the tree is planted (i.e. at $t=0$).
 
 Determine the total volume of water pumped up the tree in its tenth year (ignoring leap years) if:
 
@@ -482,7 +482,7 @@ $$
 
 ::::challenge{id="07_ext_03" title="Extension problems 3"}
 Baranov developed expressions for commercial yields of fish in terms of lengths, $L$, of the fish.
-His formula gave the total number of fish of length $L$ as $k\,e^{-cL}$, where $c$ and $k$ are constants ($k$ is positive).
+His formula gave the total number of fish of length $L$ as $k\,e^{-cL}$, where $c$ and $k$ are constants ($k$ and $c$ are positive).
 
 1. Give a sketch of the graph $f(L)=k\,e^{-cL}$.
    (Something decreasing, concave upward and asymptotic to horizontal axis will do.)

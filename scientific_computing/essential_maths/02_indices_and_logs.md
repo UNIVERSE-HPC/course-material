@@ -167,6 +167,8 @@ $$
 
 ### Fractional (rational) indices
 
+For $a>0$:
+
 $$
 \begin{aligned}
 a^1 &= a^{1/2} \times a^{1/2} &&\text{so}\quad a^{1/2} = \sqrt{a} \\
@@ -209,7 +211,7 @@ a**(3.0/4.0)
 3.34370152488211
 ```
 
-i.e. For indices the order in which these mathematical operations are performed does not matter.
+i.e. For indices the order in which these mathematical operations are performed does not matter (for $a>0$).
 
 ### Different bases, same index
 

@@ -403,7 +403,7 @@ It is **multiplicative** in the modulus and **additive** in the argument:
 $$
 \begin{aligned}
 |z_1z_2|&= |z_1|\cdot |z_2|\\
-\arg(z_1z_2)&=\arg (z_1)+ \arg( z_2)
+\arg(z_1z_2)&=\arg (z_1)+ \arg( z_2) \qquad \text{(up to a multiple of } 2\pi\text{)}
 \end{aligned}
 $$
 
@@ -479,13 +479,13 @@ $$
    e^{i\theta_1}\cdot e^{i\theta_2} = e^{i(\theta_1+\theta_2)}
    $$
 
-4. Exponentiation on the unit circle $r=1$ can be done by multiplying the angle by the index:
+4. Exponentiation on the unit circle $r=1$ can be done by multiplying the angle by the index (for integer $n$):
 
    $$
    \left(e^{i\theta}\right)^n = e^{i\theta n}=e^{i(n\theta)}
    $$
 
-5. This result is known as **de Moivre's theorem**. It is usually stated in its Cartesian form:
+5. This result is known as **de Moivre's theorem**. It is usually stated in its Cartesian form, for integer $n$:
 
    $$
    (\cos\theta + i\sin\theta)^n=\cos(n\theta) + i\sin(n\theta)

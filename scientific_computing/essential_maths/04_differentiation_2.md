@@ -4,10 +4,12 @@ dependsOn: [scientific_computing.essential_maths.03_differentiation_1]
 tags: []
 learningOutcomes:
   - Be able to recognise the derivatives of standard functions
-  - Understand the associative, commutative and distributive properties of derivatives
+  - Be able to differentiate sums and scalar multiples of functions
   - Be able to use the chain rule to differentiate a function of a function
   - Be able to use the product rule for differentiating a product of functions
   - Be able to use the quotient rule for differentiating the ratio of functions
+  - Be able to differentiate inverse functions
+  - Be able to use the derivative to make a linear approximation
   - Be able to use SymPy to calculate derivatives in Python
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
@@ -174,7 +176,7 @@ $$
 But since $d(x)/dx = 1$
 
 $$
-\frac{d}{dy}(f^{-1}(y)) = \frac{1}{\frac{dy}{dx}}
+\frac{d}{dy}(f^{-1}(y)) = \frac{1}{\frac{dy}{dx}} \qquad \text{(where } dy/dx \neq 0\text{)}
 $$
 
 (This is an example of _implicit differentiation_, where we differentiate both sides of an equation relating $x$ and $y$.)
@@ -209,7 +211,7 @@ $$
 f(x + h) \approx f(x) + h f'(x)
 $$
 
-In other words, $f(x+h)$ can be approximated by starting at $f(x)$ and moving a distance $h$ along the tangent, whose gradient is $f'(x)$.
+In other words, $f(x+h)$ can be approximated by starting at $f(x)$ and moving a horizontal distance $h$ along the tangent, whose gradient is $f'(x)$.
 
 ### Example
 

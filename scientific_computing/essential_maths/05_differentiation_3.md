@@ -64,7 +64,7 @@ for any function $f(x)$.
 
 ## Example with the natural logarithm
 
-1. $y=\ln\left((a-x)^2\right)=2\ln(a-x)=2\ln u$.
+1. $y=\ln\left((a-x)^2\right)=2\ln|a-x|=2\ln|u|$.
 
    Let $u=(a-x)$:
 
@@ -80,7 +80,7 @@ $$
 
 ## The derivative of $a^x$
 
-By the properties of logarithms and indices we have
+For $a>0$, by the properties of logarithms and indices we have
 
 $$
 a^x = \left(e^{\ln a}\right)^x=e^{\left(x\cdot\ln a\right)}.
@@ -117,7 +117,7 @@ $$
 
 ## The derivative of $\log_a x$
 
-Recall the conversion formula $\log_a x = \ln x/\ln a$ and note that $\ln a$ is a constant.
+For $a>0$, $a\neq 1$, recall the conversion formula $\log_a x = \ln x/\ln a$ and note that $\ln a$ is a constant.
 Thus:
 
 $$
@@ -307,7 +307,7 @@ $$
 Finally:
 
 $$
-T_{xx}(x,y)+T_{yy}(x,y) = 2 + (-2) = 0
+T_{xx}(x,y)+T_{yy}(x,y) = -2 + 2 = 0
 $$
 
 which proves the result.
@@ -335,8 +335,10 @@ $$
 Therefore:
 
 $$
-z_{xx}+z_{yy}=2y-2x\ne 0
+z_{xx}+z_{yy}=2y-2x
 $$
+
+which is not zero everywhere (it is only zero on the line $y=x$).
 
 We can also verify this in SymPy like so:
 

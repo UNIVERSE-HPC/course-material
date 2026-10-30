@@ -429,7 +429,7 @@ Find the gradient at the given points of the following curves:
 ::::
 
 ::::challenge{id="03_intro_03" title="Introductory problems 3"}
-Find the $x$ and $y$ coordinates of the points on the given curves at which the gradient is zero and find out whether they are maxima, minima or points of inflexion:
+Find the $x$ and $y$ coordinates of the points on the given curves at which the gradient is zero (if any) and find out whether they are maxima, minima or points of inflexion:
 
 1. $y = (x - 3)(x - 4)$
 1. $y = x^3 - 4x^2 + 2x - 2$
