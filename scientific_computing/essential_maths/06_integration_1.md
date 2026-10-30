@@ -221,13 +221,21 @@ $$
 
 ## Other integrals
 
-Recall that:
+Recall that $\frac{d}{dx}\ln x = \frac{1}{x}$. In fact, for any $x \neq 0$:
 
 $$
-\frac{d}{dx}\ln x=\frac{1}{x} \qquad\Rightarrow\qquad \int\frac{1}{x}\,dx=\ln |x| + C
+\frac{d}{dx}\ln|x|=\frac{1}{x} \qquad\Rightarrow\qquad \int\frac{1}{x}\,dx=\ln |x| + C
 $$
 
-(We need the modulus because $\ln$ is only defined for positive numbers.)
+We need the modulus because $\ln$ is only defined for positive numbers, but $1/x$ is defined for negative $x$ too.
+For $x>0$, $|x| = x$, so this is just the derivative of $\ln x$ that we already know.
+For $x<0$, $|x| = -x$, and the chain rule gives
+
+$$
+\frac{d}{dx}\ln(-x) = \frac{1}{-x}\times(-1) = \frac{1}{x}.
+$$
+
+So $\ln|x|$ has derivative $1/x$ on both sides of zero.
 
 This constant $C$ can be written as:
 
