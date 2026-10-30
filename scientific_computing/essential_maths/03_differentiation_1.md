@@ -28,7 +28,7 @@ A recording of this lecture from October 2020; the material has changed a little
 
 ---
 
-## Gradients
+## Why differentiation?
 
 We often want to know about the _rate_ at which one quantity changes over time.
 Examples:
@@ -38,10 +38,15 @@ Examples:
 1. The rate of bacterial cell growth over time.
 1. How quickly an epidemic is growing.
 
+Differentiation gives us this rate exactly, as a formula.
+Once we have the rate, we can use it to find where a quantity is greatest or smallest (e.g. the time at which the most bacteria are on a plate), and to sketch its graph.
+
+## Gradients
+
 ### Defining the gradient
 
 - The **gradient of a curve** at a point $P$ is the slope of the tangent of the curve at that point.
-- The **tangent** is the line that "just touches" (but doesn't cross) the curve.
+- The **tangent** is the line that "just touches" the curve.
 - The gradient is also known as the **rate of change** or **derivative**, and the process of finding the gradient is called **differentiation**.
 - The gradient of the curve $y = f(x)$ is denoted in a few different ways, the three most common are:
 
@@ -59,7 +64,7 @@ At $x=-2$ the gradient is steeper, and sloping down to the right:
 
 ![Gradient of x squared](fig/03_02_x2_2.svg)
 
-## Example, $y = \log(x)$
+## Example, $y = \ln(x)$
 
 For this function, the gradient is always sloping up to the right, but gets shallower as $x$ increases:
 
@@ -82,32 +87,21 @@ x_2 &= 2.5,\quad 2.1,\quad 2.01,\quad \ldots
 \end{aligned}
 $$
 
-We can use Python as a calculator to evaluate these differences:
+We can use Python as a calculator to evaluate these differences, with $x_1 = 2 - h$ and $x_2 = 2 + h$:
 
 ```python
-x_1 = 1.5
-x_2 = 2.5
-y_1 = x_1**3 + 2
-y_2 = x_2**3 + 2
-print((y_2-y_1)/(x_2-x_1))
-
-x_1 = 1.9
-x_2 = 2.1
-y_1 = x_1**3 + 2
-y_2 = x_2**3 + 2
-print((y_2-y_1)/(x_2-x_1))
-
-x_1 = 1.99
-x_2 = 2.01
-y_1 = x_1**3 + 2
-y_2 = x_2**3 + 2
-print((y_2-y_1)/(x_2-x_1))
+for h in [0.5, 0.1, 0.01]:
+    x_1 = 2 - h
+    x_2 = 2 + h
+    y_1 = x_1**3 + 2
+    y_2 = x_2**3 + 2
+    print(h, (y_2 - y_1)/(x_2 - x_1))
 ```
 
 ```text
-12.25
-12.010000000000003
-12.00009999999997
+0.5 12.25
+0.1 12.010000000000003
+0.01 12.00009999999997
 ```
 
 As the difference between $x_1$ and $x_2$ gets smaller, the gradient stabilises.
@@ -119,9 +113,13 @@ $$
 \text{Gradient} \approx \frac{\Delta y}{\Delta x} = \frac{f(x+h) - f(x)}{h}
 $$
 
-This is called a finite difference approximation to the gradient. The approximation becomes more accurate the smaller h is.
+This is called a finite difference approximation to the gradient. The approximation becomes more accurate the smaller $h$ is.
 
-When using the approximation, we denote the changes as $\Delta y/\Delta x$, in the limit as h goes to 0, this becomes $dy/dx$.
+When using the approximation, we denote the changes as $\Delta y/\Delta x$. In the limit as $h$ goes to 0, this becomes the derivative, $dy/dx$:
+
+$$
+\frac{dy}{dx} = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}
+$$
 
 In this way, $d/dx$ is an operator, acting on $y$.
 
@@ -139,18 +137,17 @@ Find the gradient of $y = f(x) = x^3 + 2$.
 
 $$
 \begin{aligned}
-\frac{dy}{dx} &= \frac{f(x+h) - f(x)}{h} \\
-&= \frac{(x+h)^3 + 2 - (x^3 + 2)}{h} \\
+\frac{f(x+h) - f(x)}{h} &= \frac{(x+h)^3 + 2 - (x^3 + 2)}{h} \\
 &= \frac{x^3 + 3x^2 h + 3xh^2 + h^3 + 2 - x^3 - 2}{h} \\
 &= \frac{3x^2h + 3xh^2 + h^3}{h} \\
-&= 3x^2 + 3xh + h^3
+&= 3x^2 + 3xh + h^2
 \end{aligned}
 $$
 
 Now this is only exactly right when $h \rightarrow 0$. So letting that happen, we have
 
 $$
-\frac{dy}{dx} = 3x^2
+\frac{dy}{dx} = \lim_{h \to 0} \left(3x^2 + 3xh + h^2\right) = 3x^2
 $$
 
 ## Derivative of polynomial functions
@@ -198,7 +195,7 @@ $$
 
 **This only works for scalars**.
 
-In most circumstances $(f(x) g(x))' \neq f(x)' g(x)'$
+In most circumstances $(f(x) g(x))' \neq f'(x) g'(x)$ (more on this in the next lecture)
 
 e.g.
 
@@ -228,13 +225,17 @@ The sign of the first derivative $f'(x)$ tells us how $f(x)$ is growing
 - Negative gradient: If $y' < 0$ then $y$ is **decreasing** at $x$
 - Zero gradient: If $y' = 0$ then $y$ is not changing (flat) at $x$
 
-### Extreme values (turning points and points of inflection)
+### Stationary points and points of inflection
+
+Stationary points are where $dy/dx = 0$.
 
 1. Local maximum: $dy/dx = 0$ and $d^2y/dx^2 < 0$
 
 1. Local minimum: $dy/dx = 0$ and $d^2y/dx^2 > 0$
 
-1. Inflection: $d^2y/dx^2 = 0$
+1. Inflection: $d^2y/dx^2 = 0$ and $d^2y/dx^2$ changes sign
+
+If $dy/dx = 0$ and $d^2y/dx^2 = 0$, this test does not tell us which it is (e.g. $y = x^3$ and $y = x^4$ at $x = 0$), so look at the sign of $dy/dx$ on either side.
 
 ### Example: find the stationary points of $y = 2x^3 - 5x^2 - 4x$
 
@@ -271,9 +272,9 @@ $$
 y''(2) = 12 \times 2 - 10 = 14 > 0
 $$
 
-So this point is a **mimimum**.
+So this point is a **minimum**.
 
-Inflection points occur whenever $y''(x) = 0$
+Inflection points can only occur where $y''(x) = 0$
 
 $$
 \begin{aligned}
@@ -282,23 +283,33 @@ x &= \frac{10}{12} = \frac{5}{6}
 \end{aligned}
 $$
 
-This is an **inflection point**.
+Since $y''(x)$ changes sign at $x = 5/6$, this is an **inflection point**.
 
-![Turning points](fig/03_06_turning_points.svg)
-
-**Note**: Points of inflection do not require that $y'(x) = 0$, only that $y''(x) = 0$.
+**Note**: Points of inflection do not require that $y'(x) = 0$, only that $y''(x) = 0$ and changes sign.
 
 Points of inflection are important in biology as they define conditions where a response (e.g. reaction rate) is most or least sensitive to a change in conditions (e.g. the concentration of a metabolite).
 
-## Reminder on curve sketching
+## Sketching: the checklist revisited
 
-- Aim to evaluate and identify key values of the function (i.e. turning points, points of inflection)
+To sketch the graph of a function (as in the lecture on graphs):
 
-- Look at the limit behaviour as $x \to \pm \infty$ and as $x$ approaches any points where the function is undefined (e.g. $x \to 0$ for $y = 1/x$).
+- Find where it is zero, positive and negative
+- Look at which terms dominate as $x\to\pm\infty$
+- Look at the limit behaviour as $x$ approaches any points where the function is undefined (e.g. $x\to 0$ for $y=1/x$), which may give an _asymptote_
+- Find the turning points and points of inflection, using the first and second derivatives
 
-- Determine the first and second order derivatives to find turning points and points of inflection.
+Then check your sketch by plotting the function in Python.
 
-## Real life example
+### Example: sketching $y = 2x^3 - 5x^2 - 4x$
+
+- It factorises as $y = x(2x^2 - 5x - 4)$, so $y = 0$ at $x = 0$ and $x = (5 \pm \sqrt{57})/4$, i.e. $x \approx -0.64$ and $x \approx 3.14$
+- For large $|x|$, the $2x^3$ term dominates, so $y$ rises to the right and falls to the left
+- It is defined for all $x$, so there are no asymptotes
+- From the example above, it has a maximum at $x = -1/3$, a minimum at $x = 2$ and a point of inflection at $x = 5/6$
+
+![Turning points](fig/03_06_turning_points.svg)
+
+## Example: bacteria on a plate
 
 The number $n$ (in thousands) of bacteria on an agar plate at time $t$ (in days) is given by the expression:
 
@@ -339,7 +350,7 @@ To do this we must find the turning points of the function.
 
    The greatest number of bacteria on the plate is **24,420**.
 
-## Real life example 2
+## Example: logistic growth
 
 The growth rate $R$ of a cell colony with $N$ cells at time $t$ can be represented by the equation
 
@@ -347,7 +358,7 @@ $$
 R = \frac{d N}{d t} = kN - bN^2
 $$
 
-For this example take the constants $k$ and $b$ as $k = 3.8$/hr, and $b = 0.01$/hr. This is called a **logistic** model.
+For this example take the constants $k$ and $b$ as $k = 3.8$/hr, and $b = 0.01$/cell/hr. This is called a **logistic** model.
 
 1. What is the equilibrium size of the population?
 
