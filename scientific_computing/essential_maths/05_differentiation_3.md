@@ -494,7 +494,7 @@ $$
 
 ::::
 
-::::challenge{id="05*ext_02" title="Extension problems 2"}
+::::challenge{id="05_ext_02" title="Extension problems 2"}
 Show that $f_{xy}=f_{yx}$ for the following functions:
 
 1. $f(x,y) = x^2 - xy + y^3$
