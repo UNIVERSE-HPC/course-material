@@ -27,7 +27,14 @@ A recording of this lecture from October 2020; the material has changed a little
 
 ---
 
-## Exponentials and partial differentiation
+## Why exponentials and partial derivatives?
+
+In this lecture we use the chain rule to differentiate the exponential and logarithmic functions from the lecture on indices and logs.
+We need these whenever a quantity grows or decays (e.g. $e^{-kt}$).
+
+We then look at functions of more than one variable (e.g. the temperature at each point on a plate).
+We often want to know how such a function changes when just one of its variables changes.
+This is called _partial differentiation_, and we will need it when we study systems of differential equations.
 
 ## Examples of applying chain rule to the exponential function
 
@@ -47,7 +54,7 @@ A recording of this lecture from October 2020; the material has changed a little
    \frac{d}{dx}e^{x^2}=\frac{dy}{dx}=\frac{dy}{du}\times\frac{du}{dx}=e^u\cdot 2x = e^{x^2}\cdot 2x.
    $$
 
-So an important generalization is:
+So an important generalisation is:
 
 $$
 \frac{d}{dx}e^{f(x)}=e^{f(x)}f'(x)
@@ -57,7 +64,7 @@ for any function $f(x)$.
 
 ## Example with the natural logarithm
 
-1. $y=\ln(a-x)^2=2\ln(a-x)=2\ln u$.
+1. $y=\ln\left((a-x)^2\right)=2\ln(a-x)=2\ln u$.
 
    Let $u=(a-x)$:
 
@@ -91,9 +98,9 @@ $$
 \frac{d}{dx}a^{f(x)} = a^{f(x)}\cdot \ln a\cdot f'(x)
 $$
 
-### Sympy example
+### SymPy example
 
-Let's try and use Sympy to demonstrate this:
+Let's try and use SymPy to check this:
 
 ```python
 import sympy as sp
@@ -105,6 +112,8 @@ sp.diff(a**f(x),x)       # write the expression we wish to evaluate
 $$
 a^{f{\left(x \right)}} \log{\left(a \right)} \frac{d}{d x} f{\left(x \right)}
 $$
+
+(SymPy writes $\log$ for the natural logarithm, $\ln$.)
 
 ## The derivative of $\log_a x$
 
@@ -126,9 +135,9 @@ $$
 \frac{d}{dx}\log_a f(x) = \frac{f'(x)}{f(x)(\ln a)}
 $$
 
-### Sympy example
+### SymPy example
 
-Again, let's use SymPy to demonstrate this:
+Again, let's use SymPy to check this:
 
 ```python
 x, a = sp.symbols('x a')  # declare the variables x and a
@@ -186,7 +195,7 @@ $$
 
 **Definition:** Given a function $z=f(x,y)$ of two variables $x$ and $y$, the **partial derivative of $z$ with respect to $x$** is the function obtained by differentiating $f(x,y)$ with respect to $x$, holding $y$ constant.
 
-We denote this using $\partial$ (the "curly" delta, sometimes pronounced "del") as shown below:
+We denote this using $\partial$ (a "curly" d, sometimes pronounced "del") as shown below:
 
 $$
 \frac{\partial z}{\partial x}=\frac{\partial}{\partial x}f(x,y) = f_x(x,y)
@@ -223,15 +232,15 @@ $$
 \end{aligned}
 $$
 
-### Sympy example
+### SymPy example
 
-In the previous slide we had:
+Above, we had:
 
 $$
 \frac{\partial}{\partial x}\,\left(3x^2y+5xy^2\right) = 6xy+5y^2
 $$
 
-Let's redo this in Sympy:
+Let's redo this in SymPy:
 
 ```python
 x, y = sp.symbols('x y')
@@ -271,17 +280,17 @@ second-order partial derivatives.
    \frac{\partial}{\partial x}\left(\frac{\partial z}{\partial y}\right) =\frac{\partial^2z}{\partial x\partial y} =z_{yx}
    $$
 
-## Example: LaPlace's equation for equilibrium temperature distribution on a copper plate
+## Example: Laplace's equation for equilibrium temperature distribution on a copper plate
 
 Let $T(x,y)$ give the temperature at the point $(x,y)$.
 
-According to a result of the French mathematician Pierre LaPlace (1749 - 1827), at every point $(x,y)$ the second-order partials of $T$ must satisfy the equation:
+According to a result of the French mathematician Pierre-Simon Laplace (1749 - 1827), at every point $(x,y)$ the second-order partials of $T$ must satisfy the equation:
 
 $$
 T_{xx} + T_{yy} = 0
 $$
 
-We can verify that the function $T(x,y)=y^2-x^2$ satisfies LaPlace's equation:
+We can verify that the function $T(x,y)=y^2-x^2$ satisfies Laplace's equation:
 
 First with respect to $x$:
 
@@ -303,7 +312,7 @@ $$
 
 which proves the result.
 
-The function $z=x^2y - xy^2$ does _not_ satisfy LaPlace's equation (and so cannot be a model for thermal equilibrium).
+The function $z=x^2y - xy^2$ does _not_ satisfy Laplace's equation (and so cannot be a model for thermal equilibrium).
 
 First note that
 
@@ -329,7 +338,7 @@ $$
 z_{xx}+z_{yy}=2y-2x\ne 0
 $$
 
-We can also verify this in Sympy like so:
+We can also verify this in SymPy like so:
 
 ```python
 T1 = y**2 - x**2
@@ -353,7 +362,7 @@ $$
 
 ## A note on the mixed partials $f_{xy}$ and $f_{yx}$
 
-If all of the partials of $f(x,y)$ exist, then $f_{xy}=f_{yx}$ for all $(x,y)$.
+For almost any function you will meet, $f_{xy}=f_{yx}$, so it does not matter in which order we take the partial derivatives (there are exceptions, but you are unlikely to meet them).
 
 ### Example
 
@@ -383,7 +392,7 @@ $$
 Differentiate the following functions with respect to $x$, using the stated rules where indicated:
 
 1. Product rule: $\sqrt{x}\,e^x$
-1. Product rule: $3x^2 \log(x)$
+1. Product rule: $3x^2 \ln(x)$
 1. Chain rule: $e^{-4x^3}$
 1. Chain rule: $\ln \sqrt{x^{3/2}/6}$
 1. Chain rule: $10^{x^2}$
