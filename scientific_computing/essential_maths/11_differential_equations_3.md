@@ -16,8 +16,6 @@ attribution:
     license: CC-BY-4.0
 ---
 
-## Steady State Solutions and Mass Action
-
 ---
 
 ## YouTube lecture recording from October 2020
@@ -28,6 +26,8 @@ The material is still very similar:
 [![Youtube lecture thumbnail](fig/youtube11.jpg)](https://youtu.be/zAZ-FPnLvCg)
 
 ---
+
+## Steady state solutions and mass action
 
 ## Steady-state solutions
 
@@ -41,39 +41,49 @@ The material is still very similar:
 
 ### Example 1: radioactive decay
 
-Recall the radioactive decay equation $\displaystyle \frac{{\rm d}N}{{\rm d}t} = -\lambda N.$
+Recall the radioactive decay equation
 
-Let us examine a plot of the solution, $N$, and the gradient $\displaystyle \frac{{\rm d}N}{{\rm d}t}$ as functions of time:
+$$
+\frac{dN}{dt} = -\lambda N.
+$$
+
+Let us examine a plot of the solution, $N$, and the gradient $dN/dt$ as functions of time:
 
 ![Plot of N vs dNdT](fig/11_01_solution_vs_gradient.svg)
 
 - Here the steady state occurs when $N=0$, and is 'reached' after infinite time.
 
-- For small positive $N$ the derivative $\;\displaystyle \frac{{\rm d}N}{{\rm d}t}\;$ is negative, moving the system towards the steady state.
+- For small positive $N$ the derivative $dN/dt$ is negative, moving the system towards the steady state.
 
 - Physical considerations show that negative $N$ is impossible, hence the steady state is stable as we would expect.
 
 ### Example 2: production and degradation of a protein
 
-Consider a simple model of the production and degradation of a protein, shown by the reaction chain $\;\;\overset{v_1}{\rightarrow}S\overset{v_2}{\rightarrow}\;\;$ where $\;v_1\;$ and $\;v_2\;$ are reaction rates, and let $\;s=[S]$.
+Consider a simple model of the production and degradation of a protein, shown by the reaction chain $\overset{v_1}{\rightarrow}S\overset{v_2}{\rightarrow}$ where $v_1$ and $v_2$ are reaction rates, and let $s=[S]$.
 
 We can represent the change in concentration of the protein by
 
-> $$\displaystyle \frac{{\rm d}s}{{\rm d}t} = v_1 - v_2 $$
+$$
+\frac{ds}{dt} = v_1 - v_2
+$$
 
-so the steady state occurs when $\;v_1 = v_2$.
+so the steady state occurs when $v_1 = v_2$.
 
 ## Mass action
 
 Consider, again, the reaction chain:
 
-> $$\displaystyle \;\;\overset{v_1}{\rightarrow}S\overset{v_2}{\rightarrow}\;\;$$
+$$
+\overset{v_1}{\rightarrow}S\overset{v_2}{\rightarrow}
+$$
 
-Suppose the reaction is governed by ["mass action" kinetics](https://en.wikipedia.org/wiki/Law_of_mass_action), so $\;v_1=k_1\;$ (constant) and $\;v_2=k_2 s$.
+Suppose the reaction is governed by ["mass action" kinetics](https://en.wikipedia.org/wiki/Law_of_mass_action), so $v_1=k_1$ (constant) and $v_2=k_2 s$.
 
 The equation is then
 
-> $$\displaystyle \frac{{\rm d}s}{{\rm d}t} = k_1 - k_2 s.$$
+$$
+\frac{ds}{dt} = k_1 - k_2 s.
+$$
 
 The steady state is given by $s = k_1/k_2$, and it is stable:
 
@@ -89,14 +99,20 @@ We can see that it is stable by examining the graph:
 
 We can solve the differential equation by separation of variables.
 
-> $$\displaystyle  \int {1\over k_1 - k_2 s}~{\rm d}s = \int~{\rm d}t $$
-> $$\displaystyle s(t) = Be^{-k_2 t} + {k_1\over k_2} $$
+$$
+\begin{aligned}
+\int \frac{1}{k_1 - k_2 s}\,ds &= \int dt \\
+s(t) &= Be^{-k_2 t} + \frac{k_1}{k_2}
+\end{aligned}
+$$
 
 Thus, the concentration of $S$ relaxes exponentially to the steady state, no matter the initial condition.
 
 If the initial concentration of $S$ is given by $s_0$ then
 
-> $$\displaystyle  s(t) = s_0 e^{-k_2 t} + {k_1\over k_2}\left(1-e^{-k_2 t}\right) $$
+$$
+s(t) = s_0 e^{-k_2 t} + \frac{k_1}{k_2}\left(1-e^{-k_2 t}\right)
+$$
 
 ---
 
@@ -109,14 +125,16 @@ If we were to have the following form for $v_1$ and $v_2$:
 
 then:
 
-> $$\displaystyle \frac{{\rm d}s}{{\rm d}t} = k_1s - k_2 s^2$$
+$$
+\frac{ds}{dt} = k_1s - k_2 s^2
+$$
 
-This system will be at steady state when $\displaystyle k_1 s = k_2 s^2$, i.e.
+This system will be at steady state when $k_1 s = k_2 s^2$, i.e.
 
 - $s=0$ or
 - $s=k_1/k_2$
 
-We can plot $\;\displaystyle \frac{{\rm d}s}{{\rm d}t}\;$ versus $\;s\;$ to see if they are stable or unstable.
+We can plot $ds/dt$ versus $s$ to see if they are stable or unstable.
 Here, $k_1 = k_2 = 1$:
 
 ![Plot illustrating the quadratic steady state](fig/11_03_quadratic_ss.svg)
@@ -128,7 +146,9 @@ Here, $k_1 = k_2 = 1$:
 
 Let us investigate this same behaviour in a more rigorous manner.
 
-> $$\displaystyle \frac{{\rm d}s}{{\rm d}t} = k_1s - k_2 s^2$$
+$$
+\frac{ds}{dt} = k_1s - k_2 s^2
+$$
 
 - When $s$ is small (and positive, since it is a concentration) $s\gg s^2$ so the derivative $k_1 s - k_2 s^2$ will be positive, making $s=0$ an unstable steady state.
 
@@ -136,11 +156,15 @@ Let us investigate this same behaviour in a more rigorous manner.
 
 Then:
 
-> $\displaystyle s^2=\frac{k_1^2}{k_2^2} + 2 \varepsilon\frac{k_1}{k_2} + \varepsilon^2\;$
+$$
+s^2=\frac{k_1^2}{k_2^2} + 2 \varepsilon\frac{k_1}{k_2} + \varepsilon^2
+$$
 
 The derivative (after substituting $s$ and $s^2$ into the original differential equation) is:
 
-> $\displaystyle \frac{{\rm d}s}{{\rm d}t} = - k_1\varepsilon - k_2\varepsilon^2$.
+$$
+\frac{ds}{dt} = - k_1\varepsilon - k_2\varepsilon^2.
+$$
 
 It is, since $\varepsilon\gg\varepsilon^2$, negative, pushing $s$ back towards the steady state, hence it is a stable steady state.
 
@@ -148,19 +172,23 @@ It is, since $\varepsilon\gg\varepsilon^2$, negative, pushing $s$ back towards t
 
 The growth of a cell colony can be modelled by the _logistic_ equation
 
-> $$\displaystyle \frac{{\rm d}N}{{\rm d}t} = rN\left(1 - {N\over K}\right) $$
+$$
+\frac{dN}{dt} = rN\left(1 - \frac{N}{K}\right)
+$$
 
-where $\displaystyle \;N(t)\;$ is the number of cells at time $\;t,\;$ and $\;r\;$ and $\;K\;$ are constant parameters (both positive).
+where $N(t)$ is the number of cells at time $t$, and $r$ and $K$ are constant parameters (both positive).
 
 The steady state for the system, or equilibrium population size, occurs when the growth rate is zero, i.e.
 
-> $$\displaystyle \frac{{\rm d}N}{{\rm d}t} = 0 \quad\Rightarrow\quad rN = {r\over K}N^2 \quad\Rightarrow\quad N = 0 {\rm~or~} N = K.$$
+$$
+\frac{dN}{dt} = 0 \quad\Rightarrow\quad rN = \frac{r}{K}N^2 \quad\Rightarrow\quad N = 0 \text{ or } N = K.
+$$
 
 Here is a plot, for $r=K=1$:
 
 ![Plot illustrating the steady states of the logistic equation](fig/11_04_logistic_ss.svg)
 
-- for small positive $N$, $rN>0$ and $N<K$ so $\displaystyle \frac{{\rm d}N}{{\rm d}t}>0$ and the population
+- for small positive $N$, $rN>0$ and $N<K$ so $dN/dt>0$ and the population
   size will increase, meaning that $N=0$ is an unstable steady state.
 
 - In fact the growth rate is positive for $0<N<K$ and negative for $N>K$, making
@@ -169,13 +197,17 @@ Here is a plot, for $r=K=1$:
 We can solve the differential equation to examine the transient behaviour.
 This is a separable equation, so
 
-> $$ \int {1\over rKN-rN^2}~{\rm d}N = \int {1\over K}~{\rm d}t $$
+$$
+\int \frac{1}{rKN-rN^2}\,dN = \int \frac{1}{K}\,dt
+$$
 
 This can be solved using partial fractions on the left hand side:
 
 - With initial conditions $N(0)=N_0$ you get
 
-  > $$\displaystyle  N(t) = {K N_0 e^{rt}\over K + N_0(e^{rt}-1)} $$
+  $$
+  N(t) = \frac{K N_0 e^{rt}}{K + N_0(e^{rt}-1)}
+  $$
 
 ## Summary of first order differential equations
 
@@ -211,56 +243,82 @@ Let us look at some examples:
 1. A and B produce C. The reaction is governed by A meeting B:
 
    $$
-   \displaystyle A+B\underset{^k}{\rightarrow} C
+   A+B\underset{k}{\rightarrow} C
    $$
 
    Then we get the following differential equations:
 
-   > $$\displaystyle \frac{{\rm d}[A]}{{\rm d}t} = -k[A] [B]$$ > $$\displaystyle \frac{{\rm d}[B]}{{\rm d}t} = -k[A] [B]$$ > $$\displaystyle \frac{{\rm d}[C]}{{\rm d}t} = k[A] [B]$$
+   $$
+   \begin{aligned}
+   \frac{d[A]}{dt} &= -k[A][B] \\
+   \frac{d[B]}{dt} &= -k[A][B] \\
+   \frac{d[C]}{dt} &= k[A][B]
+   \end{aligned}
+   $$
 
 2. Predation of R by W
 
-   > $$\displaystyle R+W\underset{^k}{\rightarrow} W$$
+   $$
+   R+W\underset{k}{\rightarrow} W
+   $$
 
    Gives the following differential equation:
 
-   > $$\displaystyle \frac{{\rm d}R}{{\rm d}t} = -kRW$$
+   $$
+   \frac{dR}{dt} = -kRW
+   $$
 
 3. Constant production (zeroth order)
 
-   > $$\displaystyle 0 \underset{^k}{\rightarrow} A$$
+   $$
+   0 \underset{k}{\rightarrow} A
+   $$
 
    Gives the following differential equation:
 
-   > $$\displaystyle \frac{{\rm d}[A]}{{\rm d}t} = k$$
+   $$
+   \frac{d[A]}{dt} = k
+   $$
 
 4. Degradation/death
 
-   > $$\displaystyle C \underset{^k}{\rightarrow} 0$$
+   $$
+   C \underset{k}{\rightarrow} 0
+   $$
 
    Gives the following differential equation:
 
-   > $$\displaystyle \frac{{\rm d}[C]}{{\rm d}t} = -k[C]$$
+   $$
+   \frac{d[C]}{dt} = -k[C]
+   $$
 
 ## Numerically solving differential equations
 
 What if we can't solve the differential equation (or don't want to)?
 
-> $$\displaystyle  \frac{{\rm d}y}{{\rm d}t} = \sin\left(\frac{y\ln(t\cos(y))}{\sqrt{1+y/e^t}}\right) + 3$$
+$$
+\frac{dy}{dt} = \sin\left(\frac{y\ln(t\cos(y))}{\sqrt{1+y/e^t}}\right) + 3
+$$
 
 ### Euler's method
 
 Given a differential equation
 
-> $$\displaystyle  \frac{{\rm d}y}{{\rm d}t} = f(y, t)$$
+$$
+\frac{dy}{dt} = f(y, t)
+$$
 
-with initial state $\;y(t = t_0) = y_0,\;$ we can _approximate_ the state at $t = t_0 + \delta{t}$ as:
+with initial state $y(t = t_0) = y_0$, we can _approximate_ the state at $t = t_0 + \delta{t}$ as:
 
-> $$\displaystyle  y_1 = y(t + \delta{t}) \approx y_0 + f(y, t) \cdot \delta{t}$$
+$$
+y_1 = y(t + \delta{t}) \approx y_0 + f(y, t) \cdot \delta{t}
+$$
 
 and the next state as
 
-> $$\displaystyle  y_2 = y(t + 2\delta{t}) \approx y_1 + f(y, t) \cdot \delta{t}$$
+$$
+y_2 = y(t + 2\delta{t}) \approx y_1 + f(y, t) \cdot \delta{t}
+$$
 
 and so on!
 
@@ -276,11 +334,11 @@ We have already seen examples of this, using SciPy's ODEInt function, although t
 ::::challenge{id="11_intro_01" title="Introductory problems 1"}
 Determine the steady states are their stabilities, for each of the following:
 
-1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{x}{t} = x(a-x)$, where $a$ is a positive constant
-1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{x}{t} = x^{2}-4x+3$
-1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{x}{t} = e^{x}(x^{2}-1)$
-1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{N}{t} = \displaystyle r_{0}N\left(1-\frac{N}{K}\right)$, where $r_{0}<0$ and $r_{0},\;K$ are constants
-1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{x}{t} = \displaystyle \frac{Ax}{h+x}$, where $A$ and $h$ are negative constants
+1. $dx/dt = x(a-x)$, where $a$ is a positive constant
+1. $dx/dt = x^{2}-4x+3$
+1. $dx/dt = e^{x}(x^{2}-1)$
+1. $dN/dt = r_{0}N\left(1-N/K\right)$, where $r_{0}<0$ and $r_{0}$, $K$ are constants
+1. $dx/dt = Ax/(h+x)$, where $A$ and $h$ are negative constants
 
 ::::
 
@@ -290,11 +348,18 @@ Determine the steady states are their stabilities, for each of the following:
 Not all chemical systems relax exponentially to steady state.
 Consider the bimolecular decay reaction
 
-> $$\displaystyle A + A \stackrel{k}{\longrightarrow}$$
+$$
+A + A \stackrel{k}{\longrightarrow}
+$$
 
 Assuming $k$ is a mass action constant, form and solve a differential equation representing the change in concentration of $A$.
 
-If $a(0)=a_0$ you should get $\displaystyle \quad a(t) = \frac{1}{2kt + \frac{1}{a_0}}.$
+If $a(0)=a_0$ you should get
+
+$$
+a(t) = \frac{1}{2kt + \frac{1}{a_0}}.
+$$
+
 ::::
 
 ::::challenge{id="11_main_02" title="Main problems 2"}
@@ -335,11 +400,11 @@ where $k_f$ and $k_b$ are mass action coefficients.
 Consider the simple model
 
 $$
-\def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{s}{t} = k - {V_{\rm max}s\over K_M + s}
+\frac{ds}{dt} = k - \frac{V_{\text{max}}s}{K_M + s}
 $$
 
 in which species $s$ is produced at a fixed rate and consumed via Michaelis-Menten kinetics.
-Find the steady state of $s$, and verify that it is stable for any non-negative parameter values, provided $\displaystyle V_{\rm max} > k$.
+Find the steady state of $s$, and verify that it is stable for any non-negative parameter values, provided $V_{\text{max}} > k$.
 ::::
 
 ::::challenge{id="11_main_05" title="Main problems 5"}
@@ -355,10 +420,12 @@ where $v_1$ and $v_2$ are reaction rates rather than mass action coefficients.
    Write down a differential equation describing the rate of change of S, and find the steady state concentration of S in terms of the two parameters $k_1$ and $k_2$ (i.e. the concentration at which the rate of change is zero).
    At what rate is S being produced in steady state?
 1. Now suppose that
+
    $$
-   v_1 = k_0 + {k_1 s^2\over k_2+s^2} \quad\text{and}\quad v_2 = k_3 s
+   v_1 = k_0 + \frac{k_1 s^2}{k_2+s^2} \quad\text{and}\quad v_2 = k_3 s
    $$
-   and take the parameter values to be $\displaystyle k_0=6/11,\;k_1=60/11,\;k_2=11,\;k_3=1$.
+
+   and take the parameter values to be $k_0=6/11$, $k_1=60/11$, $k_2=11$, $k_3=1$.
    Determine the number of steady states and the type of each.
 
 ::::
@@ -369,11 +436,11 @@ where $v_1$ and $v_2$ are reaction rates rather than mass action coefficients.
 Various mathematical models have been proposed for the initial growth of solid tumours, and some are summarised in [_The Model Muddle: In Search of Tumor Growth Laws_](https://doi.org/10.1158/0008-5472.CAN-12-4355).
 They are differential equations describing the rate of change of tumour volume $V$ as a function of time $t$, for example:
 
-1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{V(t)}{t} = rV(t)$
+1. $dV(t)/dt = rV(t)$
 
-1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{V(t)}{t} = rV(t)^b$
+1. $dV(t)/dt = rV(t)^b$
 
-1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{V(t)}{t} = r_0 e^{-\rho t}V(t)$
+1. $dV(t)/dt = r_0 e^{-\rho t}V(t)$
 
 Solve each equation both analytically and numerically, using Python.
 As was done in Figure 1A in the paper, compare the behaviours of the different growth laws over a suitable time interval for an initially small tumour, again using Python.
@@ -382,11 +449,11 @@ As was done in Figure 1A in the paper, compare the behaviours of the different g
 ::::challenge{id="11_ext_02" title="Extension problems 2"}
 Find the solution to the following differential equations subject to the specified boundary conditions, using integrating factors:
 
-1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{y}{x} + {y\over x} = 0 \quad\text{with}\quad y(2)=2 \quad\text{for}\quad x>0$
-1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{y}{x} + (2x-1)y = 0 \quad\text{with}\quad y(1)=2$
-1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} x^3\,\dd{y}{x} + 2y = e^{1/x^2} \quad\text{with}\quad y(1)=e$
-1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \sec(x)\,\dd{y}{x} + y = 1 \quad\text{with}\quad y(0) = 1$
-1. $\displaystyle \def\dd#1#2{{\frac{{\rm d}#1}{{\rm d}#2}}} \dd{y}{x} + y\tan(x) = \cos(x) \quad\text{with}\quad y(0)=1 \quad\text{for}\quad 0 \le x < \frac{\pi}{2}$
+1. $dy/dx + y/x = 0 \quad\text{with}\quad y(2)=2 \quad\text{for}\quad x>0$
+1. $dy/dx + (2x-1)y = 0 \quad\text{with}\quad y(1)=2$
+1. $x^3\,dy/dx + 2y = e^{1/x^2} \quad\text{with}\quad y(1)=e$
+1. $\sec(x)\,dy/dx + y = 1 \quad\text{with}\quad y(0) = 1$
+1. $dy/dx + y\tan(x) = \cos(x) \quad\text{with}\quad y(0)=1 \quad\text{for}\quad 0 \le x < \pi/2$
 
 ::::
 
@@ -394,12 +461,12 @@ Find the solution to the following differential equations subject to the specifi
 Consider the second order differential equation
 
 $$
-\def\ddd#1#2{{{{\rm d}^2#1}\over{\d{#2}^2}}} \def\d#1{{\rm d}#1} \ddd{y}{x} + y = 0
+\frac{d^2y}{dx^2} + y = 0
 $$
 
-Show that $\displaystyle y = Ae^{z_1 x} + Be^{z_2 x}$ is a solution to this equation for some complex numbers $z_1$, $z_2$ and real constants $A$, $B$.
+Show that $y = Ae^{z_1 x} + Be^{z_2 x}$ is a solution to this equation for some complex numbers $z_1$, $z_2$ and real constants $A$, $B$.
 
-1. Recalling that any complex number $z$ can be written as $\displaystyle z = re^{i\theta} = r(\cos\theta + i\sin\theta)$, what does this tell you about the nature of the solution?
+1. Recalling that any complex number $z$ can be written as $z = re^{i\theta} = r(\cos\theta + i\sin\theta)$, what does this tell you about the nature of the solution?
 1. If $y(0)=1$ and $y(\pi/2)=2$ what is the particular solution of the differential equation?
 
 ::::
