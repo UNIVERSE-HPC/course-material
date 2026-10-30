@@ -26,7 +26,13 @@ A recording of this lecture from October 2020; the material has changed a little
 
 ---
 
-## Integration by parts and by partial fractions
+## Why more methods?
+
+Not every function can be integrated by reversing a standard derivative, or by substitution.
+
+In this lecture we add two more methods: _integration by parts_, which reverses the product rule, and _partial fractions_, which splits a fraction into simpler ones.
+
+We will need both when we solve differential equations.
 
 ## Integration reverses the process of differentiation
 
@@ -36,7 +42,7 @@ $$
 \frac{d(a\, x^{n+1})}{dx}=(n+1)a\, x^n \qquad\Rightarrow\qquad \int_{x_1}^{x_2} a\, x^n\,dx = \Big[\frac{a}{n+1}\, x^{n+1}\Big]_{x_1}^{x_2}
 $$
 
-### Reminder: method 1: integration by substitution
+### Reminder, method 1: integration by substitution
 
 This method can be thought of as an integral version of the chain rule.
 Suppose we wish to integrate:
@@ -148,6 +154,8 @@ $$
 x \log{\left(x \right)} - x
 $$
 
+(SymPy writes $\log$ for the natural logarithm, $\ln$.)
+
 ### Integration by parts: example 3
 
 $$
@@ -199,18 +207,19 @@ Then:
 $$
 \begin{aligned}
 \int\limits^{\infty}_0 6x\,e^{-x}\,dx &=-\Big[6x\,e^{-x}\Big]^{\infty}_0 +\int\limits^{\infty}_0 6\,e^{-x}\,dx \\
-\Longrightarrow \int\limits^{\infty}_0 6\,e^{-x}\,dx &= -\Big[6\,e^{-x}\Big]^{\infty}_0=-6e^{-\infty}+6e^0=6
+\Longrightarrow \int\limits^{\infty}_0 6\,e^{-x}\,dx &= -\Big[6\,e^{-x}\Big]^{\infty}_0=0+6e^0=6
 \end{aligned}
 $$
 
-(Since $e^{-\infty}=0$ and $e^0=1$)
+(Since $e^{-x}\to 0$ as $x\to\infty$, and $e^0=1$)
 
-The other terms all go to zero:
+The other terms are all zero, because $x^3e^{-x}$, $3x^2e^{-x}$ and $6x\,e^{-x}$ all tend to $0$ as $x\to\infty$ ($e^{-x}$ shrinks faster than any power of $x$ grows), and all are $0$ at $x=0$:
 
 $$
 \begin{aligned}
--\Big[x^3\,e^{-x}\Big]^{\infty}_0 &=-{\infty}^3\,e^{-\infty} + 0 =0 \\
--\Big[3x^2\,e^{-x}\Big]^{\infty}_0 &=-3{\infty}^2\,e^{-\infty} + 0 =0
+-\Big[x^3\,e^{-x}\Big]^{\infty}_0 &= 0 - 0 = 0 \\
+-\Big[3x^2\,e^{-x}\Big]^{\infty}_0 &= 0 - 0 = 0 \\
+-\Big[6x\,e^{-x}\Big]^{\infty}_0 &= 0 - 0 = 0
 \end{aligned}
 $$
 
@@ -300,7 +309,7 @@ $$
 If we multiply both sides by $(2x+1)(x-5)$, we get:
 
 $$
-A(x-5)+B(2x+1)=1 \qquad\text{so}\qquad Ax-5A+B2x+B=1
+A(x-5)+B(2x+1)=1 \qquad\text{so}\qquad Ax-5A+2Bx+B=1
 $$
 
 We can then equate coefficients of $x$:
@@ -309,7 +318,7 @@ $$
 A+2B=0 \qquad\text{thus}\qquad A=-2B \qquad \text{(A)}
 $$
 
-Equate units (coefficients of $x^0$):
+Equate the constant terms (coefficients of $x^0$):
 
 $$
 -5A+B=1 \qquad\text{so from (A):}\qquad 10B+B=1, \quad B=\frac{1}{11}, \quad A=-\frac{2}{11}
@@ -339,7 +348,7 @@ so $dw/dx=1$ and $dx/dw=1$
 
 $$
 \begin{aligned}
-\int \frac{2\, du}{2 \times 11 \times u} + \int \frac{dw}{11w} &= -\frac{\ln u}{11} + \frac{\ln w}{11} \\
+-\int \frac{2\, du}{2 \times 11 \times u} + \int \frac{dw}{11w} &= -\frac{\ln |u|}{11} + \frac{\ln |w|}{11} \\
 &=-\frac{\ln |2x+1|}{11} + \frac{\ln |x-5|}{11}
 \end{aligned}
 $$
@@ -389,8 +398,8 @@ Evaluate the following indefinite and definite integrals:
 
 1. $\int 6/(7-x)^3\,dx$
 1. $\int 13x^3(9-x^4)^5\,dx$
-1. $\int_2^5 5\log(x)\,dx$
-1. $\int x^x\,(1 + \log(x))\,dx$
+1. $\int_2^5 5\ln(x)\,dx$
+1. $\int x^x\,(1 + \ln(x))\,dx$
 
 ::::
 
