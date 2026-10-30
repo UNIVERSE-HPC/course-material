@@ -39,7 +39,7 @@ attribution:
 
 The most recent substantial iteration of this course was developed by Fergus Cooper, Beth Dingley, and Elliot Howard-Spink.
 
-## Why Maths?
+## Why maths?
 
 Maths is the language we use to quantitatively describe the world.
 
@@ -56,7 +56,7 @@ Some of you **may** feel you don't need to know any maths, but this course will 
 - Identify patterns, trends, relationships
 - Deal robustly with uncertainty and variation
 
-### Describe the behaviour of systems
+### Describing systems
 
 - Remove ambiguity: explicit assumptions
 - Quantitative hypotheses
@@ -64,7 +64,9 @@ Some of you **may** feel you don't need to know any maths, but this course will 
 - "If I make this intervention, I expect to see that change"
 - Explain **why** something is observed
 
-### Vital for dynamic and nonlinear systems
+### Dynamic and nonlinear systems
+
+Vital for **dynamic** and **nonlinear** systems
 
 - Simple intuition breaks down
 - Most of biology is dynamic and nonlinear!
@@ -85,4 +87,5 @@ Some of you **may** feel you don't need to know any maths, but this course will 
 - Ordinary differential equations
 - Linear algebra (matrices)
 - Coupled systems of ordinary differential equations
+- Probability
 - Use of Python
