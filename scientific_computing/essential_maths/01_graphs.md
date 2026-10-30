@@ -41,7 +41,7 @@ Terminology:
 - The dependent variable is said to be graphed _against_ the independent
   variable
 
-Essential Features:
+Essential features:
 
 - Title
 - Axis labels (and units if appropriate)
@@ -52,7 +52,9 @@ Essential Features:
 
 Defined by a gradient, $m$, and a $y$-axis intercept, $c$:
 
-$$y = m x + c$$
+$$
+y = m x + c
+$$
 
 Interpretation:
 
@@ -60,25 +62,33 @@ Interpretation:
   $y = c$
 
 - The gradient of this line (also called its "slope") is given by
-  $$m = {y_2-y_1\over x_2 - x_1}$$
+
+  $$
+  m = \frac{y_2-y_1}{x_2 - x_1}
+  $$
+
   ("change in $y$ divided by change in $x$")
 
-- The intercept of this line on the $x$ axis is given by $x = -{c \over m}$,
+- The intercept of this line on the $x$ axis is given by $x = -c/m$,
   since at $y=0$ we must have $mx=-c$
 
-## Graphs of Polynomials
+## Graphs of polynomials
 
 An expression involving higher powers of $x$ is called a _polynomial_ in $x$.
 
 ### Example
 
-$y=x^5-5x^3+4x$
+$$
+y=x^5-5x^3+4x
+$$
 
 ![Example graph of a polynomial](fig/01_02_polynomial.svg)
 
 ### In general
 
-$$y = a_n x^n + a_{n-1} x^{n-1} + a_{n-2} x^{n-2}+\ldots+a_1 x^1 + a_0x^0$$
+$$
+y = a_n x^n + a_{n-1} x^{n-1} + a_{n-2} x^{n-2}+\ldots+a_1 x^1 + a_0x^0
+$$
 
 The graph of a polynomial of degree $n$ has at most $n-1$ bends in it.
 
@@ -86,7 +96,7 @@ The graph of a polynomial of degree $n$ has at most $n-1$ bends in it.
 
 If we wish to test visually whether some data fit a particular relationship, we can transform the data to plot something which should be linear if the relationship holds.
 
-### e.g. Test for _parabolic_ shape for data in $(x,y)$: i.e. $y = x^2$
+### e.g. test for _parabolic_ shape for data in $(x,y)$: i.e. $y = x^2$
 
 - We can plot $Y$ against $X$ where we let $Y=y$ and $X=x^2$.
 
@@ -117,7 +127,10 @@ We next add a trendline through these points which we can use to determine the g
 ## Example from biosciences
 
 The rate at which a given enzyme can catalyse a reaction can be dependent upon the substrate concentration:
-$${1\over V} = {m\over S} + c$$
+
+$$
+\frac{1}{V} = \frac{m}{S} + c
+$$
 
 where $V$ is the rate of the reaction, $S$ is the substrate concentration and
 $m$ and $c$ are constants.
@@ -156,13 +169,13 @@ Sketch the following graphs.
 First, use pen & paper, then use Python to check your answers.
 The notation after each equation indicates the range of values that $x$ can take.
 
-1. $\displaystyle y = 3x+5 \qquad\qquad x\in[0,10]$
-1. $\displaystyle y = \frac{x^2}{2} - 4 \qquad\qquad x\in[-4,4]$
-1. $\displaystyle y = \sqrt{x} \qquad\qquad x\in[0,25]$
-1. $\displaystyle y = \sin(t) \qquad\qquad t\in[0,2\pi]$
-1. $\displaystyle y = \sin(2t) \qquad\qquad t\in[0,2\pi]$
-1. $\displaystyle y = \frac{1}{x} \qquad\qquad x\in[0.1,5]$
-1. $\displaystyle y = \frac{-1}{x^2} \qquad\qquad x\in[0.1,5]$
+1. $y = 3x+5 \qquad\qquad x\in[0,10]$
+1. $y = x^2/2 - 4 \qquad\qquad x\in[-4,4]$
+1. $y = \sqrt{x} \qquad\qquad x\in[0,25]$
+1. $y = \sin(t) \qquad\qquad t\in[0,2\pi]$
+1. $y = \sin(2t) \qquad\qquad t\in[0,2\pi]$
+1. $y = 1/x \qquad\qquad x\in[0.1,5]$
+1. $y = -1/x^2 \qquad\qquad x\in[0.1,5]$
 
 ```python
 # hint
@@ -180,20 +193,24 @@ plt.plot(x, y)
 ::::challenge{id="01_intro_02" title="Introductory problems 2"}
 For which values of $x$ are the following functions positive? Negative? Zero?
 
-1. $\displaystyle x^2 - 9$
-1. $\displaystyle\sin(x)$
-1. $\displaystyle\sin(3x)$
-1. $\displaystyle\frac{2}{x} - \frac{1}{x^2}$
+1. $x^2 - 9$
+1. $\sin(x)$
+1. $\sin(3x)$
+1. $2/x - 1/x^2$
 
 ::::
 
 ### Main problems
 
-Text relevant to these problems: Croft and Davison, 5$^{\rm th}$ Edition, Chapters 17 & 18.
+Text relevant to these problems: Croft and Davison, 5th Edition, Chapters 17 & 18.
 
 ::::challenge{id="01_main_01" title="Main problems 1"}
 The Lennard-Jones potential energy between two non-polar atoms may be given by the equation:
-$$V(R)={A\over R^{12}} - {B \over R^6} $$
+
+$$
+V(R)=\frac{A}{R^{12}} - \frac{B}{R^6}
+$$
+
 where $A$ and $B$ are positive constants, $V(R)$ is the potential energy, measured in Joules, and $R$ is the internuclear distance measured in $\AA$.
 
 1. For which values of $R$ is $V(R)$ positive? Negative? Zero?
@@ -202,7 +219,7 @@ where $A$ and $B$ are positive constants, $V(R)$ is the potential energy, measur
 1. What would happen to the two atoms if they were brought very close together?
 1. What is the physical interpretation of the sign of $V(R)$, and of its slope?
 1. What are the dimensions ([Length], [Mass], [Time]) and units of the constants $A$ and $B$?
-1. Use Python to plot the graph of $V$ versus $R$ for $A=0.06$ and $B = 0.03$. Remember to add relevant axis labels. Plot on the same graph the line of $V = 0$, so you can verify your answers in 1. and 2.
+1. Use Python to plot the graph of $V$ versus $R$ for $A=0.06$ and $B = 0.03$. Remember to add relevant axis labels. Plot on the same graph the line of $V = 0$, so you can verify your answers to **1.** and **2.**
 
 ::::
 
@@ -210,22 +227,26 @@ where $A$ and $B$ are positive constants, $V(R)$ is the potential energy, measur
 How should these equations be rearranged to allow the plotting of a suitable **linear** graph, assuming that the constant parameters $a$ and $b$ are unknown, and we wish to use the graph to find them?
 Write down expressions for the gradient, $X$-intercept and $Y$-intercept of each rearranged equation:
 
-1. $\displaystyle y = \frac{a}{x}$
-1. $\displaystyle y = b - a \sqrt{x}$
-1. $\displaystyle y = \frac{b}{1+ax}$
+1. $y = a/x$
+1. $y = b - a \sqrt{x}$
+1. $y = b/(1+ax)$
 
 ::::
 
 ::::challenge{id="01_main_03" title="Main problems 3"}
 The _osmotic pressure_ of a solution of a protein is related to the concentration of that protein by the equation:
-$$Z = R\;T\;b$$
-where $Z$ is the osmotic pressure in kPa, $T$ is the temperature in Kelvin, $R$ is the gas constant ($R=8.314\;{\rm kPa}\cdot{\rm dm}^3\cdot{\rm mol}^{-1}\cdot{\rm K}^{-1}$) and $b$ is the molarity of the protein (mol. solute per dm$^3$ solution).
+
+$$
+Z = RTb
+$$
+
+where $Z$ is the osmotic pressure in kPa, $T$ is the temperature in Kelvin, $R$ is the gas constant ($R=8.314\,\text{kPa}\cdot\text{dm}^3\cdot\text{mol}^{-1}\cdot\text{K}^{-1}$) and $b$ is the molarity of the protein (mol. solute per dm$^3$ solution).
 Plot a suitable graph to determine, as accurately as possible, the molecular mass (take care with units!) of the protein given the following data taken at room temperature (usually taken as 21$^{\circ}$C):
 
 |                                        |       |       |       |       |       |
 | -------------------------------------- | :---: | :---: | :---: | :---: | :---: |
-| Protein Concentration (in g dm$^{-3})$ |  7.3  | 18.4  | 27.6  | 42.1  | 57.4  |
-| Osmotic Pressure (in kPa)              | 0.211 | 0.533 | 0.804 | 1.236 | 1.701 |
+| Protein concentration (in g dm$^{-3}$) |  7.3  | 18.4  | 27.6  | 42.1  | 57.4  |
+| Osmotic pressure (in kPa)              | 0.211 | 0.533 | 0.804 | 1.236 | 1.701 |
 
 Hint: compare the function with the equation of a straight line, $y=mx+c$, and think about the relationship between concentration, molar concentration and molecular weight).
 
@@ -236,7 +257,11 @@ Use Python to plot the graph and confirm your pen & paper solution.
 
 ::::challenge{id="01_ext_01" title="Extension problems 1"}
 The rate at which a given enzyme catalyses a reaction is dependent upon the substrate concentration:
-$$V = \frac{S}{m+cS}$$
+
+$$
+V = \frac{S}{m+cS}
+$$
+
 where $V$ is the rate of the reaction, $S$ is the substrate concentration and $m$ and $c$ are _unknown_ constants.
 How can we transform $V$ and $S$ to derive a straight line graph relating them?
 What will be the gradient and the ordinate intercepts?
