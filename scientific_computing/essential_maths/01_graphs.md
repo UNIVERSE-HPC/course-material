@@ -30,13 +30,12 @@ A recording of this lecture from October 2020; the material has changed a little
 
 ## Why graphs?
 
-A graph is where a model meets data.
-We use graphs in two directions:
+We often want to go between a formula and its graph, in either direction:
 
-- **From formula to picture:** what shape does this model predict?
-  This is _sketching_.
-- **From picture to formula:** which model describes these data, and what are its parameters?
-  This is _linearising_.
+- Given a formula, what shape will its graph have?
+  This is called _sketching_.
+- Given some data, which formula describes them, and what are its parameters?
+  We can often answer this by _linearising_ the data.
 
 ## Anatomy of a graph
 
@@ -77,7 +76,7 @@ Interpretation:
 
   ("change in $y$ divided by change in $x$")
 
-- The gradient is a _rate of change_: how much $y$ changes for each unit change in $x$
+- The gradient is also known as the _rate of change_ of $y$ with respect to $x$ (more on this when we cover differentiation)
 
 - The intercept of this line on the $x$ axis is given by $x = -c/m$,
   since at $y=0$ we must have $mx=-c$
@@ -106,7 +105,7 @@ $$
 y=x^5-5x^3+4x
 $$
 
-- **Zeros:** it factorises as
+- To sketch this, we first find where $y=0$. It factorises as
 
   $$
   y = x(x+1)(x-1)(x+2)(x-2)
@@ -114,34 +113,35 @@ $$
 
   so $y=0$ at $x = -2, -1, 0, 1, 2$
 
-- **Large $|x|$:** the $x^5$ term dominates, so $y$ rises to the right and falls to the left
+- For large $|x|$, the $x^5$ term dominates, so $y$ rises to the right and falls to the left
 
-- **Bends:** degree 5, so at most 4 bends, just enough to pass through all five zeros
+- It has degree 5, so it has at most 4 bends, just enough to pass through all five zeros
 
-- **Sign:** each zero comes from a single factor, so $y$ changes sign there
+- Each zero comes from a single factor, so $y$ changes sign there
 
-That is enough to sketch it. Plotting it confirms the sketch:
+This is enough to sketch the graph. Plotting it in Python confirms the sketch:
 
 ![Example graph of a polynomial](fig/01_02_polynomial.svg)
 
 ### A checklist for sketching
 
-For any function, ask:
+To sketch the graph of a function:
 
-- Where is it zero? Where is it positive, and where negative?
-- What happens as $x\to 0$, and as $x\to\pm\infty$? Which term dominates?
-- Is it undefined anywhere, or does it blow up (an _asymptote_)?
-- How many bends can it have? (Differentiation will find them exactly.)
+- Find where it is zero, positive and negative
+- Look at which terms dominate as $x\to\pm\infty$
+- Look at the limit behaviour as $x$ approaches any points where the function is undefined (e.g. $x\to 0$ for $y=1/x$), which may give an _asymptote_
+- Work out how many bends it can have (more on this when we cover differentiation)
 
 Then check your sketch by plotting the function in Python.
 
 ## From data to a model
 
-Going the other way: given some data, which model fits, and what are its parameters?
+Now for the other direction.
+Given some data, which formula describes them, and what are its parameters?
 
-- Curves are hard to tell apart by eye: is a trend quadratic, exponential, or something else?
-- Straight lines are easy: we see at once when points leave a line, and a line has just two numbers, its gradient and intercept.
-- So transform the data so that, **if the model is right**, the points lie on a straight line.
+- It is hard to tell by eye whether a curve is quadratic, exponential or something else.
+- It is much easier to see whether points lie on a straight line, and a straight line is described by just two numbers, its gradient and intercept.
+- If we wish to test visually whether some data fit a particular relationship, we can transform the data to plot something which should be linear if the relationship holds.
 
 ### Linearising: the recipe
 
@@ -149,12 +149,13 @@ Going the other way: given some data, which model fits, and what are its paramet
 2. Rearrange it into the form $Y = mX + c$, where $X$ and $Y$ depend only on the data, and $m$ and $c$ only on the parameters.
    Here $Y = y$, $X = x^2$, $m = a$ and $c = b$.
 3. Plot $Y$ against $X$.
-   A straight line supports the model; a systematic curve rules it out.
+   If the points lie on a straight line, the data are consistent with the model.
+   If they curve, the model is wrong.
 4. Read off the gradient and intercept, and work back to the parameters.
 
 ### Example: is this quadratic?
 
-The trend is clearly curved. Is it a parabola, $y = ax^2 + b$?
+There's a definite curve, and we may suspect the trend is quadratic: $y = ax^2 + b$.
 
 ![Graph of data with nonlinear trend](fig/01_03_nonlinear_trend.svg)
 
@@ -179,13 +180,14 @@ We next add a trendline through these points which we can use to determine the g
 
 ### Example: enzyme kinetics
 
-The _Michaelis–Menten_ model relates the rate, $V$, of an enzyme-catalysed reaction to the substrate concentration, $S$:
+The rate at which a given enzyme can catalyse a reaction can be dependent upon the substrate concentration.
+This is often modelled by the _Michaelis–Menten_ equation:
 
 $$
 V = \frac{V_{\max}S}{K_m + S}
 $$
 
-where $V_{\max}$ is the maximum rate, and $K_m$ is the substrate concentration at which the rate is half its maximum.
+where $V$ is the rate of the reaction, $S$ is the substrate concentration, $V_{\max}$ is the maximum rate, and $K_m$ is the substrate concentration at which the rate is half its maximum.
 
 First, plot the original data, which are observations of $V$ given varying $S$:
 
@@ -199,7 +201,7 @@ $$
 \frac{1}{V} = \frac{K_m + S}{V_{\max}S} = \frac{K_m}{V_{\max}}\cdot\frac{1}{S} + \frac{1}{V_{\max}}
 $$
 
-- So plot $Y=1/V$ against $X=1/S$: this is the _Lineweaver–Burk_ plot
+- We can derive a straight line graph from the above formula by plotting $Y=1/V$ against $X=1/S$ (this is called the _Lineweaver–Burk_ plot)
 
 - It will have gradient $m = K_m/V_{\max}$ and ordinate intercept $c = 1/V_{\max}$
 
@@ -217,18 +219,16 @@ We next add a trendline through these points which we can use to determine the g
 
 - We find $(X,Y)$ lie along a straight line with slope 3 and $Y$-intercept 5.
 
-- This means that $Y=3X+5$
+- This means that $Y=3X+5$, so $V_{\max} = 1/c = 0.2$ and $K_m = m/c = 0.6$.
 
-- Working back, $V_{\max} = 1/c = 0.2$ and $K_m = m/c = 0.6$.
-
-- So the data are modelled by $V = 0.2S/(0.6+S)$.
+- So, $V$ and $S$ can be modelled by the equation $V = 0.2S/(0.6+S)$.
 
 ### Linearising in practice
 
-- Transforming the data transforms its noise too: taking $1/V$ magnifies the errors in small values of $V$, and those points pull hardest on the line.
-- So today we would usually fit the nonlinear model directly, e.g. with `scipy.optimize.curve_fit`.
-- But a straight-line plot is still the clearest check that a model fits, and you'll meet them throughout the literature: Lineweaver–Burk, Arrhenius, semi-log growth curves.
-- Next: logarithms, which straighten exponentials and power laws.
+- Note, transforming the data also transforms any noise in it. Taking $1/V$ magnifies the errors in small values of $V$, and these points then have the most influence on the trendline.
+- In practice, it is usually better to fit the nonlinear model directly, e.g. using `scipy.optimize.curve_fit`.
+- Plotting in straight-line form is still a good way to check a model visually, and you will see these plots in many papers (e.g. Lineweaver–Burk, Arrhenius).
+- Logarithms, which we cover next, let us do the same for exponentials and power laws.
 
 ## Introductory problems
 
