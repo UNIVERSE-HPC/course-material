@@ -4,10 +4,9 @@ dependsOn: []
 tags: []
 learningOutcomes:
   - Be able to describe the fundamental components of a graph
-  - Understand how to derive and use the equation of a straight line
-  - Understand how to interpret graphs of polynomial functions
-  - Be able to sketch the graph of a function
-  - Use graphs to understand and evaluate functions
+  - Find and interpret the gradient and intercepts of a straight line
+  - Be able to sketch the graph of a function from its formula, using its zeros, its sign, and its behaviour for small and large values
+  - Be able to rearrange a model into straight-line form, and use the resulting graph to test the model and estimate its parameters
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/
@@ -23,20 +22,29 @@ attribution:
 
 ## YouTube lecture recording from October 2020
 
-The following YouTube video was recorded for the 2020 iteration of the course.
-The material is still very similar:
+A recording of this lecture from October 2020; the material has changed a little since.
 
 [![Youtube lecture thumbnail](fig/youtube01.jpg)](https://youtu.be/HIRpQ1caeKk)
 
 ---
 
-## Basics
+## Why graphs?
+
+A graph is where a model meets data.
+We use graphs in two directions:
+
+- **From formula to picture:** what shape does this model predict?
+  This is _sketching_.
+- **From picture to formula:** which model describes these data, and what are its parameters?
+  This is _linearising_.
+
+## Anatomy of a graph
 
 Terminology:
 
-- $Y$ or $y$ is the _dependent_ variable, sometimes called the _ordinate_
+- $Y$ or $y$ is the _dependent_ variable, sometimes called the _ordinate_,
   marked on the vertical axis
-- $X$ or $x$ is the _independent_ variable, sometimes called the _abscissa_
+- $X$ or $x$ is the _independent_ variable, sometimes called the _abscissa_,
   marked on the horizontal axis
 - The dependent variable is said to be graphed _against_ the independent
   variable
@@ -69,105 +77,165 @@ Interpretation:
 
   ("change in $y$ divided by change in $x$")
 
+- The gradient is a _rate of change_: how much $y$ changes for each unit change in $x$
+
 - The intercept of this line on the $x$ axis is given by $x = -c/m$,
   since at $y=0$ we must have $mx=-c$
 
-## Graphs of polynomials
+## Sketching graphs
 
-An expression involving higher powers of $x$ is called a _polynomial_ in $x$.
+Given a formula, what shape is its graph?
+Polynomials are a good place to start.
 
-### Example
+### Graphs of polynomials
 
-$$
-y=x^5-5x^3+4x
-$$
-
-![Example graph of a polynomial](fig/01_02_polynomial.svg)
-
-### In general
+An expression involving higher powers of $x$ is called a _polynomial_ in $x$:
 
 $$
 y = a_n x^n + a_{n-1} x^{n-1} + a_{n-2} x^{n-2}+\ldots+a_1 x^1 + a_0x^0
 $$
 
-The graph of a polynomial of degree $n$ has at most $n-1$ bends in it.
+The highest power, $n$, is its _degree_.
+The graph of a polynomial of degree $n$ has at most $n-1$ bends (turning points) in it.
 
-## Transforming from non-linear to linear
+### Sketching a polynomial
 
-If we wish to test visually whether some data fit a particular relationship, we can transform the data to plot something which should be linear if the relationship holds.
+Consider
 
-### e.g. test for _parabolic_ shape for data in $(x,y)$: i.e. $y = x^2$
+$$
+y=x^5-5x^3+4x
+$$
 
-- We can plot $Y$ against $X$ where we let $Y=y$ and $X=x^2$.
+- **Zeros:** it factorises as
 
-#### First plot the original data
+  $$
+  y = x(x+1)(x-1)(x+2)(x-2)
+  $$
 
-There's a definite curve, and we may suspect the trend is quadratic
+  so $y=0$ at $x = -2, -1, 0, 1, 2$
+
+- **Large $|x|$:** the $x^5$ term dominates, so $y$ rises to the right and falls to the left
+
+- **Bends:** degree 5, so at most 4 bends, just enough to pass through all five zeros
+
+- **Sign:** each zero comes from a single factor, so $y$ changes sign there
+
+That is enough to sketch it. Plotting it confirms the sketch:
+
+![Example graph of a polynomial](fig/01_02_polynomial.svg)
+
+### A checklist for sketching
+
+For any function, ask:
+
+- Where is it zero? Where is it positive, and where negative?
+- What happens as $x\to 0$, and as $x\to\pm\infty$? Which term dominates?
+- Is it undefined anywhere, or does it blow up (an _asymptote_)?
+- How many bends can it have? (Differentiation will find them exactly.)
+
+Then check your sketch by plotting the function in Python.
+
+## From data to a model
+
+Going the other way: given some data, which model fits, and what are its parameters?
+
+- Curves are hard to tell apart by eye: is a trend quadratic, exponential, or something else?
+- Straight lines are easy: we see at once when points leave a line, and a line has just two numbers, its gradient and intercept.
+- So transform the data so that, **if the model is right**, the points lie on a straight line.
+
+### Linearising: the recipe
+
+1. Write down the model, e.g. $y = ax^2 + b$.
+2. Rearrange it into the form $Y = mX + c$, where $X$ and $Y$ depend only on the data, and $m$ and $c$ only on the parameters.
+   Here $Y = y$, $X = x^2$, $m = a$ and $c = b$.
+3. Plot $Y$ against $X$.
+   A straight line supports the model; a systematic curve rules it out.
+4. Read off the gradient and intercept, and work back to the parameters.
+
+### Example: is this quadratic?
+
+The trend is clearly curved. Is it a parabola, $y = ax^2 + b$?
 
 ![Graph of data with nonlinear trend](fig/01_03_nonlinear_trend.svg)
 
-#### Now plot the data nonlinearly
+#### Testing the model
 
 If the parabolic relationship holds, plotting $Y=y$ against $X=x^2$ should result in a straight line.
+Plotting against $x$ or $x^3$ instead would leave the points on a curve.
 
 ![Graph of data transformed to a linear trend](fig/01_04_linear_trend.svg)
 
-#### Calculate the gradient and the intercept
+#### Gradient and intercept
 
 We next add a trendline through these points which we can use to determine the gradient and intercept.
 
 ![Graph of linear trend with trendline](fig/01_05_linear_trend_with_trendline.svg)
 
-- We find $(X,Y)$ lie along a straight line with slope 5 and Y-intercept 87.
+- We find $(X,Y)$ lie along a straight line with slope 5 and $Y$-intercept 87.
 
-- This means that $Y=5X+87$
+- This means that $Y=5X+87$, so $a = 5$ and $b = 87$.
 
 - So, $y$ and $x$ can be modelled by the polynomial equation $y=5x^2+87$.
 
-## Example from biosciences
+### Example: enzyme kinetics
 
-The rate at which a given enzyme can catalyse a reaction can be dependent upon the substrate concentration:
+The _Michaelis–Menten_ model relates the rate, $V$, of an enzyme-catalysed reaction to the substrate concentration, $S$:
 
 $$
-\frac{1}{V} = \frac{m}{S} + c
+V = \frac{V_{\max}S}{K_m + S}
 $$
 
-where $V$ is the rate of the reaction, $S$ is the substrate concentration and
-$m$ and $c$ are constants.
+where $V_{\max}$ is the maximum rate, and $K_m$ is the substrate concentration at which the rate is half its maximum.
 
-- We can derive a straight line graph from the above formula by plotting
-  $Y=1/V$ against $X=1/S$
-
-- It will have gradient $m$ and ordinate intercept $c$
-
-First, plot the original data which is observations of $V$ given varying $S$:
+First, plot the original data, which are observations of $V$ given varying $S$:
 
 ![Graph of original data](fig/01_06_original_data.svg)
 
-### Now plot the data nonlinearly
+#### Straight-line form
 
-If the hypothesised relationship holds, plotting $Y=1/V$ against $X=1/S$ should result in a straight line.
+Take the reciprocal of both sides:
+
+$$
+\frac{1}{V} = \frac{K_m + S}{V_{\max}S} = \frac{K_m}{V_{\max}}\cdot\frac{1}{S} + \frac{1}{V_{\max}}
+$$
+
+- So plot $Y=1/V$ against $X=1/S$: this is the _Lineweaver–Burk_ plot
+
+- It will have gradient $m = K_m/V_{\max}$ and ordinate intercept $c = 1/V_{\max}$
+
+#### Transformed data
+
+If the Michaelis–Menten model holds, plotting $Y=1/V$ against $X=1/S$ should result in a straight line.
 
 ![Graph of linear trend](fig/01_07_linear_trend.svg)
 
-### Calculate the gradient and the intercept
+#### Gradient and intercept
 
 We next add a trendline through these points which we can use to determine the gradient and intercept.
 
 ![Graph of linear trend with trendline](fig/01_08_linear_trend_with_trendline.svg)
 
-- We find $(X,Y)$ lie along a straight line with slope 3 and Y-intercept 5.
+- We find $(X,Y)$ lie along a straight line with slope 3 and $Y$-intercept 5.
 
 - This means that $Y=3X+5$
 
-- So, $V$ and $S$ can be modelled by the equation $1/V=3/S+5$.
+- Working back, $V_{\max} = 1/c = 0.2$ and $K_m = m/c = 0.6$.
+
+- So the data are modelled by $V = 0.2S/(0.6+S)$.
+
+### Linearising in practice
+
+- Transforming the data transforms its noise too: taking $1/V$ magnifies the errors in small values of $V$, and those points pull hardest on the line.
+- So today we would usually fit the nonlinear model directly, e.g. with `scipy.optimize.curve_fit`.
+- But a straight-line plot is still the clearest check that a model fits, and you'll meet them throughout the literature: Lineweaver–Burk, Arrhenius, semi-log growth curves.
+- Next: logarithms, which straighten exponentials and power laws.
 
 ## Introductory problems
 
 ::::challenge{id="01_intro_01" title="Introductory problems 1"}
 Sketch the following graphs.
 First, use pen & paper, then use Python to check your answers.
-The notation after each equation indicates the range of values that $x$ can take.
+The notation after each equation indicates the range of values that the variable can take.
 
 1. $y = 3x+5 \qquad\qquad x\in[0,10]$
 1. $y = x^2/2 - 4 \qquad\qquad x\in[-4,4]$
@@ -200,7 +268,7 @@ For which values of $x$ are the following functions positive? Negative? Zero?
 
 ::::
 
-### Main problems
+## Main problems
 
 Text relevant to these problems: Croft and Davison, 5th Edition, Chapters 17 & 18.
 
@@ -248,12 +316,12 @@ Plot a suitable graph to determine, as accurately as possible, the molecular mas
 | Protein concentration (in g dm$^{-3}$) |  7.3  | 18.4  | 27.6  | 42.1  | 57.4  |
 | Osmotic pressure (in kPa)              | 0.211 | 0.533 | 0.804 | 1.236 | 1.701 |
 
-Hint: compare the function with the equation of a straight line, $y=mx+c$, and think about the relationship between concentration, molar concentration and molecular weight).
+Hint: compare the function with the equation of a straight line, $y=mx+c$, and think about the relationship between concentration, molar concentration and molecular weight.
 
 Use Python to plot the graph and confirm your pen & paper solution.
 ::::
 
-### Extension problems
+## Extension problems
 
 ::::challenge{id="01_ext_01" title="Extension problems 1"}
 The rate at which a given enzyme catalyses a reaction is dependent upon the substrate concentration:
