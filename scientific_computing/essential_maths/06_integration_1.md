@@ -29,7 +29,12 @@ A recording of this lecture from October 2020; the material has changed a little
 
 ---
 
-## Introduction and integration by substitution
+## Why integration?
+
+We often know the _rate_ at which something happens (e.g. how quickly a product is made), and want to know the total amount over some time.
+Integration lets us work this out.
+
+It is also how we find the area under a curve, and, as we will see, it reverses differentiation.
 
 ## Integration
 
@@ -64,17 +69,17 @@ If we use a coarse approximation, then we are over-counting the area under the c
 
 ![Coarse approximation to the integral](fig/06_02_coarse.svg)
 
-But, as the size of each rectangle reduces, we converge the true area under the curve:
+But, as the size of each rectangle reduces, we converge to the true area under the curve:
 
 ![Fine approximation to the integral](fig/06_03_fine.svg)
 
-$\int$ is the old English `S` and stands for the phrase "Sum Over".
+$\int$ is an elongated S, for the Latin _summa_ (sum).
 
 This process is called **integration**.
 
 ## Calculating the integral
 
-Let us 'invent' a function $F(x)$ that gives the area from $0$ to $x$.
+Let us 'invent' a function $F(x)$ that gives the area from some fixed point to $x$.
 Then $A = F(2) - F(1)$.
 
 With this (imagined) function, we can find the area of one of our tiny steps **exactly**, as
@@ -178,18 +183,18 @@ Consider now the functions:
 
 $$
 \begin{aligned}
-y&=x^2+7 &&\text{(3)} \\
-y&=x^2-100 &&\text{(4)}
+y&=x^2+7 &&\text{(1)} \\
+y&=x^2-100 &&\text{(2)}
 \end{aligned}
 $$
 
-Differentiating (3):
+Differentiating (1):
 
 $$
 \frac{dy}{dx}=2x
 $$
 
-Differentiating (4):
+Differentiating (2):
 
 $$
 \frac{dy}{dx}=2x
@@ -198,7 +203,7 @@ $$
 This implies that the integral:
 
 $$
-y=\int 2x\,dx=x^2 + \kappa \qquad \text{where } \kappa \text{ is an unknown constant}
+y=\int 2x\,dx=x^2 + C \qquad \text{where } C \text{ is an unknown constant}
 $$
 
 An integral without limits is called an **indefinite integral**.
@@ -219,25 +224,21 @@ $$
 Recall that:
 
 $$
-\frac{d}{dx}\ln x=\frac{1}{x}
+\frac{d}{dx}\ln x=\frac{1}{x} \qquad\Rightarrow\qquad \int\frac{1}{x}\,dx=\ln |x| + C
 $$
 
-And, that:
+(We need the modulus because $\ln$ is only defined for positive numbers.)
+
+This constant $C$ can be written as:
 
 $$
-\frac{d}{dx}\ln x=\frac{1}{x} \qquad\Rightarrow\qquad \int\frac{1}{x}\,dx=\ln x + \kappa
-$$
-
-This constant $\kappa$ can be written as:
-
-$$
-\kappa=\ln B
+C=\ln B
 $$
 
 where $B$ is another constant. Thus:
 
 $$
-\int \frac{1}{x}\,dx = \ln x + \kappa=\ln x +\ln B =\ln (B x)
+\int \frac{1}{x}\,dx = \ln |x| + C=\ln |x| +\ln B =\ln (B |x|)
 $$
 
 ## Integrating trigonometric functions
@@ -348,7 +349,7 @@ This can be thought of as being like the integral version of the chain rule.
 Consider:
 
 $$
-\int_{a}^{b} (2x + 3)^4\,dx \qquad \text{(7)}
+\int_{a}^{b} (2x + 3)^4\,dx \qquad \text{(3)}
 $$
 
 Multiplying this out and then integrating it would be very tedious.
@@ -358,7 +359,7 @@ $$
 u=2x+3 \quad\Longleftrightarrow\quad x=\frac{1}{2}(u-3)=\frac{u}{2}-\frac{3}{2} \quad\Longleftrightarrow\quad \frac{dx}{du}=\frac{1}{2}
 $$
 
-Substitute into equation (7) above:
+Substitute into equation (3) above:
 
 $$
 \begin{aligned}
@@ -384,7 +385,7 @@ $$
 Let's look at another example:
 
 $$
-\int_{a}^{b} (3-4x)^{-5}\,dx \qquad \text{(8)}
+\int_{a}^{b} (3-4x)^{-5}\,dx \qquad \text{(4)}
 $$
 
 Let:
@@ -393,7 +394,7 @@ $$
 u=3-4x \quad\Longleftrightarrow\quad x=\frac{1}{4}(3-u)=\frac{3}{4}-\frac{u}{4} \quad\Longleftrightarrow\quad \frac{dx}{du}=-\frac{1}{4}
 $$
 
-Substitute into equation (8) above:
+Substitute into equation (4) above:
 
 $$
 \begin{aligned}
@@ -576,7 +577,7 @@ Let $u$ and $v$ be functions of $x$.
 ::::challenge{id="06_ext_03" title="Extension problems 3"}
 A country wishes to achieve net-zero $\text{CO}_2$ emissions in 50 years. At the start of the program, their emissions ($E$) are 800 $\text{Mt CO}_2\,\text{year}^{-1}$. They decide that they will be able to reduce their emissions at a stable rate, so that each year they emit 12 $\text{Mt CO}_2\,\text{year}^{-1}$ less than the previous year.
 
-**1.** Write down the rate of change of the countries emissions ($E$), each year ($t$), $dE/dt$. Use this to calculate the total emissions that the country had produced over the 50 years.
+**1.** Write down the rate of change of the country's emissions ($E$), each year ($t$), $dE/dt$. Use this to calculate the total emissions that the country had produced over the 50 years.
 
 After 10 years of these emissions, the country starts a $\text{CO}_2$ removal program, whereby a certain amount of $\text{CO}_2$ is captured from the atmosphere and sequestered underground each year. This $\text{CO}_2$ follows the curve
 
@@ -590,6 +591,6 @@ where $R$ is the amount of $\text{CO}_2$ removal in $\text{Mt CO}_2\,\text{year}
 
 After the 50 year program, the countries emission rate stabilises, and they emit the same amount of $\text{CO}_2$ each year after that. The $\text{CO}_2$ absorption rate per year follows the same trend as before. The country wishes to have not contributed to global warming at all since the start of the program. This means their net total $\text{CO}_2$ emissions over the entire program would have to be zero.
 
-**3.** Show that is takes approximately 109 years for the country to have a net-zero effect on global warming since the start of the program.
+**3.** Show that it takes approximately 109 years for the country to have a net-zero effect on global warming since the start of the program.
 
 ::::
