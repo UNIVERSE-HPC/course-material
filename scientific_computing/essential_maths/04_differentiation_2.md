@@ -30,48 +30,14 @@ A recording of this lecture from October 2020; the material has changed a little
 
 ---
 
-## Product, chain and quotient rules
+## Why these rules?
 
-## Linear approximation and the derivative
+In the last lecture we found the derivative of $ax^n$.
 
-By definition, the derivative of a function $f(x)$ is
+Most functions we meet are built from simpler ones, by multiplying them, dividing them, or putting one inside another (e.g. $\sqrt{1+x^2}$).
+In this lecture we find a rule for each of these, so that we can differentiate any function built from the standard ones.
 
-$$
-f'(x) = \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}
-$$
-
-This means that for small $h$, this expression approximates the derivative. By rearranging this, we have
-
-$$
-f(x + h) \approx f(x) + h f'(x)
-$$
-
-In other words, $f(x+h)$ can be approximated by starting at $f(x)$ and moving a distance $h$ along the tangent $f'(x)$.
-
-### Example
-
-Estimate $\sqrt{5218}$
-
-To do this, we first need an $f(x)$ that is easy to calculate, and close to 5218. For this we can take that $70^2 = 4900$.
-
-To calculate the approximation, we need $f'(x)$, where $f(x) = \sqrt{x}$.
-
-$$
-f'(x) = \frac{1}{2 \sqrt{x}}
-$$
-
-Since 5218 = 4900 + 318, we can set $x = 4900$ and $h = 318$.
-
-Using the approximation, we have:
-
-$$
-\begin{aligned}
-f(5218) &\approx f(4900) + 318 \times f'(4900) \\
-f(5218) &\approx 70 + 318 \times \frac{1}{140} \approx 72.27
-\end{aligned}
-$$
-
-$\sqrt{5218} = 72.2357252$ - not a bad appriximation!
+We also use the derivative to approximate a function close to a point we know.
 
 ## Standard derivatives
 
@@ -82,17 +48,18 @@ $$
 \frac{d}{dx} (x^n) &= n x^{n-1} \\
 \frac{d}{dx} (\sin x) &= \cos x \\
 \frac{d}{dx} (\cos x) &= -\sin x \\
-\frac{d}{dx} (e^x) &= e^x
+\frac{d}{dx} (e^x) &= e^x \\
+\frac{d}{dx} (\ln x) &= \frac{1}{x}
 \end{aligned}
 $$
+
+For $\sin$ and $\cos$, $x$ must be in radians. We show the derivative of $\ln x$ later in this lecture.
 
 To understand the derivative of sin and cos, consider their graphs, and when they are changing positively (increasing), negatively (decreasing) or not at all (no rate of change).
 
 ![Graph of sin and cos](fig/04_01_sin_cos.svg)
 
-## Other differentiation rules
-
-## Differentiation of sums, and scalar multiples
+## Differentiation of sums and scalar multiples
 
 $$
 \begin{aligned}
@@ -161,15 +128,15 @@ $$
 \frac{dy}{dx} = \frac{dy}{dg} \frac{dg}{dx} = 4 (5x^2 + 2)^3 10 x = 40 x (5x^2 + 2)^3
 $$
 
-This extends infinitely to nested functions, meaning
+This extends to any number of nested functions, meaning
 
 $$
-\frac{d}{dx}(a(b(c)) = \frac{d a}{d b} \frac{d}{dx} (b(c)) = \frac{d a}{db} \frac{d b}{dc}\frac{dc}{dx}
+\frac{d}{dx}\,a(b(c(x))) = \frac{da}{db} \frac{d}{dx}\,b(c(x)) = \frac{da}{db} \frac{db}{dc}\frac{dc}{dx}
 $$
 
 ## Differentiating the ratio of two functions: the quotient rule
 
-If $y(x) = f(x)/g(x)$, then by using the product rule, and setting $h(x) = (g(x))^{-1}$, we can show that
+If $y(x) = f(x)/g(x)$, then by using the product and chain rules on $f(x)\,(g(x))^{-1}$, we can show that
 
 $$
 y'(x) = \frac{f'g - g'f}{g^2}
@@ -183,16 +150,16 @@ $$
 
 $$
 \begin{aligned}
-f &= 3x - 1, \rightarrow f' = 3 \\
-g &= 4x + 2, \rightarrow g' = 4 \\
+f &= 3x - 1, \quad f' = 3 \\
+g &= 4x + 2, \quad g' = 4 \\
 y' &= \frac{f'g - g'f}{g^2} = \frac{3(4x+2) - 4(3x-1)}{(4x+2)^2} \\
 y' &= \frac{12x + 6 - 12 x + 4}{(4x+2)^2} = \frac{10}{(4x+2)^2}
 \end{aligned}
 $$
 
-## Differentiating inverses: implicit differentiation
+## Differentiating inverse functions
 
-For any function $y = f(x)$, with a well defined inverse $f^{-1}(x)$ (not to be confused with $(f(x))^{-1})$), we have by definition that
+For any function $y = f(x)$, with a well defined inverse $f^{-1}(x)$ (not to be confused with $(f(x))^{-1}$), we have by definition that
 
 $$
 x = f^{-1}(f(x)) = f^{-1}(y).
@@ -210,11 +177,13 @@ $$
 \frac{d}{dy}(f^{-1}(y)) = \frac{1}{\frac{dy}{dx}}
 $$
 
+(This is an example of _implicit differentiation_, where we differentiate both sides of an equation relating $x$ and $y$.)
+
 ### Example: $y = \ln(x)$
 
 If $y = \ln(x)$, this means that $f^{-1}(y) = e^y = x$
 
-By definition ($f^{-1}(y))' = e^y$, as $e^y$ doesn't change under differentiation. This means that
+Since $e^y$ is unchanged when differentiated, $\frac{d}{dy}(f^{-1}(y)) = e^y$. This means that
 
 $$
 \frac{d}{dx}(\ln(x)) = \frac{1}{\frac{d}{dy}(f^{-1}(y))} = \frac{1}{e^y}
@@ -226,9 +195,50 @@ $$
 \frac{d}{dx}(\ln(x)) = \frac{1}{e^{\ln(x)}} = \frac{1}{x}
 $$
 
-### Example: differentiating using sympy
+## Linear approximation and the derivative
 
-In Python, there is a special package for calculating derivatives symbolically, called sympy.
+By definition, the derivative of a function $f(x)$ is
+
+$$
+f'(x) = \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}
+$$
+
+This means that for small $h$, this expression approximates the derivative. By rearranging this, we have
+
+$$
+f(x + h) \approx f(x) + h f'(x)
+$$
+
+In other words, $f(x+h)$ can be approximated by starting at $f(x)$ and moving a distance $h$ along the tangent, whose gradient is $f'(x)$.
+
+### Example
+
+Estimate $\sqrt{5218}$
+
+To do this, we first need an $f(x)$ that is easy to calculate, and close to 5218. For this we can take that $70^2 = 4900$.
+
+To calculate the approximation, we need $f'(x)$, where $f(x) = \sqrt{x}$.
+
+$$
+f'(x) = \frac{1}{2 \sqrt{x}}
+$$
+
+Since 5218 = 4900 + 318, we can set $x = 4900$ and $h = 318$.
+
+Using the approximation, we have:
+
+$$
+\begin{aligned}
+f(5218) &\approx f(4900) + 318 \times f'(4900) \\
+f(5218) &\approx 70 + 318 \times \frac{1}{140} \approx 72.27
+\end{aligned}
+$$
+
+$\sqrt{5218} = 72.2357252$ - not a bad approximation!
+
+## Example: differentiating using SymPy
+
+In Python, there is a special package for calculating derivatives symbolically, called SymPy.
 
 This can quickly and easily calculate derivatives (as well as do all sorts of other analytic calculations).
 
@@ -286,13 +296,13 @@ $$
 \end{aligned}
 $$
 
-### Sympy documentation
+### SymPy documentation
 
-You can look at the documentation for Sympy to see many other possibilities (e.g. we will use Sympy to do symbolic integration later on in this course)
+You can look at the documentation for SymPy to see many other possibilities (e.g. we will use SymPy to do symbolic integration later on in this course)
 
 - <https://docs.sympy.org/latest/index.html>
 
-Try out Sympy to verify your pen & paper answers to the problem sheets.
+Try out SymPy to verify your pen & paper answers to the problem sheets.
 
 ## Introductory problems
 
@@ -329,7 +339,7 @@ Let $y=x^2$.
 1. Now **estimate** the value of $y$ when $x=2.1$ by using the linear approximation formula
 
    $$
-   f(x_1+h)=f(x_1)+hf'(x_1)
+   f(x_1+h)\approx f(x_1)+hf'(x_1)
    $$
 
    and letting $x_1=2.0$ and $h=0.1$.
