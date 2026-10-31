@@ -81,6 +81,10 @@ Interpretation:
 - The intercept of this line on the $x$ axis is given by $x = -c/m$,
   since at $y=0$ we must have $mx=-c$
 
+For example, the line $y = \frac{1}{2}x + 1$ has gradient $m = 1/2$, $y$ intercept $c = 1$ and $x$ intercept $x = -c/m = -2$:
+
+![Graph of the line y = x/2 + 1, showing its intercepts and gradient](fig/01_09_straight_line.svg)
+
 ## Sketching graphs
 
 Given a formula, what shape is its graph?

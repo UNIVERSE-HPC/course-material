@@ -468,6 +468,8 @@ t = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 N = np.array([199, 292, 386, 570, 758, 1190, 1618, 2308, 3280, 4259, 6708])
 ```
 
+![Graph of bacterial growth data](fig/02_05_growth_data.svg)
+
 Take the natural log of both sides:
 
 $$
@@ -477,6 +479,8 @@ $$
 This is the equation of a straight line, $Y=mX+c$.
 Here $Y=\ln N$, $X=t$, $m=k$ and $c=\ln N_0$.
 Only the $N$ axis is on a log scale, so this is called a _semi-log_ plot.
+
+![Graph of bacterial growth data, straightened](fig/02_06_growth_data_straightened.svg)
 
 As in Example 1, we fit the best straight line through the points:
 
