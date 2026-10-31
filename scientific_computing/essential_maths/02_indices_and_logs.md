@@ -211,7 +211,7 @@ a**(3.0/4.0)
 3.34370152488211
 ```
 
-i.e. For indices the order in which these mathematical operations are performed does not matter (for $a>0$).
+So, the order of these operations does not matter (for $a>0$).
 
 ### Different bases, same index
 
@@ -342,6 +342,8 @@ passes through the point $(0, 1)$ with gradient exactly equal to $1$.
 
 ![Graph of exp](fig/02_04_exp.svg)
 
+The dashed line in the graph is the tangent to $y=e^x$ at $(0, 1)$, which is the line $y = x + 1$.
+
 So for the function (called the **exponential function**):
 
 $$
@@ -406,12 +408,11 @@ print(np.log(81)/np.log(3))
 
 Can the data below be fitted to the form: $y=Ax^n$?
 
-| x    | y    |
-| ---- | ---- |
-| 4.0  | 6.0  |
-| 16.0 | 12.0 |
-| 25.0 | 15.0 |
-| 64.0 | 24.0 |
+```python
+import numpy as np
+x = np.array([1, 2, 4, 6, 9, 12, 16, 20, 25, 30, 36, 42, 49, 56, 64])
+y = np.array([3.03, 4.11, 5.85, 6.35, 10.03, 11.13, 11.77, 14.05, 15.26, 15.89, 19.09, 19.08, 20.59, 21.41, 24.66])
+```
 
 ![Graph of data table](fig/02_02_data.svg)
 
@@ -421,22 +422,32 @@ $$
 \log_{10} y =\log_{10} Ax^n = \log_{10} A + \log_{10} x^n= \log_{10} A + n \log_{10} x
 $$
 
-This is the equation of a straight line, $Y=mX+c$, with $Y=\log_{10} y$, $X=\log_{10} x$, $m=n$ and $c=\log_{10} A$.
+This is the equation of a straight line, $Y=mX+c$.
+Here $Y=\log_{10} y$, $X=\log_{10} x$, $m=n$ and $c=\log_{10} A$.
 
 ![Graph of data table, straightened](fig/02_03_data_straightened.svg)
 
+The points lie close to a straight line, so the data are consistent with the model.
+To find its gradient and intercept, we fit the best straight line through the points.
+`np.polyfit(X, Y, 1)` does this (in the least-squares sense, so the line passes as close as it can to all the points at once), and returns the gradient and then the intercept:
+
 ```python
-gradient = (Y[-1] - Y[0])/(X[-1] - X[0])
+X = np.log10(x)
+Y = np.log10(y)
+# Fit the best straight line through the points
+gradient, intercept = np.polyfit(X, Y, 1)
 print('gradient =',gradient)
+print('intercept =',intercept)
 ```
 
 ```text
-gradient = 0.5
+gradient = 0.505264797790789
+intercept = 0.47080411584219156
 ```
 
-Gradient = 0.5 = $n$
+Gradient $\approx 0.5 = n$
 
-Intercept = $0.48 = \log_{10}A$ so $A=3.0$
+Intercept $\approx 0.47 = \log_{10}A$ so $A\approx 3.0$
 
 Data fit curve of the form:
 
@@ -449,18 +460,13 @@ Plotting $\log_{10} y$ against $\log_{10} x$ is the same as plotting $y$ against
 ## Example 2: exponential growth
 
 We often want to know how quickly a population grows.
-Here, a population of bacteria is counted every hour.
+Here, a population of bacteria is counted every hour, for 10 hours.
 Can the data below be fitted to the form: $N=N_0e^{kt}$?
 
-| t (hours) | N    |
-| --------- | ---- |
-| 0         | 200  |
-| 1         | 283  |
-| 2         | 400  |
-| 3         | 566  |
-| 4         | 800  |
-| 5         | 1131 |
-| 6         | 1600 |
+```python
+t = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+N = np.array([199, 292, 386, 570, 758, 1190, 1618, 2308, 3280, 4259, 6708])
+```
 
 Take the natural log of both sides:
 
@@ -468,24 +474,28 @@ $$
 \ln N = \ln N_0e^{kt} = \ln N_0 + \ln e^{kt} = \ln N_0 + kt
 $$
 
-This is the equation of a straight line, with $Y=\ln N$, $X=t$, $m=k$ and $c=\ln N_0$.
+This is the equation of a straight line, $Y=mX+c$.
+Here $Y=\ln N$, $X=t$, $m=k$ and $c=\ln N_0$.
 Only the $N$ axis is on a log scale, so this is called a _semi-log_ plot.
 
+As in Example 1, we fit the best straight line through the points:
+
 ```python
-gradient = (Y[-1] - Y[0])/(t[-1] - t[0])
-intercept = Y[0]
+Y = np.log(N)
+# Fit the best straight line through the points
+gradient, intercept = np.polyfit(t, Y, 1)
 print('gradient =',gradient)
 print('intercept =',intercept)
 ```
 
 ```text
-gradient = 0.3465735902799727
-intercept = 5.298317366548036
+gradient = 0.3480313382093428
+intercept = 5.294429813364659
 ```
 
-Gradient = 0.35 = $k$ (per hour)
+Gradient $\approx 0.35 = k$ (per hour)
 
-Intercept = $5.3 = \ln N_0$ (the first count is at $t=0$) so $N_0 = e^{5.3} \approx 200$
+Intercept $\approx 5.3 = \ln N_0$ so $N_0 = e^{5.3} \approx 200$
 
 Data fit curve of the form:
 

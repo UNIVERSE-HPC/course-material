@@ -245,6 +245,14 @@ $$
 \int\limits^{\infty}_0 x^n\,e^{-x}\,dx=n! \qquad \text{for } n = 0, 1, 2, \ldots
 $$
 
+Here $n!$ (read "$n$ factorial") is the product of the whole numbers from $n$ down to 1:
+
+$$
+n! = n \times (n-1) \times \cdots \times 2 \times 1
+$$
+
+For example, $3! = 3 \times 2 \times 1 = 6$, which is the answer we found above, and by convention $0! = 1$.
+
 ### Integration by parts: example 4, trigonometry
 
 Recall that:

@@ -115,6 +115,9 @@ $$
 
 - For large $|x|$, the $x^5$ term dominates, so $y$ rises to the right and falls to the left
 
+  Here $|x|$ is the _absolute value_ (or _modulus_) of $x$, its size ignoring its sign, so $|-3| = |3| = 3$.
+  So "large $|x|$" means $x$ far from zero, in either direction.
+
 - It has degree 5, so it has at most 4 bends, just enough to pass through all five zeros
 
 - Each zero comes from a single factor, so $y$ changes sign there
@@ -181,7 +184,7 @@ We next add a trendline through these points which we can use to determine the g
 ### Example: enzyme kinetics
 
 The rate at which a given enzyme can catalyse a reaction can be dependent upon the substrate concentration.
-This is often modelled by the _Michaelis–Menten_ equation:
+This is often modelled by the _Michaelis-Menten_ equation:
 
 $$
 V = \frac{V_{\max}S}{K_m + S}
@@ -201,13 +204,13 @@ $$
 \frac{1}{V} = \frac{K_m + S}{V_{\max}S} = \frac{K_m}{V_{\max}}\cdot\frac{1}{S} + \frac{1}{V_{\max}}
 $$
 
-- We can derive a straight line graph from the above formula by plotting $Y=1/V$ against $X=1/S$ (this is called the _Lineweaver–Burk_ plot)
+- We can derive a straight line graph from the above formula by plotting $Y=1/V$ against $X=1/S$ (this is called the _Lineweaver-Burk_ plot)
 
 - It will have gradient $m = K_m/V_{\max}$ and ordinate intercept $c = 1/V_{\max}$
 
 #### Transformed data
 
-If the Michaelis–Menten model holds, plotting $Y=1/V$ against $X=1/S$ should result in a straight line.
+If the Michaelis-Menten model holds, plotting $Y=1/V$ against $X=1/S$ should result in a straight line.
 
 ![Graph of linear trend](fig/01_07_linear_trend.svg)
 
@@ -227,7 +230,7 @@ We next add a trendline through these points which we can use to determine the g
 
 - Note, transforming the data also transforms any noise in it. Taking $1/V$ magnifies the errors in small values of $V$, and these points then have the most influence on the trendline.
 - In practice, it is usually better to fit the nonlinear model directly, e.g. using `scipy.optimize.curve_fit`.
-- Plotting in straight-line form is still a good way to check a model visually, and you will see these plots in many papers (e.g. Lineweaver–Burk, Arrhenius).
+- Plotting in straight-line form is still a good way to check a model visually, and you will see these plots in many papers (e.g. Lineweaver-Burk, Arrhenius).
 - Logarithms, which we cover next, let us do the same for exponentials and power laws.
 
 ## Introductory problems
