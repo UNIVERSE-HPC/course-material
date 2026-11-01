@@ -597,3 +597,61 @@ We wish to model the fish-angler interaction under the following assumptions:
 :::
 
 ::::
+
+::::challenge{id="15_main_05" title="Main problems 5"}
+Consider the reaction chain
+
+$$
+S \overset{k_1}{\longrightarrow} I \overset{k_2}{\longrightarrow} P
+$$
+
+in which a substrate is converted to a product through a short-lived intermediate.
+
+1. Write down the system of three ODEs for $s$, $i$ and $p$ under the law of mass action.
+1. Show that $s + i + p$ is constant, and use this to eliminate $p$.
+1. Suppose the second step is much faster than the first ($k_2 \gg k_1$).
+   Use a quasi-steady state for $i$ to find $i^*$ in terms of $s$, and hence an approximate equation for $dp/dt$.
+1. Explain why the rate at which $P$ is made depends only on $k_1$ in this approximation.
+
+:::solution
+
+1. Each step uses up one species and makes the next, so
+
+   $$
+   \begin{aligned}
+   \frac{ds}{dt} &= -k_1 s, \\
+   \frac{di}{dt} &= k_1 s - k_2 i, \\
+   \frac{dp}{dt} &= k_2 i.
+   \end{aligned}
+   $$
+
+1. Adding the three equations,
+
+   $$
+   \frac{d}{dt}(s + i + p) = -k_1 s + k_1 s - k_2 i + k_2 i = 0
+   $$
+
+   so $s + i + p = T$, where $T$ is a constant: the total amount of material.
+   Then $p = T - s - i$, and the system reduces to the two ODEs for $s$ and $i$.
+
+1. If $k_2 \gg k_1$, the intermediate is used up almost as soon as it is made, so $i$ quickly reaches a quasi-steady state.
+   Solving $di/dt = 0$:
+
+   $$
+   k_1 s - k_2 i^* = 0 \qquad\Rightarrow\qquad i^* = \frac{k_1 s}{k_2}
+   $$
+
+   This is small, because $k_1/k_2$ is small, and it moves slowly with $s$.
+   Substituting it into the equation for $p$,
+
+   $$
+   \frac{dp}{dt} = k_2 i^* \approx k_1 s
+   $$
+
+1. In this approximation, every molecule of $I$ is turned into $P$ almost straight away, so $P$ is made as fast as $I$ is made, which is $k_1 s$.
+   The first step is the slow one, so it limits the rate of the whole chain.
+   This is often called the _rate-limiting step_.
+
+:::
+
+::::
