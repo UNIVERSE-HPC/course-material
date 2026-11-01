@@ -1,5 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="680" height="425" viewBox="0 0 800 500" font-family="'Noto Sans', 'Helvetica Neue', Arial, sans-serif">
-<rect width="800" height="500" fill="white"/>
+<style>
+@media (prefers-color-scheme: dark) {
+  svg { color: #e2e8f0 }
+  .background, [fill="white"] { fill: oklch(0.208 0.042 265.755) }
+  [stroke="white"] { stroke: oklch(0.208 0.042 265.755) }
+  [stroke="#000"] { stroke: #fff }
+  [fill="black"], [fill="#1a1a1a"] { fill: #e2e8f0 }
+  [stroke="black"], [stroke="#1a1a1a"] { stroke: #e2e8f0 }
+  [fill="#0072B2"] { fill: #56B4E9 }
+  [stroke="#0072B2"] { stroke: #56B4E9 }
+}
+</style>
+<rect class="background" width="800" height="500" fill="white"/>
 <svg color="#1a1a1a" y="0" x="0" viewBox="0 0 800 500" height="500" width="800" text-anchor="middle" font-size="16" fill="currentColor" class="plot-d6a7b5"><style>:where(.plot-d6a7b5) {
   --plot-background: white;
   display: block;
