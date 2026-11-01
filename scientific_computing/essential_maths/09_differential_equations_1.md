@@ -978,7 +978,10 @@ where $\epsilon$ is the molar absorption coefficient of the solute, $c$ is the c
    The initial rate is at $l = 0$, where $10^{0} = 1$:
 
    $$
-   \left.\frac{dQ}{dl}\right|_{l=0} = I_o\,\epsilon c\ln 10 = 200 \times 15.7\times 10^3 \times 10\times 10^{-6} \times \ln 10 \approx 72.3\,\text{W/cm}
+   \begin{aligned}
+   \left.\frac{dQ}{dl}\right|_{l=0} &= I_o\,\epsilon c\ln 10 \\
+   &= 200 \times 15.7\times 10^3 \times 10\times 10^{-6} \times \ln 10 \approx 72.3\,\text{W/cm}
+   \end{aligned}
    $$
 
    (The units of $\epsilon c$ are $\text{M}^{-1}\text{cm}^{-1}\times\text{M} = \text{cm}^{-1}$.)

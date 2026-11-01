@@ -699,10 +699,12 @@ $$
 For each of the following matrices
 
 $$
+\begin{gathered}
 A = \left(\begin{array}{cc} 2 & 3 \\ 1 & 4 \end{array}\right); \qquad
-B = \left(\begin{array}{cc} 4 & 2 \\ 6 & 8 \end{array}\right); \qquad
+B = \left(\begin{array}{cc} 4 & 2 \\ 6 & 8 \end{array}\right); \\
 C = \left(\begin{array}{cc} 1 & 4 \\ 1 & 1 \end{array}\right); \qquad
 D = \left(\begin{array}{cc} x & 0 \\ 0 & y \end{array}\right),
+\end{gathered}
 $$
 
 compute the determinant, eigenvalues and eigenvectors by hand.
@@ -739,7 +741,11 @@ Any multiple of an eigenvector is also an eigenvector.
 - **$B$:** $|B| = 32 - 12 = 20$, and
 
   $$
-  |B - \lambda I| = (4-\lambda)(8-\lambda) - 12 = \lambda^2 - 12\lambda + 20 = (\lambda - 2)(\lambda - 10) = 0
+  \begin{aligned}
+  |B - \lambda I| &= (4-\lambda)(8-\lambda) - 12 \\
+  &= \lambda^2 - 12\lambda + 20 \\
+  &= (\lambda - 2)(\lambda - 10) = 0
+  \end{aligned}
   $$
 
   For $\lambda_1 = 2$, $2u + 2v = 0$, so $\mathbf{v}_1 = (-1, 1)^T$.

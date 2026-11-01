@@ -400,7 +400,10 @@ $$
 Now integrate, using the partial fractions in the hint:
 
 $$
-y = \int\left(-\frac{1}{x} + \frac{1/2}{x+1} + \frac{1/2}{x-1}\right)dx = -\ln|x| + \frac{1}{2}\ln|x+1| + \frac{1}{2}\ln|x-1| + D
+\begin{aligned}
+y &= \int\left(-\frac{1}{x} + \frac{1/2}{x+1} + \frac{1/2}{x-1}\right)dx \\
+&= -\ln|x| + \frac{1}{2}\ln|x+1| + \frac{1}{2}\ln|x-1| + D
+\end{aligned}
 $$
 
 $y(2) = 0$ gives $0 = -\ln 2 + \frac{1}{2}\ln 3 + 0 + D$, so $D = \ln 2 - \frac{1}{2}\ln 3$.
@@ -517,7 +520,11 @@ The protein is produced at a constant rate $k_1$, and degraded at a rate proport
    Separate the variables:
 
    $$
-   \int\frac{ds}{k_1 - k_2s} = \int dt \quad\Rightarrow\quad -\frac{1}{k_2}\ln|k_1 - k_2s| = t + C \quad\Rightarrow\quad k_1 - k_2s = Be^{-k_2t}
+   \begin{aligned}
+   &\int\frac{ds}{k_1 - k_2s} = \int dt \\
+   \quad\Rightarrow\quad &-\frac{1}{k_2}\ln|k_1 - k_2s| = t + C \\
+   \quad\Rightarrow\quad &k_1 - k_2s = Be^{-k_2t}
+   \end{aligned}
    $$
 
    $s(0) = s_0$ gives $B = k_1 - k_2s_0$, so

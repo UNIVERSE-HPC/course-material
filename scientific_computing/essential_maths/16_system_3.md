@@ -556,7 +556,11 @@ $$
    Differentiating with respect to $T$, using the chain rule on each term,
 
    $$
-   \frac{dV}{dT} = \left(c - \frac{d}{H}\right)\frac{dH}{dT} + \left(b - \frac{a}{F}\right)\frac{dF}{dT} = (cH - d)(a - bF) + (bF - a)(cH - d) = 0
+   \begin{aligned}
+   \frac{dV}{dT} &= \left(c - \frac{d}{H}\right)\frac{dH}{dT} + \left(b - \frac{a}{F}\right)\frac{dF}{dT} \\
+   &= (cH - d)(a - bF) + (bF - a)(cH - d) \\
+   &= 0
+   \end{aligned}
    $$
 
    So, each solution stays on a curve of constant $V$.

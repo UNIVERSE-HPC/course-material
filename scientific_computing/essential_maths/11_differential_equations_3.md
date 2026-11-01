@@ -545,7 +545,10 @@ where $k_f$ and $k_b$ are mass action coefficients.
 1. Separate the variables and integrate:
 
    $$
-   \int \frac{d[A]}{k_bT - (k_f+k_b)\,[A]} = \int dt \qquad\text{so}\qquad -\frac{\ln\left|k_bT - (k_f+k_b)\,[A]\right|}{k_f + k_b} = t + C
+   \begin{aligned}
+   \int \frac{d[A]}{k_bT - (k_f+k_b)\,[A]} &= \int dt \\
+   \text{so}\qquad -\frac{\ln\left|k_bT - (k_f+k_b)\,[A]\right|}{k_f + k_b} &= t + C
+   \end{aligned}
    $$
 
    Rearranging, and writing $[A]_0$ for the starting concentration of $A$, gives
@@ -650,7 +653,11 @@ where $v_1$ and $v_2$ are reaction rates rather than mass action coefficients.
    Put everything over the common denominator $11(11+s^2)$:
 
    $$
-   \frac{ds}{dt} = \frac{6(11+s^2) + 60s^2 - 11s(11+s^2)}{11(11+s^2)} = -\frac{11s^3 - 66s^2 + 121s - 66}{11(11+s^2)} = -\frac{(s-1)(s-2)(s-3)}{11+s^2}
+   \begin{aligned}
+   \frac{ds}{dt} &= \frac{6(11+s^2) + 60s^2 - 11s(11+s^2)}{11(11+s^2)} \\
+   &= -\frac{11s^3 - 66s^2 + 121s - 66}{11(11+s^2)} \\
+   &= -\frac{(s-1)(s-2)(s-3)}{11+s^2}
+   \end{aligned}
    $$
 
    So, there are three steady states, $s = 1$, $s = 2$ and $s = 3$.
@@ -883,7 +890,10 @@ The equation is linear, so any combination $y = Ae^{ix} + Be^{-ix}$ is also a so
 1. Using $e^{i\theta} = \cos\theta + i\sin\theta$,
 
    $$
-   y = A(\cos x + i\sin x) + B(\cos x - i\sin x) = (A + B)\cos x + i(A - B)\sin x
+   \begin{aligned}
+   y &= A(\cos x + i\sin x) + B(\cos x - i\sin x) \\
+   &= (A + B)\cos x + i(A - B)\sin x
+   \end{aligned}
    $$
 
    So, the solution is a combination of $\cos x$ and $\sin x$, and oscillates with period $2\pi$.

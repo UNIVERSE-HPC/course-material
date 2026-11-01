@@ -302,7 +302,10 @@ Sketch the form of the solution in the $x,\,y$ plane, using arrows to indicate w
 The two equations are not coupled, so we can solve each one separately:
 
 $$
-\int\frac{dx}{x} = \int dt \quad\implies\quad x = Ae^{t}, \qquad\qquad \int\frac{dy}{y} = \int dt \quad\implies\quad y = Be^{t}
+\begin{aligned}
+\int\frac{dx}{x} = \int dt &\quad\implies\quad x = Ae^{t}, \\
+\int\frac{dy}{y} = \int dt &\quad\implies\quad y = Be^{t}
+\end{aligned}
 $$
 
 where $A$ and $B$ are constants.
@@ -365,7 +368,11 @@ $$
 1. Eliminating $t$ from the original equations,
 
    $$
-   \frac{dy}{dx} = \frac{dy/dt}{dx/dt} = \frac{by}{ax} \quad\implies\quad \int\frac{dy}{by} = \int\frac{dx}{ax} \quad\implies\quad \frac{1}{b}\ln|y| = \frac{1}{a}\ln|x| + C
+   \begin{aligned}
+   \frac{dy}{dx} &= \frac{dy/dt}{dx/dt} = \frac{by}{ax} \\
+   &\implies \int\frac{dy}{by} = \int\frac{dx}{ax} \\
+   &\implies \frac{1}{b}\ln|y| = \frac{1}{a}\ln|x| + C
+   \end{aligned}
    $$
 
    so that $y = Kx^{b/a}$, where $K$ is a constant.
@@ -414,7 +421,11 @@ Sketch the form of the solutions in the $x,\,y$ plane.
 Dividing the two equations,
 
 $$
-\frac{dy}{dx} = \frac{dy/dt}{dx/dt} = -\frac{x}{y} \quad\implies\quad \int y\,dy = -\int x\,dx \quad\implies\quad \frac{1}{2}y^2 = -\frac{1}{2}x^2 + C
+\begin{aligned}
+\frac{dy}{dx} &= \frac{dy/dt}{dx/dt} = -\frac{x}{y} \\
+&\implies \int y\,dy = -\int x\,dx \\
+&\implies \frac{1}{2}y^2 = -\frac{1}{2}x^2 + C
+\end{aligned}
 $$
 
 So, the general solution is
@@ -540,7 +551,10 @@ For $\lambda_2 = -1$, $(A + I)\mathbf{v} = \mathbf{0}$ gives $2u + 4v = 0$, so $
    Then $d\mathbf{z}/dt = P^{-1}AP\,\mathbf{z}$, so
 
    $$
-   \frac{dz_1}{dt} = 3z_1 \quad\implies\quad z_1 = c_1e^{3t}, \qquad\qquad \frac{dz_2}{dt} = -z_2 \quad\implies\quad z_2 = c_2e^{-t}
+   \begin{aligned}
+   \frac{dz_1}{dt} = 3z_1 &\quad\implies\quad z_1 = c_1e^{3t}, \\
+   \frac{dz_2}{dt} = -z_2 &\quad\implies\quad z_2 = c_2e^{-t}
+   \end{aligned}
    $$
 
    Since $\mathbf{v} = P\mathbf{z}$, the general solution is

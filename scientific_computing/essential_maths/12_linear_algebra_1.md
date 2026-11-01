@@ -451,11 +451,13 @@ Check that your answers make sense by expanding your expressions to ensure you g
 Given
 
 $$
+\begin{gathered}
 A = \begin{pmatrix} 2 & 1 \\ 3 & 4 \end{pmatrix}, \quad
 B = \begin{pmatrix} 1 & 4 \\ 7 & 2 \end{pmatrix}, \quad
-C = \begin{pmatrix} 3 & -1 \\ -5 & 2 \end{pmatrix}, \quad
+C = \begin{pmatrix} 3 & -1 \\ -5 & 2 \end{pmatrix}, \\
 D = \begin{pmatrix} 1 \\ 3 \end{pmatrix}, \quad
 E = \begin{pmatrix} 2 & -1 \end{pmatrix}
+\end{gathered}
 $$
 
 1. Write down $a_{21}$, $b_{12}$ and $c_{22}$
@@ -488,8 +490,10 @@ $$
 1. A product is defined only when the number of columns of the first matrix equals the number of rows of the second.
 
    $$
-   AB = \begin{pmatrix} 2\times 1 + 1\times 7 & 2\times 4 + 1\times 2 \\ 3\times 1 + 4\times 7 & 3\times 4 + 4\times 2 \end{pmatrix} = \begin{pmatrix} 9 & 10 \\ 31 & 20 \end{pmatrix}, \qquad
-   CD = \begin{pmatrix} 3 - 3 \\ -5 + 6 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+   \begin{aligned}
+   AB &= \begin{pmatrix} 2\times 1 + 1\times 7 & 2\times 4 + 1\times 2 \\ 3\times 1 + 4\times 7 & 3\times 4 + 4\times 2 \end{pmatrix} = \begin{pmatrix} 9 & 10 \\ 31 & 20 \end{pmatrix}, \\
+   CD &= \begin{pmatrix} 3 - 3 \\ -5 + 6 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+   \end{aligned}
    $$
 
    $DC$ is not defined, because $D$ is $2\times 1$ and $C$ is $2\times 2$ (1 column, but 2 rows).
@@ -498,15 +502,19 @@ $$
 1. No, and no:
 
    $$
-   AB = \begin{pmatrix} 9 & 10 \\ 31 & 20 \end{pmatrix} \neq BA = \begin{pmatrix} 14 & 17 \\ 20 & 15 \end{pmatrix}, \qquad
-   AC = \begin{pmatrix} 1 & 0 \\ -11 & 5 \end{pmatrix} \neq CA = \begin{pmatrix} 3 & -1 \\ -4 & 3 \end{pmatrix}
+   \begin{aligned}
+   AB &= \begin{pmatrix} 9 & 10 \\ 31 & 20 \end{pmatrix} \neq BA = \begin{pmatrix} 14 & 17 \\ 20 & 15 \end{pmatrix}, \\
+   AC &= \begin{pmatrix} 1 & 0 \\ -11 & 5 \end{pmatrix} \neq CA = \begin{pmatrix} 3 & -1 \\ -4 & 3 \end{pmatrix}
+   \end{aligned}
    $$
 
 1. Yes:
 
    $$
-   (AB)C = \begin{pmatrix} 9 & 10 \\ 31 & 20 \end{pmatrix}C = \begin{pmatrix} -23 & 11 \\ -7 & 9 \end{pmatrix}, \qquad
-   A(BC) = A\begin{pmatrix} -17 & 7 \\ 11 & -3 \end{pmatrix} = \begin{pmatrix} -23 & 11 \\ -7 & 9 \end{pmatrix}
+   \begin{aligned}
+   (AB)C &= \begin{pmatrix} 9 & 10 \\ 31 & 20 \end{pmatrix}C = \begin{pmatrix} -23 & 11 \\ -7 & 9 \end{pmatrix}, \\
+   A(BC) &= A\begin{pmatrix} -17 & 7 \\ 11 & -3 \end{pmatrix} = \begin{pmatrix} -23 & 11 \\ -7 & 9 \end{pmatrix}
+   \end{aligned}
    $$
 
    But this does not prove that matrix multiplication is associative.
@@ -517,8 +525,10 @@ $$
 1. Yes:
 
    $$
-   AC + BC = \begin{pmatrix} 1 & 0 \\ -11 & 5 \end{pmatrix} + \begin{pmatrix} -17 & 7 \\ 11 & -3 \end{pmatrix} = \begin{pmatrix} -16 & 7 \\ 0 & 2 \end{pmatrix}, \qquad
-   (A + B)C = \begin{pmatrix} 3 & 5 \\ 10 & 6 \end{pmatrix}C = \begin{pmatrix} -16 & 7 \\ 0 & 2 \end{pmatrix}
+   \begin{aligned}
+   AC + BC &= \begin{pmatrix} 1 & 0 \\ -11 & 5 \end{pmatrix} + \begin{pmatrix} -17 & 7 \\ 11 & -3 \end{pmatrix} = \begin{pmatrix} -16 & 7 \\ 0 & 2 \end{pmatrix}, \\
+   (A + B)C &= \begin{pmatrix} 3 & 5 \\ 10 & 6 \end{pmatrix}C = \begin{pmatrix} -16 & 7 \\ 0 & 2 \end{pmatrix}
+   \end{aligned}
    $$
 
    Again, this is one example, so it does not prove the distributive property (which does hold for all matrices).
@@ -749,8 +759,10 @@ $$
 $|X| = 4 - 6 = -2$ and $|Y| = 40 - 42 = -2$, so
 
 $$
-X^{-1} = -\frac{1}{2}\begin{pmatrix} 4 & -2 \\ -3 & 1 \end{pmatrix} = \begin{pmatrix} -2 & 1 \\ 3/2 & -1/2 \end{pmatrix}, \qquad
-Y^{-1} = -\frac{1}{2}\begin{pmatrix} 8 & -6 \\ -7 & 5 \end{pmatrix} = \begin{pmatrix} -4 & 3 \\ 7/2 & -5/2 \end{pmatrix}
+\begin{aligned}
+X^{-1} &= -\frac{1}{2}\begin{pmatrix} 4 & -2 \\ -3 & 1 \end{pmatrix} = \begin{pmatrix} -2 & 1 \\ 3/2 & -1/2 \end{pmatrix}, \\
+Y^{-1} &= -\frac{1}{2}\begin{pmatrix} 8 & -6 \\ -7 & 5 \end{pmatrix} = \begin{pmatrix} -4 & 3 \\ 7/2 & -5/2 \end{pmatrix}
+\end{aligned}
 $$
 
 Then
@@ -795,8 +807,10 @@ where $\lambda_1$ and $\lambda_2$ are constants to be determined.
 Multiply out the left-hand sides:
 
 $$
-\begin{pmatrix} 3 & 1 \\ 1 & 3 \end{pmatrix} \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{1}{\sqrt 2} \end{pmatrix} = \begin{pmatrix} \frac{4}{\sqrt 2} \\ \frac{4}{\sqrt 2} \end{pmatrix} = 4\begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{1}{\sqrt 2} \end{pmatrix}, \qquad
-\begin{pmatrix} 3 & 1 \\ 1 & 3 \end{pmatrix} \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{-1}{\sqrt 2} \end{pmatrix} = \begin{pmatrix} \frac{2}{\sqrt 2} \\ \frac{-2}{\sqrt 2} \end{pmatrix} = 2\begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{-1}{\sqrt 2} \end{pmatrix}
+\begin{aligned}
+\begin{pmatrix} 3 & 1 \\ 1 & 3 \end{pmatrix} \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{1}{\sqrt 2} \end{pmatrix} &= \begin{pmatrix} \frac{4}{\sqrt 2} \\ \frac{4}{\sqrt 2} \end{pmatrix} = 4\begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{1}{\sqrt 2} \end{pmatrix}, \\
+\begin{pmatrix} 3 & 1 \\ 1 & 3 \end{pmatrix} \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{-1}{\sqrt 2} \end{pmatrix} &= \begin{pmatrix} \frac{2}{\sqrt 2} \\ \frac{-2}{\sqrt 2} \end{pmatrix} = 2\begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{-1}{\sqrt 2} \end{pmatrix}
+\end{aligned}
 $$
 
 So, $\lambda_1 = 4$ and $\lambda_2 = 2$.

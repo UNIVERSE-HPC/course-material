@@ -130,7 +130,10 @@ $$
 **In general:**
 
 $$
-\frac{d\left(a\, x^{n+1}\right)}{dx}=(n+1)a\, x^n \qquad \Rightarrow \qquad \int_{x_1}^{x_2} a\, x^n\,dx = \Big[\frac{a}{n+1}\, x^{n+1}\Big]_{x_1}^{x_2} \qquad (n\neq -1)
+\begin{gathered}
+\frac{d\left(a\, x^{n+1}\right)}{dx}=(n+1)a\, x^n \\
+\Rightarrow \qquad \int_{x_1}^{x_2} a\, x^n\,dx = \Big[\frac{a}{n+1}\, x^{n+1}\Big]_{x_1}^{x_2} \qquad (n\neq -1)
+\end{gathered}
 $$
 
 ## SymPy examples
@@ -448,7 +451,10 @@ In each case, first write every term as a power of $x$, then use $\int x^n\,dx =
 1. Since $\sqrt[3]{x} = x^{1/3}$ and $1/\sqrt[4]{x} = x^{-1/4}$,
 
    $$
-   \int\left(x^{1/3} + \frac{1}{3}x^{-1/4}\right)dx = \frac{3}{4}x^{4/3} + \frac{1}{3}\cdot\frac{4}{3}x^{3/4} + C = \frac{3}{4}x^{4/3} + \frac{4}{9}x^{3/4} + C
+   \begin{aligned}
+   \int\left(x^{1/3} + \frac{1}{3}x^{-1/4}\right)dx &= \frac{3}{4}x^{4/3} + \frac{1}{3}\cdot\frac{4}{3}x^{3/4} + C \\
+   &= \frac{3}{4}x^{4/3} + \frac{4}{9}x^{3/4} + C
+   \end{aligned}
    $$
 
 1. Since $1/x^2 = x^{-2}$ and $1/\sqrt[3]{x} = x^{-1/3}$,
@@ -522,20 +528,29 @@ Find the integrals below by making the substitution suggested:
 1. $du = -4x\,dx$, so $x\,dx = -du/4$:
 
    $$
-   \int x\sqrt{7-2x^2}\,dx = -\frac{1}{4}\int u^{1/2}\,du = -\frac{1}{4}\cdot\frac{2}{3}u^{3/2} + C = -\frac{1}{6}\left(7-2x^2\right)^{3/2} + C
+   \begin{aligned}
+   \int x\sqrt{7-2x^2}\,dx &= -\frac{1}{4}\int u^{1/2}\,du = -\frac{1}{4}\cdot\frac{2}{3}u^{3/2} + C \\
+   &= -\frac{1}{6}\left(7-2x^2\right)^{3/2} + C
+   \end{aligned}
    $$
 
 1. $du = 3e^x\,dx$, so $e^x\,dx = du/3$.
    We also change the limits: at $x=0$, $u = -7$, and at $x=1$, $u = 3e - 10$:
 
    $$
-   \int_0^1 e^x(3e^x-10)^4\,dx = \frac{1}{3}\int_{-7}^{3e-10} u^4\,du = \frac{1}{15}\left[u^5\right]_{-7}^{3e-10} = \frac{1}{15}\left((3e-10)^5 + 7^5\right) \approx 1119
+   \begin{aligned}
+   \int_0^1 e^x(3e^x-10)^4\,dx &= \frac{1}{3}\int_{-7}^{3e-10} u^4\,du = \frac{1}{15}\left[u^5\right]_{-7}^{3e-10} \\
+   &= \frac{1}{15}\left((3e-10)^5 + 7^5\right) \approx 1119
+   \end{aligned}
    $$
 
 1. $du = -12x^3\,dx$, so $x^3\,dx = -du/12$:
 
    $$
-   \int x^3\sqrt{15-3x^4}\,dx = -\frac{1}{12}\int u^{1/2}\,du = -\frac{1}{12}\cdot\frac{2}{3}u^{3/2} + C = -\frac{1}{18}\left(15-3x^4\right)^{3/2} + C
+   \begin{aligned}
+   \int x^3\sqrt{15-3x^4}\,dx &= -\frac{1}{12}\int u^{1/2}\,du = -\frac{1}{12}\cdot\frac{2}{3}u^{3/2} + C \\
+   &= -\frac{1}{18}\left(15-3x^4\right)^{3/2} + C
+   \end{aligned}
    $$
 
 1. Note that $\sqrt{x^3} = x^{3/2}$.
@@ -543,7 +558,10 @@ Find the integrals below by making the substitution suggested:
    At $x=0$, $u = 4$, and at $x=4$, $u = 4 + 4^{5/2} = 36$:
 
    $$
-   \int_0^4 \sqrt{x^3}\,\sqrt{4+x^{5/2}}\,dx = \frac{2}{5}\int_4^{36} u^{1/2}\,du = \frac{2}{5}\cdot\frac{2}{3}\left[u^{3/2}\right]_4^{36} = \frac{4}{15}(216 - 8) = \frac{832}{15} \approx 55.47
+   \begin{aligned}
+   \int_0^4 \sqrt{x^3}\,\sqrt{4+x^{5/2}}\,dx &= \frac{2}{5}\int_4^{36} u^{1/2}\,du = \frac{2}{5}\cdot\frac{2}{3}\left[u^{3/2}\right]_4^{36} \\
+   &= \frac{4}{15}(216 - 8) = \frac{832}{15} \approx 55.47
+   \end{aligned}
    $$
 
 1. $du = -nx^{n-1}\,dx$, so $x^{n-1}\,dx = -du/n$.
@@ -757,7 +775,10 @@ where $k$ and $p$ are positive constants.
    The start of 2010 is $t = 160$, so
 
    $$
-   0.2\,e^{160p} = 32 \quad\implies\quad e^{160p} = 160 \quad\implies\quad p = \frac{\ln(160)}{160} \approx 0.0317\,\text{year}^{-1}
+   \begin{aligned}
+   0.2\,e^{160p} = 32 \quad&\implies\quad e^{160p} = 160 \\
+   &\implies\quad p = \frac{\ln(160)}{160} \approx 0.0317\,\text{year}^{-1}
+   \end{aligned}
    $$
 
 1. The total emitted is the integral of the rate:
@@ -857,7 +878,10 @@ Consider the function $y = 4x^3 +2x^2-8x + 2$.
 1. Integrating term by term,
 
    $$
-   \int_{-2}^{2}\left(4x^3+2x^2-8x+2\right)dx = \left[x^4 + \frac{2}{3}x^3 - 4x^2 + 2x\right]_{-2}^{2} = \frac{28}{3} - \left(-\frac{28}{3}\right) = \frac{56}{3} \approx 18.67
+   \begin{aligned}
+   \int_{-2}^{2}\left(4x^3+2x^2-8x+2\right)dx &= \left[x^4 + \frac{2}{3}x^3 - 4x^2 + 2x\right]_{-2}^{2} \\
+   &= \frac{28}{3} - \left(-\frac{28}{3}\right) = \frac{56}{3} \approx 18.67
+   \end{aligned}
    $$
 
    This is not the area of the shaded region.
@@ -1032,7 +1056,10 @@ $$
 **2.** The two rates are equal when
 
 $$
-0.1t^2 - t = 800 - 12t \quad\implies\quad t^2 + 110t - 8000 = 0 \quad\implies\quad (t - 50)(t + 160) = 0
+\begin{aligned}
+0.1t^2 - t = 800 - 12t \quad&\implies\quad t^2 + 110t - 8000 = 0 \\
+&\implies\quad (t - 50)(t + 160) = 0
+\end{aligned}
 $$
 
 The negative root has no meaning here, so the rates are equal at $t = 50$.
