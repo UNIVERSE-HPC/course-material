@@ -338,7 +338,11 @@ Differentiate the following functions, using the stated rules where indicated:
 1. With $u = 5x^2-12$ and $v = 4x^{-1}+2$:
 
    $$
-   \frac{dy}{dx} = 10x(4x^{-1}+2) + (5x^2-12)(-4x^{-2}) = 40 + 20x - 20 + 48x^{-2} = 20 + 20x + \frac{48}{x^2}
+   \begin{aligned}
+   \frac{dy}{dx} &= 10x(4x^{-1}+2) + (5x^2-12)(-4x^{-2}) \\
+   &= 40 + 20x - 20 + 48x^{-2} \\
+   &= 20 + 20x + \frac{48}{x^2}
+   \end{aligned}
    $$
 
 1. $$

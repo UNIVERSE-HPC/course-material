@@ -323,7 +323,8 @@ Find the polar coordinates for the complex number $z= -3+4i$.
 $$
 \begin{aligned}
 |z|=r &= \sqrt{(-3)^2+4^2}=\sqrt{25}=5 \\
-\text{arg}(z)=\theta=\arctan\left(\frac{y}{x}\right) &= \arctan(-4/3)+\pi = -0.93+\pi \approx 2.21 \text{ radians}\approx 127^\circ
+\text{arg}(z)=\theta=\arctan\left(\frac{y}{x}\right) &= \arctan(-4/3)+\pi = -0.93+\pi \\
+&\approx 2.21 \text{ radians}\approx 127^\circ
 \end{aligned}
 $$
 
@@ -562,7 +563,8 @@ $$
 z_1 + z_2 &= (5-4) + (3+2)i = 1+5i \\
 z_1 - z_2 &= (5+4) + (3-2)i = 9+i \\
 z_1 z_2 &= (5+3i)(-4+2i) = -20 + 10i - 12i + 6i^2 = -26-2i \\
-\frac{z_1}{z_2} &= \frac{(5+3i)(-4-2i)}{(-4+2i)(-4-2i)} = \frac{-20 - 22i - 6i^2}{16+4} = \frac{-14-22i}{20} = -\frac{7}{10} - \frac{11}{10}i
+\frac{z_1}{z_2} &= \frac{(5+3i)(-4-2i)}{(-4+2i)(-4-2i)} = \frac{-20 - 22i - 6i^2}{16+4} \\
+&= \frac{-14-22i}{20} = -\frac{7}{10} - \frac{11}{10}i
 \end{aligned}
 $$
 
@@ -587,7 +589,10 @@ To find it, find the real numbers $a$ and $b$ with $(a+bi)^2 = -75-100i$.
 1. Rearrange, then divide by multiplying by the complex conjugate:
 
    $$
-   z = \frac{6+3i}{7+i} = \frac{(6+3i)(7-i)}{(7+i)(7-i)} = \frac{42 + 15i - 3i^2}{49+1} = \frac{45+15i}{50} = \frac{9}{10} + \frac{3}{10}i
+   \begin{aligned}
+   z &= \frac{6+3i}{7+i} = \frac{(6+3i)(7-i)}{(7+i)(7-i)} = \frac{42 + 15i - 3i^2}{49+1} \\
+   &= \frac{45+15i}{50} = \frac{9}{10} + \frac{3}{10}i
+   \end{aligned}
    $$
 
 1. Multiply both sides by $3(z+i)$:
@@ -615,7 +620,10 @@ To find it, find the real numbers $a$ and $b$ with $(a+bi)^2 = -75-100i$.
    So, the square root is $\pm(5-10i)$, and
 
    $$
-   z = \frac{-1-4i + (5-10i)}{2} = 2-7i \qquad\text{or}\qquad z = \frac{-1-4i - (5-10i)}{2} = -3+3i
+   \begin{aligned}
+   z &= \frac{-1-4i + (5-10i)}{2} = 2-7i \\
+   \text{or}\qquad z &= \frac{-1-4i - (5-10i)}{2} = -3+3i
+   \end{aligned}
    $$
 
    We can check by multiplying out: $(z - (2-7i))(z - (-3+3i)) = z^2 + (1+4i)z + (15+27i)$.
@@ -658,7 +666,10 @@ plt.gca().set_aspect('equal')
    For $z_2$, which is in the second quadrant, we add $\pi$ to the arctangent:
 
    $$
-   r_2 = \sqrt{2^2 + 4^2} = \sqrt{20} \approx 4.47, \qquad \theta_2 = \arctan\left(\frac{4}{-2}\right) + \pi \approx -1.107 + \pi \approx 2.034
+   \begin{aligned}
+   r_2 &= \sqrt{2^2 + 4^2} = \sqrt{20} \approx 4.47, \\
+   \theta_2 &= \arctan\left(\frac{4}{-2}\right) + \pi \approx -1.107 + \pi \approx 2.034
+   \end{aligned}
    $$
 
    So, $z_1 \approx 5.39\,e^{-0.381i}$ and $z_2 \approx 4.47\,e^{2.034i}$.
@@ -781,7 +792,10 @@ $$
 And $z + z^4 = -3+i$, also in the second quadrant:
 
 $$
-|z+z^4| = \sqrt{9+1} = \sqrt{10} \approx 3.16, \qquad \arg(z+z^4) = \pi - \arctan\left(\frac{1}{3}\right) \approx 2.82
+\begin{aligned}
+|z+z^4| &= \sqrt{9+1} = \sqrt{10} \approx 3.16, \\
+\arg(z+z^4) &= \pi - \arctan\left(\frac{1}{3}\right) \approx 2.82
+\end{aligned}
 $$
 
 :::

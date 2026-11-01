@@ -271,6 +271,90 @@ If we now look again at the phase plane, after having calculated the stability o
 - Eigenvalues tell us about the behaviour of linear systems
 - Eigenvalues tell us about the stability of nonlinear systems
 
+## Introductory problems
+
+:::callout{variant="tip"}
+For more practice, an AI tool can write new problems like the ones below.
+Ask it for problems of the same type and difficulty, or for problems set in your own field.
+For example, you could ask it to "write five epidemiology problems on classifying steady states, at the level of these ones".
+Work them on paper first, then ask the tool to check your answers and to explain any step you are unsure of.
+:::
+
+::::challenge{id="16_intro_01" title="Introductory problems 1"}
+Each matrix below is the Jacobian at a fixed point.
+Find its trace, determinant and eigenvalues, and classify the fixed point.
+
+$$
+\begin{gathered}
+\text{(a)}\ \left(\begin{array}{cc} -3 & 0 \\ 0 & -1 \end{array}\right); \qquad
+\text{(b)}\ \left(\begin{array}{cc} 3 & 1 \\ 1 & 3 \end{array}\right); \qquad
+\text{(c)}\ \left(\begin{array}{cc} 1 & 2 \\ 2 & 1 \end{array}\right); \\
+\text{(d)}\ \left(\begin{array}{cc} -1 & -2 \\ 2 & -1 \end{array}\right); \qquad
+\text{(e)}\ \left(\begin{array}{cc} 0 & 1 \\ -4 & 0 \end{array}\right)
+\end{gathered}
+$$
+
+:::solution
+
+As in the lecture, the eigenvalues satisfy $\lambda^2 - \tau\lambda + \Delta = 0$, where $\tau$ is the trace and $\Delta$ is the determinant.
+
+- (a) $\tau = -4$ and $\Delta = 3$, so $\lambda^2 + 4\lambda + 3 = (\lambda + 1)(\lambda + 3) = 0$.
+  The eigenvalues $\lambda = -1$ and $-3$ are both negative, so this is a stable node.
+- (b) $\tau = 6$ and $\Delta = 9 - 1 = 8$, so $\lambda^2 - 6\lambda + 8 = (\lambda - 2)(\lambda - 4) = 0$.
+  The eigenvalues $\lambda = 2$ and $4$ are both positive, so this is an unstable node.
+- (c) $\tau = 2$ and $\Delta = 1 - 4 = -3$, so $\lambda^2 - 2\lambda - 3 = (\lambda - 3)(\lambda + 1) = 0$.
+  The eigenvalues $\lambda = 3$ and $-1$ have opposite signs, so this is a saddle (unstable).
+- (d) $\tau = -2$ and $\Delta = 1 + 4 = 5$, so $\lambda^2 + 2\lambda + 5 = 0$ and
+
+  $$
+  \lambda = \frac{-2 \pm \sqrt{4 - 20}}{2} = -1 \pm 2i
+  $$
+
+  The eigenvalues are complex with a negative real part, so this is a stable spiral.
+- (e) $\tau = 0$ and $\Delta = 4$, so $\lambda^2 + 4 = 0$ and $\lambda = \pm 2i$.
+  The eigenvalues are purely imaginary, so this is neutral: solutions cycle round the fixed point.
+
+Notice that a negative determinant always gives a saddle, because then the two eigenvalues multiply to give a negative number.
+
+:::
+
+::::
+
+::::challenge{id="16_intro_02" title="Introductory problems 2"}
+The system
+
+$$
+\dot{x} = x - xy, \qquad \dot{y} = x^2 - y
+$$
+
+has fixed points at $(0, 0)$, $(1, 1)$ and $(-1, 1)$.
+Find the Jacobian, evaluate it at each fixed point, and classify each one.
+
+:::solution
+
+With $f = x - xy$ and $g = x^2 - y$,
+
+$$
+J = \left(\begin{array}{cc} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y} \\ \frac{\partial g}{\partial x} & \frac{\partial g}{\partial y} \end{array}\right) = \left(\begin{array}{cc} 1 - y & -x \\ 2x & -1 \end{array}\right)
+$$
+
+- At $(0, 0)$, $J = \left(\begin{array}{cc} 1 & 0 \\ 0 & -1 \end{array}\right)$.
+  The eigenvalues are the diagonal entries, $\lambda = 1$ and $-1$, so $(0, 0)$ is a saddle (unstable).
+- At $(1, 1)$, $J = \left(\begin{array}{cc} 0 & -1 \\ 2 & -1 \end{array}\right)$, with $\tau = -1$ and $\Delta = 0 + 2 = 2$.
+  So, $\lambda^2 + \lambda + 2 = 0$ and
+
+  $$
+  \lambda = \frac{-1 \pm \sqrt{1 - 8}}{2} = \frac{-1 \pm i\sqrt{7}}{2}
+  $$
+
+  These are complex with a negative real part, so $(1, 1)$ is a stable spiral.
+- At $(-1, 1)$, $J = \left(\begin{array}{cc} 0 & 1 \\ -2 & -1 \end{array}\right)$, with $\tau = -1$ and $\Delta = 0 + 2 = 2$.
+  These are the same trace and determinant as at $(1, 1)$, so $(-1, 1)$ is also a stable spiral.
+
+:::
+
+::::
+
 ## Main problems
 
 :::callout{variant="note"}
@@ -284,6 +368,26 @@ Classify the fixed points and discuss stability of the following linear systems:
 1. $\dot{x} = x+3y+4, \qquad \dot{y}=-6x+5y-1;$
 1. $\dot{x} = x+3y+1, \qquad \dot{y}=-6x+5y.$
 
+:::solution
+
+The constants disappear when we differentiate, so all three systems have the same Jacobian:
+
+$$
+J = \left(\begin{array}{cc} 1 & 3 \\ -6 & 5 \end{array}\right)
+$$
+
+Its trace is $\tau = 6$ and its determinant is $\Delta = 5 + 18 = 23$, so the eigenvalues satisfy
+
+$$
+\lambda^2 - 6\lambda + 23 = 0 \qquad\implies\qquad \lambda = 3 \pm i\sqrt{14}
+$$
+
+The eigenvalues are complex with a positive real part, so each fixed point is an unstable spiral.
+The fixed points, found on the previous page, are $(0, 0)$, $(-1, -1)$ and $(-5/23, -6/23)$.
+Adding the constants moves the fixed point, but does not change the flow around it.
+
+:::
+
 ::::
 
 ::::challenge{id="16_main_02" title="Main problems 2"}
@@ -292,16 +396,47 @@ Classify the fixed points and discuss stability of the following nonlinear syste
 1. $\dot{x} = -4y+2xy-8 \qquad \dot{y}=4y^2-x^2;$
 1. $\dot{x} = y-x^2+2, \qquad \dot{y}=2(x^2-y^2).$
 
+:::solution
+
+We found the fixed points on the previous page.
+At each one, we calculate the Jacobian, and its eigenvalues from $\lambda^2 - \tau\lambda + \Delta = 0$, where $\tau$ is the trace and $\Delta$ the determinant.
+
+1. $$
+   J = \left(\begin{array}{cc} 2y & 2x - 4 \\ -2x & 8y \end{array}\right)
+   $$
+
+   - At $(4, 2)$, $J = \left(\begin{array}{cc} 4 & 4 \\ -8 & 16 \end{array}\right)$, with $\tau = 20$ and $\Delta = 96$.
+     So, $\lambda = 8$ or $12$, both positive, and $(4, 2)$ is an unstable node.
+   - At $(-2, -1)$, $J = \left(\begin{array}{cc} -2 & -8 \\ 4 & -8 \end{array}\right)$, with $\tau = -10$ and $\Delta = 48$.
+     So, $\lambda = -5 \pm i\sqrt{23}$, complex with a negative real part, and $(-2, -1)$ is a stable spiral.
+
+1. $$
+   J = \left(\begin{array}{cc} -2x & 1 \\ 4x & -4y \end{array}\right)
+   $$
+
+   - At $(2, 2)$, $J = \left(\begin{array}{cc} -4 & 1 \\ 8 & -8 \end{array}\right)$, with $\tau = -12$ and $\Delta = 24$.
+     So, $\lambda = -6 \pm 2\sqrt{3}$, both negative (as $2\sqrt{3} \approx 3.5$), and $(2, 2)$ is a stable node.
+   - At $(-1, -1)$, $J = \left(\begin{array}{cc} 2 & 1 \\ -4 & 4 \end{array}\right)$, with $\tau = 6$ and $\Delta = 12$.
+     So, $\lambda = 3 \pm i\sqrt{3}$, complex with a positive real part, and $(-1, -1)$ is an unstable spiral.
+   - At $(-2, 2)$, $J = \left(\begin{array}{cc} 4 & 1 \\ -8 & -8 \end{array}\right)$, with $\tau = -4$ and $\Delta = -24$.
+     So, $\lambda = -2 \pm 2\sqrt{7}$, one positive and one negative, and $(-2, 2)$ is a saddle (unstable).
+   - At $(1, -1)$, $J = \left(\begin{array}{cc} -2 & 1 \\ 4 & 4 \end{array}\right)$, with $\tau = 2$ and $\Delta = -12$.
+     So, $\lambda = 1 \pm \sqrt{13}$, one positive and one negative, and $(1, -1)$ is a saddle (unstable).
+
+   Note, whenever $\Delta < 0$ the eigenvalues have opposite signs, so the fixed point is a saddle.
+
+:::
+
 ::::
 
 ::::challenge{id="16_main_03" title="Main problems 3"}
 The population of a host, $H(t)$, and a parasite, $P(t)$, are described approximately by the equations
 
 $$
-\frac{dH}{dT}=(a-bP)H,\qquad \frac{dP}{dT}=\left(c-\frac{dP}{H}\right)P, \qquad H>0,
+\frac{dH}{dT}=(a-bP)H,\qquad \frac{dP}{dT}=\left(c-\frac{kP}{H}\right)P, \qquad H>0,
 $$
 
-where $a,b,c,d$ are positive constants.
+where $a,b,c,k$ are positive constants.
 Previously, by a change of scales, these equations were put in the simpler form
 
 $$
@@ -319,6 +454,62 @@ That is, include the flow across:
 1. $y=0$;
 1. $x=1$;
 1. $y=\beta x$, for $\beta$ greater than and less than 1.
+
+:::solution
+
+**Fixed points.**
+$\dot{y} = 0$ when $y = 0$ or $x = 1$, and $\dot{x} = 0$ when $x = 0$ or $x = y$.
+The equations are only defined for $y > 0$ (because $H > 0$), so $\dot{y} = 0$ needs $x = 1$, and then $\dot{x} = 0$ needs $y = x = 1$.
+So, the only fixed point is $(1, 1)$.
+
+**Classification.**
+With $f = \alpha x(1 - x/y)$ and $g = (1 - x)y$,
+
+$$
+J = \left(\begin{array}{cc} \alpha\left(1 - \frac{2x}{y}\right) & \frac{\alpha x^2}{y^2} \\ -y & 1 - x \end{array}\right)
+\qquad\text{so}\qquad
+J_{(1,1)} = \left(\begin{array}{cc} -\alpha & \alpha \\ -1 & 0 \end{array}\right)
+$$
+
+The trace is $\tau = -\alpha$ and the determinant is $\Delta = \alpha$, so
+
+$$
+\lambda = \frac{-\alpha \pm \sqrt{\alpha^2 - 4\alpha}}{2}
+$$
+
+- If $\alpha < 4$, the eigenvalues are complex with a negative real part, so $(1, 1)$ is a stable spiral.
+- If $\alpha > 4$, the eigenvalues are real, and both are negative (because $\sqrt{\alpha^2 - 4\alpha} < \alpha$), so $(1, 1)$ is a stable node.
+- If $\alpha = 4$, there is a repeated eigenvalue $\lambda = -2$, and $(1, 1)$ is still stable.
+
+Either way, the host and parasite populations settle to steady values, which in the original variables are $H = ka/(bc)$ and $P = a/b$.
+
+**Phase flow.**
+The flow across the lines is as on the previous page.
+It goes clockwise around $(1, 1)$, upwards along $x = 0$, and sharply to the left just above $y = 0$.
+Now we know that $(1, 1)$ is stable, so trajectories wind in towards it (for $\alpha < 4$), or approach it without winding round (for $\alpha > 4$).
+For example, with $\alpha = 1$:
+
+```python
+import numpy as np
+from matplotlib import pyplot as plt
+
+alpha = 1
+x, y = np.meshgrid(np.linspace(0.01, 2.5, 30), np.linspace(0.01, 2.5, 30))
+xdot = alpha * x * (1 - x / y)
+ydot = (1 - x) * y
+
+plt.streamplot(x, y, xdot, ydot, color='grey')
+plt.plot([0, 2.5], [0, 2.5], color='#0072bd', label='x-nullcline y = x')
+plt.axvline(0, color='#0072bd', label='x-nullcline x = 0')
+plt.axvline(1, color='#F39200', label='y-nullcline x = 1')
+plt.axhline(0, color='#F39200', label='y-nullcline y = 0')
+plt.plot(1, 1, 'ko', label='stable fixed point (1, 1)')
+plt.xlabel('x (parasites)')
+plt.ylabel('y (hosts)')
+plt.legend()
+```
+
+:::
 
 ::::
 
@@ -338,6 +529,59 @@ The $\dot{x}$ notation represents the derivative with respect to non-dimensional
 1. Calculate the steady states of the system.
 1. Determine the stability of the fixed points in the case $\beta = r = 4$.
 1. Draw the phase plane, including the nullclines and phase trajectories.
+   You can sketch it by hand, or plot it in Python by adapting the phase plane code from the previous lecture.
+
+:::solution
+
+1. $\dot{x} = x\left(r(1 - x) - y\right) = 0$ when $x = 0$ or $y = r(1 - x)$, and $\dot{y} = 0$ when $y = \beta x$.
+
+   - If $x = 0$, then $y = 0$, which gives the steady state $(0, 0)$.
+   - If $y = r(1 - x)$ and $y = \beta x$, then $\beta x = r - rx$, so $x = r/(r + \beta)$ and $y = r\beta/(r + \beta)$.
+
+   So, the steady states are $(0, 0)$ and $\left(\frac{r}{r+\beta}, \frac{r\beta}{r+\beta}\right)$.
+
+1. With $\beta = r = 4$, the steady states are $(0, 0)$ and $(1/2, 2)$.
+   The Jacobian is
+
+   $$
+   J = \left(\begin{array}{cc} r - 2rx - y & -x \\ \beta & -1 \end{array}\right) = \left(\begin{array}{cc} 4 - 8x - y & -x \\ 4 & -1 \end{array}\right)
+   $$
+
+   - At $(0, 0)$, $J = \left(\begin{array}{cc} 4 & 0 \\ 4 & -1 \end{array}\right)$.
+     The top right entry is zero, so the eigenvalues are the diagonal entries, $\lambda = 4$ and $-1$.
+     One is positive and one negative, so $(0, 0)$ is a saddle (unstable).
+   - At $(1/2, 2)$, $J = \left(\begin{array}{cc} -2 & -1/2 \\ 4 & -1 \end{array}\right)$, with $\tau = -3$ and $\Delta = 2 + 2 = 4$.
+     So, $\lambda = \left(-3 \pm i\sqrt{7}\right)/2$, complex with a negative real part, and $(1/2, 2)$ is a stable spiral.
+
+   In other words, as long as there are some fish, the fish and angler populations settle down to $x = 1/2$ and $y = 2$, overshooting and coming back a few times on the way.
+
+1. The $x$-nullclines are $x = 0$ and the line $y = 4(1 - x)$, and the $y$-nullcline is the line $y = 4x$.
+   They cross at the two steady states.
+   Along $x = 0$ (no fish) the anglers leave, and the flow runs down the $y$ axis towards $(0, 0)$.
+   From near $(0, 0)$, the flow moves away into the region with fish, and trajectories spiral anticlockwise into $(1/2, 2)$:
+
+   ```python
+   import numpy as np
+   from matplotlib import pyplot as plt
+
+   r = 4
+   beta = 4
+   x, y = np.meshgrid(np.linspace(0, 1.2, 30), np.linspace(0, 4.5, 30))
+   xdot = r * x * (1 - x) - x * y
+   ydot = beta * x - y
+
+   plt.streamplot(x, y, xdot, ydot, color='grey')
+   s = np.linspace(0, 1.2, 2)
+   plt.plot(s, r * (1 - s), color='#0072bd', label='x-nullcline y = r(1 - x)')
+   plt.axvline(0, color='#0072bd', label='x-nullcline x = 0')
+   plt.plot(s, beta * s, color='#F39200', label='y-nullcline y = beta x')
+   plt.plot([0, 0.5], [0, 2], 'ko', label='steady states')
+   plt.xlabel('x (fish)')
+   plt.ylabel('y (anglers)')
+   plt.legend()
+   ```
+
+:::
 
 ::::
 
@@ -355,8 +599,55 @@ $$
 \end{aligned}
 $$
 
-1. Define the four variables $a,b,c,d$.
+1. Define the four parameters $a,b,c,d$.
 1. Find the fixed point of the system and describe the motion in its neighbourhood.
 1. What does this mean in terms of the population of hares and foxes?
+
+:::solution
+
+1. All four are positive constants:
+   - $a$ is the rate at which the hares grow when there are no foxes;
+   - $b$ measures how quickly the foxes eat the hares;
+   - $c$ measures how quickly the foxes increase from eating hares (the rate of eating, times how efficiently the food becomes new foxes);
+   - $d$ is the rate at which the foxes die when there are no hares.
+
+1. $dH/dT = H(a - bF) = 0$ when $H = 0$ or $F = a/b$, and $dF/dT = F(cH - d) = 0$ when $F = 0$ or $H = d/c$.
+   Both populations are positive, so the fixed point is $(H, F) = (d/c, a/b)$.
+   The Jacobian there is
+
+   $$
+   J = \left(\begin{array}{cc} a - bF & -bH \\ cF & cH - d \end{array}\right) = \left(\begin{array}{cc} 0 & -bd/c \\ ac/b & 0 \end{array}\right)
+   $$
+
+   with $\tau = 0$ and $\Delta = ad$.
+   So, $\lambda^2 + ad = 0$, and $\lambda = \pm i\sqrt{ad}$.
+   The eigenvalues are imaginary, so the fixed point is neutral, and nearby solutions cycle round it.
+
+   The eigenvalues only describe the linear approximation, and small nonlinear terms could turn the cycles into spirals.
+   Here they do not, because the quantity
+
+   $$
+   V = cH - d\ln H + bF - a\ln F
+   $$
+
+   does not change over time.
+   Differentiating with respect to $T$, using the chain rule on each term,
+
+   $$
+   \begin{aligned}
+   \frac{dV}{dT} &= \left(c - \frac{d}{H}\right)\frac{dH}{dT} + \left(b - \frac{a}{F}\right)\frac{dF}{dT} \\
+   &= (cH - d)(a - bF) + (bF - a)(cH - d) \\
+   &= 0
+   \end{aligned}
+   $$
+
+   So, each solution stays on a curve of constant $V$.
+   These curves are closed loops around the fixed point, so the solutions really do go round and round.
+
+1. The populations of hares and foxes oscillate forever.
+   When there are many hares the foxes increase, then the hares fall because they are being eaten, then the foxes fall because there is less food, and then the hares recover, and so on.
+   The size of the oscillations depends on the starting populations.
+
+:::
 
 ::::

@@ -390,6 +390,13 @@ $$
 
 ## Introductory problems
 
+:::callout{variant="tip"}
+For more practice, an AI tool can write new problems like the ones below.
+Ask it for problems of the same type and difficulty, or for problems set in your own field.
+For example, you could ask it to "write five engineering problems on matrices and simultaneous equations, at the level of these ones".
+Work them on paper first, then ask the tool to check your answers and to explain any step you are unsure of.
+:::
+
 ::::challenge{id="12_intro_01" title="Introductory problems 1"}
 Write the following system of equations:
 
@@ -409,6 +416,34 @@ in the form
 Where $A$ and $B$ are $3\times3$ matrices, and $\mathbf{x}$, $\mathbf{y}$, $\mathbf{b}$ and $\mathbf{c}$ are vectors whose size and shape you should carefully indicate.
 
 Check that your answers make sense by expanding your expressions to ensure you get back to the original equations.
+
+:::solution
+
+1. The coefficients of each equation form a row of $A$, and the unknowns form a column vector:
+
+   $$
+   \begin{pmatrix} 1 & 1 & 1 \\ 2 & -1 & 1 \\ 1 & -2 & 2 \end{pmatrix}
+   \begin{pmatrix} x \\ y \\ z \end{pmatrix} =
+   \begin{pmatrix} 7 \\ 2 \\ 5 \end{pmatrix}
+   $$
+
+   $A$ is $3\times 3$, and $\mathbf{x}$ and $\mathbf{b}$ are $3\times 1$ column vectors.
+   Multiplying out, the first row of $A$ times $\mathbf{x}$ gives $x + y + z$, which must equal the first entry of $\mathbf{b}$, 7, and so on.
+
+1. Now the unknowns form a row vector on the left, so the coefficients of each equation form a _column_ of $B$.
+   This means that $B = A^T$:
+
+   $$
+   \begin{pmatrix} x & y & z \end{pmatrix}
+   \begin{pmatrix} 1 & 2 & 1 \\ 1 & -1 & -2 \\ 1 & 1 & 2 \end{pmatrix} =
+   \begin{pmatrix} 7 & 2 & 5 \end{pmatrix}
+   $$
+
+   $B$ is $3\times 3$, and $\mathbf{y}$ and $\mathbf{c}$ are $1\times 3$ row vectors.
+   Multiplying out, $\mathbf{y}$ times the first column of $B$ gives $x + y + z$, which must equal the first entry of $\mathbf{c}$, 7, and so on.
+
+:::
+
 ::::
 
 ::::challenge{id="12_intro_02" title="Introductory problems 2"}
@@ -416,11 +451,13 @@ Check that your answers make sense by expanding your expressions to ensure you g
 Given
 
 $$
+\begin{gathered}
 A = \begin{pmatrix} 2 & 1 \\ 3 & 4 \end{pmatrix}, \quad
 B = \begin{pmatrix} 1 & 4 \\ 7 & 2 \end{pmatrix}, \quad
-C = \begin{pmatrix} 3 & -1 \\ -5 & 2 \end{pmatrix}, \quad
+C = \begin{pmatrix} 3 & -1 \\ -5 & 2 \end{pmatrix}, \\
 D = \begin{pmatrix} 1 \\ 3 \end{pmatrix}, \quad
 E = \begin{pmatrix} 2 & -1 \end{pmatrix}
+\end{gathered}
 $$
 
 1. Write down $a_{21}$, $b_{12}$ and $c_{22}$
@@ -437,6 +474,67 @@ $$
 1. Does $(AB)C = A(BC)$? Does this either prove or disprove that matrix multiplication is associative?
 1. Does $AC + BC = (A+B)C$? Does this either prove or disprove the distributive property of matrices?
 
+:::solution
+
+1. $a_{21}$ is the entry in row 2, column 1 of $A$, so $a_{21} = 3$.
+   Similarly, $b_{12} = 4$ and $c_{22} = 2$.
+
+1. Add, subtract and multiply entry by entry:
+
+   $$
+   A + A = \begin{pmatrix} 4 & 2 \\ 6 & 8 \end{pmatrix}, \qquad
+   A - B = \begin{pmatrix} 1 & -3 \\ -4 & 2 \end{pmatrix}, \qquad
+   4C = \begin{pmatrix} 12 & -4 \\ -20 & 8 \end{pmatrix}
+   $$
+
+1. A product is defined only when the number of columns of the first matrix equals the number of rows of the second.
+
+   $$
+   \begin{aligned}
+   AB &= \begin{pmatrix} 2\times 1 + 1\times 7 & 2\times 4 + 1\times 2 \\ 3\times 1 + 4\times 7 & 3\times 4 + 4\times 2 \end{pmatrix} = \begin{pmatrix} 9 & 10 \\ 31 & 20 \end{pmatrix}, \\
+   CD &= \begin{pmatrix} 3 - 3 \\ -5 + 6 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+   \end{aligned}
+   $$
+
+   $DC$ is not defined, because $D$ is $2\times 1$ and $C$ is $2\times 2$ (1 column, but 2 rows).
+   $EE$ is not defined, because $E$ is $1\times 2$ (2 columns, but 1 row).
+
+1. No, and no:
+
+   $$
+   \begin{aligned}
+   AB &= \begin{pmatrix} 9 & 10 \\ 31 & 20 \end{pmatrix} \neq BA = \begin{pmatrix} 14 & 17 \\ 20 & 15 \end{pmatrix}, \\
+   AC &= \begin{pmatrix} 1 & 0 \\ -11 & 5 \end{pmatrix} \neq CA = \begin{pmatrix} 3 & -1 \\ -4 & 3 \end{pmatrix}
+   \end{aligned}
+   $$
+
+1. Yes:
+
+   $$
+   \begin{aligned}
+   (AB)C &= \begin{pmatrix} 9 & 10 \\ 31 & 20 \end{pmatrix}C = \begin{pmatrix} -23 & 11 \\ -7 & 9 \end{pmatrix}, \\
+   A(BC) &= A\begin{pmatrix} -17 & 7 \\ 11 & -3 \end{pmatrix} = \begin{pmatrix} -23 & 11 \\ -7 & 9 \end{pmatrix}
+   \end{aligned}
+   $$
+
+   But this does not prove that matrix multiplication is associative.
+   It is only one example, and a proof has to work for all matrices.
+   (Matrix multiplication _is_ associative, but showing it needs a general argument.)
+   One example can disprove a rule, though, as part **4.** does for commuting.
+
+1. Yes:
+
+   $$
+   \begin{aligned}
+   AC + BC &= \begin{pmatrix} 1 & 0 \\ -11 & 5 \end{pmatrix} + \begin{pmatrix} -17 & 7 \\ 11 & -3 \end{pmatrix} = \begin{pmatrix} -16 & 7 \\ 0 & 2 \end{pmatrix}, \\
+   (A + B)C &= \begin{pmatrix} 3 & 5 \\ 10 & 6 \end{pmatrix}C = \begin{pmatrix} -16 & 7 \\ 0 & 2 \end{pmatrix}
+   \end{aligned}
+   $$
+
+   Again, this is one example, so it does not prove the distributive property (which does hold for all matrices).
+
+:::
+
 ::::
 
 ## Main problems
@@ -449,6 +547,20 @@ A = \frac{1}{2}\left(\begin{array}{cc} 1 & 1 \\ 1 & 1 \end{array}\right),
 $$
 
 find $A^2$ and $A^3$ and comment on your results.
+
+:::solution
+
+$$
+A^2 = \frac{1}{4}\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix} = \frac{1}{4}\begin{pmatrix} 2 & 2 \\ 2 & 2 \end{pmatrix} = \frac{1}{2}\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix} = A
+$$
+
+So, $A^2 = A$, and then $A^3 = A^2A = AA = A$.
+In fact $A^n = A$ for every positive whole number $n$.
+A matrix with $A^2 = A$ is called _idempotent_.
+Multiplying a vector by this $A$ replaces both of its entries by their average, and doing that a second time changes nothing.
+
+:::
+
 ::::
 
 ::::challenge{id="12_main_02" title="Main problems 2"}
@@ -468,6 +580,30 @@ Find:
 - ${(BA)^T}$
 
 Comment on your results.
+
+:::solution
+
+$$
+AB = \begin{pmatrix} 4 & 0 & 7 \\ 13 & -7 & 7 \\ 3 & 1 & 1 \end{pmatrix}, \qquad
+BA = \begin{pmatrix} -4 & 2 & 0 \\ -3 & -9 & -14 \\ 4 & 3 & 11 \end{pmatrix}
+$$
+
+$$
+A^TB^T = \begin{pmatrix} -4 & -3 & 4 \\ 2 & -9 & 3 \\ 0 & -14 & 11 \end{pmatrix}, \qquad
+B^TA^T = \begin{pmatrix} 4 & 13 & 3 \\ 0 & -7 & 1 \\ 7 & 7 & 1 \end{pmatrix}
+$$
+
+$$
+(AB)^T = \begin{pmatrix} 4 & 13 & 3 \\ 0 & -7 & 1 \\ 7 & 7 & 1 \end{pmatrix}, \qquad
+(BA)^T = \begin{pmatrix} -4 & -3 & 4 \\ 2 & -9 & 3 \\ 0 & -14 & 11 \end{pmatrix}
+$$
+
+$AB \neq BA$, so $A$ and $B$ do not commute.
+But $(AB)^T = B^TA^T$ and $(BA)^T = A^TB^T$.
+In other words, the transpose of a product is the product of the transposes in the _reverse_ order (this is true for all matrices).
+
+:::
+
 ::::
 
 ::::challenge{id="12_main_03" title="Main problems 3"}
@@ -481,6 +617,15 @@ Find the determinant, $|A|$, of the following matrices:
    A = \begin{pmatrix} 1 &-1 \\ 2 &-4 \end{pmatrix}
    $$
 
+:::solution
+
+For a $2\times 2$ matrix, $|A| = a_{11}a_{22} - a_{12}a_{21}$.
+
+1. $|A| = 1\times 6 - 2\times 1 = 4$
+1. $|A| = 1\times(-4) - (-1)\times 2 = -4 + 2 = -2$
+
+:::
+
 ::::
 
 ::::challenge{id="12_main_04" title="Main problems 4"}
@@ -493,6 +638,30 @@ Find the inverse, $A^{-1}$, of the following matrices:
 1. $$
    A = \begin{pmatrix} -3 & 2 \\-1 & 7 \end{pmatrix}
    $$
+
+:::solution
+
+For a $2\times 2$ matrix, swap the diagonal entries, change the sign of the other two, and divide by the determinant:
+
+$$
+\begin{pmatrix} a & b \\ c & d \end{pmatrix}^{-1} = \frac{1}{ad - bc}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix}
+$$
+
+1. $|A| = 2\times 4 - 5\times(-1) = 13$, so
+
+   $$
+   A^{-1} = \frac{1}{13}\begin{pmatrix} 4 & -5 \\ 1 & 2 \end{pmatrix}
+   $$
+
+1. $|A| = (-3)\times 7 - 2\times(-1) = -19$, so
+
+   $$
+   A^{-1} = -\frac{1}{19}\begin{pmatrix} 7 & -2 \\ 1 & -3 \end{pmatrix} = \frac{1}{19}\begin{pmatrix} -7 & 2 \\ -1 & 3 \end{pmatrix}
+   $$
+
+You can check each answer by multiplying it by $A$, which should give the identity matrix.
+
+:::
 
 ::::
 
@@ -524,6 +693,41 @@ x = np.linalg.solve(A, b)
 print(x)
 ```
 
+:::solution
+
+Write each system as $A\mathbf{x} = \mathbf{b}$, with the coefficients of $x$, $y$ and $z$ in the rows of $A$ (using a 0 for a missing term):
+
+```python
+import numpy as np
+
+A = np.array([[1, 2, -3], [2, -1, 1], [4, -1, 1]])
+b = np.array([9, 0, 4])
+print(np.linalg.solve(A, b))
+
+A = np.array([[1, 5, 3], [5, 1, -2], [1, 2, 1]])
+b = np.array([17, 4, 7])
+print(np.linalg.solve(A, b))
+
+A = np.array([[0, 2, 1], [1, -2, -3], [-1, 1, 2]])
+b = np.array([-8, 0, 3])
+print(np.linalg.solve(A, b))
+```
+
+```text
+[2. 5. 1.]
+[0.66666667 2.66666667 1.        ]
+[-4. -5.  2.]
+```
+
+1. $x = 2$, $y = 5$, $z = 1$
+1. $x = 2/3$, $y = 8/3$, $z = 1$
+1. $x = -4$, $y = -5$, $z = 2$
+
+Substituting each solution back into its equations checks it.
+For example, in **1.**, $2 + 2\times 5 - 3\times 1 = 9$.
+
+:::
+
 ::::
 
 ::::challenge{id="12_main_06" title="Main problems 6"}
@@ -544,6 +748,123 @@ Calculate:
 - $(YX)^{-1}$
 
 Comment on your results.
+
+:::solution
+
+$$
+XY = \begin{pmatrix} 19 & 22 \\ 43 & 50 \end{pmatrix}, \qquad
+YX = \begin{pmatrix} 23 & 34 \\ 31 & 46 \end{pmatrix}
+$$
+
+$|X| = 4 - 6 = -2$ and $|Y| = 40 - 42 = -2$, so
+
+$$
+\begin{aligned}
+X^{-1} &= -\frac{1}{2}\begin{pmatrix} 4 & -2 \\ -3 & 1 \end{pmatrix} = \begin{pmatrix} -2 & 1 \\ 3/2 & -1/2 \end{pmatrix}, \\
+Y^{-1} &= -\frac{1}{2}\begin{pmatrix} 8 & -6 \\ -7 & 5 \end{pmatrix} = \begin{pmatrix} -4 & 3 \\ 7/2 & -5/2 \end{pmatrix}
+\end{aligned}
+$$
+
+Then
+
+$$
+X^{-1}Y^{-1} = \frac{1}{4}\begin{pmatrix} 46 & -34 \\ -31 & 23 \end{pmatrix}, \qquad
+Y^{-1}X^{-1} = \frac{1}{4}\begin{pmatrix} 50 & -22 \\ -43 & 19 \end{pmatrix}
+$$
+
+$|XY| = 950 - 946 = 4$ and $|YX| = 1058 - 1054 = 4$, so
+
+$$
+(XY)^{-1} = \frac{1}{4}\begin{pmatrix} 50 & -22 \\ -43 & 19 \end{pmatrix}, \qquad
+(YX)^{-1} = \frac{1}{4}\begin{pmatrix} 46 & -34 \\ -31 & 23 \end{pmatrix}
+$$
+
+So, $(XY)^{-1} = Y^{-1}X^{-1}$ and $(YX)^{-1} = X^{-1}Y^{-1}$.
+Like the transpose, the inverse of a product is the product of the inverses in the _reverse_ order.
+This makes sense: to undo "multiply by $Y$, then by $X$", we first undo $X$, then undo $Y$.
+Note also that $|XY| = |X|\,|Y| = 4$.
+
+:::
+
+::::
+
+::::challenge{id="12_main_07" title="Main problems 7"}
+
+Write each of the following systems in the form $A\mathbf{x} = \mathbf{b}$, and solve it by hand by finding $A^{-1}$ and calculating $\mathbf{x} = A^{-1}\mathbf{b}$:
+
+1. $$
+   \begin{aligned} 3x - 2y &= 4,\\ x + y &= 3. \end{aligned}
+   $$
+
+1. $$
+   \begin{aligned} 2x + 3y &= 1,\\ 4x - y &= 9. \end{aligned}
+   $$
+
+Check your answers using Python's `numpy.linalg.solve`.
+
+:::solution
+
+1. In matrix form:
+
+   $$
+   \begin{pmatrix} 3 & -2 \\ 1 & 1 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 4 \\ 3 \end{pmatrix}
+   $$
+
+   $|A| = 3\times 1 - (-2)\times 1 = 5$, so
+
+   $$
+   A^{-1} = \frac{1}{5}\begin{pmatrix} 1 & 2 \\ -1 & 3 \end{pmatrix}
+   $$
+
+   and
+
+   $$
+   \begin{pmatrix} x \\ y \end{pmatrix} = \frac{1}{5}\begin{pmatrix} 1 & 2 \\ -1 & 3 \end{pmatrix}\begin{pmatrix} 4 \\ 3 \end{pmatrix} = \frac{1}{5}\begin{pmatrix} 10 \\ 5 \end{pmatrix} = \begin{pmatrix} 2 \\ 1 \end{pmatrix}
+   $$
+
+   So, $x = 2$ and $y = 1$.
+
+1. In matrix form:
+
+   $$
+   \begin{pmatrix} 2 & 3 \\ 4 & -1 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 1 \\ 9 \end{pmatrix}
+   $$
+
+   $|A| = 2\times(-1) - 3\times 4 = -14$, so
+
+   $$
+   A^{-1} = -\frac{1}{14}\begin{pmatrix} -1 & -3 \\ -4 & 2 \end{pmatrix}
+   $$
+
+   and
+
+   $$
+   \begin{pmatrix} x \\ y \end{pmatrix} = -\frac{1}{14}\begin{pmatrix} -1 & -3 \\ -4 & 2 \end{pmatrix}\begin{pmatrix} 1 \\ 9 \end{pmatrix} = -\frac{1}{14}\begin{pmatrix} -28 \\ 14 \end{pmatrix} = \begin{pmatrix} 2 \\ -1 \end{pmatrix}
+   $$
+
+   So, $x = 2$ and $y = -1$.
+
+In Python:
+
+```python
+import numpy as np
+
+A = np.array([[3, -2], [1, 1]])
+b = np.array([4, 3])
+print(np.linalg.solve(A, b))
+
+A = np.array([[2, 3], [4, -1]])
+b = np.array([1, 9])
+print(np.linalg.solve(A, b))
+```
+
+```text
+[2. 1.]
+[ 2. -1.]
+```
+
+:::
+
 ::::
 
 ## Extension problems
@@ -559,4 +880,22 @@ $$
 $$
 
 where $\lambda_1$ and $\lambda_2$ are constants to be determined.
+
+:::solution
+
+Multiply out the left-hand sides:
+
+$$
+\begin{aligned}
+\begin{pmatrix} 3 & 1 \\ 1 & 3 \end{pmatrix} \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{1}{\sqrt 2} \end{pmatrix} &= \begin{pmatrix} \frac{4}{\sqrt 2} \\ \frac{4}{\sqrt 2} \end{pmatrix} = 4\begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{1}{\sqrt 2} \end{pmatrix}, \\
+\begin{pmatrix} 3 & 1 \\ 1 & 3 \end{pmatrix} \begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{-1}{\sqrt 2} \end{pmatrix} &= \begin{pmatrix} \frac{2}{\sqrt 2} \\ \frac{-2}{\sqrt 2} \end{pmatrix} = 2\begin{pmatrix} \frac{1}{\sqrt 2} \\ \frac{-1}{\sqrt 2} \end{pmatrix}
+\end{aligned}
+$$
+
+So, $\lambda_1 = 4$ and $\lambda_2 = 2$.
+Multiplying each of these vectors by the matrix just stretches it, without changing its direction.
+Vectors like this are called _eigenvectors_, and $\lambda_1$ and $\lambda_2$ are their _eigenvalues_ (more on this in the next lecture).
+
+:::
+
 ::::

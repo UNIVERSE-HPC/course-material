@@ -218,6 +218,13 @@ where $d$ is a constant.
 
 ## Introductory problems
 
+:::callout{variant="tip"}
+For more practice, an AI tool can write new problems like the ones below.
+Ask it for problems of the same type and difficulty, or for problems set in your own field.
+For example, you could ask it to "write five medicine problems on forming differential equations from words, at the level of these ones".
+Work them on paper first, then ask the tool to check your answers and to explain any step you are unsure of.
+:::
+
 ::::challenge{id="10_intro_01" title="Introductory problems 1"}
 Find the general solutions of the following differential equations:
 
@@ -227,6 +234,187 @@ Find the general solutions of the following differential equations:
 1. $dy/dx = -2xy$
 
 Check your answers by differentiating them.
+
+:::solution
+
+In each case, $C$ and $A$ are arbitrary constants.
+
+1. Integrate both sides:
+
+   $$
+   y = \int\left(x^2 + e^x\right)dx = \frac{x^3}{3} + e^x + C
+   $$
+
+1. Separate the variables:
+
+   $$
+   \int\frac{dy}{y^2} = \int\frac{dx}{x} \quad\Rightarrow\quad -\frac{1}{y} = \ln|x| + C \quad\Rightarrow\quad y = -\frac{1}{\ln|x| + C}
+   $$
+
+   (Dividing by $y^2$ assumes $y \neq 0$: $y = 0$ is also a solution.)
+
+1. Multiply both sides by $x$ and integrate, using integration by parts with $u = x$ and $v' = e^{4x}$:
+
+   $$
+   y = \int xe^{4x}\,dx = \frac{xe^{4x}}{4} - \int\frac{e^{4x}}{4}\,dx = \frac{xe^{4x}}{4} - \frac{e^{4x}}{16} + C
+   $$
+
+1. Separate the variables:
+
+   $$
+   \int\frac{dy}{y} = -\int 2x\,dx \quad\Rightarrow\quad \ln|y| = -x^2 + C \quad\Rightarrow\quad y = Ae^{-x^2}
+   $$
+
+:::
+
+::::
+
+::::challenge{id="10_intro_02" title="Introductory problems 2"}
+Write down a differential equation for each of the following, defining any symbols and constants you use, and saying whether each constant is positive or negative.
+Do not solve them.
+
+1. A drug is cleared from the blood at a rate proportional to the amount of drug present.
+1. A population of cells grows at a rate proportional to its size, and cells are also removed (harvested) at a constant rate.
+1. A spherical raindrop evaporates at a rate proportional to its surface area.
+   Write an equation for its volume, and then one for its radius.
+1. A rumour spreads through a group of fixed size at a rate proportional to both the number of people who have heard it and the number who have not.
+
+:::solution
+
+1. Let $D$ be the amount of drug in the blood at time $t$.
+   The amount is decreasing, so
+
+   $$
+   \frac{dD}{dt} = -kD
+   $$
+
+   where $k$ is a positive constant.
+
+1. Let $N$ be the number of cells at time $t$.
+   Growth adds cells at a rate $rN$ and harvesting removes them at a rate $h$, so
+
+   $$
+   \frac{dN}{dt} = rN - h
+   $$
+
+   where $r$ and $h$ are positive constants.
+
+1. Let $V$ be the volume of the raindrop and $r$ its radius at time $t$.
+   Its surface area is $4\pi r^2$, and the volume is decreasing, so
+
+   $$
+   \frac{dV}{dt} = -k\,4\pi r^2
+   $$
+
+   where $k$ is a positive constant.
+   Since $V = \frac{4}{3}\pi r^3$, the chain rule gives
+
+   $$
+   \frac{dV}{dt} = 4\pi r^2\frac{dr}{dt}
+   $$
+
+   Setting the two expressions for $dV/dt$ equal and dividing by $4\pi r^2$ gives
+
+   $$
+   \frac{dr}{dt} = -k
+   $$
+
+   So, the radius of the raindrop shrinks at a constant rate.
+
+1. Let the group contain $M$ people, and let $y$ be the number who have heard the rumour at time $t$.
+   Then $M - y$ people have not heard it, so
+
+   $$
+   \frac{dy}{dt} = ky(M - y)
+   $$
+
+   where $k$ is a positive constant.
+   This has the same form as the leaf equation, $dy/dt = y(k_1 - k_2y)$, from the lecture.
+
+:::
+
+::::
+
+::::challenge{id="10_intro_03" title="Introductory problems 3"}
+Split each of the following into partial fractions by hand, and check your answers using `sp.apart`.
+Then integrate each one with respect to $x$.
+
+1. $$
+   \frac{1}{x(x+1)}
+   $$
+
+1. $$
+   \frac{x+5}{(x-1)(x+2)}
+   $$
+
+Use your answer to part **1.** to find the general solution of the differential equation $dy/dt = y(y+1)$.
+
+:::solution
+
+1. We want
+
+   $$
+   \frac{1}{x(x+1)} = \frac{A}{x} + \frac{B}{x+1}
+   $$
+
+   Multiplying both sides by $x(x+1)$ gives $1 = A(x+1) + Bx$.
+   Setting $x = 0$ gives $A = 1$, and setting $x = -1$ gives $B = -1$.
+   So,
+
+   $$
+   \int\frac{dx}{x(x+1)} = \int\left(\frac{1}{x} - \frac{1}{x+1}\right)dx = \ln|x| - \ln|x+1| + C
+   $$
+
+1. We want
+
+   $$
+   \frac{x+5}{(x-1)(x+2)} = \frac{A}{x-1} + \frac{B}{x+2}
+   $$
+
+   Multiplying both sides by $(x-1)(x+2)$ gives $x + 5 = A(x+2) + B(x-1)$.
+   Setting $x = 1$ gives $6 = 3A$, so $A = 2$, and setting $x = -2$ gives $3 = -3B$, so $B = -1$.
+   So,
+
+   $$
+   \begin{aligned}
+   \int\frac{x+5}{(x-1)(x+2)}\,dx &= \int\left(\frac{2}{x-1} - \frac{1}{x+2}\right)dx \\
+   &= 2\ln|x-1| - \ln|x+2| + C
+   \end{aligned}
+   $$
+
+In Python:
+
+```python
+import sympy as sp
+
+x = sp.symbols('x')
+print(sp.apart(1 / (x*(x + 1)), x))
+print(sp.apart((x + 5) / ((x - 1)*(x + 2)), x))
+```
+
+```text
+-1/(x + 1) + 1/x
+-1/(x + 2) + 2/(x - 1)
+```
+
+For the differential equation, separate the variables and use part **1.**:
+
+$$
+\int\frac{dy}{y(y+1)} = \int dt \qquad\Rightarrow\qquad \ln\left|\frac{y}{y+1}\right| = t + C
+$$
+
+Taking the exponential of both sides gives $y/(y+1) = Ae^t$, where $A$ is an arbitrary constant.
+Then $y = Ae^t(y+1)$, so $y(1 - Ae^t) = Ae^t$ and
+
+$$
+y = \frac{Ae^t}{1 - Ae^t}
+$$
+
+(Dividing by $y(y+1)$ assumes $y \neq 0$ and $y \neq -1$.
+The solution $y = 0$ is the case $A = 0$, and $y = -1$ is also a solution.)
+
+:::
+
 ::::
 
 ## Main problems
@@ -243,6 +431,50 @@ When $t=0$ minutes, $r=1\,$m and when $t=10$ minutes, $r=2\,$m.
 1. Compare the two models used in **1.** and **2.**, by sketching $r(t)$ on the same figure or plotting using Python.
    Comment on the differences seen during different time intervals.
 
+:::solution
+
+1. If $dr/dt$ is a constant $a$, then $r = at + C$.
+   $r(0) = 1$ gives $C = 1$, and $r(10) = 2$ gives $a = 0.1$, so $r = 1 + 0.1t$.
+   Then $r = 4$ when $4 = 1 + 0.1T$, so $T = 30$ minutes.
+
+1. The rate of increase is proportional to $1/r$:
+
+   $$
+   \frac{dr}{dt} = \frac{k}{r}
+   $$
+
+   where $k$ is a positive constant.
+   Separate the variables:
+
+   $$
+   \int r\,dr = \int k\,dt \quad\Rightarrow\quad \frac{r^2}{2} = kt + C
+   $$
+
+   so the general solution is $r = \sqrt{2kt + 2C}$.
+   $r(0) = 1$ gives $C = 1/2$, and $r(10) = 2$ gives $2 = 10k + 1/2$, so $k = 3/20$.
+   So, $r^2 = 1 + 0.3t$.
+   Then $r = 4$ when $16 = 1 + 0.3T$, so $T = 50$ minutes.
+
+1. Both models agree at $t = 0$ and $t = 10$:
+
+   ```python
+   import numpy as np
+   from matplotlib import pyplot as plt
+
+   t = np.linspace(0, 60, 200)
+
+   plt.plot(t, 1 + 0.1 * t, label='constant rate')
+   plt.plot(t, np.sqrt(1 + 0.3 * t), label='rate proportional to 1/r')
+   plt.xlabel('t (minutes)')
+   plt.ylabel('r (m)')
+   plt.legend()
+   ```
+
+   Between $t = 0$ and $t = 10$, the second model grows faster, as its rate is largest when $r$ is small.
+   After $t = 10$, it grows more and more slowly, and falls behind the constant-rate model, which is why it takes longer to reach 4m.
+
+:::
+
 ::::
 
 ::::challenge{id="10_main_02" title="Main problems 2"}
@@ -251,6 +483,32 @@ A spokesperson told a newspaper reporter that the loss was due to 'natural radio
 
 If this explanation was correct, what mass of Cobalt was stored on the site?
 (The half life of $^{60}$Co = $5.26$ years.)
+
+:::solution
+
+Let $M$ be the mass of Cobalt-60 at the first inspection.
+Radioactive decay gives $m = Me^{-\lambda t}$, with
+
+$$
+\lambda = \frac{\ln 2}{t_{1/2}} = \frac{\ln 2}{5.26} \approx 0.132\,\text{year}^{-1}
+$$
+
+After 6 months, $t = 0.5$ years, and the mass lost is
+
+$$
+M - Me^{-0.5\lambda} = M\left(1 - e^{-0.5\lambda}\right) = 17
+$$
+
+So,
+
+$$
+M = \frac{17}{1 - e^{-0.5\lambda}} \approx \frac{17}{0.0638} \approx 267\,\text{g}
+$$
+
+If the explanation was correct, about 267g of Cobalt-60 was stored on the site.
+
+:::
+
 ::::
 
 ::::challenge{id="10_main_03" title="Main problems 3"}
@@ -266,6 +524,45 @@ $$
 \frac{1}{x^3-x} = \frac{-1}{x} + \frac{1/2}{x+1} + \frac{1/2}{x-1}.
 $$
 
+:::solution
+
+With $z = dy/dx$, we have $d^2y/dx^2 = dz/dx$, so the equation becomes a first order equation for $z$:
+
+$$
+\frac{dz}{dx} = (1-3x^2)z^2
+$$
+
+Separate the variables:
+
+$$
+\int\frac{dz}{z^2} = \int(1-3x^2)\,dx \quad\Rightarrow\quad -\frac{1}{z} = x - x^3 + C
+$$
+
+$y'(2) = 1/6$ means $z = 1/6$ at $x = 2$, so $-6 = 2 - 8 + C$, and $C = 0$.
+So,
+
+$$
+\frac{dy}{dx} = z = -\frac{1}{x - x^3} = \frac{1}{x^3 - x}
+$$
+
+Now integrate, using the partial fractions in the hint:
+
+$$
+\begin{aligned}
+y &= \int\left(-\frac{1}{x} + \frac{1/2}{x+1} + \frac{1/2}{x-1}\right)dx \\
+&= -\ln|x| + \frac{1}{2}\ln|x+1| + \frac{1}{2}\ln|x-1| + D
+\end{aligned}
+$$
+
+$y(2) = 0$ gives $0 = -\ln 2 + \frac{1}{2}\ln 3 + 0 + D$, so $D = \ln 2 - \frac{1}{2}\ln 3$.
+Combining the logs (for $x > 1$, near the starting point $x = 2$):
+
+$$
+y = \frac{1}{2}\ln\left(x^2 - 1\right) - \ln x + \ln 2 - \frac{1}{2}\ln 3 = \frac{1}{2}\ln\left(\frac{4\left(x^2-1\right)}{3x^2}\right)
+$$
+
+:::
+
 ::::
 
 ::::challenge{id="10_main_04" title="Main problems 4"}
@@ -280,20 +577,113 @@ By Fick's law, if $c(t)$ and $k$ are unequal, solute moves across the cell wall 
    How long would it take for the concentration to reach 5.0 mM?
 1. Calculate the amount of glucose (moles) entering the cell to bring the concentration from 0.1 mM to 5 mM assuming the cell is spherical with a diameter of $10\,\mu$m.
 
+:::solution
+
+1. The rate of change of $c$ is proportional to the difference $k - c$, and solute moves towards the lower concentration:
+
+   $$
+   \frac{dc}{dt} = \alpha(k - c)
+   $$
+
+   where $\alpha$ is a positive constant.
+   If $c < k$, then $dc/dt > 0$ and solute moves into the cell; if $c > k$, it moves out.
+
+1. Separate the variables:
+
+   $$
+   \int\frac{dc}{k - c} = \int\alpha\,dt \quad\Rightarrow\quad -\ln|k - c| = \alpha t + D \quad\Rightarrow\quad k - c = Be^{-\alpha t}
+   $$
+
+   $c(0) = c_0$ gives $B = k - c_0$, so
+
+   $$
+   c = k - (k - c_0)\,e^{-\alpha t}
+   $$
+
+1. In both cases $c$ starts at $c_0$ and approaches $k$ exponentially.
+   If $c_0 > k$, $c$ decreases towards $k$; if $c_0 < k$, $c$ increases towards $k$:
+
+   ```python
+   import numpy as np
+   from matplotlib import pyplot as plt
+
+   k = 1
+   t = np.linspace(0, 5, 200)
+
+   for c0 in [2, 0]:
+       plt.plot(t, k - (k - c0) * np.exp(-t), label=f'c0 = {c0}')
+   plt.axhline(k, linestyle='--', color='grey')
+   plt.xlabel('t')
+   plt.ylabel('c')
+   plt.legend()
+   ```
+
+1. Here $k = 5.1$ and $c_0 = 0.1$, so $c = 5.1 - 5e^{-\alpha t}$.
+   At $t = 1$ minute, $c = 2.6$:
+
+   $$
+   2.6 = 5.1 - 5e^{-\alpha} \quad\Rightarrow\quad e^{-\alpha} = 0.5 \quad\Rightarrow\quad \alpha = \ln 2\,\text{min}^{-1}
+   $$
+
+   The concentration reaches 5.0mM when
+
+   $$
+   5.0 = 5.1 - 5e^{-\alpha t} \quad\Rightarrow\quad e^{-\alpha t} = \frac{1}{50} \quad\Rightarrow\quad t = \frac{\ln 50}{\ln 2} \approx 5.6\,\text{minutes}
+   $$
+
+1. The volume of the cell, with radius $5\,\mu\text{m} = 5\times 10^{-6}\,$m, is
+
+   $$
+   V = \frac{4}{3}\pi\left(5\times 10^{-6}\right)^3 \approx 5.24\times 10^{-16}\,\text{m}^3 = 5.24\times 10^{-13}\,\text{l}
+   $$
+
+   The concentration rises by $5.0 - 0.1 = 4.9\,\text{mM} = 4.9\times 10^{-3}\,\text{mol/l}$, so the amount of glucose entering the cell is
+
+   $$
+   4.9\times 10^{-3} \times 5.24\times 10^{-13} \approx 2.57\times 10^{-15}\,\text{mol}
+   $$
+
+:::
+
 ::::
 
 ## Extension problems
 
 ::::challenge{id="10_ext_01" title="Extension problems 1"}
-Consider a simple model of the production and degradation of a protein, shown by the reaction chain
-
-$$
-\stackrel{k_1}{\longrightarrow} S \stackrel{k_2}{\longrightarrow}
-$$
-
-where $k_1$ and $k_2$ are mass action coefficients.
+Consider a simple model of the production and degradation of a protein.
+The protein is produced at a constant rate $k_1$, and degraded at a rate proportional to its concentration, with constant $k_2$.
 
 1. Form and solve a differential equation describing the change in protein concentration.
 1. What concentration is reached after 'sufficient' time has elapsed?
+
+:::solution
+
+1. Let $s$ be the protein concentration at time $t$, with $s(0) = s_0$.
+   It increases at rate $k_1$ and decreases at rate $k_2s$, so
+
+   $$
+   \frac{ds}{dt} = k_1 - k_2s
+   $$
+
+   Separate the variables:
+
+   $$
+   \begin{aligned}
+   &\int\frac{ds}{k_1 - k_2s} = \int dt \\
+   \quad\Rightarrow\quad &-\frac{1}{k_2}\ln|k_1 - k_2s| = t + C \\
+   \quad\Rightarrow\quad &k_1 - k_2s = Be^{-k_2t}
+   \end{aligned}
+   $$
+
+   $s(0) = s_0$ gives $B = k_1 - k_2s_0$, so
+
+   $$
+   s = \frac{k_1}{k_2} + \left(s_0 - \frac{k_1}{k_2}\right)e^{-k_2t}
+   $$
+
+1. As $t\to\infty$, $e^{-k_2t}\to 0$, so $s \to k_1/k_2$, whatever the starting concentration.
+   At this concentration, production and degradation balance, and $ds/dt = 0$.
+
+:::
 
 ::::

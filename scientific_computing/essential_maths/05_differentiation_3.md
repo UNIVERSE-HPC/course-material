@@ -464,7 +464,11 @@ Differentiate the following functions with respect to $x$, using the stated rule
 1. Let $u = x\cos(x)$, so that, by the product rule, $du/dx = \cos(x) - x\sin(x)$. Using the derivative of $\log_a u$,
 
    $$
-   \frac{d}{dx}\left(\log_2\left(x\cos(x)\right)\right) = \frac{1}{u\ln(2)}\,\frac{du}{dx} = \frac{\cos(x) - x\sin(x)}{x\cos(x)\ln(2)} = \frac{1}{\ln(2)}\left(\frac{1}{x} - \tan(x)\right)
+   \begin{aligned}
+   \frac{d}{dx}\left(\log_2\left(x\cos(x)\right)\right) &= \frac{1}{u\ln(2)}\,\frac{du}{dx} \\
+   &= \frac{\cos(x) - x\sin(x)}{x\cos(x)\ln(2)} \\
+   &= \frac{1}{\ln(2)}\left(\frac{1}{x} - \tan(x)\right)
+   \end{aligned}
    $$
 
 :::
@@ -517,7 +521,10 @@ $$
 Substituting these into the left-hand side,
 
 $$
-\frac{d^2y}{dx^2} + 2\frac{dy}{dx} + 2y = -2e^{-x}\cos(x) + 2e^{-x}\left(\cos(x) - \sin(x)\right) + 2e^{-x}\sin(x) = 0
+\begin{aligned}
+\frac{d^2y}{dx^2} + 2\frac{dy}{dx} + 2y &= -2e^{-x}\cos(x) + 2e^{-x}\left(\cos(x) - \sin(x)\right) + 2e^{-x}\sin(x) \\
+&= 0
+\end{aligned}
 $$
 
 :::
@@ -854,7 +861,11 @@ In each case we find $f_x$ and $f_y$, then differentiate $f_x$ with respect to $
 1. By the product rule and the chain rule,
 
    $$
-   f_x = 2ye^{2xy} + 2xy\cdot 2ye^{2xy} = 2y(1+2xy)e^{2xy} \qquad\text{and, in the same way,}\qquad f_y = 2x(1+2xy)e^{2xy}
+   \begin{aligned}
+   f_x &= 2ye^{2xy} + 2xy\cdot 2ye^{2xy} \\
+   &= 2y(1+2xy)e^{2xy} \\
+   \text{and, in the same way,}\qquad f_y &= 2x(1+2xy)e^{2xy}
+   \end{aligned}
    $$
 
    Writing $f_x = \left(2y + 4xy^2\right)e^{2xy}$ and differentiating with respect to $y$,

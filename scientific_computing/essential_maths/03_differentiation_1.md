@@ -923,7 +923,10 @@ Let $f$ and $g$ be functions of $x$, and $a$ a constant.
 For a sum, regroup the terms of the difference quotient:
 
 $$
-\frac{\big(f(x+h)+g(x+h)\big)-\big(f(x)+g(x)\big)}{h} = \frac{f(x+h)-f(x)}{h} + \frac{g(x+h)-g(x)}{h}
+\begin{aligned}
+&\frac{\big(f(x+h)+g(x+h)\big)-\big(f(x)+g(x)\big)}{h} \\
+&\qquad = \frac{f(x+h)-f(x)}{h} + \frac{g(x+h)-g(x)}{h}
+\end{aligned}
 $$
 
 As $h\rightarrow 0$, the two terms on the right tend to $f'(x)$ and $g'(x)$, so the derivative of $f+g$ is $f'+g'$.
@@ -931,7 +934,10 @@ As $h\rightarrow 0$, the two terms on the right tend to $f'(x)$ and $g'(x)$, so 
 For a difference, the same steps give
 
 $$
-\frac{\big(f(x+h)-g(x+h)\big)-\big(f(x)-g(x)\big)}{h} = \frac{f(x+h)-f(x)}{h} - \frac{g(x+h)-g(x)}{h}
+\begin{aligned}
+&\frac{\big(f(x+h)-g(x+h)\big)-\big(f(x)-g(x)\big)}{h} \\
+&\qquad = \frac{f(x+h)-f(x)}{h} - \frac{g(x+h)-g(x)}{h}
+\end{aligned}
 $$
 
 which tends to $f'(x)-g'(x)$.

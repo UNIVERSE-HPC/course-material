@@ -281,6 +281,13 @@ $$
 
 ## Introductory problems
 
+:::callout{variant="tip"}
+For more practice, an AI tool can write new problems like the ones below.
+Ask it for problems of the same type and difficulty, or for problems set in your own field.
+For example, you could ask it to "write five ecology problems on systems of linear differential equations, at the level of these ones".
+Work them on paper first, then ask the tool to check your answers and to explain any step you are unsure of.
+:::
+
 ::::challenge{id="14_intro_01" title="Introductory problems 1"}
 Find the general solution to the following system of ODEs:
 
@@ -289,6 +296,35 @@ $$
 $$
 
 Sketch the form of the solution in the $x,\,y$ plane, using arrows to indicate where the solution moves over time.
+
+:::solution
+
+The two equations are not coupled, so we can solve each one separately:
+
+$$
+\begin{aligned}
+\int\frac{dx}{x} = \int dt &\quad\implies\quad x = Ae^{t}, \\
+\int\frac{dy}{y} = \int dt &\quad\implies\quad y = Be^{t}
+\end{aligned}
+$$
+
+where $A$ and $B$ are constants.
+
+Dividing, $y/x = B/A$ is constant, so each solution moves along a straight line through the origin.
+Both $x$ and $y$ grow exponentially, so every solution moves directly away from the origin, which is a steady state.
+
+```python
+import numpy as np
+from matplotlib import pyplot as plt
+
+x, y = np.meshgrid(np.linspace(-2, 2, 21), np.linspace(-2, 2, 21))
+plt.streamplot(x, y, x, y)
+plt.xlabel('x')
+plt.ylabel('y')
+```
+
+:::
+
 ::::
 
 ::::challenge{id="14_intro_02" title="Introductory problems 2"}
@@ -308,6 +344,65 @@ $$
    - $a>0$, $b>0$, $a=b$
    - $a>0$, $b<0$, $a=-b$.
 
+:::solution
+
+1. Separating variables in each equation,
+
+   $$
+   x = x_0 e^{at} \quad\text{and}\quad y = y_0 e^{bt}
+   $$
+
+   where $x_0$ and $y_0$ are the values at $t = 0$.
+
+1. With $x_0 = y_0 = 0$, $x = 0$ and $y = 0$ for all time.
+   The origin is a steady state, so the solution stays there.
+
+1. As $t\to\infty$:
+   - If $a$ and $b$ are both positive, $x$ and $y$ both grow exponentially, and the solution moves away from the origin.
+   - If $a$ and $b$ are both negative, $x$ and $y$ both decay to zero, and the solution approaches the origin.
+   - If only $b$ is negative, $y\to 0$ while $x$ grows, so the solution approaches the $x$ axis and moves off towards $x\to\pm\infty$ (and if only $a$ is negative, the same happens with $x$ and $y$ swapped).
+
+   The signs of $x$ and $y$ never change, because $e^{at}$ and $e^{bt}$ are always positive.
+   So, if $x_0$ or $y_0$ is negative, the solution behaves in the same way, but stays in the quadrant where it started (for example, it moves towards $x\to -\infty$ if $x_0 < 0$ and $a > 0$).
+
+1. Eliminating $t$ from the original equations,
+
+   $$
+   \begin{aligned}
+   \frac{dy}{dx} &= \frac{dy/dt}{dx/dt} = \frac{by}{ax} \\
+   &\implies \int\frac{dy}{by} = \int\frac{dx}{ax} \\
+   &\implies \frac{1}{b}\ln|y| = \frac{1}{a}\ln|x| + C
+   \end{aligned}
+   $$
+
+   so that $y = Kx^{b/a}$, where $K$ is a constant.
+
+   Alternatively, from part **1.**, $e^{t} = (x/x_0)^{1/a}$, so
+
+   $$
+   y = y_0\left(e^{t}\right)^{b} = y_0\left(\frac{x}{x_0}\right)^{b/a}
+   $$
+
+   which is the same, with $K = y_0/x_0^{b/a}$.
+
+1. For $a = b > 0$, $y = Kx$, which gives straight lines through the origin, with every solution moving away from it (as in Introductory problems 1).
+   For $a = -b > 0$, $y = K/x$, which gives hyperbolas with the axes as asymptotes.
+   Here $x$ grows while $y$ decays, so each solution moves along its hyperbola away from the $y$ axis and towards the $x$ axis.
+
+   ```python
+   import numpy as np
+   from matplotlib import pyplot as plt
+
+   x, y = np.meshgrid(np.linspace(-2, 2, 21), np.linspace(-2, 2, 21))
+   fig, (left, right) = plt.subplots(1, 2, figsize=(10, 4))
+   left.streamplot(x, y, x, y)      # a = b = 1
+   left.set_title('a = b')
+   right.streamplot(x, y, x, -y)    # a = 1, b = -1
+   right.set_title('a = -b')
+   ```
+
+:::
+
 ::::
 
 ## Main problems
@@ -320,6 +415,42 @@ $$
 $$
 
 Sketch the form of the solutions in the $x,\,y$ plane.
+
+:::solution
+
+Dividing the two equations,
+
+$$
+\begin{aligned}
+\frac{dy}{dx} &= \frac{dy/dt}{dx/dt} = -\frac{x}{y} \\
+&\implies \int y\,dy = -\int x\,dx \\
+&\implies \frac{1}{2}y^2 = -\frac{1}{2}x^2 + C
+\end{aligned}
+$$
+
+So, the general solution is
+
+$$
+x^2 + y^2 = r^2
+$$
+
+where $r^2 = 2C$ is a constant.
+The solutions are circles centred on the origin.
+At $(1, 0)$, $dx/dt = 0$ and $dy/dt = 1$, so the solutions go round anticlockwise.
+
+```python
+import numpy as np
+from matplotlib import pyplot as plt
+
+x, y = np.meshgrid(np.linspace(-2, 2, 21), np.linspace(-2, 2, 21))
+plt.streamplot(x, y, -y, x)
+plt.gca().set_aspect('equal')
+plt.xlabel('x')
+plt.ylabel('y')
+```
+
+:::
+
 ::::
 
 ::::challenge{id="14_main_02" title="Main problems 2"}
@@ -330,6 +461,34 @@ $$
 $$
 
 Sketch the form of the solutions in the $x,\,y$ plane.
+
+:::solution
+
+Dividing the two equations,
+
+$$
+\frac{dy}{dx} = \frac{x}{y} \quad\implies\quad \int y\,dy = \int x\,dx \quad\implies\quad y^2 = x^2 + C
+$$
+
+So, the general solution is $y^2 - x^2 = C$, where $C$ is a constant.
+The solutions are hyperbolas, with the lines $y = x$ and $y = -x$ as asymptotes (these lines are themselves solutions, with $C = 0$).
+On the line $y = x$, $dx/dt = x$, so solutions move away from the origin.
+On the line $y = -x$, $dx/dt = -x$, so solutions move towards it.
+Every other solution comes in towards the origin along $y = -x$, then turns and leaves along $y = x$.
+
+```python
+import numpy as np
+from matplotlib import pyplot as plt
+
+x, y = np.meshgrid(np.linspace(-2, 2, 21), np.linspace(-2, 2, 21))
+plt.streamplot(x, y, y, x)
+plt.gca().set_aspect('equal')
+plt.xlabel('x')
+plt.ylabel('y')
+```
+
+:::
+
 ::::
 
 ::::challenge{id="14_main_03" title="Main problems 3"}
@@ -354,6 +513,97 @@ $$
    - What about $t\rightarrow -\infty$?
    - What is $dy/dx$ at a general point on the $y$-axis?
 
+:::solution
+
+The eigenvalues come from
+
+$$
+|A - \lambda I| = (1-\lambda)^2 - 4 = \lambda^2 - 2\lambda - 3 = (\lambda - 3)(\lambda + 1) = 0
+$$
+
+so $\lambda_1 = 3$ and $\lambda_2 = -1$.
+For $\lambda_1 = 3$, $(A - 3I)\mathbf{v} = \mathbf{0}$ gives $-2u + 4v = 0$, so $u = 2v$ and $\mathbf{v}_1 = (2, 1)^T$.
+For $\lambda_2 = -1$, $(A + I)\mathbf{v} = \mathbf{0}$ gives $2u + 4v = 0$, so $u = -2v$ and $\mathbf{v}_2 = (-2, 1)^T$.
+
+1. With the eigenvectors as columns,
+
+   $$
+   P = \left(\begin{matrix} 2 & -2 \\ 1 & 1 \end{matrix}\right), \qquad
+   P^{-1} = \frac{1}{4}\left(\begin{matrix} 1 & 2 \\ -1 & 2 \end{matrix}\right)
+   $$
+
+   Then
+
+   $$
+   AP = \left(\begin{matrix} 1 & 4 \\ 1 & 1 \end{matrix}\right)\left(\begin{matrix} 2 & -2 \\ 1 & 1 \end{matrix}\right) = \left(\begin{matrix} 6 & 2 \\ 3 & -1 \end{matrix}\right)
+   $$
+
+   and
+
+   $$
+   P^{-1}AP = \frac{1}{4}\left(\begin{matrix} 1 & 2 \\ -1 & 2 \end{matrix}\right)\left(\begin{matrix} 6 & 2 \\ 3 & -1 \end{matrix}\right) = \frac{1}{4}\left(\begin{matrix} 12 & 0 \\ 0 & -4 \end{matrix}\right) = \left(\begin{matrix} 3 & 0 \\ 0 & -1 \end{matrix}\right)
+   $$
+
+   This is diagonal, and its entries are the eigenvalues $\lambda_1$ and $\lambda_2$, in the same order as the eigenvectors in $P$.
+
+1. The system is $d\mathbf{v}/dt = A\mathbf{v}$, with $\mathbf{v} = (x, y)^T$.
+   As in the lecture, let $\mathbf{z} = P^{-1}\mathbf{v}$.
+   Then $d\mathbf{z}/dt = P^{-1}AP\,\mathbf{z}$, so
+
+   $$
+   \begin{aligned}
+   \frac{dz_1}{dt} = 3z_1 &\quad\implies\quad z_1 = c_1e^{3t}, \\
+   \frac{dz_2}{dt} = -z_2 &\quad\implies\quad z_2 = c_2e^{-t}
+   \end{aligned}
+   $$
+
+   Since $\mathbf{v} = P\mathbf{z}$, the general solution is
+
+   $$
+   \left(\begin{matrix} x \\ y \end{matrix}\right) = c_1\left(\begin{matrix} 2 \\ 1 \end{matrix}\right)e^{3t} + c_2\left(\begin{matrix} -2 \\ 1 \end{matrix}\right)e^{-t}
+   $$
+
+   where $c_1$ and $c_2$ are constants.
+
+1. At $t = 0$, $x = 2c_1 - 2c_2 = 0$ and $y = c_1 + c_2 = 2$, so $c_1 = c_2 = 1$, and
+
+   $$
+   x(t) = 2e^{3t} - 2e^{-t}, \qquad y(t) = e^{3t} + e^{-t}
+   $$
+
+1. The trajectory passes through $(0, 2)$ at $t = 0$.
+   - As $t\to\infty$, the $e^{3t}$ terms dominate, so $(x, y)\approx e^{3t}(2, 1)$.
+     The trajectory heads off to infinity in the direction of $\mathbf{v}_1$, with $x$ and $y$ both growing.
+   - As $t\to -\infty$, the $e^{-t}$ terms dominate, so $(x, y)\approx e^{-t}(-2, 1)$.
+     Going back in time, the trajectory came in from infinity in the direction of $\mathbf{v}_2$, with $x\to -\infty$ and $y\to\infty$.
+   - On the $y$ axis, $x = 0$, so
+
+     $$
+     \frac{dy}{dx} = \frac{dy/dt}{dx/dt} = \frac{x + y}{x + 4y} = \frac{y}{4y} = \frac{1}{4}
+     $$
+
+     So, every trajectory crosses the $y$ axis with gradient $1/4$.
+
+   ```python
+   import numpy as np
+   from matplotlib import pyplot as plt
+
+   x, y = np.meshgrid(np.linspace(-4, 4, 21), np.linspace(-4, 4, 21))
+   plt.streamplot(x, y, x + 4 * y, x + y, color='lightgray')
+
+   t = np.linspace(-1.5, 0.5, 200)
+   plt.plot(2 * np.exp(3 * t) - 2 * np.exp(-t), np.exp(3 * t) + np.exp(-t), label='trajectory')
+   plt.plot([-4, 4], [-2, 2], '--', label='direction of v1')
+   plt.plot([4, -4], [-2, 2], '--', label='direction of v2')
+   plt.xlim(-4, 4)
+   plt.ylim(-4, 4)
+   plt.xlabel('x')
+   plt.ylabel('y')
+   plt.legend()
+   ```
+
+:::
+
 ::::
 
 ## Extension problems
@@ -375,5 +625,29 @@ where $x$ is a displacement, $k>0$ is a spring force constant, $m>0$ is the mass
    $$
 
    to obtain a system of two first-order linear ODEs.
+
+:::solution
+
+1. Newton's second law says that force equals mass times acceleration, so
+
+   $$
+   m\frac{d^2x}{dt^2} = -kx - m\nu\frac{dx}{dt} \quad\implies\quad \frac{d^2x}{dt^2} = -\frac{k}{m}x - \nu\frac{dx}{dt}
+   $$
+
+1. With $y = dx/dt$, the second derivative becomes $dy/dt$, and $dx/dt$ becomes $y$:
+
+   $$
+   \frac{dx}{dt} = y, \qquad \frac{dy}{dt} = -\frac{k}{m}x - \nu y
+   $$
+
+   In matrix form, this is
+
+   $$
+   \frac{d}{dt}\left(\begin{matrix} x \\ y \end{matrix}\right) = \left(\begin{matrix} 0 & 1 \\ -k/m & -\nu \end{matrix}\right)\left(\begin{matrix} x \\ y \end{matrix}\right)
+   $$
+
+   which we can solve with the methods from the lecture.
+
+:::
 
 ::::

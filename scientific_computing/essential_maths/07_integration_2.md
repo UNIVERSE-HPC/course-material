@@ -39,7 +39,10 @@ We will need both when we solve differential equations.
 ### In general
 
 $$
-\frac{d(a\, x^{n+1})}{dx}=(n+1)a\, x^n \qquad\Rightarrow\qquad \int_{x_1}^{x_2} a\, x^n\,dx = \Big[\frac{a}{n+1}\, x^{n+1}\Big]_{x_1}^{x_2} \qquad (n\neq -1)
+\begin{gathered}
+\frac{d(a\, x^{n+1})}{dx}=(n+1)a\, x^n \\
+\Rightarrow\qquad \int_{x_1}^{x_2} a\, x^n\,dx = \Big[\frac{a}{n+1}\, x^{n+1}\Big]_{x_1}^{x_2} \qquad (n\neq -1)
+\end{gathered}
 $$
 
 ### Reminder, method 1: integration by substitution
@@ -273,7 +276,10 @@ $$
 Choose
 
 $$
-u=\cos x\qquad\text{and}\qquad v'=e^{-x} \qquad\text{so that}\qquad u'=-\sin x\qquad\text{and}\qquad v=-e^{-x}
+\begin{aligned}
+&u=\cos x\qquad\text{and}\qquad v'=e^{-x} \\
+\text{so that}\qquad &u'=-\sin x\qquad\text{and}\qquad v=-e^{-x}
+\end{aligned}
 $$
 
 Then:
@@ -285,7 +291,10 @@ $$
 Next, choose
 
 $$
-u=\sin x\qquad\text{and}\qquad v'=e^{-x} \qquad\text{so that}\qquad u'=\cos x\qquad\text{and}\qquad v=-e^{-x}
+\begin{aligned}
+&u=\sin x\qquad\text{and}\qquad v'=e^{-x} \\
+\text{so that}\qquad &u'=\cos x\qquad\text{and}\qquad v=-e^{-x}
+\end{aligned}
 $$
 
 Then:
@@ -409,7 +418,10 @@ In each case we choose $u$ so that $\frac{du}{dx}$ appears (up to a constant) in
 1. Let $u = 4x^2+8x+3$, so $\frac{du}{dx} = 8x+8 = 8(1+x)$ and $(1+x)\,dx = \frac{1}{8}du$:
 
    $$
-   \int (1+x)\sqrt{4x^2+8x+3}\,dx = \frac{1}{8}\int u^{1/2}\,du = \frac{1}{12}u^{3/2} + C = \frac{1}{12}(4x^2+8x+3)^{3/2} + C
+   \begin{aligned}
+   \int (1+x)\sqrt{4x^2+8x+3}\,dx &= \frac{1}{8}\int u^{1/2}\,du = \frac{1}{12}u^{3/2} + C \\
+   &= \frac{1}{12}(4x^2+8x+3)^{3/2} + C
+   \end{aligned}
    $$
 
 1. Let $u = x^2+1$, so $\frac{du}{dx} = 2x$ and $x\,dx = \frac{1}{2}du$:
@@ -437,14 +449,21 @@ All four need integration by parts, $\int u\, v'\, dx = [u\, v]-\int v\, u'\, dx
 1. Choose
 
    $$
-   u=x\qquad\text{and}\qquad v'=e^{3bx} \qquad\text{so that}\qquad u'=1\qquad\text{and}\qquad v=\frac{1}{3b}e^{3bx}
+   \begin{aligned}
+   &u=x\qquad\text{and}\qquad v'=e^{3bx} \\
+   \text{so that}\qquad &u'=1\qquad\text{and}\qquad v=\frac{1}{3b}e^{3bx}
+   \end{aligned}
    $$
 
    (assuming $b \neq 0$).
    Then:
 
    $$
-   \int x\,e^{3bx}\,dx = \frac{x}{3b}e^{3bx} - \int \frac{1}{3b}e^{3bx}\,dx = \frac{x}{3b}e^{3bx} - \frac{1}{9b^2}e^{3bx} + C = \frac{e^{3bx}}{3b}\left(x - \frac{1}{3b}\right) + C
+   \begin{aligned}
+   \int x\,e^{3bx}\,dx &= \frac{x}{3b}e^{3bx} - \int \frac{1}{3b}e^{3bx}\,dx \\
+   &= \frac{x}{3b}e^{3bx} - \frac{1}{9b^2}e^{3bx} + C \\
+   &= \frac{e^{3bx}}{3b}\left(x - \frac{1}{3b}\right) + C
+   \end{aligned}
    $$
 
 1. Here we need to integrate by parts three times, lowering the power of $x$ by one each time.
@@ -463,7 +482,10 @@ All four need integration by parts, $\int u\, v'\, dx = [u\, v]-\int v\, u'\, dx
 1. Choose
 
    $$
-   u=x\qquad\text{and}\qquad v'=\cos(x) \qquad\text{so that}\qquad u'=1\qquad\text{and}\qquad v=\sin(x)
+   \begin{aligned}
+   &u=x\qquad\text{and}\qquad v'=\cos(x) \\
+   \text{so that}\qquad &u'=1\qquad\text{and}\qquad v=\sin(x)
+   \end{aligned}
    $$
 
    Then:
@@ -477,7 +499,10 @@ All four need integration by parts, $\int u\, v'\, dx = [u\, v]-\int v\, u'\, dx
    First choose
 
    $$
-   u=\sin(x)\qquad\text{and}\qquad v'=e^{bx} \qquad\text{so that}\qquad u'=\cos(x)\qquad\text{and}\qquad v=\frac{1}{b}e^{bx}
+   \begin{aligned}
+   &u=\sin(x)\qquad\text{and}\qquad v'=e^{bx} \\
+   \text{so that}\qquad &u'=\cos(x)\qquad\text{and}\qquad v=\frac{1}{b}e^{bx}
+   \end{aligned}
    $$
 
    Then:
@@ -498,9 +523,11 @@ All four need integration by parts, $\int u\, v'\, dx = [u\, v]-\int v\, u'\, dx
    So, collecting the $I$ terms on the left:
 
    $$
-   \left(1 + \frac{1}{b^2}\right)I = \frac{e^{bx}}{b^2}\big(b\sin(x) - \cos(x)\big)
+   \begin{aligned}
+   &\left(1 + \frac{1}{b^2}\right)I = \frac{e^{bx}}{b^2}\big(b\sin(x) - \cos(x)\big) \\
    \quad\Longrightarrow\quad
-   I = \frac{e^{bx}\big(b\sin(x) - \cos(x)\big)}{b^2+1} + C
+   &I = \frac{e^{bx}\big(b\sin(x) - \cos(x)\big)}{b^2+1} + C
+   \end{aligned}
    $$
 
 :::
@@ -562,7 +589,10 @@ Use partial fractions to find:
    So, $A = 1/2$ and $B = -1/2$, and
 
    $$
-   \int \frac{1}{(x+1)(x+3)}\,dx = \frac{1}{2}\int\frac{dx}{x+1} - \frac{1}{2}\int\frac{dx}{x+3} = \frac{1}{2}\ln|x+1| - \frac{1}{2}\ln|x+3| + C
+   \begin{aligned}
+   \int \frac{1}{(x+1)(x+3)}\,dx &= \frac{1}{2}\int\frac{dx}{x+1} - \frac{1}{2}\int\frac{dx}{x+3} \\
+   &= \frac{1}{2}\ln|x+1| - \frac{1}{2}\ln|x+3| + C
+   \end{aligned}
    $$
 
 1. Let
@@ -578,7 +608,10 @@ Use partial fractions to find:
    So,
 
    $$
-   \int \frac{5x+1}{(x-1)(x+2)}\,dx = \int\frac{2}{x-1}\,dx + \int\frac{3}{x+2}\,dx = 2\ln|x-1| + 3\ln|x+2| + C
+   \begin{aligned}
+   \int \frac{5x+1}{(x-1)(x+2)}\,dx &= \int\frac{2}{x-1}\,dx + \int\frac{3}{x+2}\,dx \\
+   &= 2\ln|x-1| + 3\ln|x+2| + C
+   \end{aligned}
    $$
 
 1. In the same way, $\frac{1}{(x+1)(x+2)} = \frac{1}{x+1} - \frac{1}{x+2}$, so
@@ -618,14 +651,20 @@ Hint for **4.**: differentiate $x^x = e^{x\ln(x)}$.
 1. Let $u = 9-x^4$, so $\frac{du}{dx} = -4x^3$ and $x^3\,dx = -\frac{1}{4}du$:
 
    $$
-   \int 13x^3(9-x^4)^5\,dx = -\frac{13}{4}\int u^5\,du = -\frac{13}{24}u^6 + C = -\frac{13}{24}(9-x^4)^6 + C
+   \begin{aligned}
+   \int 13x^3(9-x^4)^5\,dx &= -\frac{13}{4}\int u^5\,du = -\frac{13}{24}u^6 + C \\
+   &= -\frac{13}{24}(9-x^4)^6 + C
+   \end{aligned}
    $$
 
 1. Integrate by parts, as in the lecture's example for $\ln(x)$.
    Choose
 
    $$
-   u=5\ln(x)\qquad\text{and}\qquad v'=1 \qquad\text{so that}\qquad u'=\frac{5}{x}\qquad\text{and}\qquad v=x
+   \begin{aligned}
+   &u=5\ln(x)\qquad\text{and}\qquad v'=1 \\
+   \text{so that}\qquad &u'=\frac{5}{x}\qquad\text{and}\qquad v=x
+   \end{aligned}
    $$
 
    Then:
@@ -717,7 +756,10 @@ The rocket starts burning fuel at $t=0\,\text{s}$ with total mass of $m_0\,\text
    When $t=0$, $u=m_0$, and when $t=t_f$, $u=m_f$:
 
    $$
-   \Delta v = -v_e\int_{m_0}^{m_f} \frac{1}{u}\,du = -v_e\Big[\ln(u)\Big]_{m_0}^{m_f} = -v_e\big(\ln(m_f) - \ln(m_0)\big) = v_e \ln\left(\frac{m_0}{m_f}\right)
+   \begin{aligned}
+   \Delta v &= -v_e\int_{m_0}^{m_f} \frac{1}{u}\,du = -v_e\Big[\ln(u)\Big]_{m_0}^{m_f} \\
+   &= -v_e\big(\ln(m_f) - \ln(m_0)\big) = v_e \ln\left(\frac{m_0}{m_f}\right)
+   \end{aligned}
    $$
 
 :::
@@ -756,7 +798,10 @@ $$
 With the values given, $p+qt$ runs from $42.85$ to $46.5$:
 
 $$
-V = \frac{4 \times 0.92}{7 \times 0.01}\left(46.5^{7/4} - 42.85^{7/4}\right) \approx 52.57 \times (828.02 - 717.65) \approx 5800 \text{ litres}
+\begin{aligned}
+V &= \frac{4 \times 0.92}{7 \times 0.01}\left(46.5^{7/4} - 42.85^{7/4}\right) \\
+&\approx 52.57 \times (828.02 - 717.65) \approx 5800 \text{ litres}
+\end{aligned}
 $$
 
 :::
@@ -847,14 +892,20 @@ $$
 Now integrate by parts, choosing
 
 $$
-u=w\qquad\text{and}\qquad v'=e^{-Bw} \qquad\text{so that}\qquad u'=1\qquad\text{and}\qquad v=-\frac{1}{B}e^{-Bw}
+\begin{aligned}
+&u=w\qquad\text{and}\qquad v'=e^{-Bw} \\
+\text{so that}\qquad &u'=1\qquad\text{and}\qquad v=-\frac{1}{B}e^{-Bw}
+\end{aligned}
 $$
 
 (here $v$ is the part in the formula, not the speed).
 Then:
 
 $$
-\int_0^{\infty} w\,e^{-Bw}\,dw = \left[-\frac{w}{B}e^{-Bw}\right]_0^{\infty} + \frac{1}{B}\int_0^{\infty} e^{-Bw}\,dw = 0 + \frac{1}{B}\left[-\frac{1}{B}e^{-Bw}\right]_0^{\infty} = \frac{1}{B^2}
+\begin{aligned}
+\int_0^{\infty} w\,e^{-Bw}\,dw &= \left[-\frac{w}{B}e^{-Bw}\right]_0^{\infty} + \frac{1}{B}\int_0^{\infty} e^{-Bw}\,dw \\
+&= 0 + \frac{1}{B}\left[-\frac{1}{B}e^{-Bw}\right]_0^{\infty} = \frac{1}{B^2}
+\end{aligned}
 $$
 
 (The first term is zero at both ends, since $e^{-Bw}$ shrinks faster than $w$ grows.)
@@ -941,13 +992,19 @@ His formula gave the total number of fish of length $L$ as $k\,e^{-cL}$, where $
    Putting these together:
 
    $$
-   \int_{L_0}^{\infty} L^3 e^{-cL}\,dL = e^{-cL_0}\left(\frac{L_0^3}{c} + \frac{3L_0^2}{c^2} + \frac{6L_0}{c^3} + \frac{6}{c^4}\right) = \frac{e^{-cL_0}}{c^4}\left((cL_0)^3 +3(cL_0)^2+ 6cL_0 +6\right)
+   \begin{aligned}
+   \int_{L_0}^{\infty} L^3 e^{-cL}\,dL &= e^{-cL_0}\left(\frac{L_0^3}{c} + \frac{3L_0^2}{c^2} + \frac{6L_0}{c^3} + \frac{6}{c^4}\right) \\
+   &= \frac{e^{-cL_0}}{c^4}\left((cL_0)^3 +3(cL_0)^2+ 6cL_0 +6\right)
+   \end{aligned}
    $$
 
    From part **2.**, $k = Nc$, so
 
    $$
-   W = a\,Nc\,\rho\,\frac{e^{-cL_0}}{c^4}\left((cL_0)^3 +3(cL_0)^2+ 6cL_0 +6\right) = \frac{N\, a\, \rho\, e^{-cL_0}}{c^3} \left((cL_0)^3 +3(cL_0)^2+ 6cL_0 +6\right)
+   \begin{aligned}
+   W &= a\,Nc\,\rho\,\frac{e^{-cL_0}}{c^4}\left((cL_0)^3 +3(cL_0)^2+ 6cL_0 +6\right) \\
+   &= \frac{N\, a\, \rho\, e^{-cL_0}}{c^3} \left((cL_0)^3 +3(cL_0)^2+ 6cL_0 +6\right)
+   \end{aligned}
    $$
 
 :::
