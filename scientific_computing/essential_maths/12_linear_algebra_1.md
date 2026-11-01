@@ -788,6 +788,85 @@ Note also that $|XY| = |X|\,|Y| = 4$.
 
 ::::
 
+::::challenge{id="12_main_07" title="Main problems 7"}
+
+Write each of the following systems in the form $A\mathbf{x} = \mathbf{b}$, and solve it by hand by finding $A^{-1}$ and calculating $\mathbf{x} = A^{-1}\mathbf{b}$:
+
+1. $$
+   \begin{aligned} 3x - 2y &= 4,\\ x + y &= 3. \end{aligned}
+   $$
+
+1. $$
+   \begin{aligned} 2x + 3y &= 1,\\ 4x - y &= 9. \end{aligned}
+   $$
+
+Check your answers using Python's `numpy.linalg.solve`.
+
+:::solution
+
+1. In matrix form:
+
+   $$
+   \begin{pmatrix} 3 & -2 \\ 1 & 1 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 4 \\ 3 \end{pmatrix}
+   $$
+
+   $|A| = 3\times 1 - (-2)\times 1 = 5$, so
+
+   $$
+   A^{-1} = \frac{1}{5}\begin{pmatrix} 1 & 2 \\ -1 & 3 \end{pmatrix}
+   $$
+
+   and
+
+   $$
+   \begin{pmatrix} x \\ y \end{pmatrix} = \frac{1}{5}\begin{pmatrix} 1 & 2 \\ -1 & 3 \end{pmatrix}\begin{pmatrix} 4 \\ 3 \end{pmatrix} = \frac{1}{5}\begin{pmatrix} 10 \\ 5 \end{pmatrix} = \begin{pmatrix} 2 \\ 1 \end{pmatrix}
+   $$
+
+   So, $x = 2$ and $y = 1$.
+
+1. In matrix form:
+
+   $$
+   \begin{pmatrix} 2 & 3 \\ 4 & -1 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 1 \\ 9 \end{pmatrix}
+   $$
+
+   $|A| = 2\times(-1) - 3\times 4 = -14$, so
+
+   $$
+   A^{-1} = -\frac{1}{14}\begin{pmatrix} -1 & -3 \\ -4 & 2 \end{pmatrix}
+   $$
+
+   and
+
+   $$
+   \begin{pmatrix} x \\ y \end{pmatrix} = -\frac{1}{14}\begin{pmatrix} -1 & -3 \\ -4 & 2 \end{pmatrix}\begin{pmatrix} 1 \\ 9 \end{pmatrix} = -\frac{1}{14}\begin{pmatrix} -28 \\ 14 \end{pmatrix} = \begin{pmatrix} 2 \\ -1 \end{pmatrix}
+   $$
+
+   So, $x = 2$ and $y = -1$.
+
+In Python:
+
+```python
+import numpy as np
+
+A = np.array([[3, -2], [1, 1]])
+b = np.array([4, 3])
+print(np.linalg.solve(A, b))
+
+A = np.array([[2, 3], [4, -1]])
+b = np.array([1, 9])
+print(np.linalg.solve(A, b))
+```
+
+```text
+[2. 1.]
+[ 2. -1.]
+```
+
+:::
+
+::::
+
 ## Extension problems
 
 ::::challenge{id="12_ext_01" title="Extension problems 1"}
