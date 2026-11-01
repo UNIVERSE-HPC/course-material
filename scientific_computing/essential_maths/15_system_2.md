@@ -239,8 +239,8 @@ The arrows can only cross the $x$-nullclines vertically, and the $y$-nullclines 
 ```python
 import numpy as np
 from matplotlib import pyplot as plt
-import scipy
-def dX_dt(X, t):
+from scipy.integrate import solve_ivp
+def dX_dt(t, X):
     return np.array([ X[0]*(1. - X[0]) - X[0]*X[1],
                      2.*X[1]*(1.-X[1]/2.) -3*X[0]*X[1]])
 
@@ -255,8 +255,8 @@ def plot_phase_plane():
 
     for v in zip(init_x,init_y):
         X0 = v                              # starting point
-        X = scipy.integrate.odeint( dX_dt, X0, np.linspace(0,10,100))
-        plt.plot( X[:,0], X[:,1], lw=3, color='green')
+        sol = solve_ivp(dX_dt, (0, 10), X0, t_eval=np.linspace(0, 10, 100))
+        plt.plot(sol.y[0], sol.y[1], lw=3, color='green')
 
 
 
@@ -293,12 +293,41 @@ def plot_phase_plane():
 
 ## Introductory problems
 
+:::callout{variant="tip"}
+For more practice, an AI tool can write new problems like the ones below.
+Ask it for problems of the same type and difficulty, or for problems set in your own field.
+For example, you could ask it to "write five chemistry problems on fixed points and rescaling, at the level of these ones".
+Work them on paper first, then ask the tool to check your answers and to explain any step you are unsure of.
+:::
+
 ::::challenge{id="15_intro_01" title="Introductory problems 1"}
 Find the fixed points of the following linear systems:
 
 1. $\dot{x} = x+3y, \qquad \dot{y}=-6x+5y;$
 1. $\dot{x} = x+3y+4, \qquad \dot{y}=-6x+5y-1;$
 1. $\dot{x} = x+3y+1, \qquad \dot{y}=-6x+5y.$
+
+:::solution
+
+At a fixed point $\dot{x} = 0$ and $\dot{y} = 0$, so in each case we solve a pair of simultaneous equations.
+
+1. $x + 3y = 0$ gives $x = -3y$.
+   Substituting into $-6x + 5y = 0$ gives $18y + 5y = 0$, so $y = 0$ and $x = 0$.
+   The fixed point is $(0, 0)$.
+
+1. Multiply the first equation by 6 and add it to the second:
+
+   $$
+   (6x + 18y + 24) + (-6x + 5y - 1) = 23y + 23 = 0
+   $$
+
+   So, $y = -1$, and then $x = -4 - 3y = -1$.
+   The fixed point is $(-1, -1)$.
+
+1. In the same way, $(6x + 18y + 6) + (-6x + 5y) = 23y + 6 = 0$, so $y = -6/23$, and then $x = -1 - 3y = -5/23$.
+   The fixed point is $(-5/23, -6/23)$.
+
+:::
 
 ::::
 
@@ -307,6 +336,27 @@ Find the fixed points of the following nonlinear systems:
 
 1. $\dot{x} = -4y+2xy-8 \qquad \dot{y}=4y^2-x^2;$
 1. $\dot{x} = y-x^2+2, \qquad \dot{y}=2(x^2-y^2).$
+
+:::solution
+
+1. $\dot{y} = 0$ gives $x^2 = 4y^2$, so $x = 2y$ or $x = -2y$.
+   Substitute each into $\dot{x} = 0$.
+
+   - $x = 2y$: $-4y + 4y^2 - 8 = 0$, so $y^2 - y - 2 = (y - 2)(y + 1) = 0$.
+     This gives $y = 2$, $x = 4$ and $y = -1$, $x = -2$.
+   - $x = -2y$: $-4y - 4y^2 - 8 = 0$, so $y^2 + y + 2 = 0$.
+     This has no real solutions, because $1^2 - 4\times 2 < 0$.
+
+   The fixed points are $(4, 2)$ and $(-2, -1)$.
+
+1. $\dot{x} = 0$ gives $y = x^2 - 2$, and $\dot{y} = 0$ gives $y = x$ or $y = -x$.
+
+   - $y = x$: $x^2 - x - 2 = (x - 2)(x + 1) = 0$, which gives $(2, 2)$ and $(-1, -1)$.
+   - $y = -x$: $x^2 + x - 2 = (x + 2)(x - 1) = 0$, which gives $(-2, 2)$ and $(1, -1)$.
+
+   There are four fixed points: $(2, 2)$, $(-1, -1)$, $(-2, 2)$ and $(1, -1)$.
+
+:::
 
 ::::
 
@@ -321,6 +371,32 @@ $$
 
 1. Write down the system of two linear ODEs which describe the evolution of the concentrations of A and B in this system under the law of mass action.
 1. Find the ratio of concentrations of A and B for which this system is in steady state: that is the concentrations do not change over time.
+
+:::solution
+
+Let $a = [A]$ and $b = [B]$.
+
+1. A is produced at the constant rate $k_0$, turns into B at rate $k_1 a$, and is made from B at rate $k_{-1}b$.
+   B is removed at rate $k_2 b$.
+   So,
+
+   $$
+   \begin{aligned}
+   \frac{da}{dt} &= k_0 - k_1 a + k_{-1} b \\
+   \frac{db}{dt} &= k_1 a - k_{-1} b - k_2 b
+   \end{aligned}
+   $$
+
+1. In steady state $db/dt = 0$, so $k_1 a = (k_{-1} + k_2) b$, and
+
+   $$
+   \frac{a}{b} = \frac{k_{-1} + k_2}{k_1}
+   $$
+
+   We can also find the concentrations themselves.
+   Adding the two equations gives $k_0 - k_2 b = 0$, so $b^* = k_0/k_2$, and then $a^* = k_0(k_{-1} + k_2)/(k_1 k_2)$.
+
+:::
 
 ::::
 
@@ -338,16 +414,52 @@ $$
 $$
 
 where $p$ and $s$ are the concentrations of $P$ and $S$, respectively.
+
+:::solution
+
+Let $s$, $e$, $c$ and $p$ be the concentrations of $S$, $E$, $C$ and $P$.
+By mass action,
+
+$$
+\begin{aligned}
+\frac{ds}{dt} &= -k_1 s e + k_{-1} c \\
+\frac{dp}{dt} &= k_2 c - k_{-2} p e
+\end{aligned}
+$$
+
+In equilibrium the concentrations do not change, so both are zero:
+
+$$
+k_1 s e = k_{-1} c \qquad\text{and}\qquad k_2 c = k_{-2} p e
+$$
+
+The first gives $c = k_1 s e/k_{-1}$.
+Substituting this into the second,
+
+$$
+\frac{k_1 k_2 s e}{k_{-1}} = k_{-2} p e
+$$
+
+The enzyme concentration $e$ cancels, so
+
+$$
+\frac{p}{s} = \frac{k_1 k_2}{k_{-1}k_{-2}}
+$$
+
+(We can check that $dc/dt = k_1 s e - k_{-1}c - k_2 c + k_{-2} p e$ is then zero too.)
+
+:::
+
 ::::
 
 ::::challenge{id="15_main_03" title="Main problems 3"}
 The population of a host, $H(t)$, and a parasite, $P(t)$, are described approximately by the equations:
 
 $$
-\frac{dH}{dT}=(a-bP)H,\qquad \frac{dP}{dT}=\left(c-\frac{dP}{H}\right)P, \qquad H>0,
+\frac{dH}{dT}=(a-bP)H,\qquad \frac{dP}{dT}=\left(c-\frac{kP}{H}\right)P, \qquad H>0,
 $$
 
-where $a,b,c,d$ are positive constants.
+where $a,b,c,k$ are positive constants.
 
 By a suitable change of scales show that these equations may be put in the simpler form
 
@@ -364,6 +476,69 @@ Sketch the phase flow across the following lines:
 1. $y=0$;
 1. $x=1$;
 1. $y=\beta x$, for $\beta$ greater than and less than 1.
+
+:::solution
+
+As in the lecture, let $T = \tau t$, $P = \theta x$ and $H = \phi y$, where $\tau$, $\theta$ and $\phi$ are scales still to be chosen, so that $d/dT = (1/\tau)\,d/dt$.
+Then
+
+$$
+\frac{\phi}{\tau}\dot{y} = (a - b\theta x)\phi y \qquad\text{and}\qquad \frac{\theta}{\tau}\dot{x} = \left(c - \frac{k\theta x}{\phi y}\right)\theta x
+$$
+
+so
+
+$$
+\dot{y} = \tau(a - b\theta x)y \qquad\text{and}\qquad \dot{x} = \tau\left(c - \frac{k\theta x}{\phi y}\right)x
+$$
+
+Choosing $\tau = 1/a$ and $\theta = a/b$ gives $\dot{y} = (1-x)y$, and
+
+$$
+\dot{x} = \left(\frac{c}{a} - \frac{kx}{b\phi y}\right)x = \frac{c}{a}\,x\left(1 - \frac{ka}{bc\phi}\,\frac{x}{y}\right)
+$$
+
+Finally, choosing $\phi = ka/(bc)$ gives $\dot{x} = \alpha x(1 - x/y)$, with $\alpha = c/a$.
+
+Now the flow across each line.
+$x$ and $y$ are populations, so we only need $x \geq 0$ and $y > 0$.
+
+1. On $y = x$, $\dot{x} = 0$ (this is an $x$-nullcline), so the flow crosses it vertically.
+   $\dot{y} = (1-x)x$, so the flow is upwards for $x < 1$ and downwards for $x > 1$.
+1. On $x = 0$, $\dot{x} = 0$ and $\dot{y} = y > 0$, so the flow is up the $y$ axis.
+   With no parasites, the hosts grow exponentially.
+1. On $y = 0$, $\dot{y} = 0$ (a $y$-nullcline).
+   The equations are not defined on the line itself, because of $x/y$, but just above it $x/y$ is very large, so $\dot{x}$ is large and negative and the flow moves sharply to the left.
+   With almost no hosts, the parasites die out.
+1. On $x = 1$, $\dot{y} = 0$ (a $y$-nullcline), so the flow crosses it horizontally.
+   $\dot{x} = \alpha(1 - 1/y)$, so the flow is to the right for $y > 1$ and to the left for $y < 1$.
+1. On $y = \beta x$, $\dot{x} = \alpha x(1 - 1/\beta)$ and $\dot{y} = \beta x(1 - x)$.
+   For $\beta > 1$ (above the line $y = x$) the flow is to the right, and for $\beta < 1$ (below it) the flow is to the left.
+   In both cases it is upwards for $x < 1$ and downwards for $x > 1$.
+
+Putting these together, the flow goes clockwise around the point $(1, 1)$, where the nullclines $y = x$ and $x = 1$ cross (we find out what happens there in the next lecture).
+For example, with $\alpha = 1$:
+
+```python
+import numpy as np
+from matplotlib import pyplot as plt
+
+alpha = 1
+x, y = np.meshgrid(np.linspace(0.01, 2.5, 30), np.linspace(0.01, 2.5, 30))
+xdot = alpha * x * (1 - x / y)
+ydot = (1 - x) * y
+
+plt.streamplot(x, y, xdot, ydot, color='grey')
+plt.plot([0, 2.5], [0, 2.5], color='#0072bd', label='x-nullcline y = x')
+plt.axvline(0, color='#0072bd', label='x-nullcline x = 0')
+plt.axvline(1, color='#F39200', label='y-nullcline x = 1')
+plt.axhline(0, color='#F39200', label='y-nullcline y = 0')
+plt.xlabel('x (parasites)')
+plt.ylabel('y (hosts)')
+plt.legend()
+```
+
+:::
 
 ::::
 
@@ -382,5 +557,43 @@ We wish to model the fish-angler interaction under the following assumptions:
    $$
    \dot{x} = rx(1 - x) - xy,\qquad \dot{y} = \beta x - y
    $$
+
+:::solution
+
+1. Let $F(T)$ be the number of fish and $A(T)$ the number of anglers at time $T$.
+   Then
+
+   $$
+   \begin{aligned}
+   \frac{dF}{dT} &= aF\left(1 - \frac{F}{K}\right) - bFA \\
+   \frac{dA}{dT} &= cF - eA
+   \end{aligned}
+   $$
+
+   where all the constants are positive:
+   - $a$ is the growth rate of the fish, and $K$ is the largest number of fish the lake can support (its carrying capacity);
+   - $b$ measures how quickly anglers catch fish;
+   - $c$ measures how strongly the fish attract anglers;
+   - $e$ is the rate at which anglers are discouraged and leave.
+
+1. As in the lecture, let $F = \theta x$, $A = \phi y$ and $T = \tau t$, so that $d/dT = (1/\tau)\,d/dt$.
+   Then
+
+   $$
+   \begin{aligned}
+   \dot{x} &= \tau a x\left(1 - \frac{\theta x}{K}\right) - \tau b\phi xy \\
+   \dot{y} &= \frac{\tau c\theta}{\phi}x - \tau e y
+   \end{aligned}
+   $$
+
+   Choosing $\theta = K$, $\tau = 1/e$ and $\phi = e/b$ gives
+
+   $$
+   \dot{x} = \frac{a}{e}x(1 - x) - xy \qquad\text{and}\qquad \dot{y} = \frac{bcK}{e^2}x - y
+   $$
+
+   which is the model given, with $r = a/e$ and $\beta = bcK/e^2$.
+
+:::
 
 ::::
