@@ -269,6 +269,154 @@ In each case, $C$ and $A$ are arbitrary constants.
 
 ::::
 
+::::challenge{id="10_intro_02" title="Introductory problems 2"}
+Write down a differential equation for each of the following, defining any symbols and constants you use, and saying whether each constant is positive or negative.
+Do not solve them.
+
+1. A drug is cleared from the blood at a rate proportional to the amount of drug present.
+1. A population of cells grows at a rate proportional to its size, and cells are also removed (harvested) at a constant rate.
+1. A spherical raindrop evaporates at a rate proportional to its surface area.
+   Write an equation for its volume, and then one for its radius.
+1. A rumour spreads through a group of fixed size at a rate proportional to both the number of people who have heard it and the number who have not.
+
+:::solution
+
+1. Let $D$ be the amount of drug in the blood at time $t$.
+   The amount is decreasing, so
+
+   $$
+   \frac{dD}{dt} = -kD
+   $$
+
+   where $k$ is a positive constant.
+
+1. Let $N$ be the number of cells at time $t$.
+   Growth adds cells at a rate $rN$ and harvesting removes them at a rate $h$, so
+
+   $$
+   \frac{dN}{dt} = rN - h
+   $$
+
+   where $r$ and $h$ are positive constants.
+
+1. Let $V$ be the volume of the raindrop and $r$ its radius at time $t$.
+   Its surface area is $4\pi r^2$, and the volume is decreasing, so
+
+   $$
+   \frac{dV}{dt} = -k\,4\pi r^2
+   $$
+
+   where $k$ is a positive constant.
+   Since $V = \frac{4}{3}\pi r^3$, the chain rule gives
+
+   $$
+   \frac{dV}{dt} = 4\pi r^2\frac{dr}{dt}
+   $$
+
+   Setting the two expressions for $dV/dt$ equal and dividing by $4\pi r^2$ gives
+
+   $$
+   \frac{dr}{dt} = -k
+   $$
+
+   So, the radius of the raindrop shrinks at a constant rate.
+
+1. Let the group contain $M$ people, and let $y$ be the number who have heard the rumour at time $t$.
+   Then $M - y$ people have not heard it, so
+
+   $$
+   \frac{dy}{dt} = ky(M - y)
+   $$
+
+   where $k$ is a positive constant.
+   This has the same form as the leaf equation, $dy/dt = y(k_1 - k_2y)$, from the lecture.
+
+:::
+
+::::
+
+::::challenge{id="10_intro_03" title="Introductory problems 3"}
+Split each of the following into partial fractions by hand, and check your answers using `sp.apart`.
+Then integrate each one with respect to $x$.
+
+1. $$
+   \frac{1}{x(x+1)}
+   $$
+
+1. $$
+   \frac{x+5}{(x-1)(x+2)}
+   $$
+
+Use your answer to part **1.** to find the general solution of the differential equation $dy/dt = y(y+1)$.
+
+:::solution
+
+1. We want
+
+   $$
+   \frac{1}{x(x+1)} = \frac{A}{x} + \frac{B}{x+1}
+   $$
+
+   Multiplying both sides by $x(x+1)$ gives $1 = A(x+1) + Bx$.
+   Setting $x = 0$ gives $A = 1$, and setting $x = -1$ gives $B = -1$.
+   So,
+
+   $$
+   \int\frac{dx}{x(x+1)} = \int\left(\frac{1}{x} - \frac{1}{x+1}\right)dx = \ln|x| - \ln|x+1| + C
+   $$
+
+1. We want
+
+   $$
+   \frac{x+5}{(x-1)(x+2)} = \frac{A}{x-1} + \frac{B}{x+2}
+   $$
+
+   Multiplying both sides by $(x-1)(x+2)$ gives $x + 5 = A(x+2) + B(x-1)$.
+   Setting $x = 1$ gives $6 = 3A$, so $A = 2$, and setting $x = -2$ gives $3 = -3B$, so $B = -1$.
+   So,
+
+   $$
+   \begin{aligned}
+   \int\frac{x+5}{(x-1)(x+2)}\,dx &= \int\left(\frac{2}{x-1} - \frac{1}{x+2}\right)dx \\
+   &= 2\ln|x-1| - \ln|x+2| + C
+   \end{aligned}
+   $$
+
+In Python:
+
+```python
+import sympy as sp
+
+x = sp.symbols('x')
+print(sp.apart(1 / (x*(x + 1)), x))
+print(sp.apart((x + 5) / ((x - 1)*(x + 2)), x))
+```
+
+```text
+-1/(x + 1) + 1/x
+-1/(x + 2) + 2/(x - 1)
+```
+
+For the differential equation, separate the variables and use part **1.**:
+
+$$
+\int\frac{dy}{y(y+1)} = \int dt \qquad\Rightarrow\qquad \ln\left|\frac{y}{y+1}\right| = t + C
+$$
+
+Taking the exponential of both sides gives $y/(y+1) = Ae^t$, where $A$ is an arbitrary constant.
+Then $y = Ae^t(y+1)$, so $y(1 - Ae^t) = Ae^t$ and
+
+$$
+y = \frac{Ae^t}{1 - Ae^t}
+$$
+
+(Dividing by $y(y+1)$ assumes $y \neq 0$ and $y \neq -1$.
+The solution $y = 0$ is the case $A = 0$, and $y = -1$ is also a solution.)
+
+:::
+
+::::
+
 ## Main problems
 
 ::::challenge{id="10_main_01" title="Main problems 1"}
