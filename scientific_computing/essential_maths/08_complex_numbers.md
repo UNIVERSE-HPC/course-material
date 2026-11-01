@@ -499,6 +499,13 @@ $$
 
 ## Introductory problems
 
+:::callout{variant="tip"}
+For more practice, an AI tool can write new problems like the ones below.
+Ask it for problems of the same type and difficulty, or for problems set in your own field.
+For example, you could ask it to "write five physics problems on complex numbers, at the level of these ones".
+Work them on paper first, then ask the tool to check your answers and to explain any step you are unsure of.
+:::
+
 ::::challenge{id="08_intro_01" title="Introductory problems 1"}
 Simplify:
 
@@ -511,10 +518,56 @@ Simplify:
 1. $(2-i)^{-2} +(2+i)^{-2}$
 1. $(5-i)^{-2} -(5+i)^{-2}$
 
+:::solution
+
+Add the real and imaginary parts separately, use $i^2=-1$ when multiplying, and divide by multiplying the numerator and the denominator by the complex conjugate of the denominator.
+
+1. $2-2i + 3+i = 5-i$
+1. $4-6i + 19+4i = 23-2i$
+1. $(1-i)^2 = 1 - 2i + i^2 = -2i$
+1. $(2+i)^2 = 4 + 4i + i^2 = 3+4i$
+1. $$
+   \frac{4-3i}{2+6i} = \frac{(4-3i)(2-6i)}{(2+6i)(2-6i)} = \frac{8 - 30i + 18i^2}{4 + 36} = \frac{-10-30i}{40} = -\frac{1}{4} - \frac{3}{4}i
+   $$
+
+1. $$
+   \frac{1+2i}{1-3i} = \frac{(1+2i)(1+3i)}{(1-3i)(1+3i)} = \frac{1 + 5i + 6i^2}{1+9} = \frac{-5+5i}{10} = -\frac{1}{2} + \frac{1}{2}i
+   $$
+
+1. Using $(2-i)^2 = 3-4i$ and $(2+i)^2 = 3+4i$:
+
+   $$
+   \frac{1}{3-4i} + \frac{1}{3+4i} = \frac{(3+4i) + (3-4i)}{(3-4i)(3+4i)} = \frac{6}{9+16} = \frac{6}{25}
+   $$
+
+1. Using $(5-i)^2 = 24-10i$ and $(5+i)^2 = 24+10i$:
+
+   $$
+   \frac{1}{24-10i} - \frac{1}{24+10i} = \frac{(24+10i) - (24-10i)}{(24-10i)(24+10i)} = \frac{20i}{576+100} = \frac{5}{169}i
+   $$
+
+   Note, in **7.** the two numbers are complex conjugates of each other, so their sum is real, while in **8.** their difference is purely imaginary.
+
+:::
+
 ::::
 
 ::::challenge{id="08_intro_02" title="Introductory problems 2"}
 Find the sum, difference, product and quotient of the complex numbers $z_1=5+3i$ and $z_2=-4+2i$.
+
+:::solution
+
+$$
+\begin{aligned}
+z_1 + z_2 &= (5-4) + (3+2)i = 1+5i \\
+z_1 - z_2 &= (5+4) + (3-2)i = 9+i \\
+z_1 z_2 &= (5+3i)(-4+2i) = -20 + 10i - 12i + 6i^2 = -26-2i \\
+\frac{z_1}{z_2} &= \frac{(5+3i)(-4-2i)}{(-4+2i)(-4-2i)} = \frac{-20 - 22i - 6i^2}{16+4} = \frac{-14-22i}{20} = -\frac{7}{10} - \frac{11}{10}i
+\end{aligned}
+$$
+
+:::
+
 ::::
 
 ## Main problems
@@ -526,6 +579,49 @@ Solve the following equations for $z$:
 1. $(z-i)/(z+i)=2/3$
 1. $z^2 + (1+4i)z + (15 + 27 i) = 0$
 
+Hint for **3.**: the quadratic formula needs the square root of $-75-100i$.
+To find it, find the real numbers $a$ and $b$ with $(a+bi)^2 = -75-100i$.
+
+:::solution
+
+1. Rearrange, then divide by multiplying by the complex conjugate:
+
+   $$
+   z = \frac{6+3i}{7+i} = \frac{(6+3i)(7-i)}{(7+i)(7-i)} = \frac{42 + 15i - 3i^2}{49+1} = \frac{45+15i}{50} = \frac{9}{10} + \frac{3}{10}i
+   $$
+
+1. Multiply both sides by $3(z+i)$:
+
+   $$
+   3(z-i) = 2(z+i) \quad\Longrightarrow\quad 3z - 3i = 2z + 2i \quad\Longrightarrow\quad z = 5i
+   $$
+
+1. The quadratic formula works for complex numbers too:
+
+   $$
+   z = \frac{-(1+4i) \pm \sqrt{(1+4i)^2 - 4(15+27i)}}{2}
+   $$
+
+   The number under the square root is $(1+4i)^2 - 4(15+27i) = -15 + 8i - 60 - 108i = -75-100i$.
+   Following the hint, $(a+bi)^2 = a^2 - b^2 + 2abi$, so we need
+
+   $$
+   a^2 - b^2 = -75 \qquad\text{and}\qquad 2ab = -100
+   $$
+
+   The second equation gives $b = -50/a$.
+   Substituting into the first gives $a^4 + 75a^2 - 2500 = 0$, which is a quadratic in $a^2$ with roots $a^2 = 25$ and $a^2 = -100$.
+   Since $a$ is real, $a^2 = 25$, so $a=5$ and $b=-10$ (or $a=-5$ and $b=10$, the same root with the opposite sign).
+   So, the square root is $\pm(5-10i)$, and
+
+   $$
+   z = \frac{-1-4i + (5-10i)}{2} = 2-7i \qquad\text{or}\qquad z = \frac{-1-4i - (5-10i)}{2} = -3+3i
+   $$
+
+   We can check by multiplying out: $(z - (2-7i))(z - (-3+3i)) = z^2 + (1+4i)z + (15+27i)$.
+
+:::
+
 ::::
 
 ::::challenge{id="08_main_02" title="Main problems 2"}
@@ -534,29 +630,238 @@ Represent the complex numbers $z_1= 5-2i$ and $z_2=-2 +4i$ on a sketch/plot of t
 1. Write down $z_1$ and $z_2$ in polar form (either give $r$ and $\theta$ for each, or write them as exponentials).
 1. What is the product of $z_1$ and $z_2$?
 
+:::solution
+
+$z_1$ is the point $(5,-2)$, below the real axis on the right, and $z_2$ is the point $(-2,4)$, above the real axis on the left.
+
+```python
+from matplotlib import pyplot as plt
+
+z1 = 5 - 2j
+z2 = -2 + 4j
+
+for z in [z1, z2]:
+    plt.plot([0, z.real], [0, z.imag], marker='o')
+plt.axhline(0, color='black', linewidth=0.5)
+plt.axvline(0, color='black', linewidth=0.5)
+plt.xlabel('Real axis')
+plt.ylabel('Imaginary axis')
+plt.gca().set_aspect('equal')
+```
+
+1. For $z_1$, which is in the fourth quadrant:
+
+   $$
+   r_1 = \sqrt{5^2 + 2^2} = \sqrt{29} \approx 5.39, \qquad \theta_1 = \arctan\left(\frac{-2}{5}\right) \approx -0.381
+   $$
+
+   For $z_2$, which is in the second quadrant, we add $\pi$ to the arctangent:
+
+   $$
+   r_2 = \sqrt{2^2 + 4^2} = \sqrt{20} \approx 4.47, \qquad \theta_2 = \arctan\left(\frac{4}{-2}\right) + \pi \approx -1.107 + \pi \approx 2.034
+   $$
+
+   So, $z_1 \approx 5.39\,e^{-0.381i}$ and $z_2 \approx 4.47\,e^{2.034i}$.
+
+1. In Cartesian form:
+
+   $$
+   z_1 z_2 = (5-2i)(-2+4i) = -10 + 20i + 4i - 8i^2 = -2+24i
+   $$
+
+   In polar form, the moduli multiply and the arguments add:
+
+   $$
+   z_1 z_2 = \sqrt{29}\sqrt{20}\,e^{(-0.381 + 2.034)i} \approx 24.1\,e^{1.65i}
+   $$
+
+   which is the same number, since $\sqrt{2^2 + 24^2} = \sqrt{580} \approx 24.1$.
+
+:::
+
 ::::
 
 ::::challenge{id="08_main_03" title="Main problems 3"}
 Find the sum, difference, product and quotient of the complex numbers $z_1=5e^{4i}$ and $z_2=3e^{-2i}$.
 Can you represent the results on an Argand diagram?
+
+:::solution
+
+The product and quotient are easiest in polar form, where the moduli multiply (or divide) and the arguments add (or subtract):
+
+$$
+z_1 z_2 = 15\,e^{2i}, \qquad \frac{z_1}{z_2} = \frac{5}{3}\,e^{6i}
+$$
+
+For the sum and difference we need Cartesian form, using $e^{i\theta}=\cos\theta+i\sin\theta$:
+
+$$
+\begin{aligned}
+z_1 &= 5\cos(4) + 5i\sin(4) \approx -3.268 - 3.784i \\
+z_2 &= 3\cos(2) - 3i\sin(2) \approx -1.248 - 2.728i
+\end{aligned}
+$$
+
+So:
+
+$$
+\begin{aligned}
+z_1 + z_2 &\approx -4.517 - 6.512i \\
+z_1 - z_2 &\approx -2.020 - 1.056i \\
+z_1 z_2 &= 15\cos(2) + 15i\sin(2) \approx -6.242 + 13.64i \\
+\frac{z_1}{z_2} &= \frac{5}{3}\cos(6) + \frac{5}{3}i\sin(6) \approx 1.600 - 0.466i
+\end{aligned}
+$$
+
+(An argument of 6 radians is the same as $6 - 2\pi \approx -0.283$ radians, just below the positive real axis.)
+
+```python
+import numpy as np
+from matplotlib import pyplot as plt
+
+z1 = 5 * np.exp(4j)
+z2 = 3 * np.exp(-2j)
+
+for z in [z1, z2, z1 + z2, z1 - z2, z1 * z2, z1 / z2]:
+    plt.plot(z.real, z.imag, marker='o')
+plt.axhline(0, color='black', linewidth=0.5)
+plt.axvline(0, color='black', linewidth=0.5)
+plt.xlabel('Real axis')
+plt.ylabel('Imaginary axis')
+plt.gca().set_aspect('equal')
+```
+
+:::
+
 ::::
 
 ::::challenge{id="08_main_04" title="Main problems 4"}
 What are the $(x,y)$ coordinates of the complex number $5e^{4i}$?
+
+:::solution
+
+Using $x = r\cos\theta$ and $y = r\sin\theta$ with $r=5$ and $\theta = 4$:
+
+$$
+(x, y) = (5\cos(4), 5\sin(4)) \approx (-3.27, -3.78)
+$$
+
+This is in the third quadrant, as we expect, since $\pi < 4 < 3\pi/2$.
+
+:::
+
 ::::
 
 ::::challenge{id="08_main_05" title="Main problems 5"}
 If $z=1+i$, mark on an Argand diagram the four points $A$, $B$, $C$ and $D$ representing $z$, $z^2$, $z^3$ and $z^4$ respectively.
 
 Find by calculation or from your diagram, the moduli and arguments of the complex numbers $z^2-1$ and $z+z^4$.
+
+:::solution
+
+In polar form, $z = 1+i = \sqrt{2}\,e^{i\pi/4}$.
+So, each power of $z$ multiplies the modulus by $\sqrt{2}$ and rotates through another $\pi/4$:
+
+$$
+\begin{aligned}
+z^2 &= 2\,e^{i\pi/2} = 2i \\
+z^3 &= 2\sqrt{2}\,e^{3i\pi/4} = -2+2i \\
+z^4 &= 4\,e^{i\pi} = -4
+\end{aligned}
+$$
+
+So, $A$, $B$, $C$ and $D$ are the points $(1,1)$, $(0,2)$, $(-2,2)$ and $(-4,0)$, spiralling outwards anticlockwise.
+
+Then $z^2 - 1 = -1+2i$, which is in the second quadrant:
+
+$$
+|z^2-1| = \sqrt{1+4} = \sqrt{5} \approx 2.24, \qquad \arg(z^2-1) = \pi - \arctan(2) \approx 2.03
+$$
+
+And $z + z^4 = -3+i$, also in the second quadrant:
+
+$$
+|z+z^4| = \sqrt{9+1} = \sqrt{10} \approx 3.16, \qquad \arg(z+z^4) = \pi - \arctan\left(\frac{1}{3}\right) \approx 2.82
+$$
+
+:::
+
 ::::
 
 ::::challenge{id="08_main_06" title="Main problems 6"}
 Find the complex numbers represented by the vertices of a square if one vertex represents $3+3i$ and the centre of the square represents $1+2i$.
+
+:::solution
+
+From the centre to the given vertex is $(3+3i) - (1+2i) = 2+i$.
+The other vertices are the same distance from the centre, rotated by a right angle each time.
+Multiplying by $i$ rotates through $\pi/2$, so the steps from the centre to the other vertices are
+
+$$
+(2+i)i = -1+2i, \qquad (2+i)i^2 = -2-i, \qquad (2+i)i^3 = 1-2i
+$$
+
+Adding each to the centre $1+2i$ gives the vertices
+
+$$
+3+3i, \qquad 4i, \qquad -1+i, \qquad 2
+$$
+
+:::
+
 ::::
 
 ## Extension problems
 
 ::::challenge{id="08_ext_01" title="Extension problems 1"}
-Experiment with using Python to solve the problems and confirm your pen & paper solutions.
+Use Python's complex numbers to check your answers to Introductory problems 1 and Main problems 1.
+
+:::solution
+
+Python writes $i$ as `j`, so we can type each expression in directly:
+
+```python
+print(2 - 2j + 3 + 1j)
+print(4 - 6j + 19 + 4j)
+print((1 - 1j)**2)
+print((2 + 1j)**2)
+print((4 - 3j) / (2 + 6j))
+print((1 + 2j) / (1 - 3j))
+print((2 - 1j)**-2 + (2 + 1j)**-2)
+print((5 - 1j)**-2 - (5 + 1j)**-2)
+```
+
+```text
+(5-1j)
+(23-2j)
+-2j
+(3+4j)
+(-0.25-0.75j)
+(-0.5+0.49999999999999994j)
+(0.24+0j)
+0.029585798816568046j
+```
+
+These agree with our answers: $6/25 = 0.24$ and $5/169 \approx 0.0296$.
+Python works with decimals, so a few answers carry a tiny rounding error, like $0.49999999999999994$ for $1/2$.
+
+To solve the equations in Main problems 1, SymPy keeps the answers exact (it writes $i$ as `I`):
+
+```python
+import sympy as sp
+
+z = sp.symbols('z')
+print(sp.solve((7 + sp.I) * z - 3 * sp.I - 6, z))
+print(sp.solve((z - sp.I) / (z + sp.I) - sp.Rational(2, 3), z))
+print(sp.solve(z**2 + (1 + 4 * sp.I) * z + (15 + 27 * sp.I), z))
+```
+
+```text
+[9/10 + 3*I/10]
+[5*I]
+[-3 + 3*I, 2 - 7*I]
+```
+
+:::
+
 ::::
