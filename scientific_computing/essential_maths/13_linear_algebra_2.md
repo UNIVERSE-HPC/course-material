@@ -926,6 +926,95 @@ Check: $A(2, 1)^T = (-6 + 5, 20 - 16)^T = (-1, 4)^T$ and $A(5, 3)^T = (-15 + 15,
 
 ::::
 
+::::challenge{id="13_main_06" title="Main problems 6"}
+
+Consider the matrices
+
+$$
+A = \left(\begin{array}{cc} 2 & 4 \\ 1 & 2 \end{array}\right); \qquad
+B = \left(\begin{array}{cc} 1 & 2 \\ 3 & 4 \end{array}\right); \qquad
+C = \left(\begin{array}{ccc} 1 & 2 & 3 \\ 2 & 4 & 6 \\ 1 & 1 & 1 \end{array}\right).
+$$
+
+1. Calculate the determinant of $A$ and of $B$.
+   Which of $A$, $B$ and $C$ are singular?
+1. Find the rank of each matrix.
+1. For each singular matrix, find a non-zero vector $\mathbf{u}$ in its null space, so that $A\mathbf{u} = \mathbf{0}$ or $C\mathbf{u} = \mathbf{0}$.
+1. Without solving them, say whether each of these systems has many solutions or no solutions, and explain why:
+   $$
+   \begin{aligned} 2x + 4y &= 6,\\ x + 2y &= 3; \end{aligned}
+   \qquad\qquad
+   \begin{aligned} 2x + 4y &= 6,\\ x + 2y &= 1. \end{aligned}
+   $$
+1. Check your answers to parts **2.** and **3.** using `numpy.linalg.matrix_rank` and `scipy.linalg.null_space`.
+
+:::solution
+
+1. $|A| = 2\times 2 - 4\times 1 = 0$ and $|B| = 1\times 4 - 2\times 3 = -2$.
+   So, $A$ is singular and $B$ is not.
+   The second row of $C$ is twice its first row, so $C$ is singular too (and $|C| = 0$).
+
+1. The rows of $A$ are multiples of each other, so $A$ has rank 1.
+   $B$ is not singular, so it has rank 2.
+   In $C$, the second row is a multiple of the first, but the third row is not a combination of the others, so $C$ has rank 2.
+
+1. For $A$, we need $2u_1 + 4u_2 = 0$ and $u_1 + 2u_2 = 0$, which are the same equation.
+   So, $u_1 = -2u_2$, and taking $u_2 = 1$ gives $\mathbf{u} = (-2, 1)^T$.
+   Any multiple of this vector is also in the null space.
+
+   For $C$, the first two rows give the same equation, so we need
+
+   $$
+   \begin{aligned}
+   u_1 + 2u_2 + 3u_3 &= 0,\\
+   u_1 + u_2 + u_3 &= 0.
+   \end{aligned}
+   $$
+
+   Subtracting the second equation from the first gives $u_2 + 2u_3 = 0$, so $u_2 = -2u_3$.
+   Then $u_1 = -u_2 - u_3 = u_3$.
+   Taking $u_3 = 1$ gives $\mathbf{u} = (1, -2, 1)^T$.
+
+   Check: $C(1, -2, 1)^T = (1 - 4 + 3, 2 - 8 + 6, 1 - 2 + 1)^T = (0, 0, 0)^T$.
+
+1. Both systems use the singular matrix $A$.
+   In the first, the first equation is exactly twice the second, so there is really only one equation, $x + 2y = 3$, and it has infinitely many solutions (for example $x = 3$, $y = 0$, or $x = 1$, $y = 1$).
+   In the second, twice the second equation gives $2x + 4y = 2$, which contradicts the first equation, so there are no solutions.
+
+1. In Python:
+
+   ```python
+   import numpy as np
+   import scipy.linalg
+
+   A = np.array([[2, 4], [1, 2]])
+   B = np.array([[1, 2], [3, 4]])
+   C = np.array([[1, 2, 3], [2, 4, 6], [1, 1, 1]])
+
+   for M in [A, B, C]:
+       print(np.linalg.matrix_rank(M))
+       print(scipy.linalg.null_space(M))
+   ```
+
+   ```text
+   1
+   [[-0.89442719]
+    [ 0.4472136 ]]
+   2
+   []
+   2
+   [[ 0.40824829]
+    [-0.81649658]
+    [ 0.40824829]]
+   ```
+
+   The null space of $B$ is empty, as it should be for a matrix that is not singular.
+   SciPy returns vectors of unit length, so they are scaled versions of ours: $(-2, 1)^T/\sqrt{5}$ and $(1, -2, 1)^T/\sqrt{6}$.
+
+:::
+
+::::
+
 ## Extension problems
 
 ::::challenge{id="13_ext_01" title="Extension problems 1"}
