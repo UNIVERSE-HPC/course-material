@@ -416,6 +416,46 @@ Differentiate the following trigonometric functions with respect to $x$:
 
 ::::
 
+::::challenge{id="04_intro_03" title="Introductory problems 3"}
+Use SymPy to check your answers to Introductory problems 1.
+SymPy may write a derivative in a different form from yours.
+How can you check that the two forms are equal?
+
+:::solution
+
+For example, for **8.**:
+
+```python
+import sympy as sp
+
+x = sp.symbols('x')
+y = (3*x + 1) * sp.sqrt(5*x**2 - x)
+print(sp.diff(y, x))
+```
+
+```text
+(3*x + 1)*(5*x - 1/2)/sqrt(5*x**2 - x) + 3*sqrt(5*x**2 - x)
+```
+
+This looks different from our answer.
+To check that they are equal, subtract one from the other and simplify:
+
+```python
+mine = (60*x**2 + x - 1) / (2*sp.sqrt(5*x**2 - x))
+print(sp.simplify(sp.diff(y, x) - mine))
+```
+
+```text
+0
+```
+
+The difference is zero, so the two forms are equal.
+The other parts can be checked in the same way.
+
+:::
+
+::::
+
 ## Main problems
 
 ::::challenge{id="04_main_01" title="Main problems 1"}
@@ -668,6 +708,52 @@ For $\cos x$, the constant term 1 differentiates to 0:
 $$
 \frac{d}{dx}\cos x = -\frac{x}{1!} + \frac{x^3}{3!} - \frac{x^5}{5!} + \ldots = -\left(x - \frac{x^3}{3!} + \frac{x^5}{5!} - \ldots\right) = -\sin x
 $$
+
+:::
+
+::::
+
+::::challenge{id="04_main_07" title="Main problems 7"}
+Use the rule for differentiating inverse functions to find $dy/dx$ for each function below, by first writing $x$ in terms of $y$.
+Check your answers using the standard rules.
+
+1. $y = \sqrt{x}$
+1. $y = x^{1/3}$
+1. $y = \ln(2x)$
+
+:::solution
+
+In each case, we find $dx/dy$, then use
+
+$$
+\frac{dy}{dx} = \frac{1}{\frac{dx}{dy}}
+$$
+
+1. $x = y^2$, so $dx/dy = 2y$, and
+
+   $$
+   \frac{dy}{dx} = \frac{1}{2y} = \frac{1}{2\sqrt{x}}
+   $$
+
+   This agrees with the power rule: $\frac{d}{dx}x^{1/2} = \frac{1}{2}x^{-1/2}$.
+
+1. $x = y^3$, so $dx/dy = 3y^2$, and
+
+   $$
+   \frac{dy}{dx} = \frac{1}{3y^2} = \frac{1}{3x^{2/3}}
+   $$
+
+   This agrees with the power rule: $\frac{d}{dx}x^{1/3} = \frac{1}{3}x^{-2/3}$.
+
+1. $2x = e^y$, so $x = e^y/2$ and $dx/dy = e^y/2 = x$.
+   So,
+
+   $$
+   \frac{dy}{dx} = \frac{1}{x}
+   $$
+
+   This agrees with the chain rule: $\frac{d}{dx}\ln(2x) = \frac{1}{2x}\times 2 = \frac{1}{x}$.
+   It is the same as the derivative of $\ln(x)$, because $\ln(2x) = \ln 2 + \ln x$, and the constant $\ln 2$ differentiates to zero.
 
 :::
 

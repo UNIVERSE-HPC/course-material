@@ -524,6 +524,37 @@ $$
 
 ::::
 
+::::challenge{id="05_intro_04" title="Introductory problems 4"}
+Find the partial derivatives $f_x$ and $f_y$ of the following functions:
+
+1. $f(x,y) = x^3 + 4xy^2 - y^4$
+1. $f(x,y) = e^{2x}\sin(y)$
+1. $f(x,y) = \ln\left(x^2 + y^2\right)$
+
+:::solution
+
+1. Holding $y$ constant, then holding $x$ constant:
+
+   $$
+   f_x = 3x^2 + 4y^2 \qquad\text{and}\qquad f_y = 8xy - 4y^3
+   $$
+
+1. When we differentiate with respect to $x$, $\sin(y)$ is a constant, and when we differentiate with respect to $y$, $e^{2x}$ is a constant:
+
+   $$
+   f_x = 2e^{2x}\sin(y) \qquad\text{and}\qquad f_y = e^{2x}\cos(y)
+   $$
+
+1. Use the chain rule, with $u = x^2 + y^2$:
+
+   $$
+   f_x = \frac{1}{x^2+y^2}\times 2x = \frac{2x}{x^2+y^2} \qquad\text{and}\qquad f_y = \frac{2y}{x^2+y^2}
+   $$
+
+:::
+
+::::
+
 ## Main problems
 
 ::::challenge{id="05_main_01" title="Main problems 1"}
@@ -705,6 +736,46 @@ $$
 $$
 
 The rate starts at $S_{\text{max}}/\tau$, and decreases towards zero as the thickness approaches $S_{\text{max}}$.
+
+:::
+
+::::
+
+::::challenge{id="05_main_06" title="Main problems 6"}
+Which of these functions could describe the equilibrium temperature $T(x,y)$ of a copper plate?
+That is, which satisfy Laplace's equation, $T_{xx} + T_{yy} = 0$?
+
+1. $T = x^3 - 3xy^2$
+1. $T = e^x\sin(y)$
+1. $T = x^2 + y^2$
+1. $T = \ln\left(x^2 + y^2\right)$, for $(x,y) \neq (0,0)$
+
+:::solution
+
+1. $T_x = 3x^2 - 3y^2$, so $T_{xx} = 6x$.
+   $T_y = -6xy$, so $T_{yy} = -6x$.
+   So, $T_{xx} + T_{yy} = 6x - 6x = 0$, and $T$ satisfies Laplace's equation.
+
+1. $T_{xx} = e^x\sin(y)$ and $T_{yy} = -e^x\sin(y)$.
+   So, $T_{xx} + T_{yy} = 0$, and $T$ satisfies Laplace's equation.
+
+1. $T_{xx} = 2$ and $T_{yy} = 2$.
+   So, $T_{xx} + T_{yy} = 4$, which is not zero, and $T$ does _not_ satisfy Laplace's equation.
+
+1. From Introductory problems 4, $T_x = 2x/(x^2+y^2)$.
+   Using the quotient rule,
+
+   $$
+   T_{xx} = \frac{2(x^2+y^2) - 2x\times 2x}{(x^2+y^2)^2} = \frac{2(y^2-x^2)}{(x^2+y^2)^2}
+   $$
+
+   In the same way, $T_y = 2y/(x^2+y^2)$, and
+
+   $$
+   T_{yy} = \frac{2(x^2-y^2)}{(x^2+y^2)^2}
+   $$
+
+   These add to zero, so $T$ satisfies Laplace's equation (everywhere except the origin, where it is not defined).
 
 :::
 

@@ -542,6 +542,59 @@ The area is its size, $9/2 = 4.5$.
 
 ::::
 
+::::challenge{id="07_intro_04" title="Introductory problems 4"}
+Use partial fractions to find:
+
+1. $\int \frac{1}{(x+1)(x+3)}\,dx$
+1. $\int \frac{5x+1}{(x-1)(x+2)}\,dx$
+1. $\int_0^1 \frac{1}{(x+1)(x+2)}\,dx$
+
+:::solution
+
+1. Let
+
+   $$
+   \frac{1}{(x+1)(x+3)} = \frac{A}{x+1} + \frac{B}{x+3}
+   $$
+
+   Multiplying both sides by $(x+1)(x+3)$ gives $A(x+3) + B(x+1) = 1$.
+   Equating coefficients of $x$ gives $A + B = 0$, and equating constant terms gives $3A + B = 1$.
+   So, $A = 1/2$ and $B = -1/2$, and
+
+   $$
+   \int \frac{1}{(x+1)(x+3)}\,dx = \frac{1}{2}\int\frac{dx}{x+1} - \frac{1}{2}\int\frac{dx}{x+3} = \frac{1}{2}\ln|x+1| - \frac{1}{2}\ln|x+3| + C
+   $$
+
+1. Let
+
+   $$
+   \frac{5x+1}{(x-1)(x+2)} = \frac{A}{x-1} + \frac{B}{x+2}
+   $$
+
+   so that $A(x+2) + B(x-1) = 5x + 1$.
+   This must hold for every $x$, so we can also pick values of $x$ that make one term vanish.
+   At $x = 1$: $3A = 6$, so $A = 2$.
+   At $x = -2$: $-3B = -9$, so $B = 3$.
+   So,
+
+   $$
+   \int \frac{5x+1}{(x-1)(x+2)}\,dx = \int\frac{2}{x-1}\,dx + \int\frac{3}{x+2}\,dx = 2\ln|x-1| + 3\ln|x+2| + C
+   $$
+
+1. In the same way, $\frac{1}{(x+1)(x+2)} = \frac{1}{x+1} - \frac{1}{x+2}$, so
+
+   $$
+   \begin{aligned}
+   \int_0^1 \frac{1}{(x+1)(x+2)}\,dx &= \Big[\ln|x+1| - \ln|x+2|\Big]_0^1 \\
+   &= (\ln 2 - \ln 3) - (\ln 1 - \ln 2) \\
+   &= 2\ln 2 - \ln 3 = \ln\frac{4}{3} \approx 0.288
+   \end{aligned}
+   $$
+
+:::
+
+::::
+
 ## Main problems
 
 ::::challenge{id="07_main_01" title="Main problems 1"}

@@ -347,6 +347,74 @@ For which values of $x$ are the following functions positive? Negative? Zero?
 
 ::::
 
+::::challenge{id="01_intro_03" title="Introductory problems 3"}
+A straight line passes through the points $(1, 3)$ and $(4, 9)$.
+
+1. What is its gradient?
+1. Write down its equation in the form $y = mx + c$.
+1. Where does it cross the $y$ axis? The $x$ axis?
+1. Does the point $(-2, -3)$ lie on the line?
+
+:::solution
+
+1. The gradient is the change in $y$ divided by the change in $x$:
+
+   $$
+   m = \frac{9 - 3}{4 - 1} = \frac{6}{3} = 2
+   $$
+
+1. The line passes through $(1, 3)$, so $3 = 2 \times 1 + c$, which gives $c = 1$.
+   So, the line is $y = 2x + 1$.
+
+1. It crosses the $y$ axis at $y = c = 1$, and the $x$ axis at $x = -c/m = -1/2$.
+
+1. At $x = -2$, the line has $y = 2 \times (-2) + 1 = -3$, so yes, $(-2, -3)$ lies on the line.
+
+:::
+
+::::
+
+::::challenge{id="01_intro_04" title="Introductory problems 4"}
+Use the checklist for sketching to sketch the graph of
+
+$$
+y = x^3 - x^2 - 6x
+$$
+
+Hint: start by factorising.
+Then use Python to check your sketch.
+
+:::solution
+
+Take out the common factor $x$, then factorise the quadratic:
+
+$$
+y = x(x^2 - x - 6) = x(x - 3)(x + 2)
+$$
+
+- **Zeros:** $y = 0$ at $x = -2$, $x = 0$ and $x = 3$.
+- **Sign:** checking one point between each pair of zeros, $y$ is negative for $x < -2$, positive for $-2 < x < 0$, negative for $0 < x < 3$, and positive for $x > 3$.
+- **Large $|x|$:** the $x^3$ term dominates, so $y \to \infty$ as $x \to \infty$, and $y \to -\infty$ as $x \to -\infty$.
+- **Undefined points:** none, as $y$ is a polynomial.
+- **Bends:** $y$ has degree 3, so it has at most 2 bends: a peak between $x = -2$ and $x = 0$, and a trough between $x = 0$ and $x = 3$.
+
+```python
+import numpy as np
+from matplotlib import pyplot as plt
+
+x = np.linspace(-3, 4, 200)
+y = x**3 - x**2 - 6 * x
+
+plt.plot(x, y)
+plt.axhline(0, color='black', linewidth=0.5)
+plt.xlabel('x')
+plt.ylabel('y')
+```
+
+:::
+
+::::
+
 ## Main problems
 
 Text relevant to these problems: Croft and Davison, 5th Edition, Chapters 17 & 18.

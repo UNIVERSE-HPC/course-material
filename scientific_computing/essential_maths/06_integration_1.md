@@ -595,6 +595,55 @@ By making suitable substitutions, find the indefinite integrals of:
 
 ::::
 
+::::challenge{id="06_intro_05" title="Introductory problems 5"}
+Consider the area under $y = 1/x$ between $x = 1$ and $x = 3$.
+
+1. Estimate the area by dividing it into 4 strips of width $0.5$, taking the height of each strip as the value of $y$ at its right-hand end.
+1. Is your estimate too big or too small? Why?
+1. Calculate the area exactly by integration, and compare.
+1. Use Python to repeat the estimate with 100 strips.
+
+:::solution
+
+1. The right-hand ends of the strips are at $x = 1.5$, $2$, $2.5$ and $3$:
+
+   $$
+   A \approx 0.5\left(\frac{1}{1.5} + \frac{1}{2} + \frac{1}{2.5} + \frac{1}{3}\right) = 0.95
+   $$
+
+1. Too small.
+   $1/x$ decreases as $x$ increases, so the value at the right-hand end of each strip is the lowest in that strip, and each rectangle lies below the curve.
+   (For $y = x^2$ in the lecture, which increases, the same method gave an estimate that was too big.)
+
+1. $$
+   A = \int_1^3 \frac{1}{x}\,dx = \Big[\ln x\Big]_1^3 = \ln 3 - \ln 1 = \ln 3 \approx 1.0986
+   $$
+
+   So, the estimate with 4 strips is about 14% too small.
+
+1. With 100 strips, each strip has width $0.02$:
+
+   ```python
+   import numpy as np
+
+   n = 100
+   dx = (3 - 1) / n
+   x = np.linspace(1 + dx, 3, n)  # the right-hand end of each strip
+   print('estimate =', np.sum(dx / x))
+   print('exact =', np.log(3))
+   ```
+
+   ```text
+   estimate = 1.0919752503144537
+   exact = 1.0986122886681098
+   ```
+
+   With 100 strips the estimate is much closer, and it gets closer still as the strips get narrower.
+
+:::
+
+::::
+
 ## Main problems
 
 ::::challenge{id="06_main_01" title="Main problems 1"}
