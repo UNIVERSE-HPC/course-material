@@ -214,7 +214,7 @@ To solve a differential equation:
 
 1. Calculate the general solution
    1. Try to write it as a separable equation first
-   2. Other methods (e.g. integrating factors) not covered in this course
+   2. Other methods exist, such as integrating factors (see Extension problems 2)
 2. This general solution will include an arbitrary constant this may be eliminated using initial conditions (if these are given)
 3. Can check your solution numerically using Python
 
@@ -326,18 +326,66 @@ This mean's we can estimate the _entire time course of $y(t)$_, provided:
 1. We can calculate $f(y, t)$ (or approximate it with a computer)
 2. We're patient enough to take really tiny steps $\delta{t}$
 
-We have already seen examples of this, using SciPy's ODEInt function, although this uses more sophisticated methods than the one described here.
+We have already seen examples of this, using SciPy's `solve_ivp` function, although this uses more sophisticated methods than the one described here.
 
 ## Introductory problems
 
+:::callout{variant="tip"}
+For more practice, an AI tool can write new problems like the ones below.
+Ask it for problems of the same type and difficulty, or for problems set in your own field.
+For example, you could ask it to "write five biochemistry problems on steady states and their stability, at the level of these ones".
+Work them on paper first, then ask the tool to check your answers and to explain any step you are unsure of.
+:::
+
 ::::challenge{id="11_intro_01" title="Introductory problems 1"}
-Determine the steady states are their stabilities, for each of the following:
+Determine the steady states and their stabilities, for each of the following:
 
 1. $dx/dt = x(a-x)$, where $a$ is a positive constant
 1. $dx/dt = x^{2}-4x+3$
 1. $dx/dt = e^{x}(x^{2}-1)$
 1. $dN/dt = r_{0}N\left(1-N/K\right)$, where $r_{0}<0$ and $r_{0}$, $K$ are constants
 1. $dx/dt = Ax/(h+x)$, where $A$ and $h$ are negative constants
+
+:::solution
+
+In each case, the steady states are where the right-hand side, $f$, is zero.
+To find their stability, we look at the gradient of $f$ at each steady state.
+If it is negative, $f$ goes from positive to negative as we pass through the steady state, so nearby solutions move back towards it, and the steady state is stable.
+If it is positive, nearby solutions move away, and the steady state is unstable.
+
+1. $f(x) = x(a-x)$ is zero at $x = 0$ and $x = a$.
+   Its gradient is $f'(x) = a - 2x$.
+   At $x = 0$, $f'(0) = a > 0$, so $x = 0$ is unstable.
+   At $x = a$, $f'(a) = -a < 0$, so $x = a$ is stable.
+
+1. $f(x) = x^2 - 4x + 3 = (x-1)(x-3)$ is zero at $x = 1$ and $x = 3$.
+   Its gradient is $f'(x) = 2x - 4$.
+   At $x = 1$, $f'(1) = -2 < 0$, so $x = 1$ is stable.
+   At $x = 3$, $f'(3) = 2 > 0$, so $x = 3$ is unstable.
+
+1. $e^x$ is never zero, so $f(x) = e^x(x^2-1)$ is zero only at $x = \pm 1$.
+   By the product rule, $f'(x) = e^x(x^2-1) + 2xe^x = e^x(x^2 + 2x - 1)$.
+   At $x = 1$, $f'(1) = 2e > 0$, so $x = 1$ is unstable.
+   At $x = -1$, $f'(-1) = -2e^{-1} < 0$, so $x = -1$ is stable.
+
+1. $f(N) = r_0N(1 - N/K)$ is zero at $N = 0$ and $N = K$.
+   Its gradient is $f'(N) = r_0(1 - 2N/K)$.
+   At $N = 0$, $f'(0) = r_0 < 0$, so $N = 0$ is stable.
+   At $N = K$, $f'(K) = -r_0 > 0$, so $N = K$ is unstable.
+   This is the logistic equation with a negative growth rate, so the stabilities are the other way round from the usual logistic equation.
+
+1. $f(x) = Ax/(h+x)$ is zero only at $x = 0$.
+   By the quotient rule,
+
+   $$
+   f'(x) = \frac{A(h+x) - Ax}{(h+x)^2} = \frac{Ah}{(h+x)^2}
+   $$
+
+   At $x = 0$, $f'(0) = A/h$, which is positive because $A$ and $h$ are both negative.
+   So, $x = 0$ is unstable.
+   (Note, $f$ is not defined at $x = -h$, which is a positive value of $x$.)
+
+:::
 
 ::::
 
@@ -359,6 +407,33 @@ $$
 a(t) = \frac{1}{2kt + \frac{1}{a_0}}.
 $$
 
+:::solution
+
+Under mass action, the reaction happens at a rate $ka \cdot a = ka^2$.
+Each reaction uses up two molecules of $A$, so
+
+$$
+\frac{da}{dt} = -2ka^2
+$$
+
+Separate the variables and integrate:
+
+$$
+\int \frac{da}{a^2} = -\int 2k\,dt \qquad\text{so}\qquad -\frac{1}{a} = -2kt + C
+$$
+
+At $t = 0$, $a = a_0$, so $C = -1/a_0$.
+This means that
+
+$$
+\frac{1}{a} = 2kt + \frac{1}{a_0} \qquad\text{so}\qquad a(t) = \frac{1}{2kt + \frac{1}{a_0}}
+$$
+
+This does not decay exponentially.
+For large $t$, $a(t) \approx 1/(2kt)$, which falls much more slowly than an exponential.
+
+:::
+
 ::::
 
 ::::challenge{id="11_main_02" title="Main problems 2"}
@@ -374,6 +449,58 @@ Infection requires the interaction of susceptible individuals with infected indi
 1. Find both steady states of $I$. Under what conditions on $\beta$ and $\gamma$ are each attainable?
 1. Without solving the differential equation, sketch the behaviour of $S$ and $I$ over time, starting with a small quantity of infected individuals.
    Illustrate how both steady states may be achieved.
+
+:::solution
+
+1. Infection needs a susceptible individual to meet an infected one, so by mass action it happens at rate $\beta SI$.
+   Recovery happens at rate $\gamma I$.
+   Infection moves individuals from $S$ to $I$, and recovery moves them back:
+
+   $$
+   \frac{dS}{dt} = -\beta SI + \gamma I, \qquad \frac{dI}{dt} = \beta SI - \gamma I
+   $$
+
+1. The proportions add up to one, $S + I = 1$, so $S = 1 - I$ and
+
+   $$
+   \frac{dI}{dt} = \beta I(1 - I) - \gamma I
+   $$
+
+1. Write $f(I) = \beta I(1-I) - \gamma I = I(\beta - \gamma - \beta I)$.
+   This is zero at $I = 0$ and at $I = 1 - \gamma/\beta$.
+   Its gradient is $f'(I) = \beta - \gamma - 2\beta I$.
+
+   - At $I = 0$, $f'(0) = \beta - \gamma$.
+     So, the disease dies out (this steady state is stable) when $\beta < \gamma$.
+   - At $I = 1 - \gamma/\beta$, $f' = \gamma - \beta$.
+     So, this steady state is stable when $\beta > \gamma$, which is also when it is positive and so makes sense as a proportion.
+
+   In other words, the disease persists when people are infected faster than they recover.
+
+1. Starting with a small $I$ (and so $S$ close to 1):
+
+   - If $\beta > \gamma$, $I$ grows, slowly at first, then faster, then levels off at $1 - \gamma/\beta$, in an S-shaped curve.
+     $S = 1 - I$ falls in a mirror image, levelling off at $\gamma/\beta$.
+   - If $\beta < \gamma$, $I$ decays towards zero, and $S$ rises towards 1.
+
+   We can check the sketch by solving the equation numerically, for example with $\beta = 0.5$, $\gamma = 0.2$ and with $\beta = 0.2$, $\gamma = 0.5$:
+
+   ```python
+   import numpy as np
+   from scipy.integrate import solve_ivp
+   from matplotlib import pyplot as plt
+
+   t = np.linspace(0, 50, 200)
+   for beta, gamma in [(0.5, 0.2), (0.2, 0.5)]:
+       sol = solve_ivp(lambda t, I: beta * I * (1 - I) - gamma * I, (0, 50), [0.01], t_eval=t)
+       plt.plot(t, sol.y[0], label=f'I, beta = {beta}, gamma = {gamma}')
+       plt.plot(t, 1 - sol.y[0], '--', label=f'S, beta = {beta}, gamma = {gamma}')
+   plt.xlabel('t')
+   plt.ylabel('proportion')
+   plt.legend()
+   ```
+
+:::
 
 ::::
 
@@ -393,6 +520,63 @@ where $k_f$ and $k_b$ are mass action coefficients.
 1. Solve the single differential equation to reveal the transient behaviour.
    Sketch the behaviour for different illustrative initial conditions.
 
+:::solution
+
+1. The forward reaction turns $A$ into $B$ at rate $k_f[A]$, and the backward reaction turns $B$ into $A$ at rate $k_b[B]$:
+
+   $$
+   \frac{d[A]}{dt} = -k_f[A] + k_b[B], \qquad \frac{d[B]}{dt} = k_f[A] - k_b[B]
+   $$
+
+1. Substitute $[B] = T - [A]$:
+
+   $$
+   \frac{d[A]}{dt} = -k_f[A] + k_b(T - [A]) = k_bT - (k_f + k_b)\,[A]
+   $$
+
+1. At steady state $d[A]/dt = 0$, so
+
+   $$
+   [A] = \frac{k_bT}{k_f + k_b} \qquad\text{and}\qquad [B] = T - [A] = \frac{k_fT}{k_f + k_b}
+   $$
+
+   So, at steady state $[B]/[A] = k_f/k_b$.
+
+1. Separate the variables and integrate:
+
+   $$
+   \int \frac{d[A]}{k_bT - (k_f+k_b)\,[A]} = \int dt \qquad\text{so}\qquad -\frac{\ln\left|k_bT - (k_f+k_b)\,[A]\right|}{k_f + k_b} = t + C
+   $$
+
+   Rearranging, and writing $[A]_0$ for the starting concentration of $A$, gives
+
+   $$
+   [A](t) = \frac{k_bT}{k_f + k_b} + \left([A]_0 - \frac{k_bT}{k_f + k_b}\right)e^{-(k_f + k_b)t}
+   $$
+
+   Whatever the starting concentration, $[A]$ relaxes exponentially to its steady state, from above if it starts above it, and from below if it starts below it.
+   The rate of approach is $k_f + k_b$, the sum of the two rate constants.
+   $[B] = T - [A]$ does the opposite.
+   For example, with $k_f = 2$, $k_b = 1$ and $T = 1$:
+
+   ```python
+   import numpy as np
+   from matplotlib import pyplot as plt
+
+   kf = 2
+   kb = 1
+   T = 1
+   A_ss = kb * T / (kf + kb)
+   t = np.linspace(0, 3, 200)
+   for A0 in [0, 0.2, 0.6, 1]:
+       plt.plot(t, A_ss + (A0 - A_ss) * np.exp(-(kf + kb) * t), label=f'[A](0) = {A0}')
+   plt.xlabel('t')
+   plt.ylabel('[A]')
+   plt.legend()
+   ```
+
+:::
+
 ::::
 
 ::::challenge{id="11_main_04" title="Main problems 4"}
@@ -404,6 +588,30 @@ $$
 
 in which species $s$ is produced at a fixed rate and consumed via Michaelis-Menten kinetics.
 Find the steady state of $s$, and verify that it is stable for any non-negative parameter values, provided $V_{\text{max}} > k$.
+
+:::solution
+
+At steady state $ds/dt = 0$, so
+
+$$
+k = \frac{V_{\text{max}}s}{K_M + s} \qquad\text{so}\qquad kK_M + ks = V_{\text{max}}s \qquad\text{so}\qquad s^* = \frac{kK_M}{V_{\text{max}} - k}
+$$
+
+This is positive, and so makes sense as a concentration, only if $V_{\text{max}} > k$.
+(If $V_{\text{max}} \le k$, production is faster than the enzyme can ever consume $s$, so $s$ grows without limit.)
+
+To check stability, write $f(s) = k - V_{\text{max}}s/(K_M + s)$.
+By the quotient rule,
+
+$$
+f'(s) = -\frac{V_{\text{max}}(K_M + s) - V_{\text{max}}s}{(K_M + s)^2} = -\frac{V_{\text{max}}K_M}{(K_M + s)^2}
+$$
+
+This is negative for every $s \ge 0$ when $V_{\text{max}}$ and $K_M$ are positive, so in particular $f'(s^*) < 0$, and the steady state is stable.
+In other words, below $s^*$ production beats consumption and $s$ rises, and above $s^*$ consumption wins and $s$ falls.
+
+:::
+
 ::::
 
 ::::challenge{id="11_main_05" title="Main problems 5"}
@@ -415,7 +623,7 @@ $$
 
 where $v_1$ and $v_2$ are reaction rates rather than mass action coefficients.
 
-1. Suppose $v_1 = k_1$ and $v_2 = k_2$.
+1. Suppose $v_1 = k_1$ and $v_2 = k_2s$, as in the lecture.
    Write down a differential equation describing the rate of change of S, and find the steady state concentration of S in terms of the two parameters $k_1$ and $k_2$ (i.e. the concentration at which the rate of change is zero).
    At what rate is S being produced in steady state?
 1. Now suppose that
@@ -426,6 +634,37 @@ where $v_1$ and $v_2$ are reaction rates rather than mass action coefficients.
 
    and take the parameter values to be $k_0=6/11$, $k_1=60/11$, $k_2=11$, $k_3=1$.
    Determine the number of steady states and the type of each.
+
+:::solution
+
+1. $ds/dt = v_1 - v_2 = k_1 - k_2s$.
+   At steady state this is zero, so $s^* = k_1/k_2$.
+   In steady state, $S$ is produced at rate $v_1 = k_1$, which exactly balances its degradation, $k_2s^* = k_1$.
+
+1. With the given values,
+
+   $$
+   \frac{ds}{dt} = \frac{6}{11} + \frac{60}{11}\,\frac{s^2}{11+s^2} - s
+   $$
+
+   Put everything over the common denominator $11(11+s^2)$:
+
+   $$
+   \frac{ds}{dt} = \frac{6(11+s^2) + 60s^2 - 11s(11+s^2)}{11(11+s^2)} = -\frac{11s^3 - 66s^2 + 121s - 66}{11(11+s^2)} = -\frac{(s-1)(s-2)(s-3)}{11+s^2}
+   $$
+
+   So, there are three steady states, $s = 1$, $s = 2$ and $s = 3$.
+   The denominator is always positive, so the sign of $ds/dt$ is the sign of $-(s-1)(s-2)(s-3)$:
+
+   | $s$       | $s<1$ | $1<s<2$ | $2<s<3$ | $s>3$ |
+   | :-------- | :---: | :-----: | :-----: | :---: |
+   | $ds/dt$   |   +   |    -    |    +    |   -   |
+
+   Solutions move towards $s = 1$ and $s = 3$ from both sides, so these are stable.
+   They move away from $s = 2$, so it is unstable.
+   This means that the system is _bistable_, settling at a low or a high level of $S$ depending on whether it starts below or above $s = 2$.
+
+:::
 
 ::::
 
@@ -443,9 +682,104 @@ They are differential equations describing the rate of change of tumour volume $
 
 Solve each equation both analytically and numerically, using Python.
 As was done in Figure 1A in the paper, compare the behaviours of the different growth laws over a suitable time interval for an initially small tumour, again using Python.
+With $V$ in mm$^3$ and $t$ in days, take $V(0) = 1$, $r = 0.1$, $b = 2/3$, $r_0 = 0.1$ and $\rho = 0.02$, and compare the laws over the first 100 days.
+
+:::solution
+
+Each equation is separable.
+
+1. $\int dV/V = \int r\,dt$ gives $\ln V = rt + C$, so
+
+   $$
+   V(t) = V(0)\,e^{rt}
+   $$
+
+   This is exponential growth, with no limit.
+
+1. $\int V^{-b}\,dV = \int r\,dt$ gives $V^{1-b}/(1-b) = rt + C$ (for $b \neq 1$), so
+
+   $$
+   V(t) = \left(V(0)^{1-b} + (1-b)rt\right)^{1/(1-b)}
+   $$
+
+   With $b = 2/3$, this is $V(t) = \left(V(0)^{1/3} + rt/3\right)^3$, which grows like $t^3$.
+   (One explanation for $b = 2/3$ is that only the cells near the surface of the tumour divide, and the surface area grows like $V^{2/3}$.)
+
+1. $\int dV/V = \int r_0e^{-\rho t}\,dt$ gives $\ln V = -\frac{r_0}{\rho}e^{-\rho t} + C$.
+   At $t = 0$, $\ln V(0) = -r_0/\rho + C$, so
+
+   $$
+   V(t) = V(0)\exp\left(\frac{r_0}{\rho}\left(1 - e^{-\rho t}\right)\right)
+   $$
+
+   This is the _Gompertz_ law.
+   The growth rate decays over time, so the volume levels off at $V(0)e^{r_0/\rho}$.
+
+To solve them numerically, we use `solve_ivp`, and compare with the analytic solutions (dotted lines) on a logarithmic $V$ axis:
+
+```python
+import numpy as np
+from scipy.integrate import solve_ivp
+from matplotlib import pyplot as plt
+
+V0 = 1
+r = 0.1
+b = 2 / 3
+r0 = 0.1
+rho = 0.02
+t = np.linspace(0, 100, 201)
+
+# Each model: its right-hand side dV/dt, and its analytic solution
+models = {
+    'exponential': (lambda t, V: r * V,
+                    V0 * np.exp(r * t)),
+    'power law': (lambda t, V: r * V**b,
+                  (V0**(1 - b) + (1 - b) * r * t)**(1 / (1 - b))),
+    'Gompertz': (lambda t, V: r0 * np.exp(-rho * t) * V,
+                 V0 * np.exp(r0 / rho * (1 - np.exp(-rho * t)))),
+}
+
+for name, (dVdt, analytic) in models.items():
+    sol = solve_ivp(dVdt, (0, 100), [V0], t_eval=t, rtol=1e-8)
+    print(f'{name}: V(100) = {sol.y[0, -1]:.1f} (numerical), {analytic[-1]:.1f} (analytic)')
+    plt.semilogy(t, sol.y[0], label=name)
+    plt.semilogy(t, analytic, 'k:')
+
+plt.xlabel('t (days)')
+plt.ylabel('V (mm$^3$)')
+plt.legend()
+```
+
+```text
+exponential: V(100) = 22026.5 (numerical), 22026.5 (analytic)
+power law: V(100) = 81.4 (numerical), 81.4 (analytic)
+Gompertz: V(100) = 75.4 (numerical), 75.4 (analytic)
+```
+
+The numerical and analytic solutions agree.
+All three laws start growing at the same rate, $0.1\,$mm$^3$ per day, and are hard to tell apart for the first few days.
+After 100 days, though, the exponential law predicts a tumour of over 22,000 mm$^3$, while the other two predict less than 100 mm$^3$, and the Gompertz curve is levelling off (towards $e^5 \approx 148\,$mm$^3$).
+This is the kind of comparison shown in Figure 1A of the paper, where laws that look alike early on make very different predictions later.
+
+:::
+
 ::::
 
 ::::challenge{id="11_ext_02" title="Extension problems 2"}
+The lecture does not cover integrating factors, so here is the method.
+If an equation can be written in the form
+
+$$
+\frac{dy}{dx} + P(x)\,y = Q(x)
+$$
+
+multiply both sides by the _integrating factor_ $I(x) = e^{\int P(x)\,dx}$.
+Because $dI/dx = P(x)\,I(x)$, the product rule shows that the left-hand side becomes $\frac{d}{dx}\left(I(x)\,y\right)$, so
+
+$$
+I(x)\,y = \int I(x)\,Q(x)\,dx
+$$
+
 Find the solution to the following differential equations subject to the specified boundary conditions, using integrating factors:
 
 1. $dy/dx + y/x = 0 \quad\text{with}\quad y(2)=2 \quad\text{for}\quad x>0$
@@ -453,6 +787,72 @@ Find the solution to the following differential equations subject to the specifi
 1. $x^3\,dy/dx + 2y = e^{1/x^2} \quad\text{with}\quad y(1)=e$
 1. $\sec(x)\,dy/dx + y = 1 \quad\text{with}\quad y(0) = 1$
 1. $dy/dx + y\tan(x) = \cos(x) \quad\text{with}\quad y(0)=1 \quad\text{for}\quad 0 \le x < \pi/2$
+
+:::solution
+
+1. $P(x) = 1/x$, so $I(x) = e^{\ln x} = x$ (for $x > 0$), and $Q(x) = 0$:
+
+   $$
+   \frac{d}{dx}(xy) = 0 \qquad\text{so}\qquad xy = C
+   $$
+
+   At $x = 2$, $y = 2$, so $C = 4$, and $y = 4/x$.
+
+1. $P(x) = 2x - 1$, so $I(x) = e^{x^2 - x}$, and $Q(x) = 0$:
+
+   $$
+   \frac{d}{dx}\left(e^{x^2-x}y\right) = 0 \qquad\text{so}\qquad y = Ce^{x - x^2}
+   $$
+
+   At $x = 1$, $y = C = 2$, so $y = 2e^{x - x^2}$.
+
+   (Parts **1.** and **2.** are also separable, and separating the variables gives the same answers.)
+
+1. First divide by $x^3$ to get the standard form:
+
+   $$
+   \frac{dy}{dx} + \frac{2}{x^3}\,y = \frac{e^{1/x^2}}{x^3}
+   $$
+
+   $P(x) = 2x^{-3}$, so $\int P\,dx = -x^{-2}$ and $I(x) = e^{-1/x^2}$.
+   Then $I(x)\,Q(x) = 1/x^3$, so
+
+   $$
+   e^{-1/x^2}y = \int \frac{dx}{x^3} = -\frac{1}{2x^2} + C
+   $$
+
+   At $x = 1$, $y = e$, so $1 = -1/2 + C$ and $C = 3/2$.
+   So,
+
+   $$
+   y = e^{1/x^2}\left(\frac{3}{2} - \frac{1}{2x^2}\right)
+   $$
+
+1. Multiply by $\cos(x)$ (since $\sec(x) = 1/\cos(x)$) to get the standard form:
+
+   $$
+   \frac{dy}{dx} + \cos(x)\,y = \cos(x)
+   $$
+
+   $P(x) = \cos(x)$, so $I(x) = e^{\sin(x)}$:
+
+   $$
+   \frac{d}{dx}\left(e^{\sin(x)}y\right) = e^{\sin(x)}\cos(x) \qquad\text{so}\qquad e^{\sin(x)}y = e^{\sin(x)} + C
+   $$
+
+   This gives $y = 1 + Ce^{-\sin(x)}$.
+   At $x = 0$, $y = 1 + C = 1$, so $C = 0$, and the solution is simply $y = 1$.
+   (We could have spotted this: $y = 1$ makes $dy/dx = 0$, and then the equation holds.)
+
+1. $P(x) = \tan(x)$, so $\int P\,dx = -\ln(\cos(x))$ (for $0 \le x < \pi/2$, where $\cos(x) > 0$) and $I(x) = 1/\cos(x) = \sec(x)$:
+
+   $$
+   \frac{d}{dx}\left(\sec(x)\,y\right) = \sec(x)\cos(x) = 1 \qquad\text{so}\qquad \sec(x)\,y = x + C
+   $$
+
+   At $x = 0$, $y = 1$, so $C = 1$, and $y = (x+1)\cos(x)$.
+
+:::
 
 ::::
 
@@ -463,9 +863,41 @@ $$
 \frac{d^2y}{dx^2} + y = 0
 $$
 
-Show that $y = Ae^{z_1 x} + Be^{z_2 x}$ is a solution to this equation for some complex numbers $z_1$, $z_2$ and real constants $A$, $B$.
+Show that $y = Ae^{z_1 x} + Be^{z_2 x}$ is a solution to this equation for some complex numbers $z_1$, $z_2$ and constants $A$, $B$ (which may also be complex).
 
 1. Recalling that any complex number $z$ can be written as $z = re^{i\theta} = r(\cos\theta + i\sin\theta)$, what does this tell you about the nature of the solution?
 1. If $y(0)=1$ and $y(\pi/2)=2$ what is the particular solution of the differential equation?
+
+:::solution
+
+Try $y = e^{zx}$.
+Then $d^2y/dx^2 = z^2e^{zx}$, so the equation becomes
+
+$$
+z^2e^{zx} + e^{zx} = (z^2 + 1)e^{zx} = 0
+$$
+
+$e^{zx}$ is never zero, so we need $z^2 = -1$, that is $z_1 = i$ and $z_2 = -i$.
+The equation is linear, so any combination $y = Ae^{ix} + Be^{-ix}$ is also a solution.
+
+1. Using $e^{i\theta} = \cos\theta + i\sin\theta$,
+
+   $$
+   y = A(\cos x + i\sin x) + B(\cos x - i\sin x) = (A + B)\cos x + i(A - B)\sin x
+   $$
+
+   So, the solution is a combination of $\cos x$ and $\sin x$, and oscillates with period $2\pi$.
+   Writing $C = A + B$ and $D = i(A - B)$, the solution is $y = C\cos x + D\sin x$.
+   For $y$ to be real, $C$ and $D$ must be real, which needs $A$ and $B$ to be complex conjugates of each other.
+
+1. $y(0) = C = 1$ and $y(\pi/2) = D = 2$, so
+
+   $$
+   y = \cos x + 2\sin x
+   $$
+
+   (This corresponds to $A = (1-2i)/2$ and $B = (1+2i)/2$.)
+
+:::
 
 ::::
