@@ -271,7 +271,7 @@ If we now look again at the phase plane, after having calculated the stability o
 - Eigenvalues tell us about the behaviour of linear systems
 - Eigenvalues tell us about the stability of nonlinear systems
 
-## Main problems
+## Introductory problems
 
 :::callout{variant="tip"}
 For more practice, an AI tool can write new problems like the ones below.
@@ -279,6 +279,83 @@ Ask it for problems of the same type and difficulty, or for problems set in your
 For example, you could ask it to "write five epidemiology problems on classifying steady states, at the level of these ones".
 Work them on paper first, then ask the tool to check your answers and to explain any step you are unsure of.
 :::
+
+::::challenge{id="16_intro_01" title="Introductory problems 1"}
+Each matrix below is the Jacobian at a fixed point.
+Find its trace, determinant and eigenvalues, and classify the fixed point.
+
+$$
+\begin{gathered}
+\text{(a)}\ \left(\begin{array}{cc} -3 & 0 \\ 0 & -1 \end{array}\right); \qquad
+\text{(b)}\ \left(\begin{array}{cc} 3 & 1 \\ 1 & 3 \end{array}\right); \qquad
+\text{(c)}\ \left(\begin{array}{cc} 1 & 2 \\ 2 & 1 \end{array}\right); \\
+\text{(d)}\ \left(\begin{array}{cc} -1 & -2 \\ 2 & -1 \end{array}\right); \qquad
+\text{(e)}\ \left(\begin{array}{cc} 0 & 1 \\ -4 & 0 \end{array}\right)
+\end{gathered}
+$$
+
+:::solution
+
+As in the lecture, the eigenvalues satisfy $\lambda^2 - \tau\lambda + \Delta = 0$, where $\tau$ is the trace and $\Delta$ is the determinant.
+
+- (a) $\tau = -4$ and $\Delta = 3$, so $\lambda^2 + 4\lambda + 3 = (\lambda + 1)(\lambda + 3) = 0$.
+  The eigenvalues $\lambda = -1$ and $-3$ are both negative, so this is a stable node.
+- (b) $\tau = 6$ and $\Delta = 9 - 1 = 8$, so $\lambda^2 - 6\lambda + 8 = (\lambda - 2)(\lambda - 4) = 0$.
+  The eigenvalues $\lambda = 2$ and $4$ are both positive, so this is an unstable node.
+- (c) $\tau = 2$ and $\Delta = 1 - 4 = -3$, so $\lambda^2 - 2\lambda - 3 = (\lambda - 3)(\lambda + 1) = 0$.
+  The eigenvalues $\lambda = 3$ and $-1$ have opposite signs, so this is a saddle (unstable).
+- (d) $\tau = -2$ and $\Delta = 1 + 4 = 5$, so $\lambda^2 + 2\lambda + 5 = 0$ and
+
+  $$
+  \lambda = \frac{-2 \pm \sqrt{4 - 20}}{2} = -1 \pm 2i
+  $$
+
+  The eigenvalues are complex with a negative real part, so this is a stable spiral.
+- (e) $\tau = 0$ and $\Delta = 4$, so $\lambda^2 + 4 = 0$ and $\lambda = \pm 2i$.
+  The eigenvalues are purely imaginary, so this is neutral: solutions cycle round the fixed point.
+
+Notice that a negative determinant always gives a saddle, because then the two eigenvalues multiply to give a negative number.
+
+:::
+
+::::
+
+::::challenge{id="16_intro_02" title="Introductory problems 2"}
+The system
+
+$$
+\dot{x} = x - xy, \qquad \dot{y} = x^2 - y
+$$
+
+has fixed points at $(0, 0)$, $(1, 1)$ and $(-1, 1)$.
+Find the Jacobian, evaluate it at each fixed point, and classify each one.
+
+:::solution
+
+With $f = x - xy$ and $g = x^2 - y$,
+
+$$
+J = \left(\begin{array}{cc} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y} \\ \frac{\partial g}{\partial x} & \frac{\partial g}{\partial y} \end{array}\right) = \left(\begin{array}{cc} 1 - y & -x \\ 2x & -1 \end{array}\right)
+$$
+
+- At $(0, 0)$, $J = \left(\begin{array}{cc} 1 & 0 \\ 0 & -1 \end{array}\right)$.
+  The eigenvalues are the diagonal entries, $\lambda = 1$ and $-1$, so $(0, 0)$ is a saddle (unstable).
+- At $(1, 1)$, $J = \left(\begin{array}{cc} 0 & -1 \\ 2 & -1 \end{array}\right)$, with $\tau = -1$ and $\Delta = 0 + 2 = 2$.
+  So, $\lambda^2 + \lambda + 2 = 0$ and
+
+  $$
+  \lambda = \frac{-1 \pm \sqrt{1 - 8}}{2} = \frac{-1 \pm i\sqrt{7}}{2}
+  $$
+
+  These are complex with a negative real part, so $(1, 1)$ is a stable spiral.
+- At $(-1, 1)$, $J = \left(\begin{array}{cc} 0 & 1 \\ -2 & -1 \end{array}\right)$, with $\tau = -1$ and $\Delta = 0 + 2 = 2$.
+  These are the same trace and determinant as at $(1, 1)$, so $(-1, 1)$ is also a stable spiral.
+
+:::
+
+::::
+
+## Main problems
 
 :::callout{variant="note"}
 These questions are extensions of questions on the previous page.
@@ -452,6 +529,7 @@ The $\dot{x}$ notation represents the derivative with respect to non-dimensional
 1. Calculate the steady states of the system.
 1. Determine the stability of the fixed points in the case $\beta = r = 4$.
 1. Draw the phase plane, including the nullclines and phase trajectories.
+   You can sketch it by hand, or plot it in Python by adapting the phase plane code from the previous lecture.
 
 :::solution
 
