@@ -389,6 +389,83 @@ If it is positive, nearby solutions move away, and the steady state is unstable.
 
 ::::
 
+::::challenge{id="11_intro_02" title="Introductory problems 2"}
+Consider the differential equation
+
+$$
+\frac{dy}{dt} = -2y \quad\text{with}\quad y(0) = 1.
+$$
+
+1. Solve the equation exactly, by separation of variables.
+1. Use Euler's method by hand, with a step size of $\delta t = 0.1$, to estimate $y(0.1)$, $y(0.2)$ and $y(0.3)$.
+   Compare your estimate of $y(0.3)$ with the exact value.
+1. Write a Python function that uses Euler's method to estimate $y(1)$.
+   Find the error in your estimate for $\delta t = 0.1$ and for $\delta t = 0.05$.
+   What happens to the error when the step size is halved?
+
+:::solution
+
+1. Separating the variables,
+
+   $$
+   \int \frac{dy}{y} = \int -2\,dt \qquad\Rightarrow\qquad \ln y = -2t + c
+   $$
+
+   and $y(0) = 1$ gives $c = 0$, so $y = e^{-2t}$.
+
+1. Each step of Euler's method is $y_{n+1} = y_n + f(y_n, t_n)\,\delta t$, where here $f(y, t) = -2y$.
+   So, each step multiplies $y$ by $1 - 2\delta t = 0.8$:
+
+   $$
+   \begin{aligned}
+   y(0.1) &\approx 1 + (-2\times 1)\times 0.1 = 0.8, \\
+   y(0.2) &\approx 0.8 + (-2\times 0.8)\times 0.1 = 0.64, \\
+   y(0.3) &\approx 0.64 + (-2\times 0.64)\times 0.1 = 0.512.
+   \end{aligned}
+   $$
+
+   The exact value is $y(0.3) = e^{-0.6} \approx 0.5488$, so the estimate is about $0.037$ too small.
+   Euler's method uses the gradient at the start of each step, and here the gradient gets less steep as $y$ decreases, so each step goes down a little too far.
+
+1. In Python:
+
+   ```python
+   import numpy as np
+
+
+   def euler(f, y0, t0, t_end, dt):
+       n_steps = round((t_end - t0) / dt)
+       y = y0
+       t = t0
+       for _ in range(n_steps):
+           y = y + f(y, t) * dt
+           t = t + dt
+       return y
+
+
+   def f(y, t):
+       return -2 * y
+
+
+   exact = np.exp(-2)
+   for dt in [0.1, 0.05]:
+       approx = euler(f, 1, 0, 1, dt)
+       print(f"dt = {dt}: y(1) = {approx:.6f}, error = {exact - approx:.6f}")
+   ```
+
+   ```text
+   dt = 0.1: y(1) = 0.107374, error = 0.027961
+   dt = 0.05: y(1) = 0.121577, error = 0.013759
+   ```
+
+   Halving the step size roughly halves the error.
+   This means that, to make the error 10 times smaller, we need 10 times as many steps.
+   This is why `solve_ivp` uses more sophisticated methods.
+
+:::
+
+::::
+
 ## Main problems
 
 ::::challenge{id="11_main_01" title="Main problems 1"}
