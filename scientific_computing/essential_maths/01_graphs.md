@@ -239,6 +239,13 @@ We next add a trendline through these points which we can use to determine the g
 
 ## Introductory problems
 
+:::callout{variant="tip"}
+For more practice, an AI tool can write new problems like the ones below.
+Ask it for problems of the same type and difficulty, or for problems set in your own field.
+For example, you could ask it to "write five ecology problems on straightening curved data into straight lines, at the level of these ones".
+Work them on paper first, then ask the tool to check your answers and to explain any step you are unsure of.
+:::
+
 ::::challenge{id="01_intro_01" title="Introductory problems 1"}
 Sketch the following graphs.
 First, use pen & paper, then use Python to check your answers.
@@ -263,6 +270,53 @@ y = 3 * x + 5
 plt.plot(x, y)
 ```
 
+:::solution
+
+1. A straight line with gradient 3 and $y$-intercept 5.
+   It runs from $(0, 5)$ to $(10, 35)$.
+1. A parabola (a "U" shape), symmetric about the $y$ axis, with its minimum at $(0, -4)$.
+   It crosses the $x$ axis where $x^2/2 = 4$, so at $x = \pm\sqrt{8} \approx \pm 2.83$, and reaches $y = 4$ at $x = \pm 4$.
+1. Starts at $(0, 0)$, rises steeply at first and then flattens out.
+   It passes through $(1, 1)$, $(4, 2)$, $(9, 3)$, $(16, 4)$ and $(25, 5)$.
+1. One complete wave.
+   It is zero at $t = 0$, $\pi$ and $2\pi$, has its maximum of 1 at $t = \pi/2$ and its minimum of $-1$ at $t = 3\pi/2$.
+1. Two complete waves, since $\sin(2t)$ oscillates twice as fast as $\sin(t)$.
+   It is zero at every multiple of $\pi/2$, has maxima of 1 at $t = \pi/4$ and $5\pi/4$, and minima of $-1$ at $t = 3\pi/4$ and $7\pi/4$.
+1. A decreasing curve, from $y = 10$ at $x = 0.1$, through $(1, 1)$, to $y = 0.2$ at $x = 5$.
+   As $x \to 0$, $y \to \infty$, and as $x$ grows the curve gets closer and closer to the $x$ axis without ever reaching it.
+1. Always negative, rising from $y = -100$ at $x = 0.1$, through $(1, -1)$, to $y = -0.04$ at $x = 5$.
+   As $x$ grows the curve approaches the $x$ axis from below.
+
+The hint plots the first graph.
+The others follow the same pattern, each in a new figure:
+
+```python
+import numpy as np
+from matplotlib import pyplot as plt
+
+x = np.linspace(-4, 4, 100)
+plt.figure()
+plt.plot(x, x**2 / 2 - 4)
+
+x = np.linspace(0, 25, 100)
+plt.figure()
+plt.plot(x, np.sqrt(x))
+
+t = np.linspace(0, 2 * np.pi, 100)
+plt.figure()
+plt.plot(t, np.sin(t))
+plt.plot(t, np.sin(2 * t))
+
+x = np.linspace(0.1, 5, 100)
+plt.figure()
+plt.plot(x, 1 / x)
+
+plt.figure()
+plt.plot(x, -1 / x**2)
+```
+
+:::
+
 ::::
 
 ::::challenge{id="01_intro_02" title="Introductory problems 2"}
@@ -272,6 +326,24 @@ For which values of $x$ are the following functions positive? Negative? Zero?
 1. $\sin(x)$
 1. $\sin(3x)$
 1. $2/x - 1/x^2$
+
+:::solution
+
+1. $x^2 - 9 = (x-3)(x+3)$, so it is zero at $x = \pm 3$, negative for $-3 < x < 3$, and positive for $x < -3$ or $x > 3$.
+1. $\sin(x)$ is zero at $x = n\pi$, for any whole number $n$.
+   It is positive for $0 < x < \pi$, negative for $\pi < x < 2\pi$, and this pattern repeats every $2\pi$.
+1. $\sin(3x)$ has the same pattern, squeezed by a factor of 3.
+   It is zero at $x = n\pi/3$, positive for $0 < x < \pi/3$, negative for $\pi/3 < x < 2\pi/3$, and the pattern repeats every $2\pi/3$.
+1. Put both terms over a common denominator:
+
+   $$
+   \frac{2}{x} - \frac{1}{x^2} = \frac{2x - 1}{x^2}
+   $$
+
+   The denominator $x^2$ is positive for every $x \neq 0$, so the sign is the sign of $2x - 1$.
+   The function is zero at $x = 1/2$, positive for $x > 1/2$, and negative for $x < 1/2$ (except at $x = 0$, where it is not defined).
+
+:::
 
 ::::
 
@@ -289,12 +361,74 @@ $$
 where $A$ and $B$ are positive constants, $V(R)$ is the potential energy, measured in Joules, and $R$ is the internuclear distance measured in $\AA$.
 
 1. For which values of $R$ is $V(R)$ positive? Negative? Zero?
-1. Sketch a graph (on paper) showing the potential energy between the two atoms as a function of $R$ given that $A=0.06$ and $B = 0.03$.
+1. Sketch a graph (on paper) showing the potential energy between the two atoms as a function of $R$ given that $A=1.6\times 10^{-14}$ and $B = 1.0\times 10^{-17}$ (the values for argon).
 1. What is the potential energy between the two atoms at infinite separation?
 1. What would happen to the two atoms if they were brought very close together?
 1. What is the physical interpretation of the sign of $V(R)$, and of its slope?
 1. What are the dimensions ([Length], [Mass], [Time]) and units of the constants $A$ and $B$?
-1. Use Python to plot the graph of $V$ versus $R$ for $A=0.06$ and $B = 0.03$. Remember to add relevant axis labels. Plot on the same graph the line of $V = 0$, so you can verify your answers to **1.** and **2.**
+1. Use Python to plot the graph of $V$ versus $R$ for $A=1.6\times 10^{-14}$ and $B = 1.0\times 10^{-17}$. Remember to add relevant axis labels. Plot on the same graph the line of $V = 0$, so you can verify your answers to **1.** and **2.** Choose the limits of your plot with care.
+
+:::solution
+
+$R$ is a distance, so we only need to consider $R > 0$.
+
+1. Put both terms over a common denominator:
+
+   $$
+   V(R) = \frac{A - BR^6}{R^{12}}
+   $$
+
+   $R^{12}$ is positive, so the sign of $V$ is the sign of $A - BR^6$.
+   This means that $V$ is zero at $R = (A/B)^{1/6}$, positive for $R < (A/B)^{1/6}$, and negative for $R > (A/B)^{1/6}$.
+
+1. With $A = 1.6\times 10^{-14}$ and $B = 1.0\times 10^{-17}$, $A/B = 1600$, so $V$ is zero at $R = 1600^{1/6} \approx 3.42\,\AA$.
+   The graph comes down steeply from very large values at small $R$, crosses the $R$ axis at $3.42\,\AA$, dips to a shallow minimum just beyond it, then rises slowly back towards zero from below (we find the minimum exactly when we cover differentiation).
+
+1. As $R \to \infty$ both terms tend to zero, so $V \to 0$.
+
+1. As $R \to 0$, the $A/R^{12}$ term dominates and $V \to \infty$.
+   It takes more and more energy to push the atoms closer together, so they cannot be brought very close, and if released they would fly apart.
+
+1. The sign of $V$ tells us whether the pair of atoms has more energy (positive) or less energy (negative) than when they are infinitely far apart.
+   Where $V$ is negative the atoms are bound, and energy is needed to pull them apart.
+   The slope tells us about the force between them.
+   Where $V$ decreases as $R$ increases (negative slope) the atoms push each other apart, and where $V$ increases with $R$ (positive slope) they pull each other together.
+   The steeper the slope, the stronger the force, and at the minimum, where the slope is zero, there is no force (more on this when we cover differentiation).
+
+1. $V$ is an energy, with dimensions $[\text{Mass}][\text{Length}]^2[\text{Time}]^{-2}$.
+   Each term in the formula must have the same dimensions as $V$, so $A$ must have the dimensions of $VR^{12}$ and $B$ those of $VR^6$:
+
+   $$
+   [A] = [\text{Mass}][\text{Length}]^{14}[\text{Time}]^{-2}, \qquad [B] = [\text{Mass}][\text{Length}]^{8}[\text{Time}]^{-2}
+   $$
+
+   With $V$ in Joules and $R$ in $\AA$, the units of $A$ are J$\,\AA^{12}$ and the units of $B$ are J$\,\AA^6$.
+
+1. A first attempt might plot $R$ from 0 to $10\,\AA$.
+   This shows a tall spike at the left and a flat line everywhere else.
+   At $R = 0.1\,\AA$, $V$ is about $10^{-2}\,$J, but the dip is only about $10^{-21}\,$J deep, so on this scale it is invisible (and $R = 0$ gives a division by zero).
+
+   The interesting features are near $R = 3.42\,\AA$, so we plot $R$ from 3 to $8\,\AA$.
+   Even there, $V$ is much larger at $R = 3\,\AA$ than the depth of the dip, so we also limit the $V$ axis:
+
+   ```python
+   import numpy as np
+   from matplotlib import pyplot as plt
+
+   A = 1.6e-14
+   B = 1.0e-17
+   R = np.linspace(3, 8, 200)
+   V = A / R**12 - B / R**6
+
+   plt.plot(R, V, label='V(R)')
+   plt.plot(R, 0 * R, '--', label='V = 0')
+   plt.ylim(-2e-21, 2e-21)
+   plt.xlabel('R (Angstrom)')
+   plt.ylabel('V (J)')
+   plt.legend()
+   ```
+
+:::
 
 ::::
 
@@ -305,6 +439,26 @@ Write down expressions for the gradient, $X$-intercept and $Y$-intercept of each
 1. $y = a/x$
 1. $y = b - a \sqrt{x}$
 1. $y = b/(1+ax)$
+
+:::solution
+
+1. Plot $Y = y$ against $X = 1/x$.
+   Then $Y = aX$, a straight line with gradient $a$ through the origin, so both intercepts are 0.
+1. Plot $Y = y$ against $X = \sqrt{x}$.
+   Then $Y = -aX + b$, with gradient $-a$, $Y$-intercept $b$ and $X$-intercept $b/a$.
+1. Take the reciprocal of both sides:
+
+   $$
+   \frac{1}{y} = \frac{1+ax}{b} = \frac{a}{b}x + \frac{1}{b}
+   $$
+
+   So, plot $Y = 1/y$ against $X = x$.
+   The gradient is $a/b$, the $Y$-intercept is $1/b$ and the $X$-intercept is $-1/a$.
+
+   Another way is to multiply out, $y + axy = b$, so that $y = -a(xy) + b$.
+   Plotting $Y = y$ against $X = xy$ then gives gradient $-a$, $Y$-intercept $b$ and $X$-intercept $b/a$.
+
+:::
 
 ::::
 
@@ -326,6 +480,56 @@ Plot a suitable graph to determine, as accurately as possible, the molecular mas
 Hint: compare the function with the equation of a straight line, $y=mx+c$, and think about the relationship between concentration, molar concentration and molecular weight.
 
 Use Python to plot the graph and confirm your pen & paper solution.
+
+:::solution
+
+The molarity is the mass concentration $c$ (in g dm$^{-3}$) divided by the molecular mass $M$ (in g mol$^{-1}$), so $b = c/M$ and
+
+$$
+Z = \frac{RT}{M}\,c
+$$
+
+This means that plotting $Z$ against $c$ should give a straight line through the origin, with gradient $RT/M$.
+So, $M = RT/\text{gradient}$, with $T = 21 + 273.15 = 294.15$ K.
+
+On paper, a line through the first and last points has gradient $(1.701 - 0.211)/(57.4 - 7.3) \approx 0.0297$ kPa dm$^3$ g$^{-1}$, which gives $M \approx 8.314 \times 294.15 / 0.0297 \approx 82{,}000$ g mol$^{-1}$.
+
+In Python, `np.polyfit(c, Z, 1)` fits the best straight line through the points (we meet it properly in the next lecture), and returns the gradient and then the intercept:
+
+```python
+import numpy as np
+from matplotlib import pyplot as plt
+
+c = np.array([7.3, 18.4, 27.6, 42.1, 57.4])
+Z = np.array([0.211, 0.533, 0.804, 1.236, 1.701])
+
+# Fit the best straight line through the points
+gradient, intercept = np.polyfit(c, Z, 1)
+print('gradient =',gradient)
+print('intercept =',intercept)
+
+R = 8.314
+T = 21 + 273.15
+M = R * T / gradient
+print('M =',M)
+
+plt.plot(c, Z, 'o')
+plt.plot(c, gradient * c + intercept)
+plt.xlabel('Protein concentration (g dm$^{-3}$)')
+plt.ylabel('Osmotic pressure (kPa)')
+```
+
+```text
+gradient = 0.029750478980307013
+intercept = -0.012174637638182667
+M = 82202.4782061093
+```
+
+The intercept is close to zero, as the model predicts, and the molecular mass of the protein is about 82,000 g mol$^{-1}$.
+Note, the units work out because $R$ is in kPa dm$^3$ mol$^{-1}$ K$^{-1}$ and the gradient is in kPa dm$^3$ g$^{-1}$, so $RT/\text{gradient}$ is in g mol$^{-1}$.
+
+:::
+
 ::::
 
 ## Extension problems
@@ -338,6 +542,33 @@ V = \frac{S}{m+cS}
 $$
 
 where $V$ is the rate of the reaction, $S$ is the substrate concentration and $m$ and $c$ are _unknown_ constants.
-How can we transform $V$ and $S$ to derive a straight line graph relating them?
-What will be the gradient and the ordinate intercepts?
+
+1. How can we transform $V$ and $S$ to derive a straight line graph relating them?
+   What will be the gradient and the ordinate intercepts?
+1. There is more than one way to do this.
+   Show that plotting $S/V$ against $S$ also gives a straight line, and find its gradient and intercepts.
+
+:::solution
+
+1. Take the reciprocal of both sides:
+
+   $$
+   \frac{1}{V} = \frac{m + cS}{S} = m\,\frac{1}{S} + c
+   $$
+
+   So, plot $Y = 1/V$ against $X = 1/S$.
+   The gradient is $m$, the $Y$-intercept is $c$ and the $X$-intercept is $-c/m$.
+   This is the Lineweaver-Burk plot from the lecture, with $m = K_m/V_{\max}$ and $c = 1/V_{\max}$.
+
+1. Multiply both sides of the equation in part **1.** by $S$:
+
+   $$
+   \frac{S}{V} = m + cS
+   $$
+
+   So, plotting $Y = S/V$ against $X = S$ gives a straight line with gradient $c$, $Y$-intercept $m$ and $X$-intercept $-m/c$ (this is called a _Hanes-Woolf_ plot).
+   Note, this plot does not take the reciprocal of $S$, so the points at small $S$ usually have less influence on the trendline than they do in the Lineweaver-Burk plot.
+
+:::
+
 ::::
