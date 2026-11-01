@@ -560,6 +560,13 @@ $$
 
 ## Introductory problems
 
+:::callout{variant="tip"}
+For more practice, an AI tool can write new problems like the ones below.
+Ask it for problems of the same type and difficulty, or for problems set in your own field.
+For example, you could ask it to "write five earth science problems on logarithms, at the level of these ones".
+Work them on paper first, then ask the tool to check your answers and to explain any step you are unsure of.
+:::
+
 ::::challenge{id="02_intro_01" title="Introductory problems 1"}
 Simplify:
 
@@ -569,6 +576,27 @@ Simplify:
 1. $$
    \frac{10^{-2/3} \times 10^7 \times 10^{-16} \times x^{1/2} \times y^4 \times z^{-1/3}}{10^{-19}\times 10^{43} \times 10^{2/3} \times z^{-1/3} \times y^{1/4} \times x^{5/2}}
    $$
+
+:::solution
+
+1. $a^{10}/a^{-3} = a^{10-(-3)} = a^{13}$
+1. $\left(\sqrt{x}\right)^8/x^4 = x^{8/2}/x^4 = x^{4-4} = x^0 = 1$
+1. $y^{1/4}/y^{-2/4} = y^{1/4+2/4} = y^{3/4}$
+1. Collect the powers of each base, subtracting the powers in the denominator from those in the numerator.
+   For the powers of 10:
+
+   $$
+   \left(-\frac{2}{3} + 7 - 16\right) - \left(-19 + 43 + \frac{2}{3}\right) = -\frac{29}{3} - \frac{74}{3} = -\frac{103}{3}
+   $$
+
+   The powers of $x$ give $1/2 - 5/2 = -2$, the powers of $y$ give $4 - 1/4 = 15/4$, and the $z$ terms cancel.
+   So, the expression simplifies to
+
+   $$
+   10^{-103/3}\,x^{-2}\,y^{15/4}
+   $$
+
+:::
 
 ::::
 
@@ -580,6 +608,15 @@ Evaluate the following expressions without using a calculator:
 1. $\left(1/3\right)^{-2}$
 1. $\left(81/9\right)^{3/2}$
 
+:::solution
+
+1. $2^{-4} = 1/2^4 = 1/16$
+1. $36^{1/2} + 64^{2/3} = \sqrt{36} + \left(\sqrt[3]{64}\right)^2 = 6 + 4^2 = 22$
+1. $\left(1/3\right)^{-2} = 3^2 = 9$
+1. $\left(81/9\right)^{3/2} = 9^{3/2} = \left(\sqrt{9}\right)^3 = 3^3 = 27$
+
+:::
+
 ::::
 
 ::::challenge{id="02_intro_03" title="Introductory problems 3"}
@@ -588,6 +625,14 @@ Express the following in logarithmic form:
 1. $5^3 = 125$
 1. $8^{-1/3} = 1/2$
 1. $x^y = 4$
+
+:::solution
+
+1. $\log_5(125) = 3$
+1. $\log_8(1/2) = -1/3$
+1. $\log_x(4) = y$
+
+:::
 
 ::::
 
@@ -599,6 +644,15 @@ Evaluate the following expressions without using a calculator:
 1. $\log_{b}\, (b^a)$
 1. $6^{\log_6\,(\pi)}$
 
+:::solution
+
+1. $4^3 = 64$, so $\log_4(64) = 3$.
+1. $\pi^0 = 1$, so $\log_\pi(1) = 0$ (the log of 1 is 0 in any base).
+1. $\log_b(b^a) = a$, since $\log_b$ undoes raising $b$ to a power.
+1. $6^{\log_6(\pi)} = \pi$, since raising 6 to a power undoes $\log_6$.
+
+:::
+
 ::::
 
 ::::challenge{id="02_intro_05" title="Introductory problems 5"}
@@ -608,6 +662,17 @@ Solve the following equations for $x$:
 1. $e^{-x}=2$
 
 One of your solutions should be exactly $-2$ times the value of your other solution. Why?
+
+:::solution
+
+1. Take the natural log of both sides: $x = \ln 4 \approx 1.386$.
+1. Take the natural log of both sides: $-x = \ln 2$, so $x = -\ln 2 \approx -0.693$.
+
+$4 = 2^2$, so $\ln 4 = 2\ln 2$.
+This means that the first solution, $2\ln 2$, is exactly $-2$ times the second, $-\ln 2$.
+
+:::
+
 ::::
 
 ::::challenge{id="02_intro_06" title="Introductory problems 6"}
@@ -617,6 +682,15 @@ Simplify:
 1. $\ln \left(1/(2e)\right)$
 1. $e^{\ln x^4}$
 1. $e^{3+\ln x}$
+
+:::solution
+
+1. $\ln\left(e^3\right) = 3$
+1. $\ln\left(1/(2e)\right) = \ln 1 - \ln 2 - \ln e = -1 - \ln 2$
+1. $e^{\ln x^4} = x^4$
+1. $e^{3 + \ln x} = e^3\,e^{\ln x} = e^3 x$
+
+:::
 
 ::::
 
@@ -639,6 +713,67 @@ The results are shown in the table below:
 1. Find appropriate values of $A$ and $n$, and in this context, explain the meaning of $n$. What are the units of $A$?
 1. Explain, with reasons, whether you would use these results to predict the mass when $t=15$.
 
+:::solution
+
+1. Take logs of both sides, as in Example 1:
+
+   $$
+   \log_{10} m = \log_{10} A + n \log_{10} t
+   $$
+
+   So, if the law holds, plotting $Y = \log_{10} m$ against $X = \log_{10} t$ should result in a straight line.
+
+   ```python
+   import numpy as np
+   from matplotlib import pyplot as plt
+
+   t = np.array([1, 2, 3, 4, 5, 6, 7, 8, 12])
+   m = np.array([0.5, 0.63, 0.72, 0.8, 0.85, 0.9, 0.95, 0.99, 1.0])
+   X = np.log10(t)
+   Y = np.log10(m)
+
+   plt.plot(X, Y, 'o')
+   plt.xlabel('$X = \\log_{10}(t)$')
+   plt.ylabel('$Y = \\log_{10}(m)$')
+   ```
+
+   The first eight points lie close to a straight line, so they are consistent with the law.
+   The last point ($t = 12$, $m = 1.0$) falls well below the line, so this is the result that does not conform.
+
+1. We fit the best straight line through the first eight points, leaving out the last one:
+
+   ```python
+   # Fit the best straight line through the first eight points, leaving out t = 12
+   gradient, intercept = np.polyfit(X[:-1], Y[:-1], 1)
+   print('gradient =',gradient)
+   print('intercept =',intercept)
+   print('A =',10**intercept)
+   ```
+
+   ```text
+   gradient = 0.3284064309500228
+   intercept = -0.29959116068954406
+   A = 0.5016592670730619
+   ```
+
+   Gradient $\approx 0.33 = n$, and intercept $\approx -0.30 = \log_{10} A$, so $A \approx 0.50$.
+   So, the data fit a curve of the form
+
+   $$
+   m = 0.5\,t^{1/3}
+   $$
+
+   The power $n$ tells us how the mass grows with time.
+   Here $n \approx 1/3$, so the mass grows like the cube root of time.
+   This means that doubling the time multiplies the mass by only $2^{1/3} \approx 1.26$, and the growth slows down as time goes on.
+   $m$ is in grams and $t^n$ is in minutes$^n$, so the units of $A$ are g min$^{-n}$, here g min$^{-1/3}$.
+
+1. No.
+   The law predicts $m = 0.5 \times 15^{1/3} \approx 1.2$ g at $t = 15$, but the result at $t = 12$ suggests the mass has stopped growing at about 1 g (perhaps because one of the reactants has run out).
+   $t = 15$ is beyond the range where the law holds, so a prediction from it would not be reliable.
+
+:::
+
 ::::
 
 ::::challenge{id="02_main_02" title="Main problems 2"}
@@ -646,6 +781,32 @@ These problems deal with pH:
 
 1. What is the pH of 130ml of a solution containing 4.7mg HCl, assuming that HCl is completely ionised in solution, and its molecular mass is 36.46?
 1. What would be the pH if the concentration of HCl were tripled?
+
+:::solution
+
+1. First find the number of moles of HCl:
+
+   $$
+   \frac{4.7 \times 10^{-3}\,\text{g}}{36.46\,\text{g}\,\text{mol}^{-1}} \approx 1.289 \times 10^{-4}\,\text{mol}
+   $$
+
+   This is in $130\,\text{ml} = 0.130\,\text{dm}^3$, and each HCl gives one H$^+$, so
+
+   $$
+   [H^+] = \frac{1.289 \times 10^{-4}}{0.130} \approx 9.92 \times 10^{-4}\,\text{M}
+   $$
+
+   and $\text{pH} = -\log_{10}\left(9.92 \times 10^{-4}\right) \approx 3.00$.
+
+1. Tripling the concentration gives
+
+   $$
+   \text{pH} = -\log_{10}\left(3[H^+]\right) = -\log_{10} 3 - \log_{10}[H^+] \approx 3.00 - 0.48 = 2.53
+   $$
+
+   In other words, tripling the concentration lowers the pH by $\log_{10} 3 \approx 0.48$, whatever the starting concentration.
+
+:::
 
 ::::
 
@@ -656,6 +817,18 @@ Express in terms of $\log_{10} (a)$, $\log_{10} (b)$, $\log_{10} (c)$ and $\log_
 1. $\log_{10} (a^2 b c^3 d^4)$
 1. $\log_{10} \left(\sqrt{cd/(ab)} \right)$
 
+:::solution
+
+1. $\log_{10}\left(b/(ac)\right) = \log_{10}(b) - \log_{10}(a) - \log_{10}(c)$
+1. $\log_{10}(a^2 b c^3 d^4) = 2\log_{10}(a) + \log_{10}(b) + 3\log_{10}(c) + 4\log_{10}(d)$
+1. The square root is a power of $1/2$, so
+
+   $$
+   \log_{10}\left(\sqrt{cd/(ab)}\right) = \frac{1}{2}\left(\log_{10}(c) + \log_{10}(d) - \log_{10}(a) - \log_{10}(b)\right)
+   $$
+
+:::
+
 ::::
 
 ::::challenge{id="02_main_04" title="Main problems 4"}
@@ -665,6 +838,15 @@ Simplify:
 1. $\log_{10}\left(x^2-1\right) - \log_{10}\left(x^2+1\right)$
 1. $3\log_a(4) + \log_a(5) - 2\log_a(9)$
 1. $\log_{10}\left(x^9\right) - \log_{10}\left(x^6\right)$
+
+:::solution
+
+1. $\log_{10}(8) + \log_{10}(3) - \log_{10}(6) = \log_{10}\left(\frac{8 \times 3}{6}\right) = \log_{10}(4)$
+1. $\log_{10}\left(x^2-1\right) - \log_{10}\left(x^2+1\right) = \log_{10}\left(\frac{x^2-1}{x^2+1}\right)$ (for $|x| > 1$, so that $x^2 - 1$ is positive)
+1. $3\log_a(4) + \log_a(5) - 2\log_a(9) = \log_a\left(\frac{4^3 \times 5}{9^2}\right) = \log_a\left(\frac{320}{81}\right)$
+1. $\log_{10}\left(x^9\right) - \log_{10}\left(x^6\right) = \log_{10}\left(x^9/x^6\right) = \log_{10}\left(x^3\right) = 3\log_{10}(x)$
+
+:::
 
 ::::
 
@@ -680,6 +862,26 @@ Consider the equation $\log_3(x) + 4\log_x(3) = 5$:
 1. Verify that $x=3$ satisfies this equation
 1. There is one other value of $x$ that also satisfies this equation. Find it.
 
+:::solution
+
+1. $\log_3(3) + 4\log_3(3) = 1 + 4 = 5$, so $x = 3$ satisfies the equation.
+1. Using the identity, $\log_x(3) = 1/\log_3(x)$.
+   Write $u = \log_3(x)$, so that the equation becomes
+
+   $$
+   u + \frac{4}{u} = 5
+   $$
+
+   Multiply both sides by $u$ and rearrange:
+
+   $$
+   u^2 - 5u + 4 = (u-1)(u-4) = 0
+   $$
+
+   So, $u = 1$, which gives $x = 3$ as in part **1.**, or $u = 4$, which gives $x = 3^4 = 81$.
+
+:::
+
 ::::
 
 ::::challenge{id="02_main_06" title="Main problems 6"}
@@ -690,6 +892,37 @@ Solve the following equations for $x$:
 1. $16 = \log_2 (x)$
 1. $\left(2 \sqrt 3 \log_{10}(x)\right)^2 - 7 \log_{10}(x^2) + 2 = 0$
 
+:::solution
+
+1. $2^{2x} = \left(2^x\right)^2$, so write $u = 2^x$:
+
+   $$
+   2u^2 - 5u + 2 = (2u-1)(u-2) = 0
+   $$
+
+   So, $2^x = 1/2$, giving $x = -1$, or $2^x = 2$, giving $x = 1$.
+
+1. $3^{2x+1} = 3\left(3^x\right)^2$, so write $u = 3^x$:
+
+   $$
+   3u^2 - 28u + 9 = (3u-1)(u-9) = 0
+   $$
+
+   So, $3^x = 1/3$, giving $x = -1$, or $3^x = 9$, giving $x = 2$.
+
+1. $x = 2^{16} = 65536$
+
+1. Write $L = \log_{10}(x)$.
+   Then $\left(2\sqrt{3}L\right)^2 = 12L^2$ and $\log_{10}(x^2) = 2L$, so
+
+   $$
+   12L^2 - 14L + 2 = 0 \quad\implies\quad 6L^2 - 7L + 1 = (6L-1)(L-1) = 0
+   $$
+
+   So, $L = 1/6$, giving $x = 10^{1/6} \approx 1.47$, or $L = 1$, giving $x = 10$.
+
+:::
+
 ::::
 
 ::::challenge{id="02_main_07" title="Main problems 7"}
@@ -697,6 +930,35 @@ Write an expression for $x$ or $y$ without using logarithms:
 
 1. $\log_{10}(x) = \log_{10}(3r) - 5 \log_{10}(s) + 3\log_{10}(t) - 3$
 1. $\log_{10}(2y) = 5 + 5\log_{10}\left(4^3\right) -15\log_{10}\left(2/x\right) - 6\log_{10}(y)$
+
+:::solution
+
+1. Write $3 = \log_{10}\left(10^3\right)$ and combine the logs on the right hand side:
+
+   $$
+   \log_{10}(x) = \log_{10}\left(\frac{3rt^3}{10^3 s^5}\right) \quad\implies\quad x = \frac{3rt^3}{1000\,s^5}
+   $$
+
+1. Move the $y$ term to the left hand side, and write $5 = \log_{10}\left(10^5\right)$:
+
+   $$
+   \log_{10}(2y) + 6\log_{10}(y) = \log_{10}\left(10^5\right) + \log_{10}\left(4^{15}\right) - \log_{10}\left((2/x)^{15}\right)
+   $$
+
+   Combine the logs on each side:
+
+   $$
+   \log_{10}\left(2y^7\right) = \log_{10}\left(\frac{10^5\,4^{15}\,x^{15}}{2^{15}}\right)
+   $$
+
+   $4^{15} = 2^{30}$, so $2y^7 = 10^5\,2^{15}\,x^{15}$ and $y^7 = 10^5\,2^{14}\,x^{15}$.
+   Taking the seventh root, and using $2^{14/7} = 4$,
+
+   $$
+   y = 4 \times 10^{5/7}\,x^{15/7}
+   $$
+
+:::
 
 ::::
 
@@ -706,12 +968,42 @@ Write $x$ in terms of $y$ for each of the following:
 1. $y=2e^{4x}$
 1. $\ln y = 3 + 2\ln x$
 
+:::solution
+
+1. Divide by 2, then take the natural log of both sides:
+
+   $$
+   \frac{y}{2} = e^{4x} \quad\implies\quad 4x = \ln\left(\frac{y}{2}\right) \quad\implies\quad x = \frac{1}{4}\ln\left(\frac{y}{2}\right)
+   $$
+
+1. Write $3 = \ln\left(e^3\right)$ and $2\ln x = \ln\left(x^2\right)$:
+
+   $$
+   \ln y = \ln\left(e^3 x^2\right) \quad\implies\quad y = e^3 x^2 \quad\implies\quad x = e^{-3/2}\sqrt{y}
+   $$
+
+   We take the positive square root, because $\ln x$ is only defined for $x > 0$.
+
+:::
+
 ::::
 
 ::::challenge{id="02_main_09" title="Main problems 9"}
 Express as a sum or difference of logarithms:
 
 1. $\ln\sqrt{(x-1)/(x+1)}$
+
+:::solution
+
+1. The square root is a power of $1/2$, so
+
+   $$
+   \ln\sqrt{\frac{x-1}{x+1}} = \frac{1}{2}\ln\left(\frac{x-1}{x+1}\right) = \frac{1}{2}\ln(x-1) - \frac{1}{2}\ln(x+1)
+   $$
+
+   (for $x > 1$, so that both logs are defined).
+
+:::
 
 ::::
 
@@ -720,5 +1012,17 @@ Express as a single logarithm:
 
 1. $1 - \ln 4x$
 1. $3\ln x - \frac{1}{2} \ln\left(5-x^2\right)$
+
+:::solution
+
+1. Write $1 = \ln e$:
+
+   $$
+   1 - \ln 4x = \ln e - \ln 4x = \ln\left(\frac{e}{4x}\right)
+   $$
+
+1. $3\ln x - \frac{1}{2}\ln\left(5-x^2\right) = \ln\left(x^3\right) - \ln\left(\sqrt{5-x^2}\right) = \ln\left(\frac{x^3}{\sqrt{5-x^2}}\right)$
+
+:::
 
 ::::
