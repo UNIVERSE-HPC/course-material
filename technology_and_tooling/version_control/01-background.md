@@ -149,8 +149,6 @@ Leave out **2** (large files that can be re-downloaded bloat the repository - st
 
 :::callout{variant="keypoints"}
 
-## Key Points
-
 - Version control tracks **changes** to files over time, storing a base version plus each change.
 - It provides backup, reproducibility, and a way for multiple people to collaborate without overwriting each other.
 - **Git** is a **distributed** system: every clone holds the full history. Subversion is an older centralised alternative.
