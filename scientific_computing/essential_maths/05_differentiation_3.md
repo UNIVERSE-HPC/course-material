@@ -92,6 +92,12 @@ $$
 \frac{d}{dx}a^x = \frac{d}{dx}e^{\left(x\cdot\ln a\right)} = e^{\left(x\cdot\ln a\right)}\frac{d}{dx}\left(x\cdot\ln a\right) =a^x\cdot\ln a
 $$
 
+So, at $x=0$, where $a^x=1$, the gradient of $a^x$ is just $\ln a$.
+The following plot shows this for $a=2$, where the gradient is $\ln 2\approx 0.69$.
+For $e^x$ (in grey) the gradient at $x=0$ is $\ln e=1$, and $e$ is the only base for which this is the case.
+
+![The graph of 2 to the power x and its tangent at x = 0, with the graph of e to the power x](fig/05_01_a_to_the_x.svg)
+
 Similarly, in general:
 
 $$
@@ -211,6 +217,13 @@ $$
 f_x=\frac{\partial z}{\partial x}=2x\qquad\text{and}\qquad f_y=\frac{\partial z}{\partial y}=-4y
 $$
 
+To see what holding $y$ constant means, imagine slicing through the surface $z=x^2-2y^2$ with the plane $y=1$ (on the left, below).
+The slice is the curve $z=x^2-2$ (on the right), which is an ordinary function of $x$.
+Its gradient at any point is $f_x=2x$, so at $x=1$ it is 2.
+Moving the plane to a different value of $y$ moves the curve up or down, but does not change its gradient, because $f_x$ does not depend on $y$.
+
+![The surface z = x squared minus 2 y squared cut by the plane y = 1, and the curve where they meet, with its tangent at x = 1](fig/05_02_partial_slice.svg)
+
 ## Example 2
 
 Let $z=3x^2y+5xy^2$. Then the partial derivative of $z$ with respect to $x$, holding $y$ fixed, is:
@@ -311,6 +324,14 @@ T_{xx}(x,y)+T_{yy}(x,y) = -2 + 2 = 0
 $$
 
 which proves the result.
+
+The following plot shows this temperature on a square plate, with $-1\le x\le 1$ and $-1\le y\le 1$.
+It is the temperature that the plate settles to when its top and bottom edges are held warm and its left and right edges are held cold.
+(Only differences in temperature matter here, so a negative value of $T$ just means colder than some reference temperature.)
+Note that the hottest and coldest points are on the edges of the plate.
+A solution of Laplace's equation can never have a hot or cold spot inside the plate.
+
+![The temperature T = y squared minus x squared on a square plate, warm along the top and bottom edges and cold along the left and right edges](fig/05_03_laplace_plate.svg)
 
 The function $z=x^2y - xy^2$ does _not_ satisfy Laplace's equation (and so cannot be a model for thermal equilibrium).
 
