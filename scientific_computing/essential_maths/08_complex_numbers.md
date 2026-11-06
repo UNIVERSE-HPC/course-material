@@ -253,6 +253,9 @@ It is often convenient to represent the complex number $z = a + bi$ in terms of 
 
 - The angle $\theta$ is called the _argument_ of $z$.
 
+- We take $\theta$ in the range $(-\pi, \pi]$, so that each non-zero $z$ has exactly one argument.
+  A round bracket leaves out its end point and a square bracket includes it: $\theta=\pi$ is allowed, but $\theta=-\pi$ is not.
+
 - The real number $r=|z|$ is sometimes denoted mod$(z)$.
 
 ![Representing a complex number in polar coordinates](fig/08_02_polar.svg)
@@ -323,8 +326,8 @@ Find the polar coordinates for the complex number $z= -3+4i$.
 $$
 \begin{aligned}
 |z|=r &= \sqrt{(-3)^2+4^2}=\sqrt{25}=5 \\
-\text{arg}(z)=\theta=\arctan\left(\frac{y}{x}\right) &= \arctan(-4/3)+\pi = -0.93+\pi \\
-&\approx 2.21 \text{ radians}\approx 127^\circ
+\text{arg}(z)=\theta&=\arctan\left(\frac{y}{x}\right)+\pi \qquad \text{(as } x<0,\ y\geq 0\text{)}\\
+&=\arctan(-4/3)+\pi = -0.93+\pi \approx 2.21 \text{ radians}\approx 127^\circ
 \end{aligned}
 $$
 
@@ -404,7 +407,7 @@ It is **multiplicative** in the modulus and **additive** in the argument:
 $$
 \begin{aligned}
 |z_1z_2|&= |z_1|\cdot |z_2|\\
-\arg(z_1z_2)&=\arg (z_1)+ \arg( z_2) \qquad \text{(up to a multiple of } 2\pi\text{)}
+\arg(z_1z_2)&=\arg (z_1)+ \arg( z_2) \qquad \text{(adding or subtracting } 2\pi \text{ if needed, to stay in } (-\pi, \pi]\text{)}
 \end{aligned}
 $$
 
@@ -430,7 +433,7 @@ $$
 \frac{dz}{d\theta}=iz
 $$
 
-This is a separable differential equation (which we will cover properly in the remainder of the course):
+This is a separable differential equation (we cover differential equations properly in the next lecture):
 
 $$
 \int\frac{dz}{iz}=\int d\theta \qquad\Rightarrow\qquad \frac{1}{i}\ln z =\theta +c \qquad\Rightarrow\qquad \ln z =i\theta +ic
@@ -445,22 +448,10 @@ $$
 When $\theta=0$, $z=1$, giving $A=1$, so:
 
 $$
-z=\cos\theta + i \sin\theta=e^{i\theta} \qquad \text{(3)}
+\cos\theta + i \sin\theta=e^{i\theta} \qquad \text{(3)}
 $$
 
-Similarly, we can show that:
-
-$$
-z=\cos\theta - i \sin\theta=e^{-i\theta} \qquad \text{(4)}
-$$
-
-Adding (3) and (4), and subtracting (3) and (4) gives:
-
-$$
-\cos\theta =\frac{e^{i\theta}+ e^{-i\theta}}{2} \qquad\qquad \sin\theta =\frac{e^{i\theta}-e^{-i\theta}}{2i}
-$$
-
-This demonstrates that **any complex number** can be written:
+Putting (3) into the polar form $r(\cos\theta + i\sin\theta)$, **any complex number** can now be written:
 
 $$
 z=x+iy=r(\cos\theta + i\sin\theta)=r\,e^{i\theta}
@@ -480,16 +471,17 @@ $$
    e^{i\theta_1}\cdot e^{i\theta_2} = e^{i(\theta_1+\theta_2)}
    $$
 
-4. Exponentiation on the unit circle $r=1$ can be done by multiplying the angle by the index (for integer $n$):
+4. Exponentiation on the unit circle $r=1$ can be done by multiplying the angle by the index (for integer $n$).
+   Written with cos and sin, this is known as **de Moivre's theorem**.
 
    $$
    \left(e^{i\theta}\right)^n = e^{i\theta n}=e^{i(n\theta)}
    $$
 
-5. This result is known as **de Moivre's theorem**. It is usually stated in its Cartesian form, for integer $n$:
+5. This makes powers quick. For example, $1+i=\sqrt{2}\,e^{i\pi/4}$, so:
 
    $$
-   (\cos\theta + i\sin\theta)^n=\cos(n\theta) + i\sin(n\theta)
+   (1+i)^8=\left(\sqrt{2}\right)^8\left(e^{i\pi/4}\right)^8=16\,e^{2\pi i}=16
    $$
 
 6. Finally, the famous identity by Leonhard Euler
