@@ -34,7 +34,7 @@ Often we don't need the full solution of a differential equation: we want to kno
 
 These long-run states are the _steady states_, and we can find them, and decide whether they are stable, without solving the equation.
 
-In this lecture we find the steady states of models from biology and chemistry, written down using the law of mass action, and recap how to solve equations numerically.
+In this lecture we find the steady states of models from biology and chemistry, written down using the law of mass action.
 
 ## Steady-state solutions
 
@@ -77,14 +77,36 @@ Let us examine a plot of the solution, $N$, and the gradient $dN/dt$ as function
 
 ![Plot of N and dN/dt against t](fig/11_01_solution_vs_gradient.svg)
 
-- Here the steady state occurs when $N=0$, and is 'reached' after infinite time.
+Here the steady state occurs when $N=0$, and is 'reached' after infinite time.
 
-- If $N$ moves away from $0$, then $dN/dt = -\lambda N$ has the opposite sign to $N$: negative when $N$ is positive, and positive when $N$ is negative.
+If $N$ moves away from $0$, then $dN/dt = -\lambda N$ has the opposite sign to $N$: negative when $N$ is positive, and positive when $N$ is negative.
 
-- So $N$ always moves back towards $0$, and the steady state is stable.
+So $N$ always moves back towards $0$, and the steady state is stable.
+
+### Example 2: production and degradation of a protein
+
+Radioactive decay only loses $N$, but most quantities in biology are also produced.
+Consider a simple model of the production and degradation of a protein $S$, with concentration $s=[S]$:
+
+$$
+\xrightarrow{\;v_1\;} S \xrightarrow{\;v_2\;}
+$$
+
+where $v_1$ and $v_2$ are the rates of production and degradation.
+
+We can represent the change in concentration of the protein by
+
+$$
+\frac{ds}{dt} = v_1 - v_2
+$$
+
+so the steady state occurs when $v_1 = v_2$.
+
+To go further, we need to know how $v_1$ and $v_2$ depend on the concentrations.
 
 ## Chemical reactions to equations: mass action
 
+The law of mass action tells us how to write down the rates of reactions.
 Under the [law of mass action](https://en.wikipedia.org/wiki/Law_of_mass_action), we assume that:
 
 - chemical reactions have uniform mixing
@@ -147,19 +169,17 @@ Let us look at some examples:
    \frac{d[C]}{dt} = -k[C]
    $$
 
-### Example 2: production and degradation of a protein
+## Steady states of reaction models
 
-Consider a simple model of the production and degradation of a protein, shown by the reaction chain $\overset{v_1}{\rightarrow}S\overset{v_2}{\rightarrow}$ where $v_1$ and $v_2$ are reaction rates, and let $s=[S]$.
+### Example 2, continued: production and degradation under mass action
 
-We can represent the change in concentration of the protein by
+Back to our protein: with constant production and degradation,
 
 $$
-\frac{ds}{dt} = v_1 - v_2
+\xrightarrow{\;k_1\;} S \xrightarrow{\;k_2\;}
 $$
 
-so the steady state occurs when $v_1 = v_2$.
-
-Under mass action, constant production and degradation give $v_1=k_1$ and $v_2=k_2 s$, so the equation is
+mass action gives $v_1=k_1$ and $v_2=k_2 s$, so the equation is
 
 $$
 \frac{ds}{dt} = k_1 - k_2 s.
@@ -184,12 +204,10 @@ $$
 \begin{aligned}
 \int \frac{1}{k_1 - k_2 s}\,ds &= \int dt \\
 -\frac{1}{k_2}\ln|k_1 - k_2 s| &= t + c \\
-k_1 - k_2 s &= Ae^{-k_2 t} \\
-s(t) &= Be^{-k_2 t} + \frac{k_1}{k_2}
+k_1 - k_2 s &= Ae^{-k_2 t} &&\text{where } A = \pm e^{-k_2c} \\
+s(t) &= Be^{-k_2 t} + \frac{k_1}{k_2} &&\text{where } B = -A/k_2
 \end{aligned}
 $$
-
-where $A = \pm e^{-k_2c}$ and $B = -A/k_2$ are constants.
 
 If the initial concentration of $S$ is $s_0$, then $s_0 = B + k_1/k_2$, so $B = s_0 - k_1/k_2$ and
 
@@ -227,8 +245,9 @@ Here, $k_1 = k_2 = 1$:
 
 ![Plot of ds/dt against s, with arrows away from s = 0 and towards s = 1](fig/11_03_quadratic_ss.svg)
 
-- The local behaviour near the fixed point at $s=1$ is the same as in the previous plot, so we can immediately see that it is a stable steady state
-- The local behaviour near the fixed point at $s=0$ is the opposite: moving one way or the other, the gradient will take $s$ even further away
+The local behaviour near the fixed point at $s=1$ is the same as in the previous plot, so we can immediately see that it is a stable steady state.
+
+The local behaviour near the fixed point at $s=0$ is the opposite: moving one way or the other, the gradient will take $s$ even further away.
 
 ### Non-graphical method
 
@@ -238,9 +257,9 @@ $$
 \frac{ds}{dt} = k_1s - k_2 s^2
 $$
 
-- When $s$ is small (and positive, since it is a concentration) $s\gg s^2$ so the derivative $k_1 s - k_2 s^2$ will be positive, making $s=0$ an unstable steady state.
+When $s$ is small (and positive, since it is a concentration) $s\gg s^2$ so the derivative $k_1 s - k_2 s^2$ will be positive, making $s=0$ an unstable steady state.
 
-- For the other steady state, consider small deviations by $\varepsilon$ from the steady state, e.g. $s=k_1/k_2 + \varepsilon$.
+For the other steady state, consider small deviations by $\varepsilon$ from the steady state, e.g. $s=k_1/k_2 + \varepsilon$.
 
 Substituting $s=k_1/k_2 + \varepsilon$ into the equation:
 
@@ -296,9 +315,9 @@ Here is a plot, for $r=K=1$:
 
 ![Plot of dN/dt against N, with arrows away from N = 0 and towards N = K](fig/11_04_logistic_ss.svg)
 
-- For small positive $N$, $rN>0$ and $N<K$ so $dN/dt>0$ and the population size will increase, meaning that $N=0$ is an unstable steady state.
+For small positive $N$, $rN>0$ and $N<K$ so $dN/dt>0$ and the population size will increase, meaning that $N=0$ is an unstable steady state.
 
-- In fact the growth rate is positive for $0<N<K$ and negative for $N>K$, making $N=K$ a stable steady state.
+In fact the growth rate is positive for $0<N<K$ and negative for $N>K$, making $N=K$ a stable steady state.
 
 We can solve the differential equation to examine the transient behaviour, that is, how the population approaches $K$.
 It is lecture 10's leaf equation with $k_1 = r$ and $k_2 = r/K$, so the same partial fractions give
@@ -318,15 +337,7 @@ Here it is for $r=K=1$, from initial population sizes below and above $K$:
 
 ![Plot of N against t from four initial population sizes, all tending to N = K](fig/11_06_logistic_solutions.svg)
 
-## Numerically solving differential equations
-
-What if we can't solve the differential equation (or don't want to)?
-
-$$
-\frac{dy}{dt} = \sin\left(\frac{y\ln(t\cos(y))}{\sqrt{1+y/e^t}}\right) + 3
-$$
-
-### Euler's method: a recap
+## Solving numerically: a recap
 
 In lecture 9 we solved $dy/dt = f(t, y)$ numerically with Euler's method.
 From $y_0$ at $t_0$, we take steps of size $h$ along the tangent:
