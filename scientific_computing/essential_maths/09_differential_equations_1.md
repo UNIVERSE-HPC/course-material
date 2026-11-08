@@ -4,8 +4,10 @@ dependsOn: [scientific_computing.essential_maths.07_integration_2]
 tags: []
 learningOutcomes:
   - Understand the concept of a differential equation
-  - Be able to use integration to solve simple differentiatial equations
+  - Be able to use integration to solve simple differential equations
   - Be able to use the method of separation of variables to solve differential equations
+  - Be able to use initial conditions to find the constants in a general solution
+  - Be able to solve differential equations numerically, with Euler's method and with SciPy
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/
@@ -27,7 +29,14 @@ A recording of this lecture from October 2020; the material has changed a little
 
 ---
 
-## Separation of variables
+## Why differential equations?
+
+Many models in biology say how quickly something changes (e.g. a colony grows at a rate proportional to its size, or a radioactive sample decays at a rate proportional to the amount left).
+
+Such a model is a _differential equation_, and solving it tells us how the quantity itself changes over time.
+
+In this lecture we solve the simplest differential equations by integration, using the methods from the lectures on integration.
+We also see how to solve them numerically with Python, which lets us check our solutions, and which works even when we cannot solve an equation by hand.
 
 ## What is a differential equation?
 
@@ -39,7 +48,7 @@ $$
 \frac{dy}{dx}=f(x,y).
 $$
 
-## How do we find the solutions to a differential equation?
+## Solving a differential equation
 
 The simplest differential equations are very similar to integration.
 
@@ -47,7 +56,7 @@ $$
 \frac{dy}{dx} = x^3 + 5x^2 + 1
 $$
 
-Since all the terms in $y$ (just the derivative in this case) on the left, and all the terms involving $x$ on the right.
+Put all the terms in $y$ (just the derivative in this case) on the left, and all the terms involving $x$ on the right.
 
 $$
 dy = (x^3 + 5x^2 + 1)\,dx
@@ -59,20 +68,21 @@ $$
 \int dy = \int (x^3 + 5x^2 + 1)\,dx
 $$
 
-The general solution to this equation is
+The **general solution** to this equation is
 
 $$
-y + A = \int x^3 + 5x^2 + 1\,dx = \frac{1}{4}x^4 + \frac{5}{3}x^3 + x + B
+y + A = \int (x^3 + 5x^2 + 1)\,dx = \frac{1}{4}x^4 + \frac{5}{3}x^3 + x + B
 $$
 
-where $A$ and $B$ are a arbitrary constants.
+where $A$ and $B$ are arbitrary constants.
+It is called the general solution because it holds for any values of the constants, so it describes a whole family of curves.
 
-If we are given the **initial conditions**, say, $y=0$ when $x=0$ (often written as $y(0)=0$),
-we can determine the value for the constants; in this example $A=B$.
+If we are given the **initial conditions**, say, $y=0$ when $x=0$ (often written as $y(0)=0$), we can determine the value for the constants.
+In this example $A=B$.
 
----
+## Separation of variables
 
-This approach can be generalised into what is known as the **Separation of Variables Method**.
+This approach can be generalised into what is known as the **separation of variables method**.
 
 ### Separation of variables: example 1
 
@@ -116,28 +126,104 @@ A &= -1
 \end{aligned}
 $$
 
-Is this right? Here's an example of how we can use SciPy's `solve_ivp` function to numerically solve differential equations.
-`solve_ivp` expects a function of the independent variable first, then $y$, and returns the solution at the points we ask for with `t_eval`:
+Is this right?
+We can check by solving the differential equation numerically, and comparing the result with our solution.
+
+## Solving numerically: Euler's method
+
+The simplest way to solve a differential equation numerically is _Euler's method_.
+At the start, $x_0$, we know $y_0$, and the differential equation gives us the gradient there, $f(x_0, y_0)$.
+Take a small step $h$ along the tangent:
+
+$$
+x_1 = x_0 + h \qquad\qquad y_1 = y_0 + h\,f(x_0, y_0)
+$$
+
+Then repeat from the new point, and so on:
+
+$$
+y_{n+1} = y_n + h\,f(x_n, y_n)
+$$
+
+Each step follows the tangent, so the answer drifts away from the true solution where the curve bends.
+So, the smaller the step, the more accurate the answer (but the more steps we need).
+
+Here is Euler's method in Python, for example 1 with $c = 1$:
 
 ```python
 import numpy as np
+
+c = 1.0
+
+
+def dydx(x, y):
+    return 2*x + c
+
+
+def euler(dydx, x0, y0, x1, h):
+    n = round((x1 - x0) / h)  # number of steps
+    x = x0 + h * np.arange(n + 1)
+    y = np.zeros(n + 1)
+    y[0] = y0
+    for i in range(n):
+        y[i + 1] = y[i] + h * dydx(x[i], y[i])
+    return x, y
+```
+
+We solve from $x = 1$, where $y(1) = c$, to $x = 10$, with smaller and smaller steps:
+
+```python
+for h in [1.0, 0.1, 0.01]:
+    x, y = euler(dydx, 1.0, c, 10.0, h)
+    print(f'h = {h}: y(10) is about {y[-1]:.2f}')
+```
+
+```text
+h = 1.0: y(10) is about 100.00
+h = 0.1: y(10) is about 108.10
+h = 0.01: y(10) is about 108.91
+```
+
+The exact value is $y(10) = 10^2 + 10 - 1 = 109$, so a step 10 times smaller makes the error about 10 times smaller.
+Here is the solution with $h = 1$, against the exact solution:
+
+![Euler's method with step size 1, ending 9 below the exact solution at x = 10](fig/09_06_euler.svg)
+
+The curve bends upwards, so each step along the tangent falls a little below it, and the errors add up.
+
+## Solving numerically in practice
+
+Euler's method needs very small steps to be accurate.
+In practice we use more sophisticated methods, such as SciPy's `solve_ivp`, which take better steps and choose the step size for us.
+
+`solve_ivp` takes a function of the independent variable and $y$ (in that order), the interval, and the initial value.
+It returns the solution at the points we ask for with `t_eval`.
+Here we use it to check example 1:
+
+```python
 from scipy.integrate import solve_ivp
+
 c = 1.0
 A = -1.0
 x0 = 1.0
 x1 = 10.0
-x = np.linspace(x0,x1,100)
+x = np.linspace(x0, x1, 100)
 y_exact = x**2 + c*x + A
 
 def dydx(x, y):
     return 2*x + c
-solution = solve_ivp(dydx, [x0, x1], [c], t_eval=x)
+
+
+solution = solve_ivp(dydx, [x0, x1], [c],
+                     t_eval=x)
 y_numerical = solution.y[0]
 ```
 
 ![Plot of the numerical vs exact solution](fig/09_01_solution.svg)
 
-### Separation of variables: example 2
+The two lines lie on top of each other, so our solution, with $A = -1$, is right.
+
+## Separation of variables: example 2
 
 $$
 \frac{dy}{dx} = 5 x^{\frac{3}{2}} y
@@ -158,16 +244,24 @@ $$
 Now integrate on each side:
 
 $$
-\ln y + A = \frac{5x^{\frac{5}{2}}}{5/2} + B = 2x^{\frac{5}{2}} + B
+\ln|y| + A = \frac{5x^{\frac{5}{2}}}{5/2} + B = 2x^{\frac{5}{2}} + B
 $$
 
 So:
 
 $$
-\ln y = 2x^{\frac{5}{2}} + C\quad\text{where}\quad C=B-A
+\ln|y| = 2x^{\frac{5}{2}} + C\qquad\text{where}\qquad C=B-A
 $$
 
-### Separation of variables: example 3
+Taking the exponential of both sides gives $|y| = e^C e^{2x^{5/2}}$, so
+
+$$
+y = De^{2x^{\frac{5}{2}}}\qquad\text{where}\qquad D=\pm e^C
+$$
+
+(The constant $D$ can be positive or negative, depending on the sign of $y$.)
+
+## Separation of variables: example 3
 
 $$
 e^x \frac{dy}{dx} = \frac{x}{y}
@@ -198,107 +292,43 @@ $$
 
 Let's check this answer: $y = \pm\sqrt{-2 e^{-x} (1+x) + c_3}$.
 
-Substitute in initial conditions $y(0) = 0$ gives $c_3 = 2$
+Substituting the initial condition $y(0) = 0$ gives $0 = -2 + c_3$, so $c_3 = 2$ and
+
+$$
+y = \pm\sqrt{2 - 2 e^{-x} (1+x)}
+$$
+
+We check this numerically, as before:
 
 ```python
 c3 = 2.0
 x0 = 0.0
 x1 = 1.0
-x = np.linspace(x0,x1,100)
+x = np.linspace(x0, x1, 100)
 
 y_exact = np.sqrt(-2*np.exp(-x)*(1 + x) + c3)
 
 def dydx(x, y):
     return np.exp(-x) * x / y
 
-# why 1e-8 instead of zero?
-# rtol asks for a more accurate solution than the default
-solution = solve_ivp(dydx, [x0, x1], [1e-8], t_eval=x, rtol=1e-8)
+solution = solve_ivp(dydx, [x0, x1], [1e-8],
+                     t_eval=x, rtol=1e-8)
 y_numerical = solution.y[0]
 ```
 
+Notice that we start from $y = 10^{-8}$ rather than zero.
+The function `dydx` divides by $y$, so it cannot be evaluated at $y = 0$, and `solve_ivp` cannot take its first step.
+Starting just above zero avoids this, and changes the solution very little.
+The argument `rtol` asks for a more accurate solution than the default.
+
 ![Plot of the numerical vs exact solution](fig/09_02_solution.svg)
 
-### Real-world example 1: biochemistry
+Here we have checked the positive solution.
+The negative solution is its mirror image, and we would find it by starting just below zero.
 
-The Michaelis-Menten equation relates the rate of an enzyme reaction to its
-substrate concentration, and has the form (if there is a large quantity of
-enzyme):
+## Application: bacterial growth
 
-$$
-\frac{ds}{dt}=-\frac{V.s}{K+s}
-$$
-
-where $s=[S]$ is the substrate concentration, and $V$ and $K$ are constants.
-By integration, we will derive expressions relating substrate concentration to time when
-
-1. when $s\gg K$
-1. when $s\ll K$
-
-and sketch the graphs of $s$ against $t$ in each case.
-
-#### Case 1
-
-When $s\gg K$, $K$ in the differential equation's denominator can be neglected:
-
-$$
-\frac{ds}{dt} \approx -\frac{V.s}{s} = -V
-$$
-
-The rate of change in concentration is a constant, so this is a **zeroth order process**.
-
-We can integrate directly to obtain
-
-$$
-s = \int -V\,dt = -Vt + c
-$$
-
-where $c$ is a constant of integration.
-
-If $s(0)=s_0$, then $c=s_0$.
-
-The graph thus has slope $-V$ and crosses the vertical axis at $s=s_0$.
-
-#### Case 2
-
-When $s\ll K$, $s$ in the differential equation's denominator can be neglected:
-
-$$
-\frac{ds}{dt} = -\frac{V.s}{K+s}\quad\text{becomes:}\quad\frac{ds}{dt} = -\frac{V.s}{K}
-$$
-
-The rate of change in concentration depends on the concentration, so this is a **first order process**.
-
-$$
-\begin{aligned}
-\int \frac{1}{s}\,ds &= -\int \frac{V}{K}\,dt \\
-\Rightarrow\quad\ln s &= -\frac{V}{K}t + D\qquad\text{D is a constant} \\
-\Rightarrow\quad s &= Be^{-Vt/K}\qquad\text{B is a constant}
-\end{aligned}
-$$
-
-On a graph $s$ crosses the vertical axis at $s=B$ and decreases with time exponentially.
-
-Lets look at this numerically using the original equation:
-
-$$
-\frac{ds}{dt}=-\frac{V.s}{K+s}
-$$
-
-As $K$ changes in value, we can see how the behaviour of $s$ changes:
-
-K=0.2:
-
-![s with K equal to 0.2](fig/09_03_k02.svg)
-
-K=1.0:
-
-![s with K equal to 1.0](fig/09_04_k10.svg)
-
-### Real-world example 2: bacterial growth
-
-Suppose the growth rate of a bacterial colony is proportional to its size,
-and that we observe that the colony triples in size after 10 hours.
+Suppose the growth rate of a bacterial colony is proportional to its size, and that we observe that the colony triples in size after 10 hours.
 How long will it take to reach 11 times its original size?
 
 Let $N$ represent the number of bacteria, and suppose there are $N_0$ at time $t=0$.
@@ -310,7 +340,9 @@ $$
 \frac{dN}{dt} = kN
 $$
 
-We can solve this to obtain $\ln N = kt + c$. Using the $t=0$ condition, we have that $\ln N_0 = c$, so
+where $k$ is a positive constant.
+We can solve this by separation of variables, to obtain $\ln N = kt + c$ (we can write $\ln N$ rather than $\ln|N|$, as $N$ is positive).
+Using the $t=0$ condition, we have that $\ln N_0 = c$, so
 
 $$
 \ln\frac{N}{N_0} = kt
@@ -319,16 +351,18 @@ $$
 We can use the data from $t=10$ to find $k$:
 
 $$
-\ln\frac{3N_0}{N_0} = k 10 \qquad\Rightarrow\qquad k=\frac{\ln 3}{10}=0.11\,\text{hr}^{-1}
+\ln\frac{3N_0}{N_0} = 10k \qquad\Rightarrow\qquad k=\frac{\ln 3}{10}\approx 0.11\,\text{hr}^{-1}
 $$
 
 To find $t$ when $N=11N_0$:
 
 $$
-\ln\frac{11N_0}{N_0} = 0.11 t \qquad\Rightarrow\qquad t=\frac{\ln 11}{0.11}=21.8\text{ hours.}
+\ln\frac{11N_0}{N_0} = kt \qquad\Rightarrow\qquad t=\frac{\ln 11}{k} = \frac{10\ln 11}{\ln 3}\approx 21.8\text{ hours}
 $$
 
-### Real-world example 3: radioactive decay
+Notice that we used the exact value of $k$ here, rather than the rounded 0.11, so that the rounding does not affect the answer.
+
+## Application: radioactive decay
 
 The rate at which a sample decays is proportional to the amount left, i.e.
 
@@ -338,7 +372,7 @@ $$
 
 where $N$ is the mass of radioactive atoms at time $t$ and $\lambda$ is called the _decay constant_.
 
-The element radium (atomic mass=226) has a decay constant of $13.6 \times 10^{-12}$ s$^{-1}$.
+The element radium (atomic mass 226) has a decay constant of $13.6 \times 10^{-12}\,\text{s}^{-1}$.
 
 Solving the differential equation via separation of variables, we obtain the general solution
 
@@ -346,7 +380,8 @@ $$
 N = Be^{-\lambda t} \qquad \text{(1)}
 $$
 
-Consider an arbitrary initial condition: at $t=t_0$, $N=N_0$. Then:
+Consider an arbitrary initial condition: at $t=t_0$, $N=N_0$.
+Then:
 
 $$
 N_0 = Be^{-\lambda t_0} \qquad\Rightarrow\qquad B = N_0 e^{\lambda t_0}
@@ -364,25 +399,26 @@ Putting $N=N_0/2$ and $t=t_0+t_{1/2}$ in (2) we get
 
 $$
 \begin{aligned}
-\ln \frac{N_0}{2N_0} &= -\lambda t_{1/2} \\
+\frac{N_0}{2} &= N_0 e^{-\lambda t_{1/2}} \\
+\ln \frac{1}{2} &= -\lambda t_{1/2} \\
 t_{1/2} &= \frac{\ln 2}{\lambda} \approx \frac{0.693}{\lambda}
 \end{aligned}
 $$
 
-Note that this time is **independent** of the initial value $N_0$,
+(The last line uses $\ln(1/2) = -\ln 2$.)
+Note that this time is **independent** of the initial value $N_0$.
 
 The half-life for radium is thus
 
 $$
-t_{1/2}=\frac{\ln2}{13.6\times10^{-12}}=5.10\times10^{10}\,\text{s},
+t_{1/2}=\frac{\ln2}{13.6\times10^{-12}}\approx 5.10\times10^{10}\,\text{s},
 $$
 
 or about 1600 years.
 
-### Real-world example 4: more biochemistry
+## Order of a reaction
 
-The power to which the concentration of a species is raised in a rate law
-is the **order** of the process/reaction with respect to that species.
+The power to which the concentration of a species is raised in a rate law is the **order** of the process/reaction with respect to that species.
 A reaction with the rate law
 
 $$
@@ -391,17 +427,15 @@ $$
 
 is first order in $A$ and first order in $B$.
 
-The **overall order** of a process/reaction is the sum of the orders of all the
-components. This rate law is thus second-order overall.
+The **overall order** of a process/reaction is the sum of the orders of all the components.
+This rate law is thus second order overall.
 
-Note that this is **different** from the order of an ODE, which is given by the
-highest derivative.
-Both zeroth and first order _processes_ are modelled below by _first order
-differential equations_.
+Note that this is **different** from the order of a differential equation, which is given by the highest derivative.
+Both zeroth and first order _processes_ are modelled below by _first order differential equations_.
 
-#### Zeroth order processes
+### Zeroth order processes
 
-- rate of change is **independent** of concentration, i.e. the rate of change is proportional to concentration raised to power zero
+The rate of change is **independent** of concentration, i.e. the rate of change is proportional to concentration raised to power zero.
 
 $$
 \begin{aligned}
@@ -419,16 +453,16 @@ A &= A_0 - k(t-t_0)
 \end{aligned}
 $$
 
-#### First order processes
+The concentration rises or falls in a straight line.
+
+### First order processes
 
 The rate of change depends on the concentration of one species, i.e. the rate of change is proportional to concentration raised to first power.
 
-Half-life is a constant, i.e. it is independent of the amount there at the beginning.
-
 $$
 \begin{aligned}
-\frac{dA}{dt} &= kA\quad\text{growth} \\
-\frac{dA}{dt} &= -kA\quad\text{decay}
+\frac{dA}{dt} &= kA\quad\text{(growth)} \\
+\frac{dA}{dt} &= -kA\quad\text{(decay)}
 \end{aligned}
 $$
 
@@ -441,9 +475,87 @@ A &= A_0 e^{-k(t-t_0)}
 \end{aligned}
 $$
 
+For decay, the half-life is a constant, i.e. it is independent of the amount there at the beginning, as we found for radioactive decay.
+
 When $k=2.0$ the two different solutions look like this:
 
-![s with K equal to 1.0](fig/09_05_k2.svg)
+![First order growth and decay with k equal to 2.0](fig/09_05_k2.svg)
+
+## Application: enzyme kinetics
+
+In lecture 1 we met the Michaelis-Menten equation for the rate of an enzyme reaction.
+The rate is how quickly the substrate is used up, so
+
+$$
+\frac{ds}{dt}=-\frac{V_{\max}s}{K_m+s}
+$$
+
+where $s=[S]$ is the substrate concentration, and $V_{\max}$ and $K_m$ are constants.
+By integration, we will derive expressions relating substrate concentration to time
+
+1. when $s\gg K_m$
+1. when $s\ll K_m$
+
+and sketch the graphs of $s$ against $t$ in each case.
+
+### Large concentrations
+
+When $s\gg K_m$, $K_m$ in the differential equation's denominator can be neglected:
+
+$$
+\frac{ds}{dt} \approx -\frac{V_{\max}s}{s} = -V_{\max}
+$$
+
+The rate of change in concentration is a constant, so this is a **zeroth order process**.
+
+We can integrate directly to obtain
+
+$$
+s = \int -V_{\max}\,dt = -V_{\max}t + c
+$$
+
+where $c$ is a constant of integration.
+
+If $s(0)=s_0$, then $c=s_0$.
+The graph thus has slope $-V_{\max}$ and crosses the vertical axis at $s=s_0$.
+
+### Small concentrations
+
+When $s\ll K_m$, $s$ in the differential equation's denominator can be neglected:
+
+$$
+\frac{ds}{dt} \approx -\frac{V_{\max}s}{K_m}
+$$
+
+The rate of change in concentration depends on the concentration, so this is a **first order process**.
+
+$$
+\begin{aligned}
+\int \frac{1}{s}\,ds &= -\int \frac{V_{\max}}{K_m}\,dt \\
+\ln s &= -\frac{V_{\max}}{K_m}t + D\qquad\text{where } D \text{ is a constant} \\
+s &= Be^{-V_{\max}t/K_m}\qquad\text{where } B = e^D
+\end{aligned}
+$$
+
+(We can write $\ln s$ rather than $\ln|s|$, as a concentration is positive.)
+On a graph $s$ crosses the vertical axis at $s=B$ and decreases with time exponentially.
+
+### Solving numerically
+
+Let's look at this numerically using the original equation, with $V_{\max} = 1$ and $s(0) = 1$:
+
+$$
+\frac{ds}{dt}=-\frac{V_{\max}s}{K_m+s}
+$$
+
+When $K_m = 0.2$, $s$ starts much larger than $K_m$, and falls in a nearly straight line, like a zeroth order process.
+As $s$ becomes small, it levels off exponentially, like a first order process:
+
+![s against t with K_m equal to 0.2](fig/09_03_k02.svg)
+
+When $K_m = 1.0$, $s$ is never much larger than $K_m$, and the decline looks more like a first order process throughout:
+
+![s against t with K_m equal to 1.0](fig/09_04_k10.svg)
 
 ## Introductory problems
 
