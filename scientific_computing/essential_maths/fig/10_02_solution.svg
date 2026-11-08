@@ -16,7 +16,7 @@
 }
 </style>
 <rect class="background" width="800" height="500" fill="white"/>
-<rect x="233" y="28" width="16" height="16" fill="#0072B2"/><text x="257" y="36" dy="0.35em" font-size="16" fill="#1a1a1a">through the surface</text><rect x="444" y="28" width="16" height="16" fill="#D55E00"/><text x="468" y="36" dy="0.35em" font-size="16" fill="#1a1a1a">exponential</text><svg color="#1a1a1a" y="52" x="0" viewBox="0 0 800 448" height="448" width="800" text-anchor="middle" font-size="16" fill="currentColor" class="plot-d6a7b5"><style>:where(.plot-d6a7b5) {
+<rect x="179" y="28" width="16" height="16" fill="#0072B2"/><text x="203" y="36" dy="0.35em" font-size="16" fill="#1a1a1a">V = (∛V₀ + kt/3)³</text><rect x="372" y="28" width="16" height="16" fill="#D55E00"/><text x="396" y="36" dy="0.35em" font-size="16" fill="#1a1a1a">V = V₀ exp(rt), r = k/∛V₀</text><svg color="#1a1a1a" y="52" x="0" viewBox="0 0 800 448" height="448" width="800" text-anchor="middle" font-size="16" fill="currentColor" class="plot-d6a7b5"><style>:where(.plot-d6a7b5) {
   --plot-background: white;
   display: block;
   height: auto;
