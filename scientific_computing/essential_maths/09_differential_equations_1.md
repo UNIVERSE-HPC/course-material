@@ -148,11 +148,10 @@ $$
 Each step follows the tangent, so the answer drifts away from the true solution where the curve bends.
 So, the smaller the step, the more accurate the answer (but the more steps we need).
 
-Here is Euler's method in Python, for example 1 with $c = 1$:
+Here is Euler's method in Python, for example 1 with $c = 1$.
+We start at $x = 1$, where $y(1) = c$, and take 9 steps of size 1, to reach $x = 10$:
 
 ```python
-import numpy as np
-
 c = 1.0
 
 
@@ -160,29 +159,31 @@ def dydx(x, y):
     return 2*x + c
 
 
-def euler(dydx, x0, y0, x1, h):
-    n = round((x1 - x0) / h)  # number of steps
-    x = x0 + h * np.arange(n + 1)
-    y = np.zeros(n + 1)
-    y[0] = y0
-    for i in range(n):
-        y[i + 1] = y[i] + h * dydx(x[i], y[i])
-    return x, y
-```
+h = 1.0    # the step size
+n = 9      # the number of steps, from x = 1 to x = 10
 
-We solve from $x = 1$, where $y(1) = c$, to $x = 10$, with smaller and smaller steps:
+x = 1.0    # start at x = 1,
+y = c      # where y(1) = c
 
-```python
-for h in [1.0, 0.1, 0.01]:
-    x, y = euler(dydx, 1.0, c, 10.0, h)
-    print(f'h = {h}: y(10) is about {y[-1]:.2f}')
+for step in range(n):
+    y = y + h * dydx(x, y)    # a step along the tangent
+    x = x + h
+
+print(y)
 ```
 
 ```text
-h = 1.0: y(10) is about 100.00
-h = 0.1: y(10) is about 108.10
-h = 0.01: y(10) is about 108.91
+100.0
 ```
+
+At the end of the loop, `y` holds our estimate of $y(10)$.
+Running the code with smaller steps (and more of them) gives, to two decimal places:
+
+| Step size $h$ | Number of steps $n$ | $y(10)$ |
+| :-: | :-: | :-: |
+| 1 | 9 | 100.00 |
+| 0.1 | 90 | 108.10 |
+| 0.01 | 900 | 108.91 |
 
 The exact value is $y(10) = 10^2 + 10 - 1 = 109$, so a step 10 times smaller makes the error about 10 times smaller.
 Here is the solution with $h = 1$, against the exact solution:
@@ -201,6 +202,7 @@ It returns the solution at the points we ask for with `t_eval`.
 Here we use it to check example 1:
 
 ```python
+import numpy as np
 from scipy.integrate import solve_ivp
 
 c = 1.0
@@ -339,6 +341,7 @@ x0 = 0.0
 x1 = 1.0
 x = np.linspace(x0, x1, 100)
 
+# the positive solution
 y_exact = np.sqrt(-2*np.exp(-x)*(1 + x) + c3)
 
 def dydx(x, y):
