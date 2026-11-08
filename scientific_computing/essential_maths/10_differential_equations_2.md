@@ -4,6 +4,8 @@ dependsOn: [scientific_computing.essential_maths.09_differential_equations_1]
 tags: []
 learningOutcomes:
   - Be able to translate a literal description between quantities into a differential equation
+  - Be able to use partial fractions to solve a separable differential equation
+  - Be able to check a solution numerically with SciPy
   - Understand how to use the method of substitution to solve higher-order differential equations
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
@@ -26,22 +28,37 @@ A recording of this lecture from October 2020; the material has changed a little
 
 ---
 
-## From words to maths
+## Why form differential equations from words?
 
-## How do we form differential equations from words?
+In practice, nobody hands us the differential equation: we have a description of what makes a quantity change (e.g. a leaf gains water from its plant and loses it by evaporation).
 
-### Example 1: a growing leaf
+Turning that description into an equation is the first step in building a model, and once we have the equation we can solve it, by hand or numerically.
+
+In this lecture we form differential equations from words, solve them with the methods of lecture 9 and partial fractions, and meet our first second order equations.
+
+## What does "proportional to" mean?
+
+$y$ is **proportional to** $x$ if $y = kx$ for some constant $k$, called the _constant of proportionality_.
+We write $y \propto x$.
+
+For example, if a leaf absorbs water at a rate proportional to its length $y$, then the rate is $k_1y$, for some constant $k_1$.
+
+A quantity can also be proportional to a power of another.
+For example, the area of a circle is proportional to the square of its radius: $A = \pi r^2$, so $A \propto r^2$.
+
+If $y \propto w$, then their rates of change are proportional too:
+
+$$
+y = kw \qquad\Rightarrow\qquad \frac{dy}{dt} = k\frac{dw}{dt}
+$$
+
+## Example 1: a growing leaf
 
 Let us try to form a differential equation based on the following information:
 
----
-
-The length $y$ cm of a leaf during the period of its growth is proportional to the amount of water it contains.
-During this period the leaf retains a similar shape: that is, the ratio of its length to its width remains constant.
-The leaf absorbs water from its plant at a rate proportional to $y$ and it loses water by evaporation at a rate proportional to the area
-of the leaf at the time when its length is $y$ cm.
-
----
+> The length $y$ cm of a leaf during the period of its growth is proportional to the amount of water it contains.
+> During this period the leaf retains a similar shape: that is, the ratio of its length to its width remains constant.
+> The leaf absorbs water from its plant at a rate proportional to $y$ and it loses water by evaporation at a rate proportional to the area of the leaf at the time when its length is $y$ cm.
 
 1. Assume the length of the leaf is $y$ cm at time $t$ days after it was first observed.
 
@@ -49,25 +66,21 @@ of the leaf at the time when its length is $y$ cm.
 
 3. Area of leaf at time $t$ days is proportional to $y^2$ since it maintains its shape, so the leaf is losing water at a rate of $k_2y^2$ where $k_2$ is another positive constant.
 
-The rate of growth is given by $dy/dt$, which is the rate of change of its length.
+4. The length is proportional to the amount of water, so the rate of growth, $dy/dt$, is proportional to the rate at which the leaf gains water, less the rate at which it loses it.
+
+This gives us the equation:
 
 $$
 \frac{dy}{dt}=k_1y-k_2y^2=y(k_1-k_2y)
 $$
 
-When $k_1$ and $k_2$ are both equal to $1.0$, the solution looks like:
-
-![Solution when k1 and k2 are both equal to 1.0](fig/10_01_solution.svg)
+We will solve it once we have looked at a second example.
 
 ## Example 2: solid tumour growth
 
----
-
-An avascular tumour tends to grow in a spherical shape, depending on environmental restrictions.
-
-Assuming that the growth rate of the tumour depends only on the availability of oxygen and nutrients, which enter the tumour solely by diffusing through its surface, derive a model for the change in tumour volume over time.
-
----
+> An avascular tumour tends to grow in a spherical shape, depending on environmental restrictions.
+>
+> Assuming that the growth rate of the tumour depends only on the availability of oxygen and nutrients, which enter the tumour solely by diffusing through its surface, derive a model for the change in tumour volume over time.
 
 1. Denote the volume of the tumour at time $t$ by $V(t)$, and its radius by $R(t)$.
 
@@ -86,19 +99,145 @@ Solve by separation of variables:
 $$
 \begin{aligned}
 \int V^{-2/3}\,dV &= \int k\,dt \\
+3V^{1/3} &= kt + c \\
 V &= \left(\frac{kt+c}{3}\right)^3
 \end{aligned}
 $$
 
 where $c$ is a constant of integration, the value of which will depend upon the initial conditions.
+If the volume at $t=0$ is $V_0$, then $c = 3V_0^{1/3}$.
 
-When $k=1$ and $c=10$, the solution looks like:
+When $k=1$ and $V_0=10$, the solution looks like the solid line below.
+For comparison, the dashed line shows exponential growth, $dV/dt = rV$, from the same volume and at the same initial rate ($r = kV_0^{-1/3}$).
+Because the nutrients enter only through the surface, the tumour falls further and further behind: its volume grows like $t^3$, and its radius, which is proportional to $V^{1/3} = V_0^{1/3} + kt/3$, grows at a constant rate.
 
-![Solution when k=1 and c=10](fig/10_02_solution.svg)
+![Solution when k=1 and V0=10, against exponential growth from the same volume at the same initial rate](fig/10_02_solution.svg)
+
+## Example 1 again: solving the leaf equation
+
+Let us return to, and solve, our leaf example:
+
+$$
+\frac{dy}{dt}=k_1y-k_2y^2=y(k_1-k_2y)
+$$
+
+This is a separable differential equation:
+
+$$
+\int \frac{dy}{y(k_1-k_2y)} =\int dt.
+$$
+
+To integrate the left-hand side, we split it into **partial fractions**, as in lecture 7.
+We want
+
+$$
+\frac{1}{y(k_1-k_2y)}=\frac{A}{y}+\frac{B}{k_1-k_2y}.
+$$
+
+Multiply both sides by $y(k_1-k_2y)$ to get:
+
+$$
+A(k_1-k_2y)+By=1 \qquad\text{so}\qquad Ak_1 + (B - Ak_2)y = 1
+$$
+
+Equate the constant terms (coefficients of $y^0$):
+
+$$
+Ak_1 = 1 \qquad\text{so}\qquad A=\frac{1}{k_1}
+$$
+
+Equate coefficients of $y$:
+
+$$
+B - Ak_2 = 0 \qquad\text{so}\qquad B=\frac{k_2}{k_1}
+$$
+
+We can check this with SymPy's `apart` function:
+
+```python
+import sympy as sp
+
+y, k1, k2 = sp.symbols('y k_1 k_2')
+sp.apart(1 / (y*(k1 - k2*y)), y)
+```
+
+$$
+- \frac{k_{2}}{k_{1} \left(- k_{1} + k_{2} y\right)} + \frac{1}{k_{1} y}
+$$
+
+which agrees: $A=1/k_1$ and $B=k_2/k_1$.
+Thus
+
+$$
+\int \frac{dy}{k_1y}+\int \frac{k_2}{k_1(k_1-k_2y)}\,dy =\int dt.
+$$
+
+While the leaf is growing, $0 < y < k_1/k_2$, so both logarithms are of positive numbers:
+
+$$
+\frac{1}{k_1}\ln y-\frac{1}{k_1}\ln(k_1-k_2y)=t + c
+$$
+
+To make $y$ the subject, multiply by $k_1$ and combine the logarithms, writing $d = k_1c$:
+
+$$
+\ln\left(\frac{y}{k_1-k_2y}\right)=k_1t + d
+$$
+
+Take the exponential of both sides, and multiply by $k_1-k_2y$:
+
+$$
+y = (k_1-k_2y)e^{k_1t+d} \qquad\text{so}\qquad y\left(1 + k_2e^{k_1t+d}\right) = k_1e^{k_1t+d}
+$$
+
+which gives
+
+$$
+y=\frac{k_1 e^{k_1t+d}}{1+ k_2 e^{k_1t + d}}.
+$$
+
+We can get $d$ from the initial condition: if $y = y_0$ at $t = 0$, then $e^d = y_0/(k_1-k_2y_0)$.
+
+This is the logistic equation from lecture 3 (with $k = k_1$ and $b = k_2$), and we will meet it again in lecture 11.
+As $t$ grows, $y$ levels off at $k_1/k_2$.
+
+We can check our solution numerically, as in lecture 9:
+
+```python
+import numpy as np
+from scipy.integrate import solve_ivp
+
+k1 = 1.0
+k2 = 0.5
+y0 = 0.1
+t = np.linspace(0, 10, 100)
+d = np.log(y0 / (k1 - k2*y0))
+y_exact = (k1*np.exp(k1*t + d)
+           / (1 + k2*np.exp(k1*t + d)))
+
+
+def dydt(t, y):
+    return k1*y - k2*y**2
+
+
+solution = solve_ivp(dydt, [0, 10], [y0],
+                     t_eval=t)
+y_numerical = solution.y[0]
+```
+
+When $k_1 = 1$ and $k_2 = 0.5$, the solution looks like:
+
+![Plot of the numerical vs exact solution of the leaf equation, when k1 = 1 and k2 = 0.5](fig/10_01_solution.svg)
+
+The two lines lie on top of each other, and the leaf levels off at $k_1/k_2 = 2$.
 
 ## Second order differential equations
 
-Let us try to solve the following equation:
+The **order** of a differential equation is the order of the highest derivative in it.
+
+### Example 3
+
+Let us try to solve the following second order equation:
 
 $$
 \frac{d^2y}{dx^2} = \left(\frac{dy}{dx}\right)^2
@@ -137,84 +276,57 @@ $$
 y = -\ln(x+A) + B
 $$
 
+How do we determine $A$ and $B$?
+There are two constants, so we need two pieces of information.
 Determining the values of $A$ and $B$ can be done in several different ways, depending on the kind of information we have.
 
----
+### Case 1
 
-For example, if we know the following:
+Maybe we know that at $x=0$, $dy/dx = -1$ and $y=0$.
 
-- At $x=0$, $dy/dx = -1$ and $y=0$.
-
-  We substitute the first condition into $dy/dx = -1/(x+A)$ to obtain $A=1$.
-
-  Then substitute $A$ and the second condition into the eventual solution
-  to find $B=0$.
-
----
-
-Alternatively, if we instead know that:
-
-- $y(0)=0$ and $y(e-1)=-1$.
-
-  This time both conditions can be substituted into the solution:
-
-  $$
-  \begin{aligned}
-  y(0)=0 &\Rightarrow 0=B-\ln(A) \Rightarrow B=\ln(A) \\
-  y(e-1)=-1 &\Rightarrow -1=\ln(A)-\ln{e-1+A} \Rightarrow A=1
-  \end{aligned}
-  $$
-
-## More integration tricks
-
-Let us return to, and solve, our leaf example:
+Substitute the first condition into $dy/dx = -1/(x+A)$:
 
 $$
-\frac{dy}{dt}=k_1y-k_2y^2=y(k_1-k_2y)
+-1 = -\frac{1}{0+A} \qquad\text{so}\qquad A=1
 $$
 
-This is a separable differential equation:
+Then substitute $A=1$ and the second condition into $y = -\ln(x+A) + B$:
 
 $$
-\int \frac{dy}{y(k_1-k_2y)} =\int dt.
+0 = -\ln 1 + B \qquad\text{so}\qquad B=0
 $$
 
-We can split apart the integral on the RHS using **partial fractions** in SymPy using `sp.apart`.
+So the solution is $y = -\ln(x+1)$.
 
-We want
+### Case 2
 
-$$
-\frac{1}{y(k_1-k_2y)}=\frac{A}{y}+\frac{B}{k_1-k_2y}:
-$$
+Maybe instead we know that $y(0)=0$ and $y(e-1)=-1$: two values of $y$, and no value of $dy/dx$.
 
-```python
-import sympy as sp
-y, k1, k2 = sp.symbols('y k_1 k_2')
-sp.apart(1 / (y*(k1 - k2*y)),y)
-```
+This time both conditions go into the solution $y = -\ln(x+A) + B$.
+The first, $y(0)=0$, gives:
 
 $$
-- \frac{k_{2}}{k_{1} \left(- k_{1} + k_{2} y\right)} + \frac{1}{k_{1} y}
+0 = -\ln A + B \qquad\text{so}\qquad B=\ln A
 $$
 
-So $A=1/k_1$ and $B=k_2/k_1$.
+Then substitute $B = \ln A$ and the second condition, $y(e-1)=-1$:
 
 $$
-\text{Thus,} \qquad \int \frac{dy}{y(k_1-k_2y)}=\int \frac{dy}{k_1y}+\int \frac{k_2}{k_1(k_1-k_2y)}\,dy =\int dt
+-1 = -\ln(e-1+A) + \ln A = \ln\left(\frac{A}{e-1+A}\right)
 $$
 
-$$
-\text{Thus} \qquad \frac{1}{k_1}\ln y-\frac{k_2}{k_1k_2}\ln(k_1-k_2y)=t + c
-$$
-
-We can get $c$ from initial conditions.
-Try doing the algebraic manipulation of this to make $y$ the subject of the equation:
+Take the exponential of both sides, and solve for $A$:
 
 $$
-y=\frac{k_1\exp (k_1t+d)}{1+ k_2 \exp(k_1t + d)}
+\begin{aligned}
+e^{-1} &= \frac{A}{e-1+A} \\
+e-1+A &= eA \\
+e-1 &= (e-1)A \\
+A &= 1
+\end{aligned}
 $$
 
-where $d$ is a constant.
+So $B = \ln 1 = 0$, and $y = -\ln(x+1)$: the same solution as in case 1.
 
 ## Introductory problems
 
