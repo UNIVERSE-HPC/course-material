@@ -36,6 +36,22 @@ Turning that description into an equation is the first step in building a model,
 
 In this lecture we form differential equations from words, solve them with the methods of lecture 9 and partial fractions, and meet our first second order equations.
 
+## What does "proportional to" mean?
+
+$y$ is **proportional to** $x$ if $y = kx$ for some constant $k$, called the _constant of proportionality_.
+We write $y \propto x$.
+
+For example, if a leaf absorbs water at a rate proportional to its length $y$, then the rate is $k_1y$, for some constant $k_1$.
+
+A quantity can also be proportional to a power of another.
+For example, the area of a circle is proportional to the square of its radius: $A = \pi r^2$, so $A \propto r^2$.
+
+If $y \propto w$, then their rates of change are proportional too:
+
+$$
+y = kw \qquad\Rightarrow\qquad \frac{dy}{dt} = k\frac{dw}{dt}
+$$
+
 ## Example 1: a growing leaf
 
 Let us try to form a differential equation based on the following information:
@@ -51,7 +67,6 @@ Let us try to form a differential equation based on the following information:
 3. Area of leaf at time $t$ days is proportional to $y^2$ since it maintains its shape, so the leaf is losing water at a rate of $k_2y^2$ where $k_2$ is another positive constant.
 
 4. The length is proportional to the amount of water, so the rate of growth, $dy/dt$, is proportional to the rate at which the leaf gains water, less the rate at which it loses it.
-   We can take the constant of proportionality into $k_1$ and $k_2$.
 
 This gives us the equation:
 
@@ -92,9 +107,11 @@ $$
 where $c$ is a constant of integration, the value of which will depend upon the initial conditions.
 If the volume at $t=0$ is $V_0$, then $c = 3V_0^{1/3}$.
 
-When $k=1$ and $V_0=10$, the solution looks like:
+When $k=1$ and $V_0=10$, the solution looks like the solid line below.
+For comparison, the dashed line shows exponential growth, $dV/dt = rV$, from the same volume and at the same initial rate ($r = kV_0^{-1/3}$).
+Because the nutrients enter only through the surface, the tumour falls further and further behind: its volume grows like $t^3$, and its radius, which is proportional to $V^{1/3} = V_0^{1/3} + kt/3$, grows at a constant rate.
 
-![Solution when k=1 and V0=10](fig/10_02_solution.svg)
+![Solution when k=1 and V0=10, against exponential growth from the same volume at the same initial rate](fig/10_02_solution.svg)
 
 ## Example 1 again: solving the leaf equation
 
@@ -259,36 +276,57 @@ $$
 y = -\ln(x+A) + B
 $$
 
+How do we determine $A$ and $B$?
+There are two constants, so we need two pieces of information.
 Determining the values of $A$ and $B$ can be done in several different ways, depending on the kind of information we have.
 
 ### Case 1
 
-Suppose we know that at $x=0$, $dy/dx = -1$ and $y=0$.
+Maybe we know that at $x=0$, $dy/dx = -1$ and $y=0$.
 
-We substitute the first condition into $dy/dx = -1/(x+A)$ to obtain $A=1$.
+Substitute the first condition into $dy/dx = -1/(x+A)$:
 
-Then substitute $A$ and the second condition into the eventual solution to find $B=0$.
+$$
+-1 = -\frac{1}{0+A} \qquad\text{so}\qquad A=1
+$$
+
+Then substitute $A=1$ and the second condition into $y = -\ln(x+A) + B$:
+
+$$
+0 = -\ln 1 + B \qquad\text{so}\qquad B=0
+$$
+
+So the solution is $y = -\ln(x+1)$.
 
 ### Case 2
 
-Suppose instead we know that $y(0)=0$ and $y(e-1)=-1$.
+Maybe instead we know that $y(0)=0$ and $y(e-1)=-1$: two values of $y$, and no value of $dy/dx$.
 
-This time both conditions can be substituted into the solution:
+This time both conditions go into the solution $y = -\ln(x+A) + B$.
+The first, $y(0)=0$, gives:
+
+$$
+0 = -\ln A + B \qquad\text{so}\qquad B=\ln A
+$$
+
+Then substitute $B = \ln A$ and the second condition, $y(e-1)=-1$:
+
+$$
+-1 = -\ln(e-1+A) + \ln A = \ln\left(\frac{A}{e-1+A}\right)
+$$
+
+Take the exponential of both sides, and solve for $A$:
 
 $$
 \begin{aligned}
-y(0)=0 &\Rightarrow 0=B-\ln A \Rightarrow B=\ln A \\
-y(e-1)=-1 &\Rightarrow -1=\ln A-\ln(e-1+A) = \ln\left(\frac{A}{e-1+A}\right)
+e^{-1} &= \frac{A}{e-1+A} \\
+e-1+A &= eA \\
+e-1 &= (e-1)A \\
+A &= 1
 \end{aligned}
 $$
 
-Taking the exponential of both sides of the last equation:
-
-$$
-\frac{A}{e-1+A} = e^{-1} \qquad\Rightarrow\qquad eA = e-1+A \qquad\Rightarrow\qquad A=1
-$$
-
-and so $B = \ln 1 = 0$.
+So $B = \ln 1 = 0$, and $y = -\ln(x+1)$: the same solution as in case 1.
 
 ## Introductory problems
 
