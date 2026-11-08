@@ -241,6 +241,38 @@ $$
 \int \frac{1}{y}\frac{dy}{dx}\, dx = \int 5x^{\frac{3}{2}}\,dx \quad \Rightarrow\quad \int \frac{1}{y}\,dy = \int 5x^{\frac{3}{2}}\, dx
 $$
 
+:::callout{variant="note"}
+**Why we can separate the variables**
+
+It can look as though we are splitting $dy/dx$ up like a fraction, which seems suspicious.
+In fact the chain rule makes this work.
+
+Suppose $dy/dx = f(x)\,g(y)$.
+Divide by $g(y)$, and integrate both sides with respect to $x$:
+
+$$
+\int \frac{1}{g(y)}\frac{dy}{dx}\,dx = \int f(x)\,dx
+$$
+
+If $H$ is an antiderivative of $1/g$, so that $H'(y) = 1/g(y)$, then by the chain rule
+
+$$
+\frac{d}{dx}H(y) = H'(y)\frac{dy}{dx} = \frac{1}{g(y)}\frac{dy}{dx}
+$$
+
+So the left-hand side is just $H(y) + C$, i.e. the integral of $1/g(y)$ with respect to $y$ (this is integration by substitution, from the lecture on integration):
+
+$$
+\int \frac{1}{g(y)}\,dy = \int f(x)\,dx
+$$
+
+This means that we can treat $dy/dx$ as if it were a fraction, and the chain rule makes sure we get the right answer.
+
+There is one thing to watch.
+Dividing by $g(y)$ only works where $g(y)$ is not zero, so a constant solution with $g(y) = 0$ can be lost.
+In this example $g(y) = y$, and $y = 0$ is also a solution, as we see below.
+:::
+
 Now integrate on each side:
 
 $$
@@ -259,7 +291,8 @@ $$
 y = De^{2x^{\frac{5}{2}}}\qquad\text{where}\qquad D=\pm e^C
 $$
 
-(The constant $D$ can be positive or negative, depending on the sign of $y$.)
+The constant $D$ can be positive or negative, depending on the sign of $y$.
+It can also be zero, which gives the solution $y = 0$ that we lost when we divided by $y$.
 
 ## Separation of variables: example 3
 
