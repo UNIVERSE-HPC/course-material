@@ -333,6 +333,27 @@ When it is zero, the two lines are parallel, and there is no single solution.
 Larger square matrices have determinants too, and the same holds: a square matrix has an inverse exactly when its determinant is not zero.
 We won't need to calculate them by hand in this course.
 
+:::callout{variant="note"}
+**The determinant as an area**
+
+Multiplying by a 2x2 matrix $A$ moves every point of the plane: the point $(x, y)$ goes to $A\left(\begin{smallmatrix}x\\y\end{smallmatrix}\right)$.
+The corners $(1, 0)$ and $(0, 1)$ of the unit square go to the two columns of $A$, so the unit square goes to the parallelogram with those columns as its sides.
+
+Its area is $\lvert\det A\rvert$, and if $\det A < 0$ the square is also flipped over.
+For example, with
+
+$$
+A = \left(\begin{matrix} 2 & 1 \\ 1 & 2\end{matrix}\right),
+$$
+
+the arrows below show the columns $(2, 1)$ (orange) and $(1, 2)$ (blue), and the parallelogram has area $\det A = 4 - 1 = 3$:
+
+![The unit square and its image under A, a parallelogram with sides (2, 1) and (1, 2) and area 3](fig/12_02_transformation.svg)
+
+If $\det A = 0$, the square is squashed flat onto a line (or a point), so different points end up in the same place.
+Then there is no way to undo the transformation, which is why a singular matrix has no inverse.
+:::
+
 ### Example of inverting a 2x2 matrix
 
 Let us take a matrix
