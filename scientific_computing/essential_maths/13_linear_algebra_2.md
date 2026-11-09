@@ -253,17 +253,17 @@ $$
 A = \left(\begin{matrix} 2& 1 \\ 1&2\end{matrix}\right).
 $$
 
-Below, $\mathbf{v}$ (blue) is a vector of length 1 at an angle of 20 degrees, and $A\mathbf{v}$ (orange) points in a different direction from it (the dotted line extends $\mathbf{v}$):
+Below, $\mathbf{v}$ (blue) is a vector of length 1 at an angle of $\pi/8$ radians to the $x$ axis, and $A\mathbf{v}$ (orange) points in a different direction from it (the dotted line extends $\mathbf{v}$):
 
-![The vector v at 20 degrees and Av, which points in a different direction](fig/13_01_eigen_directions.svg)
+![The vector v at an angle of pi/8 and Av, which points in a different direction](fig/13_01_eigen_directions.svg)
 
 As $\mathbf{v}$ turns, $A\mathbf{v}$ mostly points a different way.
 But along two special directions, $A\mathbf{v}$ is just a multiple of $\mathbf{v}$.
-At 45 degrees, $\mathbf{v} = (1, 1)^T/\sqrt{2}$, and $A\mathbf{v} = 3\mathbf{v}$:
+At an angle of $\pi/4$, $\mathbf{v} = (1, 1)^T/\sqrt{2}$, and $A\mathbf{v} = 3\mathbf{v}$:
 
-![The vector v at 45 degrees, and Av = 3v along the same line](fig/13_02_eigen_directions_45.svg)
+![The vector v at an angle of pi/4, and Av = 3v along the same line](fig/13_02_eigen_directions_pi_4.svg)
 
-At 135 degrees, $\mathbf{v} = (-1, 1)^T/\sqrt{2}$, and $A\mathbf{v} = \mathbf{v}$.
+At an angle of $3\pi/4$, $\mathbf{v} = (-1, 1)^T/\sqrt{2}$, and $A\mathbf{v} = \mathbf{v}$.
 These two directions are the **eigenvectors** of $A$, and the multiples, $3$ and $1$, are its **eigenvalues**.
 
 So eigenvalues and eigenvectors give an indication of how much effect a matrix has, and in what direction.
@@ -277,10 +277,10 @@ doubles in $x$, but halves in $y$.
 Its eigenvectors are along the axes, $(1, 0)^T$ and $(0, 1)^T$, with eigenvalues $2$ and $\frac{1}{2}$, and repeated applications of $B$ move points towards $(\pm\infty, 0)$.
 
 $$
-R=\left(\begin{matrix} \cos 45^\circ&-\sin 45^\circ\\ \sin 45^\circ&\cos 45^\circ\end{matrix}\right)
+R=\left(\begin{matrix} \cos \frac{\pi}{4}&-\sin \frac{\pi}{4}\\ \sin \frac{\pi}{4}&\cos \frac{\pi}{4}\end{matrix}\right)
 $$
 
-rotates every vector by $45^\circ$, and leaves its length unchanged.
+rotates every vector by $\pi/4$ radians, and leaves its length unchanged.
 It leaves no direction unchanged, so it has no real eigenvectors: its eigenvalues are complex numbers, $\frac{1}{\sqrt 2}(1 \pm i)$, and we will meet complex eigenvalues again in lecture 16.
 
 ### Where eigenvalues are used
