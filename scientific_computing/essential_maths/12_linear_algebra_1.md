@@ -276,6 +276,8 @@ and so on for higher dimensions.
 
 ## Inverting matrices
 
+To solve a matrix equation, we need the matrix equivalent of dividing: the inverse.
+
 ### The inverse of a matrix
 
 For a number $a \neq 0$, its inverse $a^{-1} = 1/a$ satisfies $a\,a^{-1} = a^{-1}a = 1$.
