@@ -3,15 +3,14 @@ name: Linear algebra 1
 dependsOn: [scientific_computing.essential_maths.08_complex_numbers]
 tags: []
 learningOutcomes:
-  - Understand the concept of a matrix
-  - Be able to perform addition and subtraction of matrices
-  - Be able to multiply a matrix by a scalar
-  - Understand the associative, commutative and distributive laws of matrices
-  - Be able to find the determinant of a matrix
-  - Be able to invert a matrix
-  - Be able to find the transpose of a matrix
   - Be able to express a set of simultaneous equations as a matrix equation
-  - Understand how to solve a matrix equation $Ax=b$
+  - Understand the size of a matrix and the notation for its elements
+  - Be able to add and subtract matrices, and multiply a matrix by a scalar
+  - Be able to multiply matrices, and know when a product is defined
+  - Know that matrix multiplication is associative and distributive, but not commutative
+  - Be able to find the determinant and the inverse of a 2x2 matrix, and know what it means for a matrix to be singular
+  - Be able to find the transpose of a matrix
+  - Be able to solve a matrix equation $A\mathbf{x}=\mathbf{b}$, by hand for a 2x2 matrix and with Python for larger ones
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/
@@ -33,7 +32,14 @@ A recording of this lecture from October 2020; the material has changed a little
 
 ---
 
-## Introduction to matrices
+## Why matrices?
+
+Many problems give us several equations that must all hold at once.
+For example, the steady state of a model with several interacting chemicals or species is where all of their rates of change are zero at the same time, and the currents in an electrical circuit must balance at every junction at once.
+
+When the equations are linear, matrices let us write any number of them as a single equation, $A\mathbf{x} = \mathbf{b}$, and solve them all in the same way: by hand for small systems, and with Python for large ones.
+
+In this lecture we learn how to add, multiply and invert matrices, and use them to solve simultaneous equations.
 
 ## Simultaneous equations
 
@@ -52,14 +58,14 @@ $$
 \begin{aligned}
 (1) \times b_2: &\qquad b_2a_1x+b_2b_1y = b_2c_1, &&\text{(3)}\\
 (2) \times b_1: &\qquad b_1a_2x+b_1b_2y = b_1c_2, &&\text{(4)}\\
-(3) - (4): &\qquad b_2a_1x-b_1a_2x = b_2c_1-b_1c_2.
+(3) - (4): &\qquad (a_1b_2-a_2b_1)x = b_2c_1-b_1c_2.
 \end{aligned}
 $$
 
 Thus:
 
 $$
-x=\frac{b_2c_1-b_1c_2}{b_2a_1-b_1a_2},
+x=\frac{b_2c_1-b_1c_2}{a_1b_2-a_2b_1},
 $$
 
 and similarly:
@@ -74,6 +80,28 @@ While the algebraic manipulation is straightforward when solving two equations, 
 
 What we want is a way to be able to easily manipulate **linear** systems, regardless of how big they are.
 
+### Two equations, two lines
+
+Each of the two equations is a straight line in the $(x, y)$ plane, and the solution is the point where the two lines cross.
+For example, take
+
+$$
+\begin{aligned}
+x + 5y &= 11, \\
+ax + 5y &= 9,
+\end{aligned}
+$$
+
+for which $a_1b_2 - a_2b_1 = 5 - 5a$.
+With $a = -1$ the lines cross at $x = 1$, $y = 2$ (we solve this system with matrices later in the lecture):
+
+![Plot of the lines x + 5y = 11 and -x + 5y = 9, crossing at (1, 2)](fig/12_01_two_lines.svg)
+
+As $a$ approaches $1$, the second line turns until it is parallel to the first, and the point where they cross moves off to infinity.
+At $a = 1$, $a_1b_2 - a_2b_1 = 0$: the lines are parallel and never cross, so there is no solution.
+If the two lines had been the same line (e.g. if the second equation were $x + 5y = 11$ too), every point on it would be a solution, so there would be infinitely many.
+Either way, there is no single solution when $a_1b_2 - a_2b_1 = 0$.
+
 ## The matrix
 
 Matrices are a structure that allow us to more easily manipulate linear systems.
@@ -87,7 +115,7 @@ a_2x+b_2y &= c_2.
 \end{aligned}
 $$
 
-We rewrite this, in the form of a matrix as:
+We collect the coefficients into a matrix, and the unknowns and the right-hand sides into columns, and rewrite the system in the form of a matrix as:
 
 $$
 \left(\begin{matrix}a_1&b_1\\ a_2&b_2\end{matrix}\right)
@@ -95,23 +123,36 @@ $$
 =\left(\begin{matrix}c_1\\ c_2 \end{matrix}\right).
 $$
 
-Think about how this form relates to the original linear system.
+We will see why this is the same system once we know how to multiply matrices.
 
 ### What is a matrix?
 
-A matrix is an array of numbers such as:
+A matrix is a rectangular array of numbers, such as
 
 $$
-\left(\begin{matrix}a&b&c\\ d&e&f\\ g&h&i\end{matrix}\right)
+A = \left(\begin{matrix}1&2&3\\ 4&5&6\end{matrix}\right).
 $$
 
-- $3\times3$ is the **size** of the matrix.
+A matrix with $m$ rows and $n$ columns has **size** $m\times n$ (rows first), so $A$ is a $2\times 3$ matrix.
 
-- A $3\times3$ matrix is said to be **square** and have **order** (dimension) 3.
+The element in row $i$ and column $j$ of a matrix $A$ is written $a_{ij}$, using the lower-case letter.
+Here, for example, $a_{11} = 1$, $a_{23} = 6$ and $a_{21} = 4$.
+
+A matrix with as many rows as columns is **square**, and an $n\times n$ matrix has **order** (dimension) $n$.
+
+A matrix with a single column is a **column vector**, and we write vectors in bold.
+For example,
+
+$$
+\mathbf{x} = \left(\begin{matrix}x\\y\end{matrix}\right)
+$$
+
+is a $2\times 1$ matrix.
+Similarly, a matrix with a single row is a **row vector**.
 
 ### Addition, subtraction, and scalar multiplication
 
-We can add or subtract two matrices as long as they have the **same** size:
+We can add or subtract two matrices as long as they have the **same** size, by adding or subtracting the elements in the same positions:
 
 $$
 \left(\begin{matrix} 2&1 \\ 3&-4 \end{matrix}\right) +\left(\begin{matrix} 6&-5 \\ 1&-7 \end{matrix}\right)= \left(\begin{matrix} 8&-4 \\ 4&-11\end{matrix}\right)
@@ -130,8 +171,10 @@ To multiply two matrices, we multiply each **row** in the first matrix by each *
 A row and column are multiplied by summing up each element in the row, multiplied by the corresponding element in the column.
 
 $$
-\left(\begin{matrix} 1&2 \\ 3&4 \end{matrix}\right) \left(\begin{matrix} 5&6\\7&8\end{matrix}\right) = \left(\begin{matrix} 1 \times 5 + 2 \times 7 & 1 \times 6 + 2 \times 8 \\ 3 \times 5 + 4 \times 7 & 3 \times 6 + 4\times 8\end{matrix}\right) = \left(\begin{matrix} 19&22\\43&46\end{matrix}\right)
+\left(\begin{matrix} 1&2 \\ 3&4 \end{matrix}\right) \left(\begin{matrix} 5&6\\7&8\end{matrix}\right) = \left(\begin{matrix} 1 \times 5 + 2 \times 7 & 1 \times 6 + 2 \times 8 \\ 3 \times 5 + 4 \times 7 & 3 \times 6 + 4\times 8\end{matrix}\right) = \left(\begin{matrix} 19&22\\43&50\end{matrix}\right)
 $$
+
+For example, the element in row 2 and column 1 of the product is row 2 of the first matrix, $(3, 4)$, multiplied by column 1 of the second, $(5, 7)$: $3\times 5 + 4\times 7 = 43$.
 
 $$
 \left(\begin{matrix} 1&2&3&4\\ 5&6&7&8 \end{matrix}\right) \left(\begin{matrix} 1&2&3\\ 4&5&6\\ 7&8&9\\ 10&11&12 \end{matrix}\right) = \left(\begin{matrix} 70&80&90\\ 158&184&210 \end{matrix}\right)
@@ -149,9 +192,32 @@ $$
 \left(\begin{matrix} 2 & 3 & 1 \\ 2 & -1 & 3\end{matrix}\right)\left(\begin{matrix} 1 & 0 \\ -1 & -4\end{matrix}\right) = ???
 $$
 
+Here each row of the first matrix has three elements, but each column of the second has only two, so there is nothing to pair the third element with.
+In general, an $m\times n$ matrix times an $n\times p$ matrix gives an $m\times p$ matrix: the inner sizes must match, and the outer sizes give the size of the product.
+
+### Back to the matrix form
+
+Now we can multiply out the matrix form of our two simultaneous equations:
+
+$$
+\left(\begin{matrix}a_1&b_1\\ a_2&b_2\end{matrix}\right)
+\left(\begin{matrix}x\\y\end{matrix}\right)
+= \left(\begin{matrix}a_1x+b_1y\\ a_2x+b_2y\end{matrix}\right).
+$$
+
+Each row gives back the left-hand side of one of the equations, so $A\mathbf{x} = \mathbf{c}$ is exactly the original system, with
+
+$$
+A = \left(\begin{matrix}a_1&b_1\\ a_2&b_2\end{matrix}\right), \qquad
+\mathbf{x} = \left(\begin{matrix}x\\y\end{matrix}\right), \qquad
+\mathbf{c} = \left(\begin{matrix}c_1\\ c_2 \end{matrix}\right).
+$$
+
+The same works for any number of equations and unknowns: $A$ has one row per equation and one column per unknown.
+
 ### Matrix multiplication is not commutative
 
-This means that $A \times B$ is not the same as $B \times A$.
+In general $AB$ is not the same as $BA$: the order matters.
 This can be easily seen from the fact that multiplying different sized matrices doesn't always work:
 
 $$
@@ -161,7 +227,26 @@ $$
 \end{aligned}
 $$
 
-However, even when sizes match, the product is usually not the same.
+However, even when sizes match, the product is usually not the same:
+
+$$
+\begin{aligned}
+\left(\begin{matrix} 1&2 \\ 3&4 \end{matrix}\right) \left(\begin{matrix} 0&1\\1&0\end{matrix}\right) &= \left(\begin{matrix} 2&1\\4&3\end{matrix}\right), \\
+\left(\begin{matrix} 0&1\\1&0\end{matrix}\right) \left(\begin{matrix} 1&2 \\ 3&4 \end{matrix}\right) &= \left(\begin{matrix} 3&4\\1&2\end{matrix}\right).
+\end{aligned}
+$$
+
+Multiplying by this matrix on the right swaps the columns, while multiplying by it on the left swaps the rows.
+
+### Laws of matrix multiplication
+
+Matrix multiplication is not commutative, but it does obey two laws we know from numbers (whenever the products are defined):
+
+- it is **associative**: $(AB)C = A(BC)$, so we can write $ABC$ without brackets;
+- it is **distributive**: $A(B+C) = AB + AC$ and $(A+B)C = AC + BC$.
+
+We need both forms of the distributive law, because $A(B+C)$ and $(B+C)A$ are not the same.
+For the same reason, when we multiply both sides of a matrix equation by a matrix, we must multiply both sides on the same side (both on the left, or both on the right).
 
 ### The identity matrix
 
@@ -171,8 +256,10 @@ $$
 A I = I A = A
 $$
 
-for a square matrix $A$. It is the matrix equivalent of multiplying by 1.
+for a square matrix $A$ of the same size.
+It is the matrix equivalent of multiplying by 1.
 
+It has 1s on the **leading diagonal** (from top left to bottom right) and 0s everywhere else.
 The 2x2 identity matrix is:
 
 $$
@@ -189,35 +276,20 @@ and so on for higher dimensions.
 
 ## Inverting matrices
 
-### The determinant
+### The inverse of a matrix
 
-If
+For a number $a \neq 0$, its inverse $a^{-1} = 1/a$ satisfies $a\,a^{-1} = a^{-1}a = 1$.
+There is no matrix division, but the inverse of a matrix plays the same role.
 
-$$
-A = \left(\begin{matrix} p & q \\ r & s\end{matrix}\right)
-$$
-
-then the **determinant** of A is:
+If $A$ and $B$ are square matrices with
 
 $$
-|A| = ps-qr
+AB = BA = I,
 $$
 
-That is, (top left $\times$ bottom right) - (top right $\times$ bottom left).
+then $B$ is the **inverse** of $A$, written $B = A^{-1}$, and $A$ is the inverse of $B$, $A = B^{-1}$.
 
-If $|A| = 0$, A is said to be **singular** (and it has no inverse).
-
-### Inverting 2x2 matrices
-
-If $AB = I$, what is B?
-
-A is called the inverse of B, and vice versa. I.e.
-
-$$
-A = B^{-1}, \quad B = A^{-1}.
-$$
-
-If
+For a 2x2 matrix there is a formula for the inverse: if
 
 $$
 A = \left(\begin{matrix} p & q \\ r & s\end{matrix}\right)
@@ -228,6 +300,38 @@ then:
 $$
 A^{-1} = \frac{1}{ps-qr} \left(\begin{matrix} s & -q \\ -r & p\end{matrix}\right).
 $$
+
+That is, swap the two elements on the leading diagonal, change the sign of the other two, and divide by $ps - qr$.
+We can check that this works by multiplying out:
+
+$$
+AA^{-1} = \frac{1}{ps-qr}\left(\begin{matrix} p & q \\ r & s\end{matrix}\right)\left(\begin{matrix} s & -q \\ -r & p\end{matrix}\right) = \frac{1}{ps-qr}\left(\begin{matrix} ps-qr & 0 \\ 0 & ps-qr\end{matrix}\right) = I_2.
+$$
+
+### The determinant
+
+The formula for $A^{-1}$ only works if $ps-qr \neq 0$.
+This number is the **determinant** of $A$, written $|A|$ or $\det A$:
+
+$$
+|A| = ps-qr
+$$
+
+That is, (top left $\times$ bottom right) - (top right $\times$ bottom left).
+
+If $|A| = 0$, $A$ is said to be **singular**, and it has no inverse.
+
+For our two simultaneous equations, the determinant of the matrix of coefficients is
+
+$$
+\left|\begin{matrix}a_1&b_1\\ a_2&b_2\end{matrix}\right| = a_1b_2 - a_2b_1,
+$$
+
+which is the number we had to divide by when we solved them at the start of the lecture.
+When it is zero, the two lines are parallel, and there is no single solution.
+
+Larger square matrices have determinants too, and the same holds: a square matrix has an inverse exactly when its determinant is not zero.
+We won't need to calculate them by hand in this course.
 
 ### Example of inverting a 2x2 matrix
 
@@ -243,7 +347,7 @@ $$
 |A|=(2\times 4)-(-3\times-2)=8-6=2.
 $$
 
-Then:
+This is not zero, so $A$ has an inverse, and from the formula:
 
 $$
 A^{-1}=\frac{1}{2}\left(\begin{matrix}4&3\\ 2&2\end{matrix}\right)
@@ -262,9 +366,8 @@ $$
 
 ## The transpose of a matrix
 
-$A^T$ is the transpose of $A$.
-
-Swap elements across the leading diagonal so that $A^T_{ij}= A_{ji}$.
+$A^T$, the **transpose** of $A$, swaps the rows and columns: row $i$ of $A$ becomes column $i$ of $A^T$, so that $(A^T)_{ij} = a_{ji}$.
+For a square matrix, this reflects the elements across the leading diagonal:
 
 $$
 \begin{aligned}
@@ -275,29 +378,25 @@ $$
 
 ## Solving a linear system using matrices
 
-To solve a matrix system $A \mathbf{x} = \mathbf{b}$ for an unknown left-hand side $\mathbf{x}$.
+To solve the matrix equation $A\mathbf{x} = \mathbf{b}$ for the unknown vector $\mathbf{x}$, we multiply both sides on the left by $A^{-1}$:
 
-- If it's of order 2 then use the formula to write $A^{-1}$ and hence $\mathbf{x} = A^{-1}\mathbf{b}$.
+$$
+\begin{aligned}
+A^{-1}A\mathbf{x} &= A^{-1}\mathbf{b} \\
+I\mathbf{x} &= A^{-1}\mathbf{b} \\
+\mathbf{x} &= A^{-1}\mathbf{b}
+\end{aligned}
+$$
 
-- If it's larger $(3\times3)$ then there's still a formula for $A^{-1}$ (not in this course).
+We must multiply on the left on both sides, because the order of multiplication matters: $\mathbf{b}A^{-1}$ is not even defined when $\mathbf{b}$ is a column vector.
 
-- Use an analytical method (Gaussian elimination) to find the inverse (not in this course).
+To find $\mathbf{x}$:
 
-- Use a numerical scheme to find an approximation to $\mathbf{x}$, such as Newton's method (not in this course).
-
-- Solve using linear algebra software (e.g. in Python, which we will see shortly).
+- for a 2x2 matrix, use the formula for $A^{-1}$ and calculate $\mathbf{x} = A^{-1}\mathbf{b}$;
+- for larger matrices by hand, use Gaussian elimination, which is the elimination we used at the start of the lecture, done systematically one unknown at a time (not in this course);
+- in practice, use a linear algebra package such as NumPy or SymPy, which does this for us.
 
 ### Example of solving a 2x2 linear system
-
-$$
-A^{-1}A\mathbf{x}=A^{-1}\mathbf{b}
-$$
-
-and
-
-$$
-\mathbf{x}=A^{-1}\mathbf{b}
-$$
 
 Let's take an example:
 
@@ -314,7 +413,7 @@ $$
 \left(\begin{matrix}1 &5\\ -1&5\end{matrix}\right) \left(\begin{matrix}x\\ y\end{matrix}\right) = \left(\begin{matrix}11\\ 9\end{matrix}\right)
 $$
 
-We have:
+The determinant is $|A| = (1\times 5) - (5\times -1) = 10$, so from the formula:
 
 $$
 A^{-1}= \frac{1}{10} \left(\begin{matrix}5 &-5\\ 1&1 \end{matrix}\right)
@@ -326,9 +425,9 @@ $$
 \left(\begin{matrix}x\\ y\end{matrix}\right) = \frac{1}{10}\left(\begin{matrix}5 &-5\\ 1&1\end{matrix}\right)\left(\begin{matrix}11\\ 9\end{matrix}\right) =\frac{1}{10} \left(\begin{matrix}10\\ 20\end{matrix}\right) =\left(\begin{matrix}1\\ 2\end{matrix}\right)
 $$
 
-And $x=1, y=2$
+And $x=1, y=2$: the point where the two lines cross in the figure above.
 
-This process seems like more effort than its worth for small systems.
+This process seems like more effort than it's worth for small systems.
 But it allows for a much more systematic approach when dealing with large systems.
 
 As the size of the matrix grows, this process can be easily performed with Python (or other tools).
@@ -352,21 +451,22 @@ $$
 
 #### Numerically, using NumPy
 
-```python
-# In python, we use numpy arrays to store the needed matrices
-# the procedure linalg.solve, solves the system Ax = b
-# We could also calculate the inverse of A (linalg.inv), and then multiply.
-# But this is faster
-import numpy as np
-A = np.array([[1,5,3,-1],[1,-2,1,4],[-3,1,-1,2],[1,1,1,0]])
+In Python, we store matrices and vectors as NumPy arrays, and `np.linalg.solve` solves $A\mathbf{x} = \mathbf{b}$.
+We could instead calculate the inverse of $A$ with `np.linalg.inv` and multiply, but solving directly is faster and more accurate.
+The `@` operator multiplies matrices, so we can check the answer by calculating $A\mathbf{x}$:
 
+```python
+import numpy as np
+
+A = np.array([[1, 5, 3, -1], [1, -2, 1, 4], [-3, 1, -1, 2], [1, 1, 1, 0]])
 b = np.array([5, 2, -5, 0])
 
-x = np.linalg.solve(A,b)
-
+# Solve A x = b directly: faster and more accurate than finding A^-1
+x = np.linalg.solve(A, b)
 print(x)
 
-print(np.matmul(A,x))
+# Check: A x should give back b
+print(A @ x)
 ```
 
 ```text
@@ -374,14 +474,20 @@ print(np.matmul(A,x))
 [ 5.0000000e+00  2.0000000e+00 -5.0000000e+00 -8.8817842e-16]
 ```
 
+The last entry of $A\mathbf{x}$ is $-8.9\times 10^{-16}$, not $0$.
+Computers store numbers to about 16 significant figures, so tiny rounding errors like this appear in almost every numerical calculation.
+
 #### Symbolically, using SymPy
+
+SymPy works with exact fractions instead, so there are no rounding errors:
 
 ```python
 import sympy as sp
-A = sp.Matrix([[1,5,3,-1],[1,-2,1,4],[-3,1,-1,2],[1,1,1,0]])
 
-A.inv() * sp.Matrix([5, 2, -5, 0])
+A = sp.Matrix([[1, 5, 3, -1], [1, -2, 1, 4], [-3, 1, -1, 2], [1, 1, 1, 0]])
+b = sp.Matrix([5, 2, -5, 0])
 
+A.solve(b)
 ```
 
 $$
