@@ -4,11 +4,21 @@ dependsOn: [introductory_courses.python.08_errors_and_exceptions]
 tags: [python]
 learningOutcomes:
   - Creating functions to encapsulate code and enable re-use.
+  - Setting default values for parameters and calling functions with keyword arguments.
+  - Building functions out of other functions.
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries
     url: https://swcarpentry.github.io/python-novice-inflammation/
     image: https://carpentries.org/carpentries-logo.svg
+    license: CC-BY-4.0
+  - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
+    url: https://www.sabsr3.ox.ac.uk
+    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
+    license: CC-BY-4.0
+  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
+    url: https://www.universe-hpc.ac.uk
+    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
     license: CC-BY-4.0
 ---
 
@@ -85,8 +95,8 @@ print_date(month=3, day=19, year=1871)
 1871/3/19
 ```
 
-- Arguments defined in the function call are called _positional arguments_ and are referred to collectively as `args`.
-- Arguments defined in the function definition are called _keyword arguments_ or `kwargs`.
+- Arguments matched by their position are called _positional arguments_.
+- Arguments matched by their name, like `month=3`, are called _keyword arguments_ (or _named arguments_).
 
 ## Functions may return a result to their caller using `return`
 
@@ -132,6 +142,135 @@ print('result of call is:', result)
 1871/3/19
 result of call is: None
 ```
+
+## Parameters can have default values
+
+- Give a parameter a default value in the definition with `name=value`.
+- If the caller doesn't pass that argument, the default is used.
+- Parameters with defaults must come after parameters without them.
+
+```python
+def say_hello(name='World'):
+    return 'Hello, ' + name + '!'
+
+print(say_hello())
+print(say_hello('Ada'))
+print(say_hello(name='Grace'))
+```
+
+```text
+Hello, World!
+Hello, Ada!
+Hello, Grace!
+```
+
+- Defaults are useful for options that usually have a sensible value, but that callers sometimes want to change.
+- Built-in functions use them too: `help(round)` shows `round(number, ndigits=None)`.
+- When you mix the two kinds of argument in a call, positional arguments must come first.
+
+```python nolint
+print(say_hello(name='Ada', 'Grace'))
+```
+
+```text
+SyntaxError: positional argument follows keyword argument
+```
+
+::::challenge{id="custom_greetings" title="Custom Greetings"}
+
+Write a new version of `say_hello` with two parameters, `greeting` and `name`, which default to `'Hello'` and `'World'`.
+How many different ways can you call it using combinations of positional and keyword arguments?
+
+:::solution
+
+```python
+def say_hello(greeting='Hello', name='World'):
+    return greeting + ', ' + name + '!'
+
+print(say_hello())                                # both defaults
+print(say_hello('Hi'))                            # one positional
+print(say_hello(name='Ada'))                      # one keyword
+print(say_hello('Hi', 'Ada'))                     # both positional
+print(say_hello('Hi', name='Ada'))                # positional, then keyword
+print(say_hello(name='Ada', greeting='Hi'))       # both keyword, in any order
+```
+
+Python won't let you give a positional argument after a keyword argument.
+
+:::
+::::
+
+## Functions can call other functions
+
+- A function hides _how_ a calculation is done, so other code can use it without worrying about the details.
+- That includes other functions: build bigger functions out of smaller ones. This is called _composition_.
+- For example, converting Fahrenheit to Kelvin goes through Celsius:
+
+```python
+def fahr_to_cels(fahr):
+    cels = (fahr - 32) * (5 / 9)
+    return cels
+
+def fahr_to_kelv(fahr):
+    cels = (fahr - 32) * (5 / 9)
+    kelv = cels + 273.15
+    return kelv
+
+print(fahr_to_kelv(32))
+print(fahr_to_kelv(212))
+```
+
+```text
+273.15
+373.15
+```
+
+- The Fahrenheit-to-Celsius formula appears twice. If we found a typo in one copy, we'd have to remember to fix the other.
+- Call `fahr_to_cels` from `fahr_to_kelv` instead, so the formula lives in one place:
+
+```python
+def fahr_to_cels(fahr):
+    return (fahr - 32) * (5 / 9)
+
+def fahr_to_kelv(fahr):
+    return fahr_to_cels(fahr) + 273.15
+
+print(fahr_to_kelv(212))
+```
+
+```text
+373.15
+```
+
+- Each function now does one small job, which makes it easier to read and to check.
+
+::::challenge{id="combining_strings" title="Combining Strings"}
+
+"Adding" two strings joins them: `'a' + 'b'` is `'ab'`.
+
+1. Write a function `fence(original, wrapper)` that returns `original` with `wrapper` added at the start and end,
+   so `fence('name', '*')` returns `'*name*'`.
+2. Using `fence`, write a function `double_fence(original, inner, outer)`, so that
+   `double_fence('name', '-', '*')` returns `'*-name-*'`.
+
+:::solution
+
+```python
+def fence(original, wrapper):
+    return wrapper + original + wrapper
+
+def double_fence(original, inner, outer):
+    return fence(fence(original, inner), outer)
+
+print(double_fence('name', '-', '*'))
+```
+
+```text
+*-name-*
+```
+
+:::
+::::
 
 ::::challenge{id="identifying_syntax_errors" title="Identifying Syntax Errors"}
 

@@ -1,6 +1,6 @@
 ---
 name: Libraries
-dependsOn: [introductory_courses.python.10_variable_scope]
+dependsOn: [introductory_courses.python.12_tuples_and_dictionaries]
 tags: [python]
 learningOutcomes:
   - Understanding and importing libraries.

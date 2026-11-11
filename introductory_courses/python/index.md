@@ -14,6 +14,8 @@ files: [
     08_errors_and_exceptions.md,
     09_writing_functions.md,
     10_variable_scope.md,
+    11_handling_exceptions.md,
+    12_tuples_and_dictionaries.md,
     13_libraries.md,
     14_analyzing_and_visualizing_data.md,
     15_pandas_dataframes.md,
