@@ -1,6 +1,6 @@
 ---
 name: Conditionals
-dependsOn: [introductory_courses.python.09_for_loops]
+dependsOn: [introductory_courses.python.06_for_loops]
 tags: [python]
 learningOutcomes:
   - Using conditional 'if' statements to selectively execute code and in functions
@@ -264,33 +264,6 @@ print(result)
 :::
 ::::
 
-::::challenge{id="processing_small_files" title="Processing Small Files"}
-
-Modify this program so that it only processes files with fewer than 50 records.
-
-```python nolint
-import glob
-import pandas as pd
-for filename in glob.glob('data/*.csv'):
-    contents = pd.read_csv(filename)
-    ____:
-        print(filename, len(contents))
-```
-
-:::solution
-
-```python
-import glob
-import pandas as pd
-for filename in glob.glob('data/*.csv'):
-    contents = pd.read_csv(filename)
-    if len(contents) < 50:
-        print(filename, len(contents))
-```
-
-:::
-::::
-
 ::::challenge{id="initializing" title="Initializing"}
 
 Modify this program so that it finds the largest and smallest values in the list
@@ -340,53 +313,3 @@ print(smallest, largest)
 
 :::
 ::::
-
-:::callout
-
-## Using Functions With Conditionals in Pandas
-
-Functions will often contain conditionals. Here is a short example that
-will indicate which quartile the argument is in based on hand-coded values
-for the quartile cut points.
-
-```python
-def calculate_life_quartile(exp):
-    if exp < 58.41:
-        # This observation is in the first quartile
-        return 1
-    elif exp >= 58.41 and exp < 67.05:
-        # This observation is in the second quartile
-        return 2
-    elif exp >= 67.05 and exp < 71.70:
-        # This observation is in the third quartile
-        return 3
-    elif exp >= 71.70:
-        # This observation is in the fourth quartile
-        return 4
-    else:
-        # This observation has bad data
-        return None
-
-calculate_life_quartile(62.5)
-```
-
-```text
-2
-```
-
-That function would typically be used within a `for` loop, but Pandas has
-a different, more efficient way of doing the same thing, and that is by
-_applying_ a function to a dataframe or a portion of a dataframe. Here
-is an example, using the definition above.
-
-```python
-data = pd.read_csv('data/gapminder_all.csv')
-data['life_qrtl'] = data['lifeExp_1952'].apply(calculate_life_quartile)
-```
-
-There is a lot in that second line, so let's take it piece by piece.
-On the right side of the `=` we start with `data['lifeExp']`, which is the
-column in the dataframe called `data` labeled `lifExp`. We use the
-`apply()` to do what it says, apply the `calculate_life_quartile` to the
-value of this column for every row in the dataframe.
-:::

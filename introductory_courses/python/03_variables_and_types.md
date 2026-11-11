@@ -1,6 +1,6 @@
 ---
 name: Variables and Types
-dependsOn: [introductory_courses.python.01_running_python]
+dependsOn: [introductory_courses.python.02_writing_and_running_ide]
 tags: [python]
 learningOutcomes:
   - Creating and using variables.
@@ -64,7 +64,7 @@ NameError: name 'last_name' is not defined
 ```
 
 - The last line of an error message is usually the most informative
-- We will look at error messages in detail [later](12_errors_and_exceptions)
+- We will look at error messages in detail [later](08_errors_and_exceptions)
 
 ## Variables can be used in calculations
 
@@ -100,7 +100,7 @@ Age in three years: 45
 - The characters (individual letters, numbers, and so on) in a string are ordered.
   For example, the string `'AB'` is not the same as `'BA'`.
   Because of this ordering, we can treat the string as a list of characters.
-  - We will look at [lists in python more generally later](08_lists)
+  - We will look at [lists in python more generally later](05_lists)
 - Each position in the string (first, second, etc.) is given a number.
   This number is called an **index** or sometimes a subscript.
 - Indices are numbered from 0.

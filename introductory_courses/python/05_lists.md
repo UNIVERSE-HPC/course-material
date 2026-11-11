@@ -1,6 +1,6 @@
 ---
 name: Lists
-dependsOn: [introductory_courses.python.07_pandas_dataframes]
+dependsOn: [introductory_courses.python.04_built_in_functions_and_help]
 tags: [python]
 learningOutcomes:
   - Storing and accessing values in lists
@@ -75,9 +75,9 @@ name[0] = 'd'
 ```text
 ---------------------------------------------------------------------------
 TypeError                                 Traceback (most recent call last)
-<ipython-input-8-220df48aeb2ein <module>()
+<ipython-input-8-220df48aeb2e> in <module>()
       1 name = 'Darwin'
-----2 name[0] = 'd'
+----> 2 name[0] = 'd'
 
 TypeError: 'str' object does not support item assignment
 ```

@@ -1,6 +1,6 @@
 ---
 name: Pandas Dataframes
-dependsOn: [introductory_courses.python.06_analyzing_and_visualizing_data]
+dependsOn: [introductory_courses.python.14_analyzing_and_visualizing_data]
 tags: [python]
 learningOutcomes:
   - Reading and writing data.
@@ -898,7 +898,7 @@ This command returns:
 'zfill']
 ```
 
-You can use `help()` or <kbd>Shift</kbd>+<kbd>Tab</kbdto get more information about what these methods do.
+You can use `help()` or <kbd>Shift</kbd>+<kbd>Tab</kbd> to get more information about what these methods do.
 
 Assume Pandas has been imported and the Gapminder GDP data for Europe has been loaded as `data`. Then, use `dir()`
 to find the function that prints out the median per-capita GDP across all European countries for each year that information is available.
