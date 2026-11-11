@@ -130,7 +130,7 @@ round(3.712, 1)
 
 ## Methods
 
-Functions can be tied to a particular object, these are called _methods_, we will make extensive use of these when learning about [pandas](15_pandas_dataframes).
+Functions can be tied to a particular object, these are called _methods_, we will make extensive use of these in Part 2 of the course, for example when learning about [pandas](15_pandas_dataframes).
 Methods behave in the same way as functions, and are called with parentheses like functions.
 They can be accessed from their base object with a dot (`obj.method()`).
 

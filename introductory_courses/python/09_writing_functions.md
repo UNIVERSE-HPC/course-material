@@ -175,7 +175,7 @@ print('calling', report, 22.5)
 :::solution
 
 ```text
-calling <function report at 0x7fd128ff1bf822.5
+calling <function report at 0x7fd128ff1bf8> 22.5
 ```
 
 A function call always needs parentheses, otherwise you get memory address of the function object. So, if we wanted to call the function named report, and give it the value 22.5 to report on, we would have to call our function as follows:
@@ -232,33 +232,6 @@ pressure is 22.5
    of the `result` variable.
 
 3. `print_time()` does not explicitly `return` a value, so it automatically returns `None`.
-
-:::
-::::
-
-::::challenge{id="encapsulation" title="Encapsulation"}
-
-Fill in the blanks to create a function that takes a single filename as an argument,
-loads the data in the file named by the argument,
-and returns the minimum value in that data.
-
-```python nolint
-import pandas as pd
-
-def min_in_data(____):
-    data = ____
-    return ____
-```
-
-:::solution
-
-```python
-import pandas as pd
-
-def min_in_data(filename):
-    data = pd.read_csv(filename)
-    return data.min()
-```
 
 :::
 ::::
@@ -322,9 +295,8 @@ print_date(day=1, month=2, year=2003)
 :::solution
 
 1. `2003/2/1`
-2. We saw examples of using _named arguments_ when working with the pandas library. For example, when reading in a dataset
-   using `data = pd.read_csv('data/gapminder_gdp_europe.csv', index_col='country')`, the last argument `index_col` is a
-   named argument.
+2. We saw named arguments with built-in functions. For example, `help(round)` shows `round(number, ndigits=None)`,
+   so we can call `round(3.712, ndigits=1)`, where `ndigits` is a named argument.
 3. Using named arguments can make code more readable since one can see from the function call what name the different arguments
    have inside the function. It can also reduce the chances of passing arguments in the wrong order, since by using named arguments
    the order doesn't matter.
@@ -396,93 +368,6 @@ def print_egg_label(mass):
         return "too light, probably spoiled"
     else:
         return "small"
-```
-
-:::
-::::
-
-::::challenge{id="encapsulating_data_analysis" title="Encapsulating Data Analysis"}
-
-Assume that the following code has been executed:
-
-```python
-import pandas as pd
-
-df = pd.read_csv('data/gapminder_gdp_asia.csv', index_col=0)
-japan = df.loc['Japan']
-```
-
-1. Complete the statements below to obtain the average GDP for Japan
-   across the years reported for the 1980s.
-
-   ```python nolint
-   year = 1983
-   gdp_decade = 'gdpPercap_' + str(year // ____)
-   avg = (japan.loc[gdp_decade + ___] + japan.loc[gdp_decade + ___]) / 2
-   ```
-
-2. Abstract the code above into a single function.
-
-   ```python nolint
-   def avg_gdp_in_decade(country, continent, year):
-       df = pd.read_csv('data/gapminder_gdp_'+___+'.csv',delimiter=',',index_col=0)
-       ____
-       ____
-       ____
-       return avg
-   ```
-
-3. How would you generalize this function
-   if you did not know beforehand which specific years occurred as columns in the data?
-   For instance, what if we also had data from years ending in 1 and 9 for each decade?
-   (Hint: use the columns to filter out the ones that correspond to the decade,
-   instead of enumerating them in the code.)
-
-:::solution
-
-1. The average GDP for Japan across the years reported for the 1980s is computed with:
-
-   ```python
-   year = 1983
-   gdp_decade = 'gdpPercap_' + str(year // 10)
-   avg = (japan.loc[gdp_decade + '2'] + japan.loc[gdp_decade + '7']) / 2
-   ```
-
-2. That code as a function is:
-
-   ```python test
-   def avg_gdp_in_decade(country, continent, year):
-       df = pd.read_csv('data/gapminder_gdp_' + continent + '.csv', index_col=0)
-       c = df.loc[country]
-       gdp_decade = 'gdpPercap_' + str(year // 10)
-       avg = (c.loc[gdp_decade + '2'] + c.loc[gdp_decade + '7'])/2
-       return avg
-   ```
-
-3. To obtain the average for the relevant years, we need to loop over them:
-
-   ```python
-   def avg_gdp_in_decade(country, continent, year):
-       df = pd.read_csv('data/gapminder_gdp_' + continent + '.csv', index_col=0)
-       c = df.loc[country]
-       gdp_decade = 'gdpPercap_' + str(year // 10)
-       total = 0.0
-       num_years = 0
-       for yr_header in c.index: # c's index contains reported years
-           if yr_header.startswith(gdp_decade):
-               total = total + c.loc[yr_header]
-               num_years = num_years + 1
-       return total/num_years
-   ```
-
-The function can now be called by:
-
-```python
-avg_gdp_in_decade('Japan','asia',1983)
-```
-
-```text
-20880.023800000003
 ```
 
 :::

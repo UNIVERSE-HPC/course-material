@@ -74,6 +74,8 @@ print(clip(value))
 
 ::::challenge{id="reading_error_messages" title="Reading Error Messages"}
 
+The code from the "Reading Error Messages" challenge in [Errors and Exceptions](08_errors_and_exceptions) has been saved
+in a file called `errors_02.py`, and then loaded with `import errors_02` (you'll learn more about `import` in [Libraries](13_libraries)).
 Read the traceback below, and identify the following:
 
 1. How many levels does the traceback have?
@@ -86,19 +88,19 @@ Read the traceback below, and identify the following:
 ```text
 ---------------------------------------------------------------------------
 KeyError                                  Traceback (most recent call last)
-<ipython-input-2-e4c4cbafeeb5in <module>()
+<ipython-input-2-e4c4cbafeeb5> in <module>()
       1 import errors_02
-----2 errors_02.print_friday_message()
+----> 2 errors_02.print_friday_message()
 
 /Users/ghopper/thesis/code/errors_02.py in print_friday_message()
      13
      14 def print_friday_message():
----15     print_message("Friday")
+---> 15     print_message("Friday")
 
 /Users/ghopper/thesis/code/errors_02.py in print_message(day)
       9         "sunday": "Aw, the weekend is almost over."
      10     }
----11     print(messages[day])
+---> 11     print(messages[day])
      12
      13
 
