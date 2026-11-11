@@ -1,6 +1,6 @@
 ---
 name: Libraries
-dependsOn: [introductory_courses.python.04_built_in_functions_and_help]
+dependsOn: [introductory_courses.python.10_variable_scope]
 tags: [python]
 learningOutcomes:
   - Understanding and importing libraries.
@@ -194,7 +194,7 @@ print(sample(bases, 1)[0])
 ```
 
 Note that this function returns a list of values.
-We will learn about [lists](08_lists) later.
+We will learn about [lists](05_lists) later.
 
 There's also other functions you could use, but with more convoluted code as a result.
 :::

@@ -1,6 +1,6 @@
 ---
 name: Writing Functions
-dependsOn: [introductory_courses.python.12_errors_and_exceptions]
+dependsOn: [introductory_courses.python.08_errors_and_exceptions]
 tags: [python]
 learningOutcomes:
   - Creating functions to encapsulate code and enable re-use.
@@ -120,7 +120,7 @@ print('average of empty list:', average([]))
 average of empty list: None
 ```
 
-- Remember: [every function returns something]({{ page.root }}/04-built-in/).
+- Remember: [every function returns something](04_built_in_functions_and_help).
 - A function that doesn't explicitly `return` a value automatically returns `None`.
 
 ```python

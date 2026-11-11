@@ -1,6 +1,6 @@
 ---
 name: Looping Over Data Sets
-dependsOn: [introductory_courses.python.10_conditionals]
+dependsOn: [introductory_courses.python.15_pandas_dataframes]
 tags: [python]
 learningOutcomes:
   - Batch processing files with loops.

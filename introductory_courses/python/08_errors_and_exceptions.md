@@ -1,6 +1,6 @@
 ---
 name: Errors and Exceptions
-dependsOn: [introductory_courses.python.11_looping_over_data_sets]
+dependsOn: [introductory_courses.python.07_conditionals]
 tags: [python]
 learningOutcomes:
   - Understanding Python error traceback form

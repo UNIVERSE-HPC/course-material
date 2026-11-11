@@ -1,6 +1,6 @@
 ---
 name: Variable Scope
-dependsOn: [introductory_courses.python.13_writing_functions]
+dependsOn: [introductory_courses.python.09_writing_functions]
 tags: [python]
 learningOutcomes:
   - Understand the difference between local and global scopes.

@@ -1,6 +1,6 @@
 ---
 name: Analyzing and Visualizing Data
-dependsOn: [introductory_courses.python.05_libraries]
+dependsOn: [introductory_courses.python.13_libraries]
 tags: [python]
 learningOutcomes:
   - Using the NumPy library to import and analyze data.
@@ -18,14 +18,14 @@ For this lesson, you will first need to download and unzip [uniqplus_python_data
 :::
 
 Words are useful, but what's more useful are the sentences and stories we build with them.
-Similarly, while a lot of powerful, general tools are built into Python, specialized tools built up from these basic units live in [libraries](05_libraries) that can be called upon when needed.
+Similarly, while a lot of powerful, general tools are built into Python, specialized tools built up from these basic units live in [libraries](13_libraries) that can be called upon when needed.
 
 ## Loading data into Python
 
 To begin processing inflammation data, we need to load it into Python.
 One way we can accomplish this is using a library called [NumPy](http://docs.scipy.org/doc/numpy/ "NumPy Documentation"), which stands for Numerical Python.
 In general, you should be using this library whenever you want to do fancy things with lots of numbers, especially if you have matrices or arrays.
-To tell Python that we'd like to start using NumPy, we need to [import it](05_libraries):
+To tell Python that we'd like to start using NumPy, we need to [import it](13_libraries):
 
 ```python
 import numpy
@@ -821,7 +821,7 @@ formats, including SVG, PDF, and JPEG.
 ## Importing libraries with aliases
 
 In this lesson we use the `import matplotlib.pyplot` syntax to import the `pyplot` module of `matplotlib`.
-However, as [we saw earlier](05_libraries), aliases such as `import matplotlib.pyplot as plt` are frequently used.
+However, as [we saw earlier](13_libraries), aliases such as `import matplotlib.pyplot as plt` are frequently used.
 Importing `pyplot` this way means that after the initial import, rather than writing `matplotlib.pyplot.plot(...)`, you can now write `plt.plot(...)`.
 
 Another common convention is to use the shortcut `import numpy as np` when importing the NumPy library.

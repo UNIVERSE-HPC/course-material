@@ -4,21 +4,21 @@ name: Intro to Python
 dependsOn: [
 ]
 files: [
-    01_running_python.md,    
-    02_variables_and_types.md,
-    03_writing_and_running_ide.md,
+    01_running_python.md,
+    02_writing_and_running_ide.md,
+    03_variables_and_types.md,
     04_built_in_functions_and_help.md,
-    05_libraries.md,
-    06_analyzing_and_visualizing_data.md,
-    07_pandas_dataframes.md,
-    08_lists.md,
-    09_for_loops.md,
-    10_conditionals.md,
-    11_looping_over_data_sets.md,
-    12_errors_and_exceptions.md,
-    13_writing_functions.md,
-    14_variable_scope.md,
-    15_snake_game.md,
+    05_lists.md,
+    06_for_loops.md,
+    07_conditionals.md,
+    08_errors_and_exceptions.md,
+    09_writing_functions.md,
+    10_variable_scope.md,
+    13_libraries.md,
+    14_analyzing_and_visualizing_data.md,
+    15_pandas_dataframes.md,
+    16_looping_over_data_sets.md,
+    17_snake_game.md,
 ]
 attribution: 
     - citation: >
@@ -27,10 +27,17 @@ attribution:
       image: https://carpentries.org/carpentries-logo.svg
       license: CC-BY-4.0
 summary: |
-    This course introduces the basics of programming in Python.
-    We will learn how to run Python code, and how to use variables, functions, and control flow.
-    We will also learn how to use Python for data analysis and visualization.
+    This course introduces the basics of programming in Python, in two parts.
+    Part 1 covers the core language: running Python, variables and types, lists, loops, conditionals and reading errors.
+    Part 2 covers functions, exceptions, tuples and dictionaries, and then libraries for data analysis and visualization (NumPy, Matplotlib and pandas).
 ---
+
+## How this course is organised
+
+The course follows the two-part Intro to Python slide sessions.
+
+- **Part 1: the core language (episodes 1–8).** Running Python and writing scripts in an IDE, variables and types, built-in functions and help, lists, `for` loops, conditionals, and reading errors.
+- **Part 2: functions, containers and data (episodes 9–17).** Writing functions, variable scope, raising and handling exceptions, tuples and dictionaries, then libraries, NumPy and Matplotlib, pandas DataFrames, and looping over data sets. It finishes with the Snake game project.
 
 ## Python: A High-Level Overview
 

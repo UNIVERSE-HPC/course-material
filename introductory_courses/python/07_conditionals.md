@@ -1,6 +1,6 @@
 ---
 name: Conditionals
-dependsOn: [introductory_courses.python.09_for_loops]
+dependsOn: [introductory_courses.python.06_for_loops]
 tags: [python]
 learningOutcomes:
   - Using conditional 'if' statements to selectively execute code and in functions

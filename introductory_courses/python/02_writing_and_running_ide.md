@@ -1,6 +1,6 @@
 ---
 name: Writing and running Python from an IDE
-dependsOn: [introductory_courses.python.02_variables_and_types]
+dependsOn: [introductory_courses.python.01_running_python]
 tags: [python]
 learningOutcomes:
   - Creating Python scripts
