@@ -236,9 +236,10 @@ So, from the trace and determinant alone:
 - $\Delta > 0$ and $\tau > 0$: unstable
 - $\tau^2 < 4\Delta$: the eigenvalues are complex, and the fixed point is a spiral
 
-The diagram below shows each type in the $(\Delta, \tau)$ plane:
+The diagram below shows each type in the $(\Delta, \tau)$ plane, with a small phase portrait of an example in each region.
+Stars and degenerate nodes lie on the parabola $\tau^2 = 4\Delta$, and centres on the positive $\Delta$ axis:
 
-![Phase diagram showing different behaviour given the eigenvalues](fig/16_02_phase_diagram.svg)
+![The types of fixed point in the plane of the determinant and trace of J: saddles for negative determinant, nodes outside the parabola tau squared = 4 delta, spirals inside it, and centres on the positive determinant axis](fig/16_02_phase_diagram.svg)
 
 ## Example: stability of the fixed points
 
