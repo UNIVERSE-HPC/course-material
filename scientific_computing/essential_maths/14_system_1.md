@@ -7,10 +7,11 @@ dependsOn:
   ]
 tags: []
 learningOutcomes:
-  - Understand the concept of a linear system of differential equations
-  - Recognise the different methods to solve a linear system
-  - Be able to turn a coupled linear system into a single differential equation
-  - Be able to use matrix diagonalisation to solve a linear system in terms of its eigenvalues
+  - Understand the concept of a coupled linear system of differential equations
+  - Recognise the three methods to solve a linear system, and when each is useful
+  - Be able to turn a coupled linear system into a single second order differential equation
+  - Be able to eliminate time to find the paths of the solutions in the plane
+  - Be able to use matrix diagonalisation to solve a linear system in terms of its eigenvalues and eigenvectors
 attribution:
   - citation: This material has been adapted from material by Fergus Cooper and others from the "Essential Mathematics" module at the Doctoral Training Centre, University of Oxford.
     url: https://www.dtc.ox.ac.uk/
@@ -32,46 +33,42 @@ A recording of this lecture from October 2020; the material has changed a little
 
 ---
 
-## Linear systems
+## Why systems of differential equations?
 
-Our aim is to solve systems of equations of the form:
+In lectures 9 to 11 we solved differential equations for a single quantity, such as a population or a concentration.
+Most biological systems have several quantities that change together, each affecting the others.
+For example:
+
+- predators and prey, in the [Lotka-Volterra](https://en.wikipedia.org/wiki/Lotka%E2%80%93Volterra_equations) model
+- the susceptible, infected and recovered in an epidemic, in the [SIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology)
+- the species in a [chemical reaction network](https://en.wikipedia.org/wiki/Chemical_reaction_network_theory)
+- the ion channels in a [heart cell](http://www.scholarpedia.org/article/Models_of_cardiac_cell)
+
+These give **systems** of differential equations, of the form
 
 $$
 \frac{dy_i}{dt} = f_i(y_1,\ldots,y_n,t),
 $$
 
-for $i=1,\ldots,n$.
-
-Let us first consider the simplest form: a $2\times2$ **linear** system
-
-$$
-\begin{aligned}
-\frac{dx}{dt} &= ax+by,\\
-\frac{dy}{dt} &= cx+dy.
-\end{aligned}
-$$
-
-## Motivation
-
-- [Lotka-Volterra](https://en.wikipedia.org/wiki/Lotka%E2%80%93Volterra_equations) (predator-prey)
-
-- [SIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology) (epidemics)
-
-- [Chemical reaction networks](https://en.wikipedia.org/wiki/Chemical_reaction_network_theory)
-
-- [Heart cell dynamics](http://www.scholarpedia.org/article/Models_of_cardiac_cell)
+for $i=1,\ldots,n$, where the rate of change of each quantity can depend on all of the others.
 
 In order to understand these systems, we must first understand coupled linear systems.
+In this lecture we solve them using the eigenvalues and eigenvectors from lecture 13, and in lectures 15 and 16 we use them to understand nonlinear systems.
 
-## Recap of eigenvalues
+## Recap: eigenvalues and eigenvectors
+
+We will use the matrix
 
 $$
 A = \left(\begin{matrix} 1 & 1\\2 & 0 \end{matrix}\right)
 $$
 
+throughout this lecture.
+SymPy gives its eigenvalues (each with its multiplicity):
+
 ```python
 import sympy as sp
-A = sp.Matrix([[1, 1],[2, 0]])
+A = sp.Matrix([[1, 1], [2, 0]])
 A.eigenvals()
 ```
 
@@ -79,11 +76,7 @@ $$
 \left\{ -1 : 1, \  2 : 1\right\}
 $$
 
-## Recap of eigenvectors
-
-$$
-A = \left(\begin{matrix} 1 & 1\\2 & 0 \end{matrix}\right)
-$$
+and its eigenvectors (each with its eigenvalue and multiplicity):
 
 ```python
 A.eigenvects()
@@ -93,62 +86,59 @@ $$
 \def\arraystretch{1.8}\left[ \left( -1, \  1, \  \left[ \left[\begin{matrix}- \frac{1}{2}\\1\end{matrix}\right]\right]\right), \  \left( 2, \  1, \  \left[ \left[\begin{matrix}1\\1\end{matrix}\right]\right]\right)\right]
 $$
 
-## Recap of diagonalisation
+So $\lambda_1 = -1$, with eigenvector $\mathbf{v}_1 = (-1/2, 1)^T$, and $\lambda_2 = 2$, with eigenvector $\mathbf{v}_2 = (1, 1)^T$.
 
-Recall that, for a matrix $A$ with **eigenvectors** $\mathbf{v}_1$ and $\mathbf{v}_2$, and **eigenvalues** $\lambda_1$ and $\lambda_2$, we can write a matrix of eigenvectors: $P = \left(\begin{matrix} \mathbf{v}_1 & \mathbf{v}_2 \end{matrix}\right)$. Then:
+## Recap: diagonalisation
+
+Recall that if a matrix $A$ has **eigenvectors** $\mathbf{v}_1$ and $\mathbf{v}_2$, with **eigenvalues** $\lambda_1$ and $\lambda_2$, then with the eigenvectors in the columns of $P$ and the eigenvalues on the diagonal of $D$,
 
 $$
-A = P \left(\begin{matrix} \lambda_1 & 0 \\ 0& \lambda_2 \end{matrix}\right) P^{-1}
+A = PDP^{-1}, \qquad P = \left(\begin{matrix} \mathbf{v}_1 & \mathbf{v}_2 \end{matrix}\right), \qquad D = \left(\begin{matrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{matrix}\right).
 $$
 
-(This is also true for general $n \times n$ matrices.)
+(This is also true for general $n \times n$ matrices with a full set of eigenvectors.)
 
 In our example,
 
 $$
-P = \left(\begin{matrix} -\frac{1}{2} & 1 \\ 1& 1 \end{matrix}\right),\qquad\lambda_1 = -1,\qquad\lambda_2=2.
+P = \left(\begin{matrix} -\frac{1}{2} & 1 \\ 1 & 1 \end{matrix}\right),\qquad D = \left(\begin{matrix} -1 & 0 \\ 0 & 2 \end{matrix}\right).
 $$
 
 ## Coupled ODEs
 
-For coupled system of first order linear differential equations of the form
+The simplest system is a $2\times2$ **linear** system, of the form
 
 $$
 \begin{aligned}
 \frac{dx}{dt} &= ax+by,\\
-\frac{dy}{dt} &= cx+dy.
+\frac{dy}{dt} &= cx+dy,
 \end{aligned}
 $$
 
-we have three methods of analysing them mathematically:
+where $a$, $b$, $c$ and $d$ are constants.
+The two equations are **coupled**: the rate of change of $x$ depends on $y$, and the rate of change of $y$ depends on $x$, so we cannot solve either equation on its own.
 
-1. Turn them into one second order equation (if we can solve second order!)
-2. Divide one by other, to get one equation independent of $t$
+We have three methods of analysing them mathematically:
+
+1. Turn them into one second order equation
+2. Divide one by the other, to get one equation independent of $t$
 3. Perform matrix diagonalisation (extends to $n \times n$ problems)
+
+We will use each of them on the same example.
 
 ## Example
 
 Solve
 
 $$
-\begin{aligned}
-\frac{dx}{dt} &= x+y,\\
-\frac{dy}{dt} &= 2x.
-\end{aligned}
+\frac{dx}{dt} = x+y, \qquad \frac{dy}{dt} = 2x,
 $$
 
-Subject to
-
-$$
-\begin{aligned}
-x(0) &= 0,\\
-y(0) &= 3.
-\end{aligned}
-$$
+subject to $x(0) = 0$ and $y(0) = 3$.
 
 ## Method 1: second order
 
-We start with:
+We start with
 
 $$
 \begin{aligned}
@@ -157,17 +147,63 @@ $$
 \end{aligned}
 $$
 
-We can convert that into a second order equation:
+Differentiate the first equation, and use the second to replace $dy/dt$:
 
 $$
-\frac{d^2x}{dt^2} = \frac{dx}{dt} + \frac{dy}{dt} = \frac{dx}{dt} + 2x
-\qquad\implies\qquad
-\boxed{\frac{d^2x}{dt^2} = \frac{dx}{dt} + 2x}
+\frac{d^2x}{dt^2} = \frac{dx}{dt} + \frac{dy}{dt} = \frac{dx}{dt} + 2x.
 $$
+
+This is one second order equation for $x$ alone.
+Once we have found $x$, the first equation gives $y = dx/dt - x$.
+
+:::callout{variant="note"}
+**Solving the second order equation**
+
+We have not covered equations like this one elsewhere in the course, but they can be solved directly.
+In this equation, $x$ and its derivatives are only multiplied by constants, so we can try a solution of the form $x = e^{\lambda t}$.
+Substitute it in, and divide by $e^{\lambda t}$ (which is never zero):
+
+$$
+\begin{aligned}
+\lambda^2 e^{\lambda t} &= \lambda e^{\lambda t} + 2e^{\lambda t} \\
+\lambda^2 - \lambda - 2 &= 0 \\
+(\lambda + 1)(\lambda - 2) &= 0
+\end{aligned}
+$$
+
+So $\lambda = -1$ or $\lambda = 2$.
+These are the eigenvalues of $A$, because $|A - \lambda I| = 0$ is the same equation:
+
+$$
+|A - \lambda I| = \left|\begin{matrix} 1-\lambda & 1 \\ 2 & -\lambda \end{matrix}\right| = (1 - \lambda)(-\lambda) - 2 = \lambda^2 - \lambda - 2.
+$$
+
+Any sum of the two solutions is also a solution, so the general solution is
+
+$$
+x = K_1 e^{-t} + K_2 e^{2t},
+$$
+
+where $K_1$ and $K_2$ are constants.
+Two constants need two conditions.
+We have $x(0) = 0$, and from the first equation $dx/dt = x + y = 3$ at $t = 0$:
+
+$$
+K_1 + K_2 = 0, \qquad -K_1 + 2K_2 = 3,
+$$
+
+so $K_1 = -1$ and $K_2 = 1$.
+So $x = e^{2t} - e^{-t}$, and
+
+$$
+y = \frac{dx}{dt} - x = \left(2e^{2t} + e^{-t}\right) - \left(e^{2t} - e^{-t}\right) = e^{2t} + 2e^{-t}.
+$$
+
+:::
 
 ## Method 2: eliminate $t$
 
-We start with:
+We start with
 
 $$
 \begin{aligned}
@@ -176,63 +212,115 @@ $$
 \end{aligned}
 $$
 
-Then, dividing:
+Then, dividing one by the other:
 
 $$
 \frac{dy}{dx} = \frac{dy/dt}{dx/dt}
 \qquad\implies\qquad
-\boxed{\frac{dy}{dx} = \frac{2x}{x+y}}
+\frac{dy}{dx} = \frac{2x}{x+y}.
 $$
+
+This one equation describes the paths that the solutions follow in the $(x, y)$ plane, but not how fast they move along them, because $t$ no longer appears.
+
+This method is most useful when the new equation is separable.
+Here it is not, but it can be solved with the substitution $y = vx$, as the note below shows.
+
+:::callout{variant="note"}
+**Solving $dy/dx = 2x/(x+y)$**
+
+With $y = vx$, the product rule gives $dy/dx = v + x\,dv/dx$, so
+
+$$
+v + x\frac{dv}{dx} = \frac{2}{1+v}
+\qquad\implies\qquad
+x\frac{dv}{dx} = \frac{2 - v - v^2}{1+v} = -\frac{(v+2)(v-1)}{1+v}.
+$$
+
+This is separable.
+Using partial fractions, as in lecture 10,
+
+$$
+\begin{aligned}
+\int \left(\frac{1}{3(v+2)} + \frac{2}{3(v-1)}\right) dv &= -\int \frac{dx}{x} \\
+\frac{1}{3}\ln|v+2| + \frac{2}{3}\ln|v-1| &= -\ln|x| + c
+\end{aligned}
+$$
+
+Multiplying by 3, taking exponentials, and putting back $v = y/x$, the paths are the curves
+
+$$
+(y + 2x)(y - x)^2 = K,
+$$
+
+where $K$ is a constant.
+With $K = 0$ they include the straight lines $y = -2x$ and $y = x$, which are the directions of the two eigenvectors.
+For our example, $x = 0$ and $y = 3$ give $K = 27$.
+
+:::
+
+As an example where eliminating $t$ works well, take the system
+
+$$
+\frac{dx}{dt} = -y, \qquad \frac{dy}{dt} = 4x.
+$$
+
+Dividing, $dy/dx = -4x/y$, which is separable:
+
+$$
+\begin{aligned}
+\int y\,dy &= -\int 4x\,dx \\
+\frac{1}{2}y^2 &= -2x^2 + c \\
+4x^2 + y^2 &= C
+\end{aligned}
+$$
+
+where $C = 2c$.
+These are ellipses, one for each value of $C$.
+At $(1, 0)$, $dy/dt = 4 > 0$, so the solutions go round anticlockwise.
+The solution that starts at $(1, 0)$ is $x = \cos 2t$, $y = 2\sin 2t$, which goes once round the ellipse with $C = 4$ every $\pi$ units of time.
+Below, it is shown at $t = \pi/8$, and the grey arrows show the direction of $(dx/dt, dy/dt)$ at each point:
+
+![The ellipse 4x^2 + y^2 = 4, with the solution at t = pi/8 and arrows showing the direction of motion](fig/14_01_ellipses.svg)
 
 ## Method 3: diagonalisation
 
 Let
 
 $$
-\mathbf{v}=\left(\begin{matrix}x\\y\end{matrix}\right),
+\mathbf{x}=\left(\begin{matrix}x\\y\end{matrix}\right).
 $$
 
-then
+Then
 
 $$
 \frac{dx}{dt} = x+y,\quad
-\frac{dy}{dt} = 2x \qquad\implies\qquad \boxed{\frac{d\mathbf{v}}{dt} = A\mathbf{v},}
+\frac{dy}{dt} = 2x \qquad\implies\qquad \frac{d\mathbf{x}}{dt} = A\mathbf{x},
 $$
 
-where
+where $A$ is the matrix from the recap:
 
 $$
 A = \left(\begin{matrix} 1 & 1\\2 & 0 \end{matrix}\right).
 $$
 
-Substitute
+Substitute $A = PDP^{-1}$:
 
 $$
-A = P \left(\begin{matrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{matrix}\right) P^{-1},
+\begin{aligned}
+\frac{d\mathbf{x}}{dt} &= PDP^{-1}\mathbf{x} \\
+P^{-1}\frac{d\mathbf{x}}{dt} &= DP^{-1}\mathbf{x} \\
+\frac{d}{dt}\left(P^{-1}\mathbf{x}\right) &= D\left(P^{-1}\mathbf{x}\right)
+\end{aligned}
 $$
 
-then
+To get the second line we multiply both sides on the left by $P^{-1}$.
+For the third, $P^{-1}$ is a matrix of constants, so it can move inside the derivative.
+
+We can now introduce a new variable $\mathbf{z} = P^{-1}\mathbf{x}$, so that
 
 $$
-\frac{d\mathbf{v}}{dt} = P \left(\begin{matrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{matrix}\right) \left( P^{-1}\mathbf{v} \right)
-$$
-
-or
-
-$$
-\frac{d}{dt}(P^{-1} \mathbf{v}) = \left(\begin{matrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{matrix}\right) \left( P^{-1}\mathbf{v} \right).
-$$
-
-We can now introduce a new variable
-
-$$
-\mathbf{z} = \left(\begin{matrix} z_1 \\ z_2\end{matrix}\right) = P^{-1} \mathbf{v}
-$$
-
-so that:
-
-$$
-\frac{d\mathbf{z}}{dt} = \left(\begin{matrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{matrix}\right) \mathbf{z}.
+\frac{d\mathbf{z}}{dt} = D\mathbf{z}, \qquad\text{or}\qquad
+\frac{d}{dt}\left(\begin{matrix} z_1 \\ z_2\end{matrix}\right) = \left(\begin{matrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{matrix}\right) \left(\begin{matrix} z_1 \\ z_2\end{matrix}\right).
 $$
 
 But now, because the matrix is diagonal, the system is no longer coupled.
@@ -240,44 +328,84 @@ The first equation **only** involves $z_1$ and the second **only** involves $z_2
 
 $$
 \begin{aligned}
-\frac{dz_1}{dt} &= \lambda_1 z_1 &&\implies\qquad z_1(t) = A\,e^{\lambda_1 t} \\
-\frac{dz_2}{dt} &= \lambda_2 z_2 &&\implies\qquad z_2(t) = B\,e^{\lambda_2 t}
+\frac{dz_1}{dt} &= \lambda_1 z_1 &&\implies\qquad z_1 = c_1 e^{\lambda_1 t},\\
+\frac{dz_2}{dt} &= \lambda_2 z_2 &&\implies\qquad z_2 = c_2 e^{\lambda_2 t},
 \end{aligned}
 $$
 
-Finally, we can substitute $z_1$ and $z_2$ back in terms of $x$ and $y$ to find the solution to the original coupled system:
+where $c_1$ and $c_2$ are constants.
 
-We have
-
-$$
-\mathbf{z} = \left(\begin{matrix} z_1 \\ z_2\end{matrix}\right) = P^{-1} \mathbf{v} = \frac{1}{3}\left(\begin{matrix} -2 & 2 \\ 2& 1 \end{matrix}\right) \left(\begin{matrix} x \\ y\end{matrix}\right) = \left(\begin{matrix} A\,e^{\lambda_1 t} \\ B\,e^{\lambda_2 t}\end{matrix}\right)
-$$
-
-Rearranging, we now have two equations relating $x$ and $y$:
+Finally, we can substitute back to find the solution of the original coupled system.
+Since $\mathbf{z} = P^{-1}\mathbf{x}$, we have $\mathbf{x} = P\mathbf{z}$, and the columns of $P$ are the eigenvectors:
 
 $$
 \begin{aligned}
--2x + 2y &= C\,e^{\lambda_1 t} \\
-2x + y &= D\,e^{\lambda_2 t}
+\mathbf{x} = P\mathbf{z} &= \left(\begin{matrix} \mathbf{v}_1 & \mathbf{v}_2 \end{matrix}\right) \left(\begin{matrix} z_1 \\ z_2\end{matrix}\right) = z_1\mathbf{v}_1 + z_2\mathbf{v}_2 \\
+&= c_1\mathbf{v}_1 e^{\lambda_1 t} + c_2\mathbf{v}_2 e^{\lambda_2 t}
 \end{aligned}
 $$
 
-where $C=3A$ and $D=3B$. Using our initial conditions, $x(0)=0$ and $y(0)=3$ we find $C=6$ and $D=3$.
+So the solution is a sum of the eigenvectors, each growing or shrinking at a rate set by its eigenvalue.
+This works in the same way for an $n\times n$ system, with $n$ eigenvectors.
+In our example,
 
-Finally, solving the simultaneous equations, we have a solution:
+$$
+\left(\begin{matrix} x \\ y \end{matrix}\right) = c_1\left(\begin{matrix} -\frac{1}{2} \\ 1 \end{matrix}\right) e^{-t} + c_2\left(\begin{matrix} 1 \\ 1 \end{matrix}\right) e^{2t}.
+$$
+
+Using our initial conditions, $x(0)=0$ and $y(0)=3$, at $t = 0$:
+
+$$
+\left(\begin{matrix} 0 \\ 3 \end{matrix}\right) = c_1\left(\begin{matrix} -\frac{1}{2} \\ 1 \end{matrix}\right) + c_2\left(\begin{matrix} 1 \\ 1 \end{matrix}\right).
+$$
+
+So $-c_1/2 + c_2 = 0$ and $c_1 + c_2 = 3$, which gives $c_1 = 2$ and $c_2 = 1$.
+Finally, we have a solution:
 
 $$
 \begin{aligned}
-x(t) &= -e^{\lambda_1 t} + e^{\lambda_2 t} \\
-y(t) &= 2e^{\lambda_1 t} + e^{\lambda_2 t}
+x(t) &= -e^{-t} + e^{2t},\\
+y(t) &= 2e^{-t} + e^{2t}.
 \end{aligned}
 $$
+
+This is the same solution that method 1 gave.
+
+## The solution in the $(x, y)$ plane
+
+Below, the green curve is the path of this solution, with the dot at $t = 0$.
+The grey arrows show the direction of $(dx/dt, dy/dt)$ at each point, and the dashed lines are the directions of the two eigenvectors.
+
+![The path of the solution from (0, 3), with the two eigenvector directions dashed and arrows showing the direction of motion](fig/14_02_trajectories.svg)
+
+Going back in time, the $e^{-t}$ term is the largest, so the solution comes in along $\mathbf{v}_1$.
+As $t$ grows, the $e^{2t}$ term takes over, and the solution heads out along $\mathbf{v}_2$.
+In lecture 16 we will see that the eigenvectors and eigenvalues tell us about the paths near a steady state in the same way.
+
+## Checking with SymPy
+
+SymPy can solve the system, initial conditions included:
+
+```python
+t = sp.symbols('t')
+x, y = sp.symbols('x y', cls=sp.Function)
+eqs = [sp.Eq(x(t).diff(t), x(t) + y(t)), sp.Eq(y(t).diff(t), 2 * x(t))]
+sp.dsolve(eqs, ics={x(0): 0, y(0): 3})
+```
+
+$$
+\left[ x{\left(t \right)} = e^{2 t} - e^{- t}, \  y{\left(t \right)} = e^{2 t} + 2 e^{- t}\right]
+$$
+
+which agrees with our solution.
+Without `ics`, `dsolve` gives the general solution, with constants `C1` and `C2`.
 
 ## Summary
 
-- Three methods to analytically solve systems of linear first
-  order ODEs
-- Best method depends on the system and what you need to ask about it
+1. A coupled system of linear first order differential equations can be solved by turning it into one second order equation, by eliminating $t$ (which gives the paths of the solutions, but not their timing), or by diagonalisation.
+1. Diagonalisation extends to $n \times n$ systems, and gives the solution as a sum of the eigenvectors, $\mathbf{x} = c_1\mathbf{v}_1 e^{\lambda_1 t} + c_2\mathbf{v}_2 e^{\lambda_2 t}$, so the eigenvalues set how fast each part grows or shrinks.
+1. The best method depends on the system and on what we need to ask about it.
+1. In Python, SymPy's `dsolve` solves a system, and can check our answers.
 
 ## Introductory problems
 
