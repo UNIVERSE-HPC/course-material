@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 460" width="860" height="460" role="img" aria-label="Diagram comparing uniform GPU control flow, where eight lanes execute one branch together, with divergent control flow, where four lanes execute path A and four execute path B in separate passes while the other lanes are inactive">
+  <style>
+    .panel { fill: #f8fafc; stroke: #64748b; stroke-width: 2; }
+    .lane-a { fill: #3b82f6; stroke: #2563eb; stroke-width: 1.5; }
+    .lane-b { fill: #8b5cf6; stroke: #7c3aed; stroke-width: 1.5; }
+    .inactive { fill: #e2e8f0; stroke: #94a3b8; stroke-width: 1.5; }
+    .title { fill: #1e1b4b; font-family: system-ui, sans-serif; font-size: 18px; font-weight: 700; text-anchor: middle; }
+    .label { fill: #334155; font-family: system-ui, sans-serif; font-size: 14px; font-weight: 600; text-anchor: end; }
+    .thread { fill: #475569; font-family: system-ui, sans-serif; font-size: 11px; text-anchor: middle; }
+    .lane-text { fill: #ffffff; font-family: system-ui, sans-serif; font-size: 14px; font-weight: 700; text-anchor: middle; }
+    .inactive-text { fill: #64748b; font-family: system-ui, sans-serif; font-size: 14px; font-weight: 700; text-anchor: middle; }
+    .summary { fill: #1e1b4b; font-family: system-ui, sans-serif; font-size: 16px; font-weight: 600; text-anchor: middle; }
+    .small { fill: #475569; font-family: system-ui, sans-serif; font-size: 13px; text-anchor: middle; }
+    @media (prefers-color-scheme: dark) {
+      .panel { fill: #1e293b; stroke: #94a3b8; stroke-width: 2; }
+      .lane-a { fill: #2563eb; stroke: #60a5fa; stroke-width: 1.5; }
+      .lane-b { fill: #7c3aed; stroke: #c4b5fd; stroke-width: 1.5; }
+      .inactive { fill: #334155; stroke: #64748b; stroke-width: 1.5; }
+      .title { fill: #eef2ff; font-family: system-ui, sans-serif; font-size: 18px; font-weight: 700; text-anchor: middle; }
+      .label { fill: #cbd5e1; font-family: system-ui, sans-serif; font-size: 14px; font-weight: 600; text-anchor: end; }
+      .thread { fill: #cbd5e1; font-family: system-ui, sans-serif; font-size: 11px; text-anchor: middle; }
+      .lane-text { fill: #ffffff; font-family: system-ui, sans-serif; font-size: 14px; font-weight: 700; text-anchor: middle; }
+      .inactive-text { fill: #94a3b8; font-family: system-ui, sans-serif; font-size: 14px; font-weight: 700; text-anchor: middle; }
+      .summary { fill: #eef2ff; font-family: system-ui, sans-serif; font-size: 16px; font-weight: 600; text-anchor: middle; }
+      .small { fill: #cbd5e1; font-family: system-ui, sans-serif; font-size: 13px; text-anchor: middle; }
+    }
+  </style>
+
+  <rect class="panel" x="20" y="25" width="395" height="410" rx="14"/>
+  <text class="title" x="217.5" y="60">Uniform control flow</text>
+  <text class="small" x="217.5" y="82">Every thread takes path A</text>
+
+  <!-- Thread identifiers. -->
+  <g>
+    <text class="thread" x="121" y="113">T0</text><text class="thread" x="154" y="113">T1</text>
+    <text class="thread" x="187" y="113">T2</text><text class="thread" x="220" y="113">T3</text>
+    <text class="thread" x="253" y="113">T4</text><text class="thread" x="286" y="113">T5</text>
+    <text class="thread" x="319" y="113">T6</text><text class="thread" x="352" y="113">T7</text>
+  </g>
+
+  <text class="label" x="105" y="151">Branch</text>
+  <g>
+    <rect class="lane-a" x="106" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="121" y="150">A</text>
+    <rect class="lane-a" x="139" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="154" y="150">A</text>
+    <rect class="lane-a" x="172" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="187" y="150">A</text>
+    <rect class="lane-a" x="205" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="220" y="150">A</text>
+    <rect class="lane-a" x="238" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="253" y="150">A</text>
+    <rect class="lane-a" x="271" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="286" y="150">A</text>
+    <rect class="lane-a" x="304" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="319" y="150">A</text>
+    <rect class="lane-a" x="337" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="352" y="150">A</text>
+  </g>
+
+  <text class="label" x="105" y="230">Pass 1</text>
+  <g>
+    <rect class="lane-a" x="106" y="202" width="30" height="42" rx="4"/><text class="lane-text" x="121" y="229">A</text>
+    <rect class="lane-a" x="139" y="202" width="30" height="42" rx="4"/><text class="lane-text" x="154" y="229">A</text>
+    <rect class="lane-a" x="172" y="202" width="30" height="42" rx="4"/><text class="lane-text" x="187" y="229">A</text>
+    <rect class="lane-a" x="205" y="202" width="30" height="42" rx="4"/><text class="lane-text" x="220" y="229">A</text>
+    <rect class="lane-a" x="238" y="202" width="30" height="42" rx="4"/><text class="lane-text" x="253" y="229">A</text>
+    <rect class="lane-a" x="271" y="202" width="30" height="42" rx="4"/><text class="lane-text" x="286" y="229">A</text>
+    <rect class="lane-a" x="304" y="202" width="30" height="42" rx="4"/><text class="lane-text" x="319" y="229">A</text>
+    <rect class="lane-a" x="337" y="202" width="30" height="42" rx="4"/><text class="lane-text" x="352" y="229">A</text>
+  </g>
+
+  <text class="summary" x="217.5" y="322">One pass</text>
+  <text class="small" x="217.5" y="347">8 of 8 lanes perform useful work</text>
+
+  <rect class="panel" x="445" y="25" width="395" height="410" rx="14"/>
+  <text class="title" x="642.5" y="60">Divergent control flow</text>
+  <text class="small" x="642.5" y="82">Threads in one group take different paths</text>
+
+  <g>
+    <text class="thread" x="546" y="113">T0</text><text class="thread" x="579" y="113">T1</text>
+    <text class="thread" x="612" y="113">T2</text><text class="thread" x="645" y="113">T3</text>
+    <text class="thread" x="678" y="113">T4</text><text class="thread" x="711" y="113">T5</text>
+    <text class="thread" x="744" y="113">T6</text><text class="thread" x="777" y="113">T7</text>
+  </g>
+
+  <text class="label" x="530" y="151">Branch</text>
+  <g>
+    <rect class="lane-a" x="531" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="546" y="150">A</text>
+    <rect class="lane-a" x="564" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="579" y="150">A</text>
+    <rect class="lane-a" x="597" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="612" y="150">A</text>
+    <rect class="lane-a" x="630" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="645" y="150">A</text>
+    <rect class="lane-b" x="663" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="678" y="150">B</text>
+    <rect class="lane-b" x="696" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="711" y="150">B</text>
+    <rect class="lane-b" x="729" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="744" y="150">B</text>
+    <rect class="lane-b" x="762" y="123" width="30" height="42" rx="4"/><text class="lane-text" x="777" y="150">B</text>
+  </g>
+
+  <text class="label" x="530" y="218">Pass 1</text>
+  <g>
+    <rect class="lane-a" x="531" y="190" width="30" height="42" rx="4"/><text class="lane-text" x="546" y="217">A</text>
+    <rect class="lane-a" x="564" y="190" width="30" height="42" rx="4"/><text class="lane-text" x="579" y="217">A</text>
+    <rect class="lane-a" x="597" y="190" width="30" height="42" rx="4"/><text class="lane-text" x="612" y="217">A</text>
+    <rect class="lane-a" x="630" y="190" width="30" height="42" rx="4"/><text class="lane-text" x="645" y="217">A</text>
+    <rect class="inactive" x="663" y="190" width="30" height="42" rx="4"/><text class="inactive-text" x="678" y="217">—</text>
+    <rect class="inactive" x="696" y="190" width="30" height="42" rx="4"/><text class="inactive-text" x="711" y="217">—</text>
+    <rect class="inactive" x="729" y="190" width="30" height="42" rx="4"/><text class="inactive-text" x="744" y="217">—</text>
+    <rect class="inactive" x="762" y="190" width="30" height="42" rx="4"/><text class="inactive-text" x="777" y="217">—</text>
+  </g>
+
+  <text class="label" x="530" y="285">Pass 2</text>
+  <g>
+    <rect class="inactive" x="531" y="257" width="30" height="42" rx="4"/><text class="inactive-text" x="546" y="284">—</text>
+    <rect class="inactive" x="564" y="257" width="30" height="42" rx="4"/><text class="inactive-text" x="579" y="284">—</text>
+    <rect class="inactive" x="597" y="257" width="30" height="42" rx="4"/><text class="inactive-text" x="612" y="284">—</text>
+    <rect class="inactive" x="630" y="257" width="30" height="42" rx="4"/><text class="inactive-text" x="645" y="284">—</text>
+    <rect class="lane-b" x="663" y="257" width="30" height="42" rx="4"/><text class="lane-text" x="678" y="284">B</text>
+    <rect class="lane-b" x="696" y="257" width="30" height="42" rx="4"/><text class="lane-text" x="711" y="284">B</text>
+    <rect class="lane-b" x="729" y="257" width="30" height="42" rx="4"/><text class="lane-text" x="744" y="284">B</text>
+    <rect class="lane-b" x="762" y="257" width="30" height="42" rx="4"/><text class="lane-text" x="777" y="284">B</text>
+  </g>
+
+  <text class="summary" x="642.5" y="350">Two passes</text>
+  <text class="small" x="642.5" y="375">Only 4 of 8 lanes perform useful work</text>
+  <text class="small" x="642.5" y="396">during each pass</text>
+</svg>

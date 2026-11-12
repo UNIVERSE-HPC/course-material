@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440" width="820" height="440" role="img" aria-label="Four-level communication hierarchy showing registers and private caches, shared caches and memory controllers, NUMA memory within a node, and the network between nodes, with cost generally increasing down the hierarchy">
+  <style>
+    .private { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; }
+    .shared { fill: #ecfeff; stroke: #06b6d4; stroke-width: 2; }
+    .numa { fill: #f5f3ff; stroke: #8b5cf6; stroke-width: 2; }
+    .network { fill: #f0fdf4; stroke: #22c55e; stroke-width: 2; }
+    .line { stroke: #64748b; stroke-width: 2.5; fill: none; }
+    .arrowhead { fill: #64748b; }
+    .label { fill: #1e1b4b; font-family: system-ui, sans-serif; font-size: 17px; font-weight: 600; text-anchor: middle; }
+    .small { fill: #475569; font-family: system-ui, sans-serif; font-size: 13px; text-anchor: middle; }
+    .scale { fill: #334155; font-family: system-ui, sans-serif; font-size: 13px; font-weight: 600; text-anchor: middle; }
+    @media (prefers-color-scheme: dark) {
+      .private { fill: #1e3a5f; stroke: #60a5fa; stroke-width: 2; }
+      .shared { fill: #164e63; stroke: #67e8f9; stroke-width: 2; }
+      .numa { fill: #3b1f6e; stroke: #c4b5fd; stroke-width: 2; }
+      .network { fill: #143d2b; stroke: #4ade80; stroke-width: 2; }
+      .line { stroke: #94a3b8; stroke-width: 2.5; fill: none; }
+      .arrowhead { fill: #94a3b8; }
+      .label { fill: #eef2ff; font-family: system-ui, sans-serif; font-size: 17px; font-weight: 600; text-anchor: middle; }
+      .small { fill: #cbd5e1; font-family: system-ui, sans-serif; font-size: 13px; text-anchor: middle; }
+      .scale { fill: #cbd5e1; font-family: system-ui, sans-serif; font-size: 13px; font-weight: 600; text-anchor: middle; }
+    }
+  </style>
+
+  <!-- Successive levels cover a wider hardware scope. -->
+  <rect class="private" x="180" y="25" width="440" height="70" rx="12"/>
+  <text class="label" x="400" y="55">Registers and private caches</text>
+  <text class="small" x="400" y="79">used by one CPU-core</text>
+
+  <line class="line" x1="400" y1="95" x2="400" y2="120"/>
+  <rect class="shared" x="145" y="120" width="510" height="70" rx="12"/>
+  <text class="label" x="400" y="150">Shared caches and memory controllers</text>
+  <text class="small" x="400" y="174">used by a group of CPU-cores</text>
+
+  <line class="line" x1="400" y1="190" x2="400" y2="215"/>
+  <rect class="numa" x="110" y="215" width="580" height="70" rx="12"/>
+  <text class="label" x="400" y="245">NUMA regions and main memory</text>
+  <text class="small" x="400" y="269">one address space within a compute node</text>
+
+  <line class="line" x1="400" y1="285" x2="400" y2="310"/>
+  <rect class="network" x="75" y="310" width="650" height="70" rx="12"/>
+  <text class="label" x="400" y="340">Network interfaces and switches</text>
+  <text class="small" x="400" y="364">communication between compute nodes</text>
+
+  <!-- Qualitative cost scale. -->
+  <path class="line" d="M775 65 V348"/>
+  <path class="arrowhead" d="M775 368 L767 347 H783 Z"/>
+  <text class="scale" x="775" y="39">Lower cost</text>
+  <text class="scale" x="775" y="405">Higher cost</text>
+  <text class="small" x="775" y="424">in general</text>
+</svg>

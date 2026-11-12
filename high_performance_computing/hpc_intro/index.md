@@ -10,6 +10,7 @@ files: [
     04_scheduler.md,
     05_modules.md,
     06_transferring_files.md,
+    07_image_sharpening.md,
     07_parallel.md,
     08_resources.md,
     09_responsibility.md
