@@ -2,7 +2,7 @@
 name: Automated Version Control
 dependsOn: [
   technology_and_tooling.bash_shell
-] 
+]
 tags: [git]
 learningOutcomes:
   - Describe the benefits of an automated version control system.
@@ -56,7 +56,7 @@ We'll look at both the backup and collaboration scenarios, but first it's useful
 
 ![Changes are tracked sequentially](fig/01-background/track_changes.svg)
 
-**Version control systems start by storing the base version** of the file that you save and then **store just the changes** you made at each step on the way. You can think of it like storing Lego bricks and the instructions for putting them together - if you start with the first piece, then add each other in turn, you end up with your final document.
+**Version control systems start by storing the base version** of the file that you save and depend on the implementation, they could either store the whole **snapshot** of the file or just the **changes** you made at each step on the way. You can think of storing changes like storing Lego bricks and the instructions for putting them together - if you start with the first piece, then add each other in turn, you end up with your final document.
 
 ![Different versions can be saved](fig/01-background/versions.svg)
 
