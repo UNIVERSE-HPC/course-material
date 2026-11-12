@@ -2,7 +2,12 @@
 name: "Snakemake"
 id: snakemake
 dependsOn: [technology_and_tooling.bash_shell]
-files: [[setup.md, basics.md, advanced.md, additional_features.md], [short.md]]
+trackTitles:
+  - Full Course
+  - Short Version
+files:
+  - [setup.md, basics.md, advanced.md, additional_features.md]
+  - [short.md]
 learningOutcomes:
   - Learn how to install and setup Snakemake.
   - Run a workflow by specifying rules in a Snakefile.
