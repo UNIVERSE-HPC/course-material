@@ -1,6 +1,6 @@
 ---
 name: "Project: Snake Game"
-dependsOn: [introductory_courses.python.16_looping_over_data_sets]
+dependsOn: [introductory_courses.python.14_variable_scope]
 tags: [python]
 learningOutcomes:
   - Project-based practice of Python coding.

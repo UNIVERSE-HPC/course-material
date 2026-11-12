@@ -1,6 +1,6 @@
 ---
 name: Errors and Exceptions
-dependsOn: [introductory_courses.python.07_conditionals]
+dependsOn: [introductory_courses.python.11_looping_over_data_sets]
 tags: [python]
 learningOutcomes:
   - Understanding Python error traceback form
@@ -24,15 +24,6 @@ and when you are likely to encounter them can help a lot.
 Once you know _why_ you get certain types of errors,
 they become much easier to fix.
 
-:::callout
-
-## Functions and dictionaries in these examples
-
-Some examples in this episode use `def` to define a function, and one uses a dictionary (`{...}`).
-You'll write functions like this in [episode 9](09_writing_functions) and meet dictionaries in [episode 12](12_tuples_and_dictionaries).
-For now, don't worry about how that code works: focus on reading the traceback.
-:::
-
 Errors in Python have a very specific form,
 called a _traceback_.
 Let's examine one:
@@ -54,15 +45,15 @@ favorite_ice_cream()
 ```text
 ---------------------------------------------------------------------------
 IndexError                                Traceback (most recent call last)
-<ipython-input-1-70bd89baa4df> in <module>()
+<ipython-input-1-70bd89baa4dfin <module>()
       9     print(ice_creams[3])
       10
-----> 11 favorite_ice_cream()
+----11 favorite_ice_cream()
 
-<ipython-input-1-70bd89baa4df> in favorite_ice_cream()
+<ipython-input-1-70bd89baa4dfin favorite_ice_cream()
       7         'strawberry'
       8     ]
-----> 9     print(ice_creams[3])
+----9     print(ice_creams[3])
       10
       11 favorite_ice_cream()
 
@@ -84,7 +75,7 @@ The other level(s) show what function the program executed to get to the next le
 So, in this case, the program first performed a
 _function call_ to the function `favorite_ice_cream`.
 Inside this function,
-the program encountered an error on Line 9, when it tried to run the code `print(ice_creams[3])`.
+the program encountered an error on Line 6, when it tried to run the code `print(ice_creams[3])`.
 
 :::callout
 
@@ -229,8 +220,8 @@ print(a)
 ```text
 ---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
-<ipython-input-7-9d7b17ad5387> in <module>()
-----> 1 print(a)
+<ipython-input-7-9d7b17ad5387in <module>()
+----1 print(a)
 
 NameError: name 'a' is not defined
 ```
@@ -253,8 +244,8 @@ print(hello)
 ```text
 ---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
-<ipython-input-8-9553ee03b645> in <module>()
-----> 1 print(hello)
+<ipython-input-8-9553ee03b645in <module>()
+----1 print(hello)
 
 NameError: name 'hello' is not defined
 ```
@@ -272,9 +263,9 @@ print('The count is:', count)
 ```text
 ---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
-<ipython-input-9-dd6a12d7ca5c> in <module>()
+<ipython-input-9-dd6a12d7ca5cin <module>()
       1 for number in range(10):
-----> 2     count = count + number
+----2     count = count + number
       3 print('The count is:', count)
 
 NameError: name 'count' is not defined
@@ -297,10 +288,10 @@ print('The count is:', count)
 ```text
 ---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
-<ipython-input-10-d77d40059aea> in <module>()
+<ipython-input-10-d77d40059aeain <module>()
       1 Count = 0
       2 for number in range(10):
-----> 3     count = count + number
+----3     count = count + number
       4 print('The count is:', count)
 
 NameError: name 'count' is not defined
@@ -334,10 +325,10 @@ Letter #3 is c
 ```text
 ---------------------------------------------------------------------------
 IndexError                                Traceback (most recent call last)
-<ipython-input-11-d817f55b7d6c> in <module>()
+<ipython-input-11-d817f55b7d6cin <module>()
       3 print('Letter #2 is', letters[1])
       4 print('Letter #3 is', letters[2])
-----> 5 print('Letter #4 is', letters[3])
+----5 print('Letter #4 is', letters[3])
 
 IndexError: list index out of range
 ```
@@ -364,8 +355,8 @@ file_handle = open('myfile.txt', 'r')
 ```text
 ---------------------------------------------------------------------------
 FileNotFoundError                         Traceback (most recent call last)
-<ipython-input-14-f6e1ac4aee96> in <module>()
-----> 1 file_handle = open('myfile.txt', 'r')
+<ipython-input-14-f6e1ac4aee96in <module>()
+----1 file_handle = open('myfile.txt', 'r')
 
 FileNotFoundError: [Errno 2] No such file or directory: 'myfile.txt'
 ```
@@ -397,9 +388,9 @@ file_handle.read()
 ```text
 ---------------------------------------------------------------------------
 UnsupportedOperation                      Traceback (most recent call last)
-<ipython-input-15-b846479bc61f> in <module>()
+<ipython-input-15-b846479bc61fin <module>()
       1 file_handle = open('myfile.txt', 'w')
-----> 2 file_handle.read()
+----2 file_handle.read()
 
 UnsupportedOperation: not readable
 ```
@@ -444,22 +435,22 @@ print_friday_message()
 ```text
 ---------------------------------------------------------------------------
 KeyError                                  Traceback (most recent call last)
-<ipython-input-1-4be1945adbe2> in <module>()
+<ipython-input-1-4be1945adbe2in <module>()
      14     print_message('Friday')
      15
----> 16 print_friday_message()
+---16 print_friday_message()
 
-<ipython-input-1-4be1945adbe2> in print_friday_message()
+<ipython-input-1-4be1945adbe2in print_friday_message()
      12
      13 def print_friday_message():
----> 14     print_message('Friday')
+---14     print_message('Friday')
      15
      16 print_friday_message()
 
-<ipython-input-1-4be1945adbe2> in print_message(day)
+<ipython-input-1-4be1945adbe2in print_message(day)
       9         'sunday': 'Aw, the weekend is almost over.'
      10     }
----> 11     print(messages[day])
+---11     print(messages[day])
      12
      13 def print_friday_message():
 

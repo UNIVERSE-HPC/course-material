@@ -1,24 +1,14 @@
 ---
 name: Writing Functions
-dependsOn: [introductory_courses.python.08_errors_and_exceptions]
+dependsOn: [introductory_courses.python.12_errors_and_exceptions]
 tags: [python]
 learningOutcomes:
   - Creating functions to encapsulate code and enable re-use.
-  - Setting default values for parameters and calling functions with keyword arguments.
-  - Building functions out of other functions.
 attribution:
   - citation: >
       "Programming with Python" course by the Carpentries
     url: https://swcarpentry.github.io/python-novice-inflammation/
     image: https://carpentries.org/carpentries-logo.svg
-    license: CC-BY-4.0
-  - citation: This material has been adapted from the "Software Engineering" module of the SABS R³ Center for Doctoral Training.
-    url: https://www.sabsr3.ox.ac.uk
-    image: https://www.sabsr3.ox.ac.uk/sites/default/files/styles/site_logo/public/styles/site_logo/public/sabsr3/site-logo/sabs_r3_cdt_logo_v3_111x109.png
-    license: CC-BY-4.0
-  - citation: This course material was developed as part of UNIVERSE-HPC, which is funded through the SPF ExCALIBUR programme under grant number EP/W035731/1
-    url: https://www.universe-hpc.ac.uk
-    image: https://www.universe-hpc.ac.uk/assets/images/universe-hpc.png
     license: CC-BY-4.0
 ---
 
@@ -95,8 +85,8 @@ print_date(month=3, day=19, year=1871)
 1871/3/19
 ```
 
-- Arguments matched by their position are called _positional arguments_.
-- Arguments matched by their name, like `month=3`, are called _keyword arguments_ (or _named arguments_).
+- Arguments defined in the function call are called _positional arguments_ and are referred to collectively as `args`.
+- Arguments defined in the function definition are called _keyword arguments_ or `kwargs`.
 
 ## Functions may return a result to their caller using `return`
 
@@ -130,7 +120,7 @@ print('average of empty list:', average([]))
 average of empty list: None
 ```
 
-- Remember: [every function returns something](04_built_in_functions_and_help).
+- Remember: [every function returns something]({{ page.root }}/04-built-in/).
 - A function that doesn't explicitly `return` a value automatically returns `None`.
 
 ```python
@@ -142,135 +132,6 @@ print('result of call is:', result)
 1871/3/19
 result of call is: None
 ```
-
-## Parameters can have default values
-
-- Give a parameter a default value in the definition with `name=value`.
-- If the caller doesn't pass that argument, the default is used.
-- Parameters with defaults must come after parameters without them.
-
-```python
-def say_hello(name='World'):
-    return 'Hello, ' + name + '!'
-
-print(say_hello())
-print(say_hello('Ada'))
-print(say_hello(name='Grace'))
-```
-
-```text
-Hello, World!
-Hello, Ada!
-Hello, Grace!
-```
-
-- Defaults are useful for options that usually have a sensible value, but that callers sometimes want to change.
-- Built-in functions use them too: `help(round)` shows `round(number, ndigits=None)`.
-- When you mix the two kinds of argument in a call, positional arguments must come first.
-
-```python nolint
-print(say_hello(name='Ada', 'Grace'))
-```
-
-```text
-SyntaxError: positional argument follows keyword argument
-```
-
-::::challenge{id="custom_greetings" title="Custom Greetings"}
-
-Write a new version of `say_hello` with two parameters, `greeting` and `name`, which default to `'Hello'` and `'World'`.
-How many different ways can you call it using combinations of positional and keyword arguments?
-
-:::solution
-
-```python
-def say_hello(greeting='Hello', name='World'):
-    return greeting + ', ' + name + '!'
-
-print(say_hello())                                # both defaults
-print(say_hello('Hi'))                            # one positional
-print(say_hello(name='Ada'))                      # one keyword
-print(say_hello('Hi', 'Ada'))                     # both positional
-print(say_hello('Hi', name='Ada'))                # positional, then keyword
-print(say_hello(name='Ada', greeting='Hi'))       # both keyword, in any order
-```
-
-Python won't let you give a positional argument after a keyword argument.
-
-:::
-::::
-
-## Functions can call other functions
-
-- A function hides _how_ a calculation is done, so other code can use it without worrying about the details.
-- That includes other functions: build bigger functions out of smaller ones. This is called _composition_.
-- For example, converting Fahrenheit to Kelvin goes through Celsius:
-
-```python
-def fahr_to_cels(fahr):
-    cels = (fahr - 32) * (5 / 9)
-    return cels
-
-def fahr_to_kelv(fahr):
-    cels = (fahr - 32) * (5 / 9)
-    kelv = cels + 273.15
-    return kelv
-
-print(fahr_to_kelv(32))
-print(fahr_to_kelv(212))
-```
-
-```text
-273.15
-373.15
-```
-
-- The Fahrenheit-to-Celsius formula appears twice. If we found a typo in one copy, we'd have to remember to fix the other.
-- Call `fahr_to_cels` from `fahr_to_kelv` instead, so the formula lives in one place:
-
-```python
-def fahr_to_cels(fahr):
-    return (fahr - 32) * (5 / 9)
-
-def fahr_to_kelv(fahr):
-    return fahr_to_cels(fahr) + 273.15
-
-print(fahr_to_kelv(212))
-```
-
-```text
-373.15
-```
-
-- Each function now does one small job, which makes it easier to read and to check.
-
-::::challenge{id="combining_strings" title="Combining Strings"}
-
-"Adding" two strings joins them: `'a' + 'b'` is `'ab'`.
-
-1. Write a function `fence(original, wrapper)` that returns `original` with `wrapper` added at the start and end,
-   so `fence('name', '*')` returns `'*name*'`.
-2. Using `fence`, write a function `double_fence(original, inner, outer)`, so that
-   `double_fence('name', '-', '*')` returns `'*-name-*'`.
-
-:::solution
-
-```python
-def fence(original, wrapper):
-    return wrapper + original + wrapper
-
-def double_fence(original, inner, outer):
-    return fence(fence(original, inner), outer)
-
-print(double_fence('name', '-', '*'))
-```
-
-```text
-*-name-*
-```
-
-:::
-::::
 
 ::::challenge{id="identifying_syntax_errors" title="Identifying Syntax Errors"}
 
@@ -314,7 +175,7 @@ print('calling', report, 22.5)
 :::solution
 
 ```text
-calling <function report at 0x7fd128ff1bf8> 22.5
+calling <function report at 0x7fd128ff1bf822.5
 ```
 
 A function call always needs parentheses, otherwise you get memory address of the function object. So, if we wanted to call the function named report, and give it the value 22.5 to report on, we would have to call our function as follows:
@@ -371,6 +232,33 @@ pressure is 22.5
    of the `result` variable.
 
 3. `print_time()` does not explicitly `return` a value, so it automatically returns `None`.
+
+:::
+::::
+
+::::challenge{id="encapsulation" title="Encapsulation"}
+
+Fill in the blanks to create a function that takes a single filename as an argument,
+loads the data in the file named by the argument,
+and returns the minimum value in that data.
+
+```python nolint
+import pandas as pd
+
+def min_in_data(____):
+    data = ____
+    return ____
+```
+
+:::solution
+
+```python
+import pandas as pd
+
+def min_in_data(filename):
+    data = pd.read_csv(filename)
+    return data.min()
+```
 
 :::
 ::::
@@ -434,8 +322,9 @@ print_date(day=1, month=2, year=2003)
 :::solution
 
 1. `2003/2/1`
-2. We saw named arguments with built-in functions. For example, `help(round)` shows `round(number, ndigits=None)`,
-   so we can call `round(3.712, ndigits=1)`, where `ndigits` is a named argument.
+2. We saw examples of using _named arguments_ when working with the pandas library. For example, when reading in a dataset
+   using `data = pd.read_csv('data/gapminder_gdp_europe.csv', index_col='country')`, the last argument `index_col` is a
+   named argument.
 3. Using named arguments can make code more readable since one can see from the function call what name the different arguments
    have inside the function. It can also reduce the chances of passing arguments in the wrong order, since by using named arguments
    the order doesn't matter.
@@ -507,6 +396,93 @@ def print_egg_label(mass):
         return "too light, probably spoiled"
     else:
         return "small"
+```
+
+:::
+::::
+
+::::challenge{id="encapsulating_data_analysis" title="Encapsulating Data Analysis"}
+
+Assume that the following code has been executed:
+
+```python
+import pandas as pd
+
+df = pd.read_csv('data/gapminder_gdp_asia.csv', index_col=0)
+japan = df.loc['Japan']
+```
+
+1. Complete the statements below to obtain the average GDP for Japan
+   across the years reported for the 1980s.
+
+   ```python nolint
+   year = 1983
+   gdp_decade = 'gdpPercap_' + str(year // ____)
+   avg = (japan.loc[gdp_decade + ___] + japan.loc[gdp_decade + ___]) / 2
+   ```
+
+2. Abstract the code above into a single function.
+
+   ```python nolint
+   def avg_gdp_in_decade(country, continent, year):
+       df = pd.read_csv('data/gapminder_gdp_'+___+'.csv',delimiter=',',index_col=0)
+       ____
+       ____
+       ____
+       return avg
+   ```
+
+3. How would you generalize this function
+   if you did not know beforehand which specific years occurred as columns in the data?
+   For instance, what if we also had data from years ending in 1 and 9 for each decade?
+   (Hint: use the columns to filter out the ones that correspond to the decade,
+   instead of enumerating them in the code.)
+
+:::solution
+
+1. The average GDP for Japan across the years reported for the 1980s is computed with:
+
+   ```python
+   year = 1983
+   gdp_decade = 'gdpPercap_' + str(year // 10)
+   avg = (japan.loc[gdp_decade + '2'] + japan.loc[gdp_decade + '7']) / 2
+   ```
+
+2. That code as a function is:
+
+   ```python test
+   def avg_gdp_in_decade(country, continent, year):
+       df = pd.read_csv('data/gapminder_gdp_' + continent + '.csv', index_col=0)
+       c = df.loc[country]
+       gdp_decade = 'gdpPercap_' + str(year // 10)
+       avg = (c.loc[gdp_decade + '2'] + c.loc[gdp_decade + '7'])/2
+       return avg
+   ```
+
+3. To obtain the average for the relevant years, we need to loop over them:
+
+   ```python
+   def avg_gdp_in_decade(country, continent, year):
+       df = pd.read_csv('data/gapminder_gdp_' + continent + '.csv', index_col=0)
+       c = df.loc[country]
+       gdp_decade = 'gdpPercap_' + str(year // 10)
+       total = 0.0
+       num_years = 0
+       for yr_header in c.index: # c's index contains reported years
+           if yr_header.startswith(gdp_decade):
+               total = total + c.loc[yr_header]
+               num_years = num_years + 1
+       return total/num_years
+   ```
+
+The function can now be called by:
+
+```python
+avg_gdp_in_decade('Japan','asia',1983)
+```
+
+```text
+20880.023800000003
 ```
 
 :::
