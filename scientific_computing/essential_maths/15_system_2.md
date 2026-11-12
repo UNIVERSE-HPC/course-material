@@ -67,7 +67,10 @@ $$
 N=\theta n, \qquad P=\phi p, \qquad T=\tau t,
 $$
 
-where $n$, $p$ and $t$ are nondimensional, and $\theta$, $\phi$ and $\tau$ are constants: typical values of $N$, $P$ and $T$, which we are free to choose.
+where $\theta$, $\phi$ and $\tau$ are constants: typical values of $N$, $P$ and $T$, which we are free to choose.
+The new variables $n$, $p$ and $t$ are **nondimensional**: they have no units.
+For example, if $N$ and $\theta$ are both numbers of prey per km$^2$, then $n = N/\theta$ is a plain number, such as $0.5$ for half the typical population.
+In the same way, if $T$ and $\tau$ are both in days, then $t = T/\tau$ counts time in units of $\tau$.
 Note that, when we are rescaling time, by the chain rule
 
 $$
@@ -257,7 +260,7 @@ Note that $(0, 1)$, where the two $x$-nullclines meet, is not a fixed point: the
 
 On an $x$-nullcline $\dot{x} = 0$, so the arrows there point straight up or down: they can only cross the $x$-nullclines vertically, and in the same way the $y$-nullclines horizontally.
 Between the nullclines, the signs of $\dot{x}$ and $\dot{y}$ do not change, so the arrows point in roughly the same direction throughout each region.
-By following the arrows we can sketch the behaviour of solutions (green lines, from the stars):
+By following the arrows we can sketch the behaviour of solutions (green lines, from the green dots):
 
 ![The phase plane of the system: the direction field, the nullclines, the fixed points, and solutions from seven starting points](fig/15_02_phase_plane.svg)
 
@@ -296,9 +299,9 @@ plt.axhline(0, color='C1')
 starts = [(1.05, 1.0), (0.9, 1.3), (0.7, 1.6), (0.5, 1.8),
           (0.5, 0.2), (0.32, 0.2), (0.1, 0.2)]
 for start in starts:
-    sol = solve_ivp(f, (0, 10), start, t_eval=np.linspace(0, 10, 100))
+    sol = solve_ivp(f, (0, 40), start, t_eval=np.linspace(0, 40, 400))
     plt.plot(sol.y[0], sol.y[1], color='green')
-    plt.plot(*start, 'g*', markersize=12)
+    plt.plot(*start, 'go')
 
 plt.xlim(0, 1.1)
 plt.ylim(0, 2.1)
