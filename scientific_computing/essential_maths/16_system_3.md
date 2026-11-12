@@ -26,58 +26,64 @@ A recording of this lecture from October 2020; the material has changed a little
 
 ---
 
-## Phase planes and stability
+## Why stability?
 
-## Recap from previous parts
+In lecture 11 we decided whether a steady state $s^*$ of $ds/dt = f(s)$ is stable from the slope $f'(s^*)$.
+In lecture 14 we saw that the solution of a linear system is a sum of eigenvectors, each growing or shrinking at a rate set by its eigenvalue.
+In lecture 15 we found the fixed points of a nonlinear system from its nullclines.
 
-- 2-D linear systems can be solved analytically
-- Eigenvalues are important
-- Some larger systems can be simplified
-- Phase planes, nullclines and fixed points allow us to understand the behaviour
+In this lecture we put these together.
+Close to a fixed point, a nonlinear system behaves like a linear one, so eigenvalues tell us whether each fixed point is stable, and so where the system ends up.
 
-## Example from previous lecture
+## The example from lecture 15
+
+We will come back to the system
 
 $$
 \begin{aligned}
 \dot{x} &= x(1-x) -xy,\\
-\dot{y} &= y\left(2-y\right) - 3xy.
+\dot{y} &= y(2-y) - 3xy,
 \end{aligned}
 $$
 
-![Plot of the phase plane](fig/16_01_phase_plane.svg)
+where $y(2-y)$ is the same as lecture 15's $2y(1-y/2)$.
+Its nullclines cross at four fixed points: $(0, 0)$, $(1, 0)$, $(0, 2)$ and $(1/2, 1/2)$.
 
-## Linear ODEs for understanding nonlinear
+![The phase plane of the system, with its four fixed points](fig/16_01_phase_plane.svg)
+
+Which of them do solutions settle at, and why?
+
+## Linear systems
 
 The decoupled ODE system
 
 $$
 \begin{aligned}
-\dot{x} = \frac{dx}{dt} &= \lambda_1 x,\\
-\dot{y} = \frac{dy}{dt} &= \lambda_2 y,
+\dot{x} &= \lambda_1 x,\\
+\dot{y} &= \lambda_2 y,
 \end{aligned}
 $$
 
 has a **fixed point** or **steady state** where $\dot{x}=\dot{y}=0$, at the origin.
 
-Solutions look like $x=Ae^{\lambda_1 t}$ and $y=Be^{\lambda_2 t}$ and thus grow exponentially
-or shrink exponentially depending on the values of $\lambda_1$ and $\lambda_2$.
+Solutions look like $x=Ae^{\lambda_1 t}$ and $y=Be^{\lambda_2 t}$, and thus grow exponentially or shrink exponentially depending on the signs of $\lambda_1$ and $\lambda_2$.
+If $\lambda_1 < 0$ and $\lambda_2 < 0$, then all the flow is towards the fixed point.
+If $\lambda_1$ or $\lambda_2$ is positive, then some flow will be driven away (towards infinity).
 
-If $\lambda_1 < 0$ and $\lambda_2 < 0$ then all the flow is towards the
-fixed point. If $\lambda_1$ or $\lambda_2$ is positive then some flow will be driven away (towards infinity).
-
-Adding in a constant (inhomogeneous) component shifts the fixed point
-away from the origin. Where is the fixed point of
+Adding in a constant (inhomogeneous) component shifts the fixed point away from the origin.
+For example, the system
 
 $$
 \begin{aligned}
 \dot{x} &= \lambda_1 x + 10,\\
-\dot{y} &= \lambda_2 y + 10?
+\dot{y} &= \lambda_2 y + 10
 \end{aligned}
 $$
 
-Coupling the system has the effect of altering the principle directions over
-which the exponential terms apply (**changing the basis**).
+has $\dot{x} = \dot{y} = 0$ at $x = -10/\lambda_1$, $y = -10/\lambda_2$.
+Its solutions behave in the same way as before, but around this point instead of the origin.
 
+Coupling the system has the effect of altering the principal directions over which the exponential terms apply (**changing the basis**).
 This means that the **homogeneous** linear system
 
 $$
@@ -87,11 +93,25 @@ $$
 \end{aligned}
 $$
 
-has a fixed point at the origin. The long-term growth or shrinkage of solutions over time is determined by the eigenvalues of the matrix
+has a fixed point at the origin.
+As in lecture 14, its solution is
 
 $$
-A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+\mathbf{x} = c_1\mathbf{v}_1 e^{\lambda_1 t} + c_2\mathbf{v}_2 e^{\lambda_2 t},
 $$
+
+where $\lambda_1$, $\lambda_2$ and $\mathbf{v}_1$, $\mathbf{v}_2$ are the eigenvalues and eigenvectors of the matrix
+
+$$
+A = \left(\begin{matrix} a & b \\ c & d \end{matrix}\right).
+$$
+
+So the long-term growth or shrinkage of solutions over time is determined by the eigenvalues, along the eigenvectors.
+For example, with lecture 14's matrix $A = \left(\begin{matrix} 1 & 1 \\ 2 & 0 \end{matrix}\right)$, the eigenvalues are $-1$ and $2$: solutions come in along the first eigenvector (dashed blue) and go out along the second (dashed orange), which makes the origin a saddle:
+
+![The phase portrait of the linear system with A = (1 1; 2 0): a saddle, with its two eigenvector directions](fig/16_03_linear_portrait.svg)
+
+When the eigenvalues are complex, the solutions turn around the fixed point instead: they spiral in if the real part is negative, and out if it is positive.
 
 More generally, the **inhomogeneous** linear system
 
@@ -122,10 +142,9 @@ $$
 \left(\begin{array}{c} p \\ q \end{array}\right).
 $$
 
-The long-term growth or shrinkage of
-solutions over time is again determined by the eigenvalues of the matrix.
+The long-term growth or shrinkage of solutions over time is again determined by the eigenvalues of the matrix.
 
-## General nonlinear system steady states
+## Nonlinear systems: linearisation
 
 A more general two-dimensional nonlinear system is
 
@@ -138,7 +157,7 @@ $$
 
 where $f$ and $g$ can be any functions whatever.
 
-We can write a polynomial (Taylor) expansion for the system when it is close to a fixed point $(x^*, y^*)$ for which $f(x^*,y^*)=g(x^*,y^*)=0$:
+We can write a polynomial (Taylor) expansion for the system when it is close to a fixed point $(x^*, y^*)$, with the partial derivatives evaluated at $(x^*, y^*)$:
 
 $$
 \begin{aligned}
@@ -147,6 +166,8 @@ $$
 \end{aligned}
 $$
 
+At a fixed point $f(x^*,y^*)=g(x^*,y^*)=0$, so the first terms drop out.
+The terms we have left out (the "$\ldots$") involve $(x-x^*)^2$, $(x-x^*)(y-y^*)$ and so on, which are much smaller still when we are close to the fixed point.
 So, close to the fixed point:
 
 $$
@@ -156,30 +177,30 @@ $$
 \left(\begin{array}{c} x-x^* \\ y-y^* \end{array}\right).
 $$
 
-This means that (really close to the fixed point) we can approximate
-with a linear system. The eigenvalues $\lambda_1$, $\lambda_2$ of the matrix
+This means that (really close to the fixed point) we can approximate with a linear system.
+The eigenvalues $\lambda_1$, $\lambda_2$ of the **Jacobian** matrix
 
 $$
 \def\arraystretch{1.8}J = \left(\begin{array}{cc} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y} \\ \frac{\partial g}{\partial x} & \frac{\partial g}{\partial y} \end{array}\right)
 $$
 
 will determine if a small perturbation away from $(x^*, y^*)$ will decay or grow.
+$J$ plays the part that the slope $f'(s^*)$ played in lecture 11: there, a steady state was stable if $f'(s^*) < 0$.
 
 ## Steady state classification
 
-$$
-\def\arraystretch{1.8}J = \left(\begin{array}{cc} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y} \\ \frac{\partial g}{\partial x} & \frac{\partial g}{\partial y} \end{array}\right)
-$$
+A fixed point is **stable** if every eigenvalue of $J$ has a negative real part, and **unstable** if any has a positive real part.
+More precisely, its type depends on the eigenvalues as follows:
 
 - $\lambda_1<\lambda_2<0$: stable node
-- $\lambda_1=\lambda_2<0$: stable star
+- $\lambda_1=\lambda_2<0$: stable star if $J$ is a multiple of $I$ (every direction is an eigenvector), otherwise a stable degenerate node (only one eigenvector direction)
 - $\lambda_1>\lambda_2>0$: unstable node
-- $\lambda_1=\lambda_2>0$: unstable star
+- $\lambda_1=\lambda_2>0$: unstable star or unstable degenerate node, in the same way
 - $\lambda_1<0<\lambda_2$: saddle (or hyperbolic) point, unstable
-- Complex $\lambda$: spiral (with real part determining stability)
-- Imaginary $\lambda$: neutral (solution cycles round fixed point)
+- Complex $\lambda$: spiral (with the real part determining stability)
+- Imaginary $\lambda$: centre (solutions cycle round the fixed point)
 
-The presence of negative eigenvalues determines whether a steady state is physically viable.
+If an eigenvalue has a real part of exactly zero (a centre, for example), the linear approximation cannot decide the stability of a nonlinear system: the terms we left out decide it.
 
 ### Eigenvalues of $J$
 
@@ -192,84 +213,111 @@ $$
 So eigenvalues $\lambda$ satisfy
 
 $$
-\lambda^2 - \lambda\left(\frac{\partial f}{\partial x} + \frac{\partial g}{\partial y}\right) + \frac{\partial f}{\partial x}\frac{\partial g}{\partial y} - \frac{\partial f}{\partial y}\frac{\partial g}{\partial x},
+\lambda^2 - \lambda\left(\frac{\partial f}{\partial x} + \frac{\partial g}{\partial y}\right) + \frac{\partial f}{\partial x}\frac{\partial g}{\partial y} - \frac{\partial f}{\partial y}\frac{\partial g}{\partial x} = 0,
 $$
 
 or
 
 $$
-\lambda^2 - \lambda\tau + \Delta \quad \text{where} \quad \tau=\text{Trace}(J) \quad \text{and} \quad \Delta = \text{Det}(J)
+\lambda^2 - \tau\lambda + \Delta = 0, \quad \text{where} \quad \tau=\text{tr}(J) \quad \text{and} \quad \Delta = \det(J)
 $$
 
-![Phase diagram showing different behaviour given the eigenvalues](fig/16_02_phase_diagram.svg)
+(this $\tau$ is the trace, not the time scale from lecture 15).
+Solving the quadratic,
 
-## Example system
+$$
+\lambda = \frac{\tau \pm \sqrt{\tau^2 - 4\Delta}}{2}.
+$$
+
+So, from the trace and determinant alone:
+
+- $\Delta < 0$: the square root is larger than $|\tau|$, so the eigenvalues have opposite signs, and the fixed point is a saddle
+- $\Delta > 0$ and $\tau < 0$: stable
+- $\Delta > 0$ and $\tau > 0$: unstable
+- $\tau^2 < 4\Delta$: the eigenvalues are complex, and the fixed point is a spiral
+
+The diagram below shows each type in the $(\Delta, \tau)$ plane, with a small phase portrait of an example in each region.
+Stars and degenerate nodes lie on the parabola $\tau^2 = 4\Delta$, and centres on the positive $\Delta$ axis:
+
+![The types of fixed point in the plane of the determinant and trace of J: saddles for negative determinant, nodes outside the parabola tau squared = 4 delta, spirals inside it, and centres on the positive determinant axis](fig/16_02_phase_diagram.svg)
+
+## Example: stability of the fixed points
+
+For our example,
 
 $$
 \begin{aligned}
-\dot{x} &= x(1-x) -xy &&= f(x),\\
-\dot{y} &= y\left(2-y\right) - 3xy &&= g(x).
+\dot{x} &= x(1-x) -xy &&= f(x, y),\\
+\dot{y} &= y(2-y) - 3xy &&= g(x, y).
 \end{aligned}
 $$
 
-- What are the nullclines?
-- What are the fixed points?
-- What is the stability of the fixed points?
-
-### Calculate the Jacobian
+Differentiating each with respect to $x$ and $y$,
 
 $$
-\def\arraystretch{1.8}J = \left(\begin{array}{cc} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y} \\ \frac{\partial g}{\partial x} & \frac{\partial g}{\partial y} \end{array}\right) = \left(\begin{array}{cc} -2x-y+1 & -x \\ -3y & -3x-2y+2 \end{array}\right)
+\def\arraystretch{1.8}J = \left(\begin{matrix} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y} \\ \frac{\partial g}{\partial x} & \frac{\partial g}{\partial y} \end{matrix}\right) = \left(\begin{matrix} 1-2x-y & -x \\ -3y & 2-3x-2y \end{matrix}\right).
 $$
+
+Now we evaluate $J$ at each fixed point in turn.
 
 At $(0,0)$:
 
 $$
-J_{(0,0)} = \left(\begin{array}{cc} 1 & 0 \\ 0 & 2 \end{array}\right)
+J_{(0,0)} = \left(\begin{matrix} 1 & 0 \\ 0 & 2 \end{matrix}\right), \qquad \tau = 3, \quad \Delta = 2
+\quad\implies\quad \lambda_1 = 1, \quad \lambda_2 = 2.
 $$
 
-$$
-\left|\begin{array}{cc} 1-\lambda & 0 \\ 0 & 2-\lambda\end{array}\right|\quad\implies\quad\lambda_1 = 1, \quad \lambda_2 = 2 \qquad\text{(unstable)}
-$$
+Both eigenvalues are positive, so this is an unstable node.
 
 At $(1/2,1/2)$:
 
 $$
-\def\arraystretch{1.8}J_{(1/2,1/2)} = \left(\begin{array}{cc} -\frac{1}{2} & -\frac{1}{2} \\ -\frac{3}{2} & -\frac{1}{2} \end{array}\right)
+\def\arraystretch{1.8}J_{(1/2,1/2)} = \left(\begin{matrix} -\frac{1}{2} & -\frac{1}{2} \\ -\frac{3}{2} & -\frac{1}{2} \end{matrix}\right), \qquad \tau = -1, \quad \Delta = -\frac{1}{2}.
 $$
 
+$\Delta < 0$, so this is a saddle.
+Solving $\lambda^2 + \lambda - 1/2 = 0$,
+
 $$
-\def\arraystretch{1.8}\left|\begin{array}{cc} -\frac{1}{2}-\lambda & -\frac{1}{2} \\ -\frac{3}{2} & -\frac{1}{2}-\lambda\end{array}\right|\quad\implies\quad\lambda_\pm = \frac{1}{2} \pm \frac{\sqrt{3}}{2} \qquad\text{(saddle)}
+\lambda_\pm = -\frac{1}{2} \pm \frac{\sqrt{3}}{2},
 $$
+
+one positive and one negative.
 
 At $(1,0)$:
 
 $$
-J_{(1,0)} = \left(\begin{array}{cc} -1 & -1 \\ 0 & -1 \end{array}\right)
+J_{(1,0)} = \left(\begin{matrix} -1 & -1 \\ 0 & -1 \end{matrix}\right), \qquad \tau = -2, \quad \Delta = 1
+\quad\implies\quad \lambda_1 = \lambda_2 = -1.
 $$
 
-$$
-\left|\begin{array}{cc} -1-\lambda & -1 \\ 0 & -1-\lambda\end{array}\right|\quad\implies\quad\lambda_1 = \lambda_2 = -1 \qquad\text{(stable)}
-$$
+This is stable.
+$J$ is not a multiple of $I$ (it has only one eigenvector direction, $(1, 0)^T$), so it is a stable degenerate node.
 
 At $(0,2)$:
 
 $$
-J_{(0,2)} = \left(\begin{array}{cc} -1 & 0 \\ -6 & -2 \end{array}\right)
+J_{(0,2)} = \left(\begin{matrix} -1 & 0 \\ -6 & -2 \end{matrix}\right), \qquad \tau = -3, \quad \Delta = 2
+\quad\implies\quad \lambda_1 = -1, \quad \lambda_2 = -2.
 $$
 
-$$
-\left|\begin{array}{cc} -1-\lambda & 0 \\ -6 & -2-\lambda\end{array}\right|\quad\implies\quad\lambda_1 = -1, \quad \lambda_2 = -2 \qquad\text{(stable)}
-$$
+Both eigenvalues are negative, so this is a stable node.
 
 If we now look again at the phase plane, after having calculated the stability of the fixed points, we can see that the arrows move towards the stable fixed points, and away from the unstable ones.
+Below, the stable fixed points are filled and the unstable ones are open:
 
-![Plot of the phase plane](fig/16_01_phase_plane.svg)
+![The phase plane with the stable fixed points filled, the unstable ones open, and the separatrix through the saddle dashed](fig/16_04_phase_plane_stability.svg)
+
+The dashed line is the **separatrix**: the solutions that come into the saddle along its stable eigenvector, $(1, \sqrt{3})^T$ (for $\lambda_- = -1/2 - \sqrt{3}/2$).
+Solutions that start on one side of it go to $(1, 0)$, and on the other side to $(0, 2)$.
+So, almost every solution with $x$ and $y$ both positive ends up at one of the two stable fixed points: which one depends on which side of the separatrix it starts.
 
 ## Summary
 
-- Eigenvalues tell us about the behaviour of linear systems
-- Eigenvalues tell us about the stability of nonlinear systems
+1. Linear systems: the eigenvalues of $A$ decide whether solutions grow or shrink, along its eigenvectors.
+1. Nonlinear systems: close to a fixed point, the system behaves like a linear one with matrix $J$, the Jacobian, evaluated at the fixed point.
+1. A fixed point is stable if every eigenvalue of $J$ has a negative real part, and the trace and determinant of $J$ give its type quickly.
+1. The stable fixed points, and the separatrices between them, tell us where a system ends up.
 
 ## Introductory problems
 

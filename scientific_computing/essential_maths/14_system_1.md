@@ -388,7 +388,8 @@ SymPy can solve the system, initial conditions included:
 
 ```python
 t = sp.symbols('t')
-x, y = sp.symbols('x y', cls=sp.Function)
+x = sp.Function('x')
+y = sp.Function('y')
 eqs = [sp.Eq(x(t).diff(t), x(t) + y(t)), sp.Eq(y(t).diff(t), 2 * x(t))]
 sp.dsolve(eqs, ics={x(0): 0, y(0): 3})
 ```
