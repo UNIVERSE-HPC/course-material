@@ -1,6 +1,6 @@
 ---
 name: Built-in Functions and Help
-dependsOn: [introductory_courses.python.03_variables_and_types]
+dependsOn: [introductory_courses.python.03_writing_and_running_ide]
 tags: [python]
 learningOutcomes:
   - Using built-in Functions and Methods.
@@ -130,7 +130,7 @@ round(3.712, 1)
 
 ## Methods
 
-Functions can be tied to a particular object, these are called _methods_, we will make extensive use of these in Part 2 of the course, for example when learning about [pandas](15_pandas_dataframes).
+Functions can be tied to a particular object, these are called _methods_, we will make extensive use of these when learning about [pandas](07_pandas_dataframes).
 Methods behave in the same way as functions, and are called with parentheses like functions.
 They can be accessed from their base object with a dot (`obj.method()`).
 
@@ -261,7 +261,7 @@ NameError: name 'aege' is not defined
 As before, the error message indicates where the problem occurred.
 It is up to you to diagnose and fix the problem, though there are tools which make this easier.
 
-We will see more about [errors and exceptions](08_errors_and_exceptions) later.
+We will see more about [errors and exceptions](12_errors_and_exceptions) later.
 
 - Fix syntax errors by reading the source and runtime errors by tracing execution.
 
@@ -272,6 +272,6 @@ We will see more about [errors and exceptions](08_errors_and_exceptions) later.
 The [official Python documentation](https://docs.python.org/3/) is arguably the most complete source of information about the language.
 It is available in different languages and contains a lot of useful resources.
 The [Built-in Functions page](https://docs.python.org/3/library/functions.html) contains a catalogue of all of these functions, including the ones that we've covered in this lesson.
-In addition, the vast majority of [libraries](13_libraries) which you will use in Python will have their own documentation, found online.
+In addition, the vast majority of [libraries](05_libraries) which you will use in Python will have their own documentation, found online.
 Some of these are more advanced and unnecessary at the moment, but others are very simple and useful.
 :::

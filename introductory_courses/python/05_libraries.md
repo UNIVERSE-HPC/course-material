@@ -1,6 +1,6 @@
 ---
 name: Libraries
-dependsOn: [introductory_courses.python.12_tuples_and_dictionaries]
+dependsOn: [introductory_courses.python.04_built_in_functions_and_help]
 tags: [python]
 learningOutcomes:
   - Understanding and importing libraries.
@@ -194,7 +194,7 @@ print(sample(bases, 1)[0])
 ```
 
 Note that this function returns a list of values.
-You met [lists](05_lists) in Part 1.
+We will learn about [lists](08_lists) later.
 
 There's also other functions you could use, but with more convoluted code as a result.
 :::
@@ -330,9 +330,9 @@ log(0)
 ```text
 ---------------------------------------------------------------------------
 ValueError                                Traceback (most recent call last)
-<ipython-input-1-d72e1d780bab> in <module>
+<ipython-input-1-d72e1d780babin <module>
       1 from math import log
-----> 2 log(0)
+----2 log(0)
 
 ValueError: math domain error
 ```
