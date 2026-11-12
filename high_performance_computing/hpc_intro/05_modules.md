@@ -1,454 +1,261 @@
 ---
-name: Accessing Software via Modules
-dependsOn: [
-  high_performance_computing.hpc_intro.04_scheduler
-]
-tags: [ARC]
+name: Using Software Modules
+dependsOn: [high_performance_computing.hpc_intro.04_scheduler]
+tags: []
 learningOutcomes:
-  - Load and use a software package.
-  - Explain how the shell environment changes when the module mechanism loads or unloads packages.
-attribution: 
-    - citation: >
-        "Introduction to High-Performance Computing" course by the HPC-carpentries
-      url: https://carpentries-incubator.github.io/hpc-intro/
-      image: /carpentries-incubator.svg
-      license: CC-BY-4.0
+  - Find centrally installed software and identify the versions available on an HPC cluster.
+  - Explain how loading a module changes the shell environment and may introduce dependencies or conflicts.
+  - Select an explicit software version and recreate that module selection in a Slurm batch job.
+attribution:
+  - citation: >
+      This course was developed by Alasdair Wilson as part of the Oxford Research Software Engineering group (OxRSE).
+    url: https://www.rse.ox.ac.uk
+    image: ./fig/2024_oxrse_square.svg
+    license: CC-BY-4.0
+  - citation: >
+      A previous version of this material was adapted from "Introduction to High-Performance Computing" by The Carpentries.
+    url: https://carpentries-incubator.github.io/hpc-intro/
+    image: /carpentries-incubator.svg
+    license: CC-BY-4.0
 ---
 
-On a high-performance computing system, it is seldom the case that the software
-we want to use is available when we log in. It is installed, but we will need
-to "load" it before it can run.
+HPC users rely on software ranging from compilers and numerical libraries to specialised simulation, analysis and machine-learning applications.
+Different applications, and even different versions of the same application, may require incompatible compilers, libraries, packages or other dependencies.
+A shared cluster must make these combinations of software available to its users without forcing everyone into one system-wide environment.
 
-Before we start using individual software packages, however, we should
-understand the reasoning behind this approach. The three biggest factors are:
+Most clusters solve this problem by providing centrally installed software through an *environment module* system.
+Modules allow each user to select the software they need for a particular job without affecting anyone else's environment.
 
-- software incompatibilities
-- versioning
-- dependencies
+## Modules
 
-Software incompatibility is a major headache for programmers. Sometimes the
-presence (or absence) of a software package will break others that depend on
-it. Two of the most famous examples are Python 2 and 3 and C compiler versions.
-Python 3 famously provides a `python` command that conflicts with that provided
-by Python 2. Software compiled against a newer version of the C libraries and
-then used when they are not present will result in a nasty `'GLIBCXX_3.4.20'
-not found` error, for instance.
+A module is a description of the environment required by a particular software package or tool.
+Loading it modifies variables in the current shell, commonly adding executable directories to `PATH`, library directories to search paths and package-specific configuration such as licence-server locations.
+It may also load compatible dependencies, commonly reporting conflicts with software already present.
 
-Software versioning is another common issue. A team might depend on a certain
-package version for their research project - if the software version was to
-change (for instance, if a package was updated), it might affect their results.
-Having access to multiple software versions allow a set of researchers to
-prevent software versioning issues from affecting their results.
+Loading a module is not the same as installing the application or copying it into the working directory.
+It makes an existing installation accessible from that shell, and unloading the module removes the corresponding changes wherever possible.
 
-Dependencies are where a particular software package (or even a particular
-version) depends on having access to another software package (or even a
-particular version of another software package). For example, the VASP
-materials science software may depend on having a particular version of the
-FFTW (Fastest Fourier Transform in the West) software library available for it
-to work.
+Clusters commonly use either Lmod or Environment Modules.
+Both provide similar core operations through the `module` command, but the available software, default environment and exact behaviour are configured on a cluster-by-cluster basis.
 
-## Environment Modules
+## Inspect the Current Environment
 
-Environment modules are the solution to these problems. A _module_ is a
-self-contained description of a software package -- it contains the
-settings required to run a software package and, usually, encodes required
-dependencies on other software packages.
+A new shell may already contain default modules.
+Do not assume that the environment begins empty.
 
-There are a number of different environment module implementations commonly
-used on HPC systems: the two most common are _TCL modules_ and _Lmod_. Both of
-these use similar syntax and the concepts are the same so learning to use one
-will allow you to use whichever is installed on the system you are using. In
-both implementations the `module` command is used to interact with environment
-modules. An additional subcommand is usually added to the command to specify
-what you want to do. For a list of subcommands you can use `module -h` or
-`module help`. As for all commands, you can access the full help on the _man_
-pages with `man module`.
-
-On login you may start out with a default set of modules loaded or you may
-start out with an empty environment; this depends on the setup of the system
-you are using.
-
-### Listing Available Modules
-
-To see available software modules, use `module avail`:
-
-```bash
-remote$ module avail
-```
-
-```text
----------------- MPI-dependent avx2 modules -----------------
- abinit/8.2.2     (chem)           ncl/6.4.0
- abyss/1.9.0      (bio)            ncview/2.1.7        (vis)
- boost-mpi/1.60.0 (t)              plumed/2.3.0        (chem)
- cdo/1.7.2        (geo)            pnetcdf/1.8.1       (io)
- lammps/20170331                   quantumespresso/6.0 (chem)
- mrbayes/3.2.6            (bio)    ray/2.3.1           (bio)
-
-
-[removed most of the output here for clarity]
-
-   t:        Tools for development / Outils de développement
-   vis:      Visualisation software / Logiciels de visualisation
-   chem:     Chemistry libraries/apps / Logiciels de chimie
-   geo:      Geography libraries/apps / Logiciels de géographie
-   phys:     Physics libraries/apps / Logiciels de physique
-   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that
-             "module load foo/1.2" will load foo/1.2.3
-   D:        Default Module
-
-Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
-```
-
-### Listing Currently Loaded Modules
-
-You can use the `module list` command to see which modules you currently have
-loaded in your environment. If you have no modules loaded, you will see a
-message telling you so
+You can list modules currently loaded with:
 
 ```bash
 remote$ module list
 ```
 
-```text
-No Modulefiles Currently Loaded.
-```
+The names and versions in the output describe part of the current software environment.
+They may include compiler, network or architecture modules as well as applications that you recognise.
 
-## Loading and Unloading Software
+Software discovery can often be performed on a login node, but the authoritative environment is the one available on the type of compute node where the application will run.
+Use an interactive allocation when the service documentation directs you to search or test software there.
 
-To load a software module, use `module load`. In this example we will use
-Python 3.
+:::callout{variant="note"}
 
-Initially, Python 3 is not loaded. We can test this by using the `which`
-command. `which` looks for programs the same way that Bash does, so we can use
-it to tell us where a particular piece of software is stored.
+## Finding Software on ARC
 
-```bash
-remote$ which python3
-```
+ARC's login and compute nodes do not expose the same software environment.
+Enter the [interactive allocation introduced in the previous section](high_performance_computing/hpc_intro/04_scheduler) before searching for available modules with `module spider` or testing them.
 
-```text
-python3 not found
-```
+ARC also maintains a [catalogue of available modules and versions](https://arc-module-list.readthedocs.io/en/latest/).
 
-We can load the `python3` command with `module load`:
+:::
 
-```bash
-remote$ module load python
-remote$ which python3
-```
+## Find and Inspect Software
 
-```text
-/path/to/python/python3
-```
-
-where `/path/to/python` is a directory that depends on the particular cluster setup.
-
-So, what just happened?
-
-To understand the output, first we need to understand the nature of the `$PATH`
-environment variable. `$PATH` is a special environment variable that controls
-where a UNIX system looks for software. Specifically `$PATH` is a list of
-directories (separated by `:`) that the OS searches through for a command
-before giving up and telling us it can't find it. As with all environment
-variables we can print it out using `echo`.
+The module catalogue on a large cluster may contain hundreds upon hundreds of packages and usually several versions or builds of each one.
+On systems using Lmod, `module spider` searches the wider module hierarchy and can reveal versions that require another compiler or toolchain module to be loaded first.
+Search for Python using the familiar software name:
 
 ```bash
-remote$ echo $PATH
+remote-compute$ module spider python
 ```
 
-```text
-/path/to/python:/another/path:/some/other/path:/yet/another/path
-```
+ARC performs this search without regard to case and reports a module family named `Python`.
+Other services may use a different name, so copy the module name from the local result rather than assuming that ARC's spelling is universal.
 
-You'll notice a similarity to the output of the `which` command.
-In this case, there's only one difference: the different directory at the beginning.
-When we ran the `module load` command, it added a directory to the beginning of our `$PATH`.
-Let's examine what's there:
+Once you know the module name, `module avail` reports matching versions that can be loaded in the current environment:
 
 ```bash
-remote$ ls /path/to/python
+remote-compute$ module avail Python
 ```
 
-```text
-2to3              idle3.5  pydoc3.5          python3.5m         virtualenv
-2to3-3.5          pip      python            python3.5m-config  wheel
-easy_install      pip3     python3           python3-config
-easy_install-3.5  pip3.5   python3.5         pyvenv
-idle3             pydoc3   python3.5-config  pyvenv-3.5
-```
-
-Taking this to its conclusion, `module load` will add software to your `$PATH`.
-It "loads" software.
-A special note on this - depending on which version of the `module` program that is installed at your site,
-`module load` will also load required software dependencies.
-
-To demonstrate, let’s use `module list`. `module list` shows all loaded software modules.
+If `module spider` is unavailable, use the search mechanism documented by the service, commonly a filtered `module avail` command.
+Once you have selected a version, inspect its documentation and the changes it would make:
 
 ```bash
-remote$ module list
+remote-compute$ module help Python/version
+remote-compute$ module show Python/version
 ```
 
-```text
-Currently Loaded Modules:
-  1) nixpkgs/.16.09    (H,S)      5) intel/2016.4  (t)
-  2) icc/.2016.4.258   (H)        6) openmpi/2.1.1 (m)
-  3) gcccore/.5.4.0    (H)        7) StdEnv/2016.4 (S)
-  4) ifort/.2016.4.258 (H)        8) python/3.5.2  (t)
+Searches may ignore capitalisation, but when loading a module, copy its name exactly as it appears in the results.
+Use the spelling and version reported by the cluster rather than copying a name from another service.
+The module name also need not match the executable name: ARC's `Python` module provides commands including `python3`.
 
-  Where:
-   S:  Module is Sticky, requires --force to unload or purge
-   m:  MPI implementations / Implémentations MPI
-   t:  Tools for development / Outils de développement
-   H:             Hidden Module
-```
+## Load and Verify Python
 
-The list of modules available will vary widely by HPC system.
-If your system has the `beast` module available, then loading `beast` module (a bioinformatics software package) will do something like this:
+Choose one of the versions reported by the catalogue and copy its complete module name.
+For example, if the catalogue reports a module named `Python/version`, load it with:
 
 ```bash
-remote$ module load beast
-remote$ module list
+remote-compute$ module load Python/version
 ```
 
-```text
-Currently Loaded Modules:
-  1) nixpkgs/.16.09    (H,S)  5) intel/2016.4  (t)   9) java/1.8.0_121   (t)
-  2) icc/.2016.4.258   (H)    6) openmpi/2.1.1 (m)  10) beagle-lib/2.1.2 (bio)
-  3) gcccore/.5.4.0    (H)    7) StdEnv/2016.4 (S)  11) beast/2.4.0      (chem)
-  4) ifort/.2016.4.258 (H)    8) python/3.5.2  (t)
+Some catalogues allow the version to be omitted and load a default instead.
+Defaults are convenient for exploration but may change as the service updates its software, so jobs should normally request an explicit version.
 
-  Where:
-   S:     Module is Sticky, requires --force to unload or purge
-   bio:   Bioinformatic libraries/apps / Logiciels de bioinformatique
-   m:     MPI implementations / Implémentations MPI
-   t:     Tools for development / Outils de développement
-   chem:  Chemistry libraries/apps / Logiciels de chimie
-   H:                Hidden Module
-```
-
-So in this case, `beast` also loaded `java/1.8.0_121` and `beagle-lib/2.1.2` as well.
-Let’s try unloading the `beast` package.
+After loading a module, inspect the resulting environment and verify the program that the shell will execute:
 
 ```bash
-remote$ module unload beast
-remote$ module list
+remote-compute$ module list
+remote-compute$ command -v python3
+remote-compute$ python3 --version
 ```
 
-```text
-Currently Loaded Modules:
-  1) nixpkgs/.16.09    (H,S)      5) intel/2016.4  (t)
-  2) icc/.2016.4.258   (H)        6) openmpi/2.1.1 (m)
-  3) gcccore/.5.4.0    (H)        7) StdEnv/2016.4 (S)
-  4) ifort/.2016.4.258 (H)        8) python/3.5.2  (t)
+A single `module load` command may introduce several modules to the environment because applications are often built for a particular compiler, message-passing library or accelerator toolchain.
+Conversely, the module system may refuse an incompatible combination or replace one member of a mutually exclusive family.
+Read these messages and use `module list` to record the environment that was actually created.
 
-  Where:
-   S:  Module is Sticky, requires --force to unload or purge
-   m:  MPI implementations / Implémentations MPI
-   t:  Tools for development / Outils de développement
-   H:             Hidden Module
-```
+::::challenge{id=observe-module-environment title="Observe How a Module Changes the Environment"}
 
-So using `module unload` “un-loads” a module along with its dependencies.
-If we wanted to unload everything at once, we could run `module purge` (unloads everything).
+Search the local module catalogue for Python and identify an exact module version.
+Use an interactive compute allocation if required by the service.
+If you loaded the selected Python module while following the preceding example, unload it before recording the initial environment.
 
-```bash
-remote$ module purge
-```
-
-```output
-The following modules were not unloaded:
-  (Use "module --force purge" to unload all):
-
-  1) StdEnv/2016.4                5) ifort/.2016.4.258
-  2) nixpkgs/.16.09               6) intel/2016.4
-  3) icc/.2016.4.258              7) imkl/11.3.4.258
-  4) gcccore/.5.4.0               8) openmpi/2.1.1
-```
-
-Note that `module purge` is informative.
-It lets us know that all but a default set of packages have been unloaded (and how to actually unload these if we truly so desired).
-
-Note that this module loading process happens principally through the manipulation of environment variables like $PATH. There is usually little or no data transfer involved.
-
-The module loading process manipulates other special environment variables as well,
-including variables that influence where the system looks for software libraries,
-and  sometimes variables which tell commercial software packages where to find license servers.
-
-The module command also restores these shell environment variables to their previous state when a module is unloaded.
-
-## Software Versioning
-
-So far, we've learned how to load and unload software packages.
-This is very useful.
-However, we have not yet addressed the issue of software versioning.
-At some point or other, you will run into issues where only one particular version of some software will be suitable.
-Perhaps a key bugfix only happened in a certain version, or version X broke compatibility with a file format you use.
-In either of these example cases, it helps to be very specific about what software is loaded.
-
-Let's examine the output of `module avail` more closely.
-
-```bash
-remote$ module avail
-```
-
-```text
----------------- MPI-dependent avx2 modules -----------------
- abinit/8.2.2     (chem)           ncl/6.4.0
- abyss/1.9.0      (bio)            ncview/2.1.7        (vis)
- boost-mpi/1.60.0 (t)              plumed/2.3.0        (chem)
- cdo/1.7.2        (geo)            pnetcdf/1.8.1       (io)
- lammps/20170331                   quantumespresso/6.0 (chem)
- mrbayes/3.2.6            (bio)    ray/2.3.1           (bio)
- gcc/4.8.5                         gcc/5.4.0           (D)
-
-[removed most of the output here for clarity]
-
-   t:        Tools for development / Outils de développement
-   vis:      Visualisation software / Logiciels de visualisation
-   chem:     Chemistry libraries/apps / Logiciels de chimie
-   geo:      Geography libraries/apps / Logiciels de géographie
-   phys:     Physics libraries/apps / Logiciels de physique
-   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that
-             "module load foo/1.2" will load foo/1.2.3
-   D:        Default Module
-
-Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching
-any of the "keys".
-```
-
-Let’s take a closer look at the gcc module.
-GCC is an extremely widely used  C/C++/Fortran compiler.
-Tons of software is dependent on the GCC version, and might not compile or run if the wrong version is loaded.
-In this case, there are two different versions: `gcc/4.8.5` and `gcc/5.4.0`.
-How do we load each copy, and which copy is the default?
-
-In this case, `gcc/5.4.0` has a `(D)` next to it. This indicates that it is the default
-— if we type `module load gcc`, this is the copy that will be loaded.
-
-::::callout{variant="tip"}
-
-## Filtering Lists
-
-A lot of HPC systems will have so many modules available that looking through the whole of `module avail` is just not practical.
-You can use `module avail gcc` to check out the versions of GCC available on yours.
-An example output from a different system might be:
-
-```bash
-remote$ module avail gcc
-```
-
-```text
-------------------------------------------------- /local/modules/apps --------------------------------------------------
-[removed for clarity]
-
------------------------------------------------ /local/modules/compilers -----------------------------------------------
-   gcc/6.4.0    gcc/10.2.0    gcc/11.1.0    gcc/12.2.0    gcc/13.2.0 (D)
-   gcc/8.5.0    gcc/10.3.0    gcc/12.1.0    gcc/13.1.0
-
-------------------------------------------------- /local/modules/libs --------------------------------------------------
-[removed for clarity]
-
--------------------------------------------------- /local/modules/mpi --------------------------------------------------
-[removed for clarity]
-
-  Where:
-   D:  Default Module
-```
-
-::::
-
-```bash
-remote$ module load gcc
-remote$ gcc --version
-```
-
-```text
-Lmod is automatically replacing "intel/2016.4" with "gcc/5.4.0".
-
-Due to MODULEPATH changes, the following have been reloaded:
-  1) openmpi/2.1.1
-
-gcc (GCC) 5.4.0
-Copyright (C) 2015 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-```
-
-Note that three things happened: the default copy of GCC was loaded (version 5.4.0), the
-Intel compilers (which conflict with GCC) were unloaded, and software that is dependent
-on compiler (OpenMPI) was reloaded. The module system turned what might be a
-super-complex operation into a single command.
-
-So how do we load the non-default copy of a software package? In this case, the only
-change we need to make is be more specific about the module we are loading. There are
-two GCC modules: `gcc/5.4.0` and `gcc/4.8.5`. To load a non-default module, the only
-change we need to make to our module load command is to leave in the version number
-after the `/`.
-
-```bash
-remote$ module load gcc/4.8.5
-```
-
-```text
-Inactive Modules:
-  1) openmpi
-
-The following have been reloaded with a version change:
-  1) gcc/5.4.0 => gcc/4.8.5
-
-gcc (GCC) 4.8.5
-Copyright (C) 2015 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-```
-
-We now have successfully switched from GCC 5.4.0 to GCC 4.8.5. It is also important to
-note that there was no compatible OpenMPI module available for GCC 4.8.5. Because of
-this, the module program has “inactivated” the module. All this means for us is that if
-we re-load GCC 5.4.0, module will remember OpenMPI used to be loaded and load that
-module as well.
-
-```bash
-remote$ module load gcc/5.4.0
-```
-
-```text
-Activating Modules:
-  1) openmpi/2.1.1
-
-The following have been reloaded with a version change:
-  1) gcc/4.8.5 => gcc/5.4.0
-```
-
-::::challenge{id=module-script title="Using Software Modules in Scripts"}
-
-Create a job that is able to run `python3 --version`. Remember, no software
-is loaded by default! Running a job is just like logging on to the system
-(you should not assume a module loaded on the login node is loaded on a
-compute node).
+Record the environment before loading the module, inspect the selected Python module, load it and then record the environment again.
+Compare the two records and verify both the location and version of Python.
 
 :::solution
 
-```bash
-remote$ nano python-module.sh
-remote$ cat python-module.sh
-```
-
-```text
-#!/usr/bin/env bash
-
-module load python3
-
-python3 --version
-```
+Substitute the exact Python module name that you found in the local catalogue:
 
 ```bash
-remote$ sbatch python-module.sh
+remote-compute$ python_module='Python/version'
+
+remote-compute$ module unload "$python_module"
+remote-compute$ env | sort > environment-before.txt
+remote-compute$ module show "$python_module"
+remote-compute$ module load "$python_module"
+remote-compute$ env | sort > environment-after.txt
+
+remote-compute$ module list
+remote-compute$ command -v python3
+remote-compute$ python3 --version
+remote-compute$ diff -u environment-before.txt environment-after.txt
 ```
+
+The comparison will commonly show changes to `PATH`, library search paths, `MANPATH`, `MODULEPATH` or variables specific to the application.
+It may also show compiler or library modules loaded as dependencies.
 
 :::
 ::::
+
+## Change or Reset the Environment
+
+You may remove a module that is no longer required with:
+
+```bash
+remote-compute$ module unload name/version
+```
+
+Where supported, `module swap old-name/version new-name/version` replaces one module with another and allows the module system to check the transition for conflicts.
+Commands such as `module restore`, `module reset` and `module purge` do not behave identically on every service.
+Removing the service's default modules can leave an unusable compiler or runtime environment.
+Use the reset operation recommended in your cluster's documentation rather than assuming that `module purge` is safe.
+
+:::callout{variant="warning"}
+
+## Preserve the Service Defaults
+
+[ARCHER2 explicitly warns against `module purge`](https://docs.archer2.ac.uk/user-guide/sw-environment/) because it disrupts the HPE Cray programming environment and recommends `module restore` instead.
+[Isambard documents `module reset`](https://docs.isambard.ac.uk/user-documentation/tutorials/intro-tour/) for returning to its default set.
+This difference is a useful reminder that even familiar module commands operate within a locally configured environment.
+
+:::
+
+## Reproduce the Environment in a Batch Job
+
+An application tested successfully in an interactive shell should be run with the same module environment in the batch job.
+Slurm and the shell may inherit some of the submission environment, but that behaviour is not a clear or durable record of the software the job requires.
+Put the necessary module commands in the job script so that the environment is established whenever the job runs.
+
+:::callout{variant="note"}
+
+## Treat the Environment like Dependencies
+
+It can be helpful to think of defining these explicit module versions as analogous to declaring package dependencies in software ecosystems such as Python and Node.js.
+A job script should be able to produce a clear and durable record of the software environment it requires rather than depend on ad hoc changes or configurations.
+
+:::
+
+Use explicit module versions and print `module list` into the job output alongside the application version.
+These records make it much easier to reproduce a result or diagnose a later difference.
+
+The following script extends the job pattern from [Running Jobs with Slurm](high_performance_computing/hpc_intro/04_scheduler):
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=software-environment
+#SBATCH --time=00:02:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --output=software-%j.out
+
+# Add any other #SBATCH directives required by your service above this line.
+
+set -euo pipefail
+
+python_module='Python/version'
+
+# Add the reset command recommended by your service here if one is required.
+module load "$python_module"
+
+printf 'Loaded modules:\n'
+module list
+printf 'Python path: '
+command -v python3
+printf 'Python version:\n'
+python3 --version
+```
+
+Set `python_module` to the exact module name reported by your local catalogue before submitting the script.
+
+::::challenge{id=reproduce-module-job title="Run the Same Software in a Batch Job"}
+
+Adapt the script above for the module investigated in the previous exercise and add any directives required by the cluster.
+Submit it, monitor it and inspect its output using the workflow from the previous section.
+
+Confirm that the batch job loaded the intended module and found the expected Python version.
+Compare the reported module list and executable path with the values from the interactive allocation.
+
+:::solution
+
+The submission and inspection follow the same pattern as the first scheduled job:
+
+```bash
+remote$ sbatch software-environment.sh
+Submitted batch job 12345
+
+remote$ squeue --job=12345
+remote$ sacct --jobs=12345 --format=JobID,JobName,State,Elapsed,ExitCode
+remote$ cat software-12345.out
+```
+
+Replace `12345` with the job ID returned by `sbatch`.
+A successful output file contains the exact module environment, Python executable path and Python version selected by the script.
+
+If the module is unavailable in the job, repeat the search from the same type of compute node and check whether another compiler or toolchain module must be loaded first.
+If the module command itself is unavailable, use the shell initialisation or job template documented by the service.
+
+:::
+::::
+
+The software environment is now part of the description of the job rather than an unrecorded property of an earlier shell session.
+
+[Transferring Files with Remote Computers](high_performance_computing/hpc_intro/06_transferring_files) next considers how application inputs and outputs can be moved between the cluster and other systems.
