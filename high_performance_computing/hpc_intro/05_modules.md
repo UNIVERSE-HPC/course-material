@@ -258,4 +258,4 @@ If the module command itself is unavailable, use the shell initialisation or job
 
 The software environment is now part of the description of the job rather than an unrecorded property of an earlier shell session.
 
-[Transferring Files with Remote Computers](high_performance_computing/hpc_intro/06_transferring_files) next considers how application inputs and outputs can be moved between the cluster and other systems.
+[Transferring Data](high_performance_computing/hpc_intro/06_transferring_files) next considers how application inputs and outputs can be moved between the cluster and other systems.
