@@ -1,458 +1,326 @@
 ---
-name: Transferring Files with Remote Computers
-dependsOn: [
-  high_performance_computing.hpc_intro.05_modules
-]
+name: Transferring Data
+dependsOn: [high_performance_computing.hpc_intro.05_modules]
 tags: []
 learningOutcomes:
-  - Transfer files to and from a computing cluster.
-attribution: 
-    - citation: >
-        "Introduction to High-Performance Computing" course by the HPC-carpentries
-      url: https://carpentries-incubator.github.io/hpc-intro/
-      image: /carpentries-incubator.svg
-      license: CC-BY-4.0
+  - Identify the connection details, remote storage path and local policy required for a transfer.
+  - Transfer files and directories to and from a cluster using `scp`.
+  - Use `rsync` to preview and apply incremental directory updates.
+  - Select an appropriate approach for repeated transfers, large datasets and collections containing many small files.
+attribution:
+  - citation: >
+      This course was developed by Alasdair Wilson as part of the Oxford Research Software Engineering group (OxRSE).
+    url: https://www.rse.ox.ac.uk
+    image: ./fig/2024_oxrse_square.svg
+    license: CC-BY-4.0
+  - citation: >
+      A previous version of this material was adapted from "Introduction to High-Performance Computing" by The Carpentries.
+    url: https://carpentries-incubator.github.io/hpc-intro/
+    image: /carpentries-incubator.svg
+    license: CC-BY-4.0
 ---
 
-Performing work on a remote computer is not very useful if we cannot get files
-to or from the cluster. There are several options for transferring data between
-computing resources using CLI and GUI utilities, a few of which we will cover.
+Computational work normally begins with input files and ends with results that must be retained, analysed or shared.
+Those files may need to move between your local computer, active storage on a cluster, a data archive, another computing service or a collaborator.
 
-## Download Lesson Files From the Internet
+The appropriate transfer method depends on the volume and number of files, whether an earlier transfer must be updated, the available network route, the sensitivity of the data and the services provided by the cluster.
 
-One of the most straightforward ways to download files is to use either `curl`
-or `wget`. One of these is usually installed in most Linux shells, on Mac OS
-terminal and in GitBash. Any file that can be downloaded in your web browser
-through a direct link can be downloaded using `curl` or `wget`. This is a
-quick way to download datasets or source code. The syntax for these commands is
+We will first demonstrate how to use `scp` (secure copy) for straightforward copies between a local computer and a cluster.
+Then we will provide a detailed introduction to `rsync`, a more advanced tool for synchronising remote and local directories and how to use either it or `tar` to package many small files into a single archive for transfer.
+Finally, we will provide a very brief overview of some of the other data transfer methods you may encounter.
 
-* `wget [-O new_name] https://some/link/to/a/file`
-* `curl [-o new_name] https://some/link/to/a/file`
+## Preparing the Transfer
 
-Try it out by downloading some material we'll use later on, from a terminal on
-your local machine, using the URL of the current codebase:
+A file-transfer command needs an unambiguous source, destination as well as a route between them.
+Before you transfer any data, obtain the following information from your cluster's documentation:
 
-<https://github.com/hpc-carpentry/amdahl/tarball/main>
+1. The hostname or SSH alias intended for file transfer.
+1. Any required institutional network, VPN, gateway or other route.
+1. The authentication procedure used by transfer connections.
+1. The complete path to the destination storage space.
+1. Any dedicated transfer nodes, managed transfer services or restrictions on sustained transfers.
+1. Any security or data-governance rules that apply to the material.
 
-::::challenge{id=download title="Download the Tarball"}
+Some services simply use the interactive login address for transfers, while others provide a separate endpoint.
+Similarly, a transfer endpoint may expose project storage without exposing the remote home directory.
 
-The word "tarball" in the above URL refers to a compressed archive format
-commonly used on Linux, which is the operating system the majority of HPC
-cluster machines run.
-A tarball is a lot like a `.zip` file.
-The actual file extension is `.tar.gz`, which reflects the two-stage process
-used to create the file:
-the files or folders are merged into a single file using `tar`, which is then
-compressed using `gzip`, so the file extension is "tar-dot-g-z."
-That's a mouthful, so people often say "the _xyz_ tarball" instead.
+:::callout{variant="note"}
 
-You may also see the extension `.tgz`, which is just an abbreviation of
-`.tar.gz`.
+## Use the Documented Transfer Route
 
-By default, `curl` and `wget` download files to the same name as the URL:
-in this case, `main`.
-Use one of the above commands to save the tarball as `amdahl.tar.gz`.
+[Oxford ARC](https://arc-user-guide.readthedocs.io/en/latest/arc-copying-data.html), [ARCHER2](https://docs.archer2.ac.uk/user-guide/data/) and [Isambard](https://docs.isambard.ac.uk/user-documentation/guides/file_transfer/local/) each document the endpoints and tools appropriate to their current systems.
+Use the instructions for the cluster rather than substituting a familiar login hostname or starting a long transfer on an arbitrary node.
+
+An SSH alias configured in [Connecting to an HPC Cluster](high_performance_computing/hpc_intro/02_connecting) can include a username, identity file and gateway settings.
+Commands such as `scp` and `rsync` can then use that alias instead of repeating those connection details.
+
+:::
+
+The [storage section](high_performance_computing/hpc_intro/03_storage) asked you to prepare a suitable working directory for this course.
+Return to that directory on the cluster and use `pwd` to obtain its complete path:
+
+```bash
+remote$ cd /path/selected/earlier/hpc-intro
+remote$ pwd
+/remote/path/to/hpc-intro
+```
+
+Record the absolute path reported by `pwd`.
+Using an absolute destination path makes it clear which remote storage space will receive the data.
+
+## Copy Files and Directories with `scp`
+
+The [`scp` command](https://man.openbsd.org/scp) copies files over an SSH connection and uses the same authentication and SSH configuration as a remote shell.
+It takes two positional arguments: the source path followed by the destination path.
+
+Each argument can identify either a local or remote path.
+A remote path uses the form `username@hostname:path`.
+The colon separates the remote host from the path on that host.
+
+To upload `input.txt` from the current local directory to the course working directory, run:
+
+```bash
+local$ scp input.txt username@login.example.ac.uk:/remote/path/to/hpc-intro/
+```
+
+Replace the username, hostname and path with appropriate values for your cluster and working directory.
+If you have configured an SSH alias, e.g. `my-cluster`, the equivalent destination begins `my-cluster:`.
+
+To retrieve `result.txt` from the working directory, reverse the remote and local arguments:
+
+```bash
+local$ mkdir -p retrieved-results
+local$ scp username@login.example.ac.uk:/remote/path/to/hpc-intro/result.txt retrieved-results/
+```
+
+These commands are run from the local computer.
+`scp` copies from the path in its first argument to the path in its second.
+Using a local source and remote destination uploads a file, while reversing them downloads it.
+
+:::callout{variant="warning"}
+
+## Check Both Paths Before Copying
+
+Without the colon, `username@login.example.ac.uk` is not a remote destination and may be interpreted as an ordinary local filename.
+An incorrect remote path can place data in the wrong storage space, while an existing destination file may be replaced without confirmation.
+
+Check the local working directory, the remote hostname and the complete remote path before starting the command.
+
+:::
+
+::::challenge{id=transfer-round-trip title="Transfer an Input and Retrieve a Result"}
+
+Create a small text file on your local computer and upload it to the course working directory.
+Connect to the cluster, confirm that the uploaded content is present, transform it into a second file and then retrieve that result to your local computer.
+
+Use the transfer endpoint and authentication route documented by the service rather than assuming that the example hostname is valid.
 
 :::solution
 
-## `wget` and `curl` Commands
+First create an input on the local computer and upload it:
 
 ```bash
-local$ wget -O amdahl.tar.gz https://github.com/hpc-carpentry/amdahl/tarball/main
-# or
-local$ curl -o amdahl.tar.gz https://github.com/hpc-carpentry/amdahl/tarball/main
+local$ printf 'transfer test\n' > transfer-input.txt
+local$ scp transfer-input.txt username@login.example.ac.uk:/remote/path/to/hpc-intro/
+```
+
+In a remote shell, enter the same directory, inspect the input and create a result:
+
+```bash
+remote$ cd /remote/path/to/hpc-intro
+remote$ cat transfer-input.txt
+transfer test
+remote$ tr '[:lower:]' '[:upper:]' < transfer-input.txt > transfer-result.txt
+```
+
+Retrieve the result from the local computer:
+
+```bash
+local$ scp username@login.example.ac.uk:/remote/path/to/hpc-intro/transfer-result.txt ./
+local$ cat transfer-result.txt
+TRANSFER TEST
+```
+
+A successful exercise demonstrates both directions of transfer and leaves both files available on the local computer and the cluster for inspection.
+
+:::
+::::
+
+`scp` can also copy a complete directory tree using its `-r` option:
+
+```bash
+local$ scp -r local-project username@login.example.ac.uk:/remote/path/to/hpc-intro/
+```
+
+The option copies the named directory recursively, including its files and subdirectories.
+This is convenient for a one-off copy, but repeating the command copies every file again and cannot resume an interrupted transfer.
+For directories that will be updated or transferred repeatedly, `rsync` provides more control.
+
+## Update a Directory with `rsync`
+
+When only a few files have changed, copying an entire directory again transfers data that is already present at the destination.
+[`rsync`](https://rsync.samba.org/) compares the source and destination so that it can transfer the required updates.
+
+This part of the section requires `rsync` on both the local computer and the cluster.
+Check that it is available at each end before beginning the exercise:
+
+```bash
+local$ rsync --version
+remote$ rsync --version
+```
+
+If either command is unavailable, consult the cluster documentation for its supported directory-transfer method and use the remaining examples to understand the `rsync` workflow.
+
+The following command updates a remote directory from a local one:
+
+```bash
+local$ rsync -aP local-project/ username@login.example.ac.uk:/remote/path/to/hpc-intro/local-project/
+```
+
+This command uses two options:
+The `-a` option transfers the directory in archive mode, preserving common metadata such as timestamps, permissions and symbolic links where the destination permits this.
+The `-P` option displays progress and retains partially transferred files so that a later run can continue the transfer more efficiently.
+
+The trailing slash on the source `local-project/` is significant.
+It means “copy the contents of this directory”; omitting it means “copy the directory itself”, which introduces an additional directory level at the destination.
+
+Before updating valuable data, ask `rsync` to perform a dry run and produce an itemised list of proposed changes:
+
+```bash
+local$ rsync -ai --dry-run local-project/ username@login.example.ac.uk:/remote/path/to/hpc-intro/local-project/
+```
+
+The dry run transfers no file data.
+Review its source, destination and proposed changes before running the intended transfer command without `--dry-run`.
+
+:::callout{variant="warning"}
+
+## Synchronisation Can Replace Data
+
+`rsync` may replace destination files whose source versions have changed.
+It does not normally remove unrelated destination files, but options such as `--delete` enable that behaviour.
+
+Do not add deletion options copied from another command until you understand which path is authoritative and have reviewed a dry run.
+
+:::
+
+::::challenge{id=update-transfer title="Update a Transferred Directory"}
+
+Create a local directory containing at least two files.
+Use an `rsync` dry run to inspect the initial transfer, perform it and confirm that the files reached the course working directory.
+
+Modify one local file, repeat the dry run and identify which item `rsync` proposes to update.
+Run the transfer again and confirm that the remote copy contains the new content.
+
+:::solution
+
+The following commands create a small example directory:
+
+```bash
+local$ mkdir -p transfer-project
+local$ printf 'configuration=initial\n' > transfer-project/config.txt
+local$ printf '1\n2\n3\n' > transfer-project/data.txt
+```
+
+Inspect and then perform the first transfer:
+
+```bash
+local$ rsync -ai --dry-run transfer-project/ username@login.example.ac.uk:/remote/path/to/hpc-intro/transfer-project/
+local$ rsync -aP transfer-project/ username@login.example.ac.uk:/remote/path/to/hpc-intro/transfer-project/
+```
+
+Change one file and inspect the proposed update:
+
+```bash
+local$ printf 'configuration=updated-value\n' > transfer-project/config.txt
+local$ rsync -ai --dry-run transfer-project/ username@login.example.ac.uk:/remote/path/to/hpc-intro/transfer-project/
+local$ rsync -aP transfer-project/ username@login.example.ac.uk:/remote/path/to/hpc-intro/transfer-project/
+```
+
+The second dry run should identify `config.txt` without proposing another transfer of the unchanged `data.txt`.
+Confirm the result from a remote shell:
+
+```bash
+remote$ cat /remote/path/to/hpc-intro/transfer-project/config.txt
+configuration=updated-value
 ```
 
 :::
 ::::
 
-After downloading the file, use `ls` to see it in your working directory:
+## Package Collections of Small Files
+
+Transferring many small files can be much slower than transferring the same number of bytes in a few large files.
+Each file requires separate filesystem metadata operations and transfer setup at both ends.
+
+`tar` is not a transfer tool, but it can package a directory that no longer needs file-by-file updates into a single archive file:
 
 ```bash
-local$ ls
+remote$ tar -cf results.tar results/
+remote$ tar -tf results.tar
 ```
 
-## Archiving Files
-
-One of the biggest challenges we often face when transferring data between
-remote HPC systems is that of large numbers of files. There is an overhead to
-transferring each individual file and when we are transferring large numbers of
-files these overheads combine to slow down our transfers to a large degree.
-
-The solution to this problem is to _archive_ multiple files into smaller
-numbers of larger files before we transfer the data to improve our transfer
-efficiency.
-Sometimes we will combine archiving with _compression_ to reduce the amount of
-data we have to transfer and so speed up the transfer.
-The most common archiving command you will use on a (Linux) HPC cluster is
-`tar`.
-
-`tar` can be used to combine files and folders into a single archive file and,
-optionally, compress the result.
-Let's look at the file we downloaded from the lesson site, `amdahl.tar.gz`.
-
-The `.gz` part stands for _gzip_, which is a compression library.
-It's common (but not necessary!) that this kind of file can be interpreted by
-reading its name: it appears somebody took files and folders relating to
-something called "amdahl," wrapped them all up into a single file with `tar`,
-then compressed that archive with `gzip` to save space.
-
-Let's see if that is the case, _without_ unpacking the file.
-`tar` prints the "**t**able of contents" with the `-t` flag, for the file
-specified with the `-f` flag followed by the filename.
-Note that you can concatenate the two flags: writing `-t -f` is interchangeable
-with writing `-tf` together.
-However, the argument following `-f` must be a filename, so writing `-ft` will
-_not_ work.
+The first command creates the archive and the second lists its contents without extracting them.
+After transferring the archive with the selected transfer tool, inspect it and extract it into a new directory:
 
 ```bash
-local$ tar -tf amdahl.tar.gz
-hpc-carpentry-amdahl-46c9b4b/
-hpc-carpentry-amdahl-46c9b4b/.github/
-hpc-carpentry-amdahl-46c9b4b/.github/workflows/
-hpc-carpentry-amdahl-46c9b4b/.github/workflows/python-publish.yml
-hpc-carpentry-amdahl-46c9b4b/.gitignore
-hpc-carpentry-amdahl-46c9b4b/LICENSE
-hpc-carpentry-amdahl-46c9b4b/README.md
-hpc-carpentry-amdahl-46c9b4b/amdahl/
-hpc-carpentry-amdahl-46c9b4b/amdahl/__init__.py
-hpc-carpentry-amdahl-46c9b4b/amdahl/__main__.py
-hpc-carpentry-amdahl-46c9b4b/amdahl/amdahl.py
-hpc-carpentry-amdahl-46c9b4b/requirements.txt
-hpc-carpentry-amdahl-46c9b4b/setup.py
+local$ mkdir -p extracted-results
+local$ tar -tf results.tar
+local$ tar -xf results.tar -C extracted-results
 ```
 
-This example output shows a folder which contains a few files, where `46c9b4b`
-is an 8-character [git][git-swc] commit hash that will change when the source
-material is updated.
+Inspecting an unfamiliar archive before extraction reveals its paths, while a separate destination reduces the risk of overwriting existing files.
 
-Now let's unpack the archive. We'll run `tar` with a few common flags:
+### Compression
 
-* `-x` to e**x**tract the archive
-* `-v` for **v**erbose output
-* `-z` for g**z**ip compression
-* `-f «tarball»` for the file to be unpacked
-
-::::challenge{id=extract title="Extract the Archive"}
-
-Using the flags above, unpack the source code tarball into a new
-directory named "amdahl" using `tar`.
-
-:::solution
+Archiving and compression are separate operations but both can be done simultaneously with `tar`.
+The `-z` option creates a gzip-compressed archive, conventionally named with a `.tar.gz` suffix:
 
 ```bash
-local$ tar -xvzf amdahl.tar.gz
+remote$ tar -czf results.tar.gz results/
 ```
 
-```text
-hpc-carpentry-amdahl-46c9b4b/
-hpc-carpentry-amdahl-46c9b4b/.github/
-hpc-carpentry-amdahl-46c9b4b/.github/workflows/
-hpc-carpentry-amdahl-46c9b4b/.github/workflows/python-publish.yml
-hpc-carpentry-amdahl-46c9b4b/.gitignore
-hpc-carpentry-amdahl-46c9b4b/LICENSE
-hpc-carpentry-amdahl-46c9b4b/README.md
-hpc-carpentry-amdahl-46c9b4b/amdahl/
-hpc-carpentry-amdahl-46c9b4b/amdahl/__init__.py
-hpc-carpentry-amdahl-46c9b4b/amdahl/__main__.py
-hpc-carpentry-amdahl-46c9b4b/amdahl/amdahl.py
-hpc-carpentry-amdahl-46c9b4b/requirements.txt
-hpc-carpentry-amdahl-46c9b4b/setup.py
-```
+Compression can reduce transfer time for suitable data, but it consumes processor time and may provide little benefit for formats that are already compressed, including many image, video and scientific-data formats.
+An archive also prevents `rsync` from updating its constituent files individually, so packaging is a trade-off rather than a universal optimisation.
 
-Note that we did not need to type out `-x -v -z -f`, thanks to flag
-concatenation, though the command works identically either way -
-so long as the concatenated list ends with `f`, because the next string
-must specify the name of the file to extract.
-:::
-::::
+## Other Transfer Methods
 
-The folder has an unfortunate name, so let's change that to something more
-convenient.
+This course practises `scp` for straightforward copies and `rsync` for repeatedly updating directory trees because together they cover many ordinary cluster workflows.
+Other mechanisms solve different problems, and it is useful to recognise their roles without learning every tool at once, it is possible you may encounter some or more of these options at some point:
 
-```bash
-local$ mv hpc-carpentry-amdahl-46c9b4b amdahl
-```
+| Category | Examples | Role |
+| --- | --- | --- |
+| Straightforward SSH copies | `scp` | Copies files between named paths using the established SSH route. |
+| Interactive or graphical SSH transfer | `sftp` and service-supported SFTP clients | Allows users to browse remote directories and select files while retaining SSH authentication. |
+| Incremental directory transfer | `rsync` | Updates directory trees and retains partial transfers, but must be available at both endpoints. |
+| Web or source-code retrieval | `curl`, `wget` and Git | Retrieves material from a public service when the cluster permits outbound access. |
+| Managed service-to-service transfer | Globus and institutional transfer services | Coordinates long-running transfers between supported endpoints and may provide automatic retry and integrity checking. |
+| Cloud or object-storage transfer | `rclone` and provider-specific command-line tools | Moves data to or from services that do not appear as ordinary SSH-accessible filesystems. |
+| Mounted or locally integrated storage | `cp` and service-specific tools | Copies data when another storage system is exposed directly within the cluster's filesystem namespace. |
 
-Check the size of the extracted directory and compare to the compressed
-file size, using `du` for "**d**isk **u**sage".
+`tar` prepares a collection for another transfer tool, while a dedicated transfer node provides an appropriate place to run a tool; neither is itself a transfer protocol.
+There is no universal data-size threshold at which one category becomes correct, so use the characteristics of the data and the services available at both endpoints.
 
-```bash
-local$ du -sh amdahl.tar.gz
-8.0K     amdahl.tar.gz
-local$ du -sh amdahl
-48K    amdahl
-```
+Large transfers may consume substantial network, processor and filesystem capacity.
+It might be necessary to use a dedicated transfer node or schedule the transfer during off-peak hours rather thanrunning sustained transfers or creating large archives on a shared login node (unless the service permits it).
+Some clusters provide data-transfer nodes, analysis nodes, managed services or scheduled transfer jobs for this purpose.
 
-Text files (including Python source code) compress nicely:
-the "tarball" is one-sixth the total size of the raw data!
+:::callout{variant="note"}
 
-If you want to reverse the process - compressing raw data instead of
-extracting it - set a `c` flag instead of `x`, set the archive filename,
-then provide a directory to compress:
+## A Public URL Does Not Guarantee Cluster Access
 
-```bash
-local$ tar -cvzf compressed_code.tar.gz amdahl
-```
+A dataset or source repository that is reachable from your local computer may not be reachable from a cluster.
+Services can restrict outbound network access, and compute nodes commonly have different connectivity from login or data-transfer nodes.
 
-```text
-amdahl/
-amdahl/.github/
-amdahl/.github/workflows/
-amdahl/.github/workflows/python-publish.yml
-amdahl/.gitignore
-amdahl/LICENSE
-amdahl/README.md
-amdahl/amdahl/
-amdahl/amdahl/__init__.py
-amdahl/amdahl/__main__.py
-amdahl/amdahl/amdahl.py
-amdahl/requirements.txt
-amdahl/setup.py
-```
-
-If you give `amdahl.tar.gz` as the filename in the above command, `tar` will
-update the existing tarball with any changes you made to the files.
-That would mean adding the new `amdahl` folder to the _existing_ folder
-(`hpc-carpentry-amdahl-46c9b4b`) inside the tarball, doubling the size of the
-archive!
-
-:::callout
-
-## Working with Windows
-
-When you transfer text files from a Windows system to a Unix system (Mac,
-Linux, BSD, Solaris, etc.) this can cause problems. Windows encodes its files
-slightly different than Unix, and adds an extra character to every line.
-
-On a Unix system, every line in a file ends with a `\n` (newline). On
-Windows, every line in a file ends with a `\r\n` (carriage return + newline).
-This causes problems sometimes.
-
-Though most modern programming languages and software handles this correctly,
-in some rare instances, you may run into an issue. The solution is to convert
-a file from Windows to Unix encoding with the `dos2unix` command.
-
-You can identify if a file has Windows line endings with `cat -A filename`. A
-file with Windows line endings will have `^M$` at the end of every line. A
-file with Unix line endings will have `$` at the end of a line.
-
-To convert the file, just run `dos2unix filename`. (Conversely, to convert
-back to Windows format, you can run `unix2dos filename`.)
-:::
-
-## Transferring Single Files and Folders With `scp`
-
-To copy a single file to or from the cluster, we can use `scp` ("secure copy").
-The syntax can be a little complex for new users, but we'll break it down.
-The `scp` command is a relative of the `ssh` command we used to
-access the system, and can use the same public-key authentication
-mechanism.
-
-To _upload to_ another computer, the template command is
-
-```bash
-local$ scp local_file user@cluster.name:remote_destination
-```
-
-in which `@` and `:` are field separators and `remote_destination` is a path
-relative to your remote home directory, or a new filename if you wish to change
-it, or both a relative path _and_ a new filename.
-If you don't have a specific folder in mind you can omit the
-`remote_destination` and the file will be copied to your home directory on the
-remote computer (with its original name).
-If you include a `remote_destination`, note that `scp` interprets this the same
-way `cp` does when making local copies:
-if it exists and is a folder, the file is copied inside the folder; if it
-exists and is a file, the file is overwritten with the contents of
-`local_file`; if it does not exist, it is assumed to be a destination filename
-for `local_file`.
-
-Upload the lesson material to your remote home directory like so:
-
-```bash
-local$ scp amdahl.tar.gz user@cluster.name:
-```
-
-:::::challenge{id=download-directly, title="Why Not Download on the Cluster Directly?"}
-
-Most computer clusters are protected from the open internet by a _firewall_.
-For enhanced security, some are configured to allow traffic _inbound_, but
-not _outbound_.
-This means that an authenticated user can send a file to a cluster machine,
-but a cluster machine cannot retrieve files from a user's machine or the
-open Internet.
-
-Try downloading the file directly. Note that it may well fail, and that's
-OK!
-
-:::solution
-
-## Commands
-
-```bash
-local$ ssh user@cluster.name
-remote$ wget -O amdahl.tar.gz https://github.com/hpc-carpentry/amdahl/tarball/main
-# or
-remote$ curl -o amdahl.tar.gz https://github.com/hpc-carpentry/amdahl/tarball/main
-```
+When direct download is not supported, retrieve the material on an approved system and transfer it using the documented route.
 
 :::
 
-Did it work? If not, what does the terminal output tell you about what
-happened?
-:::::
+## Verify Before Removing the Source
 
-## Transferring a Directory
+A successful command does not prove that every intended file reached the correct destination.
+Before removing the source, inspect the destination and compare file counts, sizes or checksums as appropriate.
+Keep a durable copy of irreplaceable inputs and results in storage that meets the backup, retention and data-governance requirements described in the [storage section](high_performance_computing/hpc_intro/03_storage).
 
-To transfer an entire directory, we add the `-r` flag for "**r**ecursive":
-copy the item specified, and every item below it, and every item below those...
-until it reaches the bottom of the directory tree rooted at the folder name you
-provided.
-
-```bash
-local$ scp -r amdahl user@cluster.name:
-```
-
-:::callout
-
-## Caution
-
-For a large directory  either in size or number of files -
-copying with `-r` can take a long time to complete.
-:::
-
-When using `scp`, you may have noticed that a `:` _always_ follows the remote
-computer name.
-A string _after_ the `:` specifies the remote directory you wish to transfer
-the file or folder to, including a new name if you wish to rename the remote
-material.
-If you leave this field blank, `scp` defaults to your home directory and the
-name of the local material to be transferred.
-
-On Linux computers, `/` is the separator in file or directory paths.
-A path starting with a `/` is called _absolute_, since there can be nothing
-above the root `/`.
-A path that does not start with `/` is called _relative_, since it is not
-anchored to the root.
-
-If you want to upload a file to a location inside your home directory -
-which is often the case - then you don't need a _leading_ `/`. After the `:`,
-you can type the destination path relative to your home directory.
-If your home directory _is_ the destination, you can leave the destination
-field blank, or type `~` - the shorthand for your home directory - for
-completeness.
-
-With `scp`, a trailing slash on the target directory is optional, and has
-no effect. It is important for other commands, like `rsync`.
-
-:::callout
-
-## A Note on `rsync`
-
-As you gain experience with transferring files, you may find the `scp`
-command limiting. The [rsync] utility provides
-advanced features for file transfer and is typically faster compared to both
-`scp` and `sftp` (see below). It is especially useful for transferring large
-and/or many files and for synchronizing folder contents between computers.
-
-The syntax is similar to `scp`. To transfer _to_ another computer with
-commonly used options:
-
-```bash
-local$ rsync -avP amdahl.tar.gz user@cluster.name:
-```
-
-The options are:
-
-* `-a` (**a**rchive) to preserve file timestamps, permissions, and folders,
-   among other things; implies recursion
-* `-v` (**v**erbose) to get verbose output to help monitor the transfer
-* `-P` (partial/progress) to preserve partially transferred files in case
-  of an interruption and also displays the progress of the transfer.
-
-To recursively copy a directory, we can use the same options:
-
-```bash
-local$ rsync -avP amdahl user@cluster.name:~/
-```
-
-As written, this will place the local directory and its contents under your
-home directory on the remote system. If the trailing slash is omitted on
-the destination, a new directory corresponding to the transferred directory
-will not be created, and the contents of the source
-directory will be copied directly into the destination directory.
-
-To download a file, we simply change the source and destination:
-
-```bash
-local$ rsync -avP user@cluster.name:amdahl ./
-```
-
-:::
-
-File transfers using both `scp` and `rsync` use SSH to encrypt data sent through
-the network. So, if you can connect via SSH, you will be able to transfer
-files. By default, SSH uses network port 22. If a custom SSH port is in use,
-you will have to specify it using the appropriate flag, often `-p`, `-P`, or
-`--port`. Check `--help` or the `man` page if you're unsure.
-
-::::challenge{id=rsync-port title="Change the Rsync Port"}
-
-Say we have to connect `rsync` through port 768 instead of 22. How would we
-modify this command?
-
-```bash
-local$ rsync amdahl.tar.gz user@cluster.name:
-```
-
-_Hint:_ check the `man` page or "help" for `rsync`.
-
-:::solution
-
-```bash
-local$ man rsync
-local$ rsync --help | grep port
-     --port=PORT             specify double-colon alternate port number
-See http://rsync.samba.org/ for updates, bug reports, and answers
-local$ rsync --port=768 amdahl.tar.gz user@cluster.name:
-```
-
-(Note that this command will fail, as the correct port in this case is the
-default: 22.)
-:::
-::::
-
-## Transferring Files Interactively with FileZilla
-
-FileZilla is a cross-platform client for downloading and uploading files to and
-from a remote computer. It is absolutely fool-proof and always works quite
-well. It uses the `sftp` protocol.
-
-Download and install the FileZilla client from <https://filezilla-project.org>.
-After installing and opening the program, you should end up with a window with
-a file browser of your local system on the left hand side of the screen. When
-you connect to the cluster, your cluster files will appear on the right hand
-side.
-
-To connect to the cluster, we'll just need to enter our credentials at the top
-of the screen:
-
-* Host: `sftp://cluster.name`
-* User: Your cluster username
-* Password: Your cluster password
-* Port: (leave blank to use the default port)
-
-Hit "Quickconnect" to connect. You should see your remote files appear on the
-right hand side of the screen. You can drag-and-drop files between the left
-(local) and right (remote) sides of the screen to transfer files.
-
-Finally, if you need to move large files (typically larger than a gigabyte)
-from one remote computer to another remote computer, SSH in to the computer
-hosting the files and use `scp` or `rsync` to transfer over to the other. This
-will be more efficient than using FileZilla (or related applications) that
-would copy from the source to your local machine, then to the destination
-machine.
-
-[git-swc]: https://swcarpentry.github.io/git-novice/
-[rsync]: https://rsync.samba.org/
+The preceding sections have introduced each part of a cluster workflow separately.
+[Running an Image-Sharpening Application](high_performance_computing/hpc_intro/07_image_sharpening) now brings them together by obtaining and compiling an application, running it through Slurm and examining the result on your own computer.
