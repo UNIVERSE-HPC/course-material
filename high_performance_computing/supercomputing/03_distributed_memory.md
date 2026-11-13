@@ -1,7 +1,7 @@
 ---
 name: Distributed-Memory Computers
 dependsOn: [high_performance_computing.supercomputing.02_shared_memory]
-tags: [foundation]
+tags: []
 learningOutcomes:
   - Distinguish between memory access within a compute node and communication between nodes.
   - Explain how distributing data and work allows a computation to use the resources of multiple nodes.
@@ -11,7 +11,7 @@ attribution:
   - citation: >
       This course was developed by Alasdair Wilson as part of the Oxford Research Software Engineering group (OxRSE).
     url: https://www.rse.ox.ac.uk/
-    image: ./supercomputing/images/2024_oxrse_square.svg
+    image: ./images/2024_oxrse_square.svg
     license: CC-BY-4.0
   - citation: >
       A previous version of this material was adapted from the "Introduction to HPC" course by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC, with funding from EuroCC.

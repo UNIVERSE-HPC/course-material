@@ -36,5 +36,5 @@ By tracing computation and data through this hierarchy, you will learn to recogn
 Hardware specifications and benchmarks provide useful evidence, but only when interpreted in that context.
 
 The focus here is the architecture and performance of supercomputers.
-Practical use of a cluster, including job schedulers and file transfer, is covered in [Introduction to High Performance Computing](high_performance_computing/hpc_intro).
+Practical use of a cluster, including job schedulers and file transfer, is covered in [Using an HPC Cluster](high_performance_computing/hpc_intro).
 The [Introduction to Parallelism](high_performance_computing/hpc_parallel_intro) provides a bridge from these architectural ideas to parallel programming, which is then developed in [Introduction to the Message Passing Interface](high_performance_computing/hpc_mpi) and [Parallel Programming with OpenMP](high_performance_computing/hpc_openmp).
