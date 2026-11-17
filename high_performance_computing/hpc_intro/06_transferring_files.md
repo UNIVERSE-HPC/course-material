@@ -4,7 +4,7 @@ dependsOn: [high_performance_computing.hpc_intro.05_modules]
 tags: []
 learningOutcomes:
   - Identify the connection details, remote storage path and local policy required for a transfer.
-  - Transfer files and directories to and from a cluster using `scp`.
+  - Use `scp` for straightforward one-off transfers between a local computer and a cluster.
   - Use `rsync` to preview and apply incremental directory updates.
   - Select an appropriate approach for repeated transfers, large datasets and collections containing many small files.
 attribution:
@@ -25,13 +25,13 @@ Those files may need to move between your local computer, active storage on a cl
 
 The appropriate transfer method depends on the volume and number of files, whether an earlier transfer must be updated, the available network route, the sensitivity of the data and the services provided by the cluster.
 
-We will first demonstrate how to use `scp` (secure copy) for straightforward copies between a local computer and a cluster.
-Then we will provide a detailed introduction to `rsync`, a more advanced tool for synchronising remote and local directories and how to use either it or `tar` to package many small files into a single archive for transfer.
-Finally, we will provide a very brief overview of some of the other data transfer methods you may encounter.
+We will first use `scp` (secure copy) for straightforward one-off copies between a local computer and a cluster.
+We will then build on the same source-and-destination model with `rsync`, which is better suited to updating directory trees and interrupted transfers.
+Finally, we will consider packaging collections of small files and briefly survey other transfer methods you may encounter.
 
 ## Preparing the Transfer
 
-A file-transfer command needs an unambiguous source, destination as well as a route between them.
+A file-transfer command needs an unambiguous source and destination, as well as a route between them.
 Before you transfer any data, obtain the following information from your cluster's documentation:
 
 1. The hostname or SSH alias intended for file transfer.
@@ -160,6 +160,7 @@ For directories that will be updated or transferred repeatedly, `rsync` provides
 
 When only a few files have changed, copying an entire directory again transfers data that is already present at the destination.
 [`rsync`](https://rsync.samba.org/) compares the source and destination so that it can transfer the required updates.
+Where it is available at both ends, `rsync` can perform the straightforward file and directory copies shown with `scp`, while also supporting incremental updates and the retention of partial transfers.
 
 This part of the section requires `rsync` on both the local computer and the cluster.
 Check that it is available at each end before beginning the exercise:
@@ -169,7 +170,8 @@ local$ rsync --version
 remote$ rsync --version
 ```
 
-If either command is unavailable, consult the cluster documentation for its supported directory-transfer method and use the remaining examples to understand the `rsync` workflow.
+`rsync` is widely available on HPC systems, but it is not universal.
+If either command is unavailable, consult the cluster documentation for its supported directory-transfer method and use the remaining examples to understand the workflow.
 
 The following command updates a remote directory from a local one:
 
@@ -260,8 +262,8 @@ remote$ tar -cf results.tar results/
 remote$ tar -tf results.tar
 ```
 
-The first command creates the archive and the second lists its contents without extracting them.
-After transferring the archive with the selected transfer tool, inspect it and extract it into a new directory:
+The first command creates the archive and the second will list its contents without extracting them.
+After transferring the archive with the selected transfer tool, you can extract it into a new directory:
 
 ```bash
 local$ mkdir -p extracted-results
@@ -269,7 +271,7 @@ local$ tar -tf results.tar
 local$ tar -xf results.tar -C extracted-results
 ```
 
-Inspecting an unfamiliar archive before extraction reveals its paths, while a separate destination reduces the risk of overwriting existing files.
+A separate destination is optional but reduces the risk of overwriting existing files.
 
 ### Compression
 
@@ -281,12 +283,12 @@ remote$ tar -czf results.tar.gz results/
 ```
 
 Compression can reduce transfer time for suitable data, but it consumes processor time and may provide little benefit for formats that are already compressed, including many image, video and scientific-data formats.
-An archive also prevents `rsync` from updating its constituent files individually, so packaging is a trade-off rather than a universal optimisation.
+Archiving your data also prevents `rsync` from updating its constituent files individually, so packaging is a trade-off rather than a universal optimisation.
 
 ## Other Transfer Methods
 
 This course practises `scp` for straightforward copies and `rsync` for repeatedly updating directory trees because together they cover many ordinary cluster workflows.
-Other mechanisms solve different problems, and it is useful to recognise their roles without learning every tool at once, it is possible you may encounter some or more of these options at some point:
+Other transfer methods have various upsides we can look at some of the roles they fill wihtout teaching their operation:
 
 | Category | Examples | Role |
 | --- | --- | --- |
@@ -298,11 +300,17 @@ Other mechanisms solve different problems, and it is useful to recognise their r
 | Cloud or object-storage transfer | `rclone` and provider-specific command-line tools | Moves data to or from services that do not appear as ordinary SSH-accessible filesystems. |
 | Mounted or locally integrated storage | `cp` and service-specific tools | Copies data when another storage system is exposed directly within the cluster's filesystem namespace. |
 
-`tar` prepares a collection for another transfer tool, while a dedicated transfer node provides an appropriate place to run a tool; neither is itself a transfer protocol.
-There is no universal data-size threshold at which one category becomes correct, so use the characteristics of the data and the services available at both endpoints.
+A few examples from that list:
+
+A graphical SFTP client presents local and remote directories in a file-browser interface similar to a desktop file manager, which some users find more approachable than command-line transfers.
+It still uses the service's SSH transfer route and must follow the same requirements for endpoints, authentication and appropriate transfer size.
+
+[Globus](https://docs.globus.org/guides/tutorials/manage-files/transfer-files/) is a widely used managed transfer service in research computing, particularly useful for transfers measured in tens of gigabytes or terabytes because it can retry interruptions and verify file integrity.
+This scale is a rule of thumb rather than a fixed threshold, but it should prompt you to check whether the cluster and the other storage system are exposed through compatible Globus collections before defaulting to `scp` or `rsync`.
+It is available only when the cluster and the other storage system are exposed through compatible Globus collections, so consult the documentation for both services before planning to use it.
 
 Large transfers may consume substantial network, processor and filesystem capacity.
-It might be necessary to use a dedicated transfer node or schedule the transfer during off-peak hours rather thanrunning sustained transfers or creating large archives on a shared login node (unless the service permits it).
+It might be necessary to use a dedicated transfer node or schedule the transfer during off-peak hours rather than running sustained transfers or creating large archives on a shared login node (unless the service permits it).
 Some clusters provide data-transfer nodes, analysis nodes, managed services or scheduled transfer jobs for this purpose.
 
 :::callout{variant="note"}
@@ -319,8 +327,8 @@ When direct download is not supported, retrieve the material on an approved syst
 ## Verify Before Removing the Source
 
 A successful command does not prove that every intended file reached the correct destination.
-Before removing the source, inspect the destination and compare file counts, sizes or checksums as appropriate.
+Before deleting the original copies, inspect the destination and compare file counts, sizes or checksums as appropriate.
 Keep a durable copy of irreplaceable inputs and results in storage that meets the backup, retention and data-governance requirements described in the [storage section](high_performance_computing/hpc_intro/03_storage).
 
 The preceding sections have introduced each part of a cluster workflow separately.
-[Running an Image-Sharpening Application](high_performance_computing/hpc_intro/07_image_sharpening) now brings them together by obtaining and compiling an application, running it through Slurm and examining the result on your own computer.
+[Running an Image-Sharpening Application](high_performance_computing/hpc_intro/07_image_sharpening) brings them together by obtaining and compiling an application, running it through Slurm and transferring the result to your own computer.
