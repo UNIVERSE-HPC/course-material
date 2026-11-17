@@ -1,186 +1,245 @@
 ---
-name: Supercomputing World
-dependsOn: [high_performance_computing.supercomputing.02_understanding_supercomputing]
+name: Measuring Supercomputers
+dependsOn: [high_performance_computing.supercomputing.accelerators]
 tags: [foundation]
+learningOutcomes:
+  - Calculate and interpret theoretical peak and measured floating-point performance.
+  - Distinguish between hardware specifications, benchmark results and application performance.
+  - Interpret the TOP500 and Green500 rankings without treating either as a universal measure of performance.
+  - Relate performance, electrical power and energy consumption.
 attribution:
   - citation: >
-      "Introduction to HPC" course by EPCC.
-      This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
-    url: https://epcced.github.io/Intro-to-HPC/
-    image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
+      This course was developed by Alasdair Wilson as part of the Oxford Research Software Engineering group (OxRSE).
+    url: https://www.rse.ox.ac.uk/
+    image: ./supercomputing/images/2024_oxrse_square.svg
     license: CC-BY-4.0
 ---
 
-![Computer circuit board looking like a city](images/bert-b-rhNff6hB41s-unsplash.jpg)
-_Image courtesy of [bert b](https://unsplash.com/@bertsz) from [Unsplash](https://unsplash.com)_
+## Measurements of Performance
 
-## Current Trends and Moore's Law
+Calling one computer *faster* than another is incomplete unless we say what work is being measured.
+One system might finish a particular simulation sooner, while another might process more independent jobs or hold a larger problem in memory.
 
-Over recent decades, computers have become more and more powerful. New computing devices appear on the market at a tremendous rate, and if you like to always have the fastest available personal computer, you need to visit your local computer store very frequently! But how did computers become so powerful, and are there any fundamental limits to how fast a computer can be? To answer these questions, we need to understand what CPUs are made up of.
+A widely used measure of numerical computing performance is the number of **floating-point operations per second**.
+A floating-point operation, or FLOP, is an arithmetic operation on floating-point data, such as an addition or multiplication.
+A rate of one billion such operations each second is one gigaflop per second, written \(1\ \text{GFLOP/s}\).
 
-As mentioned previously, our measure of the performance of a CPU-core is based on the number of floating-point operations it can carry out per second, which in turn depends on the clock speed. CPUs are built from Integrated Circuits that consist of very large numbers of transistors. These transistors are connected by extremely small conducting wires which can carry an electric current. By controlling whether or not an electric current goes through certain conducting lines, we are able to encode information and perform calculations.
-
-Most transistors nowadays are created with silicon, a type of semiconductor. A semiconductor is a material that can act as both a conductor (a material that permits the flow of electrons) and an insulator (that inhibits electron flow), which is exactly the characteristics we want a transistor to have. The maximum physical size of a processor chip is limited to a few square centimetres, so to get a more complicated and powerful processor we need to make the transistors smaller.
-
-In 1965, the co-founder of Fairchild Semiconductor and Intel, Gordon E. Moore, made an observation and forecast. He noticed that manufacturing processes were continually improving to the extent that:
-
-> "The number of transistors that could be placed on an integrated circuit was doubling approximately every two years."
-
-He predicted that this would continue into the future. This observation is named after him, and is called Moore’s law. Although it is really a forecast and not a fundamental law of nature, the prediction has been remarkably accurate for over 50 years.
-
-The first CPU from Intel (the i4004) introduced in 1971 had 2000 transistors, and Intel’s Core i7 CPU introduced in 2012 had 3 billion transistors. This is in excess of a million times more transistors, but is actually in line with what you would expect from the exponential growth of Moore’s law over around 40 years.
-
-It turns out that, as we pack our transistors closer and closer together, every time we double the density of transistors we can double the frequency. So, although Moore’s law is actually a prediction about the density of transistors, for the first four decades it also meant that:
-
-> "Every two years the CPU clock frequency doubled."
-
-We saw clock speeds steadily increasing, finally breaking the GHz barrier (a billion cycles per second) in the early twenty-first century. But then this growth stopped, and clock speeds have remained at a few GHz for more than a decade. So did Moore’s law stop?
-
-The problem is that increasing clock frequency comes at a cost: it takes more power. Above a few GHz, our processors become too power hungry and too hot to use in everyday devices. But Moore’s law continues, so rather than increasing the frequency we put more processors on the same physical chip. We call these CPU-cores, and we now have multicore processors. The below image shows a schematic of a modern processor (Intel’s Core i7) with four CPU-cores (four pinkish rectangles).
-
-![Rendering of Intel Core i7 CPU](images/large_hero_cafacb0d-898b-44b4-9290-5c25c211fc03.jpg)
-_Intel's Core i7 A modern quad-core CPU - Intel’s Core i7 © Intel_
-
-So for the past decade, Moore’s law has meant:
-
-> "Every two years, the number of CPU-cores in a processor now doubles."
-
-In the last few years the process of doubling transistors in integrated circuits is showing signs of slowing down. It’s no longer every two years but perhaps every three years, but the overall trend still continues.
-
-The current trend in the supercomputing world is that supercomputers are getting bigger not faster. Since the speed of a single CPU-core cannot be increased any more, having more and more cores working together is the only way to meet our computational requirements.
-
-![Graph of transistor count over time, ](images/Transistor-Count-over-time.png)
-_Image courtesy of Max Roser, Hannah Ritchie [OurWorldinData](https://ourworldindata.org/uploads/2020/11/Transistor-Count-over-time.png) ([CC-BY](https://creativecommons.org/licenses/by/4.0/deed.en))_
-
-:::callout{variant="discussion"}
-Your next mobile phone will probably have more CPU-cores than your current one. Do you think this is more useful than a faster CPU? Can you see any problems in making use of all these CPU-cores?
+:::callout{variant="info"}
+A floating-point operation is not necessarily the same as a processor instruction.
+A vector instruction can apply the same operation to several numbers at once, while a fused multiply-add performs both a multiplication and an addition.
+Processor specifications account for this when stating the maximum number of FLOPs that can be performed in each clock cycle.
 :::
 
----
+Supercomputer performance reaches very large values, so decimal prefixes are used:
 
-## How to calculate the world's yearly income?
+| Operations per second | Prefix | Unit    |
+| --------------------- | ------ | ------- |
+| \(10^3\)              | kilo   | kFLOP/s |
+| \(10^6\)              | mega   | MFLOP/s |
+| \(10^9\)              | giga   | GFLOP/s |
+| \(10^{12}\)           | tera   | TFLOP/s |
+| \(10^{15}\)           | peta   | PFLOP/s |
+| \(10^{18}\)           | exa    | EFLOP/s |
 
-::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_tpqo25kw&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_1ms2y7b4" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay _; fullscreen _; encrypted-media \*" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="worlds_yearly_income_hd"}
-::::
+FLOP/s describes only one kind of work, basic floating point number crunching.
+It does not measure memory capacity, data-transfer rates, storage performance or the runtime of a particular application which might rely on the performance of many aspects of the system.
+A single performance figure is therefore useful only when its meaning and method of measurement are understood.
 
-:::solution{title="Transcript"}
-0:11 - Here, we’re going to introduce a very simple example, of calculating the world’s yearly income. It’s a bit of a toy example. But, we’re going to imagine that we have a list of the incomes, the salaries, of everybody in the entire world, and we’re going to add them all up to work out what the total income of the world is. Now this is obviously a very simple example, and slightly artificial. But, we’ll actually use it, and come back to it, in a number of contexts. First of all, it is very useful as a specific example of a real calculation, where we can illustrate how much faster calculations have got, through the developments in processor technology over the years.
+## Theoretical Peak Performance
 
-0:46 - We talk about megahertz, gigahertz, and all kinds of things like this, but if we focus on a specific calculation, it will maybe become more obvious what that actually translates into. Also we’ll come back to this example later on in the course, to see how you might implement it in parallel. How would you use multiple CPU cores to do the calculation faster? So, let’s imagine we have a list. It’s going to be a long list of the salaries of everybody in the world, ordered alphabetically by country and person. So, right at the top of list we have a couple of people, Aadel and Aamir Abdali, who live in Afghanistan. Unfortunately, people in Afghanistan, the average wage is quite low.
+The maximum floating-point rate implied by a processor's design is its **theoretical peak performance**.
+For CPU-only work, a simplified calculation would be:
 
-1:23 - But they earn just under 1,000 pounds a year each. We carry on down the list, we get a couple of representative people from the UK, Mark and Mary Hensen, a couple who live in the north of England, earning 20,000 or 30,000 pounds each. And there’s me, that’s my salary– oh there seems to be a small error there, you can’t quite see what my salary is, but anyway, I’m on the list as you’d expect. And way down at the bottom– we’re assuming there are seven billion people in the world, which is a reasonable estimate– a couple of brothers from Zimbabwe, Zojj and Zuka Zinyama, who run a successful garage and motor repair business, earning 3,500 and 1,000 pounds each.
+```math
+R_{\mathrm{peak}} =
+\text{CPU-cores}
+\times
+\text{clock cycles per second}
+\times
+\text{FLOPs per cycle}.
+```
 
-1:58 - So what are we going to do to add up all these numbers? What we’re going to do is, we’re going to write a computer programme. Now, as I’ve said before, this isn’t a programming course, we don’t expect you to be a computer programmer. However, this is very simple, and it will serve to illustrate the way that computers work, and allow us to translate these megahertz and gigahertz frequencies we’ve been talking about into actual elapsed time in seconds. So how do we add it up? Well, first of all, we have a running total which we set to zero. And, we start at the top of the list, and we go through the numbers in order.
+Consider a system with 512 nodes, two 64-core processors per node, a clock frequency of 2.0 GHz and a maximum of 16 double-precision FLOPs per cycle.
+It contains:
 
-2:29 - So, we add the income to the total. We go to the next item in the list– the second, the third, the fourth, the fifth. And then we repeat, if we’re not at the end of the list. So if we’re not at the end of the list, but not at the seven billionth entry, we have to go back, add the next income to the total, go to the next item, and then keep repeating, repeating. So we repeat these three steps, three individual steps, we repeat them seven billion times. And once we’ve finished at the end, we can print the total out. So, it’s a very simple prescription, in some kind of pseudo-language of the computer program to add up these incomes.
+```math
+512 \times 2 \times 64 = 65\,536\ \text{CPU-cores}.
+```
 
-3:04 - But, the most important point is the core loop, the one that’s executed seven billion times, has three distinct steps in it. And, we’re going to assume that each one of these corresponds to a single instruction issued by the CPU, by the processor. Now, it’s quite a naive assumption, but it’s perfectly OK for our purposes here.
+Its theoretical peak performance is:
+
+```math
+65\,536
+\times
+2.0 \times 10^9
+\times
+16
+=
+2.097152 \times 10^{15}\ \text{FLOP/s},
+```
+
+or approximately \(2.10\ \text{PFLOP/s}\).
+
+The TOP500 project calls this value \(R_{\mathrm{peak}}\).
+For a system containing different kinds of processor or accelerator, the theoretical contributions of those devices must be calculated separately and added together.
+
+\(R_{\mathrm{peak}}\) is a ceiling, not a rate that applications should be expected to sustain.
+Reaching it would require every processing unit to perform the maximum number of floating-point operations during every clock cycle.
+Real programs also move data, wait for memory, communicate between nodes, make decisions and perform operations that are not floating-point arithmetic.
+
+## Measuring Performance with a Benchmark
+
+A **benchmark** is a defined workload used to measure and compare computing systems.
+Running the same workload according to the same rules provides a more useful comparison than relying on hardware specifications alone.
+
+The principal benchmark used to compare supercomputers is the [High-Performance Linpack benchmark](https://www.netlib.org/benchmark/hpl/), usually abbreviated to HPL.
+HPL solves a dense system of linear equations using double-precision floating-point arithmetic.
+Its problem size can be chosen to use a large proportion of the available memory, allowing the benchmark to exercise a complete distributed-memory system.
+
+The highest HPL performance achieved by a system is called \(R_{\mathrm{max}}\).
+Like \(R_{\mathrm{peak}}\), it is reported in FLOP/s.
+
+The ratio between the two shows what fraction of theoretical peak performance HPL achieved:
+
+```math
+\text{fraction of peak} =
+\frac{R_{\mathrm{max}}}{R_{\mathrm{peak}}}.
+```
+
+An \(R_{\mathrm{max}}\) of \(1.5\ \text{PFLOP/s}\) on a system with an \(R_{\mathrm{peak}}\) of \(2.0\ \text{PFLOP/s}\) means the system reached 75% of its theoretical peak.
+
+HPL performs a large amount of arithmetic on dense data, allowing a system to sustain a large fraction of its theoretical floating-point performance.
+Applications dominated by memory access, network communication, storage or other kinds of computation can behave very differently.
+An HPL result is therefore a reproducible measurement of HPL performance, not a prediction of every application's runtime.
+
+The most informative benchmark for a particular workload is usually one that resembles that workload.
+HPL is valuable for comparing a particular aspect of whole supercomputers, while an application-specific benchmark shows how well the available system supports a particular research workload.
+
+## The TOP500
+
+The [TOP500 project](https://www.top500.org/lists/top500/) has published a list of supercomputer results twice a year since 1993.
+Systems are ranked primarily by their \(R_{\mathrm{max}}\) result from HPL, with \(R_{\mathrm{peak}}\) used to break a tie.
+
+The list also records information such as processor count, processor and accelerator types, interconnect, installation site and power consumption.
+It is therefore useful both as a ranking and as a dataset for examining how supercomputer architecture changes over time.
+
+A TOP500 position has a precise meaning: it describes a system's position according to its reported HPL result.
+It does not establish that the system will run every application faster than all systems below it.
+
+The TOP500 is not a catalogue from which most users select a supercomputer.
+System designers and funding bodies may use it when assessing proposed systems, while facility operators use performance measurements to understand the systems they run.
+For users, its main value is explaining published specifications and placing the resources available to them in a wider context.
+
+## Performance and Energy
+
+Performance is only one consideration when designing and operating a supercomputing facility.
+Electrical power has direct financial and environmental costs, and almost all of it eventually becomes heat that the cooling system must remove.
+
+The [Green500](https://www.top500.org/lists/green500/) ranks TOP500 systems by the HPL performance delivered per watt of electrical power.
+Its energy-efficiency measure is:
+
+```math
+\text{performance per watt} =
+\frac{R_{\mathrm{max}}}{\text{average electrical power during the HPL run}}.
+```
+
+It is usually reported in GFLOP/s per watt.
+Because one watt is one joule per second, this is equivalent to the number of gigaflops performed per joule of energy.
+
+A large system can consume more power in total but deliver more work per watt.
+High absolute performance and high energy efficiency are therefore different properties, but they are not opposites.
+
+Power and energy must also be distinguished.
+Power is the rate at which energy is used, while the energy consumed by a workload depends on both its average power and its runtime:
+
+```math
+\text{energy} = \text{average power} \times \text{runtime}.
+```
+
+A system drawing more power may still consume less energy if it completes a workload sufficiently quickly.
+Like the TOP500 rankings, a supercomputer's Green500 rank cannot replace measurements made with the workloads and constraints that matter to its users.
+
+:::callout{variant="warning"}
+Power measurements are specific to the workload and measurement conditions.
+The HPL power values reported for the Green500 cannot be used to estimate the energy consumed by a different application.
+Doing so requires measurements of average power and runtime while that application is running.
 :::
 
-How would you go about calculating the world’s yearly income? Well, it’s simple adding up of numbers but there are many of them… so the real question is: how long would it take?
+::::challenge{id=sc_measure.compare title="Comparing Performance Measurements"}
+Two fictional systems have produced the following results:
 
-In this video David describes how to tackle the calculation in serial on his laptop, and in the next step we will discuss how long it might take.
+| System | \(R_{\mathrm{peak}}\) | \(R_{\mathrm{max}}\) | HPL power |
+| ------ | --------------------- | -------------------- | --------- |
+| Cedar  | 4.0 PFLOP/s           | 3.0 PFLOP/s          | 1.5 MW    |
+| Rowan  | 3.0 PFLOP/s           | 2.7 PFLOP/s          | 0.75 MW   |
 
-We will use this example in other steps on this course to better illustrate some of the key concepts, so make sure you understand how it works.
-
----
-
-## Moore's Law in practice
-
-::::iframe{id="kaltura_player" width="100%" height="400" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_4zab4d0l&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_1mhy9m0z" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay _; fullscreen _; encrypted-media \*" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Moores_Law_hd"}
-::::
-
-:::solution{title="Transcript"}
-0:12 - So the question is, how long does this calculation take? So, what I’m going to do is I’m going to do a bit of history. I’m going to look at the history of processors over about the past five decades to see how long it would have taken to do this calculation on a particular processor from that time. I’m going to focus on Intel as a manufacturer. Intel is a very successful manufacturer today of processors– they are very prevalent in desktops and laptops– but there are other designers or manufacturers of processors you may have heard of. ARM, for example, who design a lot of the processors which go into mobile devices like mobile phones, and Nvidia who produce graphics processors.
-
-0:48 - There’s also IBM, International Business Machines, who actually design their own processors, and AMD, who also make their own processors. But I’m going to look at Intel, the main reason is because they have a long history and we can look way back many decades to see how these things have gone on. Now, I’m starting in 1966, which might seem like a strange starting point, but that when I was born. So there I am in 1966. How long does it take me to do this calculation. Now I have 100 billion neurons– that’s a lot of neurons in my brain– but unfortunately these neurons aren’t particularly good at doing mechanical floating-point operations.
-
-1:21 - So I reckon I could issue operations at the rate of one Hertz. So that’s the frequency one Hertz, which is one operation per second, or one second per operation. Now remember, the core loop had three steps in it. So at one operation per second, or one second per operation, it’s going to take me three seconds to do that loop. And it turns out it would take me 650 years to add up the salaries of all 7 billion people in the world. And that’s really, for one person, it’s just not going to even complete in a lifetime. So it’s a completely untenable calculation.
-
-1:54 - Now back in 1971, Intel introduced what is now considered to be the first modern integrated microprocessor, the Intel 4004, and it had 2000 transistors. Not many transistors compared to my 100 billion neurons, but these transistors are very good at doing floating-point calculations. The frequency of this machine with about 100 kilohertz– 100 kilohertz is 100,000 operations per second, or one operation every 10 microseconds– a microsecond is a millionth of a second. So every millionth of a second, this chip could do one operation. Now, remember, there are three steps, so it’s going to take 30 microseconds to do each loop. So, the total time to do that seven billion times is two and a half days.
-
-2:35 - So even over four decades ago, microprocessors were able to translate what would have been a completely unfeasible calculation for one person to do into something which can be done in a few days. Which is a major step forward. But if we fast forward another two decades, we see the impact of Moore’s law. Moore’s law is this exponential increase, this regular doubling of the number of transistors you can get on a microprocessor, and in 1993 Intel released the Pentium, and in the intervening decades the manufacturing technology had increased to such an extent that they could now put 3 million transistors on the Pentium. This extra density of transistors translates into the ability to run these at a faster frequency.
-
-3:15 - The Pentium had a frequency of 60 megahertz. That’s 60 million operations per second, or the time per operation is 17 nanoseconds, where a nanosecond is a billionth of a second. Now it’s worth thinking about that for a while. A nanosecond is an extremely short period of time. Let’s imagine a ray of light. Light is the fastest thing there can be in the universe and every nanosecond, light only travels about 30 centimetres. So, each time that the Pentium issues an operation, it issues an operation every 17 nanoseconds. In those 17 nanoseconds, light has only travelled about five metres, about the width of a room. Now it takes three steps per loop.
-
-3:56 - So the time loop is 50 nanoseconds, which means, in 1993, it would have taken six minutes to add up the salaries of everybody in the whole world. So, you can see, in a couple of decades a calculation which would have taken several days, has gone to something which you could just set the computer going, and go off and have a cup of coffee and come back, and it would be finished. So, let’s fast forward to 2012, another two decades. And Intel then released the core i7 processor, which had three billion transistors– not three million but three billion. It could operate at a frequency of three gigahertz, which is three billion operations per second.
-
-4:29 - The time per operation is a third of a nanosecond. So each time that the core i7 could issue an operation, every third of a nanosecond, light could only travel 10 centimetres. So, you can see we’re approaching some fairly fundamental physical limits here, in how fast processors can go. The time per loop was one nanosecond. That meant that to add up all seven billion salaries would have taken seven seconds. So, again, in the intervening two decades from 1993 to 2012, we’ve gone from a calculation where you would have to go away and wait to have a cup of coffee for it to finish, to something you could just sit and it would be ready almost instantaneously.
-
-5:05 - So, hopefully that illustrates the impact of Moore’s law. How, from 1971 to 2012, over the period of four decades, this relentless increase in the speed of CPUs has gone from a calculation taking two and a half days, to taking seven seconds.
-:::
-
-So how long does it take to add up 7 billion numbers? Well, it depends on what you are using to add them…
-
-We’ve talked about Moore’s Law and what it has meant in terms of processor hardware:
-
-Every two years the number of transistors that can fit onto an integrated circuit doubles (until 2005);
-
-Every two years the number of CPU-cores in a processor now doubles.
-
-In this video David uses the income calculation example to illustrate what is the impact of the first point in practice.
-
----
-
-![Podium with top three winners](images/winner-1019835_640.jpg)
-_Image courtesy of [Peggy_Marco](https://pixabay.com/users/peggy_marco-1553824/) from [Pixabay](https://pixabay.com)_
-
-## Top500 list: Supercomputing hit parade
-
-On the top500.org site, you can find the ranks and details of the 500 most powerful supercomputers in the world.
-
-The first Top500 list was published in June 1993, and since then the Top500 project publishes an updated list of the supercomputers twice a year:
-
-in June at the ISC High Performance conference in Germany,
-and in November at the Supercomputing conference in the US.
-The site provides news with respect to supercomputers and HPC, it also has a handy statistics tool which people can use to gain more insights of the Top500 systems.
-
-:::callout{variant="discussion"}
-Have a look at the most recent list and briefly comment on the following question:
-
-- What manufacturers produce the world’s largest supercomputers?
-- What types of processors do they use?
-- What fraction of peak performance is typically achieved for the LINPACK benchmark?
-- Play with the statistics tool on top500.org and think about the trends in current HPC systems. For example, how many supercomputers in the Top500 are classed as being for use by industry?
-
-:::
-
----
-
-## Terminology recap
-
-::::challenge{id=sc_world.1 title="Supercomputing World Q1"}
-Historically, a \_**\_ contained a single "brain" but nowadays it contains multiple \_\_**.
+1. Calculate the fraction of theoretical peak achieved by each system.
+1. Which system would be placed higher in the TOP500?
+1. Calculate the HPL performance per watt of each system in GFLOP/s per watt.
+1. Which system would be favoured by the Green500 measure?
+1. Do these measurements justify describing either system as better overall?
+1. What additional measurements would be needed to compare the systems for a particular research workload?
 
 :::solution
+Cedar achieves:
 
-1. Processor
+```math
+\frac{3.0}{4.0} = 0.75 = 75\%
+```
 
-2. Cores
+of its theoretical peak.
 
+Rowan achieves:
+
+```math
+\frac{2.7}{3.0} = 0.90 = 90\%
+```
+
+of its theoretical peak.
+
+Cedar would be placed higher in the TOP500 because its \(R_{\mathrm{max}}\) is \(3.0\ \text{PFLOP/s}\), compared with Rowan's \(2.7\ \text{PFLOP/s}\).
+
+Dividing Cedar's \(3.0\ \text{PFLOP/s}\) by \(1.5\ \text{MW}\) gives \(2.0\ \text{GFLOP/s}\) per watt.
+Dividing Rowan's \(2.7\ \text{PFLOP/s}\) by \(0.75\ \text{MW}\) gives \(3.6\ \text{GFLOP/s}\) per watt.
+Rowan would therefore be favoured by the Green500 measure.
+
+Neither system is better according to every measure.
+Cedar produced the higher HPL performance, while Rowan achieved a larger fraction of its theoretical peak and more HPL performance per watt.
+
+Comparing the systems for a particular research workload would require a representative application benchmark.
+Relevant measurements could include time to solution, throughput, memory use, average power and total energy consumption while running that workload.
 :::
 ::::
 
-::::challenge{id=sc_world.2 title="Supercomputing World Q2"}
-The mode of computing in which a single CPU-core is doing a single computation is called \_**\_ computing, as opposed to \_\_** computing, where all CPU-cores work together at the same time.
+## Investigating the Current Lists
+
+The TOP500 and Green500 are updated regularly, so examining the current data is more useful than memorising a particular ranking.
+
+::::challenge{id=sc_measure.lists title="Interpreting the TOP500 and Green500"}
+Open the most recent [TOP500](https://www.top500.org/lists/top500/) and corresponding [Green500](https://www.top500.org/lists/green500/) lists, then choose two systems for which power measurements are reported.
+
+For each system:
+
+1. Record its TOP500 rank, \(R_{\mathrm{max}}\), \(R_{\mathrm{peak}}\), power and Green500 energy-efficiency value.
+1. Calculate the fraction of theoretical peak achieved.
+1. Calculate \(R_{\mathrm{max}}\) per watt and compare it with the published Green500 value.
+1. Are there differences in the listed processor, accelerator or interconnect information that might explain the results?
+1. What conclusions do the rankings support and which would require an application-specific benchmark?
 
 :::solution
+The selected systems and values will depend on the current list.
 
-1. Serial
+For each system, divide \(R_{\mathrm{max}}\) by \(R_{\mathrm{peak}}\) to calculate its fraction of peak.
+Convert the units before dividing \(R_{\mathrm{max}}\) by power; dividing PFLOP/s by MW directly produces GFLOP/s per watt because *peta* is \(10^{15}\) and *mega* is \(10^6\).
+Your calculated result should broadly agree with the published Green500 value.
 
-2. Parallel
-
+The TOP500 comparison demonstrates relative HPL performance.
+The Green500 comparison demonstrates relative HPL performance per watt under its measurement rules.
+Processor, accelerator and interconnect information may help explain the results, but neither ranking by itself establishes how quickly or efficiently another application will run.
+Conclusions about application performance would require a representative application benchmark.
 :::
 ::::
 
-::::challenge{id=sc_world.3 title="Supercomputing World Q3"}
-The process of evaluating the performance of a supercomputer by running a standard program is called \_**\_. The standard calculation used to compile the top500 list is called \_\_**.
-
-:::solution
-
-1. Benchmarking
-
-2. LINPACK
-
-:::
-::::
+These measurements describe different aspects of a supercomputer’s capabilities, but none predicts application performance on its own.
+Real performance depends on how well a workload matches the processors, memory and network, and on how effectively the program uses them.
+The parallel-programming courses examine how software turns that hardware capability into useful performance.

@@ -1,546 +1,364 @@
 ---
-name: Understanding Supercomputing
-dependsOn: [
-    high_performance_computing.supercomputing.01_intro
-]
+name: Shared-Memory Computers
+dependsOn: [high_performance_computing.supercomputing.01_intro]
 tags: [foundation]
-attribution: 
-    - citation: >
-        "Introduction to HPC" course by EPCC.
-        This material was originally developed by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC under funding from EuroCC.
-      url: https://epcced.github.io/Intro-to-HPC/
-      image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
-      license: CC-BY-4.0
+learningOutcomes:
+  - Explain why modern processors use multiple CPU-cores.
+  - Distinguish between increasing throughput and reducing the runtime of one calculation.
+  - Describe how CPU-cores share memory and use caches.
+  - Investigate how processor availability and memory contention affect concurrent programs.
+attribution:
+  - citation: >
+      This course was developed by Alasdair Wilson as part of the Oxford Research Software Engineering group (OxRSE).
+    url: https://www.rse.ox.ac.uk/
+    image: ./supercomputing/images/2024_oxrse_square.svg
+    license: CC-BY-4.0
+  - citation: >
+      A previous version of this material was adapted from the "Introduction to HPC" course by David Henty, Manos Farsarakis, Weronika Filinger, James Richings, and Stephen Farr at EPCC, with funding from EuroCC.
+    url: https://epcced.github.io/Intro-to-HPC/
+    image: https://epcced.github.io/Intro-to-HPC/_static/epcc_logo.svg
+    license: CC-BY-4.0
 ---
 
-![Graphical image of a computer processor](images/processor-2217771_640.jpg)
-*Image courtesy of [ColiN00B](https://pixabay.com/users/colin00b-346653/) from [Pixabay](https://pixabay.com)*
+## Computer Basics
 
-## Understanding Supercomputing - Processors
+Before looking at how supercomputers are built, it is useful to examine an ordinary desktop or laptop computer.
 
-In this section we will cover the basics of how supercomputers are designed, enough for you to be able to understand the characteristics of the supercomputers in the [Top500](https://www.top500.org/lists/top500/2023/11/) list (the linked list is from November 2023).
+For decades, personal computers were built around a single processing core.
+A simplified model of such a computer contains three main components:
 
-When we talk about a processor, we mean the central processing unit (CPU) in a computer which is sometimes considered to be the computer’s brain. The CPU carries out the instructions of computer programs, the terms CPU and processor are generally used interchangeably.
-A modern CPU is composed of a collection of several separate processing units, we call each independent processing unit a CPU-core - some people just use the term core.
+1. A central processing unit (CPU) that performs calculations.
+1. Random access memory (RAM) that temporarily stores programs and data in use.
+1. A hard disk drive (HDD) or solid-state drive (SSD) that stores programs and files for the long term.
 
-A modern domestic device (e.g. a laptop, mobile phone or iPad) will usually have a few CPU-cores (perhaps two or four), while a supercomputer has tens or hundreds of thousands of CPU-cores.
-As mentioned before, a supercomputer gets its power from all these CPU-cores working together at the same time - working in parallel.
-Conversely, the mode of operation you are familiar with from everyday computing, in which a single CPU-core is doing a single computation, is called serial computing.
+![Diagram of the relationship between processor, memory and disk](images/processor-memory-disk-diagram.svg)
 
-It may surprise you to learn that supercomputers are built using the same basic elements that you normally find in your desktop, such as processors, memory and disk. The difference is largely a matter of scale. The reason is quite simple: the cost of developing new hardware is measured in billions of euros, and the market for consumer products is vastly larger than that for supercomputing, so the most advanced technology you can find is actually what you find in general-purpose computers.
+Real computers contain many more components, but the relationship between the processor and memory is what matters here.
+We can therefore set storage aside for the rest of this section.
 
-The same approach is used for computer graphics - the graphics processor (or GPU) in a home desktop or games console will have hundreds or thousands of cores, though each core will not be as capable as those of the CPUs.
-Special-purpose processors like GPUs are now being used to increase the power of supercomputers - in this context they are called accelerators.
+### The Rise of Multi-core Processors
 
-![Image denoting the more powerful, fewer cores of a CPU versus the smaller, more numerous cores of a GPU](images/large_hero_8408f33c-87f5-4061-aec7-42ef976e83fd.webp)
-*A typical CPU has a small number of powerful, general-purpose cores; a GPU has many more specialised cores. © NVIDIA*
+For several decades, advances in semiconductor manufacturing allowed designers to place increasing numbers of transistors on a processor.
+This trend is described by Moore's Law.
+Processor performance also improved through a combination of higher clock frequencies and architectural changes that allowed more work to be completed during each clock cycle.
 
-To use all of these CPU-cores together means they must be able to talk to each other. In a supercomputer, connecting very large numbers of CPU-cores together requires a communications network, which is called the interconnect in the jargon of the field. A large parallel supercomputer may also be called a Massively Parallel Processor or MPP.
+By the early 2000s, raising clock frequencies had become increasingly difficult.
+Higher frequencies and greater transistor density increased power consumption and produced more heat than could be removed economically.
 
-Does it surprise you to learn that games console components and other general-purpose hardware are also used in supercomputers?
-
----
-
-![Photo of tape measures with varying units of measurement](images/william-warby-WahfNoqbYnM-unsplash.jpg)
-*Image courtesy of [Willian Warby](https://unsplash.com/@wwarby) from [Unsplash](https://unsplash.com)*
-
-## Understanding Supercomputing - Performance
-
-In supercomputing, we are normally interested in numerical computations: what is the answer to 0.234 + 3.456, or 1.4567 x 2.6734? Computers store numbers like these in floating-point format, so they are called floating-point numbers. A single instruction like addition or multiplication is called an operation, so we measure the speed of supercomputers in terms of floating-point operations per second or Flop/s, which is sometimes written and said more simply as Flops.
-
-So how many Flops can a modern CPU-core perform? Let’s take a high-end processor like the AMD EPYC Zen2 (Rome) 7F32 CPU (which happens to be the processor used in the Snellius system at [SURFsara](https://www.surf.nl/en/services/snellius-the-national-supercomputer), the Netherlands National Supercomputer). The way a processor is normally marketed is to quote its clock frequency, which here is 3.7 GHz. This is the rate at which each CPU-core operates. Clock speed is expressed in cycles per second (Hertz), and the prefix Giga means a billion (a thousand million), so this CPU-core is working at the almost mind-blowing rate of 3.7 billion cycles per second. Under favourable circumstances, an AMD EPYC CPU-core can perform 16 floating-point operations per cycle, which means each CPU-core can perform 16 x 3.7 billion = 59.2 billion floating-point operations per second.
-
-So, the peak performance of one of our CPU-cores is 59.2 GFlops.
-
-We say peak performance because this is the absolute maximum, never-to-be-exceeded figure which it is very hard to achieve in practice. However, it’s a very useful figure to know for reference.
-
-Clearly, with many thousands of CPU-cores we’re going to encounter some big numbers so here is a table summarising the standard abbreviations you’ll come across:
-
-|Ops per second             | Scientific Notation | Prefix  | Unit   |
-|---------------------------|---------------------|---------|--------|
-| 1 000                     | 10^3                | Kilo    | Kflops |
-| 1 000 000                 | 10^6                | Mega    | Mflops |
-| 1 000 000 000             | 10^9                | Giga    | Gflops |
-| 1 000 000 000 000         | 10^12               | Tera    | Tflops |
-| 1 000 000 000 000 000     | 10^15               | Peta    | Pflops |
-| 1 000 000 000 000 000 000 | 10^18               | Exa     | Eflops |
-
-:::callout
-:::callout{variant="info"}
-A quick word of warning here: when talking about performance measures such as Gflops, we are talking about powers of ten. For other aspects such as memory, it is more natural to work in powers of 2 - computers are binary machines after all.
-:::
-
-It is something of a coincidence that 2^10 = 1024 is very close to 10^3 = 1000, so we are often sloppy in the terminology. However, we should really be clear if a kiloByte (Kbyte) is 1000 Bytes or 1024 Bytes. By KByte, people usually mean 1024 Bytes but, strictly speaking, a Kbyte is actually 1000 Bytes. The technically correct terminology for 1024 Bytes is KibiByte written as KiByte.
-
-This might seem like an academic point since, for a KByte, the difference is only about 2%. However, the difference between a PByte and a PiByte is more than 12%. If your supercomputer salesman quotes you a price for a PetaByte of disk, make sure you know exactly how much storage you’re getting!
-
----
-
-![Photo of someone holding a stopwatch](images/veri-ivanova-p3Pj7jOYvnM-unsplash.jpg)
-*Image courtesy of [Veri Ivanova](https://unsplash.com/@veri_ivanova) from [Unsplash](https://unsplash.com)*
-
-## Understanding Supercomputing - Benchmarking
-
-If we are going to compare performance we need some standard measure. When buying a car, we don’t just take the manufacturer’s word for how good the car is - we take it for a test drive car and see how well it performs in practice. For cars we might be interested in top speed or fuel economy, and it turns out that we are interested in the equivalent quantities for supercomputers: maximum floating-point performance and power consumption.
-
-In the supercomputer world, two parameters are frequently used to measure the performance of a system, Rpeak and Rmax: Rpeak is the theoretical peak performance, which is just the peak performance of a CPU-core multiplied by the number of CPU-cores; Rmax is the measured maximum performance. To measure supercomputer performance the equivalent of a test drive is how fast it can run a standard program, the process of measuring performance is called benchmarking. Both are expressed in units of FLOPS.
-
-The standard benchmark for supercomputing is the High Performance LINPACK (HPL) benchmark.
-LINPACK involves running a standard mathematical computation called an LU factorisation on a very large square matrix of size Nmax by Nmax.
-The matrix is just a table of floating-point numbers, and Nmax is chosen in order to fill the machines available memory and to maximise performance.
-
-[The top 500](https://top500.org/lists/top500/2024/11/) uses these values to compare the performance of the worlds fastest machines.
+Manufacturers therefore began using more of their transistor budget to place several complete processing cores on one chip.
+Dual-core processors were followed by processors with four, eight and eventually dozens of CPU-cores.
+Processors containing especially large numbers of cores are sometimes described as *many-core* processors.
 
 :::callout{variant="info"}
-The Nmax used to achieve the measured performance is not typically disclosed but in June 2018, the world’s fastest supercomputer (the Summit system at the Oak Ridge National Laboratory in the USA, since decommisioned) used Nmax of over 16 million - imagine working with a spreadsheet with over 16 million rows and 16 millions columns!
+With multi-core processors, the words *CPU* and *processor* can be ambiguous.
+
+In this course:
+
+- **CPU-core** means one physical processing core.
+- **CPU** or **processor** means the complete chip containing one or more CPU-cores.
+
+Some CPU-cores support simultaneous multithreading and appear to the operating system as more than one logical processing unit.
+The number of logical processing units reported by an operating system can therefore be greater than the number of physical CPU-cores.
 :::
 
-Supercomputers are not only expensive to purchase, but they are also extremely expensive to run due to their extreme power consumption. A typical supercomputer consumes multiple megawatts, and this power is turned into heat which we have to get rid of via external cooling.
+## Who Needs a Multi-core Laptop?
 
-For example, the fourth on the top500 list, Tianhe-2 system has a peak power consumption of 18.5 megawatts and, including external cooling, the system drew an aggregate of 24 megawatts when running the LINPACK benchmark. If a kilowatt of power costs 10 cents per hour, Tianhe-2’s peak power consumption will be 2400 euros per hour, which is in excess of 21 million euros per year.
-For example, Tianhe-2 system has a peak power consumption of 18.5 megawatts and, including external cooling, the system drew an aggregate of 24 megawatts when running the LINPACK benchmark. If a kilowatt of power costs 10 cents per hour, Tianhe-2’s peak power consumption will be 2400 euros per hour, which is in excess of 21 million euros per year.
-Rpeak and Rmax are what Top500 uses to rank supercomputers. Also quoted is the electrical power consumption, which leads to the creation of another list - the [Green 500](https://www.top500.org/lists/green500/2022/06/) (June 2022)- which ranks supercomputers on their fuel economy in terms of Flops perWatt. Despite its massive power bill, Frontier is quite power-efficient. The top ranked system (Frontier) holds 2nd position on the Green 500.
-Rpeak and Rmax are what Top500 uses to rank supercomputers performance but, also quoted is the electrical power consumption, which leads to the creation of another list - the [Green 500](https://www.top500.org/lists/green500/2024/11/) (November 2024)- which ranks supercomputers on their fuel economy in terms of Flops perWatt.
-Take a look at the [Top500](https://www.top500.org/lists/top500/2022/06/) list  - does the fact the top supercomputer for performance is also the to for power efficeny surprise you? What could be the reason for this?
+Multi-core processors allow computers to become more capable even though the performance of an individual CPU-core is no longer increasing as rapidly as it once did.
+That explains why multi-core processors are valuable in supercomputers, but why are they also useful in laptops and mobile phones?
+
+A program does not automatically run twice as fast when a second CPU-core becomes available.
+To use several cores for one calculation, the program must usually be adapted through a process called parallelisation.
+Such a program divides its work into parts that can execute concurrently.
+
+Most programs were serial when multi-core CPUs first became common, and much software remains serial today.
+A serial program executes on only one processing unit at a time.
+
 :::callout{variant="discussion"}
-Take a look at the [Top500](https://www.top500.org/lists/top500/2022/06/) list for June 2022 - does the fact the top supercomputer for performance is also the top for power efficiency surprise you? What could be the reason for this?
+Does a multi-core processor still benefit someone who mostly runs serial programs?
+:::
+
+### Operating Systems
+
+People do not normally choose which CPU-core runs each program.
+The operating system (OS) manages access to the processor, memory and other hardware.
+Windows, macOS, Linux and Android are different operating systems, but all include a scheduler that decides when and where each program will run.
+
+![Diagram of a user in relation to a computer containing an operating system, processor and memory](images/user-os-processor-memory-diagram.svg)
+
+Even a single-core computer can appear to run many programs at once.
+The scheduler gives one program a short period on the CPU-core, pauses it and then gives another program a turn.
+This process is called *time-sharing*.
+By switching between programs quickly, the operating system keeps them all responsive.
+
+### How the OS Uses Multiple CPU-cores
+
+In a multi-core computer, one operating system controls all the CPU-cores.
+The scheduler can run different programs on different cores at the same time and continually reassign work as programs start, wait and finish.
+
+![Diagram of a user in relation to a computer containing an operating system, multiple cores and memory](images/user-os-cores-memory-bus-diagram.svg)
+
+This is why a computer can browse the web, play music, edit a document and perform a calculation at the same time.
+Because every CPU-core can access the same main memory, the operating system can also pause a program on one core and resume it on another.
+
+For everyday computing, the operating system can exploit multiple cores by running separate programs concurrently.
+This increases **throughput**, which is the amount of work completed in a given time.
+
+Supercomputing often has a different objective: reducing the time required for one large calculation.
+Achieving that objective requires a parallel program that can divide and coordinate its work across multiple CPU-cores.
+We will examine how such programs are written in the parallel-programming course.
+
+:::callout{variant="discussion"}
+What costs or complications might arise when several CPU-cores share the same memory and other hardware resources?
 :::
 
 ---
 
-![Photo of magnifying glass used on laptop keyboard](images/agence-olloweb-d9ILr-dbEdg-unsplash.jpg)
-*Image courtesy of [Agence Olloweb](https://unsplash.com/@olloweb) from [Unsplash](https://unsplash.com/)*
+## Scheduling Serial Programs
 
-## HPC System Design
+The [benchmark program](code/multicore-benchmark.c) supplied with this section performs a fixed amount of serial work.
+The commands below start several independent copies and report how long the complete group takes to finish.
 
-Now you understand the basic hardware of supercomputers, you might be wondering what a complete system looks like. Let’s have a look at the high-level architecture of supercomputer, with emphasis on how it differs from a desktop machine.
-
-The figure below shows the building blocks of a complete supercomputer system and how they are connected together. Most systems in the world will look like this at an abstract level, so understanding this will give you a good model for how all supercomputers are put together.
-
-![Diagram of general supercomputer architecture and how its components relate to a user's own computer](images/large_hero_a3db6ae7-8a0e-4fe4-b2da-302380de963a.png)
-
-Let’s go through the figure step by step.
-
-### Interactive Nodes
-
-As a user of a supercomputer, you will get some login credentials, for example a username and password. Using these you can access one of the interactive nodes (sometimes called login nodes). You don’t have to travel to the supercomputer centre where these interactive nodes are located - you just connect from your desktop machine over the internet.
-
-Since a supercomputer system typically has many hundreds of users, there are normally several interactive nodes which share the workloads, i.e. to make sure that all the users are not trying to access one single machine at the same time. This is where you do all your everyday tasks such as developing computer programs or visualising results.
-
-### Batch System
-
-Once logged into an interactive node, you can now run large computations on the supercomputer. It is very important to understand that you do not directly access the CPU-cores that do the hard work. Supercomputers operate in batch mode - you submit a job (including everything needed to run your simulation) to a queue and it is run some time in the future. This is done to ensure that the whole system is utilised as fully as possible.
-
-The user creates a small file, referred to as a job script, which specifies all the parameters of the computation such as which program is to be run, the number of CPU-cores required, the expected duration of the job etc. This is then submitted to the batch system. Resources will be allocated when available and a user will be guaranteed exclusive access to all the CPU-cores they are assigned. This prevents other processes from interfering with a job and allows it to achieve the best performance.
-
-Individual users will not have access to the full resources of the supercomputer. Instead, they will be allocated resources according to the specifications in their job script and the limits defined by their project's funding or allocation agreements.
-
-It is the job of the batch scheduler to look at all the jobs in the queue and decide which jobs to run based on, for example, their expected execution time and how many CPU-cores they require. At any one time, a single supercomputer could be running several parallel jobs with hundreds waiting in the queue. Each job will be allocated a separate portion of the whole supercomputer. A good batch system will keep the supercomputer full with jobs all the time, but not leave individual jobs in the queue for too long.
-
-### Compute nodes
-
-The compute nodes are at the core of the system and the part that we’ve concentrated on for most of this module. They contain the resources to execute user jobs - the thousands of CPU-cores operating in parallel that give a supercomputer its power. They are connected by fast interconnect, so that the communication time between CPU-cores impacts program run times as little as possible.
-
-### Storage
-
-Although the compute nodes may have disks attached to them, they are only used for temporary storage while a job is running. There will be some large external storage, comprising thousands of disks, to store the input and output files for each computation. This is connected to the compute nodes using fast interconnect so that computations which have large amounts of data as input or output don’t spend too much time accessing their files. The main storage area will also be accessible from the interactive nodes, e.g. so you can visualise your results.
-
----
-
-## Practical 1: Setting up Prerequisites
-
-To undertake the practical sessions in this course you'll need one of the following:
-
-- A machine with OpenMP and MPI installed (see links to instructions below), although you won't be able to run the Slurm job scheduler examples unless you have access to ARCHER2 which these examples assume.
-- The Slurm job submission examples presented assume access to [ARCHER2](https://www.archer2.ac.uk/) which has OpenMP and MPI preinstalled. These examples can be made to work on other HPC infrastructures, such as [DiRAC](https://dirac.ac.uk/), but due to differences in how these systems are configured, prior knowledge of job scripts and the correct parameters to use for those systems will be required.
-
-### Local machine installation
-
-#### Installing OpenMP on your machine
-
-In order to make use of OpenMP, it's usually a case of ensuring you have the [right compiler installed on your system](https://www.openmp.org/resources/openmp-compilers-tools/), such as gcc.
-
-#### Installing MPI on your machine
-
-To install a popular version of MPI called [OpenMPI](https://www.open-mpi.org/) on a desktop or laptop:
-
-- **Linux:** Most distributions have OpenMPI available in their package manager, e.g.
-
-  ```bash
-  sudo apt install openmpi-bin openmpi-dev
-  ```
-
-- **Mac:** The MacPorts and Homebrew package managers both have OpenMPI available:
-
-  ```bash
-  brew install openmpi
-  # or
-  port install openmpi
-  ```
-
-- **Windows:** Whilst you *can* build OpenMPI yourself on Windows, it's generally easier to use the [**Windows Subsystem for Linux**](https://learn.microsoft.com/en-us/windows/wsl/install).
-
-This can be useful for when you're writing code or testing it on a smaller scale, but you will need to check that you're installing a version of OpenMPI that's also available on whichever HPC cluster you're likely to scale up to.
-
-### Using ARCHER2
-
-The other option, if you already have an account on it, is to use ARCHER2 which has all the software pre-installed.
-
-### Installing an SSH client
-
-To connect to ARCHER2 from our local laptop or PC you'll need an SSH client, which allows us to connect to and use a command line interface on a remote computer as if we were our own.
-Please follow the directions below to install an SSH client for your system if you do not already have one.
-
-#### Windows
-
-Modern versions of Windows have SSH available in Powershell. First run Powershell, and you can test if it is available by typing ssh --help in Powershell. If it is installed, you should see some useful output. If it is not installed, you will get an error. If SSH is not available in Powershell, then you should install MobaXterm from [http://mobaxterm.mobatek.net](http://mobaxterm.mobatek.net). You will want to get the Home edition (Installer edition). However, if Powershell works, you do not need this.
-
-#### MacOS
-
-macOS comes with SSH pre-installed, so you should not need to install anything. Use your “Terminal” app.
-
-#### Linux
-
-Linux users do not need to install anything, you should be set! Use your terminal application.
-
-### Using SSH to connect to ARCHER2
-
-You should now be able to log into ARCHER2 by following the login instructions in the [ARCHER2 documentation](https://docs.archer2.ac.uk/user-guide/connecting/#ssh-clients), e.g.
+Download `multicore-benchmark.c`, then compile it:
 
 ```bash
-ssh username@login.archer2.ac.uk
+cc -O3 -ffast-math -std=c11 multicore-benchmark.c -o multicore-benchmark
 ```
 
-You will also need to use a means of secondary authentication in order to gain access, e.g. using the authenticator app you used during ARCHER2 registration.
-Then you should see a welcome message followed by a Bash prompt, e.g.:
+:::callout{variant="warning"}
+Run this benchmark on your own computer or within an interactive compute allocation.
+Do not run CPU-intensive experiments on a shared login node.
+
+The commands below assume a Linux Bash environment.
+The `nproc` utility reports the number of logical processing units available on your computer or within your allocation.
+If `nproc` is unavailable, set `cores` manually to the number of processing units available to you.
+:::
+
+::::challenge{id=pc_basics.scheduling title="Observing Scheduler Behaviour"}
+Let \(N\) be the number of processing units available to the benchmark.
+The important comparison is between 1, \(N\) and \(2N\) copies, rather than any particular number of copies.
+
+Define a Bash function that launches several copies and records their combined runtime:
 
 ```bash
-username@ln01:~> 
-```
+cores=$(nproc)
+TIMEFORMAT='runtime_seconds=%R'
 
-::::callout
-When using ARCHER2, be sure to `cd` to the `/work` filesystem, i.e.:
+run_copies() {
+  local dataset=$1
+  local copies=$2
+  local copy
 
-```bash
-cd /work/[project code]/[group code]/[username]
-```
-
-You should have been given `[project code]` and `[group code]` at the start of this course.
-
-The `/work` filesystem is a high performance parallel file system that can be accessed by both the frontend login nodes and the compute nodes. All jobs on ARCHER2 should be run from the `/work` file system, since ARCHER2 compute nodes cannot access the `/home` file system at all and will fail with an error.
-
-For more information the ARCHER2 documentation: [https://docs.archer2.ac.uk/user-guide/io/#using-the-archer2-file-systems](https://docs.archer2.ac.uk/user-guide/io/#using-the-archer2-file-systems).
-::::
-
-## Practical 2: Compiling and running our first program
-
-This example aims to get you used to the command line environment of a high performance computer, by compiling example code and submitting jobs to the batch system while learning about the hardware of a HPC system.
-
-### Compiling an Example Code
-
-First, we'll need to create an example code to compile.
-
-::::callout
-
-## Recap: Using an Editor from within the Shell
-
-When working on an HPC system we will frequently need to create or edit text files.
-
-Some of the more common ones are:
-
-- `vi`: a very basic text editor developed during the 1970's/80's. It differs from most editors - and is commonly found to be confusing because of it - in that it has two modes of operation: command and insert. In command mode, you are able to pass instructions to the editor, such as dealing with files (save, load, or insert a file), and editing (cut, copy, and paste text). However, you can't insert new characters. For that the editor needs to be in insert mode, which allows you to type into a text document. You can enter insert mode by typing `i`. To return to the command mode, you can use `Escape`.
-- `vim`: built on `vi`, `vim` goes much further, adding features like undo/redo, autocompletion, search and replace, and syntax highlighting (which uses different coloured text to distinguish different programming language text). It mainly uses the same command/insert modes as `vi` which can take some getting used to, but is developed as a power-users editing tool that is highly configurable.
-- `emacs`: also highly configurable and extensible, `emacs` has a less steep learning curve than `vim` but offers features common to many modern code editors. It readily integrates with debuggers, which is great if you need to find problems in your code as it runs.
-- `nano`: a lightweight editor that also uses the more common way of allowing the editing of text by default, but allows you to access extra editor functionality such as search/replace or saving files by using `Ctrl` with other keys.
-
-These are all text-based editors, in that they do not use a graphical user interface like Windows. They simply appear in the terminal, which has a key advantage, particularly for HPC systems like ARCHER2 or DiRAC: they can be used everywhere there is a terminal, such as via an SSH connection.
-
-One of the common pitfalls of using Linux is that the `vi` editor is commonly set as the default editor. If you find yourself in `vi`, you can exit using `Escape` to get into command mode, and then `:` to enter a new command followed by `q` + `!`, which means quit `vi` without saving the file.
-
-We'll use `nano`, a lightweight editor that's accessible from practically any installation of Linux.
-
-If following this on your own machine (e.g. not via ARCHER2), feel free to use any editor you like.
-
-::::
-
-Whilst in your account directory within the `/work` filesystem, create a new file called `helloWorldSerial.c` using an editor, e.g.
-
-```bash
-nano helloWorldSerial.c
-```
-
-And enter the following contents:
-
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <limits.h>
-#include <string.h>
-
-int main(int argc, char* argv[])
-{
-
-    // Check input argument
-    if(argc != 2)
-    {
-        printf("Required one argument `name`.\n");
-        return 1;
-    }
-
-    // Receive argument
-    char* iname = (char *)malloc(strlen(argv[1]));
-    strcpy(iname, argv[1]);
-
-    // Get the name of the node we are running on
-    char hostname[HOST_NAME_MAX];
-    gethostname(hostname, HOST_NAME_MAX);
-
-    // Hello World message
-    printf("Hello World!\n");
-
-    // Message from the node to the user
-    printf("Hello %s, this is %s.\n", iname, hostname);
-
-    // Release memory holding command line argument
-    free(iname);
+  for ((copy = 0; copy < copies; copy++)); do
+    ./multicore-benchmark "$dataset" &
+  done
+  wait
 }
 ```
 
-This C code will accept a single argument (for example, your name), and report which node it is running from.
-To try this example yourself you will first need to compile the example code.
-
-If the file that contains the above code is called `helloWorldSerial.c`, then to compile and run this directly on the ARCHER2 login node use:
+Before running the benchmark, predict how the runtime will change for each number of copies.
+Run the cache-resident version of the calculation:
 
 ```bash
-cc helloWorldSerial.c -o hello-SER
-./hello-SER yourname
+time run_copies small 1
+time run_copies small "$cores"
+time run_copies small "$((2 * cores))"
 ```
 
-If you're running this on your own machine you may need to replace `cc` with `gcc` to get it to use the right compiler on your machine.
+Record the `runtime_seconds` reported by each command.
 
-And you should see:
+Consider the following questions:
 
-```output
-Hello World!
-Hello yourname, this is ln01.
-```
-
-::::callout{variant="tip"}
-
-## Be Kind to the login nodes
-
-It’s worth remembering that if you're using an HPC infrastructure the login node is often very busy managing lots of users logged in, creating and editing files and compiling software, and submitting jobs. As such, although running quick jobs directly on a login node is ok, for example to compile and quickly test some code, it’s not intended for running computationally intensive jobs and these should always be submitted for execution on a compute node, which we'll look at shortly.
-
-The login node is shared with all other users and your actions could cause issues for other people, so think carefully about the potential implications of issuing commands that may use large amounts of resource.
-::::
-
-### Submitting our First Job
-
-**To be able to run the job submission examples in this segment, you'll need to either have access to ARCHER2, or an HPC infrastructure running the Slurm job scheduler and knowledge of how to configure job scripts for submission.**
-
-To take advantage of the compute nodes, we need the batch scheduler to queue our code to run on a compute node. The scheduler used in this lesson is Slurm. Although Slurm is not used everywhere, it's very popular and the process of specifying and running jobs is quite similar regardless of what scheduling software is being used.
-
-Schedulers such as Slurm tend to make use of submission scripts, typically written in Bash, which define what to run but also, critically, define *what* the job is and *how* to run it.
-
-Place this bash code into a file called `Hello_Serial_Slurm.sh` and replace `YOUR_NAME_HERE` with your own input and `[project code]` with your supplied project code.
-
-```bash
-#!/bin/bash
-
-#SBATCH --job-name=Hello-SER
-#SBATCH --nodes=1
-#SBATCH --tasks-per-node=1
-#SBATCH --cpus-per-task=1
-#SBATCH --time=00:01:00
-
-# Replace [project code] below with your project code (e.g. t01)
-#SBATCH --account=[project code]
-#SBATCH --partition=standard
-#SBATCH --qos=standard
-
-./hello-SER YOUR_NAME_HERE
-```
-
-If you run this script (e.g. using `bash Hello_Serial_Slurm.sh` you should see the output as before.
-But we have also defined some scheduler directives as comments (prefixed by `#SBATCH`) in our script which are interpreted by the job scheduler, which indicate:
-
-- `--job-name` - a name for the job, which acn be anything
-- `--nodes`, `--tasks-per-node`, `--cpus-per-node` - the number of compute nodes we wish to request for the job, the number of tasks (or processes) we wish to run, and the number of cpus we wish to use (in this case, a single process on 1 CPU on 1 node)
-- `--time` - the expected overall run time (or *wall time*) for the job, in `minutes:hours:seconds`. If our job goes over this, the scheduler may terminate the job!
-- `--account`, `--partition` - the account we wish to charge for this job, and the partition, or queue, we wish to submit the job to. These vary from Slurm system-to-system, depending on how they are configured
-- `--qos` - the requested Quality of Service, or priority, for this job. Again, this may vary between different Slurm HPC systems
-
-To submit this job run,
-
-```bash
-sbatch Hello_Serial_Slurm.sh
-```
-
-A unique job identifier is returned:
-
-```output
-Submitted batch job 5843243
-```
-
-Using this identifier, we can check the status of the job, e.g.:
-
-```bash
-squeue --job 5843243
-```
-
-```output
-             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-           5843243  standard Hello-SE username PD       0:00      1 (Priority)
-```
-
-Eventually, we should see the job's state (`ST`) change to `R` to indicate it's running, along with the node it's running on indicated under `NODELIST`, and the time it's been running so far:
-
-```output
-             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-           5843243  standard Hello-SE username  R       0:01      1 nid003218
-```
-
-And we may even see it enter the completing (`CG`) state as the job finishes. Once complete, the job will disappear from this list.
-
-We should now see one file returned as output, named `slurm-[job id].out`, containing the name of the node it ran on.
-
-::::challenge{id=understanding_sc_pr.1 title="Time's Up"}
-Resource requests are typically binding, and if you exceed them, your job will be killed.
-Let’s see this in action and use wall time as an example.
-
-Add a `sleep 240` at the end of the submission script which will cause the script (and hence the job) to wait for 4 minutes, exceeding the requested 1 minute. Resubmit the job, and continue to monitor the job using `squeue`. What happens?
+1. How does the \(N\)-copy runtime compare with the one-copy runtime?
+1. Why does the \(2N\)-copy runtime differ?
+1. Does starting \(N\) copies make any one calculation finish sooner?
+1. What kind of workload could benefit from running independent copies concurrently?
 
 :::solution
+Exact timings depend on the computer and its other activity.
+On one validation machine, `nproc` reported eight available processing units and produced:
 
-You should see the following in the job's Slurm output log file, indicating it was terminated:
+| Run | Copies | Runtime (seconds) |
+| --- | ------ | ----------------- |
+| 1   | 1      | 1.056             |
+| N   | 8      | 1.676             |
+| 2N  | 16     | 3.412             |
 
-```output
-Hello world!
-slurmstepd: error: *** JOB 5851929 ON nid001099 CANCELLED AT 2024-03-07T09:15:27 DUE TO TIME LIMIT ***
-```
+\(N\) copies take far less than \(N\) times the one-copy runtime because the operating system can distribute them across the available processing units.
+The runtime may still increase because active CPU-cores share hardware resources and a processor may run at a lower frequency when more of its cores are busy.
 
-You may notice that the job is cancelled perhaps around 30 seconds *after* its requested time of 1 minute, so there is some leeway, but not much!
+Here, eight calculations completed in approximately 1.59 times the one-copy runtime.
+The computer therefore completed substantially more work per second, although starting more copies did not divide or accelerate any individual calculation.
+
+\(2N\) copies should take approximately twice as long as \(N\) copies because only \(N\) processing units are available.
+The operating system must share those processing units between the programs.
+
+Running \(N\) copies increases throughput, but it may increase the runtime of each individual calculation.
+This approach is useful when a workload contains independent tasks, such as processing unrelated images or running a simulation with several different input parameters.
 :::
-
 ::::
+
+Your results should show the same broad pattern without matching these values exactly.
+Scheduling introduces overhead, and background activity can compete for CPU time, memory and other resources.
+Reliable performance comparisons therefore require a controlled environment with as little unrelated activity as possible.
+
+The experiment shows how a multi-core computer can complete several independent tasks concurrently without changing the programs themselves.
+To understand the limits of this approach, we now need to look at how the CPU-cores access memory.
 
 ---
 
-## What Supercomputing is not
+## Designing a Parallel Computer
 
-One of the main aims of this course is to de-mystify the whole area of supercomputing.
+There are two broad ways to build a parallel computer:
 
-Although supercomputers have computational power far outstripping your desktop PC, they are built from the same basic hardware. Although we use special software techniques to enable the many CPU-cores in a supercomputer to work together in parallel, each individual processor is basically operating in exactly the same way as the processor in your laptop.
+- **Shared-memory architecture:** Multiple CPU-cores within one computer access a common memory address space.
+- **Distributed-memory architecture:** Multiple computers, each with its own memory, communicate through a network.
 
-However, you may have heard of ongoing developments that take more unconventional approaches:
+This section concentrates on shared memory.
+The next section, [Distributed-Memory Computers](high_performance_computing/supercomputing/distributed_memory), examines distributed memory.
 
-- Quantum Computers are built from hardware that is radically different from the mainstream.
-- Artificial Intelligence tackles problems in a completely different way from the computer software we run in traditional computational science.
-
-We will touch on these alternative approaches in some of the final foundational module. In the meantime, feel free to raise any questions you have about how they relate to supercomputing by commenting in any of the discussion steps.
+:::callout{variant="discussion"}
+Compare one quad-core laptop with two dual-core laptops.
+Which arrangement makes it easier for four CPU-cores to work with the same data, and what limitation does that convenience introduce?
+:::
 
 ---
 
-## Supercomputing Terminology
+## Shared-Memory Architecture
 
-::::challenge{id=understanding_sc.1 title="Understanding Supercomputing Q1"}
-If someone quotes the performance of a computer in terms of “Flops”, what do they mean?
+The defining feature of a shared-memory computer is that all its CPU-cores can access a common memory address space.
 
-A) the total number of floating-point operations needed for a computation
+![Simplified diagram of multiple CPU-cores connected to memory through a memory bus](images/cpu-cores-memory-bus-diagram.svg)
 
-B) the number of float-point operations performed per second
+The diagram represents memory requests from several CPU-cores travelling through a shared connection to main memory.
+Modern processors use more complex memory controllers and interconnects, but the simplified model captures the important point: the CPU-cores ultimately share a finite memory system.
 
-C) the clock frequency of the CPU-cores
+This is the basic architecture used by modern mobile phones, laptops and desktop computers.
+In a computer with a quad-core processor and 4 GB of RAM, all four CPU-cores can access the same 4 GB of memory.
 
-D) the total memory
+Imagine four workers representing the CPU-cores, one office representing the computer and one whiteboard representing main memory.
+The workers cannot speak to one another directly, so they communicate by reading from and writing to the shared whiteboard.
 
-:::solution
-B) - it’s our basic measure of supercomputer speed.
-:::
-::::
+The analogy reveals two important limitations:
 
-::::challenge{id=understanding_sc.2 title="Understanding Supercomputing Q2"}
-What is a benchmark in computing?
+1. **Memory capacity:** There is a practical limit to the amount of memory that can be installed in one shared-memory computer.
+1. **Memory access speed:** Adding workers does not make the whiteboard easier to reach, so they increasingly obstruct one another as more of them try to use it.
 
-A) a hardware component of a computer system
+### Memory as a Bottleneck
 
-B) a computer program that produces scientific results
+The shared route to memory has a finite bandwidth, meaning it can transfer only a limited amount of data each second.
+Memory access also has latency, meaning that a CPU-core must wait between requesting data and receiving it.
 
-C) a computer program specifically designed to assess performance
+Many programs run on supercomputers must read and write large quantities of data.
+For such programs, moving data can take more time than performing calculations.
 
-D) the peak performance of a computer
-
-:::solution
-C) - it’s the equivalent of a standard consumer test for a product, like “how many litres per second can my electric shower deliver water at 40 degrees centigrade?”
-:::
-::::
-
-::::challenge{id=understanding_sc.3 title="Understanding Supercomputing Q3"}
-Which one below represents the right order of number of Flops (from small to large)?
-
-A) Kflops Gflops Mflops Tflops Eflops Pflops
-
-B) Mflops Gflops Kflops Pflops Tflops
-
-C) Kflops Mflops Gflops Tflops Pflops Eflops
-
-D) Gflops Kflops Tflops Mflops Pflops Eflops
-
-:::solution
-C) - computers started in the Kiloflops range and we are now approaching Exaflops.
-:::
-::::
-
-::::challenge{id=understanding_sc.4 title="Understanding Supercomputing Q4"}
-What does clock speed typically refer to?
-
-A) the speed at which a CPU-core executes instructions
-
-B) memory access speed
-
-C) the I/O speed of hard disks
-
-D) the performance achieved using the LINPACK benchmark
-
-:::solution
-A) - it’s basically the heartbeat of the processor.
-:::
-::::
-
-::::challenge{id=understanding_sc.5 title="Understanding Supercomputing Q5"}
-What processor technologies are used to build supercomputers (compared to, for example, a desktop PC)?
-
-A) a special CPU operating at a superfast clock speed
-
-B) a large number of special CPUs operating at very fast speeds
-
-C) a large number of standard CPUs with specially boosted clock speeds
-
-D) a very large number of standard CPUs at standard clock speeds
-:::
-
-:::solution
-D) - we take standard desktop technology but use vast numbers of CPUs to increase the computational power.
-:::
-::::
-
-::::challenge{id=understanding_sc.6 title="Understanding Supercomputing Q6"}
-A parallel computer has more than one CPU-core. Which of the following are examples of parallel computers?
-
-A) a modern laptop
-
-B) a modern mobile phone
-
-C) a supercomputer
-
-D) a home games console
-
-E) all of the above
-
-:::solution
-E) - That’s right - parallelism is ubiquitous across almost all modern computer devices and is not restricted to just a few high-end supercomputers.
-:::
-::::
+Computer designers use several techniques to reduce this bottleneck, but a single shared-memory system cannot grow efficiently to hundreds of thousands of CPU-cores.
+Large supercomputers therefore combine many shared-memory computers as nodes in a distributed-memory system.
 
 ---
+
+## Memory Caches
+
+Main memory is much slower than a CPU-core.
+Processors reduce the delay by using caches, which are small, fast stores located close to the CPU-cores.
+
+Modern processors usually have several levels of cache.
+The caches nearest each CPU-core are the smallest and fastest, while later levels are larger but slower and may be shared between several cores.
+All these caches are much smaller than main memory.
+
+![Four CPU-cores with private caches connected to a shared last-level cache and main memory](images/cache-hierarchy-diagram.svg)
+*This is one common arrangement. The number of cache levels and which CPU-cores share them vary between processors.*
+
+Return to the office analogy.
+Instead of repeatedly queueing at the whiteboard, a worker can copy frequently used information into a notebook.
+The worker can then consult the nearby notebook much more quickly than the shared whiteboard.
+
+![Four workers using private notebooks while sharing one whiteboard, representing four CPU-cores with private caches connected to main memory](images/shared-memory-whiteboard-diagram.svg)
+*The notebook analogy represents private caches. Real processors may also have cache levels shared by several CPU-cores.*
+
+Caches work especially well when a CPU-core repeatedly uses the same data.
+Several cores can also hold their own copies of read-only data without coordinating updates.
+
+### Cache Coherence
+
+The situation becomes more complicated when a CPU-core changes cached data.
+If another core holds a copy of the same data, that copy may now be out of date.
+
+In the office analogy, the worker making the change would need to announce:
+
+> I have changed the 231st salary.
+> If you copied it, your notebook is now out of date.
+
+Processor hardware coordinates these updates so that cores do not continue calculating with stale values.
+This process is called *cache coherence* or *cache coherency*.
+The coordination creates additional communication between CPU-cores and can limit performance when many cores frequently update shared data.
+
+:::callout{variant="info"}
+The benchmark in the next challenge gives each process its own private array, so it does **not** measure cache-coherence traffic.
+Instead, it demonstrates another consequence of sharing a memory system: competition for memory bandwidth.
+:::
+
+---
+
+## Investigating Resource Contention
+
+The benchmark provides a small working set of 32 KiB per copy and a large working set of 64 MiB per copy.
+The small working set should be served largely from cache on most systems.
+When \(N\) copies use the large working set, their combined working set is \(64N\) MiB and is intended to exceed the available shared cache.
+Each copy repeatedly scans its array until it has processed a total of 16 GiB.
+
+::::challenge{id=pc_basics.contention title="Analysing Memory Contention"}
+Use the same values of \(N\) and \(2N\) to run the large version:
+
+```bash
+time run_copies large 1
+time run_copies large "$cores"
+time run_copies large "$((2 * cores))"
+```
+
+Record the results alongside the small-working-set results from the previous challenge.
+
+1. Calculate the slowdown factor from one copy to \(N\) copies for each working set by dividing the \(N\)-copy runtime by the one-copy runtime.
+1. Which working set experiences the greater slowdown?
+1. What shared hardware resource causes the difference?
+1. Why does increasing from \(N\) to \(2N\) copies approximately double the runtime for both working sets?
+1. What do these results reveal about programs that run independently on different CPU-cores?
+
+:::solution
+The validation machine, where \(N=8\), produced:
+
+| Working set | Run | Copies | Runtime (seconds) |
+| ----------- | --- | ------ | ----------------- |
+| Small       | 1   | 1      | 1.056             |
+| Small       | N   | 8      | 1.676             |
+| Small       | 2N  | 16     | 3.412             |
+| Large       | 1   | 1      | 2.010             |
+| Large       | N   | 8      | 9.775             |
+| Large       | 2N  | 16     | 18.790            |
+
+For the small working set, the \(N\)-copy slowdown factor is $1.676 / 1.056 \approx 1.59$.
+For the large working set, the \(N\)-copy slowdown factor is $9.775 / 2.010 \approx 4.86$.
+
+The small working set can be read largely from cache, so each CPU-core makes relatively little use of the shared memory system.
+On this validation machine, the eight large working sets occupy 512 MiB in total and must repeatedly fetch data from main memory.
+The CPU-cores therefore compete for limited memory bandwidth.
+
+\(2N\) copies cannot all execute simultaneously on only \(N\) available processing units.
+The operating system must share CPU time between them while they continue to compete for cache and memory resources.
+
+Independent programs can therefore slow one another down even when they never exchange data.
+They still compete for shared hardware such as memory, storage and network connections.
+:::
+::::
+
+When several CPU-cores compete for a limited shared resource, they experience **resource contention**.
+Resource contention is an important limit on shared-memory systems.
+Adding more CPU-cores improves performance only while the rest of the computer can supply those cores with data and other resources quickly enough.
+
+:::callout{variant="discussion"}
+Use your benchmark results to explain why adding more CPU-cores cannot improve the performance of a shared-memory computer indefinitely.
+Distinguish between throughput and the runtime of an individual calculation, and identify at least one shared resource in your answer.
+:::
+
+A shared-memory computer forms the basic building block of a modern supercomputer.
+To scale beyond the limits of one such computer, we must connect many of them and coordinate their work.
+The next section examines this [distributed-memory approach](high_performance_computing/supercomputing/distributed_memory).
