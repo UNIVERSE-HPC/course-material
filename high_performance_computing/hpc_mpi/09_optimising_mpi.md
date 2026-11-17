@@ -28,7 +28,7 @@ Therefore, it's really helpful to understand how well our code *scales* in perfo
 
 ## Prerequisite
 
-[Intro to High Performance Computing](../hpc_intro/01_hpc_intro)
+[Using an HPC Cluster](high_performance_computing/hpc_intro)
 
 Whilst previous lessons can be done on a laptop or desktop, this episode covers how to profile your code using tools that are only available on an HPC cluster.
 ::::

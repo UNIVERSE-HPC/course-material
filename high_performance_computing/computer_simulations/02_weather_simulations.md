@@ -3,7 +3,7 @@ name: Weather Simulations
 dependsOn: [
     high_performance_computing.computer_simulations.01_intro
 ]
-tags: [foundation]
+tags: []
 attribution: 
     - citation: >
         "Introduction to HPC" course by EPCC.

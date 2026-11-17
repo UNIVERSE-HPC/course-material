@@ -1,5 +1,5 @@
 ---
-name: Introduction to High Performance Computing
+name: Using an HPC Cluster
 id: hpc_intro
 dependsOn: [
 ]
@@ -10,12 +10,12 @@ files: [
     04_scheduler.md,
     05_modules.md,
     06_transferring_files.md,
-    07_image_sharpening.md,
+    image_sharpening.md,
     07_parallel.md,
     08_resources.md,
     09_responsibility.md
 ]
 summary: |
-    An introduction to high-performance computing (HPC), covering connecting to HPC resources and the slurm job scheduler.
+    A practical introduction to connecting to an HPC cluster, managing software and data, submitting jobs with Slurm, and requesting resources effectively.
 
 ---
