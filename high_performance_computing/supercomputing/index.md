@@ -3,11 +3,11 @@ name: "Supercomputing: Architecture and Performance"
 id: supercomputing
 dependsOn: []
 files: [
-  01_introduction.md,
-  02_shared_memory.md,
-  03_distributed_memory.md,
-  04_accelerators.md,
-  05_measuring_supercomputers.md
+  01_intro.md,
+  02_understanding_supercomputing.md,
+  distributed_memory.md,
+  accelerators.md,
+  03_supercomputing_world.md
 ]
 learningOutcomes:
   - Explain why workloads constrained by time to solution, problem size or throughput are often run on shared, centralised systems.

@@ -1,6 +1,6 @@
 ---
 name: Accelerators
-dependsOn: [high_performance_computing.supercomputing.03_distributed_memory]
+dependsOn: [high_performance_computing.supercomputing.distributed_memory]
 tags: [foundation]
 learningOutcomes:
   - Explain the different roles of CPUs and accelerators in a heterogeneous compute node.

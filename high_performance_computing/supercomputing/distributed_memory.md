@@ -1,6 +1,6 @@
 ---
 name: Distributed-Memory Computers
-dependsOn: [high_performance_computing.supercomputing.02_shared_memory]
+dependsOn: [high_performance_computing.supercomputing.02_understanding_supercomputing]
 tags: [foundation]
 learningOutcomes:
   - Distinguish between memory access within a compute node and communication between nodes.
