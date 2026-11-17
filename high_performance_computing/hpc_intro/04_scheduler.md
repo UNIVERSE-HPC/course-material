@@ -1,6 +1,6 @@
 ---
 name: Running Jobs with Slurm
-dependsOn: [high_performance_computing.hpc_intro.03_storage]
+dependsOn: [high_performance_computing.hpc_intro.03_cluster]
 tags: [slurm]
 learningOutcomes:
   - Prepare and submit a Slurm batch job using appropriate resource requests and site-specific settings.
@@ -23,7 +23,7 @@ attribution:
 You have connected to a cluster and prepared a working directory on storage visible to its compute nodes.
 The next step is to run a command on those nodes without using the shared login node for the computation itself.
 
-[Working on an HPC Cluster](high_performance_computing/hpc_intro/01_working_on_a_cluster) introduced how work moves from preparation and submission to execution and results.
+[Working on an HPC Cluster](high_performance_computing/hpc_intro/01_hpc_intro) introduced how work moves from preparation and submission to execution and results.
 This section puts that outline into practice with Slurm: describe the required resources, submit the work, monitor it and retrieve its output.
 
 ## A Scheduled Job
@@ -65,7 +65,7 @@ An omitted setting may have a sensible default on one service and cause rejectio
 
 ## Prepare Batch Script
 
-Return to the working directory prepared in [Storage on an HPC Cluster](high_performance_computing/hpc_intro/03_storage).
+Return to the working directory prepared in [Storage on an HPC Cluster](high_performance_computing/hpc_intro/03_cluster).
 Create `first-job.sh` there using your preferred text editor:
 
 ```bash

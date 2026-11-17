@@ -1,7 +1,7 @@
 ---
 name: Running a parallel job
 dependsOn: [
-  high_performance_computing.hpc_intro.07_image_sharpening
+  high_performance_computing.hpc_intro.image_sharpening
 ]
 tags: [slurm]
 learningOutcomes:

@@ -1,6 +1,6 @@
 ---
 name: Connecting to an HPC Cluster
-dependsOn: [high_performance_computing.hpc_intro.01_working_on_a_cluster]
+dependsOn: [high_performance_computing.hpc_intro.01_hpc_intro]
 tags: [ssh]
 learningOutcomes:
   - Identify the local access requirements that must be established before connecting to an HPC cluster.
@@ -41,7 +41,7 @@ Obtain the following information from the cluster's current user documentation:
 1. The published host-key fingerprint, if the service provides one.
 1. The service-status page and support contact to use if access fails.
 
-You may already have collected these details in the [cluster-information challenge](high_performance_computing/hpc_intro/01_working_on_a_cluster#cluster-information).
+You may already have collected these details in the [cluster-information challenge](high_performance_computing/hpc_intro/01_hpc_intro#cluster-information).
 
 :::callout{variant="warning"}
 
@@ -290,7 +290,7 @@ Some site-provided authentication tools create and maintain SSH configuration au
 ## SSH Is Not the Only Interface
 
 Some clusters also provide web portals, notebook services, remote desktops or integrations with development environments.
-These can be more suitable for graphical or interactive work, but they do not change the distinction between shared login services and scheduled compute resources introduced in [Working on an HPC Cluster](high_performance_computing/hpc_intro/01_working_on_a_cluster).
+These can be more suitable for graphical or interactive work, but they do not change the distinction between shared login services and scheduled compute resources introduced in [Working on an HPC Cluster](high_performance_computing/hpc_intro/01_hpc_intro).
 
 This course uses an SSH terminal because it is widely available and exposes the same command-line tools used in job scripts.
 
@@ -318,4 +318,4 @@ The output can be lengthy, but it often distinguishes a network failure from a r
 If you contact your cluster's support for assistance, include the command used, the time of the attempt and the relevant error output, but remove unnecessary personal information and never include passwords, one-time codes or private keys.
 
 SSH also underpins several common file-transfer tools, which are introduced in [Transferring Files](high_performance_computing/hpc_intro/06_transferring_files).
-The next section, [Storage on an HPC Cluster](high_performance_computing/hpc_intro/03_storage), examines the remote filesystems you encounter after logging in.
+The next section, [Storage on an HPC Cluster](high_performance_computing/hpc_intro/03_cluster), examines the remote filesystems you encounter after logging in.

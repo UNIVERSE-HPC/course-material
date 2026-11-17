@@ -56,7 +56,7 @@ Commands such as `scp` and `rsync` can then use that alias instead of repeating 
 
 :::
 
-The [storage section](high_performance_computing/hpc_intro/03_storage) asked you to prepare a suitable working directory for this course.
+The [storage section](high_performance_computing/hpc_intro/03_cluster) asked you to prepare a suitable working directory for this course.
 Return to that directory on the cluster and use `pwd` to obtain its complete path:
 
 ```bash
@@ -328,7 +328,7 @@ When direct download is not supported, retrieve the material on an approved syst
 
 A successful command does not prove that every intended file reached the correct destination.
 Before deleting the original copies, inspect the destination and compare file counts, sizes or checksums as appropriate.
-Keep a durable copy of irreplaceable inputs and results in storage that meets the backup, retention and data-governance requirements described in the [storage section](high_performance_computing/hpc_intro/03_storage).
+Keep a durable copy of irreplaceable inputs and results in storage that meets the backup, retention and data-governance requirements described in the [storage section](high_performance_computing/hpc_intro/03_cluster).
 
 The preceding sections have introduced each part of a cluster workflow separately.
-[Running an Image-Sharpening Application](high_performance_computing/hpc_intro/07_image_sharpening) brings them together by obtaining and compiling an application, running it through Slurm and transferring the result to your own computer.
+[Running an Image-Sharpening Application](high_performance_computing/hpc_intro/image_sharpening) brings them together by obtaining and compiling an application, running it through Slurm and transferring the result to your own computer.

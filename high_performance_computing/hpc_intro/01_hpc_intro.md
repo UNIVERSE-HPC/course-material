@@ -101,14 +101,14 @@ A job prepared on a login node is therefore still able to read its inputs and wr
 The service may also provide storage intended for particular purposes, such as backed-up home directories, project data, high-performance working data or temporary files.
 
 Names such as *home*, *work* and *scratch* are common, but they do not guarantee particular performance, backup or retention policies.
-[Storage on an HPC Cluster](high_performance_computing/hpc_intro/03_storage) will examine how to choose between the filesystems available on a particular system.
+[Storage on an HPC Cluster](high_performance_computing/hpc_intro/03_cluster) will examine how to choose between the filesystems available on a particular system.
 
 ## How a Job Runs
 
 A typical piece of work passes through the cluster as follows:
 
 1. [Connect to a login node](high_performance_computing/hpc_intro/02_connecting).
-1. Place the application's software and input data in [storage accessible to the compute nodes](high_performance_computing/hpc_intro/03_storage).
+1. Place the application's software and input data in [storage accessible to the compute nodes](high_performance_computing/hpc_intro/03_cluster).
 1. Select the required [software environment](high_performance_computing/hpc_intro/05_modules).
 1. [Submit a job script](high_performance_computing/hpc_intro/04_scheduler) that specifies both the commands to run and the resources they require.
 1. [Monitor the job](high_performance_computing/hpc_intro/04_scheduler) while the scheduler holds it pending and after an allocation becomes available.

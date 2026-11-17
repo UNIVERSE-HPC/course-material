@@ -42,7 +42,7 @@ This practical uses only `sharpen/C-SER`.
 
 ## Obtain the Source Code
 
-Return to, or otherwise create a working directory ([see storage on an HPC Cluster](high_performance_computing/hpc_intro/03_storage)).
+Return to, or otherwise create a working directory ([see Storage on an HPC Cluster](high_performance_computing/hpc_intro/03_cluster)).
 If the cluster permits access to GitHub from the documented node, you can directly clone the exercise repository and enter the "C-SER" directory:
 
 ```bash
