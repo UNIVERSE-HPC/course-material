@@ -1,7 +1,7 @@
 ---
 name: Introduction to Parallel Computing
 dependsOn: [high_performance_computing.parallel_computers.03_comparison]
-tags: [foundation]
+tags: []
 attribution:
   - citation: >
       "Introduction to HPC" course by EPCC.

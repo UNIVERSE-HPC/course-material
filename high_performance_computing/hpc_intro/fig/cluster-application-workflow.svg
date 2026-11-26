@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 340" width="1100" height="340" role="img" aria-label="Five-stage workflow in which source code is obtained, built into an executable, submitted to Slurm, run on a compute node, and retrieved for local inspection">
+  <style>
+    .source { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; }
+    .build { fill: #ecfdf5; stroke: #10b981; stroke-width: 2; }
+    .scheduler { fill: #f5f3ff; stroke: #8b5cf6; stroke-width: 2; }
+    .compute { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; }
+    .result { fill: #ecfeff; stroke: #06b6d4; stroke-width: 2; }
+    .icon-source { fill: #f59e0b; }
+    .icon-build { fill: #10b981; }
+    .icon-scheduler { fill: #8b5cf6; }
+    .icon-compute { fill: #3b82f6; }
+    .icon-result { fill: #06b6d4; }
+    .badge { fill: #f8fafc; stroke: #94a3b8; stroke-width: 1.2; }
+    .flow { stroke: #64748b; stroke-width: 3; fill: none; }
+    .arrow { fill: #64748b; }
+    .title { fill: #1e1b4b; font-family: system-ui, sans-serif; font-size: 20px; font-weight: 700; text-anchor: middle; }
+    .step { fill: #475569; font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-anchor: middle; }
+    .label { fill: #1e1b4b; font-family: system-ui, sans-serif; font-size: 17px; font-weight: 700; text-anchor: middle; }
+    .tool { fill: #475569; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; text-anchor: middle; }
+    .badge-label { fill: #334155; font-family: system-ui, sans-serif; font-size: 12px; font-weight: 600; text-anchor: middle; }
+    .icon-line { stroke: #ffffff; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .icon-text { fill: #ffffff; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 16px; font-weight: 700; text-anchor: middle; }
+    @media (prefers-color-scheme: dark) {
+      .source { fill: #78350f; stroke: #fbbf24; }
+      .build { fill: #064e3b; stroke: #34d399; }
+      .scheduler { fill: #3b1f6e; stroke: #c4b5fd; }
+      .compute { fill: #1e3a5f; stroke: #60a5fa; }
+      .result { fill: #164e63; stroke: #67e8f9; }
+      .icon-source { fill: #d97706; }
+      .icon-build { fill: #059669; }
+      .icon-scheduler { fill: #7c3aed; }
+      .icon-compute { fill: #2563eb; }
+      .icon-result { fill: #0891b2; }
+      .badge { fill: #1e293b; stroke: #94a3b8; }
+      .flow { stroke: #94a3b8; }
+      .arrow { fill: #94a3b8; }
+      .title { fill: #eef2ff; }
+      .step { fill: #cbd5e1; }
+      .label { fill: #eef2ff; }
+      .tool { fill: #cbd5e1; }
+      .badge-label { fill: #e2e8f0; }
+    }
+  </style>
+
+  <text class="title" x="550" y="29">Running an application on a cluster</text>
+
+  <!-- Flow arrows -->
+  <line class="flow" x1="200" y1="170" x2="228" y2="170"/>
+  <path class="arrow" d="M240 170 L226 162 V178 Z"/>
+  <line class="flow" x1="420" y1="170" x2="448" y2="170"/>
+  <path class="arrow" d="M460 170 L446 162 V178 Z"/>
+  <line class="flow" x1="640" y1="170" x2="668" y2="170"/>
+  <path class="arrow" d="M680 170 L666 162 V178 Z"/>
+  <line class="flow" x1="860" y1="170" x2="888" y2="170"/>
+  <path class="arrow" d="M900 170 L886 162 V178 Z"/>
+
+  <!-- Stage 1: source -->
+  <rect class="source" x="20" y="55" width="180" height="240" rx="14"/>
+  <text class="step" x="110" y="78">STEP 1</text>
+  <rect class="icon-source" x="83" y="91" width="54" height="54" rx="8"/>
+  <path class="icon-line" d="M94 107 H106 L111 113 H126 V132 H94 Z"/>
+  <text class="label" x="110" y="174">Obtain source</text>
+  <text class="tool" x="110" y="200">git / transfer</text>
+  <rect class="badge" x="40" y="239" width="140" height="34" rx="7"/>
+  <text class="badge-label" x="110" y="260">source tree</text>
+
+  <!-- Stage 2: build -->
+  <rect class="build" x="240" y="55" width="180" height="240" rx="14"/>
+  <text class="step" x="330" y="78">STEP 2</text>
+  <rect class="icon-build" x="303" y="91" width="54" height="54" rx="8"/>
+  <text class="icon-text" x="330" y="124">cc</text>
+  <text class="label" x="330" y="174">Prepare &amp; build</text>
+  <text class="tool" x="330" y="200">modules + make</text>
+  <rect class="badge" x="260" y="239" width="140" height="34" rx="7"/>
+  <text class="badge-label" x="330" y="260">executable</text>
+
+  <!-- Stage 3: submit -->
+  <rect class="scheduler" x="460" y="55" width="180" height="240" rx="14"/>
+  <text class="step" x="550" y="78">STEP 3</text>
+  <rect class="icon-scheduler" x="523" y="91" width="54" height="54" rx="8"/>
+  <path class="icon-line" d="M535 103 H558 L565 110 V133 H535 Z M558 103 V110 H565 M541 118 H559 M541 125 H554"/>
+  <text class="label" x="550" y="174">Submit with Slurm</text>
+  <text class="tool" x="550" y="200">sbatch</text>
+  <rect class="badge" x="480" y="239" width="140" height="34" rx="7"/>
+  <text class="badge-label" x="550" y="260">job ID</text>
+
+  <!-- Stage 4: compute -->
+  <rect class="compute" x="680" y="55" width="180" height="240" rx="14"/>
+  <text class="step" x="770" y="78">STEP 4</text>
+  <rect class="icon-compute" x="743" y="91" width="54" height="54" rx="8"/>
+  <rect class="icon-line" x="754" y="103" width="32" height="30" rx="3"/>
+  <line class="icon-line" x1="759" y1="111" x2="781" y2="111"/>
+  <line class="icon-line" x1="759" y1="120" x2="781" y2="120"/>
+  <circle cx="760" cy="128" r="1.8" fill="#ffffff"/>
+  <text class="label" x="770" y="167">Run on a</text>
+  <text class="label" x="770" y="188">compute node</text>
+  <text class="tool" x="770" y="214">./sharpen</text>
+  <rect class="badge" x="700" y="239" width="140" height="34" rx="7"/>
+  <text class="badge-label" x="770" y="260">image + log</text>
+
+  <!-- Stage 5: retrieve -->
+  <rect class="result" x="900" y="55" width="180" height="240" rx="14"/>
+  <text class="step" x="990" y="78">STEP 5</text>
+  <rect class="icon-result" x="963" y="91" width="54" height="54" rx="8"/>
+  <rect class="icon-line" x="974" y="103" width="32" height="24" rx="3"/>
+  <line class="icon-line" x1="990" y1="127" x2="990" y2="133"/>
+  <line class="icon-line" x1="982" y1="133" x2="998" y2="133"/>
+  <text class="label" x="990" y="167">Retrieve &amp;</text>
+  <text class="label" x="990" y="188">inspect</text>
+  <text class="tool" x="990" y="214">scp / rsync</text>
+  <rect class="badge" x="920" y="239" width="140" height="34" rx="7"/>
+  <text class="badge-label" x="990" y="260">verified result</text>
+</svg>
