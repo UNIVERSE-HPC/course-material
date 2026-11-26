@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 430" width="820" height="430" role="img" aria-label="Diagram comparing four dedicated systems that are mostly idle with one shared system used by projects whose demand peaks occur at different times">
+  <style>
+    .panel { fill: #f8fafc; stroke: #64748b; stroke-width: 2; }
+    .track { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+    .grid { stroke: #cbd5e1; stroke-width: 1; }
+    .axis { stroke: #64748b; stroke-width: 1.5; }
+    .axishead { fill: #64748b; }
+    .a { fill: #3b82f6; }
+    .b { fill: #06b6d4; }
+    .c { fill: #22c55e; }
+    .d { fill: #8b5cf6; }
+    .title { fill: #1e1b4b; font-family: system-ui, sans-serif; font-size: 18px; font-weight: 700; text-anchor: middle; }
+    .label { fill: #334155; font-family: system-ui, sans-serif; font-size: 14px; font-weight: 600; text-anchor: end; }
+    .small { fill: #475569; font-family: system-ui, sans-serif; font-size: 13px; text-anchor: middle; }
+    .summary { fill: #1e1b4b; font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; text-anchor: middle; }
+    @media (prefers-color-scheme: dark) {
+      .panel { fill: #1e293b; stroke: #94a3b8; stroke-width: 2; }
+      .track { fill: #0f172a; stroke: #475569; stroke-width: 1.5; }
+      .grid { stroke: #475569; stroke-width: 1; }
+      .axis { stroke: #94a3b8; stroke-width: 1.5; }
+      .axishead { fill: #94a3b8; }
+      .a { fill: #60a5fa; }
+      .b { fill: #22d3ee; }
+      .c { fill: #4ade80; }
+      .d { fill: #a78bfa; }
+      .title { fill: #eef2ff; font-family: system-ui, sans-serif; font-size: 18px; font-weight: 700; text-anchor: middle; }
+      .label { fill: #e2e8f0; font-family: system-ui, sans-serif; font-size: 14px; font-weight: 600; text-anchor: end; }
+      .small { fill: #cbd5e1; font-family: system-ui, sans-serif; font-size: 13px; text-anchor: middle; }
+      .summary { fill: #eef2ff; font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; text-anchor: middle; }
+    }
+  </style>
+
+  <rect class="panel" x="20" y="25" width="375" height="380" rx="14"/>
+  <text class="title" x="207.5" y="60">A dedicated system for each project</text>
+  <text class="label" x="100" y="84">Time</text>
+  <line class="axis" x1="115" y1="80" x2="345" y2="80"/>
+  <path class="axishead" d="M355 80 L343 74 V86 Z"/>
+
+  <!-- Four dedicated systems, each sized for its project's peak. -->
+  <text class="label" x="100" y="121">System A</text>
+  <rect class="track" x="115" y="92" width="240" height="44" rx="5"/>
+  <rect class="a" x="135" y="93" width="40" height="42"/>
+
+  <text class="label" x="100" y="181">System B</text>
+  <rect class="track" x="115" y="152" width="240" height="44" rx="5"/>
+  <rect class="b" x="195" y="153" width="60" height="42"/>
+
+  <text class="label" x="100" y="241">System C</text>
+  <rect class="track" x="115" y="212" width="240" height="44" rx="5"/>
+  <rect class="c" x="275" y="213" width="20" height="42"/>
+
+  <text class="label" x="100" y="301">System D</text>
+  <rect class="track" x="115" y="272" width="240" height="44" rx="5"/>
+  <rect class="d" x="295" y="273" width="59" height="42"/>
+
+  <!-- Timeline divisions. -->
+  <g class="grid">
+    <path d="M135 92 V136 M155 92 V136 M175 92 V136 M195 92 V136 M215 92 V136 M235 92 V136 M255 92 V136 M275 92 V136 M295 92 V136 M315 92 V136 M335 92 V136"/>
+    <path d="M135 152 V196 M155 152 V196 M175 152 V196 M195 152 V196 M215 152 V196 M235 152 V196 M255 152 V196 M275 152 V196 M295 152 V196 M315 152 V196 M335 152 V196"/>
+    <path d="M135 212 V256 M155 212 V256 M175 212 V256 M195 212 V256 M215 212 V256 M235 212 V256 M255 212 V256 M275 212 V256 M295 212 V256 M315 212 V256 M335 212 V256"/>
+    <path d="M135 272 V316 M155 272 V316 M175 272 V316 M195 272 V316 M215 272 V316 M235 272 V316 M255 272 V316 M275 272 V316 M295 272 V316 M315 272 V316 M335 272 V316"/>
+  </g>
+
+  <text class="summary" x="207.5" y="357">Each system is sized for its project's peak</text>
+  <text class="small" x="207.5" y="380">Most installed capacity is idle between peaks</text>
+
+  <rect class="panel" x="425" y="25" width="375" height="380" rx="14"/>
+  <text class="title" x="612.5" y="60">Projects share one capacity pool</text>
+  <text class="label" x="510" y="104">Time</text>
+  <line class="axis" x1="525" y1="100" x2="755" y2="100"/>
+  <path class="axishead" d="M765 100 L753 94 V106 Z"/>
+
+  <!-- The same capacity is reused as different projects reach peak demand. -->
+  <text class="summary" x="645" y="128">Shared system</text>
+  <rect class="track" x="525" y="139" width="240" height="58" rx="6"/>
+  <rect class="a" x="545" y="140" width="40" height="56"/>
+  <rect class="b" x="605" y="140" width="60" height="56"/>
+  <rect class="c" x="685" y="140" width="20" height="56"/>
+  <rect class="d" x="705" y="140" width="59" height="56"/>
+  <g class="grid">
+    <path d="M545 139 V197 M565 139 V197 M585 139 V197 M605 139 V197 M625 139 V197 M645 139 V197 M665 139 V197 M685 139 V197 M705 139 V197 M725 139 V197 M745 139 V197"/>
+  </g>
+
+  <rect class="a" x="505" y="235" width="14" height="14" rx="2"/>
+  <text class="small" x="553" y="247">Project A</text>
+  <rect class="b" x="635" y="235" width="14" height="14" rx="2"/>
+  <text class="small" x="683" y="247">Project B</text>
+  <rect class="c" x="505" y="270" width="14" height="14" rx="2"/>
+  <text class="small" x="553" y="282">Project C</text>
+  <rect class="d" x="635" y="270" width="14" height="14" rx="2"/>
+  <text class="small" x="683" y="282">Project D</text>
+
+  <text class="summary" x="612.5" y="332">One pool serves successive peaks</text>
+  <text class="small" x="612.5" y="356">Different projects reuse the same hardware</text>
+  <text class="small" x="612.5" y="378">at different times</text>
+</svg>
